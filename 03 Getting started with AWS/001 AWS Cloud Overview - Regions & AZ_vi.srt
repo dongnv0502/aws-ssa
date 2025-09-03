@@ -1,0 +1,720 @@
+1
+00:00:00,000 --> 00:00:01,890
+Giờ hãy nhìn lại lịch sử
+
+2
+00:00:01,890 --> 00:00:03,990
+của AWS Cloud.
+
+3
+00:00:03,990 --> 00:00:08,189
+Nó được ra mắt nội bộ tại amazon.com vào năm 2002
+
+4
+00:00:08,189 --> 00:00:10,140
+vì họ nhận ra rằng các phòng ban IT
+
+5
+00:00:10,140 --> 00:00:12,360
+có thể được tách ra bên ngoài.
+
+6
+00:00:12,360 --> 00:00:15,000
+Hạ tầng Amazon của họ là một trong những điểm mạnh cốt lõi
+
+7
+00:00:15,000 --> 00:00:15,967
+và họ nói, bạn biết không?
+
+8
+00:00:15,967 --> 00:00:19,650
+"Có lẽ chúng ta có thể làm IT cho người khác."
+
+9
+00:00:19,650 --> 00:00:22,200
+Vì vậy họ đã công bố dịch vụ đầu tiên ra công chúng,
+
+10
+00:00:22,200 --> 00:00:24,620
+đó là SQS vào năm 2004.
+
+11
+00:00:24,620 --> 00:00:26,880
+Năm 2006, họ mở rộng dịch vụ của mình
+
+12
+00:00:26,880 --> 00:00:31,880
+và tái ra mắt với sự có mặt của SQS, S3 và EC2.
+
+13
+00:00:31,890 --> 00:00:34,920
+Đừng lo, chúng ta sẽ tìm hiểu các dịch vụ này trong khóa học.
+
+14
+00:00:34,920 --> 00:00:36,367
+Sau đó họ mở rộng và nói, bạn biết không?
+
+15
+00:00:36,367 --> 00:00:38,520
+"Chúng ta không cần chỉ ở Mỹ.
+
+16
+00:00:38,520 --> 00:00:39,870
+Chúng ta có thể ở châu Âu."
+
+17
+00:00:39,870 --> 00:00:43,710
+Và rồi đến ngày nay, chúng ta có rất nhiều ứng dụng
+
+18
+00:00:43,710 --> 00:00:46,350
+từng chạy hoặc vẫn đang chạy trên AWS,
+
+19
+00:00:46,350 --> 00:00:50,700
+như Dropbox, Netflix, Airbnb, thậm chí cả NASA.
+
+20
+00:00:50,700 --> 00:00:53,850
+Giờ hãy xem AWS đang ở đâu ngày nay.
+
+21
+00:00:53,850 --> 00:00:57,690
+Nếu bạn nhìn vào Magic Quadrant của Gartner,
+
+22
+00:00:57,690 --> 00:01:01,140
+bạn có thể thấy AWS là người dẫn đầu,
+
+23
+00:01:01,140 --> 00:01:03,573
+và điều này đã đúng suốt rất nhiều năm.
+
+24
+00:01:04,560 --> 00:01:08,820
+AWS hiện có doanh thu 90 tỷ đô la tính đến năm 2023,
+
+25
+00:01:10,350 --> 00:01:15,240
+và chiếm khoảng 31% thị trường trong quý I 2024,
+
+26
+00:01:15,240 --> 00:01:18,750
+với Microsoft đứng thứ hai với 25%.
+
+27
+00:01:18,750 --> 00:01:21,900
+Nó đã là người tiên phong và dẫn đầu thị trường
+
+28
+00:01:21,900 --> 00:01:24,690
+trong 13 năm liên tiếp,
+
+29
+00:01:24,690 --> 00:01:26,610
+và có hơn 1 triệu người dùng hoạt động.
+
+30
+00:01:26,610 --> 00:01:28,860
+Vì vậy, học AWS thật sự giúp bạn
+
+31
+00:01:28,860 --> 00:01:31,110
+thành công trong thế giới cloud.
+
+32
+00:01:31,110 --> 00:01:32,730
+Bạn có thể xây gì trên AWS?
+
+33
+00:01:32,730 --> 00:01:34,761
+Gần như mọi thứ.
+
+34
+00:01:34,761 --> 00:01:36,960
+AWS cho phép bạn xây dựng những ứng dụng
+
+35
+00:01:36,960 --> 00:01:38,580
+phức tạp và có khả năng mở rộng,
+
+36
+00:01:38,580 --> 00:01:41,910
+và chúng có thể áp dụng cho nhiều ngành khác nhau.
+
+37
+00:01:41,910 --> 00:01:44,910
+Mọi công ty đều có trường hợp sử dụng cloud.
+
+38
+00:01:44,910 --> 00:01:47,820
+Netflix, McDonald's, 21st Century Fox, Activision,
+
+39
+00:01:47,820 --> 00:01:49,350
+tất cả đều dùng cloud.
+
+40
+00:01:49,350 --> 00:01:50,940
+Và các trường hợp sử dụng có thể bao gồm
+
+41
+00:01:50,940 --> 00:01:53,130
+chỉ đơn giản chuyển IT của doanh nghiệp lên,
+
+42
+00:01:53,130 --> 00:01:55,770
+hoặc dùng cloud làm backup và lưu trữ,
+
+43
+00:01:55,770 --> 00:01:57,840
+hoặc làm phân tích big data.
+
+44
+00:01:57,840 --> 00:01:59,910
+Bạn cũng có thể host một website,
+
+45
+00:01:59,910 --> 00:02:01,800
+hoặc tạo backend cho ứng dụng di động
+
+46
+00:02:01,800 --> 00:02:03,720
+và ứng dụng mạng xã hội của mình,
+
+47
+00:02:03,720 --> 00:02:05,910
+hoặc bạn có thể để toàn bộ máy chủ game của mình
+
+48
+00:02:05,910 --> 00:02:07,170
+chạy trên cloud.
+
+49
+00:02:07,170 --> 00:02:09,900
+Các ứng dụng là vô tận.
+
+50
+00:02:09,900 --> 00:02:12,300
+Giờ, AWS là toàn cầu,
+
+51
+00:02:12,300 --> 00:02:15,270
+và đây là nơi chúng ta sẽ học chi tiết hơn
+
+52
+00:02:15,270 --> 00:02:16,680
+về cách nó hoạt động.
+
+53
+00:02:16,680 --> 00:02:20,070
+Chúng ta có các region, availability zone,
+
+54
+00:02:20,070 --> 00:02:23,160
+data center, edge location và point of presence.
+
+55
+00:02:23,160 --> 00:02:27,030
+Tất cả những thứ này có thể được thể hiện trên bản đồ ngay đây.
+
+56
+00:02:27,030 --> 00:02:30,210
+Hãy vào website này để xem nhanh.
+
+57
+00:02:30,210 --> 00:02:31,320
+Đây là một bản đồ thú vị,
+
+58
+00:02:31,320 --> 00:02:35,010
+vì trên website này chúng ta có thể thấy AWS là toàn cầu.
+
+59
+00:02:35,010 --> 00:02:37,410
+Nếu tôi click vào, tôi có thể cuộn khắp thế giới
+
+60
+00:02:37,410 --> 00:02:39,090
+và xem có gì đang diễn ra.
+
+61
+00:02:39,090 --> 00:02:41,610
+Chúng ta thấy AWS có nhiều region,
+
+62
+00:02:41,610 --> 00:02:44,640
+chúng có màu cam và nằm khắp thế giới.
+
+63
+00:02:44,640 --> 00:02:48,960
+Ví dụ Paris, Tây Ban Nha, Ohio, Sao Paulo,
+
+64
+00:02:48,960 --> 00:02:51,844
+Cape Town, Mumbai và những nơi khác.
+
+65
+00:02:51,844 --> 00:02:55,980
+AWS thật sự là một dịch vụ toàn cầu.
+
+66
+00:02:55,980 --> 00:02:59,160
+Bên cạnh đó, mỗi region sẽ được kết nối
+
+67
+00:02:59,160 --> 00:03:00,180
+qua mạng lưới.
+
+68
+00:03:00,180 --> 00:03:02,400
+Đây là mạng kết nối các region,
+
+69
+00:03:02,400 --> 00:03:04,680
+và đây là mạng riêng của AWS.
+
+70
+00:03:04,680 --> 00:03:07,650
+Và trong mỗi region, ví dụ,
+
+71
+00:03:07,650 --> 00:03:11,100
+nếu tôi zoom vào region Cape Town,
+
+72
+00:03:11,100 --> 00:03:13,380
+chúng ta thấy có các chấm màu xanh,
+
+73
+00:03:13,380 --> 00:03:15,660
+mỗi chấm xanh là một availability zone
+
+74
+00:03:15,660 --> 00:03:18,060
+sẽ được mô tả ở slide tiếp theo.
+
+75
+00:03:18,060 --> 00:03:20,250
+Như chúng ta thấy, điều tôi muốn bạn hiểu
+
+76
+00:03:20,250 --> 00:03:21,990
+là AWS thật sự toàn cầu,
+
+77
+00:03:21,990 --> 00:03:25,560
+và chúng ta có thể tận dụng hạ tầng của nhà cung cấp cloud
+
+78
+00:03:25,560 --> 00:03:28,380
+để khiến bản thân hoặc ứng dụng trở nên toàn cầu.
+
+79
+00:03:28,380 --> 00:03:31,740
+Khái niệm quan trọng đầu tiên trong AWS là region.
+
+80
+00:03:31,740 --> 00:03:34,470
+Region có mặt khắp thế giới, như ta đã thấy trên bản đồ,
+
+81
+00:03:34,470 --> 00:03:36,870
+các region đều có tên.
+
+82
+00:03:36,870 --> 00:03:40,350
+Ví dụ US-east-1, EU-West-3,
+
+83
+00:03:40,350 --> 00:03:43,080
+và chúng ta có thể thấy ánh xạ tên region
+
+84
+00:03:43,080 --> 00:03:47,220
+với mã của chúng trên console mà lát nữa ta sẽ xem.
+
+85
+00:03:47,220 --> 00:03:49,290
+Vậy region thật sự là gì?
+
+86
+00:03:49,290 --> 00:03:51,780
+Nó là một cụm data center.
+
+87
+00:03:51,780 --> 00:03:54,090
+Nhiều data center khác nhau nằm gần nhau,
+
+88
+00:03:54,090 --> 00:03:58,170
+ví dụ ở Ohio, Singapore, Sydney hay Tokyo.
+
+89
+00:03:58,170 --> 00:04:00,000
+Khi chúng ta dùng dịch vụ AWS,
+
+90
+00:04:00,000 --> 00:04:02,850
+hầu hết dịch vụ sẽ được ràng buộc theo scope
+
+91
+00:04:02,850 --> 00:04:04,350
+của một region cụ thể.
+
+92
+00:04:04,350 --> 00:04:07,170
+Nghĩa là nếu ta dùng dịch vụ ở một region
+
+93
+00:04:07,170 --> 00:04:09,060
+rồi thử dùng ở region khác,
+
+94
+00:04:09,060 --> 00:04:12,540
+thì giống như lần đầu dùng dịch vụ đó.
+
+95
+00:04:12,540 --> 00:04:14,550
+Một câu hỏi có thể xuất hiện trong bài thi
+
+96
+00:04:14,550 --> 00:04:17,190
+là làm thế nào để chọn region AWS?
+
+97
+00:04:17,190 --> 00:04:19,230
+Giả sử bạn triển khai ứng dụng mới,
+
+98
+00:04:19,230 --> 00:04:20,430
+bạn nên làm ở đâu?
+
+99
+00:04:20,430 --> 00:04:22,920
+Ở Mỹ, châu Âu,
+
+100
+00:04:22,920 --> 00:04:25,560
+Nam Mỹ hay Australia?
+
+101
+00:04:25,560 --> 00:04:27,960
+Câu trả lời tất nhiên là tùy thuộc.
+
+102
+00:04:27,960 --> 00:04:31,170
+Nhưng hãy xem các yếu tố có thể ảnh hưởng đến lựa chọn
+
+103
+00:04:31,170 --> 00:04:32,820
+region AWS của bạn.
+
+104
+00:04:32,820 --> 00:04:34,560
+Yếu tố đầu tiên là tuân thủ.
+
+105
+00:04:34,560 --> 00:04:38,040
+Đôi khi chính phủ muốn dữ liệu phải ở trong nước
+
+106
+00:04:38,040 --> 00:04:40,410
+nơi bạn triển khai ứng dụng.
+
+107
+00:04:40,410 --> 00:04:42,360
+Ví dụ, ở Pháp,
+
+108
+00:04:42,360 --> 00:04:44,460
+ dữ liệu ở Pháp có thể phải ở lại Pháp,
+
+109
+00:04:44,460 --> 00:04:46,950
+vì vậy bạn nên triển khai ứng dụng
+
+110
+00:04:46,950 --> 00:04:48,033
+ở region của Pháp.
+
+111
+00:04:48,960 --> 00:04:51,930
+Tiếp theo là khái niệm về độ trễ.
+
+112
+00:04:51,930 --> 00:04:54,510
+Nếu hầu hết người dùng của bạn ở Mỹ,
+
+113
+00:04:54,510 --> 00:04:57,300
+thì rất hợp lý để triển khai ứng dụng
+
+114
+00:04:57,300 --> 00:04:58,830
+ở Mỹ gần với người dùng,
+
+115
+00:04:58,830 --> 00:05:01,260
+vì họ sẽ có độ trễ thấp hơn.
+
+116
+00:05:01,260 --> 00:05:02,940
+Nếu bạn triển khai ứng dụng ở Australia,
+
+117
+00:05:02,940 --> 00:05:04,830
+mà người dùng ở Mỹ,
+
+118
+00:05:04,830 --> 00:05:07,920
+họ sẽ gặp nhiều lag khi dùng ứng dụng.
+
+119
+00:05:07,920 --> 00:05:12,090
+Ngoài ra, không phải region nào cũng có đầy đủ dịch vụ.
+
+120
+00:05:12,090 --> 00:05:14,490
+Một số region không có dịch vụ,
+
+121
+00:05:14,490 --> 00:05:16,860
+và vậy nếu ứng dụng của bạn dùng dịch vụ nào đó
+
+122
+00:05:16,860 --> 00:05:18,630
+bạn cần đảm bảo
+
+123
+00:05:18,630 --> 00:05:21,360
+region bạn triển khai có sẵn dịch vụ đó.
+
+124
+00:05:21,360 --> 00:05:24,030
+Và cuối cùng là giá.
+
+125
+00:05:24,030 --> 00:05:26,280
+Giá thay đổi giữa các region,
+
+126
+00:05:26,280 --> 00:05:29,040
+và bạn cần xem trang giá dịch vụ
+
+127
+00:05:29,040 --> 00:05:30,867
+để biết sự khác biệt giữa các region.
+
+128
+00:05:30,867 --> 00:05:33,240
+Nhưng đây rõ ràng là yếu tố
+
+129
+00:05:33,240 --> 00:05:35,400
+có thể ảnh hưởng đến việc triển khai
+
+130
+00:05:35,400 --> 00:05:37,320
+ứng dụng vào một region cụ thể.
+
+131
+00:05:37,320 --> 00:05:39,030
+Bây giờ, availability zone
+
+132
+00:05:39,030 --> 00:05:41,403
+là thứ thực sự nằm trong region.
+
+133
+00:05:42,540 --> 00:05:44,220
+Mỗi region sẽ có nhiều availability zone,
+
+134
+00:05:44,220 --> 00:05:47,250
+thường là ba, tối thiểu là ba và tối đa là sáu,
+
+135
+00:05:47,250 --> 00:05:49,350
+nhưng thường là ba.
+
+136
+00:05:49,350 --> 00:05:52,680
+Hãy lấy region Sydney làm ví dụ.
+
+137
+00:05:52,680 --> 00:05:55,170
+Mã region Sydney là ap-southeast-2.
+
+138
+00:05:55,170 --> 00:05:57,810
+Chúng ta có ba availability zone ở Sydney,
+
+139
+00:05:57,810 --> 00:06:01,110
+ap-southeast-2A, ap-southeast-2B,
+
+140
+00:06:01,110 --> 00:06:04,140
+và ap-southeast-2C.
+
+141
+00:06:04,140 --> 00:06:07,350
+Mỗi availability zone sẽ là một
+
+142
+00:06:07,350 --> 00:06:09,690
+hoặc nhiều data center riêng biệt
+
+143
+00:06:09,690 --> 00:06:13,980
+có nguồn điện, mạng và kết nối dự phòng.
+
+144
+00:06:13,980 --> 00:06:16,080
+Điều đó nghĩa là ở southeast-2A,
+
+145
+00:06:16,080 --> 00:06:19,710
+tôi có thể có hai data center, và 2B cũng có hai, 2C cũng vậy.
+
+146
+00:06:19,710 --> 00:06:22,050
+Nhưng có thể là một, ba hoặc bốn.
+
+147
+00:06:22,050 --> 00:06:24,480
+Chúng ta không biết, AWS không nói rõ.
+
+148
+00:06:24,480 --> 00:06:26,430
+Nhưng chúng ta biết rằng các availability zone này
+
+149
+00:06:26,430 --> 00:06:28,050
+tách biệt nhau
+
+150
+00:06:28,050 --> 00:06:30,240
+để cách ly khỏi thảm họa.
+
+151
+00:06:30,240 --> 00:06:34,080
+Nếu có sự cố với ap-southeast-2A,
+
+152
+00:06:34,080 --> 00:06:35,820
+chúng được thiết kế để không lan
+
+153
+00:06:35,820 --> 00:06:38,430
+sang ap-southeast-2B hay ap-southeast-2C.
+
+154
+00:06:38,430 --> 00:06:41,460
+Chúng thực sự được cách ly khỏi thảm họa.
+
+155
+00:06:41,460 --> 00:06:44,940
+Và các data center, các availability zone này
+
+156
+00:06:44,940 --> 00:06:48,390
+được kết nối bằng băng thông cao,
+
+157
+00:06:48,390 --> 00:06:50,400
+mạng siêu thấp độ trễ, nên
+
+158
+00:06:50,400 --> 00:06:53,520
+khi liên kết với nhau,
+
+159
+00:06:53,520 --> 00:06:56,130
+chúng sẽ tạo thành một region.
+
+160
+00:06:56,130 --> 00:06:59,370
+Tiếp theo, điều duy nhất ta cần biết về hạ tầng toàn cầu
+
+161
+00:06:59,370 --> 00:07:01,350
+của AWS là point of presence hay edge location.
+
+162
+00:07:01,350 --> 00:07:03,810
+Chúng ta sẽ xem chi tiết trong phần global
+
+163
+00:07:03,810 --> 00:07:07,770
+của khóa học, nhưng bạn nên biết
+
+164
+00:07:07,770 --> 00:07:09,270
+AWS có hơn 400 point of presence ở 90 thành phố,
+
+165
+00:07:09,270 --> 00:07:11,970
+thuộc 40 quốc gia.
+
+166
+00:07:11,970 --> 00:07:14,370
+Điều này rất hữu ích khi chúng ta phân phối nội dung
+
+167
+00:07:14,370 --> 00:07:15,900
+đến người dùng cuối với độ trễ thấp nhất.
+
+168
+00:07:15,900 --> 00:07:19,680
+Và đây là những gì bạn thấy trên bản đồ.
+
+169
+00:07:19,680 --> 00:07:21,540
+Tôi đang đi nhanh qua phần này
+
+170
+00:07:21,540 --> 00:07:23,880
+vì chúng ta sẽ xem kỹ hơn ở...
+
+171
+00:07:23,880 --> 00:07:26,790
+khoảng giữa khóa học.
+
+172
+00:07:26,790 --> 00:07:29,280
+Giờ sao chúng ta không thử
+
+173
+00:07:29,280 --> 00:07:30,810
+và làm một tour console?
+
+174
+00:07:30,810 --> 00:07:32,400
+Chúng ta sẽ thấy AWS có các dịch vụ toàn cầu như IAM,
+
+175
+00:07:32,400 --> 00:07:34,500
+Route 53, CloudFront và WAF,
+
+176
+00:07:34,500 --> 00:07:36,660
+nhưng chúng ta cũng thấy hầu hết dịch vụ AWS
+
+177
+00:07:36,660 --> 00:07:38,820
+sẽ theo scope region, như Amazon EC2,
+
+178
+00:07:38,820 --> 00:07:42,360
+Elastic Beanstalk, Lambda và Rekognition.
+
+179
+00:07:42,360 --> 00:07:45,270
+Cuối cùng, để biết dịch vụ có sẵn ở region của bạn hay không,
+
+180
+00:07:45,270 --> 00:07:47,790
+có một bảng region bạn nên kiểm tra tại đây.
+
