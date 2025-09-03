@@ -1,0 +1,127 @@
+1
+00:00:00,270 --> 00:00:02,400
+Đây là câu hỏi có thể xuất hiện
+
+2
+00:00:02,400 --> 00:00:03,233
+trong kỳ thi.
+
+3
+00:00:03,233 --> 00:00:05,670
+Đó là quy trình chia sẻ một AMI
+
+4
+00:00:05,670 --> 00:00:08,670
+với tài khoản khác khi AMI đã được mã hóa
+
+5
+00:00:08,670 --> 00:00:10,230
+bằng khóa KMS.
+
+6
+00:00:10,230 --> 00:00:11,940
+AMI nằm trong tài khoản nguồn,
+
+7
+00:00:11,940 --> 00:00:14,730
+và được mã hóa bằng khóa KMS của bạn.
+
+8
+00:00:14,730 --> 00:00:17,070
+Vậy làm sao khởi chạy EC2
+
+9
+00:00:17,070 --> 00:00:20,610
+ở tài khoản B từ AMI ở tài khoản A?
+
+10
+00:00:20,610 --> 00:00:23,850
+Trước tiên bạn phải chỉnh thuộc tính AMI
+
+11
+00:00:23,850 --> 00:00:26,970
+với launch permission, thêm quyền launch
+
+12
+00:00:26,970 --> 00:00:30,840
+cho phép tài khoản B khởi chạy AMI này.
+
+13
+00:00:30,840 --> 00:00:33,180
+Đó là cách bạn chia sẻ AMI.
+
+14
+00:00:33,180 --> 00:00:34,890
+Bạn phải sửa launch permission
+
+15
+00:00:34,890 --> 00:00:38,880
+và thêm ID tài khoản đích.
+
+16
+00:00:38,880 --> 00:00:41,432
+Sau đó bạn cũng cần chia sẻ khóa KMS
+
+17
+00:00:41,432 --> 00:00:45,000
+để tài khoản B có thể dùng nó.
+
+18
+00:00:45,000 --> 00:00:48,120
+Việc này thường thực hiện qua key policy.
+
+19
+00:00:48,120 --> 00:00:51,180
+Rồi ở tài khoản B, bạn tạo IAM role
+
+20
+00:00:51,180 --> 00:00:54,390
+hoặc IAM user với đủ quyền
+
+21
+00:00:54,390 --> 00:00:58,500
+để dùng cả khóa KMS lẫn AMI.
+
+22
+00:00:58,500 --> 00:01:01,530
+Vì vậy phía KMS bạn cần quyền
+
+23
+00:01:01,530 --> 00:01:05,310
+Describekey, ReEncrypt, CreateGrant và Decrypt.
+
+24
+00:01:05,310 --> 00:01:08,850
+Khi mọi thứ xong, bạn có thể khởi chạy
+
+25
+00:01:08,850 --> 00:01:11,880
+EC2 từ AMI đó và tùy chọn
+
+26
+00:01:11,880 --> 00:01:15,450
+tài khoản đích có thể mã hóa lại mọi thứ
+
+27
+00:01:15,450 --> 00:01:18,270
+bằng khóa KMS của riêng họ
+
+28
+00:01:18,270 --> 00:01:20,760
+để mã hóa lại các volume.
+
+29
+00:01:20,760 --> 00:01:23,490
+Và bạn đã có thể khởi chạy EC2.
+
+30
+00:01:23,490 --> 00:01:25,920
+Hiểu quy trình này là bạn đã sẵn sàng
+
+31
+00:01:25,920 --> 00:01:27,780
+trả lời câu hỏi trong kỳ thi.
+
+32
+00:01:27,780 --> 00:01:30,240
+Hy vọng bạn thích và hẹn gặp lại ở bài tiếp theo.

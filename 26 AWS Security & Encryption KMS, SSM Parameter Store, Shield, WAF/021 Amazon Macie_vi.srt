@@ -1,0 +1,95 @@
+1
+00:00:00,000 --> 00:00:01,839
+Giờ hãy nói về Macie.
+
+2
+00:00:01,839 --> 00:00:04,650
+Macie là dịch vụ bảo mật dữ liệu
+
+3
+00:00:04,650 --> 00:00:07,470
+và bảo vệ quyền riêng tư được quản lý hoàn toàn, dùng machine learning
+
+4
+00:00:07,470 --> 00:00:09,360
+và pattern matching để phát hiện
+
+5
+00:00:09,360 --> 00:00:12,510
+và bảo vệ dữ liệu nhạy cảm của bạn trên AWS.
+
+6
+00:00:12,510 --> 00:00:16,410
+Cụ thể hơn, nó sẽ cảnh báo bạn về dữ liệu nhạy cảm
+
+7
+00:00:16,410 --> 00:00:19,320
+như thông tin nhận dạng cá nhân,
+
+8
+00:00:19,320 --> 00:00:21,510
+gọi là PII.
+
+9
+00:00:21,510 --> 00:00:25,440
+Đơn giản là dữ liệu PII của bạn nằm trong các S3 bucket
+
+10
+00:00:25,440 --> 00:00:27,300
+và sẽ được Macie phân tích
+
+11
+00:00:27,300 --> 00:00:30,903
+để phát hiện dữ liệu nào được phân loại là PII.
+
+12
+00:00:31,740 --> 00:00:33,690
+Sau đó nó sẽ thông báo cho bạn
+
+13
+00:00:33,690 --> 00:00:36,870
+qua EventBridge về các phát hiện.
+
+14
+00:00:36,870 --> 00:00:40,800
+Rồi bạn có thể tích hợp với SNS topic,
+
+15
+00:00:40,800 --> 00:00:42,990
+Lambda functions v.v.
+
+16
+00:00:42,990 --> 00:00:45,750
+Vì vậy Macie sẽ được dùng
+
+17
+00:00:45,750 --> 00:00:49,170
+để tìm dữ liệu nhạy cảm trong các S3 bucket của bạn
+
+18
+00:00:49,170 --> 00:00:51,270
+và đó là tất cả những gì nó làm.
+
+19
+00:00:51,270 --> 00:00:53,070
+Chỉ cần một cú nhấp để bật nó.
+
+20
+00:00:53,070 --> 00:00:55,470
+Bạn chỉ định các S3 bucket bạn muốn
+
+21
+00:00:55,470 --> 00:00:56,790
+và thế là xong.
+
+22
+00:00:56,790 --> 00:00:58,740
+Vậy là xong bài giảng này, rất ngắn,
+
+23
+00:00:58,740 --> 00:01:00,240
+nhưng vậy là đủ về Macie.
+
+24
+00:01:00,240 --> 00:01:03,173
+Hy vọng bạn thích và hẹn gặp lại ở bài tiếp theo.

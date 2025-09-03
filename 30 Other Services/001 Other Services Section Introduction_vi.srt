@@ -1,0 +1,35 @@
+1
+00:00:02,100 --> 00:00:07,350
+Chào mừng bạn đến với một trong những phần cuối của khóa học, phần này hơi đặc biệt vì
+
+2
+00:00:07,340 --> 00:00:12,420
+Tôi sẽ đề cập đến các công nghệ khác có thể xuất hiện trong kỳ thi với một hoặc hai câu hỏi nhưng
+
+3
+00:00:12,420 --> 00:00:14,640
+chúng sẽ chỉ là những câu hỏi rất cơ bản.
+
+4
+00:00:14,700 --> 00:00:20,280
+Vì vậy bài giảng này sẽ không đi sâu vào từng chủ đề, chỉ là cái nhìn tổng quan
+
+5
+00:00:20,280 --> 00:00:24,080
+về một vài dịch vụ. Nhìn chung khi kỳ thi phát triển và thay đổi
+
+6
+00:00:24,120 --> 00:00:29,640
+Tôi sẽ đảm bảo bổ sung các bài giảng phù hợp trong phần này. Nhưng mọi thứ bạn cần biết hôm nay đã
+
+7
+00:00:29,640 --> 00:00:30,240
+có ở đây.
+
+8
+00:00:30,300 --> 00:00:31,530
+Tôi đảm bảo điều đó.
+
+9
+00:00:31,590 --> 00:00:34,990
+Vậy hãy bắt đầu và tìm hiểu một vài dịch vụ khác.

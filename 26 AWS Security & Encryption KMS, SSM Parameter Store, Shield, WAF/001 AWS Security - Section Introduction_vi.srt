@@ -1,0 +1,39 @@
+1
+00:00:02,050 --> 00:00:08,740
+Đây là một trong những phần quan trọng nhất, bài thi sẽ hỏi bạn rất nhiều câu về bảo mật.
+
+2
+00:00:08,740 --> 00:00:14,270
+Bạn có thể đã để ý trong các bài giảng trước tôi nói khá nhiều về bảo mật.
+
+3
+00:00:14,410 --> 00:00:20,350
+Tôi đã nói cách các dịch vụ AWS khác nhau được tích hợp với bảo mật và chắc chắn bạn đã hiểu nhưng
+
+4
+00:00:20,350 --> 00:00:25,750
+Tôi muốn dành hẳn một phần để ôn lại những gì đã học và tìm hiểu KMS một cách đúng đắn
+
+5
+00:00:26,530 --> 00:00:32,000
+cũng như mã hóa, Parameter Store và các thứ khác. Phần này
+
+6
+00:00:32,080 --> 00:00:35,340
+sẽ làm sáng tỏ mọi thứ bạn đã thấy về mặt bảo mật.
+
+7
+00:00:35,440 --> 00:00:36,310
+Hy vọng bạn sẽ thích.
+
+8
+00:00:36,310 --> 00:00:38,050
+Nó rất sát với thực tế.
+
+9
+00:00:38,100 --> 00:00:40,900
+Và chúng ta sẽ thực hành với AWS Lambda.
+
+10
+00:00:40,930 --> 00:00:42,760
+Vậy hãy bắt đầu học về bảo mật.

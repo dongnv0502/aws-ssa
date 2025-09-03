@@ -73,22 +73,22 @@ Next text content
 - [ ] Module 08: 0/30 files
 - [ ] Module 09: 0/23 files
 - [ ] Module 11: 0/16 files
-- [ ] Module 12: 0/16 files
+- [ ] Module 12: 2/16 files ✅ 005 S3 Website Overview, 010 S3 Replication Notes
 - [ ] Module 13: 0/24 files
-- [ ] Module 14: 0/31 files
+- [ ] Module 14: 1/31 files ✅ 004 S3 Default Encryption
 - [ ] Module 15: 0/20 files
 - [ ] Module 17: 0/7 files
 - [ ] Module 18: 0/16 files
 - [ ] Module 20: 0/10 files
-- [ ] Module 21: 0/25 files
+- [ ] Module 21: 2/25 files ✅ 007 DocumentDB, 009 Keyspaces
 - [ ] Module 22: 0/30 files
 - [ ] Module 25: 0/17 files
-- [ ] Module 26: 0/31 files
+- [ ] Module 26: 3/31 files ✅ 001 Section Intro, 007 Encrypted AMI Sharing, 021 Amazon Macie
 - [ ] Module 28: 0/10 files
 - [ ] Module 29: 0/12 files
-- [ ] Module 30: 0/20 files
+- [ ] Module 30: 2/20 files ✅ 001 Section Intro, 010 AWS Cost Anomaly Detection
 
-**Tổng tiến độ: 11/229 files (4.8%)**
+**Tổng tiến độ: 21/229 files (9.2%)**
 
 ## Ghi Chú
 - Ưu tiên dịch các module cơ bản trước (01, 03, 06)

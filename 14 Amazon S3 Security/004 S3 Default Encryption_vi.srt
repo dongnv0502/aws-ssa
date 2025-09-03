@@ -1,0 +1,115 @@
+1
+00:00:00,120 --> 00:00:01,440
+Đây là bài giảng ngắn
+
+2
+00:00:01,440 --> 00:00:04,680
+về default encryption so với bucket policy.
+
+3
+00:00:04,680 --> 00:00:05,790
+Mặc định
+
+4
+00:00:05,790 --> 00:00:10,790
+mọi bucket đều dùng default encryption SSE-S3.
+
+5
+00:00:10,950 --> 00:00:12,060
+Nó được áp dụng tự động
+
+6
+00:00:12,060 --> 00:00:14,160
+cho object mới trong bucket mới.
+
+7
+00:00:14,160 --> 00:00:15,120
+Nhưng bạn có thể đổi nó
+
+8
+00:00:15,120 --> 00:00:19,110
+thành default encryption khác, ví dụ SSE-KMS.
+
+9
+00:00:19,110 --> 00:00:21,270
+Dù vậy bạn cũng có thể ép buộc mã hóa
+
+10
+00:00:21,270 --> 00:00:24,780
+bằng bucket policy từ chối mọi API call
+
+11
+00:00:24,780 --> 00:00:28,680
+PUT object mà không có header mã hóa đúng.
+
+12
+00:00:28,680 --> 00:00:31,650
+Ví dụ SSE-KMS hoặc SSE-C.
+
+13
+00:00:31,650 --> 00:00:35,340
+Đây là ví dụ về bucket policy
+
+14
+00:00:35,340 --> 00:00:37,080
+nói rằng nếu bạn PUT object
+
+15
+00:00:37,080 --> 00:00:39,990
+nhưng không có header mã hóa AWS KMS,
+
+16
+00:00:39,990 --> 00:00:44,430
+thì hãy từ chối request đó.
+
+17
+00:00:44,430 --> 00:00:45,930
+Hoặc nếu bạn upload
+
+18
+00:00:45,930 --> 00:00:48,390
+nhưng không có thuật toán phía khách hàng, tức SSE-C,
+
+19
+00:00:48,390 --> 00:00:52,680
+thì từ chối object này.
+
+20
+00:00:52,680 --> 00:00:53,970
+Đây chỉ là ví dụ,
+
+21
+00:00:53,970 --> 00:00:55,290
+nhưng bạn thấy bucket policy
+
+22
+00:00:55,290 --> 00:00:57,660
+cũng có thể ép buộc mã hóa cho bucket.
+
+23
+00:00:57,660 --> 00:01:01,680
+Và bucket policy luôn được đánh giá trước default encryption.
+
+24
+00:01:01,680 --> 00:01:04,290
+Vì vậy hãy nhớ default encryption
+
+25
+00:01:04,290 --> 00:01:08,220
+được bật mặc định với SSE-S3 nhưng bạn có thể thay đổi
+
+26
+00:01:08,220 --> 00:01:10,290
+và áp dụng bucket policy trước
+
+27
+00:01:10,290 --> 00:01:13,680
+để ép mã hóa theo ý bạn.
+
+28
+00:01:13,680 --> 00:01:16,350
+Được rồi, hết rồi.
+
+29
+00:01:16,350 --> 00:01:19,110
+Hy vọng bạn thích và hẹn gặp lại ở bài tiếp theo.

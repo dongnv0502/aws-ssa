@@ -1,0 +1,123 @@
+1
+00:00:00,300 --> 00:00:03,000
+Bây giờ hãy nói về Amazon Keyspaces,
+
+2
+00:00:03,000 --> 00:00:07,800
+Keyspaces là dịch vụ Cassandra được quản lý trên AWS.
+
+3
+00:00:07,800 --> 00:00:12,060
+Cassandra là cơ sở dữ liệu NoSQL phân tán mã nguồn mở,
+
+4
+00:00:12,060 --> 00:00:13,260
+và với Keyspaces,
+
+5
+00:00:13,260 --> 00:00:17,730
+bạn có Cassandra được AWS quản lý trực tiếp trên cloud.
+
+6
+00:00:17,730 --> 00:00:20,130
+Nó là dịch vụ dạng serverless,
+
+7
+00:00:20,130 --> 00:00:22,020
+có thể mở rộng, rất sẵn sàng,
+
+8
+00:00:22,020 --> 00:00:24,030
+và được AWS quản lý hoàn toàn,
+
+9
+00:00:24,030 --> 00:00:26,970
+tự động scale bảng lên xuống theo
+
+10
+00:00:26,970 --> 00:00:28,890
+lưu lượng ứng dụng.
+
+11
+00:00:28,890 --> 00:00:31,800
+Dữ liệu bảng được sao chép ba lần
+
+12
+00:00:31,800 --> 00:00:33,540
+trên nhiều AZ,
+
+13
+00:00:33,540 --> 00:00:36,180
+và để query trên Keyspaces,
+
+14
+00:00:36,180 --> 00:00:40,140
+bạn dùng Cassandra Query Language (CQL).
+
+15
+00:00:40,140 --> 00:00:40,973
+Nhờ đó
+
+16
+00:00:40,973 --> 00:00:44,010
+bạn có độ trễ đơn vị millisecond ở mọi quy mô,
+
+17
+00:00:44,010 --> 00:00:45,030
+và có thể xử lý
+
+18
+00:00:45,030 --> 00:00:47,790
+hàng nghìn request mỗi giây.
+
+19
+00:00:47,790 --> 00:00:50,940
+Có hai chế độ capacity giống DynamoDB,
+
+20
+00:00:50,940 --> 00:00:52,530
+on-demand
+
+21
+00:00:52,530 --> 00:00:55,740
+và provisioned với auto-scaling,
+
+22
+00:00:55,740 --> 00:00:58,950
+hoàn toàn giống DynamoDB.
+
+23
+00:00:58,950 --> 00:01:01,020
+Bạn có tính năng mã hóa, backup,
+
+24
+00:01:01,020 --> 00:01:03,570
+Point-In-Time Recovery lên đến 35 ngày,
+
+25
+00:01:03,570 --> 00:01:05,340
+và use case là
+
+26
+00:01:05,340 --> 00:01:08,640
+lưu thông tin thiết bị IoT, dữ liệu time-series,
+
+27
+00:01:08,640 --> 00:01:11,580
+và nhìn chung trong kỳ thi,
+
+28
+00:01:11,580 --> 00:01:13,680
+cứ thấy Apache Cassandra
+
+29
+00:01:13,680 --> 00:01:16,830
+thì nghĩ ngay đến Amazon Keyspaces là xong.
+
+30
+00:01:16,830 --> 00:01:18,870
+Được rồi, hết bài giảng ngắn này,
+
+31
+00:01:18,870 --> 00:01:21,870
+hy vọng bạn thích và hẹn gặp lại ở bài tiếp theo.

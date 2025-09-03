@@ -1,0 +1,107 @@
+1
+00:00:00,120 --> 00:00:01,830
+Đây là bài giảng nhanh
+
+2
+00:00:01,830 --> 00:00:05,520
+về dịch vụ AWS Cost Anomaly Detection.
+
+3
+00:00:05,520 --> 00:00:07,650
+Tên của nó lần này khá rõ ràng.
+
+4
+00:00:07,650 --> 00:00:10,830
+Nó liên tục giám sát dữ liệu chi phí và sử dụng của bạn,
+
+5
+00:00:10,830 --> 00:00:14,760
+và dùng machine learning để phát hiện chi tiêu bất thường.
+
+6
+00:00:14,760 --> 00:00:16,079
+Nó sẽ học từ bạn.
+
+7
+00:00:16,079 --> 00:00:19,050
+Học các mẫu lịch sử riêng của bạn,
+
+8
+00:00:19,050 --> 00:00:22,170
+rồi phát hiện các đột biến chi phí
+
+9
+00:00:22,170 --> 00:00:25,110
+hoặc các khoản tăng chi phí liên tục.
+
+10
+00:00:25,110 --> 00:00:26,550
+Bạn không phải định nghĩa gì cả,
+
+11
+00:00:26,550 --> 00:00:28,050
+không cần đặt ngưỡng.
+
+12
+00:00:28,050 --> 00:00:31,050
+Nó tự biết điều gì trông hơi lạ.
+
+13
+00:00:31,050 --> 00:00:34,140
+Nó sẽ giám sát các dịch vụ AWS,
+
+14
+00:00:34,140 --> 00:00:37,320
+các tài khoản thành viên, cost allocation tag
+
+15
+00:00:37,320 --> 00:00:39,330
+và cost categories của bạn.
+
+16
+00:00:39,330 --> 00:00:42,000
+Nó sẽ gửi báo cáo phát hiện bất thường
+
+17
+00:00:42,000 --> 00:00:43,440
+với phân tích nguyên nhân gốc
+
+18
+00:00:43,440 --> 00:00:46,140
+về những gì đang diễn ra trong tài khoản của bạn.
+
+19
+00:00:46,140 --> 00:00:49,950
+Bạn có thể được thông báo bằng alert riêng lẻ
+
+20
+00:00:49,950 --> 00:00:53,820
+hoặc bản tóm tắt hằng ngày hay hằng tuần qua SNS.
+
+21
+00:00:53,820 --> 00:00:56,070
+Tóm lại, dùng machine learning,
+
+22
+00:00:56,070 --> 00:00:58,260
+bạn có thể xem chi phí của mình,
+
+23
+00:00:58,260 --> 00:01:01,920
+được cảnh báo và nhanh chóng phân tích nguyên nhân,
+
+24
+00:01:01,920 --> 00:01:06,240
+tất cả nhờ dịch vụ AWS Cost Anomaly Detection.
+
+25
+00:01:06,240 --> 00:01:07,110
+Được rồi, hết rồi.
+
+26
+00:01:07,110 --> 00:01:08,130
+Hy vọng bạn thích,
+
+27
+00:01:08,130 --> 00:01:10,203
+và hẹn gặp lại ở bài tiếp theo.

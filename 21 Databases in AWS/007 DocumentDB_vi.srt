@@ -1,0 +1,115 @@
+1
+00:00:00,450 --> 00:00:02,730
+Giờ hãy nói về DocumentDB.
+
+2
+00:00:02,730 --> 00:00:06,660
+Cũng giống như Aurora là cách AWS
+
+3
+00:00:06,660 --> 00:00:09,270
+triển khai phiên bản cloud native lớn
+
+4
+00:00:09,270 --> 00:00:11,910
+của PostgreSQL và MySQL,
+
+5
+00:00:11,910 --> 00:00:16,200
+chúng ta có DocumentDB, tức phiên bản Aurora cho MongoDB.
+
+6
+00:00:16,200 --> 00:00:17,520
+MongoDB nếu bạn chưa biết,
+
+7
+00:00:17,520 --> 00:00:19,650
+logo của nó ở góc trên bên phải màn hình,
+
+8
+00:00:19,650 --> 00:00:21,840
+là một cơ sở dữ liệu no SQL khác
+
+9
+00:00:21,840 --> 00:00:23,280
+và bạn cần nhớ điều này cho kỳ thi.
+
+10
+00:00:23,280 --> 00:00:25,770
+Vì vậy DocumentDB là cơ sở dữ liệu no SQL
+
+11
+00:00:25,770 --> 00:00:29,910
+và được xây dựng dựa trên công nghệ MongoDB.
+
+12
+00:00:29,910 --> 00:00:31,500
+Nó tương thích với MongoDB.
+
+13
+00:00:31,500 --> 00:00:36,500
+MongoDB dùng để lưu trữ, truy vấn và index dữ liệu JSON,
+
+14
+00:00:36,870 --> 00:00:39,960
+và bạn có khái niệm triển khai tương tự
+
+15
+00:00:39,960 --> 00:00:41,190
+như Aurora với DocumentDB.
+
+16
+00:00:41,190 --> 00:00:43,260
+Nghĩa là nó là dịch vụ DB được quản lý hoàn toàn,
+
+17
+00:00:43,260 --> 00:00:44,640
+rất sẵn sàng.
+
+18
+00:00:44,640 --> 00:00:47,820
+Dữ liệu được sao chép qua ba availability zone
+
+19
+00:00:47,820 --> 00:00:50,310
+và storage của DocumentDB tự động tăng
+
+20
+00:00:50,310 --> 00:00:52,590
+theo từng 10 gigabyte,
+
+21
+00:00:52,590 --> 00:00:54,330
+và DocumentDB được thiết kế
+
+22
+00:00:54,330 --> 00:00:55,770
+để có thể mở rộng cho khối lượng công việc
+
+23
+00:00:55,770 --> 00:00:58,560
+với hàng triệu request mỗi giây.
+
+24
+00:00:58,560 --> 00:01:02,520
+Vì vậy trong kỳ thi, nếu bạn thấy bất kỳ điều gì liên quan đến MongoDB,
+
+25
+00:01:02,520 --> 00:01:05,280
+hãy nghĩ đến DocumentDB, hoặc nếu bạn thấy điều gì
+
+26
+00:01:05,280 --> 00:01:10,280
+liên quan đến cơ sở dữ liệu no SQL, nghĩ DocumentDB và cả DynamoDB.
+
+27
+00:01:11,130 --> 00:01:12,210
+Đó là hết bài giảng này.
+
+28
+00:01:12,210 --> 00:01:13,043
+Hy vọng bạn thích,
+
+29
+00:01:13,043 --> 00:01:14,970
+và hẹn gặp lại ở bài tiếp theo.
