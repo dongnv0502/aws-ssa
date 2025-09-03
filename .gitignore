@@ -1,0 +1,11 @@
+# Ignore everything
+*
+
+# But keep .md files
+!*.md
+
+# And keep .srt files
+!*.srt
+
+# Keep the .gitignore file itself
+!.gitignore
