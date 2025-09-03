@@ -1,0 +1,115 @@
+1
+00:00:00,360 --> 00:00:02,340
+Bây giờ hãy nói về cách Amazon S3
+
+2
+00:00:02,340 --> 00:00:05,760
+có thể dùng để tạo website tĩnh.
+
+3
+00:00:05,760 --> 00:00:07,320
+S3 có thể host website tĩnh
+
+4
+00:00:07,320 --> 00:00:09,810
+và cho phép truy cập qua internet
+
+5
+00:00:09,810 --> 00:00:12,090
+và URL website sẽ phụ thuộc
+
+6
+00:00:12,090 --> 00:00:14,760
+vào region AWS nơi bạn tạo nó,
+
+7
+00:00:14,760 --> 00:00:16,440
+dạng này hoặc dạng kia.
+
+8
+00:00:16,440 --> 00:00:19,110
+Chúng trông rất giống nhau như bạn thấy.
+
+9
+00:00:19,110 --> 00:00:21,450
+Sự khác biệt duy nhất là ở đây có dấu gạch ngang
+
+10
+00:00:21,450 --> 00:00:22,800
+và ở kia là dấu chấm.
+
+11
+00:00:22,800 --> 00:00:24,930
+Bạn không cần phải nhớ điều này
+
+12
+00:00:24,930 --> 00:00:26,910
+nhưng biết vậy là được.
+
+13
+00:00:26,910 --> 00:00:28,320
+Chúng ta có một bucket khác
+
+14
+00:00:28,320 --> 00:00:31,920
+và nó sẽ chứa file, có thể là HTML, có thể là hình ảnh
+
+15
+00:00:31,920 --> 00:00:35,310
+và chúng ta sẽ bật tính năng để tương thích
+
+16
+00:00:35,310 --> 00:00:36,360
+với việc host website.
+
+17
+00:00:36,360 --> 00:00:39,660
+Đây là những gì nó sẽ trông như với URL tương ứng
+
+18
+00:00:39,660 --> 00:00:42,660
+và người dùng sẽ truy cập các S3 bucket của chúng ta.
+
+19
+00:00:42,660 --> 00:00:44,130
+Nhưng việc này sẽ không hoạt động
+
+20
+00:00:44,130 --> 00:00:47,940
+nếu chúng ta không bật đọc công khai cho bucket.
+
+21
+00:00:47,940 --> 00:00:49,200
+Vì vậy ở bài trước
+
+22
+00:00:49,200 --> 00:00:52,200
+chúng ta đã học về S3 bucket policy.
+
+23
+00:00:52,200 --> 00:00:54,870
+Nếu bạn gặp lỗi 403 forbidden
+
+24
+00:00:54,870 --> 00:00:57,150
+sau khi bật đọc cho bucket,
+
+25
+00:00:57,150 --> 00:00:59,100
+thì nghĩa là bucket của bạn chưa public.
+
+26
+00:00:59,100 --> 00:01:02,070
+Do đó bạn phải gắn S3 bucket policy
+
+27
+00:01:02,070 --> 00:01:03,840
+cho phép nó công khai.
+
+28
+00:01:03,840 --> 00:01:05,190
+Đó là tất cả cho bài ngắn này,
+
+29
+00:01:05,190 --> 00:01:07,590
+giờ hãy chuyển sang phần thực hành.

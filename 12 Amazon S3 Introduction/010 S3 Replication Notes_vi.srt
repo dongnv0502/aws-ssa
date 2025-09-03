@@ -1,0 +1,91 @@
+1
+00:00:00,330 --> 00:00:01,740
+Chào, chỉ vài ghi chú
+
+2
+00:00:01,740 --> 00:00:03,810
+về Amazon S3 Replication.
+
+3
+00:00:03,810 --> 00:00:06,480
+Sau khi bạn bật Replication như bạn đã thấy,
+
+4
+00:00:06,480 --> 00:00:09,570
+chỉ các object mới sẽ được sao chép.
+
+5
+00:00:09,570 --> 00:00:12,390
+Nếu bạn muốn sao chép các object hiện có,
+
+6
+00:00:12,390 --> 00:00:16,770
+bạn cần dùng tính năng S3 Batch Replication.
+
+7
+00:00:16,770 --> 00:00:19,440
+Tính năng này sẽ sao chép các object hiện có
+
+8
+00:00:19,440 --> 00:00:21,750
+và những object đã sao chép thất bại,
+
+9
+00:00:21,750 --> 00:00:24,510
+và nếu bạn có thao tác xóa,
+
+10
+00:00:24,510 --> 00:00:26,580
+bạn có thể sao chép các delete marker này
+
+11
+00:00:26,580 --> 00:00:28,320
+từ bucket nguồn sang bucket đích.
+
+12
+00:00:28,320 --> 00:00:31,650
+Đó là tùy chọn, nhưng nếu bạn xóa
+
+13
+00:00:31,650 --> 00:00:34,110
+với version ID thì chúng không được sao chép,
+
+14
+00:00:34,110 --> 00:00:35,910
+nên nếu đó là xóa vĩnh viễn,
+
+15
+00:00:35,910 --> 00:00:39,000
+bạn sẽ tránh việc xóa độc hại lan
+
+16
+00:00:39,000 --> 00:00:41,190
+từ bucket này sang bucket khác.
+
+17
+00:00:41,190 --> 00:00:43,590
+Cuối cùng, không có việc chain replication.
+
+18
+00:00:43,590 --> 00:00:45,150
+Nghĩa là nếu bucket một
+
+19
+00:00:45,150 --> 00:00:47,010
+sao chép sang bucket hai,
+
+20
+00:00:47,010 --> 00:00:49,470
+và bucket hai sao chép sang bucket ba,
+
+21
+00:00:49,470 --> 00:00:51,090
+thì object ở bucket một
+
+22
+00:00:51,090 --> 00:00:55,110
+sẽ không được sao chép sang bucket ba, vậy thôi.
+
+23
+00:00:55,110 --> 00:00:58,013
+Hy vọng bạn thích và hẹn gặp lại ở bài tiếp theo.
