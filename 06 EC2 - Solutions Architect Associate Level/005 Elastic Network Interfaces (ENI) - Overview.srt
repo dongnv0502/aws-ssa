@@ -1,0 +1,216 @@
+1
+00:00:00,010 --> 00:00:02,318
+Okay now lets talk about
+
+2
+00:00:02,318 --> 00:00:03,800
+Elastic Network Interfaces or ENI.
+
+3
+00:00:03,800 --> 00:00:05,950
+So if you hear me say ENI I mean
+
+4
+00:00:05,950 --> 00:00:07,740
+Elastic Network Interfaces.
+
+5
+00:00:07,740 --> 00:00:10,310
+They're a logical component in a VPC
+
+6
+00:00:10,310 --> 00:00:13,260
+and they represent a virtual network card.
+
+7
+00:00:13,260 --> 00:00:17,210
+So they're what gives EC2 Instances access to the network,
+
+8
+00:00:17,210 --> 00:00:19,730
+but they're used outside EC2 Instances as well
+
+9
+00:00:19,730 --> 00:00:21,660
+as we'll see later in this course.
+
+10
+00:00:21,660 --> 00:00:24,250
+So for example we have an availability zone
+
+11
+00:00:24,250 --> 00:00:26,380
+and we have one EC2 Instance
+
+12
+00:00:26,380 --> 00:00:30,870
+and to it is attached on eth0, your primary ENI
+
+13
+00:00:30,870 --> 00:00:34,510
+and this will provide your EC2 Instance network connectivity
+
+14
+00:00:34,510 --> 00:00:36,870
+and for example, a private IP.
+
+15
+00:00:36,870 --> 00:00:39,930
+So each ENI can have the following attributes.
+
+16
+00:00:39,930 --> 00:00:43,210
+Number one it can have a Primary private IPv4
+
+17
+00:00:43,210 --> 00:00:46,950
+and one or more secondary IPv4. Okay.
+
+18
+00:00:46,950 --> 00:00:49,940
+So in this example, I have one of zero but
+
+19
+00:00:49,940 --> 00:00:54,270
+you are more than welcomed to add a secondary ENI to EC2
+
+20
+00:00:54,270 --> 00:00:55,639
+and that will be eth1
+
+21
+00:00:55,639 --> 00:01:00,250
+and this will give you another private IPv4 as well, okay. `
+
+22
+00:01:00,250 --> 00:01:05,250
+Each ENI can also have an elastic IPv4 per private IPv4
+
+23
+00:01:06,060 --> 00:01:07,930
+or one or more public IPv4,
+
+24
+00:01:07,930 --> 00:01:10,330
+so it gives you a private and a public IP
+
+25
+00:01:10,330 --> 00:01:11,800
+as will see in the hands-on.
+
+26
+00:01:11,800 --> 00:01:14,110
+You can have one or more security groups attached
+
+27
+00:01:14,110 --> 00:01:15,400
+to your ENI.
+
+28
+00:01:15,400 --> 00:01:17,390
+You can have a Mac address attached to it
+
+29
+00:01:17,390 --> 00:01:20,140
+and other things but I've just give you
+
+30
+00:01:20,140 --> 00:01:22,640
+the most important bits right now in this lecture.
+
+31
+00:01:22,640 --> 00:01:25,660
+And you can create ENI's independently from
+
+32
+00:01:25,660 --> 00:01:26,870
+your EC2 instances
+
+33
+00:01:26,870 --> 00:01:28,160
+and attach them on the fly
+
+34
+00:01:28,160 --> 00:01:31,560
+or move them from EC2 instances for failover.
+
+35
+00:01:31,560 --> 00:01:33,370
+So, let's have a look at what it looks like.
+
+36
+00:01:33,370 --> 00:01:34,740
+And by the way, they're bounded
+
+37
+00:01:34,740 --> 00:01:37,352
+to a specific availability zone or AZ.
+
+38
+00:01:37,352 --> 00:01:40,020
+So that means that if you create a ENI in the specific AZ,
+
+39
+00:01:40,020 --> 00:01:42,610
+you can only have it bound to that specific AZ.
+
+40
+00:01:42,610 --> 00:01:44,410
+So here's another issue to instance
+
+41
+00:01:44,410 --> 00:01:47,130
+and it has another ENI attached to it.
+
+42
+00:01:47,130 --> 00:01:50,040
+And for example, we can do is we can move eth1
+
+43
+00:01:50,040 --> 00:01:53,740
+from the first EC2 instance into the second EC2 Instance
+
+44
+00:01:53,740 --> 00:01:55,650
+to move that private IP.
+
+45
+00:01:55,650 --> 00:01:58,170
+And what it means is that that private IP will change
+
+46
+00:01:58,170 --> 00:01:59,790
+from the first issue to instance
+
+47
+00:01:59,790 --> 00:02:01,970
+and will be attached to the second EC2 Instance.
+
+48
+00:02:01,970 --> 00:02:04,110
+And it's very very helpful for failovers.
+
+49
+00:02:04,110 --> 00:02:07,070
+For example, if you're easy to instance is accessed
+
+50
+00:02:07,070 --> 00:02:09,229
+by a private static IP,
+
+51
+00:02:09,229 --> 00:02:10,770
+then you can move the IP around between
+
+52
+00:02:10,770 --> 00:02:13,750
+these two instances for failover purposes, okay.
+
+53
+00:02:13,750 --> 00:02:14,870
+So let's have a look in the hands-on
+
+54
+00:02:14,870 --> 00:02:16,310
+to see what it looks like.
+

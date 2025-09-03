@@ -1,0 +1,564 @@
+1
+00:00:00,420 --> 00:00:04,050
+So, now let's talk about KMS Multi-Region keys.
+
+2
+00:00:04,050 --> 00:00:09,050
+So, we have KMS and we can actually have a Multi-Region key.
+
+3
+00:00:09,300 --> 00:00:11,940
+That means that you're going to have your primary key
+
+4
+00:00:11,940 --> 00:00:16,350
+in one selected Region, such as for example, us-east-1.
+
+5
+00:00:16,350 --> 00:00:18,709
+And then, that key is going to be replicated
+
+6
+00:00:18,709 --> 00:00:20,130
+to other Regions.
+
+7
+00:00:20,130 --> 00:00:25,110
+For example, us-west-2, eu-west-1 and ap-southeast-2.
+
+8
+00:00:25,110 --> 00:00:27,750
+And so the similarity is that
+
+9
+00:00:27,750 --> 00:00:30,060
+the key material is going to be replicated.
+
+10
+00:00:30,060 --> 00:00:32,430
+The same key is going to be in other Regions.
+
+11
+00:00:32,430 --> 00:00:35,880
+And the key ID is going to be the exact same.
+
+12
+00:00:35,880 --> 00:00:39,750
+So as you can see the key ID slash mrk and then whatever
+
+13
+00:00:39,750 --> 00:00:41,580
+is the same across all Regions.
+
+14
+00:00:41,580 --> 00:00:46,140
+And this is the principle behind the KMS Multi-Region keys.
+
+15
+00:00:46,140 --> 00:00:48,090
+So, what would you use them?
+
+16
+00:00:48,090 --> 00:00:50,280
+Well, it's a set of KMS keys
+
+17
+00:00:50,280 --> 00:00:52,680
+that you can use in different AWS Regions
+
+18
+00:00:52,680 --> 00:00:54,900
+and they can be used interchangeably.
+
+19
+00:00:54,900 --> 00:00:57,000
+So that means that you can encrypt in one Region
+
+20
+00:00:57,000 --> 00:00:59,550
+and then decrypt in another Region.
+
+21
+00:00:59,550 --> 00:01:01,860
+And Multi-Region keys they're possible
+
+22
+00:01:01,860 --> 00:01:05,310
+because they have the same key ID, the same key material.
+
+23
+00:01:05,310 --> 00:01:07,620
+And if you have automatic rotation enabled
+
+24
+00:01:07,620 --> 00:01:09,930
+for the primary key, and it actually rotates
+
+25
+00:01:09,930 --> 00:01:13,800
+it's going to be also replicated to the other Regions.
+
+26
+00:01:13,800 --> 00:01:16,770
+So the idea with that, with the Multi-Region key,
+
+27
+00:01:16,770 --> 00:01:18,960
+you can encrypt in one Region and decrypt
+
+28
+00:01:18,960 --> 00:01:21,870
+in another Region, and you don't need therefore
+
+29
+00:01:21,870 --> 00:01:23,280
+to re-encrypt your data
+
+30
+00:01:23,280 --> 00:01:25,200
+when moving from one Region to the next;
+
+31
+00:01:25,200 --> 00:01:28,170
+or to make cross Region API calls.
+
+32
+00:01:28,170 --> 00:01:29,730
+So something to understand though
+
+33
+00:01:29,730 --> 00:01:33,300
+is that KMS Multi-Region keys are not global.
+
+34
+00:01:33,300 --> 00:01:36,480
+Okay? You have your Primary and your Replicas.
+
+35
+00:01:36,480 --> 00:01:38,040
+And each Multi-Region key
+
+36
+00:01:38,040 --> 00:01:40,299
+is going to be managed independently
+
+37
+00:01:40,299 --> 00:01:43,620
+with its own key policy and so on.
+
+38
+00:01:43,620 --> 00:01:47,100
+So it's not recommended to use Multi-Region key,
+
+39
+00:01:47,100 --> 00:01:49,830
+except in very specific use cases
+
+40
+00:01:49,830 --> 00:01:52,123
+because KMS likes to have the fact that
+
+41
+00:01:52,123 --> 00:01:54,300
+a key is bounded to a single Region.
+
+42
+00:01:54,300 --> 00:01:57,060
+And so the use cases for using Multi-Region keys
+
+43
+00:01:57,060 --> 00:02:01,140
+is if you want to have a global client-side encryption.
+
+44
+00:02:01,140 --> 00:02:03,720
+So to be able to encrypt client-side in one Region
+
+45
+00:02:03,720 --> 00:02:06,480
+and to decrypt client-side in another Region.
+
+46
+00:02:06,480 --> 00:02:09,570
+or to do encryption on Global DynamoDB tables
+
+47
+00:02:09,570 --> 00:02:11,340
+or on Global Aurora.
+
+48
+00:02:11,340 --> 00:02:13,350
+And we'll see this in a second.
+
+49
+00:02:13,350 --> 00:02:15,210
+So how does it work when you use
+
+50
+00:02:15,210 --> 00:02:18,960
+Global Tables in DynamoDB and KMS Multi-Region key
+
+51
+00:02:18,960 --> 00:02:21,090
+with client side encryption?
+
+52
+00:02:21,090 --> 00:02:23,760
+So the idea is that you want to encrypt
+
+53
+00:02:23,760 --> 00:02:25,320
+not just the whole table
+
+54
+00:02:25,320 --> 00:02:27,300
+because this is just at risk encryption.
+
+55
+00:02:27,300 --> 00:02:30,637
+You want to encrypt actual attributes on your table.
+
+56
+00:02:30,637 --> 00:02:34,290
+And so that they're only available to specific clients.
+
+57
+00:02:34,290 --> 00:02:36,420
+Not even to database administrators.
+
+58
+00:02:36,420 --> 00:02:37,350
+For this we're going to use
+
+59
+00:02:37,350 --> 00:02:39,720
+the Amazon DynamoDB Encryption Clients.
+
+60
+00:02:39,720 --> 00:02:42,570
+So let's take an example where we have us-east-1
+
+61
+00:02:42,570 --> 00:02:44,700
+and ap-southeast-2.
+
+62
+00:02:44,700 --> 00:02:48,120
+So the KMS service is having a Multi-Region key
+
+63
+00:02:48,120 --> 00:02:50,550
+which is replicated to another Region.
+
+64
+00:02:50,550 --> 00:02:52,860
+The Region ap-southeast-2.
+
+65
+00:02:52,860 --> 00:02:55,530
+And the client application wants to insert data
+
+66
+00:02:55,530 --> 00:02:57,540
+into a DynamoDB table.
+
+67
+00:02:57,540 --> 00:03:00,720
+So first is going to encrypt the attribute
+
+68
+00:03:00,720 --> 00:03:02,490
+that it needs to be encrypted
+
+69
+00:03:02,490 --> 00:03:04,890
+with the primary Multi-Region key.
+
+70
+00:03:04,890 --> 00:03:07,050
+So the idea is that the DynamoDB table,
+
+71
+00:03:07,050 --> 00:03:10,950
+most of the fields will not be encrypted client-side. Okay.
+
+72
+00:03:10,950 --> 00:03:12,660
+But then one of them, for example
+
+73
+00:03:12,660 --> 00:03:15,693
+the Social Security number is going to be encrypted.
+
+74
+00:03:16,860 --> 00:03:18,660
+So this is great because well,
+
+75
+00:03:18,660 --> 00:03:20,520
+your database administrators
+
+76
+00:03:20,520 --> 00:03:23,010
+that have accessed your DynamoDB table,
+
+77
+00:03:23,010 --> 00:03:25,080
+if they don't have access to the KMS key
+
+78
+00:03:25,080 --> 00:03:27,660
+that we used to encrypt that one attribute,
+
+79
+00:03:27,660 --> 00:03:29,310
+the Social Security number.
+
+80
+00:03:29,310 --> 00:03:31,110
+Then they will not be able to access it.
+
+81
+00:03:31,110 --> 00:03:32,670
+So it gives you a protection even
+
+82
+00:03:32,670 --> 00:03:35,370
+against the database administrators.
+
+83
+00:03:35,370 --> 00:03:38,664
+So if this DynamoDB table happens to be a Global Table
+
+84
+00:03:38,664 --> 00:03:43,664
+then this data is going to be replicated to another Region.
+
+85
+00:03:43,860 --> 00:03:47,070
+And so this is now in ap-southeast-2.
+
+86
+00:03:47,070 --> 00:03:50,850
+And thankfully we've decided to encrypt our data,
+
+87
+00:03:50,850 --> 00:03:53,970
+the attributes, with a Multi-Region key.
+
+88
+00:03:53,970 --> 00:03:56,640
+And therefore, a client's application
+
+89
+00:03:56,640 --> 00:04:01,170
+in the ap-southeast-2 Region can retrieve the row,
+
+90
+00:04:01,170 --> 00:04:03,570
+see that one attribute is encrypted
+
+91
+00:04:03,570 --> 00:04:05,790
+and then perform an API call
+
+92
+00:04:05,790 --> 00:04:08,040
+to actually decrypt the attribute
+
+93
+00:04:08,040 --> 00:04:11,220
+with the replica Multi-Region key.
+
+94
+00:04:11,220 --> 00:04:14,790
+And this is why we are doing Multi-Region key this instance.
+
+95
+00:04:14,790 --> 00:04:18,600
+Is it so that client applications in the ap-southeast-2
+
+96
+00:04:18,600 --> 00:04:21,180
+can do a local API call to KMS
+
+97
+00:04:21,180 --> 00:04:23,460
+to decrypt that one attribute.
+
+98
+00:04:23,460 --> 00:04:26,160
+So using this client-side encryption technique
+
+99
+00:04:26,160 --> 00:04:29,400
+we can protect specific fields or attributes on our data
+
+100
+00:04:29,400 --> 00:04:32,010
+and only guarantee decryption when our client has access
+
+101
+00:04:32,010 --> 00:04:33,180
+to an API key.
+
+102
+00:04:33,180 --> 00:04:35,310
+And thanks to Global Tables
+
+103
+00:04:35,310 --> 00:04:38,850
+we can make sure the data and the encryption keys
+
+104
+00:04:38,850 --> 00:04:41,550
+are also replicated together.
+
+105
+00:04:41,550 --> 00:04:45,180
+So the same concept can be applied to Global Aurora.
+
+106
+00:04:45,180 --> 00:04:46,680
+So I will go a bit faster.
+
+107
+00:04:46,680 --> 00:04:49,950
+And this time we're going to use the AWS Encryption SDK.
+
+108
+00:04:49,950 --> 00:04:51,060
+So we have two Regions
+
+109
+00:04:51,060 --> 00:04:53,850
+and we have a Multi-Region key in KMS
+
+110
+00:04:53,850 --> 00:04:55,800
+replicated across these two Regions.
+
+111
+00:04:55,800 --> 00:04:58,380
+And so the client application wants to encrypt a column
+
+112
+00:04:58,380 --> 00:05:00,810
+yet to get it is my SSN column.
+
+113
+00:05:00,810 --> 00:05:04,560
+And this time we put the data into an Amazon Aurora database
+
+114
+00:05:04,560 --> 00:05:05,580
+with a table.
+
+115
+00:05:05,580 --> 00:05:09,120
+And so all the data is unencrypted on this one row,
+
+116
+00:05:09,120 --> 00:05:12,690
+except that one column, which is the SSN, which is encrypted
+
+117
+00:05:12,690 --> 00:05:16,195
+actually with the, mrk, the Multi-Region key.
+
+118
+00:05:16,195 --> 00:05:19,290
+Now this is a Global Database.
+
+119
+00:05:19,290 --> 00:05:21,570
+So that means that the tables are going to be
+
+120
+00:05:21,570 --> 00:05:23,340
+replicated globally.
+
+121
+00:05:23,340 --> 00:05:26,520
+And therefore the same data is going to happen to be
+
+122
+00:05:26,520 --> 00:05:28,314
+in the ap-southeast-2.
+
+123
+00:05:28,314 --> 00:05:31,680
+And because we have clients in the ap-southeast-2
+
+124
+00:05:31,680 --> 00:05:35,610
+they're going to get this encrypted data from your table.
+
+125
+00:05:35,610 --> 00:05:37,860
+And because we are using a Multi-Region key
+
+126
+00:05:37,860 --> 00:05:40,170
+they can do a local API call to KMS
+
+127
+00:05:40,170 --> 00:05:42,030
+to decrypt this attribute.
+
+128
+00:05:42,030 --> 00:05:45,060
+And therefore we have achieved lower latency.
+
+129
+00:05:45,060 --> 00:05:47,957
+So we've seen that using client-side encryption,
+
+130
+00:05:47,957 --> 00:05:50,067
+we can also protect this data
+
+131
+00:05:50,067 --> 00:05:51,900
+even from database administrators.
+
+132
+00:05:51,900 --> 00:05:53,580
+So if you have a database admin
+
+133
+00:05:53,580 --> 00:05:56,070
+that accesses your Amazon Aurora database
+
+134
+00:05:56,070 --> 00:05:57,960
+and wants to access that one column,
+
+135
+00:05:57,960 --> 00:05:59,430
+the Social Security number.
+
+136
+00:05:59,430 --> 00:06:01,560
+Unless they have access to the KMS key
+
+137
+00:06:01,560 --> 00:06:03,480
+they will not be able to read this data
+
+138
+00:06:03,480 --> 00:06:05,280
+which is very helpful.
+
+139
+00:06:05,280 --> 00:06:08,190
+So that's it for KMS Multi-Region keys.
+
+140
+00:06:08,190 --> 00:06:09,120
+I hope you liked it.
+
+141
+00:06:09,120 --> 00:06:11,070
+And I will see you in the next lecture.
+

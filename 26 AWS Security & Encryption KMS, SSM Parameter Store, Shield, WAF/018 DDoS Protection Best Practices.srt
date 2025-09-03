@@ -1,0 +1,528 @@
+1
+00:00:00,210 --> 00:00:01,500
+So here is a lecture
+
+2
+00:00:01,500 --> 00:00:04,500
+that is more focused on the solution architecture,
+
+3
+00:00:04,500 --> 00:00:08,070
+and this is around DDoS protection and best practices.
+
+4
+00:00:08,070 --> 00:00:10,380
+So let's assume that you have this kind of architecture.
+
+5
+00:00:10,380 --> 00:00:13,320
+We have an auto scaling group with EC2 instances.
+
+6
+00:00:13,320 --> 00:00:15,990
+It's fronted by a Elastic Load Balancer,
+
+7
+00:00:15,990 --> 00:00:18,389
+and then your load balancer can be either exposed
+
+8
+00:00:18,389 --> 00:00:22,020
+by a Global Accelerator as fixed IPs,
+
+9
+00:00:22,020 --> 00:00:25,080
+or it could be fronted, for example, by CloudFronts.
+
+10
+00:00:25,080 --> 00:00:29,010
+CloudFronts can be linked to WAF,
+
+11
+00:00:29,010 --> 00:00:31,440
+a web application firewall, and so on.
+
+12
+00:00:31,440 --> 00:00:35,970
+You can have Route 53 for DNS routing.
+
+13
+00:00:35,970 --> 00:00:38,250
+And finally you could also have another architecture
+
+14
+00:00:38,250 --> 00:00:41,160
+where you have CloudFront and the API gateway.
+
+15
+00:00:41,160 --> 00:00:42,750
+So this is just to represent the
+
+16
+00:00:42,750 --> 00:00:44,040
+kind of combinations you can do.
+
+17
+00:00:44,040 --> 00:00:45,690
+Obviously there are more than one,
+
+18
+00:00:45,690 --> 00:00:47,430
+but the idea's that we're going to discuss
+
+19
+00:00:47,430 --> 00:00:50,070
+thanks to the letter BP1, best practice one,
+
+20
+00:00:50,070 --> 00:00:51,450
+best practice two, et cetera,
+
+21
+00:00:51,450 --> 00:00:52,710
+what the implications are
+
+22
+00:00:52,710 --> 00:00:55,410
+in terms of DDoS resiliency, okay?
+
+23
+00:00:55,410 --> 00:00:59,160
+So by using CloudFront, we are actually at the Edge.
+
+24
+00:00:59,160 --> 00:01:02,220
+So this slide is all about Edge location mitigation.
+
+25
+00:01:02,220 --> 00:01:03,930
+That means that your web application delivery
+
+26
+00:01:03,930 --> 00:01:05,880
+is at the Edge, and so you're going
+
+27
+00:01:05,880 --> 00:01:08,550
+to be protected against DDoS common attacks
+
+28
+00:01:08,550 --> 00:01:11,820
+by using Shield, just a normal setup of Shield's,
+
+29
+00:01:11,820 --> 00:01:14,130
+so SYN floods and UDB reflection.
+
+30
+00:01:14,130 --> 00:01:16,680
+If you use the Global Accelerator,
+
+31
+00:01:16,680 --> 00:01:20,250
+this is going to be able to access your application
+
+32
+00:01:20,250 --> 00:01:22,830
+around the world, again at the Edge.
+
+33
+00:01:22,830 --> 00:01:24,180
+And again, it's fully integrated
+
+34
+00:01:24,180 --> 00:01:26,220
+with Shield for DDoS protection.
+
+35
+00:01:26,220 --> 00:01:28,680
+So it's very helpful if your backend
+
+36
+00:01:28,680 --> 00:01:31,260
+is somehow not compatible with CloudFronts.
+
+37
+00:01:31,260 --> 00:01:34,050
+In this case, you would have Global Accelerator
+
+38
+00:01:34,050 --> 00:01:36,210
+in front of it, and so that means that no matter
+
+39
+00:01:36,210 --> 00:01:38,900
+what backend you have, either using CloudFront
+
+40
+00:01:38,900 --> 00:01:40,710
+or the Global Accelerator,
+
+41
+00:01:40,710 --> 00:01:44,010
+you will be fully distributed at the Edge of AWS
+
+42
+00:01:44,010 --> 00:01:47,283
+and the Edge location will be DDoS protected.
+
+43
+00:01:48,150 --> 00:01:50,730
+Also, if you use Route 53,
+
+44
+00:01:50,730 --> 00:01:53,280
+then the domain name resolution is global,
+
+45
+00:01:53,280 --> 00:01:54,930
+it's at the Edge, and you also have
+
+46
+00:01:54,930 --> 00:01:58,080
+a DDoS protection mechanism on your DNS.
+
+47
+00:01:58,080 --> 00:02:00,180
+So we understand that if we're at the Edge,
+
+48
+00:02:00,180 --> 00:02:02,103
+we can have a better DDoS protection.
+
+49
+00:02:03,120 --> 00:02:07,920
+Next, we can have the best practices for DDoS mitigation.
+
+50
+00:02:07,920 --> 00:02:10,770
+So first, let's look at the infrastructure layer defense.
+
+51
+00:02:10,770 --> 00:02:13,860
+This is BP1, BP3, and BP6.
+
+52
+00:02:13,860 --> 00:02:15,840
+So the idea is that by using CloudFront,
+
+53
+00:02:15,840 --> 00:02:18,510
+Global Accelerator, Route 53
+
+54
+00:02:18,510 --> 00:02:20,430
+and the Elastic Load Balancing,
+
+55
+00:02:20,430 --> 00:02:24,840
+we protect our Amazon EC2 instances against high traffic.
+
+56
+00:02:24,840 --> 00:02:28,680
+And this is the idea that by using all these services,
+
+57
+00:02:28,680 --> 00:02:30,960
+the traffic is going to be handled by most of them
+
+58
+00:02:30,960 --> 00:02:34,530
+before ever reaching our EC2 instances.
+
+59
+00:02:34,530 --> 00:02:38,070
+Now, if we enable our EC2 instances with auto-scaling,
+
+60
+00:02:38,070 --> 00:02:40,560
+that means that in case the traffic does indeed
+
+61
+00:02:40,560 --> 00:02:44,310
+reach our auto scaling group, we can scale automatically
+
+62
+00:02:44,310 --> 00:02:48,930
+to accommodate for a greater load on our application.
+
+63
+00:02:48,930 --> 00:02:51,030
+And if we use Elastic Load Balancing,
+
+64
+00:02:51,030 --> 00:02:54,120
+then the ELB is going to automatically spread
+
+65
+00:02:54,120 --> 00:02:56,670
+the traffic across many EC2 instances.
+
+66
+00:02:56,670 --> 00:02:58,440
+And so that means that each EC2 instances
+
+67
+00:02:58,440 --> 00:03:03,060
+will have a manageable amount of traffic onto them,
+
+68
+00:03:03,060 --> 00:03:04,890
+provided the fact that the auto-scaling group
+
+69
+00:03:04,890 --> 00:03:06,603
+of course has scaled as well.
+
+70
+00:03:07,770 --> 00:03:10,110
+Now at the application layer defense,
+
+71
+00:03:10,110 --> 00:03:13,200
+we can detect and filter malicious requests
+
+72
+00:03:13,200 --> 00:03:15,060
+at BP1 and BP2.
+
+73
+00:03:15,060 --> 00:03:16,530
+So the idea is that CloudFront is going
+
+74
+00:03:16,530 --> 00:03:19,950
+to serve static content, and serve it from Edge locations,
+
+75
+00:03:19,950 --> 00:03:22,500
+therefore protecting your backend.
+
+76
+00:03:22,500 --> 00:03:25,260
+And then you can use WAF on top of CloudFront,
+
+77
+00:03:25,260 --> 00:03:27,810
+or your application load balancers to filter
+
+78
+00:03:27,810 --> 00:03:30,150
+and block requests based on request signatures,
+
+79
+00:03:30,150 --> 00:03:32,790
+for example, you can block specific IPs,
+
+80
+00:03:32,790 --> 00:03:35,280
+specific request types and so on.
+
+81
+00:03:35,280 --> 00:03:37,800
+And if you use the WAF rate based rules,
+
+82
+00:03:37,800 --> 00:03:41,070
+you can automatically block the IPs of bad actors.
+
+83
+00:03:41,070 --> 00:03:44,070
+So you can use a bunch of managed rules on WAF
+
+84
+00:03:44,070 --> 00:03:46,920
+to block IPs based on reputation
+
+85
+00:03:46,920 --> 00:03:49,080
+or block anonymous IPs and so on.
+
+86
+00:03:49,080 --> 00:03:52,260
+And using CloudFront, you can block specific geographies.
+
+87
+00:03:52,260 --> 00:03:55,470
+The idea is that CloudFront and WAF are managed services,
+
+88
+00:03:55,470 --> 00:03:57,330
+and so they will take care of filtering
+
+89
+00:03:57,330 --> 00:03:59,730
+some requests for you, so you can be protected
+
+90
+00:03:59,730 --> 00:04:02,250
+against DDoS attack.
+
+91
+00:04:02,250 --> 00:04:04,140
+And of course using Shield Advanced,
+
+92
+00:04:04,140 --> 00:04:05,790
+so in case you enable it,
+
+93
+00:04:05,790 --> 00:04:09,330
+then it will automatically create WAF rules for you
+
+94
+00:04:09,330 --> 00:04:11,130
+to mitigate layer seven attacks.
+
+95
+00:04:11,130 --> 00:04:13,620
+So this is good for the application layer defense,
+
+96
+00:04:13,620 --> 00:04:16,589
+again to protect your EC2 instances
+
+97
+00:04:16,589 --> 00:04:19,863
+from getting any bad request or at least minimize them.
+
+98
+00:04:20,700 --> 00:04:24,450
+And also, how do we reduce our attack surface?
+
+99
+00:04:24,450 --> 00:04:26,160
+So the idea with this architecture is
+
+100
+00:04:26,160 --> 00:04:30,600
+that the backend AWS resources are used
+
+101
+00:04:30,600 --> 00:04:33,180
+to serve our application, are hidden.
+
+102
+00:04:33,180 --> 00:04:36,030
+So we have BP1, BP4, and BP6.
+
+103
+00:04:36,030 --> 00:04:38,910
+So if we use CloudFront, the API Gateway,
+
+104
+00:04:38,910 --> 00:04:40,440
+or Elastic Load Balancing,
+
+105
+00:04:40,440 --> 00:04:42,540
+we can hide our backend resources.
+
+106
+00:04:42,540 --> 00:04:45,390
+The attacker will never know if it's a lambda function
+
+107
+00:04:45,390 --> 00:04:48,630
+or EC2 instances or ECS tasks, and so on,
+
+108
+00:04:48,630 --> 00:04:51,960
+because we have used other things in front of them.
+
+109
+00:04:51,960 --> 00:04:54,870
+Also, we can set up security groups and network ACLs
+
+110
+00:04:54,870 --> 00:04:58,140
+to filter traffic based on specific IPs,
+
+111
+00:04:58,140 --> 00:05:00,210
+and elastic IPs, if we use them,
+
+112
+00:05:00,210 --> 00:05:04,410
+they can be protected by AWS Shield Advanced as well.
+
+113
+00:05:04,410 --> 00:05:06,570
+And then you can protect API endpoints themselves,
+
+114
+00:05:06,570 --> 00:05:08,580
+so if you use the API gateway,
+
+115
+00:05:08,580 --> 00:05:10,290
+then you can hide whatever backend it is,
+
+116
+00:05:10,290 --> 00:05:13,380
+whether it be EC2, lambda or something else.
+
+117
+00:05:13,380 --> 00:05:15,690
+And if you use the Edge optimized mode,
+
+118
+00:05:15,690 --> 00:05:16,770
+you're already global.
+
+119
+00:05:16,770 --> 00:05:19,410
+Otherwise you can use CloudFront plus the regional mode,
+
+120
+00:05:19,410 --> 00:05:22,140
+which gives you more control for DDoS protection.
+
+121
+00:05:22,140 --> 00:05:25,170
+And if you use WAF on top of the API gateway,
+
+122
+00:05:25,170 --> 00:05:29,040
+then you can get filtering of any HTTP request.
+
+123
+00:05:29,040 --> 00:05:31,470
+And if you set up the API gateway correctly,
+
+124
+00:05:31,470 --> 00:05:33,930
+you can have burst limits, you can do headers filtering,
+
+125
+00:05:33,930 --> 00:05:37,080
+and you can use and force API keys for your users,
+
+126
+00:05:37,080 --> 00:05:39,900
+therefore protecting yourself from a DDoS attack.
+
+127
+00:05:39,900 --> 00:05:42,360
+So hopefully this kind of architecture makes sense
+
+128
+00:05:42,360 --> 00:05:44,640
+and you understand the different ways you can protect
+
+129
+00:05:44,640 --> 00:05:46,740
+against DDoS, because the exam will ask you
+
+130
+00:05:46,740 --> 00:05:48,930
+to think just like that, okay?
+
+131
+00:05:48,930 --> 00:05:50,280
+So that's it for this lecture.
+
+132
+00:05:50,280 --> 00:05:53,280
+I hope you liked it, and I will see you in the next lecture.
+

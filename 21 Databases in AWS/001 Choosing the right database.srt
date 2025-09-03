@@ -1,0 +1,336 @@
+1
+00:00:00,120 --> 00:00:02,820
+Hello, and welcome to this section on databases.
+
+2
+00:00:02,820 --> 00:00:05,520
+So I'm doing a quick intro because at the exam
+
+3
+00:00:05,520 --> 00:00:07,200
+you will have to choose the right database
+
+4
+00:00:07,200 --> 00:00:10,980
+for your workload, and there are a lot of managed databases
+
+5
+00:00:10,980 --> 00:00:12,690
+on AWS to choose from.
+
+6
+00:00:12,690 --> 00:00:15,420
+So it's mainly based on the architecture
+
+7
+00:00:15,420 --> 00:00:18,990
+of the question is asking, and so, is it write-heavy,
+
+8
+00:00:18,990 --> 00:00:21,570
+is it read-heavy, is it balanced workload?
+
+9
+00:00:21,570 --> 00:00:23,100
+What does it need?
+
+10
+00:00:23,100 --> 00:00:25,980
+Is it going to change or fluctuate during the day?
+
+11
+00:00:25,980 --> 00:00:28,680
+How much data is going to be stored and for how long?
+
+12
+00:00:28,680 --> 00:00:30,990
+Will it grow? What's the average object size?
+
+13
+00:00:30,990 --> 00:00:33,660
+How often are there access and how are the text?
+
+14
+00:00:33,660 --> 00:00:35,550
+What about data durability?
+
+15
+00:00:35,550 --> 00:00:37,650
+What is the source or truth for your data?
+
+16
+00:00:37,650 --> 00:00:39,450
+Do you have any latency requirements?
+
+17
+00:00:39,450 --> 00:00:41,820
+Any concurrent user requirements?
+
+18
+00:00:41,820 --> 00:00:42,840
+What is the data model?
+
+19
+00:00:42,840 --> 00:00:44,670
+How are you going to query the data, joins?
+
+20
+00:00:44,670 --> 00:00:46,950
+Is it structured? Is it semi-structure?
+
+21
+00:00:46,950 --> 00:00:49,920
+Do you need a strong schema or do you need more flexibility?
+
+22
+00:00:49,920 --> 00:00:51,270
+Do you want to include reporting
+
+23
+00:00:51,270 --> 00:00:52,650
+on top of your database or not?
+
+24
+00:00:52,650 --> 00:00:53,790
+Do you want search?
+
+25
+00:00:53,790 --> 00:00:57,150
+Do you want a relational database or NoSQL?
+
+26
+00:00:57,150 --> 00:00:58,770
+Are there any license cost?
+
+27
+00:00:58,770 --> 00:01:00,780
+Do you wanna switch to Cloud Native databases
+
+28
+00:01:00,780 --> 00:01:02,250
+such as Aurora and so on.
+
+29
+00:01:02,250 --> 00:01:04,470
+So, of course, based on the question
+
+30
+00:01:04,470 --> 00:01:05,340
+you have a different answer,
+
+31
+00:01:05,340 --> 00:01:08,670
+but just to give you the kind of dimensions
+
+32
+00:01:08,670 --> 00:01:11,610
+and the kind of avenues the questions can be geared towards
+
+33
+00:01:11,610 --> 00:01:13,650
+for helping you choose the right database.
+
+34
+00:01:13,650 --> 00:01:16,620
+But don't worry, we will see all the different databases
+
+35
+00:01:16,620 --> 00:01:18,393
+in this section and summarize them.
+
+36
+00:01:19,350 --> 00:01:22,050
+So first we have the RDBMS databases.
+
+37
+00:01:22,050 --> 00:01:24,420
+That means you're using SQL
+
+38
+00:01:24,420 --> 00:01:26,940
+or you wanna do online transaction processing.
+
+39
+00:01:26,940 --> 00:01:30,390
+So you have RDS and Aurora, and these databases are great
+
+40
+00:01:30,390 --> 00:01:32,040
+if you wanna do joins.
+
+41
+00:01:32,040 --> 00:01:33,600
+Don't worry, by the way, we'll go into a deep dive
+
+42
+00:01:33,600 --> 00:01:34,650
+in all these databases
+
+43
+00:01:34,650 --> 00:01:36,690
+so you don't have to remember everything.
+
+44
+00:01:36,690 --> 00:01:40,140
+Then we have the category of the NoSQL databases.
+
+45
+00:01:40,140 --> 00:01:44,040
+So NoSQL is going to be more flexible, usually,
+
+46
+00:01:44,040 --> 00:01:46,470
+but you don't have joint capabilities
+
+47
+00:01:46,470 --> 00:01:49,470
+and you don't have the SQL query language in general.
+
+48
+00:01:49,470 --> 00:01:51,180
+Okay, there can be exceptions.
+
+49
+00:01:51,180 --> 00:01:53,160
+And again, they will be discussed one by one.
+
+50
+00:01:53,160 --> 00:01:55,440
+So we have DynamoDB, we have ElastiCache,
+
+51
+00:01:55,440 --> 00:01:58,350
+we have Neptune, DocumentDB and Keyspaces,
+
+52
+00:01:58,350 --> 00:02:00,270
+and there may be new names for you, but don't worry,
+
+53
+00:02:00,270 --> 00:02:03,360
+we will learn about them in this section.
+
+54
+00:02:03,360 --> 00:02:06,240
+Then we have object store, so this is a kind of database,
+
+55
+00:02:06,240 --> 00:02:08,729
+yes, Amazon is free to store big objects
+
+56
+00:02:08,729 --> 00:02:12,630
+or Glacier to store backups and archives.
+
+57
+00:02:12,630 --> 00:02:14,070
+Then we have data warehousing
+
+58
+00:02:14,070 --> 00:02:16,920
+for SQL doing analytics with SQL
+
+59
+00:02:16,920 --> 00:02:19,110
+or business intelligence, BI.
+
+60
+00:02:19,110 --> 00:02:22,470
+So we have Redshift which is OLAP type of database,
+
+61
+00:02:22,470 --> 00:02:24,510
+and Athena and EMR.
+
+62
+00:02:24,510 --> 00:02:27,000
+We have the search type of databases.
+
+63
+00:02:27,000 --> 00:02:29,520
+So we have the OpenSearch type of database
+
+64
+00:02:29,520 --> 00:02:33,570
+to include some free text and do unstructured searches
+
+65
+00:02:33,570 --> 00:02:35,160
+on your data.
+
+66
+00:02:35,160 --> 00:02:37,650
+Graph databases, so to display relationships
+
+67
+00:02:37,650 --> 00:02:40,560
+between your datasets, this is Amazon Neptune.
+
+68
+00:02:40,560 --> 00:02:43,170
+We have ledger databases to have a list
+
+69
+00:02:43,170 --> 00:02:44,910
+and a ledger of transactions,
+
+70
+00:02:44,910 --> 00:02:49,140
+so we have the Amazon QLDB, so Quantum Ledger Database.
+
+71
+00:02:49,140 --> 00:02:51,000
+We have the time series types of database
+
+72
+00:02:51,000 --> 00:02:54,240
+for Amazon Timestream, and that's it.
+
+73
+00:02:54,240 --> 00:02:57,180
+We may have more database types and more databases
+
+74
+00:02:57,180 --> 00:02:59,700
+that it will include in section if need be, okay?
+
+75
+00:02:59,700 --> 00:03:02,220
+So don't worry if some of these databases
+
+76
+00:03:02,220 --> 00:03:04,350
+are not discussed in this section,
+
+77
+00:03:04,350 --> 00:03:07,170
+they will be discussed at depth in the following section
+
+78
+00:03:07,170 --> 00:03:09,810
+which is the data and analytics section.
+
+79
+00:03:09,810 --> 00:03:11,910
+Okay. So that's it for an overview.
+
+80
+00:03:11,910 --> 00:03:13,410
+Don't worry, you don't have to remember anything
+
+81
+00:03:13,410 --> 00:03:14,243
+from what I said.
+
+82
+00:03:14,243 --> 00:03:16,860
+It's just to give you where we're coming from.
+
+83
+00:03:16,860 --> 00:03:18,690
+And I will see you in the next lectures
+
+84
+00:03:18,690 --> 00:03:20,943
+to start discussing the databases one by one.
+

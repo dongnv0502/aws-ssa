@@ -1,0 +1,560 @@
+1
+00:00:00,420 --> 00:00:03,150
+Okay, so let's demonstrate MFA delete.
+
+2
+00:00:03,150 --> 00:00:04,600
+So I'm going to create a bucket,
+
+3
+00:00:04,600 --> 00:00:09,600
+and I'll call it demo stephane MFA delete 2020 in eu-west-1.
+
+4
+00:00:12,020 --> 00:00:15,470
+And I'm going to enable bucket versioning,
+
+5
+00:00:15,470 --> 00:00:17,143
+and click on create buckets.
+
+6
+00:00:19,240 --> 00:00:20,410
+Okay, good.
+
+7
+00:00:20,410 --> 00:00:22,160
+Now, if we go to this bucket,
+
+8
+00:00:22,160 --> 00:00:23,740
+the MFA bucket,
+
+9
+00:00:23,740 --> 00:00:27,360
+and go to properties and bucket versioning
+
+10
+00:00:27,360 --> 00:00:28,620
+and click on edit.
+
+11
+00:00:28,620 --> 00:00:32,119
+As you can see, Multi-Factor authentication (MFA) delete
+
+12
+00:00:32,119 --> 00:00:33,960
+is currently disabled,
+
+13
+00:00:33,960 --> 00:00:35,550
+and you cannot change this
+
+14
+00:00:35,550 --> 00:00:39,116
+through the UI of Amazon console, for some reason.
+
+15
+00:00:39,116 --> 00:00:42,490
+So maybe someday they will allow us to enable it.
+
+16
+00:00:42,490 --> 00:00:43,323
+But for now,
+
+17
+00:00:43,323 --> 00:00:45,030
+what you have to do is to enable it
+
+18
+00:00:45,030 --> 00:00:48,340
+directly using the AWS CLI.
+
+19
+00:00:48,340 --> 00:00:52,031
+So a prerequisite of this hands-on is to make sure that,
+
+20
+00:00:52,031 --> 00:00:53,401
+under IAM,
+
+21
+00:00:53,401 --> 00:00:56,640
+you have already set up an MFA device
+
+22
+00:00:56,640 --> 00:00:57,640
+for your root accounts.
+
+23
+00:00:57,640 --> 00:00:59,170
+So I'm using my root account right now,
+
+24
+00:00:59,170 --> 00:01:01,960
+as you can see, it's, I'm logged in as roots.
+
+25
+00:01:01,960 --> 00:01:05,000
+And what I need to do is click on it and click on my
+
+26
+00:01:05,000 --> 00:01:06,840
+security credentials.
+
+27
+00:01:06,840 --> 00:01:09,621
+This is taking me to the security credentials I have in IAM.
+
+28
+00:01:09,621 --> 00:01:12,181
+And under a Multi-Factor authentication MFS,
+
+29
+00:01:12,181 --> 00:01:16,480
+you can see I've set up already a virtual device for my MFA,
+
+30
+00:01:16,480 --> 00:01:18,720
+and the ARN is right here.
+
+31
+00:01:18,720 --> 00:01:20,800
+Okay, so this is good.
+
+32
+00:01:20,800 --> 00:01:25,340
+Next, we have to go ahead and actually configure the ADA CLA
+
+33
+00:01:25,340 --> 00:01:27,300
+to use this root account.
+
+34
+00:01:27,300 --> 00:01:29,440
+Now, this is something I don't recommend on doing,
+
+35
+00:01:29,440 --> 00:01:32,857
+except for enabling MFA delete on your S3 bucket.
+
+36
+00:01:32,857 --> 00:01:35,428
+So what I'm going to do is to create new access keys,
+
+37
+00:01:35,428 --> 00:01:39,760
+and I will download the key file and then show the access
+
+38
+00:01:39,760 --> 00:01:40,593
+keys as well.
+
+39
+00:01:40,593 --> 00:01:43,180
+I will remove them, so don't worry about seeing mine,
+
+40
+00:01:43,180 --> 00:01:46,069
+but you should never share your root access key with anyone
+
+41
+00:01:46,069 --> 00:01:47,920
+as well as your secret access key.
+
+42
+00:01:47,920 --> 00:01:51,160
+And so what I need you to do now is to set up the CLA with
+
+43
+00:01:51,160 --> 00:01:53,023
+these two little settings.
+
+44
+00:01:53,980 --> 00:01:56,620
+So I'm going to configure my command line.
+
+45
+00:01:56,620 --> 00:01:59,960
+So AWS configure and then I'm going to create a profile
+
+46
+00:01:59,960 --> 00:02:03,240
+and I've called this profile, roots-MFA-delete-demo.
+
+47
+00:02:03,240 --> 00:02:04,400
+And this file, you can find under,
+
+48
+00:02:04,400 --> 00:02:06,890
+s3advanced.mfadelete.sh.
+
+49
+00:02:06,890 --> 00:02:09,009
+So we're using the comments from there.
+
+50
+00:02:09,009 --> 00:02:11,522
+So I'm going to set up this profile and then after you enter
+
+51
+00:02:11,522 --> 00:02:14,750
+my access key Id, which is right here.
+
+52
+00:02:14,750 --> 00:02:17,699
+So let's go ahead and paste this, my secret access key,
+
+53
+00:02:17,699 --> 00:02:21,002
+which is all the way here, paste it.
+
+54
+00:02:21,002 --> 00:02:25,210
+Default region name, eu-west-1, and we're good to go.
+
+55
+00:02:25,210 --> 00:02:29,261
+Now, if I do AWS S3 LS, does it work?
+
+56
+00:02:29,261 --> 00:02:32,724
+and do it with my profile that I've just created,
+
+57
+00:02:32,724 --> 00:02:36,583
+which is called by the way, root-MFA-delete-demo.
+
+58
+00:02:38,810 --> 00:02:40,710
+Yes this gives me my three buckets that I have.
+
+59
+00:02:40,710 --> 00:02:43,760
+So my profile is correctly set up.
+
+60
+00:02:43,760 --> 00:02:47,740
+Next, what I have to do is to enable the MFA delete.
+
+61
+00:02:47,740 --> 00:02:50,160
+So for this, there is this full setting right here
+
+62
+00:02:50,160 --> 00:02:53,440
+that I'm going to copy and then edit, with you.
+
+63
+00:02:53,440 --> 00:02:58,010
+So I paste it and I need to first change the bucket names.
+
+64
+00:02:58,010 --> 00:03:01,460
+So the bucket for now is called, MFA-demo-stephane
+
+65
+00:03:03,727 --> 00:03:06,580
+but I'm going to change it by demo-stephane-MFA-delete-2020,
+
+66
+00:03:06,580 --> 00:03:07,710
+which is good.
+
+67
+00:03:07,710 --> 00:03:09,890
+Versioning configuration status enabled.
+
+68
+00:03:09,890 --> 00:03:11,570
+MFA delete equals enabled.
+
+69
+00:03:11,570 --> 00:03:15,850
+So we are good to go here and then we need to specify the
+
+70
+00:03:15,850 --> 00:03:19,823
+ARN of the MFA device and this I can find.
+
+71
+00:03:21,150 --> 00:03:22,520
+So let's find it's right here.
+
+72
+00:03:22,520 --> 00:03:24,380
+This is the ARN of the MFA device,
+
+73
+00:03:24,380 --> 00:03:25,983
+So I'm going to paste it.
+
+74
+00:03:27,060 --> 00:03:29,210
+And finally, the MFA code.
+
+75
+00:03:29,210 --> 00:03:33,583
+This is something that I'm going to get directly from my
+
+76
+00:03:33,583 --> 00:03:36,190
+application, that gives me my MFA code.
+
+77
+00:03:36,190 --> 00:03:40,193
+So seven one zero three four three, press enter.
+
+78
+00:03:41,330 --> 00:03:43,710
+And apparently this is not correct.
+
+79
+00:03:43,710 --> 00:03:47,073
+So let's wait another one.
+
+80
+00:03:51,598 --> 00:03:53,681
+(typing)
+
+81
+00:03:57,520 --> 00:03:58,840
+And we're good to go.
+
+82
+00:03:58,840 --> 00:04:00,850
+Okay, so this was set up.
+
+83
+00:04:00,850 --> 00:04:03,010
+So now, how do we know if it worked?
+
+84
+00:04:03,010 --> 00:04:06,890
+Well, if I go into my bucket versioning and refresh,
+
+85
+00:04:06,890 --> 00:04:08,630
+as we can see now, bucket versioning,
+
+86
+00:04:08,630 --> 00:04:10,480
+it says bucket versioning is enabled
+
+87
+00:04:10,480 --> 00:04:12,780
+as well as Multi-Factor authentication,
+
+88
+00:04:12,780 --> 00:04:15,140
+MFA delete is enabled.
+
+89
+00:04:15,140 --> 00:04:17,250
+And so, how do we know if it worked?
+
+90
+00:04:17,250 --> 00:04:19,959
+Well, let's say I'm going to my objects
+
+91
+00:04:19,959 --> 00:04:21,470
+and I'm going to upload objects.
+
+92
+00:04:21,470 --> 00:04:23,460
+So let me upload, for example,
+
+93
+00:04:23,460 --> 00:04:25,420
+a copy of the JPEG file,
+
+94
+00:04:25,420 --> 00:04:28,420
+I will upload it, so this is working
+
+95
+00:04:28,420 --> 00:04:30,560
+Now If I go back to my buckets,
+
+96
+00:04:30,560 --> 00:04:33,270
+take that objects and delete it.
+
+97
+00:04:33,270 --> 00:04:34,860
+Okay, we're going to delete it,
+
+98
+00:04:34,860 --> 00:04:35,920
+but we have enabled versioning,
+
+99
+00:04:35,920 --> 00:04:38,360
+so this is just going to add a delete marker.
+
+100
+00:04:38,360 --> 00:04:39,500
+This is working as well.
+
+101
+00:04:39,500 --> 00:04:42,003
+So all in all so far, so good.
+
+102
+00:04:42,890 --> 00:04:45,100
+And if I list my bucket versions now,
+
+103
+00:04:45,100 --> 00:04:47,190
+okay I have two versions for my file,
+
+104
+00:04:47,190 --> 00:04:49,600
+but now if I wanted to, for example,
+
+105
+00:04:49,600 --> 00:04:52,550
+delete this specific version ID.
+
+106
+00:04:52,550 --> 00:04:54,910
+Okay, so this one is called a permanent delete.
+
+107
+00:04:54,910 --> 00:04:56,200
+It says, you cannot delete object
+
+108
+00:04:56,200 --> 00:04:58,590
+because Multi-Factor authentication, MFA deletes
+
+109
+00:04:58,590 --> 00:05:00,580
+is enabled for this bucket.
+
+110
+00:05:00,580 --> 00:05:04,460
+And so to do so we need to use the CLI command to delete
+
+111
+00:05:04,460 --> 00:05:06,760
+this file or disabled MFA delete.
+
+112
+00:05:06,760 --> 00:05:09,080
+So we can just go ahead and disable MFA delete,
+
+113
+00:05:09,080 --> 00:05:11,810
+so for this, the command is right here.
+
+114
+00:05:11,810 --> 00:05:13,270
+So it's the same command that this time will do
+
+115
+00:05:13,270 --> 00:05:15,170
+MFA delete equals disabled.
+
+116
+00:05:15,170 --> 00:05:18,790
+So I'm going to take the command from before and I'm going
+
+117
+00:05:18,790 --> 00:05:21,040
+to edit it out, so here we go.
+
+118
+00:05:21,040 --> 00:05:25,030
+MFA delete equals disabled and obviously
+
+119
+00:05:25,030 --> 00:05:27,300
+the MFA code I need to change.
+
+120
+00:05:27,300 --> 00:05:30,573
+So let me wait for the next MFA code to appear on my screen.
+
+121
+00:05:31,410 --> 00:05:33,163
+Hopefully it will work.
+
+122
+00:05:34,640 --> 00:05:35,533
+Press enter.
+
+123
+00:05:36,450 --> 00:05:37,810
+And here we go, this works.
+
+124
+00:05:37,810 --> 00:05:42,563
+So now if I try another time to delete, for example, delete,
+
+125
+00:05:42,563 --> 00:05:44,320
+the delete marker.
+
+126
+00:05:44,320 --> 00:05:46,970
+Yes, it is working because I have disabled MFA delete.
+
+127
+00:05:46,970 --> 00:05:51,483
+So let's confirm it by typing in this texts.
+
+128
+00:05:52,330 --> 00:05:55,003
+And then finally going back to my buckets,
+
+129
+00:05:56,150 --> 00:05:58,740
+go into my properties and under bucket versioning,
+
+130
+00:05:58,740 --> 00:06:01,800
+yes, we can see that MFA delete is disabled.
+
+131
+00:06:01,800 --> 00:06:03,420
+So that's it for this lecture.
+
+132
+00:06:03,420 --> 00:06:04,253
+I hope you liked it.
+
+133
+00:06:04,253 --> 00:06:08,610
+And obviously at the end of the lecture, I almost forgot,
+
+134
+00:06:08,610 --> 00:06:10,260
+but no, I didn't forget.
+
+135
+00:06:10,260 --> 00:06:12,810
+Please delete your route access key.
+
+136
+00:06:12,810 --> 00:06:14,270
+This is really bad to you have them
+
+137
+00:06:14,270 --> 00:06:17,640
+so, I will deactivate them and we're good to go,
+
+138
+00:06:17,640 --> 00:06:21,300
+and then finally I can probably delete them at some point.
+
+139
+00:06:21,300 --> 00:06:22,849
+Okay, so that's it.
+
+140
+00:06:22,849 --> 00:06:25,423
+Thank you so much, and I will see you in the next lecture.
+

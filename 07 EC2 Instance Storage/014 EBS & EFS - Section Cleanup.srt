@@ -1,0 +1,160 @@
+1
+00:00:00,140 --> 00:00:01,340
+Okay, so let's just clean up
+
+2
+00:00:01,340 --> 00:00:02,610
+this entire section.
+
+3
+00:00:02,610 --> 00:00:05,070
+So for this I'm gonna go to Action on my file system
+
+4
+00:00:05,070 --> 00:00:07,100
+and delete it, and for this I have to enter
+
+5
+00:00:07,100 --> 00:00:09,590
+the file system ID, so I'll just copy and paste this.
+
+6
+00:00:09,590 --> 00:00:12,540
+And so okay, we're gonna get rid of our file system.
+
+7
+00:00:12,540 --> 00:00:13,530
+Perfect!
+
+8
+00:00:13,530 --> 00:00:16,087
+Now into our EC2 instances, make sure to terminate
+
+9
+00:00:16,087 --> 00:00:20,320
+any running EC2 instance, so that's good.
+
+10
+00:00:20,320 --> 00:00:22,930
+Then in terms of volumes, we're going to have to
+
+11
+00:00:22,930 --> 00:00:26,130
+clear up volumes as well, so any volumes that is available
+
+12
+00:00:26,130 --> 00:00:28,360
+you have to terminate it, so I'll right-click
+
+13
+00:00:28,360 --> 00:00:29,870
+and delete all these volumes.
+
+14
+00:00:29,870 --> 00:00:30,910
+Okay.
+
+15
+00:00:30,910 --> 00:00:33,230
+Now for snapshots, you've made a few snapshots,
+
+16
+00:00:33,230 --> 00:00:36,800
+so let's just go back and delete every snapshot you have.
+
+17
+00:00:36,800 --> 00:00:38,020
+Just so that you can get rid
+
+18
+00:00:38,020 --> 00:00:40,570
+and not pay for any storage for snapshots.
+
+19
+00:00:40,570 --> 00:00:41,470
+Okay.
+
+20
+00:00:41,470 --> 00:00:43,230
+And then finally, security groups.
+
+21
+00:00:43,230 --> 00:00:46,020
+If you want to, because it's going to get a lot of
+
+22
+00:00:46,020 --> 00:00:47,340
+security groups right here,
+
+23
+00:00:47,340 --> 00:00:50,890
+you can basically delete so many of these security groups
+
+24
+00:00:50,890 --> 00:00:53,960
+except the one for default, so just don't delete that one.
+
+25
+00:00:53,960 --> 00:00:56,790
+So you can go ahead and delete these security groups.
+
+26
+00:00:56,790 --> 00:01:00,560
+And they will only be deleted once you have, basically,
+
+27
+00:01:00,560 --> 00:01:03,870
+deleted all your EC2 instances associated with those.
+
+28
+00:01:03,870 --> 00:01:06,120
+So maybe these won't be deleted right away
+
+29
+00:01:06,120 --> 00:01:08,740
+but you can just keep on trying until it works.
+
+30
+00:01:08,740 --> 00:01:10,620
+So I'll delete this security group now.
+
+31
+00:01:10,620 --> 00:01:11,530
+Yes this one works.
+
+32
+00:01:11,530 --> 00:01:13,690
+I'll delete the load balancer for the security group.
+
+33
+00:01:13,690 --> 00:01:16,860
+Yes that worked, and this EC2 for EFS,
+
+34
+00:01:16,860 --> 00:01:18,280
+it's still used by my instances
+
+35
+00:01:18,280 --> 00:01:20,009
+so I have to wait for my instances
+
+36
+00:01:20,009 --> 00:01:23,150
+to be shutting down properly before I can go ahead
+
+37
+00:01:23,150 --> 00:01:25,560
+and delete that last security group.
+
+38
+00:01:25,560 --> 00:01:28,250
+So I'll have to wait a little bit, but that's it.
+
+39
+00:01:28,250 --> 00:01:29,300
+Once you've cleared up everything
+
+40
+00:01:29,300 --> 00:01:31,300
+you're ready to go for the next section.
+

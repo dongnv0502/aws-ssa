@@ -1,0 +1,436 @@
+1
+00:00:00,180 --> 00:00:02,730
+So now let's talk about Kinesis Data Streams.
+
+2
+00:00:02,730 --> 00:00:04,830
+So it's a service used to collect
+
+3
+00:00:04,830 --> 00:00:06,780
+and store streaming data in real time.
+
+4
+00:00:06,780 --> 00:00:08,580
+So the keyword you have to look out for
+
+5
+00:00:08,580 --> 00:00:10,650
+at the exam is really real time.
+
+6
+00:00:10,650 --> 00:00:13,020
+So here is a diagram to explain better.
+
+7
+00:00:13,020 --> 00:00:14,340
+So we have real-time data.
+
+8
+00:00:14,340 --> 00:00:15,540
+What is real-time data?
+
+9
+00:00:15,540 --> 00:00:18,240
+Well, it is data that is created and used on the spot.
+
+10
+00:00:18,240 --> 00:00:21,030
+For example, whenever users click on our website,
+
+11
+00:00:21,030 --> 00:00:22,290
+it's called a click stream,
+
+12
+00:00:22,290 --> 00:00:25,230
+or when you have a device that's connected to the internet,
+
+13
+00:00:25,230 --> 00:00:27,450
+for example, a connected bicycle,
+
+14
+00:00:27,450 --> 00:00:30,180
+or when you have metrics and logs on a server,
+
+15
+00:00:30,180 --> 00:00:32,070
+and you want to use them directly,
+
+16
+00:00:32,070 --> 00:00:35,790
+so you wanna send those into Amazon Kinesis Data Streams.
+
+17
+00:00:35,790 --> 00:00:38,790
+And to do so we must use what's called producers.
+
+18
+00:00:38,790 --> 00:00:40,590
+So producers can be either applications
+
+19
+00:00:40,590 --> 00:00:42,270
+and this is actually code you have to write
+
+20
+00:00:42,270 --> 00:00:44,910
+to take data from your website or from your devices
+
+21
+00:00:44,910 --> 00:00:47,700
+and send it into Kinesis Data Streams.
+
+22
+00:00:47,700 --> 00:00:49,650
+Or for example, for metrics and logs,
+
+23
+00:00:49,650 --> 00:00:51,930
+you can install what's called a Kinesis Agent
+
+24
+00:00:51,930 --> 00:00:52,800
+on your servers,
+
+25
+00:00:52,800 --> 00:00:54,840
+and it will act as a producer
+
+26
+00:00:54,840 --> 00:00:56,940
+to Kinesis Data Streams as well.
+
+27
+00:00:56,940 --> 00:01:00,210
+So then your data is going to be sent in real time,
+
+28
+00:01:00,210 --> 00:01:03,180
+so as it happens, into Kinesis Data Streams.
+
+29
+00:01:03,180 --> 00:01:05,400
+And the reason why we do so is that we want to have
+
+30
+00:01:05,400 --> 00:01:09,090
+consumer applications consuming this data in real time
+
+31
+00:01:09,090 --> 00:01:10,800
+and leveraging it.
+
+32
+00:01:10,800 --> 00:01:12,720
+So we have our application,
+
+33
+00:01:12,720 --> 00:01:13,920
+and again, you should write some code
+
+34
+00:01:13,920 --> 00:01:16,140
+to read from Kinesis Data Streams,
+
+35
+00:01:16,140 --> 00:01:17,280
+or we can have Lambda functions.
+
+36
+00:01:17,280 --> 00:01:18,840
+It can read from it as well.
+
+37
+00:01:18,840 --> 00:01:20,850
+You have something called Amazon Data Firehose
+
+38
+00:01:20,850 --> 00:01:23,190
+that we'll see in a future lecture,
+
+39
+00:01:23,190 --> 00:01:25,530
+and as well as, for example,
+
+40
+00:01:25,530 --> 00:01:28,380
+services to do analytics on top of your streams,
+
+41
+00:01:28,380 --> 00:01:31,710
+such as the Managed Service for Apache Flink.
+
+42
+00:01:31,710 --> 00:01:34,320
+So some features of Kinesis Data Streams,
+
+43
+00:01:34,320 --> 00:01:36,990
+so your data can be retained on the stream
+
+44
+00:01:36,990 --> 00:01:39,720
+for up to 365 days.
+
+45
+00:01:39,720 --> 00:01:41,910
+And because the data is persisted,
+
+46
+00:01:41,910 --> 00:01:45,180
+you are able to reprocess, to replay data,
+
+47
+00:01:45,180 --> 00:01:47,010
+by your consumers.
+
+48
+00:01:47,010 --> 00:01:48,750
+That means also that once you send data
+
+49
+00:01:48,750 --> 00:01:51,870
+into Kinesis Data Streams, you cannot delete it.
+
+50
+00:01:51,870 --> 00:01:53,970
+You have to wait for it to expire
+
+51
+00:01:53,970 --> 00:01:57,240
+from a time perspective for it to get deleted.
+
+52
+00:01:57,240 --> 00:02:00,180
+Now, data up to one megabyte can be sent
+
+53
+00:02:00,180 --> 00:02:01,200
+in two Kinesis Data Streams.
+
+54
+00:02:01,200 --> 00:02:03,690
+But the real case, the real typical use case,
+
+55
+00:02:03,690 --> 00:02:07,170
+is to have a lot of small real-time data.
+
+56
+00:02:07,170 --> 00:02:09,240
+Your data is going to be in order
+
+57
+00:02:09,240 --> 00:02:12,540
+if you send two data points with the same Partition ID.
+
+58
+00:02:12,540 --> 00:02:13,650
+So it's a way for you to say
+
+59
+00:02:13,650 --> 00:02:16,710
+that these two data points are related in time
+
+60
+00:02:16,710 --> 00:02:18,929
+by sharing the same Partition ID.
+
+61
+00:02:18,929 --> 00:02:21,120
+And you have security features,
+
+62
+00:02:21,120 --> 00:02:23,040
+such as at-rests KMS encryption
+
+63
+00:02:23,040 --> 00:02:25,830
+and in-flight HTTPS encryption.
+
+64
+00:02:25,830 --> 00:02:27,360
+So if you want to write
+
+65
+00:02:27,360 --> 00:02:29,610
+what I call an optimized producer application
+
+66
+00:02:29,610 --> 00:02:31,530
+that is meant for high throughput,
+
+67
+00:02:31,530 --> 00:02:34,740
+you should be using the Kinesis Producer Library, KPL,
+
+68
+00:02:34,740 --> 00:02:37,140
+and to write an optimized consumer application,
+
+69
+00:02:37,140 --> 00:02:40,440
+you should use the Kinesis Client Library or KCL.
+
+70
+00:02:40,440 --> 00:02:43,950
+Okay, now your Kinesis Data Streams has two capacity mode.
+
+71
+00:02:43,950 --> 00:02:45,870
+The first one is Provisioned mode,
+
+72
+00:02:45,870 --> 00:02:48,810
+you which you choose the number of shards on your stream.
+
+73
+00:02:48,810 --> 00:02:49,920
+So what is a shard?
+
+74
+00:02:49,920 --> 00:02:53,700
+A shard is basically how big your stream is.
+
+75
+00:02:53,700 --> 00:02:55,470
+So you can have one shard,
+
+76
+00:02:55,470 --> 00:02:57,750
+but you can have 1,000 shards if you wanted to.
+
+77
+00:02:57,750 --> 00:02:59,190
+The more shards you have,
+
+78
+00:02:59,190 --> 00:03:01,080
+the more throughput you're going to have inbound.
+
+79
+00:03:01,080 --> 00:03:03,390
+So that means you get one megabyte per second
+
+80
+00:03:03,390 --> 00:03:05,190
+or 1,000 records per second
+
+81
+00:03:05,190 --> 00:03:07,620
+for each shard in terms of capacity.
+
+82
+00:03:07,620 --> 00:03:10,410
+And each shard in terms of read capacity now
+
+83
+00:03:10,410 --> 00:03:14,190
+in terms of out traffic is two megabytes per second.
+
+84
+00:03:14,190 --> 00:03:16,010
+So if you want to send, for example,
+
+85
+00:03:16,010 --> 00:03:17,790
+10,000 records per second
+
+86
+00:03:17,790 --> 00:03:19,470
+or 10 megabytes per second,
+
+87
+00:03:19,470 --> 00:03:22,410
+then you will need to scale to 10 shards.
+
+88
+00:03:22,410 --> 00:03:26,310
+Now, if you wanted to adjust the number of shards over time,
+
+89
+00:03:26,310 --> 00:03:28,260
+you can scale manually to increase
+
+90
+00:03:28,260 --> 00:03:30,120
+or decrease the number of shards.
+
+91
+00:03:30,120 --> 00:03:30,953
+And, of course,
+
+92
+00:03:30,953 --> 00:03:32,760
+you need to be able to monitor your throughput
+
+93
+00:03:32,760 --> 00:03:35,820
+to know how many shards you must have at any point of time.
+
+94
+00:03:35,820 --> 00:03:39,420
+You're going to pay for each shard provisioned per hour.
+
+95
+00:03:39,420 --> 00:03:41,880
+The other mode is On-demand mode.
+
+96
+00:03:41,880 --> 00:03:43,290
+So here you don't need to provision
+
+97
+00:03:43,290 --> 00:03:46,530
+or manage the capacity of your Kinesis Data Stream.
+
+98
+00:03:46,530 --> 00:03:48,390
+You have a default capacity provision,
+
+99
+00:03:48,390 --> 00:03:50,850
+which is about 4,000 records per second
+
+100
+00:03:50,850 --> 00:03:53,010
+or four megabytes in.
+
+101
+00:03:53,010 --> 00:03:54,180
+And then, automatically,
+
+102
+00:03:54,180 --> 00:03:56,280
+Kinesis Data Stream is going to scale
+
+103
+00:03:56,280 --> 00:03:59,610
+based on the observed throughput during the past 30 days.
+
+104
+00:03:59,610 --> 00:04:02,910
+So instead, here, you're going to pay per stream per hour,
+
+105
+00:04:02,910 --> 00:04:05,250
+and you're going to be billed per the amount of data
+
+106
+00:04:05,250 --> 00:04:08,220
+that goes in and out of your Kinesis Data Stream.
+
+107
+00:04:08,220 --> 00:04:09,053
+All right, that's it.
+
+108
+00:04:09,053 --> 00:04:10,140
+I hope you liked it,
+
+109
+00:04:10,140 --> 00:04:12,090
+and I will see you in the next lecture.
+

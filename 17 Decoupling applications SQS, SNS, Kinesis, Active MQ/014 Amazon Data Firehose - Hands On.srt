@@ -1,0 +1,960 @@
+1
+00:00:00,180 --> 00:00:01,250
+Okay, so let's practice
+
+2
+00:00:01,250 --> 00:00:03,230
+using Kinesis Data Firehose,
+
+3
+00:00:03,230 --> 00:00:04,470
+using delivery streams.
+
+4
+00:00:04,470 --> 00:00:06,487
+So I click on delivery streams.
+
+5
+00:00:06,487 --> 00:00:07,320
+And in here,
+
+6
+00:00:07,320 --> 00:00:09,666
+I'm able to create a delivery stream.
+
+7
+00:00:09,666 --> 00:00:11,656
+And we have a detailed diagram
+
+8
+00:00:11,656 --> 00:00:13,510
+of how Kinesis Data Firehose works.
+
+9
+00:00:13,510 --> 00:00:15,800
+So we ingest data from producers,
+
+10
+00:00:15,800 --> 00:00:17,380
+and these producers can be either
+
+11
+00:00:17,380 --> 00:00:18,260
+a Kinesis Data Stream.
+
+12
+00:00:18,260 --> 00:00:19,690
+So this is our use case,
+
+13
+00:00:19,690 --> 00:00:20,770
+or they can be Direct PUTs
+
+14
+00:00:20,770 --> 00:00:23,580
+done through the Kinesis Data Agents,
+
+15
+00:00:23,580 --> 00:00:24,690
+the Kinesis Agents,
+
+16
+00:00:24,690 --> 00:00:26,010
+some other AWS services,
+
+17
+00:00:26,010 --> 00:00:27,092
+such as CloudWatch, IoT Core,
+
+18
+00:00:27,092 --> 00:00:28,080
+EventBridge, et cetera,
+
+19
+00:00:28,080 --> 00:00:31,560
+et cetera, and also your own apps using the SDK
+
+20
+00:00:31,560 --> 00:00:34,560
+that can send data directly into Kinesis Data Firehose.
+
+21
+00:00:34,560 --> 00:00:35,760
+So once we ingest the data,
+
+22
+00:00:35,760 --> 00:00:38,218
+we can outright transform it using a Lambda function.
+
+23
+00:00:38,218 --> 00:00:41,380
+And this can also be used to do many things,
+
+24
+00:00:41,380 --> 00:00:43,490
+such as converting the record format, and so on.
+
+25
+00:00:43,490 --> 00:00:46,350
+And then, we load the data into target stores.
+
+26
+00:00:46,350 --> 00:00:49,126
+So we have Amazon S3, Amazon OpenSearch Service,
+
+27
+00:00:49,126 --> 00:00:51,460
+which is ElasticSearch being renamed,
+
+28
+00:00:51,460 --> 00:00:52,910
+and Amazon Redshift,
+
+29
+00:00:52,910 --> 00:00:55,191
+and various HTTP endpoint destinations.
+
+30
+00:00:55,191 --> 00:00:56,590
+So in this example,
+
+31
+00:00:56,590 --> 00:00:59,700
+our source is going to be a Kinesis Data Stream,
+
+32
+00:00:59,700 --> 00:01:03,160
+and the destination is going to be Amazon S3.
+
+33
+00:01:03,160 --> 00:01:04,430
+But it's very important for you to notice
+
+34
+00:01:04,430 --> 00:01:06,060
+that we have OpenSearch service.
+
+35
+00:01:06,060 --> 00:01:09,320
+So ElasticSearch, RedShift, S3,
+
+36
+00:01:09,320 --> 00:01:11,250
+you need to remember these three for sure.
+
+37
+00:01:11,250 --> 00:01:12,083
+Then we have some,
+
+38
+00:01:12,083 --> 00:01:13,310
+a lot of third-party services,
+
+39
+00:01:13,310 --> 00:01:15,170
+so you don't need to remember them all or at all.
+
+40
+00:01:15,170 --> 00:01:17,530
+But just remember that they are third party services.
+
+41
+00:01:17,530 --> 00:01:20,890
+Or any custom HTTP Endpoint that you can choose as well.
+
+42
+00:01:20,890 --> 00:01:22,520
+So we'll choose Amazon S3.
+
+43
+00:01:22,520 --> 00:01:23,353
+Now for the source,
+
+44
+00:01:23,353 --> 00:01:26,180
+we need to browse and choose our stream.
+
+45
+00:01:26,180 --> 00:01:28,790
+So we have the ARN Demostream entered right here.
+
+46
+00:01:28,790 --> 00:01:30,060
+So this is good.
+
+47
+00:01:30,060 --> 00:01:32,480
+Then, the delivery stream name is automatically generated,
+
+48
+00:01:32,480 --> 00:01:33,557
+so this is perfect.
+
+49
+00:01:33,557 --> 00:01:36,540
+Now, we go into the Transform and convert records part.
+
+50
+00:01:36,540 --> 00:01:37,760
+So this is optional.
+
+51
+00:01:37,760 --> 00:01:39,830
+But we want to transform source records using Lambda.
+
+52
+00:01:39,830 --> 00:01:41,717
+So here we can transform, filter,
+
+53
+00:01:41,717 --> 00:01:43,140
+un-compress, convert,
+
+54
+00:01:43,140 --> 00:01:44,090
+process source records.
+
+55
+00:01:44,090 --> 00:01:46,530
+So these Lambda functions are just pieces of code
+
+56
+00:01:46,530 --> 00:01:48,160
+you can run into AWS,
+
+57
+00:01:48,160 --> 00:01:49,510
+and they can do whatever you want
+
+58
+00:01:49,510 --> 00:01:51,470
+on this data before being delivered
+
+59
+00:01:51,470 --> 00:01:52,710
+by Kinesis Data Firehose.
+
+60
+00:01:52,710 --> 00:01:53,950
+So this could be quite handy.
+
+61
+00:01:53,950 --> 00:01:54,900
+And if you do enable it,
+
+62
+00:01:54,900 --> 00:01:57,180
+then you need to choose a Lambda function.
+
+63
+00:01:57,180 --> 00:01:58,070
+Okay.
+
+64
+00:01:58,070 --> 00:02:00,600
+Next, the Convert record format option.
+
+65
+00:02:00,600 --> 00:02:03,460
+So based on where you are sending your data to,
+
+66
+00:02:03,460 --> 00:02:06,330
+it can be useful to transform these records
+
+67
+00:02:06,330 --> 00:02:10,740
+into Parquet or ORC based on some advanced options.
+
+68
+00:02:10,740 --> 00:02:12,210
+So this is not in scope,
+
+69
+00:02:12,210 --> 00:02:15,580
+but just remember that you can transform the record format
+
+70
+00:02:15,580 --> 00:02:17,330
+using Kinesis Data Firehose.
+
+71
+00:02:17,330 --> 00:02:18,810
+Now, this is more detailed
+
+72
+00:02:18,810 --> 00:02:22,910
+into the data and analytics certification of AWS.
+
+73
+00:02:22,910 --> 00:02:24,610
+Right now, just know at a high level
+
+74
+00:02:24,610 --> 00:02:26,910
+that you can convert record formats.
+
+75
+00:02:26,910 --> 00:02:29,470
+Next, we need to choose a destination.
+
+76
+00:02:29,470 --> 00:02:31,470
+So we can just choose an S3 bucket
+
+77
+00:02:31,470 --> 00:02:33,490
+that we've created from before or create one.
+
+78
+00:02:33,490 --> 00:02:34,323
+So for me,
+
+79
+00:02:34,323 --> 00:02:35,730
+I've already created an S3 bucket.
+
+80
+00:02:35,730 --> 00:02:36,563
+So I'll use this one.
+
+81
+00:02:36,563 --> 00:02:39,170
+So demo-firehose-stephane-V3.
+
+82
+00:02:39,170 --> 00:02:40,160
+I will choose this one,
+
+83
+00:02:40,160 --> 00:02:42,010
+but feel free to create a bucket
+
+84
+00:02:42,010 --> 00:02:43,810
+or choose an existing one as well.
+
+85
+00:02:43,810 --> 00:02:45,850
+Do you want to have dynamic partitioning?
+
+86
+00:02:45,850 --> 00:02:48,380
+So right now, we will say no.
+
+87
+00:02:48,380 --> 00:02:49,330
+S3 bucket prefix,
+
+88
+00:02:49,330 --> 00:02:51,630
+so do we want to prefix our data?
+
+89
+00:02:51,630 --> 00:02:52,463
+And for now,
+
+90
+00:02:52,463 --> 00:02:53,296
+we don't need to.
+
+91
+00:02:53,296 --> 00:02:55,830
+And also, a bucket error output prefix if we needed to,
+
+92
+00:02:55,830 --> 00:02:56,663
+if you wanted to,
+
+93
+00:02:56,663 --> 00:02:57,800
+you have for example, error.
+
+94
+00:02:57,800 --> 00:02:59,510
+But again, we don't want to this right now.
+
+95
+00:02:59,510 --> 00:03:01,160
+We'll keep it very, very simple.
+
+96
+00:03:01,160 --> 00:03:02,480
+And now, more importantly,
+
+97
+00:03:02,480 --> 00:03:03,690
+around the buffer hints,
+
+98
+00:03:03,690 --> 00:03:05,530
+compression and encryption.
+
+99
+00:03:05,530 --> 00:03:07,560
+So the buffer is a way
+
+100
+00:03:07,560 --> 00:03:10,130
+for Kinesis Data Firehose to accumulate records
+
+101
+00:03:10,130 --> 00:03:13,403
+before delivering them into the targets.
+
+102
+00:03:15,109 --> 00:03:16,242
+And so by default,
+
+103
+00:03:16,242 --> 00:03:20,711
+Kinesis will write five megabytes of data into the buffer
+
+104
+00:03:20,711 --> 00:03:23,610
+before delivering it into the target,
+
+105
+00:03:23,610 --> 00:03:24,730
+so Amazon S3.
+
+106
+00:03:24,730 --> 00:03:27,770
+Now, you can make the buffer more efficient,
+
+107
+00:03:27,770 --> 00:03:29,060
+for example more than 128 megabytes,
+
+108
+00:03:29,060 --> 00:03:31,260
+if you wanted to get a bigger buffer size
+
+109
+00:03:31,260 --> 00:03:32,850
+and more efficiency,
+
+110
+00:03:32,850 --> 00:03:34,130
+or a small buffer size,
+
+111
+00:03:34,130 --> 00:03:36,910
+if you wanted to deliver the data as fast as possible.
+
+112
+00:03:36,910 --> 00:03:38,820
+So we'll have it as 1.
+
+113
+00:03:38,820 --> 00:03:40,850
+And then, the buffer interval,
+
+114
+00:03:40,850 --> 00:03:42,060
+so this is how fast,
+
+115
+00:03:42,060 --> 00:03:43,940
+if the buffer size doesn't fill up.
+
+116
+00:03:43,940 --> 00:03:47,160
+How fast should it be flushed into the target?
+
+117
+00:03:47,160 --> 00:03:48,560
+And so, if you choose 300 seconds,
+
+118
+00:03:48,560 --> 00:03:51,426
+you're going to wait five minutes to fill the buffer size.
+
+119
+00:03:51,426 --> 00:03:55,350
+But if the buffer size is not filled after five minutes,
+
+120
+00:03:55,350 --> 00:03:57,180
+then it's going to be flushed nonetheless.
+
+121
+00:03:57,180 --> 00:03:59,950
+So if we set a lower buffer interval,
+
+122
+00:03:59,950 --> 00:04:01,490
+such as 60 seconds,
+
+123
+00:04:01,490 --> 00:04:03,350
+we have the guarantee that at maximum,
+
+124
+00:04:03,350 --> 00:04:04,560
+every 60 seconds,
+
+125
+00:04:04,560 --> 00:04:07,420
+the buffer is going to be flushed into Amazon S3.
+
+126
+00:04:07,420 --> 00:04:09,100
+If we set a really long buffer size,
+
+127
+00:04:09,100 --> 00:04:11,440
+such as 900 seconds,
+
+128
+00:04:11,440 --> 00:04:12,510
+then we need to wait,
+
+129
+00:04:12,510 --> 00:04:14,750
+I think, 15 minutes before the buffer
+
+130
+00:04:14,750 --> 00:04:16,490
+is flushed into Amazon S3,
+
+131
+00:04:16,490 --> 00:04:17,779
+so a lot longer.
+
+132
+00:04:17,779 --> 00:04:18,980
+So for the purpose of this demo,
+
+133
+00:04:18,980 --> 00:04:19,990
+we don't want to be efficient.
+
+134
+00:04:19,990 --> 00:04:20,822
+We want to be fast.
+
+135
+00:04:20,822 --> 00:04:21,656
+So we'll choose 60 seconds,
+
+136
+00:04:21,656 --> 00:04:23,440
+which is the minimum.
+
+137
+00:04:23,440 --> 00:04:25,440
+Next, we want to enable compression and encryption,
+
+138
+00:04:25,440 --> 00:04:28,900
+so we can compress the records in the target,
+
+139
+00:04:28,900 --> 00:04:30,250
+such as with GZIP, Snappy,
+
+140
+00:04:30,250 --> 00:04:32,750
+Zip or Hadoop-Compatible Snappy.
+
+141
+00:04:32,750 --> 00:04:35,728
+And the idea is that you're going to save some space,
+
+142
+00:04:35,728 --> 00:04:37,570
+because we are compressing the data
+
+143
+00:04:37,570 --> 00:04:39,410
+before storing into Amazon S3.
+
+144
+00:04:39,410 --> 00:04:40,740
+So save some cost.
+
+145
+00:04:40,740 --> 00:04:42,250
+And also, do you want you to encrypt your records?
+
+146
+00:04:42,250 --> 00:04:43,083
+Yes or no.
+
+147
+00:04:43,980 --> 00:04:44,890
+There's some advanced settings.
+
+148
+00:04:44,890 --> 00:04:46,560
+But the one that's very important for you to see
+
+149
+00:04:46,560 --> 00:04:48,650
+is this permission right here.
+
+150
+00:04:48,650 --> 00:04:50,770
+So this is going to create automatically
+
+151
+00:04:50,770 --> 00:04:53,050
+an IAM role named this.
+
+152
+00:04:53,050 --> 00:04:54,430
+And this IAM role
+
+153
+00:04:54,430 --> 00:04:56,270
+is going to have all the permissions required
+
+154
+00:04:56,270 --> 00:04:58,390
+to write into Amazon S3.
+
+155
+00:04:58,390 --> 00:05:00,910
+So this is how Kinesis Data Firehose is able to write
+
+156
+00:05:00,910 --> 00:05:02,120
+to the target buckets
+
+157
+00:05:02,120 --> 00:05:05,530
+and to read as well from the Kinesis Data Stream.
+
+158
+00:05:05,530 --> 00:05:07,380
+So let's create this delivery stream.
+
+159
+00:05:09,070 --> 00:05:10,550
+And it is active.
+
+160
+00:05:10,550 --> 00:05:12,460
+So we can have a look at some metrics.
+
+161
+00:05:12,460 --> 00:05:15,770
+So the more data will go through Kinesis Data Firehose,
+
+162
+00:05:15,770 --> 00:05:17,490
+the more these metrics will be populated,
+
+163
+00:05:17,490 --> 00:05:19,340
+which is very helpful in production.
+
+164
+00:05:19,340 --> 00:05:20,560
+You can look at the configuration,
+
+165
+00:05:20,560 --> 00:05:21,950
+but we've already done that.
+
+166
+00:05:21,950 --> 00:05:24,960
+And then, we can look at the destination for the error logs.
+
+167
+00:05:24,960 --> 00:05:25,793
+And right now,
+
+168
+00:05:25,793 --> 00:05:26,640
+this is CloudWatch Logs.
+
+169
+00:05:26,640 --> 00:05:28,970
+Okay, so what we have here
+
+170
+00:05:28,970 --> 00:05:32,330
+is a Kinesis Data Firehose of source Kinesis Data Streams,
+
+171
+00:05:32,330 --> 00:05:34,580
+and we need to test with some data flowing through it.
+
+172
+00:05:34,580 --> 00:05:37,340
+So you could use the test data right here
+
+173
+00:05:37,340 --> 00:05:39,530
+to test it going into Amazon S3,
+
+174
+00:05:39,530 --> 00:05:40,750
+but we don't want to use this.
+
+175
+00:05:40,750 --> 00:05:43,190
+Actually, because we have Amazon Kinesis Data Stream,
+
+176
+00:05:43,190 --> 00:05:45,300
+let's just use that one as well.
+
+177
+00:05:45,300 --> 00:05:48,396
+So my Kinesis Data Stream right here is named DemoStream,
+
+178
+00:05:48,396 --> 00:05:50,730
+and we're going to send more data to it.
+
+179
+00:05:50,730 --> 00:05:52,190
+Because even though we have created
+
+180
+00:05:52,190 --> 00:05:53,471
+the Firehose Delivery Stream,
+
+181
+00:05:53,471 --> 00:05:55,685
+even if some data was sent in the past
+
+182
+00:05:55,685 --> 00:05:57,590
+to the Kinesis Data Stream,
+
+183
+00:05:57,590 --> 00:05:59,070
+you actually need to send new data
+
+184
+00:05:59,070 --> 00:06:01,780
+after setting up Firehose for Firehose to be active.
+
+185
+00:06:01,780 --> 00:06:04,214
+So let's just use CloudShell,
+
+186
+00:06:04,214 --> 00:06:06,310
+and we're going to use the commands right here.
+
+187
+00:06:06,310 --> 00:06:09,360
+So we're going to have to modify this,
+
+188
+00:06:09,360 --> 00:06:12,350
+and make sure that you have the right stream name.
+
+189
+00:06:12,350 --> 00:06:16,240
+So DemoStream is the one that I have today,
+
+190
+00:06:16,240 --> 00:06:17,073
+and user signup.
+
+191
+00:06:17,073 --> 00:06:17,906
+This is good.
+
+192
+00:06:17,906 --> 00:06:19,713
+And then, paste this command.
+
+193
+00:06:20,700 --> 00:06:21,723
+Let's press enter.
+
+194
+00:06:23,760 --> 00:06:24,700
+The data has been sent.
+
+195
+00:06:24,700 --> 00:06:26,570
+So we have user signup.
+
+196
+00:06:26,570 --> 00:06:29,800
+Then, we have user login.
+
+197
+00:06:29,800 --> 00:06:31,617
+And then, we'll have user logout.
+
+198
+00:06:35,320 --> 00:06:37,830
+Okay, so three records have been sent.
+
+199
+00:06:37,830 --> 00:06:39,940
+And what I can do now is go into Amazon S3
+
+200
+00:06:39,940 --> 00:06:42,360
+and see if they have appeared in Amazon S3.
+
+201
+00:06:42,360 --> 00:06:43,800
+So let's go into the S3 console.
+
+202
+00:06:43,800 --> 00:06:46,090
+I'm going to type firehose.
+
+203
+00:06:46,090 --> 00:06:47,370
+I found my bucket.
+
+204
+00:06:47,370 --> 00:06:48,203
+As you can see,
+
+205
+00:06:48,203 --> 00:06:50,160
+currently, there are zero objects in my bucket.
+
+206
+00:06:50,160 --> 00:06:52,030
+That's because the Kinesis Data Firehose
+
+207
+00:06:52,030 --> 00:06:53,540
+has a buffer of 60 seconds.
+
+208
+00:06:53,540 --> 00:06:54,850
+So we need to wait 60 seconds
+
+209
+00:06:54,850 --> 00:06:57,380
+until the data makes it into Amazon S3.
+
+210
+00:06:57,380 --> 00:06:58,213
+So let's just wait.
+
+211
+00:06:58,213 --> 00:06:59,400
+I'll pause the video.
+
+212
+00:06:59,400 --> 00:07:01,010
+Okay, so it's been more than 60 seconds.
+
+213
+00:07:01,010 --> 00:07:02,620
+So I'm going to refresh.
+
+214
+00:07:02,620 --> 00:07:03,453
+And as you can see,
+
+215
+00:07:03,453 --> 00:07:06,210
+updates have appeared into my Amazon S3 bucket.
+
+216
+00:07:06,210 --> 00:07:07,630
+So I can click, click,
+
+217
+00:07:07,630 --> 00:07:09,800
+click, and it says partitioned by date and so on.
+
+218
+00:07:09,800 --> 00:07:12,070
+And here, I have the record,
+
+219
+00:07:12,070 --> 00:07:13,600
+so I can click on it.
+
+220
+00:07:13,600 --> 00:07:14,750
+Click open,
+
+221
+00:07:14,750 --> 00:07:17,183
+and then open this with my text editor.
+
+222
+00:07:18,100 --> 00:07:18,933
+And as you can see,
+
+223
+00:07:18,933 --> 00:07:19,766
+not very fascinating,
+
+224
+00:07:19,766 --> 00:07:22,350
+but we have user signup, user login,
+
+225
+00:07:22,350 --> 00:07:25,060
+and user logout in one text file.
+
+226
+00:07:25,060 --> 00:07:26,900
+So Kinesis Data Firehose is working
+
+227
+00:07:26,900 --> 00:07:28,060
+and working great.
+
+228
+00:07:28,060 --> 00:07:28,990
+So that's it for this lecture.
+
+229
+00:07:28,990 --> 00:07:30,200
+I hope you liked it.
+
+230
+00:07:30,200 --> 00:07:31,810
+And just to clean it up,
+
+231
+00:07:31,810 --> 00:07:36,120
+please make sure to delete first that delivery stream.
+
+232
+00:07:36,120 --> 00:07:37,720
+So you need to type in the name
+
+233
+00:07:39,790 --> 00:07:40,890
+and you have it.
+
+234
+00:07:40,890 --> 00:07:41,990
+And then most importantly,
+
+235
+00:07:41,990 --> 00:07:44,260
+delete the DemoStream itself.
+
+236
+00:07:44,260 --> 00:07:45,810
+Because if you let it run,
+
+237
+00:07:45,810 --> 00:07:48,550
+then it's going to cost you money every hour, okay?
+
+238
+00:07:48,550 --> 00:07:49,440
+So that's it for this lecture.
+
+239
+00:07:49,440 --> 00:07:50,273
+I hope you liked it.
+
+240
+00:07:50,273 --> 00:07:52,110
+And I will see you in the next lecture.
+

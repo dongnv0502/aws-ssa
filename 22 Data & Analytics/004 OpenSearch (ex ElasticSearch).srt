@@ -1,0 +1,372 @@
+1
+00:00:00,210 --> 00:00:03,480
+So now, let's talk about the Amazon OpenSearch Service.
+
+2
+00:00:03,480 --> 00:00:06,330
+An Amazon OpenSearch is a successor
+
+3
+00:00:06,330 --> 00:00:08,250
+to something you may have heard before called,
+
+4
+00:00:08,250 --> 00:00:10,140
+Amazon ElasticSearch.
+
+5
+00:00:10,140 --> 00:00:13,500
+So the name change was due to some licensing issues.
+
+6
+00:00:13,500 --> 00:00:16,920
+So in DynamoDB, just to do a comparison,
+
+7
+00:00:16,920 --> 00:00:19,680
+you can only query the data by primary key
+
+8
+00:00:19,680 --> 00:00:22,500
+or if you have indexes on your database.
+
+9
+00:00:22,500 --> 00:00:24,390
+But with OpenSearch, you can actually,
+
+10
+00:00:24,390 --> 00:00:27,330
+as the name indicates, search any fields,
+
+11
+00:00:27,330 --> 00:00:29,220
+even for partial matches.
+
+12
+00:00:29,220 --> 00:00:32,520
+So it's very common to use OpenSearch to provide search
+
+13
+00:00:32,520 --> 00:00:34,440
+to your application.
+
+14
+00:00:34,440 --> 00:00:35,790
+And so you would use OpenSearch
+
+15
+00:00:35,790 --> 00:00:38,610
+as a compliment to another database.
+
+16
+00:00:38,610 --> 00:00:40,890
+So OpenSearch can be used for search,
+
+17
+00:00:40,890 --> 00:00:44,280
+but also as the name doesn't indicate,
+
+18
+00:00:44,280 --> 00:00:47,580
+you can also do analytic queries on top of OpenSearch.
+
+19
+00:00:47,580 --> 00:00:51,090
+So you have two modes to provision an OpenSearch Cluster.
+
+20
+00:00:51,090 --> 00:00:53,070
+Either you use the managed cluster option
+
+21
+00:00:53,070 --> 00:00:55,680
+and then actual physical instances will be provisioned
+
+22
+00:00:55,680 --> 00:00:57,090
+for you and you will see them.
+
+23
+00:00:57,090 --> 00:00:58,740
+Or you can go the serverless route
+
+24
+00:00:58,740 --> 00:01:00,570
+and have a serverless cluster,
+
+25
+00:01:00,570 --> 00:01:02,820
+where everything from scaling to operations
+
+26
+00:01:02,820 --> 00:01:05,010
+is handled by AWS.
+
+27
+00:01:05,010 --> 00:01:07,350
+And OpenSearch has its own query language,
+
+28
+00:01:07,350 --> 00:01:09,690
+it does not natively support SQL,
+
+29
+00:01:09,690 --> 00:01:14,130
+but you can enable SQL compatibility via a plugin.
+
+30
+00:01:14,130 --> 00:01:16,980
+So you can ingest data from different places,
+
+31
+00:01:16,980 --> 00:01:20,730
+such as Kinesis Data Firehose, IoT, CloudWatch Logs,
+
+32
+00:01:20,730 --> 00:01:23,760
+or any of your custom-built application.
+
+33
+00:01:23,760 --> 00:01:25,320
+You have security provided
+
+34
+00:01:25,320 --> 00:01:27,810
+through integration with Cognito, IAM,
+
+35
+00:01:27,810 --> 00:01:30,840
+you get at rest encryption and in-flight encryption.
+
+36
+00:01:30,840 --> 00:01:32,550
+And as I said, you can do analytics
+
+37
+00:01:32,550 --> 00:01:34,560
+on top of the OpenSearch Service,
+
+38
+00:01:34,560 --> 00:01:37,920
+so you can use something called OpenSearch Dashboards
+
+39
+00:01:37,920 --> 00:01:42,000
+to create visualizations on top of your OpenSearch Data.
+
+40
+00:01:42,000 --> 00:01:44,820
+So here are some common patterns to use OpenSearch.
+
+41
+00:01:44,820 --> 00:01:47,580
+So you would have DynamoDB and it will contain your data.
+
+42
+00:01:47,580 --> 00:01:49,680
+This is where your users will insert
+
+43
+00:01:49,680 --> 00:01:51,630
+and delete and update data.
+
+44
+00:01:51,630 --> 00:01:55,440
+And then you send all the streams in a DynamoDB Stream,
+
+45
+00:01:55,440 --> 00:01:57,720
+which is then picked up by a Lambda Function.
+
+46
+00:01:57,720 --> 00:02:00,150
+And that Lambda Function will insert the data
+
+47
+00:02:00,150 --> 00:02:03,090
+into Amazon OpenSearch in real time.
+
+48
+00:02:03,090 --> 00:02:04,800
+And through this process,
+
+49
+00:02:04,800 --> 00:02:06,630
+what happens that your application
+
+50
+00:02:06,630 --> 00:02:09,930
+now has the ability to search for a specific item.
+
+51
+00:02:09,930 --> 00:02:13,950
+For example, to do a partial search with the item name
+
+52
+00:02:13,950 --> 00:02:16,470
+and then find the item ID out of it.
+
+53
+00:02:16,470 --> 00:02:18,540
+And then once the item ID is obtained,
+
+54
+00:02:18,540 --> 00:02:22,050
+then it will call DynamoDB to actually retrieve
+
+55
+00:02:22,050 --> 00:02:24,690
+the full item from your DynamoDB Table.
+
+56
+00:02:24,690 --> 00:02:27,030
+So that's a common pattern in which OpenSearch
+
+57
+00:02:27,030 --> 00:02:29,130
+provides the search capability,
+
+58
+00:02:29,130 --> 00:02:31,530
+whereas your main source of data still remains
+
+59
+00:02:31,530 --> 00:02:32,733
+your DynamoDB Table.
+
+60
+00:02:33,570 --> 00:02:36,120
+There's also other ways you can ingest CloudWatch Logs
+
+61
+00:02:36,120 --> 00:02:37,440
+into OpenSearch.
+
+62
+00:02:37,440 --> 00:02:39,120
+So the first one is to use what's called
+
+63
+00:02:39,120 --> 00:02:41,970
+a CloudWatch Log Subscription Filter,
+
+64
+00:02:41,970 --> 00:02:45,240
+sending data in real time to a Lambda Function
+
+65
+00:02:45,240 --> 00:02:46,800
+that is managed by AWS.
+
+66
+00:02:46,800 --> 00:02:49,110
+And then the Lambda Function in real time
+
+67
+00:02:49,110 --> 00:02:52,020
+sends all the data into Amazon OpenSearch.
+
+68
+00:02:52,020 --> 00:02:54,450
+Or you can also use a CloudWatch Logs
+
+69
+00:02:54,450 --> 00:02:56,100
+and then Subscription Filter.
+
+70
+00:02:56,100 --> 00:02:58,380
+But this time Kinesis Data Firehose
+
+71
+00:02:58,380 --> 00:03:00,840
+can read it from the Subscription Filter.
+
+72
+00:03:00,840 --> 00:03:02,160
+And then near real time,
+
+73
+00:03:02,160 --> 00:03:03,630
+because this is Data Firehose,
+
+74
+00:03:03,630 --> 00:03:06,093
+data will be inserted in Amazon OpenSearch.
+
+75
+00:03:06,960 --> 00:03:08,220
+Other patterns are on Kinesis,
+
+76
+00:03:08,220 --> 00:03:12,960
+so to send Kinesis Data Streams into Amazon OpenSearch,
+
+77
+00:03:12,960 --> 00:03:14,520
+you have two strategies.
+
+78
+00:03:14,520 --> 00:03:17,070
+The first one is to use Kinesis Data Firehose.
+
+79
+00:03:17,070 --> 00:03:20,220
+This is a near real time again type of service.
+
+80
+00:03:20,220 --> 00:03:22,650
+You can optionally do some data transformation,
+
+81
+00:03:22,650 --> 00:03:25,050
+using a Lambda Function and then send data
+
+82
+00:03:25,050 --> 00:03:27,030
+into Amazon OpenSearch.
+
+83
+00:03:27,030 --> 00:03:29,610
+Or you can use Kinesis Data Streams again,
+
+84
+00:03:29,610 --> 00:03:32,040
+but this time, you would create a Lambda Function
+
+85
+00:03:32,040 --> 00:03:34,980
+that would read the data stream in real time.
+
+86
+00:03:34,980 --> 00:03:36,810
+And then you would write custom code
+
+87
+00:03:36,810 --> 00:03:39,810
+to have the Lambda Function write to Amazon OpenSearch
+
+88
+00:03:39,810 --> 00:03:40,800
+in real time.
+
+89
+00:03:40,800 --> 00:03:42,450
+So all these patterns are valid,
+
+90
+00:03:42,450 --> 00:03:45,270
+and now you know pretty much all the possible architectures
+
+91
+00:03:45,270 --> 00:03:47,520
+for using Amazon OpenSearch.
+
+92
+00:03:47,520 --> 00:03:48,630
+So that's it for this lecture.
+
+93
+00:03:48,630 --> 00:03:51,630
+I hope you liked it, and I will see you in the next lecture.
+

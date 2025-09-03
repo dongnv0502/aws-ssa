@@ -1,0 +1,504 @@
+1
+00:00:03,210 --> 00:00:05,070
+So let's use the Athena service
+
+2
+00:00:05,070 --> 00:00:08,160
+to query data from an S3 buckets.
+
+3
+00:00:08,160 --> 00:00:10,620
+So I'm going to launch the query editor,
+
+4
+00:00:10,620 --> 00:00:13,500
+and here we have access to our UI,
+
+5
+00:00:13,500 --> 00:00:15,660
+and before we run our first query,
+
+6
+00:00:15,660 --> 00:00:18,960
+we need to set up a query result location in Amazon S3.
+
+7
+00:00:18,960 --> 00:00:20,670
+So let's edit the setting.
+
+8
+00:00:20,670 --> 00:00:23,520
+In here you must enter an S3 bucket where you're going
+
+9
+00:00:23,520 --> 00:00:26,040
+to put your query results.
+
+10
+00:00:26,040 --> 00:00:29,430
+So I'm going to go into the S3 console
+
+11
+00:00:29,430 --> 00:00:31,050
+and I'm going to create a bucket.
+
+12
+00:00:31,050 --> 00:00:35,070
+So I'll call this one, AWS Athena
+
+13
+00:00:35,070 --> 00:00:38,867
+Stephane, I am in EU Central One, V two.
+
+14
+00:00:41,550 --> 00:00:43,710
+Alright, so this should be a unique bucket name.
+
+15
+00:00:43,710 --> 00:00:45,560
+I'm going to just create this bucket.
+
+16
+00:00:46,680 --> 00:00:50,430
+Okay, so my bucket is now created, click on view details
+
+17
+00:00:50,430 --> 00:00:53,790
+and I'm going to just copy this right here
+
+18
+00:00:53,790 --> 00:00:56,493
+and paste it here, so S3.
+
+19
+00:00:57,450 --> 00:01:00,060
+And you can make sure that you can browse S3? Yes.
+
+20
+00:01:00,060 --> 00:01:02,550
+And we can also type, for example, Athena here.
+
+21
+00:01:02,550 --> 00:01:04,200
+And we'll take this one.
+
+22
+00:01:04,200 --> 00:01:05,400
+Same method, same result,
+
+23
+00:01:05,400 --> 00:01:08,220
+but this is a bit safer to not make any typo.
+
+24
+00:01:08,220 --> 00:01:10,530
+Alright, so I'm going to save this
+
+25
+00:01:10,530 --> 00:01:13,710
+and this is where my query results are going to be saved.
+
+26
+00:01:13,710 --> 00:01:16,530
+Now in our editor, we're going to first run our queries
+
+27
+00:01:16,530 --> 00:01:19,650
+and we're going to run our queries on the specific bucket,
+
+28
+00:01:19,650 --> 00:01:21,060
+which is our access log.
+
+29
+00:01:21,060 --> 00:01:24,120
+So I'm going to have my S3 access logs
+
+30
+00:01:24,120 --> 00:01:26,760
+that I have bucket here and I want to query
+
+31
+00:01:26,760 --> 00:01:29,022
+all my objects in this bucket,
+
+32
+00:01:29,022 --> 00:01:31,500
+so as you can see, they're here.
+
+33
+00:01:31,500 --> 00:01:34,080
+So what I need to do is that I need to go
+
+34
+00:01:34,080 --> 00:01:36,910
+into my code editor right here
+
+35
+00:01:37,980 --> 00:01:39,420
+and then we first create a database.
+
+36
+00:01:39,420 --> 00:01:43,080
+So we here under S3 advanced Athena S3 Access Log
+
+37
+00:01:43,080 --> 00:01:44,070
+that's SQL.
+
+38
+00:01:44,070 --> 00:01:47,370
+We have created a database S3 access logs DB.
+
+39
+00:01:47,370 --> 00:01:50,670
+So this is going to create a database here.
+
+40
+00:01:50,670 --> 00:01:54,240
+And so, as you can see, on the left hand side now,
+
+41
+00:01:54,240 --> 00:01:55,170
+I have the default database
+
+42
+00:01:55,170 --> 00:01:57,690
+and now I have my S3 access logs DB.
+
+43
+00:01:57,690 --> 00:01:59,010
+So this is the one I want to select
+
+44
+00:01:59,010 --> 00:02:01,193
+and we have created it from within Athena.
+
+45
+00:02:01,193 --> 00:02:04,523
+Next we run a query and this is a query to create
+
+46
+00:02:04,523 --> 00:02:09,523
+a table in Athena to represent our access logs.
+
+47
+00:02:09,539 --> 00:02:10,803
+And so here it is.
+
+48
+00:02:11,670 --> 00:02:13,440
+And so I'm going to first remove the first line.
+
+49
+00:02:13,440 --> 00:02:17,850
+Okay, so this query, I got it from the Amazon S3
+
+50
+00:02:17,850 --> 00:02:21,180
+and Athena documentation, which gives you this entire query.
+
+51
+00:02:21,180 --> 00:02:24,750
+And the only thing you have to modify is
+
+52
+00:02:24,750 --> 00:02:27,120
+to actually change the location.
+
+53
+00:02:27,120 --> 00:02:28,860
+So we need to have the target bucket name
+
+54
+00:02:28,860 --> 00:02:30,720
+and the prefix in there.
+
+55
+00:02:30,720 --> 00:02:35,013
+So actually if you go in here and you go to properties,
+
+56
+00:02:35,910 --> 00:02:37,170
+we have the bucket name right here.
+
+57
+00:02:37,170 --> 00:02:40,143
+So I'm just going to paste this in, like this.
+
+58
+00:02:40,980 --> 00:02:45,240
+And for the prefix, we actually don't need anything right
+
+59
+00:02:45,240 --> 00:02:47,983
+now because it seems that in my bucket,
+
+60
+00:02:47,983 --> 00:02:49,110
+all my objects are at the top level.
+
+61
+00:02:49,110 --> 00:02:52,470
+But if you had a folder, you need to add the prefix as well
+
+62
+00:02:52,470 --> 00:02:56,100
+by adding a slash and then the name of the prefix.
+
+63
+00:02:56,100 --> 00:02:57,600
+But for now I'm good.
+
+64
+00:02:57,600 --> 00:02:59,290
+So I'm going to run this query
+
+65
+00:03:00,180 --> 00:03:02,340
+and we need to have a trailing slash at the end.
+
+66
+00:03:02,340 --> 00:03:06,570
+So let's add a trailing slash and run this query again.
+
+67
+00:03:06,570 --> 00:03:09,210
+Okay, so my table has now been created
+
+68
+00:03:09,210 --> 00:03:12,630
+and you can see on the left hand side that we do have access
+
+69
+00:03:12,630 --> 00:03:17,630
+to our table as well as all the fields we have created.
+
+70
+00:03:18,390 --> 00:03:21,000
+So what I can do now is click on these three dots
+
+71
+00:03:21,000 --> 00:03:23,460
+and then just click on preview table.
+
+72
+00:03:23,460 --> 00:03:28,460
+And this is going to query 10 rows from my data.
+
+73
+00:03:28,560 --> 00:03:30,690
+And so if I scroll down, you can see here
+
+74
+00:03:30,690 --> 00:03:31,830
+that I have 10 results
+
+75
+00:03:31,830 --> 00:03:33,780
+and we can see the bucket owner, the bucket,
+
+76
+00:03:33,780 --> 00:03:36,180
+the request date time, the IP,
+
+77
+00:03:36,180 --> 00:03:38,700
+the requester, request ID, and so on.
+
+78
+00:03:38,700 --> 00:03:40,320
+So this is very handy because
+
+79
+00:03:40,320 --> 00:03:42,210
+while we get a lot of information directly coming
+
+80
+00:03:42,210 --> 00:03:44,820
+from our data in Amazon S3.
+
+81
+00:03:44,820 --> 00:03:49,013
+Admittedly it is way easier to use this than to look
+
+82
+00:03:49,013 --> 00:03:51,270
+within all these files individually.
+
+83
+00:03:51,270 --> 00:03:53,880
+So Athena makes it super easy for us.
+
+84
+00:03:53,880 --> 00:03:56,550
+But so we can do more advanced queries.
+
+85
+00:03:56,550 --> 00:03:58,050
+For example, I'm going to just create
+
+86
+00:03:58,050 --> 00:03:59,523
+a new query sheet right here.
+
+87
+00:04:01,200 --> 00:04:03,420
+You can do some aggregations.
+
+88
+00:04:03,420 --> 00:04:08,220
+So here we're going to count all the requests by HTP status
+
+89
+00:04:08,220 --> 00:04:10,380
+and by request URI operation.
+
+90
+00:04:10,380 --> 00:04:12,420
+So this is this kind of analytics
+
+91
+00:04:12,420 --> 00:04:15,510
+and statistics you may want to run on your table.
+
+92
+00:04:15,510 --> 00:04:16,920
+So we're going to run this query
+
+93
+00:04:16,920 --> 00:04:18,089
+and it takes a bit more time because
+
+94
+00:04:18,089 --> 00:04:19,769
+it looks at all your data.
+
+95
+00:04:19,769 --> 00:04:22,761
+And so it scans about 30 megabytes of data
+
+96
+00:04:22,761 --> 00:04:27,761
+and as we can see, we see that we get 404 to B142,
+
+97
+00:04:28,080 --> 00:04:30,510
+head 200 to B101.
+
+98
+00:04:30,510 --> 00:04:33,570
+We have empty about 300,000 empty rows
+
+99
+00:04:33,570 --> 00:04:35,460
+or 200,000 empty rows and so on.
+
+100
+00:04:35,460 --> 00:04:38,250
+So we get just the results of what we're interested into.
+
+101
+00:04:38,250 --> 00:04:40,860
+So if we're looking at, for example, not found errors,
+
+102
+00:04:40,860 --> 00:04:42,270
+we say, hey, we're not supposed to have any,
+
+103
+00:04:42,270 --> 00:04:45,540
+not found errors, but we see 142, maybe there's a problem.
+
+104
+00:04:45,540 --> 00:04:47,460
+This is the kind of analysis you would do
+
+105
+00:04:47,460 --> 00:04:49,020
+by running these queries.
+
+106
+00:04:49,020 --> 00:04:51,660
+You can also have a look at unauthorized query for two.
+
+107
+00:04:51,660 --> 00:04:53,070
+For example, to see if someone is trying
+
+108
+00:04:53,070 --> 00:04:56,490
+to get unauthorized access to to your bucket.
+
+109
+00:04:56,490 --> 00:04:58,440
+So I'm running this one because 403
+
+110
+00:04:58,440 --> 00:05:00,630
+is the unauthorized thing,
+
+111
+00:05:00,630 --> 00:05:01,860
+and I'm looking at all these rows
+
+112
+00:05:01,860 --> 00:05:03,780
+and look like, okay, indeed,
+
+113
+00:05:03,780 --> 00:05:06,300
+a lot of these rows represent unauthorized access
+
+114
+00:05:06,300 --> 00:05:09,480
+and I can look into them and see if that was made
+
+115
+00:05:09,480 --> 00:05:11,040
+on purpose or what that means.
+
+116
+00:05:11,040 --> 00:05:14,160
+So hopefully, that is all very interesting to you.
+
+117
+00:05:14,160 --> 00:05:18,086
+The idea here is that I just used the Athena service
+
+118
+00:05:18,086 --> 00:05:22,283
+to query my data in Amazon S3, very easily,
+
+119
+00:05:22,283 --> 00:05:24,180
+without setting up any kind of server.
+
+120
+00:05:24,180 --> 00:05:25,740
+It's all done serverless.
+
+121
+00:05:25,740 --> 00:05:28,890
+And all we had to do is to create our database first
+
+122
+00:05:28,890 --> 00:05:31,050
+and then create our table within a database.
+
+123
+00:05:31,050 --> 00:05:34,050
+And we were good to go to use SQL language to query
+
+124
+00:05:34,050 --> 00:05:36,120
+our data directly from within Athena.
+
+125
+00:05:36,120 --> 00:05:39,510
+So it's one of the easiest and greatest service of AWS.
+
+126
+00:05:39,510 --> 00:05:42,843
+I hope you liked it and I will see you in the next lecture.
+

@@ -7,5 +7,8 @@
 # And keep .srt files
 !*.srt
 
+# Keep directories that contain .srt files
+!*/
+
 # Keep the .gitignore file itself
 !.gitignore

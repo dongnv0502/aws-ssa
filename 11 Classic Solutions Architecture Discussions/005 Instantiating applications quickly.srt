@@ -1,0 +1,252 @@
+1
+00:00:00,210 --> 00:00:02,460
+So a very quick lecture on
+
+2
+00:00:02,460 --> 00:00:04,300
+instantiating applications quickly.
+
+3
+00:00:04,300 --> 00:00:07,890
+So in the Architecture discussions that we've had
+
+4
+00:00:07,890 --> 00:00:11,310
+we have never really talked about how do we install
+
+5
+00:00:11,310 --> 00:00:14,770
+and deploy this application onto or EC2 instances
+
+6
+00:00:14,770 --> 00:00:17,500
+to basically run or websites, and so when you launch
+
+7
+00:00:17,500 --> 00:00:19,550
+your full stack, It can take a lot of time
+
+8
+00:00:19,550 --> 00:00:23,010
+to install applications insert or recover data
+
+9
+00:00:23,010 --> 00:00:26,500
+configure everything and then launch the application.
+
+10
+00:00:26,500 --> 00:00:29,360
+So how can we speak that up? So we can use the advantage
+
+11
+00:00:29,360 --> 00:00:30,960
+of the cloud to speed up.
+
+12
+00:00:30,960 --> 00:00:33,210
+So let's have a look for EC2 instances
+
+13
+00:00:33,210 --> 00:00:35,873
+we can use what's called a golden AMI.
+
+14
+00:00:35,873 --> 00:00:39,570
+A golden AMI means that you install your applications
+
+15
+00:00:39,570 --> 00:00:43,510
+you're OS dependencies etc, everything beforehand,
+
+16
+00:00:43,510 --> 00:00:46,150
+and then you create an AMI from it
+
+17
+00:00:46,150 --> 00:00:48,490
+and then for the future EC2 instances,
+
+18
+00:00:48,490 --> 00:00:51,980
+you just launch them directly from the disk golden AMI
+
+19
+00:00:51,980 --> 00:00:53,130
+and the reason we do this is
+
+20
+00:00:53,130 --> 00:00:55,380
+that we don't have to reinstall the applications
+
+21
+00:00:55,380 --> 00:00:58,780
+US dependencies etc. We could just launch with everything
+
+22
+00:00:58,780 --> 00:01:01,220
+already installed and ready to go,
+
+23
+00:01:01,220 --> 00:01:05,090
+and that's the fastest way we can start up our EC2 instance.
+
+24
+00:01:05,090 --> 00:01:09,300
+So golden AMI is very common pattern in the Cloud to have,
+
+25
+00:01:09,300 --> 00:01:12,700
+and also seen how to use user data so easy to use user data,
+
+26
+00:01:12,700 --> 00:01:15,550
+and that allows us to bootstrap or instance.
+
+27
+00:01:15,550 --> 00:01:18,900
+Bootstrapping means basically configuring the instance
+
+28
+00:01:18,900 --> 00:01:22,350
+when it first starts. And so bootstrapping can also be done
+
+29
+00:01:22,350 --> 00:01:24,800
+install application OS dependency's etc.
+
+30
+00:01:24,800 --> 00:01:26,660
+But this is going to be very slow and we
+
+31
+00:01:26,660 --> 00:01:29,720
+don't want each application to do each easy to do instance
+
+32
+00:01:29,720 --> 00:01:31,650
+to the exact same thing the other one did
+
+33
+00:01:31,650 --> 00:01:32,940
+if it can be repeated.
+
+34
+00:01:32,940 --> 00:01:36,413
+But for dynamic configuration for example maybe retrieving
+
+35
+00:01:36,413 --> 00:01:40,740
+the URL for our data base and the password etc. etc.
+
+36
+00:01:40,740 --> 00:01:43,970
+We can use bootstrapping using the EC2 user data
+
+37
+00:01:43,970 --> 00:01:47,768
+and so we can basically have a hybrid mix of a golden AMI.
+
+38
+00:01:47,768 --> 00:01:51,500
+An easy to user data to make it work, and this is something
+
+39
+00:01:51,500 --> 00:01:53,940
+we'll see in a second using elastic Beanstalk.
+
+40
+00:01:53,940 --> 00:01:57,180
+Elastic Beanstalk use the same principle of the hybrid,
+
+41
+00:01:57,180 --> 00:01:58,610
+where we can reconfigure an AMI
+
+42
+00:01:58,610 --> 00:02:01,300
+and then we add on some user data.
+
+43
+00:02:01,300 --> 00:02:04,470
+OK so for RDS databases we can restore from the
+
+44
+00:02:04,470 --> 00:02:06,870
+snapshots and then the database will have the schemas
+
+45
+00:02:06,870 --> 00:02:08,740
+and the data ready. Which is much better
+
+46
+00:02:08,740 --> 00:02:11,270
+than may be running a big insert statement
+
+47
+00:02:11,270 --> 00:02:14,320
+they will take forever to start RDS databases.
+
+48
+00:02:14,320 --> 00:02:16,390
+That may be a way to go be quicker
+
+49
+00:02:16,390 --> 00:02:18,330
+when you want to retrieve data.
+
+50
+00:02:18,330 --> 00:02:20,820
+And EBS volumes we can restore from a Snapshot
+
+51
+00:02:20,820 --> 00:02:23,500
+so we don't have to have a disc that's empty
+
+52
+00:02:23,500 --> 00:02:25,340
+and not formatted, we can retreat from a snapshot
+
+53
+00:02:25,340 --> 00:02:28,300
+and the snapshot will already be formatted properly
+
+54
+00:02:28,300 --> 00:02:29,810
+and have the data we need.
+
+55
+00:02:29,810 --> 00:02:32,040
+So these are the things you need to understand as a
+
+56
+00:02:32,040 --> 00:02:35,163
+solutions architect when going to the exam.
+
+57
+00:02:35,163 --> 00:02:38,320
+You say, OK we just speed up EC2 instances starting.
+
+58
+00:02:38,320 --> 00:02:40,504
+a way to speed up EPS databases or EBS volumes
+
+59
+00:02:40,504 --> 00:02:43,630
+and formatting in the other kind of stuff.
+
+60
+00:02:43,630 --> 00:02:47,390
+This is what you want to do using golden AMI user data.
+
+61
+00:02:47,390 --> 00:02:49,820
+Restart database snapshots and EBS snapshots.
+
+62
+00:02:49,820 --> 00:02:51,960
+So that's helpful, hope that makes sense for you
+
+63
+00:02:51,960 --> 00:02:53,910
+and I will see you in the next lecture.
+

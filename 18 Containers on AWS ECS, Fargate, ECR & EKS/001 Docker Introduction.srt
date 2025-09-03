@@ -1,0 +1,500 @@
+1
+00:00:00,280 --> 00:00:01,839
+Hello, and welcome to this section
+
+2
+00:00:01,839 --> 00:00:04,850
+on containers where we'll be talking about Docker,
+
+3
+00:00:04,850 --> 00:00:07,020
+ECS and EKS.
+
+4
+00:00:07,020 --> 00:00:08,450
+So what is Docker?
+
+5
+00:00:08,450 --> 00:00:11,630
+Docker is a software development platform to deploy apps.
+
+6
+00:00:11,630 --> 00:00:13,710
+The idea is that it's a container technology.
+
+7
+00:00:13,710 --> 00:00:16,020
+So apps are going to be packaged into containers
+
+8
+00:00:16,020 --> 00:00:18,270
+and these containers are sort of standardized.
+
+9
+00:00:18,270 --> 00:00:21,050
+And so they can be run on any operating system.
+
+10
+00:00:21,050 --> 00:00:23,560
+That means that your apps, once they're containerized
+
+11
+00:00:23,560 --> 00:00:26,840
+they run the same way, regardless of where they run.
+
+12
+00:00:26,840 --> 00:00:28,090
+It could be any machine.
+
+13
+00:00:28,090 --> 00:00:30,210
+You don't have any compatibility issue.
+
+14
+00:00:30,210 --> 00:00:32,340
+The behavior is predictable, which means
+
+15
+00:00:32,340 --> 00:00:33,370
+that you have less work to do.
+
+16
+00:00:33,370 --> 00:00:35,300
+It's easier to maintain and deploy
+
+17
+00:00:35,300 --> 00:00:37,620
+and it should work with any kind of language
+
+18
+00:00:37,620 --> 00:00:40,270
+any operating system and any technology.
+
+19
+00:00:40,270 --> 00:00:44,130
+So the use cases for Docker are a microservice architecture.
+
+20
+00:00:44,130 --> 00:00:46,220
+So this is a good keyword to have in mind.
+
+21
+00:00:46,220 --> 00:00:49,650
+Lift and chip apps from on premises to the cloud.
+
+22
+00:00:49,650 --> 00:00:52,930
+And anytime you wanna run a container, really.
+
+23
+00:00:52,930 --> 00:00:56,690
+So how does Docker work on an operating system?
+
+24
+00:00:56,690 --> 00:00:58,140
+Well, we have a server and
+
+25
+00:00:58,140 --> 00:01:00,380
+in our case it may be EC2 Instances
+
+26
+00:01:00,380 --> 00:01:01,290
+but it could be any kind
+
+27
+00:01:01,290 --> 00:01:04,480
+of server and you're going to run a Docker agent.
+
+28
+00:01:04,480 --> 00:01:07,400
+And then from there you can start Docker containers.
+
+29
+00:01:07,400 --> 00:01:09,820
+And so your first Docker container may contain
+
+30
+00:01:09,820 --> 00:01:11,430
+a Java application.
+
+31
+00:01:11,430 --> 00:01:13,680
+And your second Docker container may contain a
+
+32
+00:01:13,680 --> 00:01:16,440
+node JS application and Docker containers
+
+33
+00:01:16,440 --> 00:01:17,920
+they can run multiple times the same.
+
+34
+00:01:17,920 --> 00:01:20,030
+So you can have multiple Docker containers
+
+35
+00:01:20,030 --> 00:01:23,270
+of the same Java application or multiple Docker containers
+
+36
+00:01:23,270 --> 00:01:25,790
+of the same node JS application.
+
+37
+00:01:25,790 --> 00:01:27,790
+You can also run databases within Docker, for example
+
+38
+00:01:27,790 --> 00:01:29,120
+My SQL and so on.
+
+39
+00:01:29,120 --> 00:01:31,040
+So Docker is very versatile.
+
+40
+00:01:31,040 --> 00:01:32,620
+And from a server perspective
+
+41
+00:01:32,620 --> 00:01:35,610
+all these things are Docker containers.
+
+42
+00:01:35,610 --> 00:01:37,840
+So where do you store Docker images?
+
+43
+00:01:37,840 --> 00:01:38,673
+Well you store them
+
+44
+00:01:38,673 --> 00:01:41,260
+in something called a Docker Repository.
+
+45
+00:01:41,260 --> 00:01:42,520
+Okay, we have multiple options.
+
+46
+00:01:42,520 --> 00:01:44,300
+The first one is Docker Hub
+
+47
+00:01:44,300 --> 00:01:46,660
+and so it's a public repository
+
+48
+00:01:46,660 --> 00:01:49,550
+and you can find base images for many technologies
+
+49
+00:01:49,550 --> 00:01:52,260
+or operating systems such as Ubuntu, MySQL and so on.
+
+50
+00:01:52,260 --> 00:01:53,760
+It's very popular.
+
+51
+00:01:53,760 --> 00:01:56,390
+And then for more private integration
+
+52
+00:01:56,390 --> 00:02:00,130
+you have Amazon ECR, Amazon Elastic Container Registry
+
+53
+00:02:00,130 --> 00:02:02,160
+and you can run your private images on there
+
+54
+00:02:02,160 --> 00:02:05,100
+but there's also a public repository option available
+
+55
+00:02:05,100 --> 00:02:09,340
+on ECR called the Amazon ECR Public Gallery.
+
+56
+00:02:09,340 --> 00:02:14,140
+Now, how is Docker different from a virtual machine?
+
+57
+00:02:14,140 --> 00:02:18,330
+Well, Docker is sort of a virtualization technology
+
+58
+00:02:18,330 --> 00:02:19,360
+but not exactly,
+
+59
+00:02:19,360 --> 00:02:22,050
+the purists will try to hit me if I say this,
+
+60
+00:02:22,050 --> 00:02:24,730
+so the resources are shared with a host.
+
+61
+00:02:24,730 --> 00:02:28,190
+That means that you can share many containers on one server.
+
+62
+00:02:28,190 --> 00:02:29,180
+So if you look
+
+63
+00:02:29,180 --> 00:02:34,180
+at the architecture for a VM, you have the infrastructure
+
+64
+00:02:34,240 --> 00:02:36,490
+then you have the host operating system
+
+65
+00:02:36,490 --> 00:02:38,160
+then you have a hypervisor
+
+66
+00:02:38,160 --> 00:02:41,420
+and then you have your apps and your guest operating system.
+
+67
+00:02:41,420 --> 00:02:43,890
+And so this is how, for example, EC2 works,
+
+68
+00:02:43,890 --> 00:02:46,340
+for example, when you get an EC2 machine
+
+69
+00:02:46,340 --> 00:02:49,400
+it is actually a virtual machine running on a hypervisor.
+
+70
+00:02:49,400 --> 00:02:53,250
+And so this allows Amazon to offer many EC2 instances
+
+71
+00:02:53,250 --> 00:02:55,190
+to many different type of customers
+
+72
+00:02:55,190 --> 00:02:56,840
+and all these EC2 instances
+
+73
+00:02:56,840 --> 00:02:59,640
+all these virtual machines are going to be separate.
+
+74
+00:02:59,640 --> 00:03:01,330
+They're not going to share resources
+
+75
+00:03:01,330 --> 00:03:05,350
+and they're going to be isolated, but for a Docker container
+
+76
+00:03:05,350 --> 00:03:07,880
+you still have the infrastructure and the host OS
+
+77
+00:03:07,880 --> 00:03:10,050
+which may be this time an EC2 instance
+
+78
+00:03:10,050 --> 00:03:11,510
+then you have the Docker Daemon
+
+79
+00:03:11,510 --> 00:03:13,470
+and then on top of it, you can have a lot
+
+80
+00:03:13,470 --> 00:03:15,990
+of containers that can be lightweight running
+
+81
+00:03:15,990 --> 00:03:17,830
+on top of the Docker Daemon.
+
+82
+00:03:17,830 --> 00:03:20,180
+And this allows the containers to really
+
+83
+00:03:20,180 --> 00:03:21,460
+cohabitate together.
+
+84
+00:03:21,460 --> 00:03:23,240
+They can actually share networking
+
+85
+00:03:23,240 --> 00:03:24,760
+share some data and so on.
+
+86
+00:03:24,760 --> 00:03:26,760
+So it's a bit less quote unquote,
+
+87
+00:03:26,760 --> 00:03:28,800
+secure as a virtual machine,
+
+88
+00:03:28,800 --> 00:03:33,080
+but it allows you to run more containers on a single server.
+
+89
+00:03:33,080 --> 00:03:35,980
+And this is why we really like Docker containers.
+
+90
+00:03:35,980 --> 00:03:37,330
+So how do you get started with Docker?
+
+91
+00:03:37,330 --> 00:03:39,970
+Well, first you have to write a Docker file,
+
+92
+00:03:39,970 --> 00:03:42,980
+which is defining how your Docker container will look.
+
+93
+00:03:42,980 --> 00:03:44,577
+So we have a base Docker image
+
+94
+00:03:44,577 --> 00:03:47,560
+and we add some files and then we're going to build it.
+
+95
+00:03:47,560 --> 00:03:49,960
+And this will become a Docker image.
+
+96
+00:03:49,960 --> 00:03:51,090
+And that Docker image,
+
+97
+00:03:51,090 --> 00:03:53,640
+you can store it on a Docker repository
+
+98
+00:03:53,640 --> 00:03:56,820
+it's called a Push and you push it to either Docker hub
+
+99
+00:03:56,820 --> 00:03:59,800
+which is a public repository, or Amazon is ECR
+
+100
+00:03:59,800 --> 00:04:03,300
+which is Amazon's version of Docker repositories.
+
+101
+00:04:03,300 --> 00:04:05,990
+Then you can pull back these images
+
+102
+00:04:05,990 --> 00:04:09,120
+from these repositories and then you would run them.
+
+103
+00:04:09,120 --> 00:04:10,570
+And when you run a Docker image
+
+104
+00:04:10,570 --> 00:04:13,200
+it becomes a Docker container, which runs your code
+
+105
+00:04:13,200 --> 00:04:15,260
+that you had built from your Docker build.
+
+106
+00:04:15,260 --> 00:04:17,810
+That is the whole process with Docker.
+
+107
+00:04:17,810 --> 00:04:21,070
+So how do you do Docker container management on AWS?
+
+108
+00:04:21,070 --> 00:04:23,550
+Well, the first one is called Amazon ECS.
+
+109
+00:04:23,550 --> 00:04:25,830
+It's Amazon Elastic Container Service.
+
+110
+00:04:25,830 --> 00:04:29,200
+It's the own platform of Amazon for Docker management.
+
+111
+00:04:29,200 --> 00:04:31,530
+We'll have a look at it in deep dive.
+
+112
+00:04:31,530 --> 00:04:33,780
+Then we have Amazon EKS
+
+113
+00:04:33,780 --> 00:04:36,990
+which is Amazon Elastic Kubernetes Service
+
+114
+00:04:36,990 --> 00:04:39,420
+which is Amazon's managed version of Kubernetes
+
+115
+00:04:39,420 --> 00:04:41,050
+which is an open source project.
+
+116
+00:04:41,050 --> 00:04:42,840
+We'll have a quick look at it.
+
+117
+00:04:42,840 --> 00:04:44,370
+We have AWS Fargate
+
+118
+00:04:44,370 --> 00:04:47,780
+which is Amazon's own serverless container platform.
+
+119
+00:04:47,780 --> 00:04:51,420
+And Fargate works both with ECS and EKS
+
+120
+00:04:51,420 --> 00:04:54,630
+and we'll do a deep dive of Fargate in this section.
+
+121
+00:04:54,630 --> 00:04:58,290
+And then we have Amazon ECR used to store container images
+
+122
+00:04:58,290 --> 00:05:00,670
+as I showed you from before.
+
+123
+00:05:00,670 --> 00:05:03,360
+So we have an overview of how to do Docker
+
+124
+00:05:03,360 --> 00:05:06,320
+and what is Docker and how to do Docker in AWS.
+
+125
+00:05:06,320 --> 00:05:09,733
+Now let's do a deep dive onto Amazon ECS and the rest.
+

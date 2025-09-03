@@ -1,0 +1,168 @@
+1
+00:00:00,180 --> 00:00:01,170
+So, now, let's talk about
+
+2
+00:00:01,170 --> 00:00:03,240
+Amazon S3 pre-signed URLs.
+
+3
+00:00:03,240 --> 00:00:06,360
+So, they are URLs you can generate using the S3 console,
+
+4
+00:00:06,360 --> 00:00:10,950
+the CLI or the SDK, and the URL has an expiration.
+
+5
+00:00:10,950 --> 00:00:14,220
+So if you use the console, it's up to 12 hours
+
+6
+00:00:14,220 --> 00:00:17,400
+and if use the CLI, you can go up to 168 hours.
+
+7
+00:00:17,400 --> 00:00:20,670
+So, the idea is that when you generate a pre-signed URL,
+
+8
+00:00:20,670 --> 00:00:23,490
+the user that will get that URL will inherit the permissions
+
+9
+00:00:23,490 --> 00:00:27,480
+of the user that generated that URL for a GET or a PUT.
+
+10
+00:00:27,480 --> 00:00:28,680
+So what's the use case?
+
+11
+00:00:28,680 --> 00:00:31,350
+Well, say you have an S3 bucket and it's private,
+
+12
+00:00:31,350 --> 00:00:33,690
+and you want to give someone outside of AWS
+
+13
+00:00:33,690 --> 00:00:35,310
+access to one file.
+
+14
+00:00:35,310 --> 00:00:37,080
+You don't want to make that file public.
+
+15
+00:00:37,080 --> 00:00:39,990
+You don't want to make that file in any way
+
+16
+00:00:39,990 --> 00:00:41,700
+that would break your security, right?
+
+17
+00:00:41,700 --> 00:00:44,100
+So, you as your bucket owner or the user,
+
+18
+00:00:44,100 --> 00:00:48,750
+you're going to generate a pre-signed URL out of this file,
+
+19
+00:00:48,750 --> 00:00:51,180
+and the S3 Bucket will give you a URL.
+
+20
+00:00:51,180 --> 00:00:52,920
+That URL is going to be pre-signed,
+
+21
+00:00:52,920 --> 00:00:55,500
+meaning that it will carry over your credentials,
+
+22
+00:00:55,500 --> 00:00:58,680
+in terms of authorization to access that file.
+
+23
+00:00:58,680 --> 00:01:02,250
+Then you will send this URL to the target user
+
+24
+00:01:02,250 --> 00:01:04,650
+that you want to give access to the file
+
+25
+00:01:04,650 --> 00:01:06,330
+for a limited amount of time.
+
+26
+00:01:06,330 --> 00:01:08,100
+And then that user, sorry,
+
+27
+00:01:08,100 --> 00:01:11,010
+will be using the URL to access the file
+
+28
+00:01:11,010 --> 00:01:12,510
+on the S3 Buckets.
+
+29
+00:01:12,510 --> 00:01:15,390
+And then you will get a file back from the S3 buckets,
+
+30
+00:01:15,390 --> 00:01:19,320
+and the user has being able to download it, for example.
+
+31
+00:01:19,320 --> 00:01:21,870
+So, pre-signed URL are a very, very common use case
+
+32
+00:01:21,870 --> 00:01:25,440
+when it comes to temporary access to one specific file
+
+33
+00:01:25,440 --> 00:01:27,660
+for download or even for upload.
+
+34
+00:01:27,660 --> 00:01:30,690
+So, the examples are to only allow logged-in users
+
+35
+00:01:30,690 --> 00:01:33,450
+to download a premium video of your S3 bucket
+
+36
+00:01:33,450 --> 00:01:35,880
+or to allow an ever-changing list of users
+
+37
+00:01:35,880 --> 00:01:38,640
+to download files by generating URLs dynamically,
+
+38
+00:01:38,640 --> 00:01:41,700
+or to allow, temporarily, a user to upload a file
+
+39
+00:01:41,700 --> 00:01:44,040
+to a precise location in your S3 bucket,
+
+40
+00:01:44,040 --> 00:01:46,710
+while maintaining your S3 bucket private.
+
+41
+00:01:46,710 --> 00:01:48,210
+So that's it for this lecture,
+
+42
+00:01:48,210 --> 00:01:50,723
+and I will see you in the next lecture for some hands on.
+

@@ -1,0 +1,728 @@
+1
+00:00:00,090 --> 00:00:01,500
+So now let's talk about
+
+2
+00:00:01,500 --> 00:00:03,080
+solution architecture,
+
+3
+00:00:03,080 --> 00:00:05,939
+to see how we can make an EC2 instance
+
+4
+00:00:05,939 --> 00:00:07,920
+become highly available.
+
+5
+00:00:07,920 --> 00:00:09,630
+Because we know that an EC2 instance,
+
+6
+00:00:09,630 --> 00:00:12,780
+by default, it's launched in one Availability Zone,
+
+7
+00:00:12,780 --> 00:00:14,250
+and it's not really highly available,
+
+8
+00:00:14,250 --> 00:00:17,270
+but we can engineer something to make it highly available,
+
+9
+00:00:17,270 --> 00:00:19,370
+and that is the whole purpose of this lecture.
+
+10
+00:00:19,370 --> 00:00:21,320
+We'll see there're different ways of doing things,
+
+11
+00:00:21,320 --> 00:00:22,860
+and it all depends on your requirements
+
+12
+00:00:22,860 --> 00:00:25,090
+and the amount of work you wanna do.
+
+13
+00:00:25,090 --> 00:00:27,880
+So, let's say we have a Public EC2 instance
+
+14
+00:00:27,880 --> 00:00:29,410
+that's running a web server,
+
+15
+00:00:29,410 --> 00:00:31,700
+and we wanna be able to access the web server,
+
+16
+00:00:31,700 --> 00:00:34,250
+so what we'll do is that we'll attach an Elastic IP
+
+17
+00:00:34,250 --> 00:00:35,670
+to that EC2 instance,
+
+18
+00:00:35,670 --> 00:00:38,020
+and so our users can access our website
+
+19
+00:00:38,020 --> 00:00:39,950
+directly through this Elastic IP,
+
+20
+00:00:39,950 --> 00:00:42,160
+and they will be directly talking to the EC2 instance
+
+21
+00:00:42,160 --> 00:00:43,360
+thanks to it,
+
+22
+00:00:43,360 --> 00:00:46,640
+and we get a result from our web server, so this is great.
+
+23
+00:00:46,640 --> 00:00:48,200
+But now, what we want to do
+
+24
+00:00:48,200 --> 00:00:50,600
+is have a Standby EC2 instance,
+
+25
+00:00:50,600 --> 00:00:52,820
+just in case things go wrong,
+
+26
+00:00:52,820 --> 00:00:55,500
+that makes our EC2 instance highly available.
+
+27
+00:00:55,500 --> 00:00:57,910
+Now, we need to be able to failover
+
+28
+00:00:57,910 --> 00:01:01,270
+to our Standby EC2 instance, in case something goes wrong.
+
+29
+00:01:01,270 --> 00:01:03,220
+So how do we know if something goes wrong?
+
+30
+00:01:03,220 --> 00:01:04,720
+Well, you should think that anytime
+
+31
+00:01:04,720 --> 00:01:07,210
+you wanted to know that something is about to go wrong,
+
+32
+00:01:07,210 --> 00:01:09,350
+there must be some kind of monitoring in place.
+
+33
+00:01:09,350 --> 00:01:12,070
+So, we're going to create a CloudWatch Event
+
+34
+00:01:12,070 --> 00:01:14,730
+or a CloudWatch Alarm, based on an event we know.
+
+35
+00:01:14,730 --> 00:01:16,850
+For example, if we have a CloudWatch Event,
+
+36
+00:01:16,850 --> 00:01:20,280
+maybe we want to see if an instance is getting terminated.
+
+37
+00:01:20,280 --> 00:01:22,760
+Or if we are having a web server,
+
+38
+00:01:22,760 --> 00:01:25,510
+and we know the CPU can go all the way to 100%,
+
+39
+00:01:25,510 --> 00:01:27,360
+maybe you want to have a CloudWatch Alarm
+
+40
+00:01:27,360 --> 00:01:28,840
+that monitors the CPU,
+
+41
+00:01:28,840 --> 00:01:30,890
+and if we see the CPU is at 100%,
+
+42
+00:01:30,890 --> 00:01:33,080
+maybe the EC2 instance has gone wrong,
+
+43
+00:01:33,080 --> 00:01:35,340
+and we want to trigger an alarm based on that.
+
+44
+00:01:35,340 --> 00:01:37,790
+So there's different ways of monitoring your EC2 instance,
+
+45
+00:01:37,790 --> 00:01:40,060
+based on what your requirements may be.
+
+46
+00:01:40,060 --> 00:01:43,300
+Then, from the Alarm or the CloudWatch Events,
+
+47
+00:01:43,300 --> 00:01:46,470
+you could go ahead and trigger a Lambda function.
+
+48
+00:01:46,470 --> 00:01:47,720
+And that Lambda function,
+
+49
+00:01:47,720 --> 00:01:50,270
+will allow you to do whatever you want,
+
+50
+00:01:50,270 --> 00:01:51,120
+and that lambda function,
+
+51
+00:01:51,120 --> 00:01:53,200
+for example, can issue API calls
+
+52
+00:01:53,200 --> 00:01:56,070
+to start the instance if it hasn't been started yet, okay,
+
+53
+00:01:56,070 --> 00:01:57,830
+if there's no Standby EC2 instance.
+
+54
+00:01:57,830 --> 00:02:00,120
+And then, issue an API call
+
+55
+00:02:00,120 --> 00:02:04,140
+to attach the Elastic IP to my Standby instance.
+
+56
+00:02:04,140 --> 00:02:06,530
+So now the Elastic IP will be attached,
+
+57
+00:02:06,530 --> 00:02:08,620
+and it will be obviously detached
+
+58
+00:02:08,620 --> 00:02:09,919
+from the other EC2 instance,
+
+59
+00:02:09,919 --> 00:02:11,580
+because an Elastic IP can only be attached
+
+60
+00:02:11,580 --> 00:02:13,250
+to one instance at a time,
+
+61
+00:02:13,250 --> 00:02:16,510
+and the other EC2 instance, can be terminated or disappear,
+
+62
+00:02:16,510 --> 00:02:18,900
+and we have effectively failed over
+
+63
+00:02:18,900 --> 00:02:21,120
+to a new Standby EC2 instance.
+
+64
+00:02:21,120 --> 00:02:24,430
+But our users because they communicate to our architecture,
+
+65
+00:02:24,430 --> 00:02:25,990
+thanks to the Elastic IP,
+
+66
+00:02:25,990 --> 00:02:27,440
+they don't really see anything happening,
+
+67
+00:02:27,440 --> 00:02:28,520
+it's all in the back end.
+
+68
+00:02:28,520 --> 00:02:29,670
+And so that's one way,
+
+69
+00:02:29,670 --> 00:02:32,330
+of creating a highly available EC2 instance.
+
+70
+00:02:32,330 --> 00:02:33,690
+But there are more ways.
+
+71
+00:02:33,690 --> 00:02:35,820
+Okay, let's talk about a second way of doing it,
+
+72
+00:02:35,820 --> 00:02:37,570
+with an Auto Scaling Group.
+
+73
+00:02:37,570 --> 00:02:41,440
+So, we have an ASG in two Availability Zones,
+
+74
+00:02:41,440 --> 00:02:43,300
+and again, we're using the same concept,
+
+75
+00:02:43,300 --> 00:02:45,950
+where a user is going to be talking to our application
+
+76
+00:02:45,950 --> 00:02:47,930
+using an Elastic IP because it makes things
+
+77
+00:02:47,930 --> 00:02:49,450
+a little bit simpler.
+
+78
+00:02:49,450 --> 00:02:52,360
+So now how should we configure our Auto Scaling Group?
+
+79
+00:02:52,360 --> 00:02:54,290
+What if we configure it this way,
+
+80
+00:02:54,290 --> 00:02:56,870
+we say the minimum amount of instances is one,
+
+81
+00:02:56,870 --> 00:02:59,690
+the maximum is one, and we want one desired,
+
+82
+00:02:59,690 --> 00:03:02,860
+and we specify over two Availability Zones.
+
+83
+00:03:02,860 --> 00:03:04,480
+So, what does it mean?
+
+84
+00:03:04,480 --> 00:03:06,970
+That means we're going to get only one EC2 instance,
+
+85
+00:03:06,970 --> 00:03:09,980
+and that EC2 instance may be in the first AZ.
+
+86
+00:03:09,980 --> 00:03:11,730
+And that's what we get out of these settings.
+
+87
+00:03:11,730 --> 00:03:13,490
+So why would we use these settings?
+
+88
+00:03:13,490 --> 00:03:15,650
+Well, for example, we can say that
+
+89
+00:03:15,650 --> 00:03:17,890
+on the user data of the EC2 instance,
+
+90
+00:03:17,890 --> 00:03:19,120
+when it does come up,
+
+91
+00:03:19,120 --> 00:03:21,580
+its going to acquire and attach
+
+92
+00:03:21,580 --> 00:03:24,700
+this Elastic IP address based on Tags.
+
+93
+00:03:24,700 --> 00:03:27,210
+So this user data will issue API calls
+
+94
+00:03:27,210 --> 00:03:29,800
+and the Elastic IP will be attached
+
+95
+00:03:29,800 --> 00:03:31,350
+to our Public EC2 instance,
+
+96
+00:03:31,350 --> 00:03:35,300
+and our users will be able to talk to our web server.
+
+97
+00:03:35,300 --> 00:03:37,870
+But now, let's discuss that this instance
+
+98
+00:03:37,870 --> 00:03:39,730
+is being terminated, it goes down,
+
+99
+00:03:39,730 --> 00:03:41,430
+and so what the ASG will do,
+
+100
+00:03:41,430 --> 00:03:43,640
+is that it will terminate the first instance
+
+101
+00:03:43,640 --> 00:03:47,540
+and create a Replacement EC2 instance in another AZ,
+
+102
+00:03:47,540 --> 00:03:48,910
+and thanks to that,
+
+103
+00:03:48,910 --> 00:03:51,620
+what we get is that, the first instance is terminated,
+
+104
+00:03:51,620 --> 00:03:55,060
+and the second instance will run it's EC2 user data scripts
+
+105
+00:03:55,060 --> 00:03:57,530
+and attach the Elastic IP.
+
+106
+00:03:57,530 --> 00:04:00,110
+And we have effectively failover, so in this case,
+
+107
+00:04:00,110 --> 00:04:02,590
+we don't need a CloudWatch Alarm or a CloudWatch Event,
+
+108
+00:04:02,590 --> 00:04:04,330
+the Auto Scaling Group as soon as it sees
+
+109
+00:04:04,330 --> 00:04:06,510
+that one instance has been terminated,
+
+110
+00:04:06,510 --> 00:04:07,790
+thanks to its settings,
+
+111
+00:04:07,790 --> 00:04:10,980
+will create a new EC2 instance and another AZ.
+
+112
+00:04:10,980 --> 00:04:13,340
+And the reason we have one mix, one max and one desired
+
+113
+00:04:13,340 --> 00:04:15,310
+is that we'll never get more than one instance
+
+114
+00:04:15,310 --> 00:04:16,660
+running at the same time
+
+115
+00:04:16,660 --> 00:04:19,720
+in our entire ASG, which is great.
+
+116
+00:04:19,720 --> 00:04:21,990
+Finally, because our EC2 instance
+
+117
+00:04:21,990 --> 00:04:24,340
+does do API calls directly,
+
+118
+00:04:24,340 --> 00:04:26,580
+to attach this Elastic IP Address,
+
+119
+00:04:26,580 --> 00:04:28,950
+then we need to make sure that the EC2 instance
+
+120
+00:04:28,950 --> 00:04:32,610
+has an instance role, that allows it to issue API calls
+
+121
+00:04:32,610 --> 00:04:34,690
+to attach this Elastic IP Address.
+
+122
+00:04:34,690 --> 00:04:38,100
+So here we have a combo of using EC2 User Data
+
+123
+00:04:38,100 --> 00:04:40,070
+to attach the Elastic IP Address,
+
+124
+00:04:40,070 --> 00:04:42,260
+and also having an EC2 instance role
+
+125
+00:04:42,260 --> 00:04:45,910
+to make sure the API call will succeed.
+
+126
+00:04:45,910 --> 00:04:48,560
+So we can extend this pattern to another thing.
+
+127
+00:04:48,560 --> 00:04:50,410
+For example, our EC2 instance,
+
+128
+00:04:50,410 --> 00:04:52,470
+can be stateful and have an EBS volume,
+
+129
+00:04:52,470 --> 00:04:53,890
+so we can get even more complicated,
+
+130
+00:04:53,890 --> 00:04:55,650
+so let's get started with it,
+
+131
+00:04:55,650 --> 00:04:56,723
+so we have an Auto Scaling Group,
+
+132
+00:04:56,723 --> 00:04:58,770
+two AZ, our Public EC2 instance,
+
+133
+00:04:58,770 --> 00:05:00,990
+and an Elastic IP, so we already know this.
+
+134
+00:05:00,990 --> 00:05:03,070
+But now, we also have an EBS Volume
+
+135
+00:05:03,070 --> 00:05:05,510
+attached to our EC2 instance,
+
+136
+00:05:05,510 --> 00:05:06,500
+let's imagine for example,
+
+137
+00:05:06,500 --> 00:05:07,980
+that EC2 instance is a database,
+
+138
+00:05:07,980 --> 00:05:10,650
+and we're trying to make that database highly available.
+
+139
+00:05:10,650 --> 00:05:13,260
+So, all of our data is onto our EBS Volume,
+
+140
+00:05:13,260 --> 00:05:14,910
+and we know an EBS Volume
+
+141
+00:05:14,910 --> 00:05:17,960
+is locked into a specific Availability Zone.
+
+142
+00:05:17,960 --> 00:05:22,220
+So let's imagine that our EC2 instance is being terminated,
+
+143
+00:05:22,220 --> 00:05:23,900
+and now what should we do?
+
+144
+00:05:23,900 --> 00:05:25,780
+Well, we know that on termination,
+
+145
+00:05:25,780 --> 00:05:28,700
+the Auto Scaling Group can use lifecycle hooks,
+
+146
+00:05:28,700 --> 00:05:30,630
+and thanks to this lifecycle hook,
+
+147
+00:05:30,630 --> 00:05:34,760
+we can create a script to take that EBS Volume
+
+148
+00:05:34,760 --> 00:05:37,040
+and create an EBS Snapshot from it.
+
+149
+00:05:37,040 --> 00:05:38,390
+Because, it will be triggered
+
+150
+00:05:38,390 --> 00:05:40,240
+as soon as the EC2 instance goes down,
+
+151
+00:05:40,240 --> 00:05:43,160
+and so we know that the EBS volume will be frayed.
+
+152
+00:05:43,160 --> 00:05:44,850
+So we have an EBS Snapshot,
+
+153
+00:05:44,850 --> 00:05:46,460
+and we tag it properly,
+
+154
+00:05:46,460 --> 00:05:49,440
+and the ASG will be launching a Replacement EC2 instance,
+
+155
+00:05:49,440 --> 00:05:51,090
+we have the same settings as before,
+
+156
+00:05:51,090 --> 00:05:53,750
+and now, by properly configuring again
+
+157
+00:05:53,750 --> 00:05:54,960
+our Auto Scaling Group
+
+158
+00:05:54,960 --> 00:05:58,050
+to create a lifecycle hook on the Launch event,
+
+159
+00:05:58,050 --> 00:06:02,040
+then we can create an EBS Volume out of this EBS Snapshot
+
+160
+00:06:02,040 --> 00:06:03,910
+into the correct Availability Zone,
+
+161
+00:06:03,910 --> 00:06:07,470
+and then attach it to the Replacement EC2 instance.
+
+162
+00:06:07,470 --> 00:06:09,910
+And then the EC2 user now can just check that
+
+163
+00:06:09,910 --> 00:06:13,520
+and also attach the Elastic IP address directly,
+
+164
+00:06:13,520 --> 00:06:16,230
+and we need to make sure obviously the API calls are correct
+
+165
+00:06:16,230 --> 00:06:18,600
+so we need to have an EC2 instance role,
+
+166
+00:06:18,600 --> 00:06:19,650
+which as we can see here,
+
+167
+00:06:19,650 --> 00:06:22,360
+we've done a combo of EC2 user data,
+
+168
+00:06:22,360 --> 00:06:24,340
+and also lifecycle hooks
+
+169
+00:06:24,340 --> 00:06:26,280
+to make sure that the EBS Volume
+
+170
+00:06:26,280 --> 00:06:27,820
+was first getting Snapshots
+
+171
+00:06:27,820 --> 00:06:29,610
+and then being restored from the Snapshot
+
+172
+00:06:29,610 --> 00:06:30,980
+into a different AZ.
+
+173
+00:06:30,980 --> 00:06:33,900
+And that makes it a highly available EC2 instance,
+
+174
+00:06:33,900 --> 00:06:35,390
+with an EBS volume.
+
+175
+00:06:35,390 --> 00:06:37,280
+So as we can see the possibilities are endless,
+
+176
+00:06:37,280 --> 00:06:38,560
+but it's good to see them once
+
+177
+00:06:38,560 --> 00:06:40,690
+to see how these kind of architectures can work,
+
+178
+00:06:40,690 --> 00:06:41,740
+obviously, they're a bit more work,
+
+179
+00:06:41,740 --> 00:06:42,800
+they're a bit more custom,
+
+180
+00:06:42,800 --> 00:06:45,260
+but we can achieve great things with automation.
+
+181
+00:06:45,260 --> 00:06:46,950
+So that's it for this lecture, I hope you liked it,
+
+182
+00:06:46,950 --> 00:06:48,900
+and I will see you in the next lecture.
+

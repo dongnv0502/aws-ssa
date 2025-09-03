@@ -1,0 +1,236 @@
+1
+00:00:00,330 --> 00:00:02,590
+So now, let's talk about cache invalidations
+
+2
+00:00:02,590 --> 00:00:04,050
+in CloudFront.
+
+3
+00:00:04,050 --> 00:00:06,360
+So, CloudFront has a backend origin,
+
+4
+00:00:06,360 --> 00:00:07,500
+of course.
+
+5
+00:00:07,500 --> 00:00:11,160
+And if you do happen to update the backend origin,
+
+6
+00:00:11,160 --> 00:00:14,430
+CloudFront edge locations will not know about it
+
+7
+00:00:14,430 --> 00:00:16,650
+and will only get the refreshed content
+
+8
+00:00:16,650 --> 00:00:19,380
+from your backend origin, the update you want,
+
+9
+00:00:19,380 --> 00:00:23,280
+once the TTL of the cache has expired.
+
+10
+00:00:23,280 --> 00:00:27,360
+But that is maybe an undesirable behavior for you
+
+11
+00:00:27,360 --> 00:00:31,050
+because you want the new content to be served
+
+12
+00:00:31,050 --> 00:00:32,520
+as soon as possible.
+
+13
+00:00:32,520 --> 00:00:35,940
+And therefore, what you can do is you can force an entire
+
+14
+00:00:35,940 --> 00:00:38,310
+or a partial cache refresh.
+
+15
+00:00:38,310 --> 00:00:41,280
+And therefore, you eliminate all the TTL happened,
+
+16
+00:00:41,280 --> 00:00:42,660
+present in your cache.
+
+17
+00:00:42,660 --> 00:00:44,430
+And to this, you too,
+
+18
+00:00:44,430 --> 00:00:47,460
+perform what's called a CloudFront invalidation.
+
+19
+00:00:47,460 --> 00:00:49,830
+So, you need to pass in some file path.
+
+20
+00:00:49,830 --> 00:00:53,730
+So, you can either invalidate all the files with a star
+
+21
+00:00:53,730 --> 00:00:56,280
+or invalidate a special path,
+
+22
+00:00:56,280 --> 00:00:59,683
+for example, /images/*.
+
+23
+00:00:59,683 --> 00:01:01,350
+Okay, so how does that work?
+
+24
+00:01:01,350 --> 00:01:04,110
+Well, say we have a CloudFront distribution,
+
+25
+00:01:04,110 --> 00:01:05,280
+two edge locations.
+
+26
+00:01:05,280 --> 00:01:07,890
+Each edge location has its own cache,
+
+27
+00:01:07,890 --> 00:01:12,540
+which contains the index.html and the images directly
+
+28
+00:01:12,540 --> 00:01:16,170
+from your origin, which is an S3 bucket.
+
+29
+00:01:16,170 --> 00:01:18,600
+And it does happen that, for example,
+
+30
+00:01:18,600 --> 00:01:22,350
+the TTL for these files are set to one day.
+
+31
+00:01:22,350 --> 00:01:24,060
+So, that means that in one day,
+
+32
+00:01:24,060 --> 00:01:28,800
+the edge locations will re-fetch these files for the cache.
+
+33
+00:01:28,800 --> 00:01:30,180
+Now, you as a user,
+
+34
+00:01:30,180 --> 00:01:32,850
+you're an admin, you're going to update the files
+
+35
+00:01:32,850 --> 00:01:34,050
+in the S3 bucket.
+
+36
+00:01:34,050 --> 00:01:37,080
+You're going to add or change some images.
+
+37
+00:01:37,080 --> 00:01:40,380
+And also, change the index.html file.
+
+38
+00:01:40,380 --> 00:01:42,990
+And you want these updates to be reflected
+
+39
+00:01:42,990 --> 00:01:46,170
+as soon as possible to your users in CloudFront.
+
+40
+00:01:46,170 --> 00:01:47,670
+Therefore, what you can do is
+
+41
+00:01:47,670 --> 00:01:50,580
+that you're going to invalidate two path.
+
+42
+00:01:50,580 --> 00:01:53,670
+First is going to be the /index.html
+
+43
+00:01:53,670 --> 00:01:55,890
+to invalidate a specific file.
+
+44
+00:01:55,890 --> 00:01:59,850
+And then you're going to invalidate /images/*
+
+45
+00:01:59,850 --> 00:02:02,160
+to remove all the images from the cache
+
+46
+00:02:02,160 --> 00:02:03,900
+in your edge locations.
+
+47
+00:02:03,900 --> 00:02:06,840
+So, then CloudFront is going to tell the edge locations
+
+48
+00:02:06,840 --> 00:02:08,940
+to invalidate these files from the cache
+
+49
+00:02:08,940 --> 00:02:12,150
+and they're going to be simply removed from the cache.
+
+50
+00:02:12,150 --> 00:02:15,030
+Now, next time a user is going to ask for,
+
+51
+00:02:15,030 --> 00:02:17,490
+for example, the index.html,
+
+52
+00:02:17,490 --> 00:02:20,160
+CloudFront is going to forward the request
+
+53
+00:02:20,160 --> 00:02:22,920
+to a specific edge location, which will realize
+
+54
+00:02:22,920 --> 00:02:25,890
+that the file is not in its cache anymore.
+
+55
+00:02:25,890 --> 00:02:27,900
+Therefore, the edge location will do a request
+
+56
+00:02:27,900 --> 00:02:32,900
+on your origin and get the updated and newer index.html.
+
+57
+00:02:33,120 --> 00:02:36,630
+Hence, you've seen the value of cache invalidations.
+
+58
+00:02:36,630 --> 00:02:37,463
+So, that's it.
+
+59
+00:02:37,463 --> 00:02:40,210
+I hope you liked it and I will see you in the next lecture.
+

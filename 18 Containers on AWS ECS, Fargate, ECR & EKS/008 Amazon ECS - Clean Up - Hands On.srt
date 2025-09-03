@@ -1,0 +1,156 @@
+1
+00:00:00,150 --> 00:00:02,040
+So let's make sure to destroy everything
+
+2
+00:00:02,040 --> 00:00:03,240
+before we're done.
+
+3
+00:00:03,240 --> 00:00:06,060
+So first, we need to stop the service.
+
+4
+00:00:06,060 --> 00:00:06,990
+So to stop the service,
+
+5
+00:00:06,990 --> 00:00:08,640
+make sure you have zero tasks running.
+
+6
+00:00:08,640 --> 00:00:10,170
+If not, you update the service
+
+7
+00:00:10,170 --> 00:00:12,510
+and you set the desired task to zero.
+
+8
+00:00:12,510 --> 00:00:16,110
+And then you can click on Delete Service, type in Delete,
+
+9
+00:00:16,110 --> 00:00:18,210
+and this will delete the service.
+
+10
+00:00:18,210 --> 00:00:19,410
+Now, when you delete the service,
+
+11
+00:00:19,410 --> 00:00:20,610
+this is actually going to go
+
+12
+00:00:20,610 --> 00:00:23,880
+into a service called CloudFormation.
+
+13
+00:00:23,880 --> 00:00:26,460
+And CloudFormation is going to take its time
+
+14
+00:00:26,460 --> 00:00:29,820
+to delete the entire stack that it created.
+
+15
+00:00:29,820 --> 00:00:31,410
+And so part of the thing it's going to delete
+
+16
+00:00:31,410 --> 00:00:34,620
+is the ECS service, but also you LoadBalancer Listener,
+
+17
+00:00:34,620 --> 00:00:36,930
+you LoadBalancer itself, the security group,
+
+18
+00:00:36,930 --> 00:00:38,310
+and the target groups.
+
+19
+00:00:38,310 --> 00:00:40,140
+So this can take a little bit of time
+
+20
+00:00:40,140 --> 00:00:42,840
+and we need to wait for everything to be deleted.
+
+21
+00:00:42,840 --> 00:00:44,580
+And when the service is fully deleted,
+
+22
+00:00:44,580 --> 00:00:46,980
+then you can go and delete this cluster.
+
+23
+00:00:46,980 --> 00:00:49,140
+So for this, you just click on Delete Cluster
+
+24
+00:00:49,140 --> 00:00:53,340
+and it's going to delete the demo cluster.
+
+25
+00:00:53,340 --> 00:00:55,350
+And we can do this right now.
+
+26
+00:00:55,350 --> 00:00:56,850
+And again, this is going to start something
+
+27
+00:00:56,850 --> 00:01:00,120
+in CloudFormation to delete the infrastructure
+
+28
+00:01:00,120 --> 00:01:01,860
+of the ECS cluster.
+
+29
+00:01:01,860 --> 00:01:03,600
+So that includes the capacity provider,
+
+30
+00:01:03,600 --> 00:01:05,820
+the auto-scaling group that we have created,
+
+31
+00:01:05,820 --> 00:01:08,070
+the cluster, and the launch templates.
+
+32
+00:01:08,070 --> 00:01:09,510
+So this is very good.
+
+33
+00:01:09,510 --> 00:01:12,660
+Finally, for your task definition, you can leave them as is.
+
+34
+00:01:12,660 --> 00:01:15,540
+They don't cost you any money, they're just definitions.
+
+35
+00:01:15,540 --> 00:01:16,373
+But if you wanted to,
+
+36
+00:01:16,373 --> 00:01:19,860
+you could also click on one of them and deregister.
+
+37
+00:01:19,860 --> 00:01:22,830
+Do Action and deregister the test definition itself.
+
+38
+00:01:22,830 --> 00:01:23,663
+So that's it.
+
+39
+00:01:23,663 --> 00:01:26,703
+I hope you liked it and I will see you in the next lecture.
+

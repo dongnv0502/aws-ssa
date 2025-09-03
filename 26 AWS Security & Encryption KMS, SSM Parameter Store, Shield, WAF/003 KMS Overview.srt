@@ -1,0 +1,692 @@
+1
+00:00:00,270 --> 00:00:02,580
+So now let's talk about AWS KMS,
+
+2
+00:00:02,580 --> 00:00:05,640
+which is a key management service of AWS.
+
+3
+00:00:05,640 --> 00:00:08,010
+So we've been using it a lot without knowing,
+
+4
+00:00:08,010 --> 00:00:10,320
+but anytime you hear encryption
+
+5
+00:00:10,320 --> 00:00:12,360
+when you have an AWS service,
+
+6
+00:00:12,360 --> 00:00:15,090
+it's most likely going to be KMS encryption.
+
+7
+00:00:15,090 --> 00:00:17,580
+The aim is that with this KMS service,
+
+8
+00:00:17,580 --> 00:00:20,370
+AWS is going to manage the encryption keys for us.
+
+9
+00:00:20,370 --> 00:00:21,203
+And that's great,
+
+10
+00:00:21,203 --> 00:00:23,520
+because that means that we have less things to do.
+
+11
+00:00:23,520 --> 00:00:25,290
+So KMS is, of course,
+
+12
+00:00:25,290 --> 00:00:28,620
+fully integrated with IAM for authorization,
+
+13
+00:00:28,620 --> 00:00:32,280
+and it gives us very easy ways to control access
+
+14
+00:00:32,280 --> 00:00:35,190
+to our data if it's encrypted with KMS.
+
+15
+00:00:35,190 --> 00:00:38,070
+The power of using AWS KMS is that you're able
+
+16
+00:00:38,070 --> 00:00:42,480
+to audit every single API call made to use your keys
+
+17
+00:00:42,480 --> 00:00:43,740
+through CloudTrail,
+
+18
+00:00:43,740 --> 00:00:46,800
+which is something the exam may test you on.
+
+19
+00:00:46,800 --> 00:00:47,850
+So on top of it,
+
+20
+00:00:47,850 --> 00:00:52,470
+KMS can be used seamlessly into most AWS services.
+
+21
+00:00:52,470 --> 00:00:55,650
+So for example, if you wanted to encrypt the data at rest
+
+22
+00:00:55,650 --> 00:00:58,920
+in an EBS volume, just enable the KMS integration.
+
+23
+00:00:58,920 --> 00:01:01,560
+Same for S3, same for RDS, same for SSM,
+
+24
+00:01:01,560 --> 00:01:04,410
+and same for pretty much all the services
+
+25
+00:01:04,410 --> 00:01:06,270
+that require encryption.
+
+26
+00:01:06,270 --> 00:01:09,000
+The idea is that with KMS, you can also use it yourself.
+
+27
+00:01:09,000 --> 00:01:11,310
+And if you have secrets data,
+
+28
+00:01:11,310 --> 00:01:13,770
+you never ever store them in plain text,
+
+29
+00:01:13,770 --> 00:01:15,360
+that means just as is.
+
+30
+00:01:15,360 --> 00:01:17,040
+Especially in your code.
+
+31
+00:01:17,040 --> 00:01:18,597
+So if you want to use KMS,
+
+32
+00:01:18,597 --> 00:01:21,570
+you can also use KMS through API calls.
+
+33
+00:01:21,570 --> 00:01:24,960
+You can use the AWS CLI or the SDK.
+
+34
+00:01:24,960 --> 00:01:27,000
+And that means that you can encrypt
+
+35
+00:01:27,000 --> 00:01:30,900
+whatever is a secret for you with a KMS key.
+
+36
+00:01:30,900 --> 00:01:33,390
+And then these encrypted secrets can be, for example,
+
+37
+00:01:33,390 --> 00:01:36,390
+stored in your code or in environment variables.
+
+38
+00:01:36,390 --> 00:01:38,250
+That is a much better pattern.
+
+39
+00:01:38,250 --> 00:01:39,870
+So now let's talk about the different types
+
+40
+00:01:39,870 --> 00:01:42,210
+of KMS keys available to you.
+
+41
+00:01:42,210 --> 00:01:44,010
+So now it's called a KMS key.
+
+42
+00:01:44,010 --> 00:01:45,180
+By the way, it used to be called
+
+43
+00:01:45,180 --> 00:01:48,600
+the KMS customer master key, but it was confusing
+
+44
+00:01:48,600 --> 00:01:51,060
+because there's also the customer managed keys
+
+45
+00:01:51,060 --> 00:01:52,380
+as we'll see in a second.
+
+46
+00:01:52,380 --> 00:01:55,500
+So now, we just talk about KMS keys.
+
+47
+00:01:55,500 --> 00:01:57,600
+So we have two types of KMS keys.
+
+48
+00:01:57,600 --> 00:02:00,090
+We have the symmetric KMS keys,
+
+49
+00:02:00,090 --> 00:02:03,300
+and that means there's only one single encrypted key
+
+50
+00:02:03,300 --> 00:02:06,060
+that is used to encrypt and decrypt data.
+
+51
+00:02:06,060 --> 00:02:09,030
+And so any service of AWS that is integrated
+
+52
+00:02:09,030 --> 00:02:12,030
+with KMS will use symmetric keys.
+
+53
+00:02:12,030 --> 00:02:16,500
+The idea is that when we create or use a KMS symmetric key,
+
+54
+00:02:16,500 --> 00:02:19,560
+then we never get access to the key itself, okay?
+
+55
+00:02:19,560 --> 00:02:22,590
+All we do is that we use the KMS API calls
+
+56
+00:02:22,590 --> 00:02:25,350
+to leverage and use that key.
+
+57
+00:02:25,350 --> 00:02:28,260
+The second kind of key available on KMS
+
+58
+00:02:28,260 --> 00:02:30,390
+are called asymmetric keys.
+
+59
+00:02:30,390 --> 00:02:31,830
+That means that you have two keys.
+
+60
+00:02:31,830 --> 00:02:34,860
+You have a public key that's used to encrypt data,
+
+61
+00:02:34,860 --> 00:02:37,980
+and a private key used to decrypt data.
+
+62
+00:02:37,980 --> 00:02:40,500
+So this is used when you have encrypt/decrypt,
+
+63
+00:02:40,500 --> 00:02:43,020
+or sign/verify type of operations.
+
+64
+00:02:43,020 --> 00:02:43,853
+And in that case,
+
+65
+00:02:43,853 --> 00:02:46,650
+you can download the public key out of KMS,
+
+66
+00:02:46,650 --> 00:02:49,530
+but you can use access the private key.
+
+67
+00:02:49,530 --> 00:02:50,700
+You can only use API calls
+
+68
+00:02:50,700 --> 00:02:53,010
+against to access the private key.
+
+69
+00:02:53,010 --> 00:02:56,460
+So the use cases for an asymmetric type of key
+
+70
+00:02:56,460 --> 00:02:59,760
+is when you want the encryption to be done outside
+
+71
+00:02:59,760 --> 00:03:02,760
+of your AWS cloud by users who cannot
+
+72
+00:03:02,760 --> 00:03:06,330
+or don't have access to the KMS API key.
+
+73
+00:03:06,330 --> 00:03:08,250
+In which case they will use the public key
+
+74
+00:03:08,250 --> 00:03:09,840
+to encrypt the data.
+
+75
+00:03:09,840 --> 00:03:11,220
+Send it over to you.
+
+76
+00:03:11,220 --> 00:03:12,330
+And you within your account,
+
+77
+00:03:12,330 --> 00:03:16,200
+you would use the private key of AWS to decrypt that data.
+
+78
+00:03:16,200 --> 00:03:18,030
+So within the world of KMS keys,
+
+79
+00:03:18,030 --> 00:03:20,250
+you have different types of KMS keys.
+
+80
+00:03:20,250 --> 00:03:23,280
+The first one are AWS owned keys.
+
+81
+00:03:23,280 --> 00:03:26,880
+They're free, and this is the kind of key you would use
+
+82
+00:03:26,880 --> 00:03:30,210
+when you use SSE-S3 type of encryption,
+
+83
+00:03:30,210 --> 00:03:33,510
+or SSC DynamoDB, where you have the option, for example,
+
+84
+00:03:33,510 --> 00:03:36,540
+that you choose a key owned by DynamoDB.
+
+85
+00:03:36,540 --> 00:03:37,890
+So these are not really KMS
+
+86
+00:03:37,890 --> 00:03:39,210
+because you don't really see them,
+
+87
+00:03:39,210 --> 00:03:41,793
+but they're types of encryption keys within AWS.
+
+88
+00:03:42,690 --> 00:03:46,620
+Then you have the AWS managed keys, and they're free,
+
+89
+00:03:46,620 --> 00:03:47,880
+and you will recognize them
+
+90
+00:03:47,880 --> 00:03:51,750
+because they start with AWS slash and then the service name.
+
+91
+00:03:51,750 --> 00:03:55,230
+For example, AWS/RDS or AWS/EBS,
+
+92
+00:03:55,230 --> 00:03:58,650
+or in this example, AWS/DynamoDB.
+
+93
+00:03:58,650 --> 00:04:01,350
+They're free and you can just use them as you please,
+
+94
+00:04:01,350 --> 00:04:05,100
+but only from within the service that it's assigned to.
+
+95
+00:04:05,100 --> 00:04:07,710
+Then you have your own customer managed keys
+
+96
+00:04:07,710 --> 00:04:10,800
+and their custom keys, and they cost you $1 per month.
+
+97
+00:04:10,800 --> 00:04:13,320
+And if you want to import them as well, you can import them,
+
+98
+00:04:13,320 --> 00:04:15,570
+and they cost you $1 per month.
+
+99
+00:04:15,570 --> 00:04:17,850
+KMS also has a pricing where you're going to pay
+
+100
+00:04:17,850 --> 00:04:20,850
+for each API call made to the KMS service,
+
+101
+00:04:20,850 --> 00:04:24,123
+which is about 3 cents per 10,000 API calls.
+
+102
+00:04:24,990 --> 00:04:27,180
+You also have automatic key rotation.
+
+103
+00:04:27,180 --> 00:04:30,030
+So if it's an AWS managed KMS key,
+
+104
+00:04:30,030 --> 00:04:32,070
+then it's automatic every one year.
+
+105
+00:04:32,070 --> 00:04:34,110
+And if it's a customer managed key,
+
+106
+00:04:34,110 --> 00:04:37,110
+you can enable automatic rotation and you set the period,
+
+107
+00:04:37,110 --> 00:04:40,230
+and you can also have on-demand rotation of your key.
+
+108
+00:04:40,230 --> 00:04:42,510
+And if it's imported KMS key,
+
+109
+00:04:42,510 --> 00:04:44,640
+then you can only manually rotate it.
+
+110
+00:04:44,640 --> 00:04:47,013
+And for this, you need to leverage an alias.
+
+111
+00:04:47,970 --> 00:04:50,880
+So KMS keys are scoped per region.
+
+112
+00:04:50,880 --> 00:04:53,460
+That means that if you have an EBS volume encrypted
+
+113
+00:04:53,460 --> 00:04:57,690
+with KMS key in a region, for example, EUS2,
+
+114
+00:04:57,690 --> 00:05:00,420
+then if you want to copy that to a different region,
+
+115
+00:05:00,420 --> 00:05:02,280
+we have to do several steps.
+
+116
+00:05:02,280 --> 00:05:06,210
+First of all, we have to take a snapshot of this EBS volume.
+
+117
+00:05:06,210 --> 00:05:08,880
+And if we take a snapshot from an encrypted snapshot,
+
+118
+00:05:08,880 --> 00:05:11,250
+then this snapshot itself will also be encrypted
+
+119
+00:05:11,250 --> 00:05:13,200
+with the same KMS key.
+
+120
+00:05:13,200 --> 00:05:16,710
+Then to copy the snapshot to another region,
+
+121
+00:05:16,710 --> 00:05:19,200
+we need to re-encrypt the snapshot using
+
+122
+00:05:19,200 --> 00:05:20,880
+a different KMS key.
+
+123
+00:05:20,880 --> 00:05:23,430
+And this is something AWS will do for you.
+
+124
+00:05:23,430 --> 00:05:27,000
+But the same KMS key cannot live in two regions.
+
+125
+00:05:27,000 --> 00:05:28,890
+So now we have an EBS snapshot,
+
+126
+00:05:28,890 --> 00:05:31,590
+it's encrypted with KMS with a different key,
+
+127
+00:05:31,590 --> 00:05:33,390
+and it lives in another region.
+
+128
+00:05:33,390 --> 00:05:35,100
+Now, we restore the snapshot
+
+129
+00:05:35,100 --> 00:05:38,250
+into its own EBS volume with KMS,
+
+130
+00:05:38,250 --> 00:05:42,393
+and it's KMS key B into the region AP southeast two.
+
+131
+00:05:43,890 --> 00:05:44,880
+Now, the other thing we need
+
+132
+00:05:44,880 --> 00:05:47,370
+to know about is KMS key policies.
+
+133
+00:05:47,370 --> 00:05:50,220
+So this is to control access to your KMS keys.
+
+134
+00:05:50,220 --> 00:05:52,920
+It's similar to an S3 bucket policy.
+
+135
+00:05:52,920 --> 00:05:55,710
+With a difference that if you don't have the KMS key policy
+
+136
+00:05:55,710 --> 00:05:58,680
+on your KMS key, then no one can access it.
+
+137
+00:05:58,680 --> 00:06:01,920
+So in that regards, we have two types of KMS key policies.
+
+138
+00:06:01,920 --> 00:06:03,630
+We have the default one,
+
+139
+00:06:03,630 --> 00:06:05,490
+and it's created if you don't provide
+
+140
+00:06:05,490 --> 00:06:08,280
+a specific custom KMS key policy.
+
+141
+00:06:08,280 --> 00:06:10,110
+And the idea is that the default allows
+
+142
+00:06:10,110 --> 00:06:13,950
+everyone in your account to access this key.
+
+143
+00:06:13,950 --> 00:06:17,430
+That means that if you have an IAM policy allowing a user
+
+144
+00:06:17,430 --> 00:06:20,190
+or role to access this key policy, you're good.
+
+145
+00:06:20,190 --> 00:06:23,400
+But if you want to have more specific controls over it,
+
+146
+00:06:23,400 --> 00:06:26,520
+you could use a KMS key policy that is custom.
+
+147
+00:06:26,520 --> 00:06:28,230
+In which you define the users,
+
+148
+00:06:28,230 --> 00:06:31,080
+the roles that can access your KMS key.
+
+149
+00:06:31,080 --> 00:06:33,180
+And you define who can administer the key.
+
+150
+00:06:33,180 --> 00:06:34,920
+And this is especially helpful
+
+151
+00:06:34,920 --> 00:06:38,700
+if you want to do cross account access for your KMS key,
+
+152
+00:06:38,700 --> 00:06:42,420
+because we can authorize another account to use our KMS key.
+
+153
+00:06:42,420 --> 00:06:43,860
+So when do we use this?
+
+154
+00:06:43,860 --> 00:06:44,880
+Well, for example,
+
+155
+00:06:44,880 --> 00:06:48,690
+if we wanted to copy an encrypted snapshots across accounts.
+
+156
+00:06:48,690 --> 00:06:51,930
+So we create a snapshot encrypted with our own KMS key,
+
+157
+00:06:51,930 --> 00:06:53,400
+and it's a customer managed key.
+
+158
+00:06:53,400 --> 00:06:55,333
+It must be that because we need
+
+159
+00:06:55,333 --> 00:06:56,850
+to attach a custom key policy.
+
+160
+00:06:56,850 --> 00:06:59,310
+And then we attach a KMS key policy
+
+161
+00:06:59,310 --> 00:07:01,950
+to authorize for cross account access.
+
+162
+00:07:01,950 --> 00:07:03,480
+It looks like this.
+
+163
+00:07:03,480 --> 00:07:06,150
+Then we share the encrypted snapshot
+
+164
+00:07:06,150 --> 00:07:08,190
+with the target account.
+
+165
+00:07:08,190 --> 00:07:10,320
+And then in the target account,
+
+166
+00:07:10,320 --> 00:07:12,840
+we create a copy of the snapshot
+
+167
+00:07:12,840 --> 00:07:15,840
+and we encrypt it with a different customer managed key
+
+168
+00:07:15,840 --> 00:07:17,850
+in that target account.
+
+169
+00:07:17,850 --> 00:07:19,700
+And then we can create a volume from the snapshot
+
+170
+00:07:19,700 --> 00:07:22,500
+in the target account, and we're done.
+
+171
+00:07:22,500 --> 00:07:24,570
+So that's a lot of information by KMS,
+
+172
+00:07:24,570 --> 00:07:25,920
+but let's go into hands-on
+
+173
+00:07:25,920 --> 00:07:28,203
+to hopefully learn a bit more about it.
+

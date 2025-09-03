@@ -1,0 +1,496 @@
+1
+00:00:00,000 --> 00:00:02,530
+So now let's talk about the newest kind of load balancer
+
+2
+00:00:02,530 --> 00:00:04,410
+called the gateway load balancer.
+
+3
+00:00:04,410 --> 00:00:05,580
+So it is used to deploy
+
+4
+00:00:05,580 --> 00:00:07,380
+scale and manage your fleet of
+
+5
+00:00:07,380 --> 00:00:10,370
+third-party network, neutral appliances in AWS.
+
+6
+00:00:10,370 --> 00:00:12,350
+And it will explain what that means in a second.
+
+7
+00:00:12,350 --> 00:00:14,350
+So you would use a gateway load balancer
+
+8
+00:00:14,350 --> 00:00:16,129
+if you want it to have all traffic,
+
+9
+00:00:16,129 --> 00:00:17,800
+of your network
+
+10
+00:00:17,800 --> 00:00:19,900
+to go through a firewall that you have,
+
+11
+00:00:19,900 --> 00:00:22,110
+or an intrusion detection and prevention system.
+
+12
+00:00:22,110 --> 00:00:25,330
+So IDPs or a deep packet inspection system,
+
+13
+00:00:25,330 --> 00:00:27,300
+or you want to, to modify some payloads,
+
+14
+00:00:27,300 --> 00:00:29,730
+but at the network level. Okay.
+
+15
+00:00:29,730 --> 00:00:30,563
+So let's have a look
+
+16
+00:00:30,563 --> 00:00:32,009
+to make it very simple with a diagram.
+
+17
+00:00:32,009 --> 00:00:34,019
+So, say have users and these users
+
+18
+00:00:34,019 --> 00:00:37,050
+are used to access your applications.
+
+19
+00:00:37,050 --> 00:00:38,540
+Now we know that their users, for example,
+
+20
+00:00:38,540 --> 00:00:40,170
+can access our applications directly
+
+21
+00:00:40,170 --> 00:00:41,220
+using a load balancer,
+
+22
+00:00:41,220 --> 00:00:43,050
+for example, and an application, or balancer.
+
+23
+00:00:43,050 --> 00:00:44,800
+And then the traffic goes directly
+
+24
+00:00:44,800 --> 00:00:48,310
+from the users to the ALB, to the application.
+
+25
+00:00:48,310 --> 00:00:49,460
+But what if you wanted
+
+26
+00:00:49,460 --> 00:00:50,750
+all that network traffic
+
+27
+00:00:50,750 --> 00:00:52,070
+to be inspected first,
+
+28
+00:00:52,070 --> 00:00:54,760
+before being sent to your application,
+
+29
+00:00:54,760 --> 00:00:55,990
+you have actually deployed
+
+30
+00:00:55,990 --> 00:00:58,690
+a bunch of third party virtual appliances,
+
+31
+00:00:58,690 --> 00:01:00,430
+for example, EC2 instances
+
+32
+00:01:00,430 --> 00:01:02,780
+that you want all traffic to go through
+
+33
+00:01:02,780 --> 00:01:05,830
+before the traffic reaches your application.
+
+34
+00:01:05,830 --> 00:01:07,620
+So to do so, it used to be very complicated,
+
+35
+00:01:07,620 --> 00:01:09,400
+but now with a gateway load balancer,
+
+36
+00:01:09,400 --> 00:01:11,330
+it is actually very simple.
+
+37
+00:01:11,330 --> 00:01:13,680
+So you're going to create a gateway load balancer
+
+38
+00:01:13,680 --> 00:01:15,360
+and what's going to happen is that
+
+39
+00:01:15,360 --> 00:01:16,300
+behind the scenes.
+
+40
+00:01:16,300 --> 00:01:18,500
+The route tables have to be updated in your VPC.
+
+41
+00:01:18,500 --> 00:01:19,580
+Now this is quite advanced
+
+42
+00:01:19,580 --> 00:01:20,750
+and it's more in the networking side,
+
+43
+00:01:20,750 --> 00:01:22,120
+but bear with me.
+
+44
+00:01:22,120 --> 00:01:23,810
+So the route tables are modified.
+
+45
+00:01:23,810 --> 00:01:26,040
+And now what happens at all users traffic
+
+46
+00:01:26,040 --> 00:01:29,010
+first goes through a gateway load balancer
+
+47
+00:01:29,010 --> 00:01:30,510
+and the gateway load balancer
+
+48
+00:01:30,510 --> 00:01:32,820
+will then spread that traffic across
+
+49
+00:01:32,820 --> 00:01:35,570
+a target group of your virtual appliances.
+
+50
+00:01:35,570 --> 00:01:38,280
+And so all the traffic will reach these appliances
+
+51
+00:01:38,280 --> 00:01:40,950
+then the appliances will analyze the traffic,
+
+52
+00:01:40,950 --> 00:01:42,430
+you know, what do whatever they have to do.
+
+53
+00:01:42,430 --> 00:01:44,200
+So for example, firewall again,
+
+54
+00:01:44,200 --> 00:01:45,700
+intruder detection and so on.
+
+55
+00:01:45,700 --> 00:01:47,320
+And then if they're happy with it,
+
+56
+00:01:47,320 --> 00:01:49,710
+they can send it back to the gateway load balancer.
+
+57
+00:01:49,710 --> 00:01:50,543
+If they're not happy with it,
+
+58
+00:01:50,543 --> 00:01:51,880
+they can just drop the traffic. For example,
+
+59
+00:01:51,880 --> 00:01:54,090
+for a firewall, you would drop the traffic,
+
+60
+00:01:54,090 --> 00:01:55,270
+but if it's accepted,
+
+61
+00:01:55,270 --> 00:01:57,920
+then it goes through your gateway load balancer again,
+
+62
+00:01:57,920 --> 00:01:58,910
+and then the gateway load balancer
+
+63
+00:01:58,910 --> 00:02:00,290
+Will forward a traffic
+
+64
+00:02:00,290 --> 00:02:02,170
+all the way to your application
+
+65
+00:02:02,170 --> 00:02:04,250
+and for your application. This is transparent.
+
+66
+00:02:04,250 --> 00:02:05,440
+The only thing that has happened now
+
+67
+00:02:05,440 --> 00:02:07,030
+is that all the traffic
+
+68
+00:02:07,030 --> 00:02:08,860
+has gone through the gateway load balancer.
+
+69
+00:02:08,860 --> 00:02:11,030
+And your third-party patrol appliances,
+
+70
+00:02:11,030 --> 00:02:13,720
+for you to analyze all that network traffic
+
+71
+00:02:13,720 --> 00:02:15,520
+and possibly drop it.
+
+72
+00:02:15,520 --> 00:02:17,120
+So this is the power of the gateway load balancer
+
+73
+00:02:17,120 --> 00:02:19,760
+is to analyze network traffic and so on.
+
+74
+00:02:19,760 --> 00:02:20,970
+So how does that work?
+
+75
+00:02:20,970 --> 00:02:22,220
+Well, the gateway load balancer
+
+76
+00:02:22,220 --> 00:02:23,810
+operates at a lower level than all
+
+77
+00:02:23,810 --> 00:02:24,970
+the load balancers we've seen.
+
+78
+00:02:24,970 --> 00:02:25,930
+This is layer three,
+
+79
+00:02:25,930 --> 00:02:28,450
+which is a network layer for IP packets.
+
+80
+00:02:28,450 --> 00:02:29,470
+So what's going to happen
+
+81
+00:02:29,470 --> 00:02:30,350
+is that you're gateway load balancer
+
+82
+00:02:30,350 --> 00:02:31,470
+has two functions.
+
+83
+00:02:31,470 --> 00:02:33,730
+The first one is a transparent network gateway
+
+84
+00:02:33,730 --> 00:02:35,540
+because all the traffic
+
+85
+00:02:35,540 --> 00:02:38,240
+will in your VPC will go through a single entry
+
+86
+00:02:38,240 --> 00:02:39,090
+and a single exit,
+
+87
+00:02:39,090 --> 00:02:41,190
+which is going to be your gateway load balancer,
+
+88
+00:02:41,190 --> 00:02:43,310
+and then is going to be a load balancer
+
+89
+00:02:43,310 --> 00:02:44,960
+because it distributes that traffic
+
+90
+00:02:44,960 --> 00:02:47,647
+across a sets of virtual appliances
+
+91
+00:02:47,647 --> 00:02:49,220
+and your target group.
+
+92
+00:02:49,220 --> 00:02:51,100
+So this is basically
+
+93
+00:02:51,100 --> 00:02:53,060
+what you remember about the gateway load balancer.
+
+94
+00:02:53,060 --> 00:02:55,210
+And finally, if you see on an exam,
+
+95
+00:02:55,210 --> 00:02:57,520
+that's you want to use the GENEVE protocol
+
+96
+00:02:57,520 --> 00:02:59,500
+on ports 6081
+
+97
+00:02:59,500 --> 00:03:01,270
+Then again, this will be right away
+
+98
+00:03:01,270 --> 00:03:02,770
+if you getaway load balancer.
+
+99
+00:03:02,770 --> 00:03:04,650
+So hopefully this diagram makes sense. Now,
+
+100
+00:03:04,650 --> 00:03:06,560
+what can be target groups, for the gateway load balancers
+
+101
+00:03:06,560 --> 00:03:09,020
+So this is your third party appliances.
+
+102
+00:03:09,020 --> 00:03:10,950
+They can either be EC2 instances
+
+103
+00:03:10,950 --> 00:03:13,130
+and you register them by instance ID,
+
+104
+00:03:13,130 --> 00:03:14,750
+or they can be IP addresses.
+
+105
+00:03:14,750 --> 00:03:16,800
+In that case, they must be private IPs.
+
+106
+00:03:16,800 --> 00:03:18,500
+And for example, if you are running
+
+107
+00:03:18,500 --> 00:03:20,840
+these virtual appliances on your own network,
+
+108
+00:03:20,840 --> 00:03:21,930
+on your own data center,
+
+109
+00:03:21,930 --> 00:03:24,690
+then you can register them by IP manually.
+
+110
+00:03:24,690 --> 00:03:26,400
+So that's it for the gateway load balancer.
+
+111
+00:03:26,400 --> 00:03:28,330
+It is extremely difficult to do a hands-on on it.
+
+112
+00:03:28,330 --> 00:03:29,870
+So I will skip one. Okay.
+
+113
+00:03:29,870 --> 00:03:31,150
+But just so you know, again,
+
+114
+00:03:31,150 --> 00:03:32,780
+the most important thing to remember
+
+115
+00:03:32,780 --> 00:03:34,610
+is that one diagram on the right-hand side,
+
+116
+00:03:34,610 --> 00:03:36,330
+if you understand this diagram,
+
+117
+00:03:36,330 --> 00:03:37,840
+you understand, getaway load balancers.
+
+118
+00:03:37,840 --> 00:03:38,910
+And I don't think
+
+119
+00:03:38,910 --> 00:03:40,820
+any deep dive question will be asked on it
+
+120
+00:03:40,820 --> 00:03:41,653
+just at a high level,
+
+121
+00:03:41,653 --> 00:03:43,570
+what it means and how it works. Okay.
+
+122
+00:03:43,570 --> 00:03:44,403
+So that's it.
+
+123
+00:03:44,403 --> 00:03:45,236
+I hope you liked it,
+
+124
+00:03:45,236 --> 00:03:46,940
+and I will see you in the next lecture.
+

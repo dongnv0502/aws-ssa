@@ -1,0 +1,1032 @@
+1
+00:00:00,240 --> 00:00:02,340
+Okay, so, in the past lecture we were
+
+2
+00:00:02,340 --> 00:00:05,280
+in a stateless type of web application,
+
+3
+00:00:05,280 --> 00:00:06,300
+WhatIsTheTime.com.
+
+4
+00:00:06,300 --> 00:00:07,320
+Just answer the time.
+
+5
+00:00:07,320 --> 00:00:08,610
+And we didn't need any database
+
+6
+00:00:08,610 --> 00:00:10,830
+or any information, external information
+
+7
+00:00:10,830 --> 00:00:12,300
+to answer that question.
+
+8
+00:00:12,300 --> 00:00:15,060
+But now we're going to get into a stateful web application,
+
+9
+00:00:15,060 --> 00:00:17,021
+called MyClothes.com,
+
+10
+00:00:17,021 --> 00:00:19,650
+and MyClothes.com allows people to buy clothes online.
+
+11
+00:00:19,650 --> 00:00:22,740
+And there's a shopping cart when you navigate MyClothes.com
+
+12
+00:00:22,740 --> 00:00:25,290
+and we're having hundreds of users at the same time,
+
+13
+00:00:25,290 --> 00:00:27,390
+so all these users are navigating the website.
+
+14
+00:00:27,390 --> 00:00:28,980
+And we wanna be able to scale,
+
+15
+00:00:28,980 --> 00:00:30,720
+maintain horizontal scalability,
+
+16
+00:00:30,720 --> 00:00:33,180
+and keep our application web tier,
+
+17
+00:00:33,180 --> 00:00:34,410
+as stateless as possible.
+
+18
+00:00:34,410 --> 00:00:36,960
+So even though there's a state of shopping cart
+
+19
+00:00:36,960 --> 00:00:39,390
+we want to be able to scale our web application
+
+20
+00:00:39,390 --> 00:00:40,920
+as easily as possible.
+
+21
+00:00:40,920 --> 00:00:41,820
+So users, that means
+
+22
+00:00:41,820 --> 00:00:43,860
+that they should not lose their shopping cart
+
+23
+00:00:43,860 --> 00:00:45,150
+while navigating our website.
+
+24
+00:00:45,150 --> 00:00:46,080
+That would be really bad.
+
+25
+00:00:46,080 --> 00:00:48,780
+And maybe also have their details such as address
+
+26
+00:00:48,780 --> 00:00:51,870
+et cetera, in a database that we can store effectively
+
+27
+00:00:51,870 --> 00:00:53,790
+and make accessible from anywhere.
+
+28
+00:00:53,790 --> 00:00:55,410
+So let's see how we can proceed.
+
+29
+00:00:55,410 --> 00:00:57,570
+You'll see it's going to be yet another fun
+
+30
+00:00:57,570 --> 00:01:00,570
+but challenging discussion.
+
+31
+00:01:00,570 --> 00:01:04,080
+Okay, so this is our application, and I'm going to go fast.
+
+32
+00:01:04,080 --> 00:01:04,913
+Here's the kind
+
+33
+00:01:04,913 --> 00:01:07,080
+of architecture we've seen in the previous lecture.
+
+34
+00:01:07,080 --> 00:01:09,420
+So we have our user Route 53, Multi AZ,
+
+35
+00:01:09,420 --> 00:01:12,930
+ELB, Autoscaling Group three AZ, very basic.
+
+36
+00:01:12,930 --> 00:01:15,233
+So our application is accessing our ELB
+
+37
+00:01:15,233 --> 00:01:17,250
+and our ELB says, all right, you're gonna talk
+
+38
+00:01:17,250 --> 00:01:20,850
+to this instance and you create a shopping cart.
+
+39
+00:01:20,850 --> 00:01:22,950
+And then the next request is going to go
+
+40
+00:01:22,950 --> 00:01:24,660
+not to the same instance, but to another instance.
+
+41
+00:01:24,660 --> 00:01:26,340
+And now the shopping cart is lost.
+
+42
+00:01:26,340 --> 00:01:28,770
+And the user says, oh, there must just be a little bug.
+
+43
+00:01:28,770 --> 00:01:29,820
+I'm going to try again.
+
+44
+00:01:29,820 --> 00:01:32,010
+So it adds something into the shopping cart
+
+45
+00:01:32,010 --> 00:01:34,230
+and it gets redirected to the third instance
+
+46
+00:01:34,230 --> 00:01:36,540
+which doesn't have the shopping cart.
+
+47
+00:01:36,540 --> 00:01:39,240
+So basically the user is going crazy and say, wait
+
+48
+00:01:39,240 --> 00:01:42,780
+I'm losing my shopping cart every time I do something.
+
+49
+00:01:42,780 --> 00:01:43,920
+This is really weird.
+
+50
+00:01:43,920 --> 00:01:45,810
+MyClothes.com is a bad website.
+
+51
+00:01:45,810 --> 00:01:46,710
+I don't wanna shop on it.
+
+52
+00:01:46,710 --> 00:01:48,270
+And we lost money.
+
+53
+00:01:48,270 --> 00:01:49,650
+So how do we fix this?
+
+54
+00:01:49,650 --> 00:01:53,100
+Well, we can introduce stickiness or session affinity
+
+55
+00:01:53,100 --> 00:01:54,600
+and that's an ELB feature.
+
+56
+00:01:54,600 --> 00:01:58,320
+So we enable ELB stickiness, and now our user talks
+
+57
+00:01:58,320 --> 00:02:00,600
+to your first instance, adds something
+
+58
+00:02:00,600 --> 00:02:03,690
+into the shopping cart, and then the second request goes
+
+59
+00:02:03,690 --> 00:02:05,940
+to the same instance because of stickiness.
+
+60
+00:02:05,940 --> 00:02:08,729
+And the third request also goes to the same instance.
+
+61
+00:02:08,729 --> 00:02:11,340
+And actually every request will go to the same instance
+
+62
+00:02:11,340 --> 00:02:13,950
+because of stickiness, this works really well.
+
+63
+00:02:13,950 --> 00:02:17,670
+But if an EC2 instance gets terminated for some reason,
+
+64
+00:02:17,670 --> 00:02:19,740
+then we still lose our shopping cart.
+
+65
+00:02:19,740 --> 00:02:23,160
+But there is definitely some kind of improvement here
+
+66
+00:02:23,160 --> 00:02:26,220
+thanks to stickiness and session affinity.
+
+67
+00:02:26,220 --> 00:02:30,180
+So now let's look at the completely different approach
+
+68
+00:02:30,180 --> 00:02:32,490
+and introduce user cookies.
+
+69
+00:02:32,490 --> 00:02:36,210
+So basically, instead of having the EC2 instances
+
+70
+00:02:36,210 --> 00:02:39,210
+store the content of the shopping cart, let's say
+
+71
+00:02:39,210 --> 00:02:42,660
+that the user is the one storing the shopping cart content.
+
+72
+00:02:42,660 --> 00:02:45,990
+And so every time it connects to the load balancer
+
+73
+00:02:45,990 --> 00:02:48,180
+it basically is going to say, by the way
+
+74
+00:02:48,180 --> 00:02:51,240
+in my shopping cart, I have all these things.
+
+75
+00:02:51,240 --> 00:02:53,160
+And that's done through web cookies.
+
+76
+00:02:53,160 --> 00:02:55,200
+So now if it's talks to the first server
+
+77
+00:02:55,200 --> 00:02:57,720
+the second server or the third server,
+
+78
+00:02:57,720 --> 00:03:01,500
+each server will know what the shopping cart content is
+
+79
+00:03:01,500 --> 00:03:04,890
+because the user is the one sending the shopping
+
+80
+00:03:04,890 --> 00:03:08,280
+cart content directly into our EC2 instances.
+
+81
+00:03:08,280 --> 00:03:09,360
+So it's pretty cool, right?
+
+82
+00:03:09,360 --> 00:03:11,040
+We've achieved statelessness
+
+83
+00:03:11,040 --> 00:03:13,530
+because now each EC2 instance doesn't need to know
+
+84
+00:03:13,530 --> 00:03:14,520
+what happened before.
+
+85
+00:03:14,520 --> 00:03:17,280
+The user will tell us what happened before
+
+86
+00:03:17,280 --> 00:03:20,490
+but the HTP request, they're getting heavier.
+
+87
+00:03:20,490 --> 00:03:23,370
+So because we send a shopping cart content in web cookies
+
+88
+00:03:23,370 --> 00:03:26,340
+we're sending more and more data every time we add something
+
+89
+00:03:26,340 --> 00:03:27,870
+into our shopping cart.
+
+90
+00:03:27,870 --> 00:03:30,810
+Additionally, there is some level of security risk
+
+91
+00:03:30,810 --> 00:03:34,020
+because the cookies, they can be altered by attackers maybe.
+
+92
+00:03:34,020 --> 00:03:35,670
+And so maybe our user
+
+93
+00:03:35,670 --> 00:03:38,370
+may have a modified shopping cart all of a sudden.
+
+94
+00:03:38,370 --> 00:03:40,950
+So when we do have this kind of architecture,
+
+95
+00:03:40,950 --> 00:03:44,460
+make sure that your EC2 instances do validate the content
+
+96
+00:03:44,460 --> 00:03:45,960
+of the user cookies.
+
+97
+00:03:45,960 --> 00:03:49,800
+And then the cookies overall, they can only be so big
+
+98
+00:03:49,800 --> 00:03:52,500
+they can only be less than four kilobytes total.
+
+99
+00:03:52,500 --> 00:03:54,360
+So there's only a little information you can store
+
+100
+00:03:54,360 --> 00:03:55,193
+in the cookies.
+
+101
+00:03:55,193 --> 00:03:57,180
+You cannot store big data sets.
+
+102
+00:03:57,180 --> 00:03:59,190
+Okay, so this is the idea.
+
+103
+00:03:59,190 --> 00:04:00,570
+So this works really well.
+
+104
+00:04:00,570 --> 00:04:03,090
+This is actually a pattern that many web
+
+105
+00:04:03,090 --> 00:04:04,620
+application frameworks use
+
+106
+00:04:04,620 --> 00:04:06,690
+but what if we do something else?
+
+107
+00:04:06,690 --> 00:04:09,690
+Let's introduce this concept of server session.
+
+108
+00:04:09,690 --> 00:04:12,900
+So now, instead of sending a whole shopping cart
+
+109
+00:04:12,900 --> 00:04:13,890
+in web cookies,
+
+110
+00:04:13,890 --> 00:04:15,930
+we're just going to send a session ID.
+
+111
+00:04:15,930 --> 00:04:19,200
+That is, just this one for the user.
+
+112
+00:04:19,200 --> 00:04:22,050
+So we're gonna send this, and in the background
+
+113
+00:04:22,050 --> 00:04:24,450
+we're gonna have maybe an elastic cage cluster.
+
+114
+00:04:24,450 --> 00:04:26,940
+And what will happen is that when we send a session ID,
+
+115
+00:04:26,940 --> 00:04:28,380
+we're gonna talk to an EC2 instance,
+
+116
+00:04:28,380 --> 00:04:30,810
+and say we're going to add this thing to the cart.
+
+117
+00:04:30,810 --> 00:04:34,320
+And so the EC2 instance will add the cart content
+
+118
+00:04:34,320 --> 00:04:36,000
+into the ElastiCache.
+
+119
+00:04:36,000 --> 00:04:38,130
+And the ID to retrieve this cart content
+
+120
+00:04:38,130 --> 00:04:40,080
+is going to be the session ID.
+
+121
+00:04:40,080 --> 00:04:43,950
+So when our user basically does a second request
+
+122
+00:04:43,950 --> 00:04:47,250
+with a session ID, and it goes to another EC2 instance,
+
+123
+00:04:47,250 --> 00:04:50,640
+that other EC2 instance is able using that session ID
+
+124
+00:04:50,640 --> 00:04:52,410
+to look up the content
+
+125
+00:04:52,410 --> 00:04:57,390
+of the cart from ElastiCache and retrieve that session data.
+
+126
+00:04:57,390 --> 00:05:00,150
+And then for last request, the same pattern.
+
+127
+00:05:00,150 --> 00:05:01,530
+The really cool thing with ElastiCache,
+
+128
+00:05:01,530 --> 00:05:04,650
+remember it is sub millisecond performance.
+
+129
+00:05:04,650 --> 00:05:07,170
+So all these things happen really quickly
+
+130
+00:05:07,170 --> 00:05:08,940
+and that's really great.
+
+131
+00:05:08,940 --> 00:05:12,750
+An alternative, by the way, for storing session data,
+
+132
+00:05:12,750 --> 00:05:13,583
+we haven't seen it yet,
+
+133
+00:05:13,583 --> 00:05:15,780
+it's called DynamoDB, but I'm just putting it out here
+
+134
+00:05:15,780 --> 00:05:18,090
+just in case you know what DynamoDB is.
+
+135
+00:05:18,090 --> 00:05:19,680
+So it's a really cool pattern here.
+
+136
+00:05:19,680 --> 00:05:21,690
+It's more secure because now ElastiCache
+
+137
+00:05:21,690 --> 00:05:23,730
+is a source of truth and no attackers
+
+138
+00:05:23,730 --> 00:05:25,350
+can change what's in ElastiCache.
+
+139
+00:05:25,350 --> 00:05:27,090
+So we have a much secure
+
+140
+00:05:27,090 --> 00:05:30,570
+much more secure type of pattern, and it is very common.
+
+141
+00:05:30,570 --> 00:05:32,250
+So now, okay, we have ElastiCache.
+
+142
+00:05:32,250 --> 00:05:33,270
+We figured this out.
+
+143
+00:05:33,270 --> 00:05:35,040
+We wanna store user data in a database.
+
+144
+00:05:35,040 --> 00:05:37,410
+So we wanna store the user address.
+
+145
+00:05:37,410 --> 00:05:39,960
+So again, we're gonna talk to our EC2 instance,
+
+146
+00:05:39,960 --> 00:05:42,660
+and this time it's going to talk to an RDS instance.
+
+147
+00:05:42,660 --> 00:05:44,190
+And the RDS is going to be great
+
+148
+00:05:44,190 --> 00:05:45,720
+because it's for long term storage.
+
+149
+00:05:45,720 --> 00:05:46,662
+And so we can store and retrieve user data,
+
+150
+00:05:46,662 --> 00:05:50,640
+such as address, name, et cetera,
+
+151
+00:05:50,640 --> 00:05:52,380
+directly by talking to RDS.
+
+152
+00:05:52,380 --> 00:05:55,440
+And each of our instances can talk to RDS.
+
+153
+00:05:55,440 --> 00:05:57,210
+And we effectively get, again
+
+154
+00:05:57,210 --> 00:06:00,630
+some kind of Multi AZ stateless solution.
+
+155
+00:06:00,630 --> 00:06:03,000
+So our web up traffic is going great.
+
+156
+00:06:03,000 --> 00:06:04,590
+Our website is doing amazing,
+
+157
+00:06:04,590 --> 00:06:06,690
+and now we have more and more users.
+
+158
+00:06:06,690 --> 00:06:09,720
+And we realize that one of most of the thing they do
+
+159
+00:06:09,720 --> 00:06:11,040
+is they navigate the website.
+
+160
+00:06:11,040 --> 00:06:13,020
+They do reads, they get product information,
+
+161
+00:06:13,020 --> 00:06:14,100
+all that kind of stuff.
+
+162
+00:06:14,100 --> 00:06:15,690
+So how do we scale reads?
+
+163
+00:06:15,690 --> 00:06:18,690
+Well, we can use an RDS Master, which takes the writes
+
+164
+00:06:18,690 --> 00:06:20,820
+but we can also have RDS Read Replicas
+
+165
+00:06:20,820 --> 00:06:22,380
+with some replication happening.
+
+166
+00:06:22,380 --> 00:06:24,720
+And so anytime we read stuff, we can read
+
+167
+00:06:24,720 --> 00:06:25,560
+from the Read Replica,
+
+168
+00:06:25,560 --> 00:06:28,140
+and we can have up to 15 Read Replicas in RDS.
+
+169
+00:06:28,140 --> 00:06:29,100
+And they will allow us
+
+170
+00:06:29,100 --> 00:06:34,100
+to scale the reads of our RDS database.
+
+171
+00:06:34,950 --> 00:06:37,410
+There is another alternative called lazy loading
+
+172
+00:06:37,410 --> 00:06:40,200
+where we use the cache. And so the way it works is
+
+173
+00:06:40,200 --> 00:06:43,020
+that our user talks to an EC2 instance.
+
+174
+00:06:43,020 --> 00:06:44,580
+It looks in the cache and says,
+
+175
+00:06:44,580 --> 00:06:46,290
+do you have this information?
+
+176
+00:06:46,290 --> 00:06:48,930
+If it doesn't have it, then it's going to read
+
+177
+00:06:48,930 --> 00:06:51,420
+from RDS and put it back into ElastiCache.
+
+178
+00:06:51,420 --> 00:06:53,670
+So just the information is cached.
+
+179
+00:06:53,670 --> 00:06:55,230
+And so the other EC2 instances,
+
+180
+00:06:55,230 --> 00:06:56,063
+they're doing the same thing,
+
+181
+00:06:56,063 --> 00:06:57,990
+but this time when they talked to ElastiCache,
+
+182
+00:06:57,990 --> 00:07:00,600
+they will have the information and they get a cache hit.
+
+183
+00:07:00,600 --> 00:07:03,000
+And so they directly get the response right away
+
+184
+00:07:03,000 --> 00:07:04,590
+because it's been cached.
+
+185
+00:07:04,590 --> 00:07:08,880
+And so this pattern allows us to do less traffic on RDS,
+
+186
+00:07:08,880 --> 00:07:10,710
+basically decrease the CPU usage
+
+187
+00:07:10,710 --> 00:07:13,380
+on RDS and improve performance at the same time.
+
+188
+00:07:13,380 --> 00:07:15,900
+But we need to do cache maintenance now
+
+189
+00:07:15,900 --> 00:07:16,980
+and it's a bit more difficult.
+
+190
+00:07:16,980 --> 00:07:19,710
+And again, this has to be done application side.
+
+191
+00:07:19,710 --> 00:07:20,610
+So pretty awesome.
+
+192
+00:07:20,610 --> 00:07:21,690
+Now we have our application.
+
+193
+00:07:21,690 --> 00:07:23,970
+It's scalable, it has many, many reads
+
+194
+00:07:23,970 --> 00:07:25,500
+but we wanna survive disasters.
+
+195
+00:07:25,500 --> 00:07:27,570
+We don't want to be stricken by disasters.
+
+196
+00:07:27,570 --> 00:07:28,890
+So how do we do?
+
+197
+00:07:28,890 --> 00:07:31,320
+Our user talks to our Route 53,
+
+198
+00:07:31,320 --> 00:07:34,110
+but now we ha have a Multi AZ ELB.
+
+199
+00:07:34,110 --> 00:07:36,750
+And by the way, Route 53 is already highly available.
+
+200
+00:07:36,750 --> 00:07:38,070
+You don't need to do anything.
+
+201
+00:07:38,070 --> 00:07:39,120
+But so for our load balancer
+
+202
+00:07:39,120 --> 00:07:40,680
+we're going to make it Multi AZ.
+
+203
+00:07:40,680 --> 00:07:42,630
+Our order scaling group is Multi AZ.
+
+204
+00:07:42,630 --> 00:07:45,930
+And then RDS, there is a Multi AZ feature.
+
+205
+00:07:45,930 --> 00:07:48,060
+The other one is going to be a standby replica
+
+206
+00:07:48,060 --> 00:07:50,520
+that can just take over whenever there's a disaster.
+
+207
+00:07:50,520 --> 00:07:52,890
+And ElastiCache also has a Multi AZ feature
+
+208
+00:07:52,890 --> 00:07:54,030
+if you use Redis.
+
+209
+00:07:54,030 --> 00:07:54,930
+So really cool.
+
+210
+00:07:54,930 --> 00:07:57,720
+Now we basically have a Multi AZ application
+
+211
+00:07:57,720 --> 00:07:58,553
+all across the board,
+
+212
+00:07:58,553 --> 00:07:59,550
+and we know for sure
+
+213
+00:07:59,550 --> 00:08:02,190
+that we can survive an availability zone
+
+214
+00:08:02,190 --> 00:08:04,170
+in AWS going down.
+
+215
+00:08:04,170 --> 00:08:07,290
+Now for security groups, we want to be super secure.
+
+216
+00:08:07,290 --> 00:08:10,770
+So maybe we'll open HTTP/HTTPS traffic from anywhere
+
+217
+00:08:10,770 --> 00:08:12,240
+on the ALB side.
+
+218
+00:08:12,240 --> 00:08:14,079
+For the EC2 instance side,
+
+219
+00:08:14,079 --> 00:08:15,658
+we just want to restrict traffic
+
+220
+00:08:15,658 --> 00:08:17,330
+coming from the load balancer.
+
+221
+00:08:17,330 --> 00:08:19,416
+And maybe for ElastiCache, we just wanna restrict traffic
+
+222
+00:08:19,416 --> 00:08:21,330
+coming from the EC2 security group.
+
+223
+00:08:21,330 --> 00:08:22,650
+And from RDS, same thing.
+
+224
+00:08:22,650 --> 00:08:25,140
+We want to restrict traffic coming directly
+
+225
+00:08:25,140 --> 00:08:27,480
+from the EC2 security group.
+
+226
+00:08:27,480 --> 00:08:28,313
+So that's it.
+
+227
+00:08:28,313 --> 00:08:30,570
+So now let's just talk about this architecture
+
+228
+00:08:30,570 --> 00:08:31,800
+for web application.
+
+229
+00:08:31,800 --> 00:08:34,774
+So we have discussed ELB sticky sessions,
+
+230
+00:08:34,774 --> 00:08:36,630
+web clients for storing cookies
+
+231
+00:08:36,630 --> 00:08:38,100
+and making our web app stateless
+
+232
+00:08:38,100 --> 00:08:41,490
+or using maybe a session ID and a session cache,
+
+233
+00:08:41,490 --> 00:08:43,049
+physically using ElastiCache.
+
+234
+00:08:43,049 --> 00:08:45,420
+And as an alternative, we can use DynamoDB.
+
+235
+00:08:45,420 --> 00:08:46,620
+We can also use ElastiCache
+
+236
+00:08:46,620 --> 00:08:49,230
+to cache data from RDS in case of reads.
+
+237
+00:08:49,230 --> 00:08:52,530
+And we can use Multi AZ to be surviving disasters.
+
+238
+00:08:52,530 --> 00:08:54,690
+RDS, we can use it for storing user data.
+
+239
+00:08:54,690 --> 00:08:57,060
+So more durable type of data.
+
+240
+00:08:57,060 --> 00:08:59,580
+Read replicas can be used for scaling reads
+
+241
+00:08:59,580 --> 00:09:01,418
+or we can also use ElastiCache
+
+242
+00:09:01,418 --> 00:09:03,480
+And then we have Multi AZ for disaster recovery.
+
+243
+00:09:03,480 --> 00:09:06,270
+And on top of it, we added tight security
+
+244
+00:09:06,270 --> 00:09:08,340
+for security groups referencing each other.
+
+245
+00:09:08,340 --> 00:09:10,680
+So this is a more complicated application.
+
+246
+00:09:10,680 --> 00:09:11,513
+There's three tier
+
+247
+00:09:11,513 --> 00:09:13,500
+because there is the web tier,
+
+248
+00:09:13,500 --> 00:09:16,680
+the client tier, the web tier, and the database tier.
+
+249
+00:09:16,680 --> 00:09:19,800
+But this is a very common architecture overall.
+
+250
+00:09:19,800 --> 00:09:24,120
+And yes, it may start to increase in cost, but it is okay.
+
+251
+00:09:24,120 --> 00:09:25,920
+At least we know the trade-offs we're making.
+
+252
+00:09:25,920 --> 00:09:28,380
+If we want Multi AZ, yes, for sure, we have to pay more.
+
+253
+00:09:28,380 --> 00:09:30,390
+If we want to scale the reads, yes, for sure
+
+254
+00:09:30,390 --> 00:09:31,950
+we'll have to pay more as well.
+
+255
+00:09:31,950 --> 00:09:33,570
+But it gives us some good trade-offs
+
+256
+00:09:33,570 --> 00:09:35,370
+and architecture decisions that we have to make.
+
+257
+00:09:35,370 --> 00:09:36,270
+So I hope you liked it,
+
+258
+00:09:36,270 --> 00:09:38,220
+and I will see you in the next lecture.
+

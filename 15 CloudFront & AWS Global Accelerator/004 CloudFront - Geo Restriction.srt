@@ -1,0 +1,136 @@
+1
+00:00:00,150 --> 00:00:01,320
+Just a short lecture
+
+2
+00:00:01,320 --> 00:00:03,510
+around CloudFront Geo Restriction.
+
+3
+00:00:03,510 --> 00:00:06,180
+So you can restrict who can access your distribution
+
+4
+00:00:06,180 --> 00:00:08,220
+based on the country where they try
+
+5
+00:00:08,220 --> 00:00:10,140
+to access the distribution from.
+
+6
+00:00:10,140 --> 00:00:12,900
+So you can set up an allowlist to define a list
+
+7
+00:00:12,900 --> 00:00:14,670
+of approved countries,
+
+8
+00:00:14,670 --> 00:00:18,030
+or you can set up a blocklist to set up a list
+
+9
+00:00:18,030 --> 00:00:19,920
+of banned countries.
+
+10
+00:00:19,920 --> 00:00:21,690
+Now the country is determined
+
+11
+00:00:21,690 --> 00:00:24,810
+by using a third-party Geo-IP database to match the IP
+
+12
+00:00:24,810 --> 00:00:27,570
+of the user to the country it belongs to.
+
+13
+00:00:27,570 --> 00:00:29,910
+So the use case for using geo restriction
+
+14
+00:00:29,910 --> 00:00:33,840
+would be copyright laws to control access to content.
+
+15
+00:00:33,840 --> 00:00:36,390
+So to turn on geographic restrictions,
+
+16
+00:00:36,390 --> 00:00:38,310
+go under Security,
+
+17
+00:00:38,310 --> 00:00:39,930
+and then under here
+
+18
+00:00:39,930 --> 00:00:42,810
+you will find CloudFront geographic restrictions,
+
+19
+00:00:42,810 --> 00:00:43,980
+and there is countries.
+
+20
+00:00:43,980 --> 00:00:44,910
+And then you click on Edit.
+
+21
+00:00:44,910 --> 00:00:46,260
+So it's a bit hidden,
+
+22
+00:00:46,260 --> 00:00:50,040
+but under there you can have an allowlist or a blocklist.
+
+23
+00:00:50,040 --> 00:00:51,810
+So we can set up, for example, an allowlist
+
+24
+00:00:51,810 --> 00:00:54,960
+and let's enumerate the countries
+
+25
+00:00:54,960 --> 00:00:56,250
+that will be always allowed,
+
+26
+00:00:56,250 --> 00:01:00,780
+and the rest will be blocked by CloudFront.
+
+27
+00:01:00,780 --> 00:01:04,110
+So here we're saying that India and United States
+
+28
+00:01:04,110 --> 00:01:06,750
+is allowed on our CloudFront distribution.
+
+29
+00:01:06,750 --> 00:01:09,330
+So if we're happy with this, we save the changes.
+
+30
+00:01:09,330 --> 00:01:11,970
+And as you can see, now the type of it is allowlist
+
+31
+00:01:11,970 --> 00:01:14,700
+and the countries are listed here.
+
+32
+00:01:14,700 --> 00:01:15,630
+And that's it.
+
+33
+00:01:15,630 --> 00:01:16,560
+So I hope you liked it,
+
+34
+00:01:16,560 --> 00:01:18,753
+and I will see you in the next lecture.
+

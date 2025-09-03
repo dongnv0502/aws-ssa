@@ -1,0 +1,812 @@
+1
+00:00:00,210 --> 00:00:01,830
+So let's go ahead and create
+
+2
+00:00:01,830 --> 00:00:03,690
+an Amazon Aurora database.
+
+3
+00:00:03,690 --> 00:00:05,939
+Now, just so you know, if you follow along with me
+
+4
+00:00:05,939 --> 00:00:09,210
+with this hands-on, it's going to cost you a bit of money.
+
+5
+00:00:09,210 --> 00:00:11,040
+The most important thing for you is to just
+
+6
+00:00:11,040 --> 00:00:14,400
+follow the instructions and to see what the options are.
+
+7
+00:00:14,400 --> 00:00:15,690
+But you don't need to actually go ahead
+
+8
+00:00:15,690 --> 00:00:17,160
+and create the database
+
+9
+00:00:17,160 --> 00:00:20,070
+if you don't have some money to spare for it.
+
+10
+00:00:20,070 --> 00:00:22,260
+So we're going to choose a standard create.
+
+11
+00:00:22,260 --> 00:00:25,320
+And as you can see we have two different options for Aurora,
+
+12
+00:00:25,320 --> 00:00:27,690
+we have the MySQL-compatible option
+
+13
+00:00:27,690 --> 00:00:30,510
+and the PostgresSQL-compatible option.
+
+14
+00:00:30,510 --> 00:00:33,270
+For this hands-on, I'm going to use MySQL.
+
+15
+00:00:33,270 --> 00:00:36,600
+I will scroll down and here you have to choose a version.
+
+16
+00:00:36,600 --> 00:00:38,550
+So you have a version selector right here.
+
+17
+00:00:38,550 --> 00:00:40,200
+And you can have filters, for example,
+
+18
+00:00:40,200 --> 00:00:41,880
+to only show the version that supports
+
+19
+00:00:41,880 --> 00:00:43,560
+the global database feature,
+
+20
+00:00:43,560 --> 00:00:46,560
+or the ones that support the parallel query feature
+
+21
+00:00:46,560 --> 00:00:50,220
+or the ones that support Serverless v2 feature.
+
+22
+00:00:50,220 --> 00:00:52,380
+So what I'm going to do is I'm going to keep
+
+23
+00:00:52,380 --> 00:00:56,460
+the default version as proposed by the Aurora console,
+
+24
+00:00:56,460 --> 00:00:58,890
+which is 3.04.1.
+
+25
+00:00:58,890 --> 00:01:01,440
+But this may be a different version for you.
+
+26
+00:01:01,440 --> 00:01:03,450
+Next, I will choose a template
+
+27
+00:01:03,450 --> 00:01:04,980
+and basically choosing production
+
+28
+00:01:04,980 --> 00:01:06,600
+allows me to configure everything.
+
+29
+00:01:06,600 --> 00:01:08,100
+So this is what we want to do.
+
+30
+00:01:08,100 --> 00:01:09,600
+We'll choose production.
+
+31
+00:01:09,600 --> 00:01:12,150
+For the DB cluster identifier in RDS,
+
+32
+00:01:12,150 --> 00:01:13,923
+we'll choose database two.
+
+33
+00:01:14,820 --> 00:01:17,010
+We have the master username being admin,
+
+34
+00:01:17,010 --> 00:01:19,860
+and then you can enter a password,
+
+35
+00:01:19,860 --> 00:01:21,273
+which I will right now.
+
+36
+00:01:23,490 --> 00:01:27,030
+Okay, then for cluster storage configuration,
+
+37
+00:01:27,030 --> 00:01:28,350
+you have two options.
+
+38
+00:01:28,350 --> 00:01:31,170
+You can have Aurora standard or IO optimized.
+
+39
+00:01:31,170 --> 00:01:35,760
+So if you have high input and output operations,
+
+40
+00:01:35,760 --> 00:01:38,310
+read and write operations on your Aurora database
+
+41
+00:01:38,310 --> 00:01:39,630
+you may want the IO optimized.
+
+42
+00:01:39,630 --> 00:01:42,360
+But for cost-effective workloads
+
+43
+00:01:42,360 --> 00:01:44,220
+that don't use Aurora too much,
+
+44
+00:01:44,220 --> 00:01:47,190
+then you may want to use Aurora standard.
+
+45
+00:01:47,190 --> 00:01:49,380
+Now for instance configuration,
+
+46
+00:01:49,380 --> 00:01:51,870
+you have the possibility of choosing
+
+47
+00:01:51,870 --> 00:01:54,780
+the class of instance you want for your database.
+
+48
+00:01:54,780 --> 00:01:56,670
+So you can see you have different ones
+
+49
+00:01:56,670 --> 00:01:58,620
+that can be memory optimized.
+
+50
+00:01:58,620 --> 00:02:01,260
+You have the burstable classes and you can choose
+
+51
+00:02:01,260 --> 00:02:03,300
+to include the previous generation classes,
+
+52
+00:02:03,300 --> 00:02:04,980
+it works sometimes.
+
+53
+00:02:04,980 --> 00:02:07,980
+But for now I'll just use db.t3 medium.
+
+54
+00:02:07,980 --> 00:02:09,810
+And also if you use a version
+
+55
+00:02:09,810 --> 00:02:11,700
+that is compatible with serverless,
+
+56
+00:02:11,700 --> 00:02:14,430
+you will see the Serverless v2 two option here.
+
+57
+00:02:14,430 --> 00:02:16,950
+And in here you don't select the instance type,
+
+58
+00:02:16,950 --> 00:02:19,983
+you just select what's called an Aurora capacity unit,
+
+59
+00:02:19,983 --> 00:02:22,669
+ACU, and you say, well, there is a minimum ACU you want
+
+60
+00:02:22,669 --> 00:02:24,900
+and the maximum ACU you want
+
+61
+00:02:24,900 --> 00:02:26,700
+and this will allow your database to scale
+
+62
+00:02:26,700 --> 00:02:30,150
+between these two capacity units automatically.
+
+63
+00:02:30,150 --> 00:02:32,910
+So for now, I'm going to use burstable classes
+
+64
+00:02:32,910 --> 00:02:35,283
+of db.t3 medium.
+
+65
+00:02:36,210 --> 00:02:38,400
+Now for availability and durability,
+
+66
+00:02:38,400 --> 00:02:40,800
+we have the option to have Aurora replicas.
+
+67
+00:02:40,800 --> 00:02:43,080
+So here we create an Aurora replica
+
+68
+00:02:43,080 --> 00:02:44,940
+and a reader node in a different AZ,
+
+69
+00:02:44,940 --> 00:02:47,310
+which is going to give us availability,
+
+70
+00:02:47,310 --> 00:02:50,130
+enhanced availability, as well as better reads
+
+71
+00:02:50,130 --> 00:02:53,160
+across AZ and fast failovers.
+
+72
+00:02:53,160 --> 00:02:54,480
+So this will cost more money,
+
+73
+00:02:54,480 --> 00:02:57,816
+but at least I can show you the full power of Aurora.
+
+74
+00:02:57,816 --> 00:03:01,230
+Next, for compute resource, we are not going to connect
+
+75
+00:03:01,230 --> 00:03:02,790
+to an EC2 resource.
+
+76
+00:03:02,790 --> 00:03:05,280
+We're going to choose a network type of IPv4,
+
+77
+00:03:05,280 --> 00:03:07,560
+this is going to be enough for our needs,
+
+78
+00:03:07,560 --> 00:03:09,690
+but if you have IPv6 as well in your VPC,
+
+79
+00:03:09,690 --> 00:03:12,000
+you can use dual stack mode.
+
+80
+00:03:12,000 --> 00:03:14,490
+Then you are going to be in the VPC.
+
+81
+00:03:14,490 --> 00:03:17,820
+That is the default VPC with the default submit group.
+
+82
+00:03:17,820 --> 00:03:21,009
+I will yes, allow public access to allow access
+
+83
+00:03:21,009 --> 00:03:25,380
+to the Aurora database from a public IP.
+
+84
+00:03:25,380 --> 00:03:29,130
+And for VPC security group, I'm going to create a new one
+
+85
+00:03:29,130 --> 00:03:34,130
+and I will call it demo database Aurora,
+
+86
+00:03:34,560 --> 00:03:38,640
+which will allow us to connect to our Aurora database.
+
+87
+00:03:38,640 --> 00:03:40,410
+Next, for additional configuration,
+
+88
+00:03:40,410 --> 00:03:44,040
+we can see that the database port is 3306,
+
+89
+00:03:44,040 --> 00:03:45,510
+which is the MySQL port.
+
+90
+00:03:45,510 --> 00:03:47,643
+If you selected MySQL before.
+
+91
+00:03:49,080 --> 00:03:51,990
+So we have the option to also have local write forwarding
+
+92
+00:03:51,990 --> 00:03:55,110
+in case the rights are applied to the read replica.
+
+93
+00:03:55,110 --> 00:03:56,820
+Then they will be forwarded automatically
+
+94
+00:03:56,820 --> 00:03:58,560
+to the write instance.
+
+95
+00:03:58,560 --> 00:03:59,730
+This is allowing you to have
+
+96
+00:03:59,730 --> 00:04:02,160
+an easier connection management.
+
+97
+00:04:02,160 --> 00:04:04,560
+Now, we can also have database authentication,
+
+98
+00:04:04,560 --> 00:04:06,750
+to use IAM based database application
+
+99
+00:04:06,750 --> 00:04:09,930
+or Kerberos based to basically authenticate a user
+
+100
+00:04:09,930 --> 00:04:12,210
+using an external mechanism.
+
+101
+00:04:12,210 --> 00:04:13,290
+We have enhanced monitoring.
+
+102
+00:04:13,290 --> 00:04:15,630
+I can disable it because we don't need it.
+
+103
+00:04:15,630 --> 00:04:19,019
+And we have additional options for your database.
+
+104
+00:04:19,019 --> 00:04:22,860
+For example, the initial database name is going to be my DB,
+
+105
+00:04:22,860 --> 00:04:25,200
+and then backup retention is going to be one day.
+
+106
+00:04:25,200 --> 00:04:26,190
+This is great.
+
+107
+00:04:26,190 --> 00:04:28,740
+We can have encryption for our database.
+
+108
+00:04:28,740 --> 00:04:30,720
+We have several options around backtracking
+
+109
+00:04:30,720 --> 00:04:32,400
+to rewind our database,
+
+110
+00:04:32,400 --> 00:04:35,400
+and log exports, but I will not go over them.
+
+111
+00:04:35,400 --> 00:04:36,870
+We have deletion protection
+
+112
+00:04:36,870 --> 00:04:40,350
+to protect the database from being accidentally deleted,
+
+113
+00:04:40,350 --> 00:04:41,760
+but everything looks fine now.
+
+114
+00:04:41,760 --> 00:04:43,470
+And as you can see, we have some monthly costs.
+
+115
+00:04:43,470 --> 00:04:46,380
+So make sure that you are aware of this
+
+116
+00:04:46,380 --> 00:04:48,990
+by creating this Aurora database.
+
+117
+00:04:48,990 --> 00:04:51,900
+So let's go ahead and create this database.
+
+118
+00:04:51,900 --> 00:04:55,410
+So my Aurora database is created.
+
+119
+00:04:55,410 --> 00:04:57,660
+And as we can see, we have a regional cluster
+
+120
+00:04:57,660 --> 00:05:00,600
+with a writer instance and a reader instance.
+
+121
+00:05:00,600 --> 00:05:02,850
+So here, the important fact is that
+
+122
+00:05:02,850 --> 00:05:06,030
+we have different instance to write and to read from,
+
+123
+00:05:06,030 --> 00:05:07,410
+and there are in different AZ.
+
+124
+00:05:07,410 --> 00:05:09,510
+So this is the whole power of Aurora.
+
+125
+00:05:09,510 --> 00:05:12,000
+So if you click on database two, as we can see
+
+126
+00:05:12,000 --> 00:05:14,220
+to connect, we have two endpoints.
+
+127
+00:05:14,220 --> 00:05:18,390
+We have a reader endpoints and a writer endpoints.
+
+128
+00:05:18,390 --> 00:05:19,800
+So these endpoints are very handy
+
+129
+00:05:19,800 --> 00:05:21,390
+because they represent an endpoint
+
+130
+00:05:21,390 --> 00:05:25,260
+that will always lead to the right writer instance.
+
+131
+00:05:25,260 --> 00:05:27,810
+And this endpoint will always lead
+
+132
+00:05:27,810 --> 00:05:29,520
+to the right reader instance.
+
+133
+00:05:29,520 --> 00:05:31,230
+So these endpoints is what your application
+
+134
+00:05:31,230 --> 00:05:34,290
+should be using to connect to Aurora.
+
+135
+00:05:34,290 --> 00:05:36,120
+But if you were to click directly
+
+136
+00:05:36,120 --> 00:05:38,190
+on this specific instance right here,
+
+137
+00:05:38,190 --> 00:05:41,010
+this instance would have also a dedicated endpoint.
+
+138
+00:05:41,010 --> 00:05:43,830
+And that instance over here would also have
+
+139
+00:05:43,830 --> 00:05:46,920
+a dedicated endpoint once it is being created.
+
+140
+00:05:46,920 --> 00:05:48,570
+So it's still being in the creating space.
+
+141
+00:05:48,570 --> 00:05:51,870
+Okay, so we have these feature that are cool.
+
+142
+00:05:51,870 --> 00:05:53,790
+Then, we have other features,
+
+143
+00:05:53,790 --> 00:05:58,380
+so we can add more readers into our reader cluster
+
+144
+00:05:58,380 --> 00:06:00,821
+to add on with scaling capacity.
+
+145
+00:06:00,821 --> 00:06:03,720
+And we can also create a cross-region read replica
+
+146
+00:06:03,720 --> 00:06:06,330
+if you want to have a replica in another region.
+
+147
+00:06:06,330 --> 00:06:08,700
+We can restore in point in time.
+
+148
+00:06:08,700 --> 00:06:12,480
+And another one is that we could add replica auto-scaling.
+
+149
+00:06:12,480 --> 00:06:13,650
+So this one is very important
+
+150
+00:06:13,650 --> 00:06:16,274
+because well, we can create a policy.
+
+151
+00:06:16,274 --> 00:06:18,330
+And this policy would say, Hey,
+
+152
+00:06:18,330 --> 00:06:21,660
+based on the average utilization of your Aurora replica
+
+153
+00:06:21,660 --> 00:06:24,390
+or the average number of connections to your Aurora replica,
+
+154
+00:06:24,390 --> 00:06:26,550
+then scale your read replica.
+
+155
+00:06:26,550 --> 00:06:29,790
+So say read replica scaling policy.
+
+156
+00:06:29,790 --> 00:06:33,060
+And say, okay, I want to make sure that my read replica
+
+157
+00:06:33,060 --> 00:06:35,070
+stay at the target value of 60%.
+
+158
+00:06:35,070 --> 00:06:38,370
+And if I go over, please create more read replica.
+
+159
+00:06:38,370 --> 00:06:40,470
+We could also define a scaling period
+
+160
+00:06:40,470 --> 00:06:42,750
+for the scaling policy, which makes sense.
+
+161
+00:06:42,750 --> 00:06:44,400
+And what's the min and the max capacity.
+
+162
+00:06:44,400 --> 00:06:48,000
+So one replica up to 15 Aurora replicas.
+
+163
+00:06:48,000 --> 00:06:50,220
+And this is very handy to have a Read replica
+
+164
+00:06:50,220 --> 00:06:52,263
+Auto-scaling as a database.
+
+165
+00:06:53,100 --> 00:06:55,500
+So I cancel it, we don't need it right now.
+
+166
+00:06:55,500 --> 00:06:58,530
+And now I've made sure that both my points,
+
+167
+00:06:58,530 --> 00:07:01,440
+my database and endpoints are available.
+
+168
+00:07:01,440 --> 00:07:02,610
+So we're good to go.
+
+169
+00:07:02,610 --> 00:07:04,030
+So one last thing I can do
+
+170
+00:07:04,882 --> 00:07:05,910
+to show you the whole power of Aurora
+
+171
+00:07:05,910 --> 00:07:08,640
+is to do action and add AWS region.
+
+172
+00:07:08,640 --> 00:07:11,760
+And this is only possible if you chose a version of Aurora
+
+173
+00:07:11,760 --> 00:07:15,210
+that was enabled with the global database feature.
+
+174
+00:07:15,210 --> 00:07:20,210
+But here we can add the database region to other regions,
+
+175
+00:07:20,385 --> 00:07:22,410
+and this will allow you to get a global Aurora.
+
+176
+00:07:22,410 --> 00:07:24,840
+Now, as you can see, this is not possible with this cluster
+
+177
+00:07:24,840 --> 00:07:26,340
+because we need to have an instance
+
+178
+00:07:26,340 --> 00:07:29,254
+with a compatible size to do this first.
+
+179
+00:07:29,254 --> 00:07:31,324
+So we need to change the instance, for example,
+
+180
+00:07:31,324 --> 00:07:32,850
+to a large type of instance,
+
+181
+00:07:32,850 --> 00:07:35,130
+and then we would be able to add other regions
+
+182
+00:07:35,130 --> 00:07:36,000
+to the database cluster.
+
+183
+00:07:36,000 --> 00:07:39,030
+But anyway, I wanted to show you the feature right here.
+
+184
+00:07:39,030 --> 00:07:41,070
+Okay, so that's it for Aurora.
+
+185
+00:07:41,070 --> 00:07:42,450
+This is pretty much what you get,
+
+186
+00:07:42,450 --> 00:07:45,540
+which is an amazing database with amazing performance,
+
+187
+00:07:45,540 --> 00:07:49,320
+great, great scaling capacity, global and so on serverless.
+
+188
+00:07:49,320 --> 00:07:50,760
+So really, really complete database.
+
+189
+00:07:50,760 --> 00:07:52,860
+I really like this offering from AWS.
+
+190
+00:07:52,860 --> 00:07:55,860
+Now to be done with this hands-on, just take this database
+
+191
+00:07:55,860 --> 00:07:56,790
+and you want to delete it,
+
+192
+00:07:56,790 --> 00:07:58,470
+but as you can see, it's not available.
+
+193
+00:07:58,470 --> 00:07:59,610
+So what you need to do first
+
+194
+00:07:59,610 --> 00:08:02,070
+is to delete the reader instance.
+
+195
+00:08:02,070 --> 00:08:04,320
+So type delete me.
+
+196
+00:08:04,320 --> 00:08:07,020
+Then you need to delete the writer instance.
+
+197
+00:08:07,020 --> 00:08:11,250
+So again, action, delete, and then you type delete me.
+
+198
+00:08:11,250 --> 00:08:14,100
+And then once both these things are deleted,
+
+199
+00:08:14,100 --> 00:08:16,620
+you are going to be able to delete your whole cluster.
+
+200
+00:08:16,620 --> 00:08:18,420
+So I will wait when it's done.
+
+201
+00:08:18,420 --> 00:08:19,253
+That's it.
+
+202
+00:08:19,253 --> 00:08:20,400
+My database is now deleted,
+
+203
+00:08:20,400 --> 00:08:22,353
+and I will see you in the next lecture.
+

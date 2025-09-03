@@ -1,0 +1,1100 @@
+1
+00:00:00,060 --> 00:00:01,440
+Okay, so let's get started
+
+2
+00:00:01,440 --> 00:00:04,140
+with our first solution architecture discussion.
+
+3
+00:00:04,140 --> 00:00:05,100
+And I'm really excited
+
+4
+00:00:05,100 --> 00:00:07,860
+cuz we're going to see so many different topics altogether,
+
+5
+00:00:07,860 --> 00:00:09,297
+and we'll really understand how they fit,
+
+6
+00:00:09,297 --> 00:00:10,770
+and what are the challenges we have
+
+7
+00:00:10,770 --> 00:00:12,510
+as a solutions architect.
+
+8
+00:00:12,510 --> 00:00:15,210
+So the first website is WhatIsTheTime.com
+
+9
+00:00:15,210 --> 00:00:18,660
+and WhatIsTheTime.com allows people to know what time it is.
+
+10
+00:00:18,660 --> 00:00:20,130
+I know it sounds stupid,
+
+11
+00:00:20,130 --> 00:00:22,260
+but at least it's so easy that everyone understands it,
+
+12
+00:00:22,260 --> 00:00:24,420
+and we'll be able to talk about it at length.
+
+13
+00:00:24,420 --> 00:00:26,520
+So we don't need a database because it's so simple.
+
+14
+00:00:26,520 --> 00:00:29,790
+Each instance, each server knows what time it is,
+
+15
+00:00:29,790 --> 00:00:31,320
+and we want to start small.
+
+16
+00:00:31,320 --> 00:00:33,000
+We're willing to accept downtime,
+
+17
+00:00:33,000 --> 00:00:35,880
+but overall maybe our app will get more and more popular.
+
+18
+00:00:35,880 --> 00:00:37,830
+People really wanna know the time around the world,
+
+19
+00:00:37,830 --> 00:00:40,020
+and so we'll need to scale vertically,
+
+20
+00:00:40,020 --> 00:00:42,720
+and horizontally maybe removed downtime.
+
+21
+00:00:42,720 --> 00:00:44,040
+And let's go through
+
+22
+00:00:44,040 --> 00:00:46,170
+the Solutions Architect journey for this app.
+
+23
+00:00:46,170 --> 00:00:49,830
+You'll see, we'll see a lot of things on how we can proceed.
+
+24
+00:00:49,830 --> 00:00:52,020
+So let's start really simple.
+
+25
+00:00:52,020 --> 00:00:54,750
+Okay, let's start from the very beginning.
+
+26
+00:00:54,750 --> 00:00:57,390
+You are a solutions architect and you say
+
+27
+00:00:57,390 --> 00:00:58,680
+you know what would be great?
+
+28
+00:00:58,680 --> 00:01:02,040
+You have a T2 micro instance and you have a user,
+
+29
+00:01:02,040 --> 00:01:04,410
+and the user says, "What time it is?",
+
+30
+00:01:04,410 --> 00:01:08,640
+and say, "Okay, it's 5:30 PM.", done, this is my app.
+
+31
+00:01:08,640 --> 00:01:10,950
+So we have a public EC2 instance,
+
+32
+00:01:10,950 --> 00:01:13,620
+and because we want to make the EC2 instance
+
+33
+00:01:13,620 --> 00:01:16,320
+have a static IP address in case something happens,
+
+34
+00:01:16,320 --> 00:01:17,490
+and which we restart it,
+
+35
+00:01:17,490 --> 00:01:20,820
+then I will attach a Elastic IP address to it.
+
+36
+00:01:20,820 --> 00:01:24,060
+So this is my first PoC, it's working really great.
+
+37
+00:01:24,060 --> 00:01:26,160
+Our users are able to access our application,
+
+38
+00:01:26,160 --> 00:01:28,290
+and we're getting great feedback.
+
+39
+00:01:28,290 --> 00:01:31,680
+So now what's happening is that our users are
+
+40
+00:01:31,680 --> 00:01:33,930
+really having a good time using our application.
+
+41
+00:01:33,930 --> 00:01:35,227
+So they said to their friends,
+
+42
+00:01:35,227 --> 00:01:36,840
+"Hey, you should also use this application."
+
+43
+00:01:36,840 --> 00:01:39,330
+So another friend comes in and says, "What time is it?"
+
+44
+00:01:39,330 --> 00:01:41,527
+And 7:30 PM and another friend comes in,
+
+45
+00:01:41,527 --> 00:01:45,270
+"What time is it?", 6:30 PM and so we realize here that
+
+46
+00:01:45,270 --> 00:01:47,700
+our application is getting more and more traffic,
+
+47
+00:01:47,700 --> 00:01:51,420
+and certainly the T2 Micro instance isn't enough.
+
+48
+00:01:51,420 --> 00:01:54,450
+And so as a solution architect we say, wait a minute,
+
+49
+00:01:54,450 --> 00:01:57,540
+maybe we should replace that T2 Micro instance
+
+50
+00:01:57,540 --> 00:02:00,060
+by something a little bit bigger to handle the load,
+
+51
+00:02:00,060 --> 00:02:01,590
+so that's called vertical scaling.
+
+52
+00:02:01,590 --> 00:02:05,250
+Maybe we'll make it an M5 large type of instance.
+
+53
+00:02:05,250 --> 00:02:08,240
+So what we do is that we stop the instance,
+
+54
+00:02:08,240 --> 00:02:09,900
+we change the instance type,
+
+55
+00:02:09,900 --> 00:02:12,360
+and then we start again the instance, and here we go.
+
+56
+00:02:12,360 --> 00:02:15,270
+This is an M5 type of instance.
+
+57
+00:02:15,270 --> 00:02:17,940
+So what happened here is that it has the same public IP
+
+58
+00:02:17,940 --> 00:02:19,500
+because it has an elastic IP address,
+
+59
+00:02:19,500 --> 00:02:22,380
+so people are still able to access our application,
+
+60
+00:02:22,380 --> 00:02:27,188
+but we have experienced downtime while upgrading to an M5.
+
+61
+00:02:27,188 --> 00:02:29,610
+And so our users were not really happy during that moment,
+
+62
+00:02:29,610 --> 00:02:32,370
+they were not able to access our application.
+
+63
+00:02:32,370 --> 00:02:35,400
+So this works, but this isn't great, right?
+
+64
+00:02:35,400 --> 00:02:38,340
+So next we're going really popular,
+
+65
+00:02:38,340 --> 00:02:40,620
+and it's time to scale horizontally.
+
+66
+00:02:40,620 --> 00:02:43,830
+So we get, remember this application M5 has
+
+67
+00:02:43,830 --> 00:02:46,350
+one public IP, elastic IP attached to it.
+
+68
+00:02:46,350 --> 00:02:48,090
+And now we're getting tons of users.
+
+69
+00:02:48,090 --> 00:02:49,860
+And so they're all asking what time is it?
+
+70
+00:02:49,860 --> 00:02:52,200
+And so now we wanna scale horizontally.
+
+71
+00:02:52,200 --> 00:02:55,890
+So we start adding EC2 instances, they're all M5 large,
+
+72
+00:02:55,890 --> 00:02:58,380
+and they all have an elastic IP attached to it.
+
+73
+00:02:58,380 --> 00:03:01,020
+So now on top of having three EC2 instance,
+
+74
+00:03:01,020 --> 00:03:02,580
+we have three elastic IP.
+
+75
+00:03:02,580 --> 00:03:04,800
+And so our users, they need to be aware
+
+76
+00:03:04,800 --> 00:03:09,150
+of the the exact values of these three elastic IP
+
+77
+00:03:09,150 --> 00:03:11,340
+to talk to our instances.
+
+78
+00:03:11,340 --> 00:03:13,080
+And so that's called horizontal scaling.
+
+79
+00:03:13,080 --> 00:03:14,430
+We're doing not bad,
+
+80
+00:03:14,430 --> 00:03:16,620
+but we see we starting to reach some limits.
+
+81
+00:03:16,620 --> 00:03:19,770
+Now the users need to be aware of more and more IPs,
+
+82
+00:03:19,770 --> 00:03:22,350
+and we have to manage more infrastructure,
+
+83
+00:03:22,350 --> 00:03:24,120
+and it's pretty tricky, right?
+
+84
+00:03:24,120 --> 00:03:26,910
+So okay, let's change the approach.
+
+85
+00:03:26,910 --> 00:03:29,700
+Now we have three EC2 instances,
+
+86
+00:03:29,700 --> 00:03:32,070
+M5, and let's remove Elastic IP
+
+87
+00:03:32,070 --> 00:03:33,840
+because it's something that we can't really manage.
+
+88
+00:03:33,840 --> 00:03:35,160
+There's only five elastic IP
+
+89
+00:03:35,160 --> 00:03:38,070
+per region per accounts by default, so it's not a lot.
+
+90
+00:03:38,070 --> 00:03:41,100
+And so instead our users, what they're going to do
+
+91
+00:03:41,100 --> 00:03:43,470
+is that they're going to leverage Route 53.
+
+92
+00:03:43,470 --> 00:03:45,120
+So we've set up Route 53,
+
+93
+00:03:45,120 --> 00:03:49,260
+and the website URL is api.whatisthetime.com.
+
+94
+00:03:49,260 --> 00:03:51,990
+And we've decided it's going to be an A record
+
+95
+00:03:51,990 --> 00:03:53,970
+with a TTL of one hour.
+
+96
+00:03:53,970 --> 00:03:56,820
+An A record means that from a DNS like this,
+
+97
+00:03:56,820 --> 00:03:58,590
+it's going to give me a list of IP.
+
+98
+00:03:58,590 --> 00:04:01,650
+So remember, Route 53 A record is IP.
+
+99
+00:04:01,650 --> 00:04:04,770
+So great, so the users query Route 53,
+
+100
+00:04:04,770 --> 00:04:08,130
+and then they get the IP addresses of our EC2 instances,
+
+101
+00:04:08,130 --> 00:04:10,470
+and they can change over time, it doesn't really matter
+
+102
+00:04:10,470 --> 00:04:12,510
+because Route 53 will get updated,
+
+103
+00:04:12,510 --> 00:04:14,460
+we'll update it and keep it in sync.
+
+104
+00:04:14,460 --> 00:04:18,360
+And so our users are now able to access our EC2 instances,
+
+105
+00:04:18,360 --> 00:04:20,670
+and we don't have any Elastic IP to manage anymore.
+
+106
+00:04:20,670 --> 00:04:24,960
+So using Route 53, we've done some good improvements.
+
+107
+00:04:24,960 --> 00:04:26,310
+But what happens is that
+
+108
+00:04:26,310 --> 00:04:28,500
+now we want to be able to scale, you know,
+
+109
+00:04:28,500 --> 00:04:31,110
+and be able to add and remove instances on the flight.
+
+110
+00:04:31,110 --> 00:04:34,920
+And so when we do remove an instance, what happens?
+
+111
+00:04:34,920 --> 00:04:37,260
+Well it seems like these users on the top,
+
+112
+00:04:37,260 --> 00:04:39,870
+they were talking to this M5 large instance,
+
+113
+00:04:39,870 --> 00:04:42,990
+but now it's gone, and it turns out that
+
+114
+00:04:42,990 --> 00:04:45,510
+if they do a Route 53 query,
+
+115
+00:04:45,510 --> 00:04:47,430
+because the TTL was one hour,
+
+116
+00:04:47,430 --> 00:04:49,350
+they're using the same response for one hour.
+
+117
+00:04:49,350 --> 00:04:51,120
+So for one hour they'll try to connect
+
+118
+00:04:51,120 --> 00:04:53,940
+to the instance and that instance is gone.
+
+119
+00:04:53,940 --> 00:04:55,650
+And so here it's not really great
+
+120
+00:04:55,650 --> 00:04:58,680
+because even though these users are having a good time,
+
+121
+00:04:58,680 --> 00:04:59,760
+and maybe after one hour,
+
+122
+00:04:59,760 --> 00:05:02,615
+these user will be able to connect to these two instances,
+
+123
+00:05:02,615 --> 00:05:03,720
+they're not having a good time right now
+
+124
+00:05:03,720 --> 00:05:06,180
+'cause they think that our application is down,
+
+125
+00:05:06,180 --> 00:05:07,710
+and that's really, really bad.
+
+126
+00:05:07,710 --> 00:05:09,990
+So, okay, so this is an architecture,
+
+127
+00:05:09,990 --> 00:05:11,370
+and we see the limit of it.
+
+128
+00:05:11,370 --> 00:05:14,160
+So how can we push this a little bit further?
+
+129
+00:05:14,160 --> 00:05:17,250
+So let's talk about adding a load balancer.
+
+130
+00:05:17,250 --> 00:05:19,080
+So instead now having,
+
+131
+00:05:19,080 --> 00:05:21,750
+we don't have a public instances anymore,
+
+132
+00:05:21,750 --> 00:05:24,090
+we have private EC2 instances,
+
+133
+00:05:24,090 --> 00:05:25,200
+and we're going to launch them
+
+134
+00:05:25,200 --> 00:05:26,490
+in the same availability zone
+
+135
+00:05:26,490 --> 00:05:27,990
+because we don't know any better.
+
+136
+00:05:27,990 --> 00:05:29,400
+So we've launched them manually,
+
+137
+00:05:29,400 --> 00:05:31,830
+we have three and five large instances,
+
+138
+00:05:31,830 --> 00:05:34,170
+and we are following this course,
+
+139
+00:05:34,170 --> 00:05:36,480
+and we said, okay, let's use a load balancer.
+
+140
+00:05:36,480 --> 00:05:38,123
+And you know what, on top of it,
+
+141
+00:05:38,123 --> 00:05:39,750
+it's going to have health checks such as
+
+142
+00:05:39,750 --> 00:05:41,760
+if one instance is down or not working,
+
+143
+00:05:41,760 --> 00:05:43,170
+at least we won't send traffic
+
+144
+00:05:43,170 --> 00:05:45,180
+from our users to the instance.
+
+145
+00:05:45,180 --> 00:05:47,400
+So okay, we're linking the two together.
+
+146
+00:05:47,400 --> 00:05:50,250
+So my ELB is going to be public facing,
+
+147
+00:05:50,250 --> 00:05:53,580
+whereas my private instance EC2 instances are in the back,
+
+148
+00:05:53,580 --> 00:05:56,100
+and so they restrict traffic between these two
+
+149
+00:05:56,100 --> 00:05:59,370
+using maybe a security group rule that we've seen before
+
+150
+00:05:59,370 --> 00:06:01,080
+using security group as a reference.
+
+151
+00:06:01,080 --> 00:06:02,820
+Okay, that sounds pretty good.
+
+152
+00:06:02,820 --> 00:06:04,620
+So now our users, they're going to query
+
+153
+00:06:04,620 --> 00:06:09,090
+for whatisthetime.com, but this time, it cannot be A record
+
+154
+00:06:09,090 --> 00:06:12,417
+because a load balancer has its IP changing all the time.
+
+155
+00:06:12,417 --> 00:06:14,610
+And so instead, because it's a load balancer,
+
+156
+00:06:14,610 --> 00:06:16,590
+we can use an alias record.
+
+157
+00:06:16,590 --> 00:06:18,720
+And this alias record is perfect
+
+158
+00:06:18,720 --> 00:06:21,180
+because it will point from Route 53 to the ELB,
+
+159
+00:06:21,180 --> 00:06:23,130
+and everything will work really great.
+
+160
+00:06:23,130 --> 00:06:24,630
+And so here we'll change the DNS.
+
+161
+00:06:24,630 --> 00:06:27,870
+But now the users connect to our load balancer,
+
+162
+00:06:27,870 --> 00:06:30,270
+and our load balancers redirects us
+
+163
+00:06:30,270 --> 00:06:34,020
+to our EC2 instances, and balances the traffic out.
+
+164
+00:06:34,020 --> 00:06:34,907
+And it's really great
+
+165
+00:06:34,907 --> 00:06:37,650
+'cause now, we can add and remove these instances,
+
+166
+00:06:37,650 --> 00:06:39,480
+and register them with a load balancer,
+
+167
+00:06:39,480 --> 00:06:41,880
+and we won't have any downtime for our users
+
+168
+00:06:41,880 --> 00:06:43,800
+thanks to the health checks feature.
+
+169
+00:06:43,800 --> 00:06:45,660
+So really, really good.
+
+170
+00:06:45,660 --> 00:06:48,690
+But now adding and removing instances manually
+
+171
+00:06:48,690 --> 00:06:50,790
+is pretty hard to do.
+
+172
+00:06:50,790 --> 00:06:52,860
+So what about we just leveraged something
+
+173
+00:06:52,860 --> 00:06:54,690
+we just learned in this class,
+
+174
+00:06:54,690 --> 00:06:57,690
+and we'll launch an auto-scaling group.
+
+175
+00:06:57,690 --> 00:06:59,820
+So now we have our API on the left hand side,
+
+176
+00:06:59,820 --> 00:07:02,280
+it's the same thing, Route 53, ELB.
+
+177
+00:07:02,280 --> 00:07:03,990
+But on the right hand side now,
+
+178
+00:07:03,990 --> 00:07:06,210
+we're gonna have an availability zone,
+
+179
+00:07:06,210 --> 00:07:08,310
+and we're going to launch private EC2 instances,
+
+180
+00:07:08,310 --> 00:07:10,290
+but this time they're going to be managed
+
+181
+00:07:10,290 --> 00:07:11,760
+by an auto-scaling group.
+
+182
+00:07:11,760 --> 00:07:13,950
+And so this allows our auto-scaling group
+
+183
+00:07:13,950 --> 00:07:15,240
+to basically scale on demand,
+
+184
+00:07:15,240 --> 00:07:17,730
+maybe in the morning, no one wants to know the time of it,
+
+185
+00:07:17,730 --> 00:07:19,590
+yet night when people want to leave work,
+
+186
+00:07:19,590 --> 00:07:20,850
+they want to know the time.
+
+187
+00:07:20,850 --> 00:07:23,130
+So we're able to scale based on the demand,
+
+188
+00:07:23,130 --> 00:07:24,840
+scale in and scale out.
+
+189
+00:07:24,840 --> 00:07:26,880
+And this is really, really great
+
+190
+00:07:26,880 --> 00:07:28,380
+because now we have an application,
+
+191
+00:07:28,380 --> 00:07:31,680
+no downtime, auto-scaling, load balanced.
+
+192
+00:07:31,680 --> 00:07:34,680
+It seems like a really stable architecture and it is,
+
+193
+00:07:34,680 --> 00:07:38,040
+but what happens is that there's an earthquake
+
+194
+00:07:38,040 --> 00:07:41,310
+that happens and availability one goes down.
+
+195
+00:07:41,310 --> 00:07:43,260
+So one goes down, and guess what?
+
+196
+00:07:43,260 --> 00:07:46,680
+Our application is entirely down, our users are not happy.
+
+197
+00:07:46,680 --> 00:07:49,320
+And so Amazon comes to us and says, "Yes, it's because,
+
+198
+00:07:49,320 --> 00:07:51,900
+you haven't implemented a multi-AZ application,
+
+199
+00:07:51,900 --> 00:07:54,090
+and we recommend you to implement multi-AZ
+
+200
+00:07:54,090 --> 00:07:55,860
+to be highly available."
+
+201
+00:07:55,860 --> 00:07:57,570
+So okay, we say, "All right,
+
+202
+00:07:57,570 --> 00:07:59,460
+let's change a little bit the things."
+
+203
+00:07:59,460 --> 00:08:02,370
+Now we're gonna have to ELB, and on top of health checks,
+
+204
+00:08:02,370 --> 00:08:04,620
+it's also going to be multi-AZ,
+
+205
+00:08:04,620 --> 00:08:07,380
+and it's going to be launched on AZ 1 to 3.
+
+206
+00:08:07,380 --> 00:08:11,370
+So three AZs for this ELB and our auto-scaling group as well
+
+207
+00:08:11,370 --> 00:08:14,370
+is going to span across multiple AZ,
+
+208
+00:08:14,370 --> 00:08:18,180
+and this allows us maybe to have two instances in AZ one,
+
+209
+00:08:18,180 --> 00:08:20,637
+two instances in AZ two, and one instance in AZ three.
+
+210
+00:08:20,637 --> 00:08:22,470
+And so the cool thing now is that,
+
+211
+00:08:22,470 --> 00:08:24,960
+oh great, like if AZ one goes down,
+
+212
+00:08:24,960 --> 00:08:27,000
+well, we'll still have AZ two and AZ three
+
+213
+00:08:27,000 --> 00:08:29,460
+to serve our traffic to our users,
+
+214
+00:08:29,460 --> 00:08:32,640
+and we've effectively made our app multi-AZ,
+
+215
+00:08:32,640 --> 00:08:35,820
+and highly available and resilient to failure.
+
+216
+00:08:35,820 --> 00:08:36,750
+Pretty awesome, right?
+
+217
+00:08:36,750 --> 00:08:39,630
+Okay, how far can we go with this, let's keep on going.
+
+218
+00:08:39,630 --> 00:08:41,850
+So we have two AZ and we know that
+
+219
+00:08:41,850 --> 00:08:44,580
+at least one instance we'll be running in each AZ,
+
+220
+00:08:44,580 --> 00:08:46,350
+so why don't we reserve capacity?
+
+221
+00:08:46,350 --> 00:08:48,810
+Why don't we start basically
+
+222
+00:08:48,810 --> 00:08:50,880
+diminishing the cost of our application
+
+223
+00:08:50,880 --> 00:08:53,370
+because we know that for sure two instances
+
+224
+00:08:53,370 --> 00:08:55,980
+must be running at all time during the year.
+
+225
+00:08:55,980 --> 00:08:57,810
+And so by reserving instance,
+
+226
+00:08:57,810 --> 00:09:01,050
+maybe for the minimum capacity of our auto-scaling group,
+
+227
+00:09:01,050 --> 00:09:04,470
+then we're going to save a lot of cost in the future.
+
+228
+00:09:04,470 --> 00:09:06,390
+Whereas the new instances that get launched,
+
+229
+00:09:06,390 --> 00:09:08,880
+maybe they're gonna be temporary, so on demand is fine.
+
+230
+00:09:08,880 --> 00:09:09,930
+Or if we are a bit crazy,
+
+231
+00:09:09,930 --> 00:09:13,920
+we can even use spot instances for less cost,
+
+232
+00:09:13,920 --> 00:09:16,740
+but we might have the instances being terminated.
+
+233
+00:09:16,740 --> 00:09:18,870
+And so it's really interesting, right?
+
+234
+00:09:18,870 --> 00:09:21,720
+Because we've seen an architecture going
+
+235
+00:09:21,720 --> 00:09:25,980
+from a very small application all the way to a, you know,
+
+236
+00:09:25,980 --> 00:09:29,490
+load balance, auto-scaling group, multi-AZ, health checks,
+
+237
+00:09:29,490 --> 00:09:31,770
+reserved instances type of application.
+
+238
+00:09:31,770 --> 00:09:36,120
+And so to me that's as a solutions architect, your journey;
+
+239
+00:09:36,120 --> 00:09:39,120
+it's up to understand what are the requirements,
+
+240
+00:09:39,120 --> 00:09:41,340
+and what should we architect
+
+241
+00:09:41,340 --> 00:09:42,930
+in returns to these requirements,
+
+242
+00:09:42,930 --> 00:09:44,790
+and this is what the exam will test you.
+
+243
+00:09:44,790 --> 00:09:47,430
+Now, this is the first architecture discussion, trust me,
+
+244
+00:09:47,430 --> 00:09:49,950
+there will be many others in the next lecture.
+
+245
+00:09:49,950 --> 00:09:52,380
+But for now, let's just review what we've discussed.
+
+246
+00:09:52,380 --> 00:09:54,960
+What we've discussed, for example, what it is to,
+
+247
+00:09:54,960 --> 00:09:58,710
+for an EC2 instance to have a public IP and a private IP,
+
+248
+00:09:58,710 --> 00:10:01,500
+you know, where does it fit in our architecture diagram?
+
+249
+00:10:01,500 --> 00:10:03,990
+We've also seen what is the benefit of having
+
+250
+00:10:03,990 --> 00:10:06,840
+an Elastic IP versus using Route 53
+
+251
+00:10:06,840 --> 00:10:10,290
+versus maybe using a Load Balancer for our application.
+
+252
+00:10:10,290 --> 00:10:14,130
+We've also seen that, because of the Route 53 TTL,
+
+253
+00:10:14,130 --> 00:10:16,320
+we couldn't really use A records.
+
+254
+00:10:16,320 --> 00:10:19,830
+So we had to use an Load-Balancer and Alias Record,
+
+255
+00:10:19,830 --> 00:10:21,330
+and so that would be able to see
+
+256
+00:10:21,330 --> 00:10:23,820
+how Route 53 can fit in this whole picture.
+
+257
+00:10:23,820 --> 00:10:26,790
+We've seen how to maintain EC2 instances manually,
+
+258
+00:10:26,790 --> 00:10:28,710
+and then we say, well, it's too much maintenance,
+
+259
+00:10:28,710 --> 00:10:30,630
+let's use auto-scaling groups, and you know what,
+
+260
+00:10:30,630 --> 00:10:32,970
+it's actually gonna provide us even better costing
+
+261
+00:10:32,970 --> 00:10:34,680
+because it'll just scale on demand,
+
+262
+00:10:34,680 --> 00:10:36,330
+and we'll just have the perfect amount
+
+263
+00:10:36,330 --> 00:10:38,310
+of EC2 instances at any time.
+
+264
+00:10:38,310 --> 00:10:40,980
+And then we said, okay, let's go into Multi AZ,
+
+265
+00:10:40,980 --> 00:10:43,020
+we can survive disasters this way.
+
+266
+00:10:43,020 --> 00:10:46,170
+And let's enable ELB Health Checks, so just only
+
+267
+00:10:46,170 --> 00:10:50,190
+the instances that are correctly responding do get traffic.
+
+268
+00:10:50,190 --> 00:10:52,590
+And we've seen how to set up security group rules
+
+269
+00:10:52,590 --> 00:10:55,680
+so that the EC2 instances would only receive traffics
+
+270
+00:10:55,680 --> 00:10:58,237
+coming from the ELB, and finally we said,
+
+271
+00:10:58,237 --> 00:11:00,450
+"You know what, let's look at capacity,
+
+272
+00:11:00,450 --> 00:11:01,800
+let's do some cost saving.
+
+273
+00:11:01,800 --> 00:11:03,990
+We always know that we want two EC2 instances
+
+274
+00:11:03,990 --> 00:11:06,780
+running at any time, so let's reserve these instances,
+
+275
+00:11:06,780 --> 00:11:09,810
+and then we'll bring lots of cost savings."
+

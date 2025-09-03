@@ -1,0 +1,628 @@
+1
+00:00:00,300 --> 00:00:02,697
+Okay, so now let's talk about SSL
+
+2
+00:00:02,697 --> 00:00:04,740
+and TLS Certificates.
+
+3
+00:00:04,740 --> 00:00:08,700
+So this is a dumb down version of how this works.
+
+4
+00:00:08,700 --> 00:00:10,170
+This is obviously way more complicated
+
+5
+00:00:10,170 --> 00:00:11,760
+but I want to introduce you to the concepts
+
+6
+00:00:11,760 --> 00:00:13,140
+in case you don't know it.
+
+7
+00:00:13,140 --> 00:00:15,450
+And even if you do know SSL and TLS,
+
+8
+00:00:15,450 --> 00:00:16,379
+please watch this lecture.
+
+9
+00:00:16,379 --> 00:00:17,790
+I'm going to talk about SNI
+
+10
+00:00:17,790 --> 00:00:19,290
+and I'm going to talk about the integrations
+
+11
+00:00:19,290 --> 00:00:20,250
+with load balancers.
+
+12
+00:00:20,250 --> 00:00:21,750
+So bear with me please.
+
+13
+00:00:21,750 --> 00:00:24,750
+So an SSL certificate allows the traffic
+
+14
+00:00:24,750 --> 00:00:27,300
+between your clients and your load balancer
+
+15
+00:00:27,300 --> 00:00:29,550
+to be encrypted while in transit.
+
+16
+00:00:29,550 --> 00:00:31,650
+This is called in-flight encryption.
+
+17
+00:00:31,650 --> 00:00:33,900
+So that means the data as it goes through a network is going
+
+18
+00:00:33,900 --> 00:00:36,840
+to be encrypted and only going to be able to be decrypted
+
+19
+00:00:36,840 --> 00:00:38,940
+by the sender and the receiver.
+
+20
+00:00:38,940 --> 00:00:42,840
+So, SSL refers to Secure Sockets Layer
+
+21
+00:00:42,840 --> 00:00:45,000
+and it's used to encrypt transfer connections.
+
+22
+00:00:45,000 --> 00:00:48,420
+And TLS is the newer version of SSL
+
+23
+00:00:48,420 --> 00:00:51,810
+and it refers to Transport Layer Security.
+
+24
+00:00:51,810 --> 00:00:53,400
+But the thing is, nowadays,
+
+25
+00:00:53,400 --> 00:00:56,220
+TLS certificates are the one that are mainly used,
+
+26
+00:00:56,220 --> 00:00:57,660
+but people, including myself,
+
+27
+00:00:57,660 --> 00:01:00,180
+I will still refer this as SSL.
+
+28
+00:01:00,180 --> 00:01:01,013
+So I'm making a mistake,
+
+29
+00:01:01,013 --> 00:01:02,970
+but I'm making it on purpose, okay?
+
+30
+00:01:02,970 --> 00:01:05,220
+So it's better to say a TLS certificate
+
+31
+00:01:05,220 --> 00:01:07,110
+than SSL certificates,
+
+32
+00:01:07,110 --> 00:01:09,390
+but for many reasons, I'm still gonna say it's SSL
+
+33
+00:01:09,390 --> 00:01:11,070
+because it's easier to understand.
+
+34
+00:01:11,070 --> 00:01:14,040
+So public SSL certificates are issued
+
+35
+00:01:14,040 --> 00:01:15,690
+by Certificate Authorities,
+
+36
+00:01:15,690 --> 00:01:18,476
+and they include something like Comodo, Symantec, GoDaddy,
+
+37
+00:01:18,476 --> 00:01:21,030
+GlobalSign, Digicert, Letsencrypt, and so on.
+
+38
+00:01:21,030 --> 00:01:23,790
+And using this public SSL certificate attached
+
+39
+00:01:23,790 --> 00:01:24,870
+to our load balancer,
+
+40
+00:01:24,870 --> 00:01:27,150
+we're able to encrypt the connection
+
+41
+00:01:27,150 --> 00:01:29,640
+between the clients and the load balancer.
+
+42
+00:01:29,640 --> 00:01:31,680
+So whenever you go to a website,
+
+43
+00:01:31,680 --> 00:01:33,930
+for example google.com or anything, any other website,
+
+44
+00:01:33,930 --> 00:01:36,120
+and you have a lock or a green lock
+
+45
+00:01:36,120 --> 00:01:37,980
+that means that your traffic is encrypted.
+
+46
+00:01:37,980 --> 00:01:39,810
+And if traffic is not encrypted,
+
+47
+00:01:39,810 --> 00:01:41,047
+you'll have a red sign saying,
+
+48
+00:01:41,047 --> 00:01:42,570
+"Hey, traffic is not encrypted.
+
+49
+00:01:42,570 --> 00:01:43,980
+Don't put your credit card details.
+
+50
+00:01:43,980 --> 00:01:47,310
+Don't put your login information because it's not secure."
+
+51
+00:01:47,310 --> 00:01:51,240
+So the SSL certificates, they have an an expiration date
+
+52
+00:01:51,240 --> 00:01:53,730
+that you set and they must be renewed regularly
+
+53
+00:01:53,730 --> 00:01:56,070
+to make sure that they're authentic, okay?
+
+54
+00:01:56,070 --> 00:01:59,040
+So how does it work from a load balancer perspective?
+
+55
+00:01:59,040 --> 00:02:01,890
+So users connect over HTTPS,
+
+56
+00:02:01,890 --> 00:02:04,590
+and it's S because it's using SSL certificates
+
+57
+00:02:04,590 --> 00:02:05,430
+and it's encrypted.
+
+58
+00:02:05,430 --> 00:02:06,690
+It's secure,
+
+59
+00:02:06,690 --> 00:02:08,490
+and it connects over the public internet
+
+60
+00:02:08,490 --> 00:02:09,960
+to your load balancer.
+
+61
+00:02:09,960 --> 00:02:12,180
+And internally, your load balancer does something
+
+62
+00:02:12,180 --> 00:02:14,790
+called SSL certificate termination.
+
+63
+00:02:14,790 --> 00:02:18,300
+And in the backend, it can talk to your EC2 instance
+
+64
+00:02:18,300 --> 00:02:20,430
+using HTTP, so not encrypted,
+
+65
+00:02:20,430 --> 00:02:22,890
+but the traffic goes over your VPC,
+
+66
+00:02:22,890 --> 00:02:24,990
+which is private traffic network.
+
+67
+00:02:24,990 --> 00:02:27,150
+And that is somewhat secure.
+
+68
+00:02:27,150 --> 00:02:30,630
+So the load balancer will load an X.509 certificate,
+
+69
+00:02:30,630 --> 00:02:34,170
+which is called a SSL or TLS server certificate.
+
+70
+00:02:34,170 --> 00:02:38,370
+And you can manage these SSL certificates in AWS using ACM,
+
+71
+00:02:38,370 --> 00:02:40,980
+meaning AWS Certificate Manager.
+
+72
+00:02:40,980 --> 00:02:42,990
+So we're not going to view ACM in that lecture
+
+73
+00:02:42,990 --> 00:02:45,180
+but just to get an idea of what it is.
+
+74
+00:02:45,180 --> 00:02:47,130
+Now, you can also upload your own certificates
+
+75
+00:02:47,130 --> 00:02:48,810
+to ACM if you wanted to.
+
+76
+00:02:48,810 --> 00:02:50,760
+And when you set you an HTTPS listener,
+
+77
+00:02:51,910 --> 00:02:54,150
+you must specify a default certificate.
+
+78
+00:02:54,150 --> 00:02:56,160
+Then you can add an optional list of certs
+
+79
+00:02:56,160 --> 00:02:58,080
+to support multiple domains,
+
+80
+00:02:58,080 --> 00:02:59,970
+and clients can use something called SNI
+
+81
+00:02:59,970 --> 00:03:01,770
+or Server Name Indication
+
+82
+00:03:01,770 --> 00:03:03,630
+to specify the hostname they reach.
+
+83
+00:03:03,630 --> 00:03:05,550
+Now don't worry, I'm going to explain what SNI is
+
+84
+00:03:05,550 --> 00:03:07,110
+in details in the next slide
+
+85
+00:03:07,110 --> 00:03:08,790
+because it is really, really important for you
+
+86
+00:03:08,790 --> 00:03:10,500
+to understand what it means.
+
+87
+00:03:10,500 --> 00:03:12,030
+That means that, and you can also,
+
+88
+00:03:12,030 --> 00:03:15,180
+finally for HTTPS, set a specific security policy
+
+89
+00:03:15,180 --> 00:03:17,790
+if you wanted to support all their versions
+
+90
+00:03:17,790 --> 00:03:20,763
+of SSL and TLS, called also legacy clients.
+
+91
+00:03:21,660 --> 00:03:25,050
+Okay, so let's talk about SNI 'cause it is so important.
+
+92
+00:03:25,050 --> 00:03:27,150
+SNI solves a very important problem,
+
+93
+00:03:27,150 --> 00:03:30,270
+which is how do you load multiple SSL certificates
+
+94
+00:03:30,270 --> 00:03:33,180
+onto one web server in order for that web server
+
+95
+00:03:33,180 --> 00:03:35,490
+to serve multiple websites?
+
+96
+00:03:35,490 --> 00:03:37,440
+And there's a newer protocol
+
+97
+00:03:37,440 --> 00:03:40,530
+that now requires the client to indicate the hostname
+
+98
+00:03:40,530 --> 00:03:43,890
+of the target server in the initial SSL handshake.
+
+99
+00:03:43,890 --> 00:03:45,547
+So the client will say,
+
+100
+00:03:45,547 --> 00:03:47,370
+"I want to connect to this website."
+
+101
+00:03:47,370 --> 00:03:50,430
+And the server will know what certificate to load.
+
+102
+00:03:50,430 --> 00:03:53,190
+And so, this is a newer protocol and this is something new.
+
+103
+00:03:53,190 --> 00:03:55,080
+Not every client supports this.
+
+104
+00:03:55,080 --> 00:03:57,990
+So it only works when you use the application load balancer
+
+105
+00:03:57,990 --> 00:04:01,350
+and the network load balancer, so the newer generations,
+
+106
+00:04:01,350 --> 00:04:02,183
+or CloudFront.
+
+107
+00:04:02,183 --> 00:04:04,050
+And we'll see what CloudFront is later in this course.
+
+108
+00:04:04,050 --> 00:04:07,470
+And it does not work when you use the classic load balancer
+
+109
+00:04:07,470 --> 00:04:09,450
+because it is older generation.
+
+110
+00:04:09,450 --> 00:04:12,360
+So anytime you see multiple SSL certificates
+
+111
+00:04:12,360 --> 00:04:16,110
+onto your load balancer, think ALB or NLB.
+
+112
+00:04:16,110 --> 00:04:17,519
+So as a diagram, what does it look like?
+
+113
+00:04:17,519 --> 00:04:21,089
+We have our ALB here and we have two target groups.
+
+114
+00:04:21,089 --> 00:04:23,760
+The first one is www.mycorp.com,
+
+115
+00:04:23,760 --> 00:04:26,940
+and the second one is Domain1.example.com.
+
+116
+00:04:26,940 --> 00:04:29,820
+So the ALB will be routing to these target groups
+
+117
+00:04:29,820 --> 00:04:32,460
+based on some rules and the rules may be directly linked,
+
+118
+00:04:32,460 --> 00:04:34,260
+in this case to the hostname.
+
+119
+00:04:34,260 --> 00:04:36,714
+So the ALB will have two SSL certificates:
+
+120
+00:04:36,714 --> 00:04:40,500
+Domain1.example.com and www.mycorp.com,
+
+121
+00:04:40,500 --> 00:04:43,740
+which corresponds to the corresponding target groups.
+
+122
+00:04:43,740 --> 00:04:46,717
+Now the clients connects to our ALB and says,
+
+123
+00:04:46,717 --> 00:04:49,530
+"I would like www.mycorp.com",
+
+124
+00:04:49,530 --> 00:04:52,890
+and that is part of server name indication.
+
+125
+00:04:52,890 --> 00:04:56,010
+And the ALB says, "Okay, I've seen that you want mycorp.com.
+
+126
+00:04:56,010 --> 00:04:58,500
+Let me use the correct SSL certificates
+
+127
+00:04:58,500 --> 00:04:59,520
+to fill that request."
+
+128
+00:04:59,520 --> 00:05:02,010
+So it's going to take the right SSL certificates,
+
+129
+00:05:02,010 --> 00:05:03,030
+encrypt the traffic,
+
+130
+00:05:03,030 --> 00:05:03,933
+and then thanks to the routes,
+
+131
+00:05:03,933 --> 00:05:05,910
+it's going to know to redirect
+
+132
+00:05:05,910 --> 00:05:08,490
+to the correct target group, mycorp.com.
+
+133
+00:05:08,490 --> 00:05:10,260
+And obviously, if you have another client connecting
+
+134
+00:05:10,260 --> 00:05:12,870
+to your ALB for Domain1.example.com,
+
+135
+00:05:12,870 --> 00:05:13,703
+then you will be able
+
+136
+00:05:13,703 --> 00:05:15,330
+to pull the right SSL certificate again
+
+137
+00:05:15,330 --> 00:05:17,790
+and connect to the right target group.
+
+138
+00:05:17,790 --> 00:05:20,970
+So using SNI or server name indication,
+
+139
+00:05:20,970 --> 00:05:23,503
+you are able to have multiple target groups
+
+140
+00:05:23,503 --> 00:05:27,330
+for different websites using different SSL certificates.
+
+141
+00:05:27,330 --> 00:05:28,440
+Excellent.
+
+142
+00:05:28,440 --> 00:05:31,650
+So finally, what is supported for SSL certificates?
+
+143
+00:05:31,650 --> 00:05:33,900
+So classic load balancer is yes,
+
+144
+00:05:33,900 --> 00:05:36,840
+you can only support one SSL certificate.
+
+145
+00:05:36,840 --> 00:05:38,400
+And if you want multiple hostnames
+
+146
+00:05:38,400 --> 00:05:40,170
+with multiple SSL certificates,
+
+147
+00:05:40,170 --> 00:05:43,500
+the best way is to use multiple classic load balancer.
+
+148
+00:05:43,500 --> 00:05:46,110
+For ALB, the v2, you need to,
+
+149
+00:05:46,110 --> 00:05:47,550
+you can support multiple listeners
+
+150
+00:05:47,550 --> 00:05:49,410
+with multiple SSL certificates.
+
+151
+00:05:49,410 --> 00:05:50,700
+And that's the great part of it,
+
+152
+00:05:50,700 --> 00:05:52,770
+and it uses SNI to make it work.
+
+153
+00:05:52,770 --> 00:05:54,120
+And we just saw what it is.
+
+154
+00:05:54,120 --> 00:05:56,670
+And for the NLB or network load balancer,
+
+155
+00:05:56,670 --> 00:05:58,260
+it supports, again, multiple listeners
+
+156
+00:05:58,260 --> 00:06:00,210
+with multiple SSL certificates,
+
+157
+00:06:00,210 --> 00:06:03,003
+and it will use SNI again to make it work.
+

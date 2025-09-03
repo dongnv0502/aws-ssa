@@ -1,0 +1,464 @@
+1
+00:00:00,300 --> 00:00:02,790
+So let's practice using Amazon ECS
+
+2
+00:00:02,790 --> 00:00:05,850
+by going into the ECS console service,
+
+3
+00:00:05,850 --> 00:00:06,960
+and then we're going
+
+4
+00:00:06,960 --> 00:00:11,250
+to enable the new ECS experience on the top left.
+
+5
+00:00:11,250 --> 00:00:12,570
+Then you're go in to cluster and we're going
+
+6
+00:00:12,570 --> 00:00:14,670
+to create our first cluster.
+
+7
+00:00:14,670 --> 00:00:16,970
+So this one is going to be called DemoCluster,
+
+8
+00:00:17,970 --> 00:00:20,790
+and we'll leave the default namespace as is.
+
+9
+00:00:20,790 --> 00:00:23,610
+So for infrastructure, we have three options.
+
+10
+00:00:23,610 --> 00:00:26,790
+The first one is AWS Fargate, which allows us
+
+11
+00:00:26,790 --> 00:00:29,580
+to provide the containers to AWS,
+
+12
+00:00:29,580 --> 00:00:33,240
+and then AWS will run these containers for us on demand.
+
+13
+00:00:33,240 --> 00:00:35,550
+So this is good because this is a serverless options.
+
+14
+00:00:35,550 --> 00:00:37,110
+We don't provide the compute.
+
+15
+00:00:37,110 --> 00:00:39,750
+AWS will provide the compute for us on demand,
+
+16
+00:00:39,750 --> 00:00:41,370
+but we don't even see it.
+
+17
+00:00:41,370 --> 00:00:44,310
+The other options are Amazon EC2 instances
+
+18
+00:00:44,310 --> 00:00:46,890
+where we provide our own Amazon EC2 instances
+
+19
+00:00:46,890 --> 00:00:49,980
+to provide the compute to run our containers on.
+
+20
+00:00:49,980 --> 00:00:53,550
+And we have external instances using ECS anywhere
+
+21
+00:00:53,550 --> 00:00:56,910
+where we can, for example, use your own data center
+
+22
+00:00:56,910 --> 00:00:59,730
+to run ECS containers on it.
+
+23
+00:00:59,730 --> 00:01:02,070
+So Fargate will leave it enabled,
+
+24
+00:01:02,070 --> 00:01:05,580
+and we'll also enable Amazon EC2 instances for the demo.
+
+25
+00:01:05,580 --> 00:01:08,310
+So we're going to create a new auto scaling group,
+
+26
+00:01:08,310 --> 00:01:10,650
+and then we have to choose the operating system.
+
+27
+00:01:10,650 --> 00:01:13,140
+So Amazon Linux 2 is great,
+
+28
+00:01:13,140 --> 00:01:16,200
+or you can choose the newest one, Amazon Linux 2023,
+
+29
+00:01:16,200 --> 00:01:17,430
+whatever you want.
+
+30
+00:01:17,430 --> 00:01:22,113
+For EC2 instance type, I'm going to use a t2.micro,
+
+31
+00:01:23,310 --> 00:01:24,723
+which is free tier eligible.
+
+32
+00:01:25,830 --> 00:01:28,620
+And then for desired capacity, I will choose minimum zero
+
+33
+00:01:28,620 --> 00:01:30,390
+and maximum five.
+
+34
+00:01:30,390 --> 00:01:32,940
+So no SSH key pair is going to be configured
+
+35
+00:01:32,940 --> 00:01:36,540
+and we'll leave the root EBS volume size as is.
+
+36
+00:01:36,540 --> 00:01:40,350
+Okay, now that we have specified an Amazon EC2 instance type
+
+37
+00:01:40,350 --> 00:01:43,170
+of infrastructure, we have to provide network settings
+
+38
+00:01:43,170 --> 00:01:47,070
+for the Amazon EC2 instances, so which is a default VPC,
+
+39
+00:01:47,070 --> 00:01:49,729
+as well as the three subnets available to me.
+
+40
+00:01:49,729 --> 00:01:51,270
+And for security group,
+
+41
+00:01:51,270 --> 00:01:52,890
+we'll use an existing security group
+
+42
+00:01:52,890 --> 00:01:55,080
+being the default security group.
+
+43
+00:01:55,080 --> 00:01:57,030
+And finally, for auto-assign public IP, again,
+
+44
+00:01:57,030 --> 00:01:59,310
+we'll use the default to use subnet setting.
+
+45
+00:01:59,310 --> 00:02:01,380
+We're not touching monitoring and tags.
+
+46
+00:02:01,380 --> 00:02:04,440
+And then we click on Create to create our cluster.
+
+47
+00:02:04,440 --> 00:02:05,640
+So while this is happening,
+
+48
+00:02:05,640 --> 00:02:08,039
+let's have a look at the auto scaling group
+
+49
+00:02:08,039 --> 00:02:12,420
+that is being created on AWS.
+
+50
+00:02:12,420 --> 00:02:13,890
+And then on the left-hand side,
+
+51
+00:02:13,890 --> 00:02:16,443
+I will click on auto scaling groups right here.
+
+52
+00:02:17,340 --> 00:02:19,080
+And it's showing, as you can see,
+
+53
+00:02:19,080 --> 00:02:20,760
+there was an auto scaling group created
+
+54
+00:02:20,760 --> 00:02:23,910
+for me called Infra-ECS-Cluster.
+
+55
+00:02:23,910 --> 00:02:26,610
+And desired capacity is zero, min capacity, zero,
+
+56
+00:02:26,610 --> 00:02:28,050
+max capacity, five.
+
+57
+00:02:28,050 --> 00:02:31,560
+And this was created directly by my ECS cluster.
+
+58
+00:02:31,560 --> 00:02:33,600
+And the creation is in progress.
+
+59
+00:02:33,600 --> 00:02:37,290
+And what this cluster has will have maybe EC2 instances
+
+60
+00:02:37,290 --> 00:02:39,330
+for me to launch tasks on.
+
+61
+00:02:39,330 --> 00:02:41,670
+So as you can see, it's in three availability zones.
+
+62
+00:02:41,670 --> 00:02:43,230
+So we know that the ECS tasks are going
+
+63
+00:02:43,230 --> 00:02:45,690
+to be launched across three AZ.
+
+64
+00:02:45,690 --> 00:02:48,750
+And what I'm going to do now is just wait for this cluster
+
+65
+00:02:48,750 --> 00:02:51,000
+to be created, which is the case now.
+
+66
+00:02:51,000 --> 00:02:53,850
+So what I can do now is explore this DemoCluster.
+
+67
+00:02:53,850 --> 00:02:57,210
+So if I click on it, I'm in the DemoCluster
+
+68
+00:02:57,210 --> 00:03:00,150
+and I can go to services are zero, tasks are zero
+
+69
+00:03:00,150 --> 00:03:02,130
+because we haven't launched anything yet.
+
+70
+00:03:02,130 --> 00:03:04,980
+And then we go to the more interesting infrastructure.
+
+71
+00:03:04,980 --> 00:03:06,990
+So if you go here to the infrastructure,
+
+72
+00:03:06,990 --> 00:03:10,890
+we have three capacity providers in this ECS cluster.
+
+73
+00:03:10,890 --> 00:03:11,880
+The first one is FARGATE.
+
+74
+00:03:11,880 --> 00:03:13,710
+That means that we can launch Fargate tasks
+
+75
+00:03:13,710 --> 00:03:15,510
+onto our ECS cluster.
+
+76
+00:03:15,510 --> 00:03:17,100
+The second one is FARGATE_SPOT
+
+77
+00:03:17,100 --> 00:03:20,220
+That means that we can launch Fargate tasks in spot mode,
+
+78
+00:03:20,220 --> 00:03:22,650
+select spot instances for EC2.
+
+79
+00:03:22,650 --> 00:03:26,460
+And the last one is a ASGProvider.
+
+80
+00:03:26,460 --> 00:03:29,400
+And this one means that we can launch EC2 instances
+
+81
+00:03:29,400 --> 00:03:32,220
+in this cluster directly through this ASG.
+
+82
+00:03:32,220 --> 00:03:34,650
+So it's managed scaling right now,
+
+83
+00:03:34,650 --> 00:03:36,870
+and the current size is zero,
+
+84
+00:03:36,870 --> 00:03:39,120
+but I can change it if I wanted to.
+
+85
+00:03:39,120 --> 00:03:40,530
+So let me show you what it would look like.
+
+86
+00:03:40,530 --> 00:03:43,320
+I go here, I go to details,
+
+87
+00:03:43,320 --> 00:03:46,110
+and I would edit the desired capacity to be one,
+
+88
+00:03:46,110 --> 00:03:47,850
+just to show you what it's like.
+
+89
+00:03:47,850 --> 00:03:49,140
+So what's going to happen out of this
+
+90
+00:03:49,140 --> 00:03:53,640
+is that an EC2 instance is going to be created, okay?
+
+91
+00:03:53,640 --> 00:03:54,540
+And when it's created,
+
+92
+00:03:54,540 --> 00:03:57,873
+it's going to register itself into the DemoCluster,
+
+93
+00:03:58,980 --> 00:04:01,890
+and then I will see it under container instances.
+
+94
+00:04:01,890 --> 00:04:04,350
+That means that when we create an ECS task,
+
+95
+00:04:04,350 --> 00:04:06,750
+it can either be launched on a FARGATE
+
+96
+00:04:06,750 --> 00:04:09,090
+or FARGATE_SPOT capacity provider,
+
+97
+00:04:09,090 --> 00:04:11,790
+or it can be launched on the container instances
+
+98
+00:04:11,790 --> 00:04:15,390
+that I will have launched as part of this ASG.
+
+99
+00:04:15,390 --> 00:04:17,610
+So what I'm going to do now is just wait for this instance
+
+100
+00:04:17,610 --> 00:04:18,720
+to be in the running state
+
+101
+00:04:18,720 --> 00:04:21,093
+and registered into my ECS cluster.
+
+102
+00:04:22,110 --> 00:04:23,490
+So let me refresh now.
+
+103
+00:04:23,490 --> 00:04:27,090
+My instance is InService and it's t2.micro.
+
+104
+00:04:27,090 --> 00:04:29,910
+And if I go back into my Amazon ECS cluster,
+
+105
+00:04:29,910 --> 00:04:33,120
+it is registered as a container instance that is currently,
+
+106
+00:04:33,120 --> 00:04:38,120
+of course, running zero tasks and has 1,024 CPU available
+
+107
+00:04:38,130 --> 00:04:42,030
+and 982 memory available.
+
+108
+00:04:42,030 --> 00:04:44,700
+So this is giving me the capacity of this instance,
+
+109
+00:04:44,700 --> 00:04:47,130
+and I can launch, as you'll see, tasks on it
+
+110
+00:04:47,130 --> 00:04:49,320
+until the capacity runs out.
+
+111
+00:04:49,320 --> 00:04:50,550
+So we're good to go.
+
+112
+00:04:50,550 --> 00:04:51,690
+So we have an ECS cluster.
+
+113
+00:04:51,690 --> 00:04:54,510
+We've seen two capacity providers, I mean three.
+
+114
+00:04:54,510 --> 00:04:55,860
+We've seen the container instances.
+
+115
+00:04:55,860 --> 00:04:59,400
+So now let's go ahead and do run our first service,
+
+116
+00:04:59,400 --> 00:05:02,073
+and I will see you in the next lecture to do that.
+

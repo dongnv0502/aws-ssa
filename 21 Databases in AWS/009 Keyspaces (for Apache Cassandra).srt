@@ -1,0 +1,124 @@
+1
+00:00:00,300 --> 00:00:03,000
+So now let's talk about Amazon Keyspaces,
+
+2
+00:00:03,000 --> 00:00:07,800
+and Keyspaces is a managed Apache Cassandra on AWS.
+
+3
+00:00:07,800 --> 00:00:12,060
+So Cassandra is an open-source NoSQL distributed database,
+
+4
+00:00:12,060 --> 00:00:13,260
+and so, with Keyspaces,
+
+5
+00:00:13,260 --> 00:00:17,730
+you get Cassandra directly managed on the cloud by AWS.
+
+6
+00:00:17,730 --> 00:00:20,130
+So it's going to be a serverless type of service,
+
+7
+00:00:20,130 --> 00:00:22,020
+it's scalable, it's highly available,
+
+8
+00:00:22,020 --> 00:00:24,030
+and fully managed by AWS,
+
+9
+00:00:24,030 --> 00:00:26,970
+and it will automatically scale tables up and down based
+
+10
+00:00:26,970 --> 00:00:28,890
+on the application's traffic.
+
+11
+00:00:28,890 --> 00:00:31,800
+The tables' data is going to be replicated three times
+
+12
+00:00:31,800 --> 00:00:33,540
+across multiple AZ,
+
+13
+00:00:33,540 --> 00:00:36,180
+and to perform your queries on top of Keyspaces,
+
+14
+00:00:36,180 --> 00:00:40,140
+you are going to use the Cassandra Query Language or CQL.
+
+15
+00:00:40,140 --> 00:00:40,973
+So thanks to this,
+
+16
+00:00:40,973 --> 00:00:44,010
+you're going to get single-digit millisecond latency
+
+17
+00:00:44,010 --> 00:00:45,030
+at any scale,
+
+18
+00:00:45,030 --> 00:00:47,790
+and you can do thousands of requests per second.
+
+19
+00:00:47,790 --> 00:00:50,940
+Two capacity modes to note, this is just like DynamoDB,
+
+20
+00:00:50,940 --> 00:00:52,530
+you have the on-demand mode
+
+21
+00:00:52,530 --> 00:00:55,740
+and then you have the provisioned mode with auto-scaling,
+
+22
+00:00:55,740 --> 00:00:58,950
+and these are the same things as DynamoDB really.
+
+23
+00:00:58,950 --> 00:01:01,020
+You get encryption features, backup,
+
+24
+00:01:01,020 --> 00:01:03,570
+Point-In-Time Recovery up to 35 days,
+
+25
+00:01:03,570 --> 00:01:05,340
+and so, the use cases is going to be
+
+26
+00:01:05,340 --> 00:01:08,640
+to store IoT device information, time-series data,
+
+27
+00:01:08,640 --> 00:01:11,580
+and generally, from an exam perspective,
+
+28
+00:01:11,580 --> 00:01:13,680
+anytime you see Apache Cassandra,
+
+29
+00:01:13,680 --> 00:01:16,830
+you just think about Amazon Keyspaces, and you're done.
+
+30
+00:01:16,830 --> 00:01:18,870
+Okay, that's it for this short lecture,
+
+31
+00:01:18,870 --> 00:01:21,870
+I hope you liked it, and I will see you in the next lecture.
+

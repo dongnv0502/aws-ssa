@@ -1,0 +1,568 @@
+1
+00:00:00,070 --> 00:00:01,660
+Now, let's get into the second kind
+
+2
+00:00:01,660 --> 00:00:03,080
+of load balancers we'll see
+
+3
+00:00:03,080 --> 00:00:05,230
+is the application load balancer.
+
+4
+00:00:05,230 --> 00:00:07,700
+So it's a layer seven only load balancer.
+
+5
+00:00:07,700 --> 00:00:09,450
+So that means HTTP.
+
+6
+00:00:09,450 --> 00:00:10,810
+And it allows you to route
+
+7
+00:00:10,810 --> 00:00:13,930
+to multiple HTTP applications across machines.
+
+8
+00:00:13,930 --> 00:00:16,020
+And these machines are going to be grouped
+
+9
+00:00:16,020 --> 00:00:17,660
+in something called a target group.
+
+10
+00:00:17,660 --> 00:00:18,760
+And it will make a lot of sense
+
+11
+00:00:18,760 --> 00:00:20,760
+once we get into the hands-on.
+
+12
+00:00:20,760 --> 00:00:22,520
+It allows you to load balance
+
+13
+00:00:22,520 --> 00:00:25,960
+to multiple applications on the same EC2 instance.
+
+14
+00:00:25,960 --> 00:00:28,770
+So using containers and using ECS as we'll see.
+
+15
+00:00:28,770 --> 00:00:32,880
+And it has support for HTTP/2 and WebSockets.
+
+16
+00:00:32,880 --> 00:00:34,170
+It supports redirect as well.
+
+17
+00:00:34,170 --> 00:00:35,460
+So if you want it to redirect traffic
+
+18
+00:00:35,460 --> 00:00:37,560
+from HTTP to HTTPS automatically,
+
+19
+00:00:37,560 --> 00:00:40,610
+it could be done at the load balancer level.
+
+20
+00:00:40,610 --> 00:00:42,410
+It also supports route routing.
+
+21
+00:00:42,410 --> 00:00:45,070
+So there's routing based on different target groups.
+
+22
+00:00:45,070 --> 00:00:46,580
+For example, you can route based
+
+23
+00:00:46,580 --> 00:00:49,670
+on the target path of your URL.
+
+24
+00:00:49,670 --> 00:00:54,670
+For example, example.com/users and example.com/posts.
+
+25
+00:00:54,740 --> 00:00:58,840
+/users and /posts are different routes in your URL,
+
+26
+00:00:58,840 --> 00:01:00,770
+different path, and so you can redirect
+
+27
+00:01:00,770 --> 00:01:02,310
+these two things into different target groups.
+
+28
+00:01:02,310 --> 00:01:04,069
+We'll see what that means in a second.
+
+29
+00:01:04,069 --> 00:01:06,650
+You can also do routing based on the host name of the URL.
+
+30
+00:01:06,650 --> 00:01:09,380
+So if your load balancer is accessed using
+
+31
+00:01:09,380 --> 00:01:13,170
+one.example.com or other.example.com,
+
+32
+00:01:13,170 --> 00:01:15,970
+it could be routed to different target groups,
+
+33
+00:01:15,970 --> 00:01:17,820
+and you could also be routing based on
+
+34
+00:01:17,820 --> 00:01:19,610
+the query strings and headers.
+
+35
+00:01:19,610 --> 00:01:21,920
+So for example, example.com/reserves
+
+36
+00:01:21,920 --> 00:01:25,700
+and id=123&order=false could be routed
+
+37
+00:01:25,700 --> 00:01:27,330
+to a different target group.
+
+38
+00:01:27,330 --> 00:01:29,700
+So ALB, and this is the short for
+
+39
+00:01:29,700 --> 00:01:31,170
+application load balancers,
+
+40
+00:01:31,170 --> 00:01:33,440
+they're great when you have micro services
+
+41
+00:01:33,440 --> 00:01:35,430
+and container-based application.
+
+42
+00:01:35,430 --> 00:01:37,800
+So as soon as we'll go into learning what docker is
+
+43
+00:01:37,800 --> 00:01:40,230
+and Amazon ECS, ALB are going to be
+
+44
+00:01:40,230 --> 00:01:42,290
+the go-to load balancers,
+
+45
+00:01:42,290 --> 00:01:44,400
+because they have a port mapping features,
+
+46
+00:01:44,400 --> 00:01:46,630
+which allows you to redirect to a dynamic port
+
+47
+00:01:46,630 --> 00:01:48,590
+on the ECS instance, and again,
+
+48
+00:01:48,590 --> 00:01:51,350
+more on that directly into the ECS section.
+
+49
+00:01:51,350 --> 00:01:53,290
+And in comparison, if we want it to have
+
+50
+00:01:53,290 --> 00:01:55,949
+multiple applications, okay,
+
+51
+00:01:55,949 --> 00:02:00,190
+behind multiple, behind a classic load balancer,
+
+52
+00:02:00,190 --> 00:02:03,340
+we would have to have multiple classic load balancer.
+
+53
+00:02:03,340 --> 00:02:06,320
+We need to actually have one per application,
+
+54
+00:02:06,320 --> 00:02:07,870
+whereas with load balancers, we're able to have
+
+55
+00:02:07,870 --> 00:02:11,340
+one application load balancer in front of many applications.
+
+56
+00:02:11,340 --> 00:02:14,130
+So maybe a graph will help.
+
+57
+00:02:14,130 --> 00:02:16,160
+So we have our external application load balancer.
+
+58
+00:02:16,160 --> 00:02:18,530
+It's public facing, and behind it,
+
+59
+00:02:18,530 --> 00:02:22,430
+we have our first target group made of EC2 instances.
+
+60
+00:02:22,430 --> 00:02:26,560
+And this one is going to be routing for the route /user.
+
+61
+00:02:26,560 --> 00:02:28,130
+And we have a second target group
+
+62
+00:02:28,130 --> 00:02:30,262
+made of EC2 instances again,
+
+63
+00:02:30,262 --> 00:02:32,360
+and this one is going to be our search application,
+
+64
+00:02:32,360 --> 00:02:34,730
+and there's going to be a health check as well with it.
+
+65
+00:02:34,730 --> 00:02:37,130
+And it's going to be routed through rules
+
+66
+00:02:37,130 --> 00:02:39,650
+for the /search routes.
+
+67
+00:02:39,650 --> 00:02:42,070
+So as you can see here, we have two independent
+
+68
+00:02:42,070 --> 00:02:44,210
+microservices that do different things.
+
+69
+00:02:44,210 --> 00:02:46,137
+The first one is the user application.
+
+70
+00:02:46,137 --> 00:02:48,340
+The second one is a search application.
+
+71
+00:02:48,340 --> 00:02:51,530
+But they're behind the same application load balancer,
+
+72
+00:02:51,530 --> 00:02:53,960
+which knows how to intelligently route
+
+73
+00:02:53,960 --> 00:02:56,240
+to these target groups based on the route
+
+74
+00:02:56,240 --> 00:02:58,440
+that is being used in the URL.
+
+75
+00:02:58,440 --> 00:03:00,790
+So the target groups, what are they?
+
+76
+00:03:00,790 --> 00:03:03,380
+The first one is that they can be EC2 instances,
+
+77
+00:03:03,380 --> 00:03:05,820
+and they can be managed as we'll see very, very soon.
+
+78
+00:03:05,820 --> 00:03:08,494
+They can be managed by Auto Scaling Group.
+
+79
+00:03:08,494 --> 00:03:09,820
+It could be ECS tasks
+
+80
+00:03:09,820 --> 00:03:11,760
+and we'll see this in the ECS section.
+
+81
+00:03:11,760 --> 00:03:13,210
+It could be Lambda functions,
+
+82
+00:03:13,210 --> 00:03:14,980
+and this is something that's not very known.
+
+83
+00:03:14,980 --> 00:03:17,990
+So application load balancers can be in front
+
+84
+00:03:17,990 --> 00:03:20,220
+of lambda functions, and we'll see what
+
+85
+00:03:20,220 --> 00:03:22,260
+Lambda functions are in the future section,
+
+86
+00:03:22,260 --> 00:03:23,810
+but they're the base of everything
+
+87
+00:03:23,810 --> 00:03:26,420
+called serverless in AWS.
+
+88
+00:03:26,420 --> 00:03:30,480
+And finally, it can be a front to IP addresses,
+
+89
+00:03:30,480 --> 00:03:32,520
+and they must be private IP addresses.
+
+90
+00:03:32,520 --> 00:03:34,800
+So ALB can route to multiple target groups,
+
+91
+00:03:34,800 --> 00:03:36,520
+and the health checks are going to be done
+
+92
+00:03:36,520 --> 00:03:38,690
+at the target group level.
+
+93
+00:03:38,690 --> 00:03:40,570
+So let's take another example.
+
+94
+00:03:40,570 --> 00:03:43,040
+And we have an ALB and we have two target groups.
+
+95
+00:03:43,040 --> 00:03:46,540
+The first one is based on AWS with EC2 instances,
+
+96
+00:03:46,540 --> 00:03:48,410
+and the second one is going to have
+
+97
+00:03:48,410 --> 00:03:52,250
+private servers on premises, so in our own data center.
+
+98
+00:03:52,250 --> 00:03:55,180
+And so for the target groups, you'd be able to exist.
+
+99
+00:03:55,180 --> 00:03:58,570
+We need to specify the private IP of our servers
+
+100
+00:03:58,570 --> 00:04:01,460
+into the target group, choose for them to be registered.
+
+101
+00:04:01,460 --> 00:04:04,090
+And now say we have an application
+
+102
+00:04:04,090 --> 00:04:07,370
+that is serving as request through the ALB.
+
+103
+00:04:07,370 --> 00:04:10,850
+And what we want is to send the first
+
+104
+00:04:10,850 --> 00:04:13,400
+to the first target group on the mobile-based traffic,
+
+105
+00:04:13,400 --> 00:04:16,660
+and to the second target group on the desktop-based traffic.
+
+106
+00:04:16,660 --> 00:04:18,510
+For this, we can use, for example,
+
+107
+00:04:18,510 --> 00:04:20,589
+a query string or parameters routing.
+
+108
+00:04:20,589 --> 00:04:24,500
+So if, in the URL that the clients are trying to use,
+
+109
+00:04:24,500 --> 00:04:27,500
+there is a ?Platform=Mobile,
+
+110
+00:04:27,500 --> 00:04:30,850
+we can write a rule in the ALB redirection rules,
+
+111
+00:04:30,850 --> 00:04:34,900
+the routing rules, to redirect to the first target group.
+
+112
+00:04:34,900 --> 00:04:37,540
+And if you have ?Platform=Desktop,
+
+113
+00:04:37,540 --> 00:04:40,160
+so this is a query string or parameter,
+
+114
+00:04:40,160 --> 00:04:42,130
+then we can say it to redirect
+
+115
+00:04:42,130 --> 00:04:43,730
+to the target group number two.
+
+116
+00:04:43,730 --> 00:04:44,690
+I don't know where you would do this,
+
+117
+00:04:44,690 --> 00:04:48,120
+but this is just an example I'm providing you, okay?
+
+118
+00:04:48,120 --> 00:04:50,820
+So good to know before we go into the hands-on,
+
+119
+00:04:50,820 --> 00:04:53,430
+the first one is that you also get a fixed host name
+
+120
+00:04:53,430 --> 00:04:55,000
+with your application load balancers,
+
+121
+00:04:55,000 --> 00:04:56,720
+just like the classic one.
+
+122
+00:04:56,720 --> 00:04:58,870
+The application servers don't see the IP
+
+123
+00:04:58,870 --> 00:05:00,230
+of the client directly.
+
+124
+00:05:00,230 --> 00:05:02,600
+The true IP of the clients is going to be inserted
+
+125
+00:05:02,600 --> 00:05:06,420
+instead in the header called X-Forwarded-For.
+
+126
+00:05:06,420 --> 00:05:09,340
+And so you can also get the port using X-Forwarded-Ports
+
+127
+00:05:09,340 --> 00:05:12,000
+and the protocol used, being used,
+
+128
+00:05:12,000 --> 00:05:14,650
+using X-Forwarded-Proto.
+
+129
+00:05:14,650 --> 00:05:17,810
+And so what that means is that our client IP,
+
+130
+00:05:17,810 --> 00:05:21,260
+which is 12.34.56.78 is directly talking
+
+131
+00:05:21,260 --> 00:05:23,930
+to our load balancer, which performs something
+
+132
+00:05:23,930 --> 00:05:26,440
+called a connection termination.
+
+133
+00:05:26,440 --> 00:05:29,270
+And when your load balancer talks to your EC2 instance,
+
+134
+00:05:29,270 --> 00:05:31,240
+it's going to use the load balancer IP,
+
+135
+00:05:31,240 --> 00:05:34,140
+which is a private IP into your EC2 instance.
+
+136
+00:05:34,140 --> 00:05:37,310
+And so for the EC2 instance to know the client IP,
+
+137
+00:05:37,310 --> 00:05:39,750
+it will have to look at these extra headers
+
+138
+00:05:39,750 --> 00:05:41,880
+in your HTTP request, which are called
+
+139
+00:05:41,880 --> 00:05:44,880
+X-Forwarded-Port and Proto.
+
+140
+00:05:44,880 --> 00:05:45,770
+All right, that's it.
+
+141
+00:05:45,770 --> 00:05:46,603
+Now, let's go into the hands-on,
+
+142
+00:05:46,603 --> 00:05:48,900
+and create our first application load balancer.
+

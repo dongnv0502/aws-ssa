@@ -1,0 +1,356 @@
+1
+00:00:00,300 --> 00:00:02,700
+So, now, let's talk about IAM conditions
+
+2
+00:00:02,700 --> 00:00:04,950
+and what they can imply for your policies.
+
+3
+00:00:04,950 --> 00:00:08,070
+So, just so you know, they apply to policies within IAM.
+
+4
+00:00:08,070 --> 00:00:10,230
+So that could be for policies for users,
+
+5
+00:00:10,230 --> 00:00:12,660
+that could be policies for your resource policies,
+
+6
+00:00:12,660 --> 00:00:14,190
+for example, for your S3 buckets,
+
+7
+00:00:14,190 --> 00:00:16,740
+or that could be endpoint policies, and so on.
+
+8
+00:00:16,740 --> 00:00:18,300
+So, really, anything.
+
+9
+00:00:18,300 --> 00:00:21,480
+So the first one is aws:SourceIP.
+
+10
+00:00:21,480 --> 00:00:24,390
+And this is used to restrict the client IP
+
+11
+00:00:24,390 --> 00:00:27,390
+from which the API calls are being made.
+
+12
+00:00:27,390 --> 00:00:29,340
+So if we look at this one right here,
+
+13
+00:00:29,340 --> 00:00:32,070
+it has a Deny star on everything
+
+14
+00:00:32,070 --> 00:00:34,440
+if it's not an IP address.
+
+15
+00:00:34,440 --> 00:00:36,810
+And then we have a list of two CIDRs,
+
+16
+00:00:36,810 --> 00:00:38,610
+of two IP address ranges.
+
+17
+00:00:38,610 --> 00:00:43,420
+So that means that unless the client makes an API call
+
+18
+00:00:44,280 --> 00:00:46,650
+from within these IP addresses,
+
+19
+00:00:46,650 --> 00:00:48,570
+then the API call is being denied.
+
+20
+00:00:48,570 --> 00:00:49,890
+And this can be used, for example,
+
+21
+00:00:49,890 --> 00:00:54,060
+to restrict usage on AWS only to, for example,
+
+22
+00:00:54,060 --> 00:00:56,970
+your company network and, therefore, guaranteeing
+
+23
+00:00:56,970 --> 00:01:00,180
+that only your company can access your own AWS environment.
+
+24
+00:01:00,180 --> 00:01:02,610
+So that's one of these conditions.
+
+25
+00:01:02,610 --> 00:01:05,700
+Then we have aws:RequestedRegion.
+
+26
+00:01:05,700 --> 00:01:07,470
+So this is, again, something global
+
+27
+00:01:07,470 --> 00:01:09,270
+because it started at the AWS,
+
+28
+00:01:09,270 --> 00:01:12,420
+and it's restricting the region the API calls are made to.
+
+29
+00:01:12,420 --> 00:01:17,040
+So in this one we deny anything on EC2, RDS, and DynamoDB
+
+30
+00:01:17,040 --> 00:01:22,040
+if we are in the region eu-central-1 or eu-west-1.
+
+31
+00:01:22,080 --> 00:01:24,150
+Okay, so here we deny access to these services
+
+32
+00:01:24,150 --> 00:01:25,500
+in the specific regions.
+
+33
+00:01:25,500 --> 00:01:27,960
+And this can be applied more globally
+
+34
+00:01:27,960 --> 00:01:31,260
+on their organization SCP to deny or to allow
+
+35
+00:01:31,260 --> 00:01:33,123
+only access to a specific region.
+
+36
+00:01:34,140 --> 00:01:35,640
+Next, we have ec2:ResourceTag.
+
+37
+00:01:35,640 --> 00:01:39,570
+So, as you can see now, the prefix of this tag is EC2,
+
+38
+00:01:39,570 --> 00:01:43,260
+therefore, this applies to the tags on your EC2 instance.
+
+39
+00:01:43,260 --> 00:01:47,490
+And, so, here we allow to start and to stop instances, okay,
+
+40
+00:01:47,490 --> 00:01:51,540
+for any instance if the ResourceTag/Project
+
+41
+00:01:51,540 --> 00:01:53,283
+is equal to DataAnalytics.
+
+42
+00:01:54,120 --> 00:01:57,270
+So that means that if the EC2 instance has the correct tags,
+
+43
+00:01:57,270 --> 00:02:00,690
+being Project and DataAnalytics, then we're good.
+
+44
+00:02:00,690 --> 00:02:04,770
+But then, as you can see, there is the aws:PrincipalTag,
+
+45
+00:02:04,770 --> 00:02:07,440
+and this applies to your user tag, okay.
+
+46
+00:02:07,440 --> 00:02:10,320
+So it's not an EC2 instance tag, this is a user tag.
+
+47
+00:02:10,320 --> 00:02:12,060
+And, so, your user must also be part
+
+48
+00:02:12,060 --> 00:02:15,960
+of the department data to perform these actions.
+
+49
+00:02:15,960 --> 00:02:18,810
+We have aws:MultiFactorAuthPresent
+
+50
+00:02:18,810 --> 00:02:21,090
+to force multifactor authentication.
+
+51
+00:02:21,090 --> 00:02:22,110
+So you can have a look at it.
+
+52
+00:02:22,110 --> 00:02:24,540
+But the user can do anything on EC2,
+
+53
+00:02:24,540 --> 00:02:27,900
+but they can only stop and terminate instances
+
+54
+00:02:27,900 --> 00:02:30,240
+if they have MultiFactorAuthenticationPresent,
+
+55
+00:02:30,240 --> 00:02:34,410
+so this is a deny on the false.
+
+56
+00:02:34,410 --> 00:02:38,220
+Now let's have a look at an IAM policy for your S3 buckets.
+
+57
+00:02:38,220 --> 00:02:42,360
+So this is a bucket policy, and we have two statements.
+
+58
+00:02:42,360 --> 00:02:44,040
+And the first one is a ListBucket,
+
+59
+00:02:44,040 --> 00:02:48,120
+and this applies to this arn right here, so s3:::test.
+
+60
+00:02:48,120 --> 00:02:50,130
+Because it's a bucket level permission
+
+61
+00:02:50,130 --> 00:02:53,730
+and, therefore, we have to specify the bucket itself.
+
+62
+00:02:53,730 --> 00:02:56,400
+But if we have a look at GetObject, PutObject,
+
+63
+00:02:56,400 --> 00:03:00,780
+and DeleteObject, this applies to objects within a bucket
+
+64
+00:03:00,780 --> 00:03:03,120
+and, therefore, your arn is going to be different,
+
+65
+00:03:03,120 --> 00:03:06,120
+and you're going to have /* to represent
+
+66
+00:03:06,120 --> 00:03:08,250
+all the objects within your buckets.
+
+67
+00:03:08,250 --> 00:03:11,610
+And this is why you have a different arn here
+
+68
+00:03:11,610 --> 00:03:14,040
+because this is an object level permission.
+
+69
+00:03:14,040 --> 00:03:16,920
+And, again, this is something that can come up in the exam.
+
+70
+00:03:16,920 --> 00:03:19,140
+Now let's have a look at the resource policies
+
+71
+00:03:19,140 --> 00:03:21,600
+and the aws:PrincipalOrgID.
+
+72
+00:03:21,600 --> 00:03:25,800
+So this condition right here, the aws:PrincipalOrgID,
+
+73
+00:03:25,800 --> 00:03:28,710
+can be used to restrict resource policies
+
+74
+00:03:28,710 --> 00:03:33,030
+to only accounts that are a member of an AWS organization.
+
+75
+00:03:33,030 --> 00:03:35,130
+So we have an organization with multiple accounts,
+
+76
+00:03:35,130 --> 00:03:38,400
+and say we have S3 buckets with this policy on it.
+
+77
+00:03:38,400 --> 00:03:41,850
+And it's saying that you can do a PutObject or a GetObject
+
+78
+00:03:41,850 --> 00:03:45,270
+only if the API call is made from an account
+
+79
+00:03:45,270 --> 00:03:48,000
+that has the PrincipalOrgID of whatever.
+
+80
+00:03:48,000 --> 00:03:50,970
+And, therefore, it's only going to allow member accounts
+
+81
+00:03:50,970 --> 00:03:53,520
+from your organization to access the S3 bucket,
+
+82
+00:03:53,520 --> 00:03:57,030
+but any user outside the organization will be denied
+
+83
+00:03:57,030 --> 00:04:01,110
+because of this S3 bucket policy.
+
+84
+00:04:01,110 --> 00:04:03,510
+Okay, so you've seen a lot of different conditions
+
+85
+00:04:03,510 --> 00:04:06,930
+in now your IAM policies, but hopefully that makes sense,
+
+86
+00:04:06,930 --> 00:04:09,090
+and it can really start to drill down your use case
+
+87
+00:04:09,090 --> 00:04:12,360
+and make really advanced use cases in terms of security.
+
+88
+00:04:12,360 --> 00:04:13,193
+So that's it.
+
+89
+00:04:13,193 --> 00:04:15,900
+I hope you liked it, and I will see you in the next lecture.
+

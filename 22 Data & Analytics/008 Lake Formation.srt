@@ -1,0 +1,360 @@
+1
+00:00:00,300 --> 00:00:04,019
+So now let's talk about AWS Lake Formation.
+
+2
+00:00:04,019 --> 00:00:07,020
+So AWS Lake Formation helps you create data lakes
+
+3
+00:00:07,020 --> 00:00:08,940
+but what is a data lake?
+
+4
+00:00:08,940 --> 00:00:11,460
+Well, a data lake is a central place
+
+5
+00:00:11,460 --> 00:00:13,650
+to have all of your data
+
+6
+00:00:13,650 --> 00:00:17,580
+in one place so that you can do analytics on top of it.
+
+7
+00:00:17,580 --> 00:00:20,790
+So, Lake Formation is a fully managed service
+
+8
+00:00:20,790 --> 00:00:23,520
+that makes it super easy to set up a data lake,
+
+9
+00:00:23,520 --> 00:00:25,200
+and usually that can take months
+
+10
+00:00:25,200 --> 00:00:27,150
+but thanks to Lake Formation
+
+11
+00:00:27,150 --> 00:00:29,970
+it takes just a few days to get started with a data lake.
+
+12
+00:00:29,970 --> 00:00:32,790
+So Lake Formation will help you discover, cleanse,
+
+13
+00:00:32,790 --> 00:00:36,600
+transform, and ingest data into your data lake.
+
+14
+00:00:36,600 --> 00:00:39,540
+And it automates many complex manual steps
+
+15
+00:00:39,540 --> 00:00:42,630
+such as the collecting, cleansing, moving, cataloging data,
+
+16
+00:00:42,630 --> 00:00:44,970
+and also any kind of de-duplication,
+
+17
+00:00:44,970 --> 00:00:47,730
+for this it uses machine learning transforms.
+
+18
+00:00:47,730 --> 00:00:50,760
+So in this data lake, you can combine structured
+
+19
+00:00:50,760 --> 00:00:54,750
+and unstructured data sources, and it has blueprints.
+
+20
+00:00:54,750 --> 00:00:57,510
+So, blueprints come out of the box
+
+21
+00:00:57,510 --> 00:00:59,550
+and they help you migrate data
+
+22
+00:00:59,550 --> 00:01:02,340
+from one place to this central data lake.
+
+23
+00:01:02,340 --> 00:01:05,970
+So it has blueprints for Amazon S3, Amazon RDS,
+
+24
+00:01:05,970 --> 00:01:08,280
+or your relational databases that you run
+
+25
+00:01:08,280 --> 00:01:12,210
+on-premises or your NoSQL databases and so on.
+
+26
+00:01:12,210 --> 00:01:14,430
+And why do you set up Lake Formation?
+
+27
+00:01:14,430 --> 00:01:17,430
+Well, you have everything in one place, but on top of it
+
+28
+00:01:17,430 --> 00:01:20,010
+you can have Fine-grained access controls
+
+29
+00:01:20,010 --> 00:01:23,880
+for your applications at the row and the column-level.
+
+30
+00:01:23,880 --> 00:01:26,550
+That means that any application that is connecting
+
+31
+00:01:26,550 --> 00:01:29,580
+to the AWS Lake Formation
+
+32
+00:01:29,580 --> 00:01:31,890
+will have Fine-grain access control,
+
+33
+00:01:31,890 --> 00:01:33,030
+and this is a huge plus
+
+34
+00:01:33,030 --> 00:01:35,670
+and we'll have a look at it in a few slides.
+
+35
+00:01:35,670 --> 00:01:37,470
+So how does Lake Formation work?
+
+36
+00:01:37,470 --> 00:01:41,400
+Well, it's actually a layer on top of AWS Glue
+
+37
+00:01:41,400 --> 00:01:44,430
+but you don't actually interact with Glue directly.
+
+38
+00:01:44,430 --> 00:01:47,670
+So as I said, Lake Formation allows you to
+
+39
+00:01:47,670 --> 00:01:51,810
+create a data lake that is stored in Amazon S3.
+
+40
+00:01:51,810 --> 00:01:55,740
+And the data sources are, could be Amazon S3, RDS, Aurora,
+
+41
+00:01:55,740 --> 00:01:59,340
+your on-premises database, such as SQL or NoSQL, anyways,
+
+42
+00:01:59,340 --> 00:02:02,340
+and thanks to the blueprints available on Lake Formation
+
+43
+00:02:02,340 --> 00:02:04,290
+you will ingest the data.
+
+44
+00:02:04,290 --> 00:02:06,570
+So Lake Formation comes with Source Crawlers,
+
+45
+00:02:06,570 --> 00:02:09,120
+it comes with ETL and data preparation tools
+
+46
+00:02:09,120 --> 00:02:10,380
+and data cataloging tool,
+
+47
+00:02:10,380 --> 00:02:13,950
+and all of this comes from the underlying Glue service.
+
+48
+00:02:13,950 --> 00:02:16,830
+Then we have security settings and access controls to
+
+49
+00:02:16,830 --> 00:02:20,040
+make sure that your data is protected on your data lake.
+
+50
+00:02:20,040 --> 00:02:22,740
+And in services that can leverage Lake Formation can be
+
+51
+00:02:22,740 --> 00:02:26,820
+Athena, Redshift, EMR, or other analytics tools,
+
+52
+00:02:26,820 --> 00:02:28,950
+such as for example, the Apache Spark framework,
+
+53
+00:02:28,950 --> 00:02:32,610
+and so you as users, you are connecting to these services
+
+54
+00:02:32,610 --> 00:02:36,030
+which are in turn connecting to Lake Formation
+
+55
+00:02:36,030 --> 00:02:37,710
+and your data lake.
+
+56
+00:02:37,710 --> 00:02:39,390
+So why do we wanna use Lake Formation?
+
+57
+00:02:39,390 --> 00:02:43,410
+Well, one central, key aspect that is definitely mentioned
+
+58
+00:02:43,410 --> 00:02:46,500
+at the exam is around the centralized permissions.
+
+59
+00:02:46,500 --> 00:02:49,260
+So say for example, that your company is using Athena
+
+60
+00:02:49,260 --> 00:02:53,490
+and Quicksights to analyze data and your users must only
+
+61
+00:02:53,490 --> 00:02:56,100
+view the data they need and they should have
+
+62
+00:02:56,100 --> 00:02:58,890
+permissions to see, and your data sources include
+
+63
+00:02:58,890 --> 00:03:01,830
+Amazon S3, RDS, Aurora, and so on.
+
+64
+00:03:01,830 --> 00:03:04,710
+So you could try to set up security in Athena
+
+65
+00:03:04,710 --> 00:03:06,330
+or you could try to set up security
+
+66
+00:03:06,330 --> 00:03:09,810
+in QuickSight or at the user level, or you can set up
+
+67
+00:03:09,810 --> 00:03:12,930
+security with S3 bucket policies or with users
+
+68
+00:03:12,930 --> 00:03:16,110
+and so on in RDS, or in Aurora.
+
+69
+00:03:16,110 --> 00:03:18,030
+And so you have multiple places where
+
+70
+00:03:18,030 --> 00:03:20,610
+you can manage security and it becomes a mess.
+
+71
+00:03:20,610 --> 00:03:22,110
+What is the right thing, right?
+
+72
+00:03:22,110 --> 00:03:24,270
+So Lake Formation solves this problem
+
+73
+00:03:24,270 --> 00:03:26,340
+because you have access control
+
+74
+00:03:26,340 --> 00:03:29,400
+and you get column and role level security.
+
+75
+00:03:29,400 --> 00:03:32,790
+So with Lake Formation, again, you ingest all this data,
+
+76
+00:03:32,790 --> 00:03:35,550
+it sits in a central S3 bucket
+
+77
+00:03:35,550 --> 00:03:37,560
+but from within Lake Formation
+
+78
+00:03:37,560 --> 00:03:39,810
+you actually manage all the access control
+
+79
+00:03:39,810 --> 00:03:42,300
+for row and column-level security
+
+80
+00:03:42,300 --> 00:03:44,640
+so that any service that then connects
+
+81
+00:03:44,640 --> 00:03:47,160
+to Lake Formation only will have the right
+
+82
+00:03:47,160 --> 00:03:49,020
+to see whatever has the right to see.
+
+83
+00:03:49,020 --> 00:03:50,537
+So if you use Athena, if you use Quicksights,
+
+84
+00:03:50,537 --> 00:03:52,620
+if you use whatever other tools
+
+85
+00:03:52,620 --> 00:03:55,680
+and you connect to Lake Formation, you manage the security
+
+86
+00:03:55,680 --> 00:03:57,960
+in one place, and that is Lake Formation
+
+87
+00:03:57,960 --> 00:03:59,460
+and that is a big advantage
+
+88
+00:03:59,460 --> 00:04:01,230
+and that you will see at the exam.
+
+89
+00:04:01,230 --> 00:04:03,510
+Okay, so that's it for Lake Formation,
+
+90
+00:04:03,510 --> 00:04:06,460
+I hope you liked it and I will see you in the next lecture.
+

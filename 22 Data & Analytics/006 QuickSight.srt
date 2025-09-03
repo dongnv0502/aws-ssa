@@ -1,0 +1,388 @@
+1
+00:00:00,300 --> 00:00:02,730
+Now let's talk about Amazon QuickSight.
+
+2
+00:00:02,730 --> 00:00:06,150
+So Amazon QuickSight is a serverless machine powered
+
+3
+00:00:06,150 --> 00:00:08,160
+business intelligence service,
+
+4
+00:00:08,160 --> 00:00:10,500
+and so when you hear business intelligence,
+
+5
+00:00:10,500 --> 00:00:12,120
+that means that you're going to create
+
+6
+00:00:12,120 --> 00:00:13,744
+interactive dashboards.
+
+7
+00:00:13,744 --> 00:00:15,450
+So this is what QuickSight looks like,
+
+8
+00:00:15,450 --> 00:00:17,040
+you can create dashboards
+
+9
+00:00:17,040 --> 00:00:18,540
+and these dashboards are connected
+
+10
+00:00:18,540 --> 00:00:20,490
+to data sources that you own,
+
+11
+00:00:20,490 --> 00:00:23,100
+and therefore you can create these nice visuals.
+
+12
+00:00:23,100 --> 00:00:25,290
+So it's fast, it's automatically scalable,
+
+13
+00:00:25,290 --> 00:00:26,610
+you can embed it in website,
+
+14
+00:00:26,610 --> 00:00:28,890
+and you get a per-session pricing.
+
+15
+00:00:28,890 --> 00:00:30,660
+The use cases for QuickSight are going to be
+
+16
+00:00:30,660 --> 00:00:33,990
+around business analytics, building visualization,
+
+17
+00:00:33,990 --> 00:00:36,570
+performing ad-hoc analysis in the visual fashion,
+
+18
+00:00:36,570 --> 00:00:38,760
+to get business insights using data.
+
+19
+00:00:38,760 --> 00:00:40,890
+And so you can connect to many data sources
+
+20
+00:00:40,890 --> 00:00:42,750
+as we'll see in the next slide,
+
+21
+00:00:42,750 --> 00:00:46,890
+such as RDS, Aurora, Athena, Redshift, S3, and so on.
+
+22
+00:00:46,890 --> 00:00:48,570
+Now there is something called the SPICE engine,
+
+23
+00:00:48,570 --> 00:00:50,130
+you need to remember it,
+
+24
+00:00:50,130 --> 00:00:52,590
+it's an in-memory computation engine
+
+25
+00:00:52,590 --> 00:00:55,950
+and it only works if you actually import data
+
+26
+00:00:55,950 --> 00:00:57,930
+directly into Amazon QuickSight.
+
+27
+00:00:57,930 --> 00:00:59,730
+It doesn't work if Amazon QuickSight
+
+28
+00:00:59,730 --> 00:01:02,760
+is connected to another database.
+
+29
+00:01:02,760 --> 00:01:03,706
+And finally,
+
+30
+00:01:03,706 --> 00:01:06,870
+QuickSight has some very nice user level features,
+
+31
+00:01:06,870 --> 00:01:07,920
+and so it's possible
+
+32
+00:01:07,920 --> 00:01:10,830
+in the Enterprise edition of Amazon QuickSight
+
+33
+00:01:10,830 --> 00:01:13,800
+to set up column-level security, CLS,
+
+34
+00:01:13,800 --> 00:01:17,190
+to prevent some columns from being displayed for some users
+
+35
+00:01:17,190 --> 00:01:19,950
+if they don't have enough access rights.
+
+36
+00:01:19,950 --> 00:01:22,440
+So what does QuickSight integrate with?
+
+37
+00:01:22,440 --> 00:01:25,920
+Well, you can integrate it with many data sources from AWS,
+
+38
+00:01:25,920 --> 00:01:28,860
+for example, your RDS database, or Aurora,
+
+39
+00:01:28,860 --> 00:01:31,590
+or Redshift, which is a great data warehousing service,
+
+40
+00:01:31,590 --> 00:01:35,010
+or Athena to do ad-hoc queries on Amazon S3,
+
+41
+00:01:35,010 --> 00:01:39,060
+or Amazon S3 to actually import data, or OpenSearch,
+
+42
+00:01:39,060 --> 00:01:41,980
+or Timestream to visualize your time stream data
+
+43
+00:01:43,501 --> 00:01:45,540
+in an optimized fashion.
+
+44
+00:01:45,540 --> 00:01:48,718
+You can also integrate with third party data sources
+
+45
+00:01:48,718 --> 00:01:52,230
+that are software as a service and supported by QuickSight,
+
+46
+00:01:52,230 --> 00:01:54,510
+and the full list is on the QuickSight website,
+
+47
+00:01:54,510 --> 00:01:57,960
+but some of them include Salesforce, and also Jira.
+
+48
+00:01:57,960 --> 00:02:01,230
+You can also integrate with third party databases
+
+49
+00:02:01,230 --> 00:02:03,960
+such as Teradata, or for example,
+
+50
+00:02:03,960 --> 00:02:05,547
+an on-premises database that is using
+
+51
+00:02:05,547 --> 00:02:08,490
+the JDBC protocol internally.
+
+52
+00:02:08,490 --> 00:02:11,580
+And as I said, you can import data sources
+
+53
+00:02:11,580 --> 00:02:13,140
+directly into QuickSight,
+
+54
+00:02:13,140 --> 00:02:16,230
+such as your Excel files, your CSV file,
+
+55
+00:02:16,230 --> 00:02:21,230
+JSON documents, TSV, or the EFS CLF format for log formats.
+
+56
+00:02:21,630 --> 00:02:24,120
+And if these data sources are imported
+
+57
+00:02:24,120 --> 00:02:25,500
+into Amazon QuickSight,
+
+58
+00:02:25,500 --> 00:02:27,600
+then you can leverage the SPICE engine
+
+59
+00:02:27,600 --> 00:02:31,980
+to perform in memory computation in a very, very fast way.
+
+60
+00:02:31,980 --> 00:02:33,750
+So that's for the integrations,
+
+61
+00:02:33,750 --> 00:02:36,210
+and you will very commonly see at the exam
+
+62
+00:02:36,210 --> 00:02:37,770
+using QuickSight with Athena
+
+63
+00:02:37,770 --> 00:02:39,720
+or QuickSight with Redshift,
+
+64
+00:02:39,720 --> 00:02:42,840
+but any of these is possible to be seen.
+
+65
+00:02:42,840 --> 00:02:44,970
+Now you have two things in QuickSight,
+
+66
+00:02:44,970 --> 00:02:46,680
+you have dashboards and analysis.
+
+67
+00:02:46,680 --> 00:02:49,260
+So in QuickSight, you actually have users,
+
+68
+00:02:49,260 --> 00:02:51,120
+which is available in the Standard version,
+
+69
+00:02:51,120 --> 00:02:52,350
+and groups of users,
+
+70
+00:02:52,350 --> 00:02:54,438
+only available in the Enterprise version,
+
+71
+00:02:54,438 --> 00:02:56,340
+and these users and groups,
+
+72
+00:02:56,340 --> 00:02:58,920
+they only exist within the QuickSight service,
+
+73
+00:02:58,920 --> 00:03:02,280
+so they're not equivalent to IAM users.
+
+74
+00:03:02,280 --> 00:03:05,460
+IAM users are only used for administration.
+
+75
+00:03:05,460 --> 00:03:07,260
+And so you define these users and these groups
+
+76
+00:03:07,260 --> 00:03:08,910
+from within QuickSight,
+
+77
+00:03:08,910 --> 00:03:10,800
+and then you create a dashboard.
+
+78
+00:03:10,800 --> 00:03:12,951
+And a dashboard is a read-only snapshot
+
+79
+00:03:12,951 --> 00:03:15,270
+of an analysis so they can share,
+
+80
+00:03:15,270 --> 00:03:17,790
+and it will preserve the configuration of the analysis,
+
+81
+00:03:17,790 --> 00:03:19,830
+so whatever filters, parameters,
+
+82
+00:03:19,830 --> 00:03:23,640
+controls, and sorting options you set on your analysis,
+
+83
+00:03:23,640 --> 00:03:26,700
+is going to be preserved and is going to be a dashboard.
+
+84
+00:03:26,700 --> 00:03:29,130
+And so an analysis is more complete,
+
+85
+00:03:29,130 --> 00:03:33,030
+but you can share either the analysis or the dashboard
+
+86
+00:03:33,030 --> 00:03:35,280
+with specific users or groups,
+
+87
+00:03:35,280 --> 00:03:37,590
+and to do so, you must first publish,
+
+88
+00:03:37,590 --> 00:03:39,360
+for example, your dashboards.
+
+89
+00:03:39,360 --> 00:03:41,640
+And then if users have access to the dashboards,
+
+90
+00:03:41,640 --> 00:03:44,400
+they can also see the underlying data.
+
+91
+00:03:44,400 --> 00:03:45,270
+So in QuickSight,
+
+92
+00:03:45,270 --> 00:03:49,080
+you would create you analysis or dashboards,
+
+93
+00:03:49,080 --> 00:03:52,710
+and then you would share it with specified users and groups.
+
+94
+00:03:52,710 --> 00:03:55,020
+And that's it, you know everything there is to know
+
+95
+00:03:55,020 --> 00:03:56,520
+about QuickSight for the exam.
+
+96
+00:03:56,520 --> 00:03:57,480
+I hope you liked it,
+
+97
+00:03:57,480 --> 00:03:59,433
+and I will see you in the next lecture.
+

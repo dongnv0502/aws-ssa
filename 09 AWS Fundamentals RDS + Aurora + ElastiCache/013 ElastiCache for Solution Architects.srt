@@ -1,0 +1,296 @@
+1
+00:00:00,000 --> 00:00:02,520
+Now, let's talk about ElastiCache Security.
+
+2
+00:00:02,520 --> 00:00:06,689
+So ElastiCache supports IAM authentication for Redis only
+
+3
+00:00:06,689 --> 00:00:10,020
+and for the rest you just use a username and password.
+
+4
+00:00:10,020 --> 00:00:12,360
+If you define IAM policies on ElastiCache,
+
+5
+00:00:12,360 --> 00:00:16,710
+they're only used for AWS API-level security.
+
+6
+00:00:16,710 --> 00:00:19,230
+Then you have security within Redis called Redis AUTH,
+
+7
+00:00:19,230 --> 00:00:21,450
+where you can set a password and a token
+
+8
+00:00:21,450 --> 00:00:23,010
+when you create a Redis cluster,
+
+9
+00:00:23,010 --> 00:00:25,230
+which gives you an extra level of security
+
+10
+00:00:25,230 --> 00:00:28,620
+for your cache on top of your security groups.
+
+11
+00:00:28,620 --> 00:00:31,980
+It also supports SSL in flight encryption.
+
+12
+00:00:31,980 --> 00:00:33,720
+Next we have Memcached.
+
+13
+00:00:33,720 --> 00:00:36,780
+So Memcached supports SASL-based authentication
+
+14
+00:00:36,780 --> 00:00:38,580
+which is quite an advanced mechanism.
+
+15
+00:00:38,580 --> 00:00:41,010
+Just remember, just a name.
+
+16
+00:00:41,010 --> 00:00:44,370
+So to summarize, when we have an EC2 instance in a client,
+
+17
+00:00:44,370 --> 00:00:46,920
+for example, we could use Redis AUTH to connect
+
+18
+00:00:46,920 --> 00:00:50,700
+to Redis Cluster that's protected by Redis Security Group
+
+19
+00:00:50,700 --> 00:00:52,740
+and we can have in-flight encryption.
+
+20
+00:00:52,740 --> 00:00:55,080
+Or alternatively, we could, for example,
+
+21
+00:00:55,080 --> 00:00:57,333
+leverage IAM authentication for Redis.
+
+22
+00:00:58,470 --> 00:01:00,180
+Now, there are three kinds of patterns
+
+23
+00:01:00,180 --> 00:01:02,040
+for loading data into ElastiCache.
+
+24
+00:01:02,040 --> 00:01:03,990
+The number one is Lazy Loading,
+
+25
+00:01:03,990 --> 00:01:05,640
+where all the read data is cached
+
+26
+00:01:05,640 --> 00:01:07,890
+and data can become stale in the cache,
+
+27
+00:01:07,890 --> 00:01:10,530
+Write Through, which is to add or update data in the cache
+
+28
+00:01:10,530 --> 00:01:12,390
+whenever it is written to a database
+
+29
+00:01:12,390 --> 00:01:14,070
+where there's no stale data,
+
+30
+00:01:14,070 --> 00:01:17,730
+and using ElastiCache as a session store that we saw before
+
+31
+00:01:17,730 --> 00:01:18,990
+and then we can expire a session
+
+32
+00:01:18,990 --> 00:01:21,390
+using the time to live features.
+
+33
+00:01:21,390 --> 00:01:23,880
+Now, caching is very hard and there's this very famous quote
+
+34
+00:01:23,880 --> 00:01:26,640
+in computer science that "There are only two hard things
+
+35
+00:01:26,640 --> 00:01:28,980
+in computer science: caching invalidation
+
+36
+00:01:28,980 --> 00:01:29,813
+and naming things."
+
+37
+00:01:29,813 --> 00:01:31,830
+So caching is a very complicated topic
+
+38
+00:01:31,830 --> 00:01:33,930
+and give you a very high-level overview,
+
+39
+00:01:33,930 --> 00:01:37,920
+but let's illustrate the lazy loading strategy here.
+
+40
+00:01:37,920 --> 00:01:40,770
+So your application, if it has a cache hit
+
+41
+00:01:40,770 --> 00:01:42,720
+in ElastiCache data from the cache,
+
+42
+00:01:42,720 --> 00:01:44,700
+otherwise there's a cache miss, therefore,
+
+43
+00:01:44,700 --> 00:01:47,340
+you read from the database and you write to the cache.
+
+44
+00:01:47,340 --> 00:01:49,170
+This is something we've seen from before
+
+45
+00:01:49,170 --> 00:01:50,430
+and it is called lazy loading
+
+46
+00:01:50,430 --> 00:01:52,800
+because only when you don't have a cache hit,
+
+47
+00:01:52,800 --> 00:01:55,563
+then you load the data into Amazon ElastiCache.
+
+48
+00:01:56,910 --> 00:02:00,120
+So now let's talk about the use cases for Redis
+
+49
+00:02:00,120 --> 00:02:02,370
+and there's one you need to know going to the exam.
+
+50
+00:02:02,370 --> 00:02:05,190
+It is around creating a gaming leaderboard.
+
+51
+00:02:05,190 --> 00:02:06,150
+So it is very complex.
+
+52
+00:02:06,150 --> 00:02:07,320
+The idea is that you wanna say
+
+53
+00:02:07,320 --> 00:02:08,759
+who is number one, who is number two,
+
+54
+00:02:08,759 --> 00:02:12,000
+who's number three at any moment in time for your game.
+
+55
+00:02:12,000 --> 00:02:15,540
+And so there is a feature in Redis called Sorted Sets
+
+56
+00:02:15,540 --> 00:02:19,080
+which guarantees both uniqueness and element ordering.
+
+57
+00:02:19,080 --> 00:02:21,840
+And each time an element is added it's going to be ranked
+
+58
+00:02:21,840 --> 00:02:24,630
+in real time and then added in the correct order.
+
+59
+00:02:24,630 --> 00:02:26,520
+The idea is that if you have a Redis cluster,
+
+60
+00:02:26,520 --> 00:02:29,460
+you can create a realtime leaderboard with a number one,
+
+61
+00:02:29,460 --> 00:02:32,310
+number two, and number three player in realtime
+
+62
+00:02:32,310 --> 00:02:34,890
+and all the Redis cache will have
+
+63
+00:02:34,890 --> 00:02:36,900
+at the same leaderboard available.
+
+64
+00:02:36,900 --> 00:02:38,190
+That means that your clients,
+
+65
+00:02:38,190 --> 00:02:41,730
+when talking to your Amazon ElastiCache using Redis,
+
+66
+00:02:41,730 --> 00:02:44,190
+they can have access to this realtime leaderboard
+
+67
+00:02:44,190 --> 00:02:47,160
+and we don't need to program that feature application side.
+
+68
+00:02:47,160 --> 00:02:49,080
+We can just leverage Redis
+
+69
+00:02:49,080 --> 00:02:51,330
+with the sorted sets to get access
+
+70
+00:02:51,330 --> 00:02:52,590
+to your realtime leaderboard.
+
+71
+00:02:52,590 --> 00:02:53,940
+And this is yet again something
+
+72
+00:02:53,940 --> 00:02:55,830
+that can come up in the exam, okay?
+
+73
+00:02:55,830 --> 00:02:56,910
+So that's it for this lecture.
+
+74
+00:02:56,910 --> 00:02:59,860
+I hope you liked it and I will see you in the next lecture.
+

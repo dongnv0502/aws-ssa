@@ -1,0 +1,840 @@
+1
+00:00:00,000 --> 00:00:01,432
+So we're seeing how
+
+2
+00:00:01,432 --> 00:00:02,430
+to use the CLI to retrieve those,
+
+3
+00:00:02,430 --> 00:00:03,670
+but how about we use Lambda
+
+4
+00:00:03,670 --> 00:00:05,870
+just to spice it up and use the SDK?
+
+5
+00:00:05,870 --> 00:00:07,670
+I think it's a valid use case to know about,
+
+6
+00:00:07,670 --> 00:00:10,000
+so let's just go through it because it's fun.
+
+7
+00:00:10,000 --> 00:00:11,730
+So we're going to create a function,
+
+8
+00:00:11,730 --> 00:00:16,203
+and so this function is going to be called hello world SSM,
+
+9
+00:00:17,050 --> 00:00:21,340
+and for the runtime I'm going to choose Python 3.6,
+
+10
+00:00:21,340 --> 00:00:23,350
+for example, 3.7 actually,
+
+11
+00:00:23,350 --> 00:00:25,980
+but you can choose any Python 3-dot-whatever,
+
+12
+00:00:25,980 --> 00:00:27,910
+and for permissions we need to have
+
+13
+00:00:27,910 --> 00:00:29,890
+an IAM role for a Lambda function.
+
+14
+00:00:29,890 --> 00:00:32,790
+So I'm going to create an execution role,
+
+15
+00:00:32,790 --> 00:00:34,230
+and I'll create a new role
+
+16
+00:00:34,230 --> 00:00:37,420
+with basic Lambda permissions in here,
+
+17
+00:00:37,420 --> 00:00:39,490
+and I'll click on create the function,
+
+18
+00:00:39,490 --> 00:00:42,670
+so this will create a role named hello world SSM role,
+
+19
+00:00:42,670 --> 00:00:44,580
+and then the blovus text as here,
+
+20
+00:00:44,580 --> 00:00:46,150
+and that will give the function
+
+21
+00:00:46,150 --> 00:00:48,250
+the permissions to write to CloudWatch Logs.
+
+22
+00:00:48,250 --> 00:00:50,930
+What we will have to do afterwards is take this role
+
+23
+00:00:50,930 --> 00:00:53,670
+and we'll add extra permissions into it
+
+24
+00:00:53,670 --> 00:00:57,893
+to allow it to read and write to the SSM parameter store,
+
+25
+00:00:59,040 --> 00:01:00,250
+and then we'll scroll down
+
+26
+00:01:00,250 --> 00:01:03,550
+and we'll find our Lambda function code that we'll modify.
+
+27
+00:01:03,550 --> 00:01:07,580
+So because this is AWS we'll do import Boto,
+
+28
+00:01:07,580 --> 00:01:11,260
+and this will allow us to use Boto to call an SDK.
+
+29
+00:01:11,260 --> 00:01:15,700
+Now I'll say SSM is equal to boto.client,
+
+30
+00:01:15,700 --> 00:01:17,270
+the name of the client is SSM,
+
+31
+00:01:17,270 --> 00:01:19,760
+and the region name is equal to,
+
+32
+00:01:19,760 --> 00:01:22,270
+and this is up to you to put whatever you want.
+
+33
+00:01:22,270 --> 00:01:26,260
+For me it's EU west 3 because I'm in the Paris region.
+
+34
+00:01:26,260 --> 00:01:28,370
+Okay, so we have our SSM client, and as you can see,
+
+35
+00:01:28,370 --> 00:01:31,610
+it's defined outside of our Lambda function obviously,
+
+36
+00:01:31,610 --> 00:01:33,840
+and so what we want to do is number one,
+
+37
+00:01:33,840 --> 00:01:37,720
+get the DB URL, so I'll say DB URL equals blah,
+
+38
+00:01:37,720 --> 00:01:39,770
+and then we want to get the DB password,
+
+39
+00:01:39,770 --> 00:01:42,200
+so I'll say DB password equals this,
+
+40
+00:01:42,200 --> 00:01:46,203
+and we're going to print the DB URL to the console
+
+41
+00:01:47,496 --> 00:01:51,449
+and also we're going to print the DB password, okay?
+
+42
+00:01:51,449 --> 00:01:54,440
+And we'll just return "worked."
+
+43
+00:01:54,440 --> 00:01:56,840
+Okay, so that's very simple.
+
+44
+00:01:56,840 --> 00:02:00,170
+Now we need to go ahead and use the SSM API.
+
+45
+00:02:00,170 --> 00:02:02,220
+So for this it's pretty simple again.
+
+46
+00:02:02,220 --> 00:02:07,220
+For the DB URL we'll do ssm.get parameters,
+
+47
+00:02:09,830 --> 00:02:12,060
+and here you have a names variable,
+
+48
+00:02:12,060 --> 00:02:14,100
+and the names, I'm just putting one name,
+
+49
+00:02:14,100 --> 00:02:19,100
+so I'll just use this one, the dev name right here, okay?
+
+50
+00:02:21,870 --> 00:02:26,210
+And for the DB password I'll use the same API,
+
+51
+00:02:26,210 --> 00:02:30,400
+get parameters, but this one I'll say DB password.
+
+52
+00:02:30,400 --> 00:02:31,790
+So this looks good enough,
+
+53
+00:02:31,790 --> 00:02:34,610
+and let's just try it out to see how things work.
+
+54
+00:02:34,610 --> 00:02:37,480
+Obviously things won't work, but we'll see why in a second.
+
+55
+00:02:37,480 --> 00:02:39,950
+So this is just our function.
+
+56
+00:02:39,950 --> 00:02:42,990
+I'll click on test, I'll create a new event name,
+
+57
+00:02:42,990 --> 00:02:47,017
+and I'll say helloworld, and I'll just say create.
+
+58
+00:02:51,000 --> 00:02:52,860
+Okay, so our function is saved.
+
+59
+00:02:52,860 --> 00:02:56,090
+Now I'm going to test it, and we get a failure.
+
+60
+00:02:56,090 --> 00:02:57,570
+The first one, it says unable
+
+61
+00:02:57,570 --> 00:03:00,470
+to import module "Lambda function."
+
+62
+00:03:00,470 --> 00:03:01,910
+So no module named "boto,"
+
+63
+00:03:01,910 --> 00:03:05,850
+this is because I messed up and it's boto3
+
+64
+00:03:05,850 --> 00:03:08,820
+that I need to import and not boto.
+
+65
+00:03:08,820 --> 00:03:11,320
+Click on save, click on test again,
+
+66
+00:03:11,320 --> 00:03:13,850
+and now we get another error.
+
+67
+00:03:13,850 --> 00:03:15,680
+So here it says an error occurred.
+
+68
+00:03:15,680 --> 00:03:17,330
+Access denied exception when calling
+
+69
+00:03:17,330 --> 00:03:19,070
+get parameters operation.
+
+70
+00:03:19,070 --> 00:03:22,190
+My Lambda basic execution SSM is not authorized
+
+71
+00:03:22,190 --> 00:03:25,900
+to perform SSM get parameters, so that makes sense,
+
+72
+00:03:25,900 --> 00:03:29,000
+we haven't changed our IAM roles, so let's do it right now.
+
+73
+00:03:29,000 --> 00:03:30,600
+So let's go into roles,
+
+74
+00:03:30,600 --> 00:03:35,420
+then I'm going to find my hello world SSM role in here,
+
+75
+00:03:35,420 --> 00:03:39,600
+and I'm going to add an inline policy in here,
+
+76
+00:03:39,600 --> 00:03:41,210
+and I have to choose a service.
+
+77
+00:03:41,210 --> 00:03:44,163
+For the service I will type systems manager.
+
+78
+00:03:45,090 --> 00:03:46,860
+Then we're going to choose an action,
+
+79
+00:03:46,860 --> 00:03:51,860
+so in read I'm going to allow to get parameters
+
+80
+00:03:52,350 --> 00:03:53,950
+and also get parameters by path,
+
+81
+00:03:54,970 --> 00:03:57,790
+and then for resources we're going to choose
+
+82
+00:03:57,790 --> 00:04:01,710
+specific resources, and I'll click on add ARN.
+
+83
+00:04:01,710 --> 00:04:04,200
+In terms of region I'll just allow any region.
+
+84
+00:04:04,200 --> 00:04:06,320
+Of account I'll just allow any account.
+
+85
+00:04:06,320 --> 00:04:09,150
+But for the fully qualified parameter name
+
+86
+00:04:09,150 --> 00:04:10,670
+if we go back to system manager
+
+87
+00:04:10,670 --> 00:04:13,080
+maybe I just want to allow my app.
+
+88
+00:04:13,080 --> 00:04:15,597
+So I'll just say my app,
+
+89
+00:04:15,597 --> 00:04:19,209
+and so because of the tree now we only allow anything
+
+90
+00:04:19,209 --> 00:04:22,400
+that's under my app and then with a star.
+
+91
+00:04:22,400 --> 00:04:25,900
+So anything under my app with a star should be allowed.
+
+92
+00:04:25,900 --> 00:04:29,870
+We'll click on add, and so here we have a very strict
+
+93
+00:04:29,870 --> 00:04:33,880
+IAM policy that really is best practice.
+
+94
+00:04:33,880 --> 00:04:36,030
+Now we're going to review the policy,
+
+95
+00:04:36,030 --> 00:04:38,690
+and okay, we have limited access to SSM,
+
+96
+00:04:38,690 --> 00:04:42,410
+to this path, which should go under
+
+97
+00:04:42,410 --> 00:04:45,490
+this parameter right here, so that makes sense.
+
+98
+00:04:45,490 --> 00:04:48,240
+Okay, we're excellent, create policy.
+
+99
+00:04:48,240 --> 00:04:53,240
+Oh, and the name, we'll call it SSM access for my app.
+
+100
+00:04:53,790 --> 00:04:56,370
+Okay, create policy, and now we have
+
+101
+00:04:56,370 --> 00:04:59,910
+the SSM access for my app inline policy,
+
+102
+00:04:59,910 --> 00:05:02,460
+so let's go back to the Lambda management console.
+
+103
+00:05:02,460 --> 00:05:04,113
+We're going to refresh this page,
+
+104
+00:05:05,240 --> 00:05:06,730
+and now we see from the designer
+
+105
+00:05:06,730 --> 00:05:09,710
+that we have access to Amazon Simple Systems Manager
+
+106
+00:05:09,710 --> 00:05:11,600
+because we changed the IAM role.
+
+107
+00:05:11,600 --> 00:05:14,870
+So if we click on test we get a new failure,
+
+108
+00:05:14,870 --> 00:05:17,890
+and so we still get a authorization exception,
+
+109
+00:05:17,890 --> 00:05:22,150
+so sometimes you have problems and IAM gets cached
+
+110
+00:05:22,150 --> 00:05:25,060
+or it's not immediate for IAM
+
+111
+00:05:25,060 --> 00:05:27,400
+to be reflected onto your function,
+
+112
+00:05:27,400 --> 00:05:29,810
+so we just have to wait a little bit.
+
+113
+00:05:29,810 --> 00:05:31,880
+So after waiting maybe five minutes I'll try again
+
+114
+00:05:31,880 --> 00:05:34,450
+and click on test, and now it says "worked"
+
+115
+00:05:34,450 --> 00:05:37,520
+because IAM allowed us to do what we wanted to do.
+
+116
+00:05:37,520 --> 00:05:39,280
+If we scroll down we can see the parameters.
+
+117
+00:05:39,280 --> 00:05:41,350
+There is a dev URL that is
+
+118
+00:05:41,350 --> 00:05:43,800
+dev.database.stephanetheteacher.com,
+
+119
+00:05:43,800 --> 00:05:47,150
+and then in terms of the dev password, which is right here,
+
+120
+00:05:47,150 --> 00:05:49,320
+we can see that this is a secure string
+
+121
+00:05:49,320 --> 00:05:51,670
+and the value is encrypted.
+
+122
+00:05:51,670 --> 00:05:54,550
+So what we'd like to do is now decrypt it,
+
+123
+00:05:54,550 --> 00:05:58,160
+so let's scroll down, and so for this there is a flag
+
+124
+00:05:58,160 --> 00:06:03,160
+and it's called with decryption equals true,
+
+125
+00:06:03,410 --> 00:06:05,570
+and so we're saying now okay, our DB password,
+
+126
+00:06:05,570 --> 00:06:07,940
+I want decryption to happen.
+
+127
+00:06:07,940 --> 00:06:09,370
+I'll click on save,
+
+128
+00:06:09,370 --> 00:06:11,923
+and now one more time I'm going to test my function,
+
+129
+00:06:12,980 --> 00:06:15,160
+but this time I get an error,
+
+130
+00:06:15,160 --> 00:06:17,120
+and obviously we're going to get an error,
+
+131
+00:06:17,120 --> 00:06:18,660
+an access denied exception again
+
+132
+00:06:18,660 --> 00:06:22,540
+because we're not allowed to use the customer master key
+
+133
+00:06:22,540 --> 00:06:25,650
+and decrypt our secrets.
+
+134
+00:06:25,650 --> 00:06:28,780
+So it turns out that because having given KMS access
+
+135
+00:06:28,780 --> 00:06:32,260
+to my IAM role we're not allowed to decrypt the secrets,
+
+136
+00:06:32,260 --> 00:06:34,360
+so this is a good proof that even though
+
+137
+00:06:34,360 --> 00:06:38,010
+I have access to this database password,
+
+138
+00:06:38,010 --> 00:06:40,397
+because it's encrypted and I don't have access to KMS
+
+139
+00:06:40,397 --> 00:06:42,170
+I'm not able to decrypt it,
+
+140
+00:06:42,170 --> 00:06:45,890
+and so that DB password is really safe and secure.
+
+141
+00:06:45,890 --> 00:06:49,160
+So you know the drill, to fix this I go to IAM
+
+142
+00:06:49,160 --> 00:06:51,030
+and I'm going to add an inline policy.
+
+143
+00:06:51,030 --> 00:06:55,170
+For the service I will choose KMS,
+
+144
+00:06:55,170 --> 00:06:58,810
+and for the action under right I'm going to allow decrypt
+
+145
+00:06:58,810 --> 00:07:01,600
+because we need to decrypt our secrets,
+
+146
+00:07:01,600 --> 00:07:03,770
+so this is the only thing I need to add,
+
+147
+00:07:03,770 --> 00:07:05,740
+and in terms of resources I can access
+
+148
+00:07:05,740 --> 00:07:09,820
+I'm going to say you can access a specific key,
+
+149
+00:07:09,820 --> 00:07:11,710
+and the region is going to be any,
+
+150
+00:07:11,710 --> 00:07:15,462
+the account's going to be any, and the key ID is,
+
+151
+00:07:15,462 --> 00:07:17,640
+and we need to find the key ID for this,
+
+152
+00:07:17,640 --> 00:07:20,350
+so let's go back to our EC2.
+
+153
+00:07:20,350 --> 00:07:23,203
+We're just going to go to IAM very quickly.
+
+154
+00:07:24,300 --> 00:07:26,150
+IAM, we're going to encryption keys.
+
+155
+00:07:26,150 --> 00:07:28,700
+Encryption keys I'm going to go to my region,
+
+156
+00:07:28,700 --> 00:07:31,840
+and here is my tutorial key in the middle,
+
+157
+00:07:31,840 --> 00:07:33,810
+so I'm going to keep the ID from here,
+
+158
+00:07:33,810 --> 00:07:36,640
+and this is exactly what I'm going to put, add.
+
+159
+00:07:36,640 --> 00:07:40,280
+So now we have access to this key and we're able to decrypt.
+
+160
+00:07:40,280 --> 00:07:42,220
+We'll review policies
+
+161
+00:07:42,220 --> 00:07:47,220
+and we'll say KMS decrypt tutorial key, create policy,
+
+162
+00:07:49,470 --> 00:07:52,410
+and so now we have given some KMS capability
+
+163
+00:07:52,410 --> 00:07:53,610
+to our Lambda function.
+
+164
+00:07:53,610 --> 00:07:56,100
+So if I go back to my Lambda console
+
+165
+00:07:56,100 --> 00:07:58,443
+and now I refresh my UI,
+
+166
+00:08:00,160 --> 00:08:02,910
+I should be seeing KMS in the designers.
+
+167
+00:08:02,910 --> 00:08:05,800
+That's great, now we have access to parameter store and KMS.
+
+168
+00:08:05,800 --> 00:08:09,580
+So if I test my function this time I get a success,
+
+169
+00:08:09,580 --> 00:08:11,410
+and it worked, and so if I look now
+
+170
+00:08:11,410 --> 00:08:13,540
+my dev URL is still the same,
+
+171
+00:08:13,540 --> 00:08:15,210
+but if I look at my database password
+
+172
+00:08:15,210 --> 00:08:17,430
+it has been decrypted to the value.
+
+173
+00:08:17,430 --> 00:08:18,840
+This is the dev password,
+
+174
+00:08:18,840 --> 00:08:22,280
+so the IAM policy was applied right away
+
+175
+00:08:22,280 --> 00:08:24,600
+and we're able to do this, so it's pretty cool.
+
+176
+00:08:24,600 --> 00:08:27,120
+Now we have basically showed how to use
+
+177
+00:08:27,120 --> 00:08:29,180
+get parameters using decryption,
+
+178
+00:08:29,180 --> 00:08:31,400
+and so now just want to show you a little trick
+
+179
+00:08:31,400 --> 00:08:33,740
+for switching between dev and prod,
+
+180
+00:08:33,740 --> 00:08:35,890
+so let's go to the environment variables
+
+181
+00:08:35,890 --> 00:08:39,580
+and I'm going to say dev or prod,
+
+182
+00:08:39,580 --> 00:08:41,360
+and this time I'm going to say dev,
+
+183
+00:08:41,360 --> 00:08:44,260
+and so we're going to use this environment variable.
+
+184
+00:08:44,260 --> 00:08:48,850
+So we're going to say dev or prod equals an os.environ,
+
+185
+00:08:49,820 --> 00:08:52,160
+and we have to just do this.
+
+186
+00:08:52,160 --> 00:08:54,640
+So I'll import the OS as well,
+
+187
+00:08:54,640 --> 00:08:55,580
+and now we're going to be able
+
+188
+00:08:55,580 --> 00:08:58,870
+to reference dev or prod within our code,
+
+189
+00:08:58,870 --> 00:09:02,863
+so to be very quick I'm going to have this in the middle.
+
+190
+00:09:04,890 --> 00:09:06,980
+So now we are saying basically based on
+
+191
+00:09:06,980 --> 00:09:08,950
+if we're in dev or in prod we're going to change
+
+192
+00:09:08,950 --> 00:09:11,360
+the name of the parameter we're trying to access.
+
+193
+00:09:11,360 --> 00:09:15,100
+I'll save this, so now if I test my function,
+
+194
+00:09:15,100 --> 00:09:19,580
+right now it worked and I'm getting my dev parameters,
+
+195
+00:09:19,580 --> 00:09:22,750
+so we're in dev, but if I scroll down
+
+196
+00:09:22,750 --> 00:09:24,990
+and go to my environment variable
+
+197
+00:09:24,990 --> 00:09:27,500
+and now say I want to access prod,
+
+198
+00:09:27,500 --> 00:09:31,500
+I'll save it, and I test my function.
+
+199
+00:09:31,500 --> 00:09:34,450
+Again, it worked but this time if you scroll down
+
+200
+00:09:34,450 --> 00:09:37,800
+we're seeing that we're getting my app/prod/db URL,
+
+201
+00:09:37,800 --> 00:09:40,440
+which is prod.database.stephane,
+
+202
+00:09:40,440 --> 00:09:44,581
+and also access the prod DB password, which is prodpassword,
+
+203
+00:09:44,581 --> 00:09:45,740
+and so this is really, really awesome
+
+204
+00:09:45,740 --> 00:09:49,240
+because now just using a simple environment variable
+
+205
+00:09:49,240 --> 00:09:51,150
+we're able to have our Lambda function
+
+206
+00:09:51,150 --> 00:09:55,030
+point to the right parameters in SSM.
+
+207
+00:09:55,030 --> 00:09:56,480
+So that's it, that's all I wanted to show you,
+
+208
+00:09:56,480 --> 00:09:58,250
+but I thought that was a cool tutorial
+
+209
+00:09:58,250 --> 00:09:59,760
+to show you the CLI and then Lambda.
+
+210
+00:09:59,760 --> 00:10:02,710
+I hope you liked it and I will see you in the next lecture.
+

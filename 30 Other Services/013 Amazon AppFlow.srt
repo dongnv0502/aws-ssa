@@ -1,0 +1,132 @@
+1
+00:00:00,320 --> 00:00:02,400
+So, now let's talk about Amazon AppFlow.
+
+2
+00:00:02,400 --> 00:00:05,350
+So, AppFlow is a fully managed integration service
+
+3
+00:00:05,350 --> 00:00:07,280
+that enables you to transfer data
+
+4
+00:00:07,280 --> 00:00:11,270
+between Software-as-a-Service applications and AWS.
+
+5
+00:00:11,270 --> 00:00:14,250
+So, these integrations are quite difficult to write,
+
+6
+00:00:14,250 --> 00:00:16,100
+and with AppFlow they're very easy.
+
+7
+00:00:16,100 --> 00:00:18,120
+So, sources of data could be for example,
+
+8
+00:00:18,120 --> 00:00:21,370
+Salesforce, SAP, Zendesk, Slack, ServiceNow
+
+9
+00:00:21,370 --> 00:00:24,180
+and Salesforce is something that can come up in the exam.
+
+10
+00:00:24,180 --> 00:00:26,580
+And the destinations you can send this data to
+
+11
+00:00:26,580 --> 00:00:29,310
+can be Amazon S3, Amazon Redshift
+
+12
+00:00:29,310 --> 00:00:34,310
+or even non-AWS targets such as SnowFlake and Salesforce.
+
+13
+00:00:34,510 --> 00:00:37,470
+You can define the integration to run on a schedule
+
+14
+00:00:37,470 --> 00:00:40,980
+or in response to specific events or on demand.
+
+15
+00:00:40,980 --> 00:00:42,760
+You get, from within AppFlow,
+
+16
+00:00:42,760 --> 00:00:44,390
+data transformation capabilities
+
+17
+00:00:44,390 --> 00:00:46,540
+such as filtering and validation.
+
+18
+00:00:46,540 --> 00:00:49,200
+And the data is encrypted over the public internet
+
+19
+00:00:49,200 --> 00:00:52,200
+or you can transfer it privately using PrivateLink.
+
+20
+00:00:52,200 --> 00:00:53,720
+The idea is that with AppFlow,
+
+21
+00:00:53,720 --> 00:00:56,310
+you don't spend some time writing the integration,
+
+22
+00:00:56,310 --> 00:00:58,800
+you just leverage these APIs immediately
+
+23
+00:00:58,800 --> 00:01:01,520
+and you enjoy the data within your own accounts.
+
+24
+00:01:01,520 --> 00:01:03,670
+So, in the AppFlow interface, you will have a source
+
+25
+00:01:03,670 --> 00:01:05,940
+and you can select many different sources,
+
+26
+00:01:05,940 --> 00:01:07,870
+but some of the important ones you need to remember
+
+27
+00:01:07,870 --> 00:01:10,510
+are the ones I said from before, including Salesforce.
+
+28
+00:01:10,510 --> 00:01:12,330
+And then using AppFlow,
+
+29
+00:01:12,330 --> 00:01:15,100
+you can send this data into various destinations
+
+30
+00:01:15,100 --> 00:01:18,360
+as you can see, Redshift, S3, and so on.
+
+31
+00:01:18,360 --> 00:01:20,500
+So, that's it for AppFlow, just an introduction.
+
+32
+00:01:20,500 --> 00:01:21,380
+I hope you liked it.
+
+33
+00:01:21,380 --> 00:01:23,143
+And I will see in the next lecture.
+

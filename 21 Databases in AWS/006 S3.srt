@@ -1,0 +1,268 @@
+1
+00:00:00,240 --> 00:00:01,530
+So now let's do a summary
+
+2
+00:00:01,530 --> 00:00:04,050
+of Amazon S3 from a database perspective.
+
+3
+00:00:04,050 --> 00:00:06,870
+So, S3 is a key value store for objects.
+
+4
+00:00:06,870 --> 00:00:09,390
+And it's great when you want to store big objects,
+
+5
+00:00:09,390 --> 00:00:12,060
+it's not great to store many small objects.
+
+6
+00:00:12,060 --> 00:00:13,380
+So Amazon S3 is serverless,
+
+7
+00:00:13,380 --> 00:00:14,970
+you have infinite scaling.
+
+8
+00:00:14,970 --> 00:00:18,060
+The maximum object size is five terabytes
+
+9
+00:00:18,060 --> 00:00:20,250
+and you can version objects over time.
+
+10
+00:00:20,250 --> 00:00:21,690
+You have different storage tiers,
+
+11
+00:00:21,690 --> 00:00:24,510
+so you have S3 Standard, Infrequent Access, Intelligent
+
+12
+00:00:24,510 --> 00:00:25,530
+and you have a Glacier,
+
+13
+00:00:25,530 --> 00:00:27,930
+and if you want to transition between the tiers
+
+14
+00:00:27,930 --> 00:00:30,300
+you can use lifecycle policies.
+
+15
+00:00:30,300 --> 00:00:31,770
+Some important features you need to know
+
+16
+00:00:31,770 --> 00:00:36,090
+about are versioning, encryption, replication,
+
+17
+00:00:36,090 --> 00:00:38,700
+multifactor authentication deletes, MFA deletes,
+
+18
+00:00:38,700 --> 00:00:40,230
+and access logs.
+
+19
+00:00:40,230 --> 00:00:43,020
+In terms of security, you have IAM security
+
+20
+00:00:43,020 --> 00:00:44,700
+but you can also have bucket policies
+
+21
+00:00:44,700 --> 00:00:46,260
+on top of your S3 buckets.
+
+22
+00:00:46,260 --> 00:00:50,190
+You have ACL, you have Access Points for Amazon S3.
+
+23
+00:00:50,190 --> 00:00:53,460
+Then you have S3 object Lambda to modify objects
+
+24
+00:00:53,460 --> 00:00:56,580
+before they are sent to the applications.
+
+25
+00:00:56,580 --> 00:00:58,950
+You have CORS, and you have the concept
+
+26
+00:00:58,950 --> 00:01:03,030
+of Object Lock or Vault Lock for Glacier, which you know-
+
+27
+00:01:03,030 --> 00:01:05,099
+which you need to know about in depth.
+
+28
+00:01:05,099 --> 00:01:08,190
+In terms of encryption mechanisms, we have different ones.
+
+29
+00:01:08,190 --> 00:01:10,193
+We have SSE-S3,
+
+30
+00:01:10,193 --> 00:01:12,930
+SSE-KMS where you can bring your own KMS key.
+
+31
+00:01:12,930 --> 00:01:16,980
+You have SSE-C, you can do client site encryption.
+
+32
+00:01:16,980 --> 00:01:20,040
+You have encryption TLS encryption in transit
+
+33
+00:01:20,040 --> 00:01:22,470
+and you can set a default encryption scheme
+
+34
+00:01:22,470 --> 00:01:24,690
+for your S3 buckets.
+
+35
+00:01:24,690 --> 00:01:28,290
+And if you wanted to operate on all the files in
+
+36
+00:01:28,290 --> 00:01:31,260
+Amazon S3 buckets at a time you can use S3 batch
+
+37
+00:01:31,260 --> 00:01:33,960
+to do batch operations, and this is very helpful,
+
+38
+00:01:33,960 --> 00:01:37,290
+for example, when you want to encrypt unencrypted objects
+
+39
+00:01:37,290 --> 00:01:39,870
+on an existing Amazon S3 buckets,
+
+40
+00:01:39,870 --> 00:01:42,210
+or when you want to copy existing files
+
+41
+00:01:42,210 --> 00:01:46,620
+from one bucket to another before enabling S3 replication.
+
+42
+00:01:46,620 --> 00:01:48,900
+And to create this list of files,
+
+43
+00:01:48,900 --> 00:01:51,570
+you can use S3 inventory, for example.
+
+44
+00:01:51,570 --> 00:01:53,070
+In terms of performance improvements
+
+45
+00:01:53,070 --> 00:01:55,860
+on Amazon S3, you can use multi-part upload
+
+46
+00:01:55,860 --> 00:01:59,250
+to upload files in, in a parallel way.
+
+47
+00:01:59,250 --> 00:02:00,660
+You can have S3 transfer
+
+48
+00:02:00,660 --> 00:02:04,200
+acceleration to transfer S3 files faster
+
+49
+00:02:04,200 --> 00:02:06,900
+from one region to another region
+
+50
+00:02:06,900 --> 00:02:09,570
+and S3 select to only retrieve the data you need
+
+51
+00:02:09,570 --> 00:02:11,310
+out of Amazon S3.
+
+52
+00:02:11,310 --> 00:02:14,760
+For automation, you can use S3 event notifications
+
+53
+00:02:14,760 --> 00:02:19,677
+that has interfaces with SNS, SQS, Lambda, and EventBridge.
+
+54
+00:02:19,677 --> 00:02:21,540
+And this allows you to, for example,
+
+55
+00:02:21,540 --> 00:02:25,590
+react to events where new objects are created
+
+56
+00:02:25,590 --> 00:02:27,600
+on your Amazon S3 buckets.
+
+57
+00:02:27,600 --> 00:02:32,250
+So the use cases for Amazon S3 are around static files.
+
+58
+00:02:32,250 --> 00:02:33,540
+It's going to be a key value store
+
+59
+00:02:33,540 --> 00:02:36,450
+for huge files or website hosting.
+
+60
+00:02:36,450 --> 00:02:38,520
+So hopefully I'm not teaching you anything new here,
+
+61
+00:02:38,520 --> 00:02:40,260
+and if you have any doubts on any
+
+62
+00:02:40,260 --> 00:02:43,260
+of these features, and they can all appear at the exam
+
+63
+00:02:43,260 --> 00:02:46,320
+then I would suggest you go back to the Amazon S3 section.
+
+64
+00:02:46,320 --> 00:02:47,153
+Okay.
+
+65
+00:02:47,153 --> 00:02:47,986
+That's it.
+
+66
+00:02:47,986 --> 00:02:48,819
+I hope you liked it.
+
+67
+00:02:48,819 --> 00:02:50,130
+And I will see you in the next lecture.
+

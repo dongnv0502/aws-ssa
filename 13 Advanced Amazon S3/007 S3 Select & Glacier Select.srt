@@ -1,0 +1,136 @@
+1
+00:00:00,300 --> 00:00:02,070
+So, now let's talk about S3 Select
+
+2
+00:00:02,070 --> 00:00:03,360
+and Glacier Select.
+
+3
+00:00:03,360 --> 00:00:05,340
+The idea is that you know that you want to retrieve
+
+4
+00:00:05,340 --> 00:00:06,720
+a file from S3,
+
+5
+00:00:06,720 --> 00:00:09,090
+but then you're going to filter it after retrieving it,
+
+6
+00:00:09,090 --> 00:00:11,730
+and therefore you're retrieving too much data.
+
+7
+00:00:11,730 --> 00:00:13,440
+What if instead you could use SQL
+
+8
+00:00:13,440 --> 00:00:15,390
+to perform server-side filtering?
+
+9
+00:00:15,390 --> 00:00:17,370
+Therefore, that means that you're going to filter
+
+10
+00:00:17,370 --> 00:00:20,130
+by rows or by columns using simple SQL statements
+
+11
+00:00:20,130 --> 00:00:22,410
+to have less network transfers
+
+12
+00:00:22,410 --> 00:00:23,940
+and less CPU cost client-side
+
+13
+00:00:23,940 --> 00:00:26,790
+to actually go through the data and filter it.
+
+14
+00:00:26,790 --> 00:00:28,380
+So before S3 Select,
+
+15
+00:00:28,380 --> 00:00:30,810
+what you do is that you retrieve all the data
+
+16
+00:00:30,810 --> 00:00:33,060
+and then, application-side, you're going to filter it
+
+17
+00:00:33,060 --> 00:00:34,320
+to find what you need.
+
+18
+00:00:34,320 --> 00:00:35,730
+And that's a lot of data coming in
+
+19
+00:00:35,730 --> 00:00:37,950
+for only a little bit of data being used.
+
+20
+00:00:37,950 --> 00:00:39,510
+But if you use S3 Select,
+
+21
+00:00:39,510 --> 00:00:42,960
+you actually have Amazon S3 filter the file for you,
+
+22
+00:00:42,960 --> 00:00:44,820
+and you only retrieve the data you need.
+
+23
+00:00:44,820 --> 00:00:47,910
+Therefore, Amazon claims it's up to 400% faster
+
+24
+00:00:47,910 --> 00:00:51,150
+and 80% cheaper to use S3 Select.
+
+25
+00:00:51,150 --> 00:00:52,680
+Put it in another diagram,
+
+26
+00:00:52,680 --> 00:00:54,450
+we're going to want to get a CSV
+
+27
+00:00:54,450 --> 00:00:56,610
+with Amazon S3 Select, okay.
+
+28
+00:00:56,610 --> 00:00:59,070
+Amazon S3 is going to find the CSV file
+
+29
+00:00:59,070 --> 00:01:02,310
+and filter it server-side, so on its own service,
+
+30
+00:01:02,310 --> 00:01:04,680
+and then it will send us the filtered data sets
+
+31
+00:01:04,680 --> 00:01:07,770
+so that it's much smaller and much cheaper.
+
+32
+00:01:07,770 --> 00:01:11,070
+So for simple filtering, think about S3 Select
+
+33
+00:01:11,070 --> 00:01:14,430
+and that also works on Glacier, so Glacier Select.
+
+34
+00:01:14,430 --> 00:01:16,730
+That's it. I will see you in the next lecture.
+

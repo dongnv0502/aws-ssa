@@ -1,0 +1,148 @@
+1
+00:00:00,330 --> 00:00:01,530
+So, if you go to the console
+
+2
+00:00:01,530 --> 00:00:03,390
+and type directory service,
+
+3
+00:00:03,390 --> 00:00:05,430
+we can see the different options offered to us.
+
+4
+00:00:05,430 --> 00:00:07,260
+I'll just go through them at a high level
+
+5
+00:00:07,260 --> 00:00:10,440
+because they can be complicated to set up individually.
+
+6
+00:00:10,440 --> 00:00:11,940
+But so we have four options
+
+7
+00:00:11,940 --> 00:00:14,190
+and actually the fourth one is Amazon Cognito User Pool,
+
+8
+00:00:14,190 --> 00:00:16,560
+which is redirecting you to the Cognito service.
+
+9
+00:00:16,560 --> 00:00:19,680
+So, don't count this into directory services.
+
+10
+00:00:19,680 --> 00:00:22,200
+So we have AWS managed Microsoft ID
+
+11
+00:00:22,200 --> 00:00:24,150
+where we can have an active directory
+
+12
+00:00:24,150 --> 00:00:26,310
+that's going to be integrated with AWS Cloud
+
+13
+00:00:26,310 --> 00:00:28,050
+and can have a trust relationship
+
+14
+00:00:28,050 --> 00:00:29,580
+with your on-premise directory.
+
+15
+00:00:29,580 --> 00:00:32,460
+And to set it up, you can see it's two additions.
+
+16
+00:00:32,460 --> 00:00:35,160
+The Standard Edition up to 30,000 objects
+
+17
+00:00:35,160 --> 00:00:38,460
+or the Enterprise Edition up to 500,000 objects.
+
+18
+00:00:38,460 --> 00:00:40,020
+So, a lot more.
+
+19
+00:00:40,020 --> 00:00:42,420
+And then you need to set it up and I won't go over the setup
+
+20
+00:00:42,420 --> 00:00:43,800
+because this is more AD specific
+
+21
+00:00:43,800 --> 00:00:45,720
+and you don't need to know this for the exam.
+
+22
+00:00:45,720 --> 00:00:47,610
+This next one is Simple AD
+
+23
+00:00:47,610 --> 00:00:50,130
+which is going to be a standalone managed directory
+
+24
+00:00:50,130 --> 00:00:53,100
+that has a active directory compatible API
+
+25
+00:00:53,100 --> 00:00:54,120
+but it cannot be connected
+
+26
+00:00:54,120 --> 00:00:56,190
+to your on-premise active directory.
+
+27
+00:00:56,190 --> 00:00:58,380
+Or AD Connector which is a proxy
+
+28
+00:00:58,380 --> 00:01:00,030
+for redirecting directory request
+
+29
+00:01:00,030 --> 00:01:03,540
+to your existing Microsoft Active Directory on-premise.
+
+30
+00:01:03,540 --> 00:01:05,670
+And it's designed for, you have two levels.
+
+31
+00:01:05,670 --> 00:01:07,770
+You have a connector for up to 500 users
+
+32
+00:01:07,770 --> 00:01:11,160
+or you have a connector for up to 5,000 users, okay?
+
+33
+00:01:11,160 --> 00:01:13,020
+So remember the first one supports MFA.
+
+34
+00:01:13,020 --> 00:01:14,340
+The second one is just standalone
+
+35
+00:01:14,340 --> 00:01:16,440
+and AD Connector is a proxy.
+
+36
+00:01:16,440 --> 00:01:17,730
+All right, that's it for this lecture.
+
+37
+00:01:17,730 --> 00:01:19,480
+I will see you in the next lecture.
+

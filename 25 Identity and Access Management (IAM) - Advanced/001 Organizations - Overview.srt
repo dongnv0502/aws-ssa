@@ -1,0 +1,624 @@
+1
+00:00:00,360 --> 00:00:03,120
+So now let's talk about AWS Organizations.
+
+2
+00:00:03,120 --> 00:00:04,680
+So it's a global service
+
+3
+00:00:04,680 --> 00:00:08,039
+and it allows you to manage multiple AWS accounts
+
+4
+00:00:08,039 --> 00:00:09,300
+at the same time.
+
+5
+00:00:09,300 --> 00:00:10,950
+So you create an organization
+
+6
+00:00:10,950 --> 00:00:13,380
+and the main account in your organization
+
+7
+00:00:13,380 --> 00:00:15,570
+is called the management account,
+
+8
+00:00:15,570 --> 00:00:18,900
+while the other accounts that join the organization
+
+9
+00:00:18,900 --> 00:00:21,060
+or that are created from the organizations
+
+10
+00:00:21,060 --> 00:00:23,130
+are called member accounts.
+
+11
+00:00:23,130 --> 00:00:27,060
+And remember, accounts can only be part of one organization.
+
+12
+00:00:27,060 --> 00:00:28,223
+The cool thing about organization
+
+13
+00:00:28,223 --> 00:00:31,200
+is that the billing is consolidated
+
+14
+00:00:31,200 --> 00:00:32,759
+across all the accounts.
+
+15
+00:00:32,759 --> 00:00:34,560
+So you have a single payment method
+
+16
+00:00:34,560 --> 00:00:36,330
+on the management account
+
+17
+00:00:36,330 --> 00:00:39,870
+and then it will be paying for all the organization's cost.
+
+18
+00:00:39,870 --> 00:00:41,580
+But because you have an organization
+
+19
+00:00:41,580 --> 00:00:43,920
+and it's all part of one big family,
+
+20
+00:00:43,920 --> 00:00:47,400
+then you get pricing benefits from aggregated usage.
+
+21
+00:00:47,400 --> 00:00:50,580
+So if you use a lot EC2 or if you use a lot Amazon S3
+
+22
+00:00:50,580 --> 00:00:52,170
+across all your accounts,
+
+23
+00:00:52,170 --> 00:00:53,610
+then you will get big discounts,
+
+24
+00:00:53,610 --> 00:00:55,980
+because it will summarize and sum up
+
+25
+00:00:55,980 --> 00:00:58,053
+all the usage across all the accounts.
+
+26
+00:00:59,490 --> 00:01:01,860
+You can also share reserved instances
+
+27
+00:01:01,860 --> 00:01:04,590
+and saving plans discounts across accounts.
+
+28
+00:01:04,590 --> 00:01:08,040
+So if a reserved instance is unused in one account,
+
+29
+00:01:08,040 --> 00:01:09,600
+another account can benefit from it
+
+30
+00:01:09,600 --> 00:01:11,790
+and therefor the discounts apply
+
+31
+00:01:11,790 --> 00:01:13,320
+across the entire organization,
+
+32
+00:01:13,320 --> 00:01:15,570
+which is really good for cost savings.
+
+33
+00:01:15,570 --> 00:01:17,100
+Now, there's also an API
+
+34
+00:01:17,100 --> 00:01:19,050
+to automate the account creation
+
+35
+00:01:19,050 --> 00:01:20,490
+from within the organization.
+
+36
+00:01:20,490 --> 00:01:22,320
+So you can create accounts very easily
+
+37
+00:01:22,320 --> 00:01:24,300
+using an organization.
+
+38
+00:01:24,300 --> 00:01:25,133
+So how does that work?
+
+39
+00:01:25,133 --> 00:01:29,550
+So we have what's called a root organizational unit, or OU,
+
+40
+00:01:29,550 --> 00:01:33,690
+and this is the outermost OU of your accounts
+
+41
+00:01:33,690 --> 00:01:36,750
+and then within it sits the management account.
+
+42
+00:01:36,750 --> 00:01:38,640
+Then you can create sub-OUs,
+
+43
+00:01:38,640 --> 00:01:42,150
+so you can create for example an OU for the dev accounts
+
+44
+00:01:42,150 --> 00:01:45,300
+and then you can create member accounts within the dev OU
+
+45
+00:01:45,300 --> 00:01:47,640
+or you can create OU for a prod account
+
+46
+00:01:47,640 --> 00:01:49,500
+and also add member accounts there,
+
+47
+00:01:49,500 --> 00:01:51,180
+but you can be as free as you want.
+
+48
+00:01:51,180 --> 00:01:53,400
+You can create within the prod OU,
+
+49
+00:01:53,400 --> 00:01:56,400
+an OU for your HR member accounts
+
+50
+00:01:56,400 --> 00:01:58,800
+and an OU for your finance member accounts.
+
+51
+00:01:58,800 --> 00:02:01,140
+So you can organize it the way you want.
+
+52
+00:02:01,140 --> 00:02:05,580
+So you have different examples for your OUs.
+
+53
+00:02:05,580 --> 00:02:07,470
+So you can organize by business units,
+
+54
+00:02:07,470 --> 00:02:08,550
+so you have for example,
+
+55
+00:02:08,550 --> 00:02:11,009
+the management account and then the sales,
+
+56
+00:02:11,009 --> 00:02:12,510
+retail and finance OU
+
+57
+00:02:12,510 --> 00:02:15,480
+and then different accounts within each OU.
+
+58
+00:02:15,480 --> 00:02:17,940
+Or you can have an OU by environment,
+
+59
+00:02:17,940 --> 00:02:19,803
+so for example, one OU for prod,
+
+60
+00:02:19,803 --> 00:02:22,410
+one OU for test, one OU for dev
+
+61
+00:02:22,410 --> 00:02:24,600
+and within each OU, some accounts.
+
+62
+00:02:24,600 --> 00:02:27,120
+Or project-based, so you can have an OU per project
+
+63
+00:02:27,120 --> 00:02:28,736
+within an account, within each project.
+
+64
+00:02:28,736 --> 00:02:29,970
+And you can mix and match.
+
+65
+00:02:29,970 --> 00:02:32,460
+You're really free to do whatever you want.
+
+66
+00:02:32,460 --> 00:02:35,760
+So what are the advantages of using organizations?
+
+67
+00:02:35,760 --> 00:02:38,760
+Well, thanks to having multiple accounts,
+
+68
+00:02:38,760 --> 00:02:40,680
+you can have better security
+
+69
+00:02:40,680 --> 00:02:43,350
+versus having one account with multiple VPC,
+
+70
+00:02:43,350 --> 00:02:46,050
+because accounts are more separated than VPCs.
+
+71
+00:02:46,050 --> 00:02:48,060
+You can also enforce tagging standards
+
+72
+00:02:48,060 --> 00:02:49,530
+for billing purposes
+
+73
+00:02:49,530 --> 00:02:52,170
+and you can in one go, enable CloudTrail
+
+74
+00:02:52,170 --> 00:02:53,640
+for all your accounts
+
+75
+00:02:53,640 --> 00:02:57,480
+and send all the logs into a central S3 account,
+
+76
+00:02:57,480 --> 00:02:59,460
+or we can also send CloudWatch logs
+
+77
+00:02:59,460 --> 00:03:01,110
+to a central logging account
+
+78
+00:03:01,110 --> 00:03:03,060
+and we can establish cross account roles
+
+79
+00:03:03,060 --> 00:03:04,890
+for admin purposes automatically.
+
+80
+00:03:04,890 --> 00:03:06,990
+So we can administer all the other accounts
+
+81
+00:03:06,990 --> 00:03:09,360
+from the management account.
+
+82
+00:03:09,360 --> 00:03:11,160
+So these are big advantages.
+
+83
+00:03:11,160 --> 00:03:13,920
+Also, there's a big security advantage.
+
+84
+00:03:13,920 --> 00:03:17,850
+We can define service control policies, or SCP,
+
+85
+00:03:17,850 --> 00:03:22,230
+and it's an IAM policy applied to specific OUs or accounts
+
+86
+00:03:22,230 --> 00:03:23,580
+and this allows you to restrict
+
+87
+00:03:23,580 --> 00:03:26,730
+what the users and roles all of them can do
+
+88
+00:03:26,730 --> 00:03:28,140
+within the accounts.
+
+89
+00:03:28,140 --> 00:03:31,170
+The SCPs apply to everything
+
+90
+00:03:31,170 --> 00:03:33,120
+but to the management account,
+
+91
+00:03:33,120 --> 00:03:35,400
+which will forever have full admin power,
+
+92
+00:03:35,400 --> 00:03:38,640
+otherwise you could do a mistake
+
+93
+00:03:38,640 --> 00:03:40,110
+and never come back from it.
+
+94
+00:03:40,110 --> 00:03:41,873
+So the SCP have the specificity
+
+95
+00:03:41,873 --> 00:03:45,330
+that if you need to compute what is happening
+
+96
+00:03:45,330 --> 00:03:46,740
+on this specific account,
+
+97
+00:03:46,740 --> 00:03:49,710
+you need to make sure that each OU, including the root,
+
+98
+00:03:49,710 --> 00:03:52,200
+has an explicit allow along the way
+
+99
+00:03:52,200 --> 00:03:54,120
+to allow a specific action.
+
+100
+00:03:54,120 --> 00:03:56,730
+This will be very clear in this example.
+
+101
+00:03:56,730 --> 00:03:59,700
+So let's take for example, a root OU
+
+102
+00:03:59,700 --> 00:04:03,090
+and we apply full AWS access underneath.
+
+103
+00:04:03,090 --> 00:04:05,400
+So the management account is under the root OU
+
+104
+00:04:05,400 --> 00:04:06,510
+and then we have more OU,
+
+105
+00:04:06,510 --> 00:04:09,330
+the Sandbox, the workload, test and prod,
+
+106
+00:04:09,330 --> 00:04:11,370
+with accounts within the OUs.
+
+107
+00:04:11,370 --> 00:04:13,710
+So if we apply an SCP,
+
+108
+00:04:13,710 --> 00:04:17,160
+which is deny Athena on the management account,
+
+109
+00:04:17,160 --> 00:04:19,050
+what is happening to the management account?
+
+110
+00:04:19,050 --> 00:04:21,269
+Well, the management account can do anything,
+
+111
+00:04:21,269 --> 00:04:23,610
+because there's a role that says that no SCP
+
+112
+00:04:23,610 --> 00:04:26,130
+ever apply to the management account.
+
+113
+00:04:26,130 --> 00:04:27,630
+This is a safety, because of course,
+
+114
+00:04:27,630 --> 00:04:30,090
+if you lock yourself out of your management account,
+
+115
+00:04:30,090 --> 00:04:31,290
+this would be terrible.
+
+116
+00:04:31,290 --> 00:04:33,210
+So remember, the management account
+
+117
+00:04:33,210 --> 00:04:35,460
+can do anything, no matter what.
+
+118
+00:04:35,460 --> 00:04:36,420
+But let's say for example,
+
+119
+00:04:36,420 --> 00:04:38,790
+we apply on the Sandbox OU
+
+120
+00:04:38,790 --> 00:04:42,300
+a full AWS access plus deny S3.
+
+121
+00:04:42,300 --> 00:04:44,340
+So as you can see, here we still need
+
+122
+00:04:44,340 --> 00:04:46,410
+to apply full AWS access
+
+123
+00:04:46,410 --> 00:04:49,920
+to give allow to everything explicitly,
+
+124
+00:04:49,920 --> 00:04:52,770
+because if we didn't have full AWS access,
+
+125
+00:04:52,770 --> 00:04:55,020
+then nothing would be allowed within that OU.
+
+126
+00:04:55,020 --> 00:04:57,930
+So explicit allows are needed every single way.
+
+127
+00:04:57,930 --> 00:05:00,180
+And on account A, say, we will also do
+
+128
+00:05:00,180 --> 00:05:03,637
+apply full AWS access and deny EC2,
+
+129
+00:05:04,500 --> 00:05:06,570
+then account A can do anything,
+
+130
+00:05:06,570 --> 00:05:10,110
+because it has full AWS access on the root OU
+
+131
+00:05:10,110 --> 00:05:13,470
+and on the Sandbox OU and on the account itself,
+
+132
+00:05:13,470 --> 00:05:15,540
+but because we have two explicit denies,
+
+133
+00:05:15,540 --> 00:05:18,180
+we have one deny S3 from the Sandbox
+
+134
+00:05:18,180 --> 00:05:21,930
+and one deny EC2 from the account itself,
+
+135
+00:05:21,930 --> 00:05:24,903
+then it cannot access Amazon S3 or Amazon EC2.
+
+136
+00:05:25,920 --> 00:05:27,660
+For accounts B and C,
+
+137
+00:05:27,660 --> 00:05:30,900
+because it don't have a specific SCP attached to them,
+
+138
+00:05:30,900 --> 00:05:34,380
+then they can do anything except accessing Amazon S3,
+
+139
+00:05:34,380 --> 00:05:36,210
+because you have an explicit deny
+
+140
+00:05:36,210 --> 00:05:38,583
+coming from the Sandbox OU.
+
+141
+00:05:39,420 --> 00:05:43,240
+Next, if we apply full AWS access to the workloads OU
+
+142
+00:05:44,340 --> 00:05:48,930
+and we also apply an allow EC2 SCP to the test OU
+
+143
+00:05:48,930 --> 00:05:52,140
+then account D can only access EC2
+
+144
+00:05:52,140 --> 00:05:54,090
+and if we look at the prod OU
+
+145
+00:05:54,090 --> 00:05:58,260
+and accounts E and F within it, well, we must first apply
+
+146
+00:05:58,260 --> 00:06:01,530
+the full AWS access SCP to the prod OU
+
+147
+00:06:01,530 --> 00:06:04,890
+and then accounts E and F can do anything.
+
+148
+00:06:04,890 --> 00:06:07,740
+So here are some examples for SCPs.
+
+149
+00:06:07,740 --> 00:06:11,490
+This is the first one is a blocking of a specific service.
+
+150
+00:06:11,490 --> 00:06:13,770
+So first, we allow all actions
+
+151
+00:06:13,770 --> 00:06:17,610
+and then we deny DynamoDB or on the allow list,
+
+152
+00:06:17,610 --> 00:06:19,623
+here, we allow EC2 and CloudWatch,
+
+153
+00:06:20,790 --> 00:06:22,500
+but we don't allow anything else.
+
+154
+00:06:22,500 --> 00:06:25,500
+So those are some examples of SCPs.
+
+155
+00:06:25,500 --> 00:06:27,660
+So that's it for this lecture, I hope you liked it
+
+156
+00:06:27,660 --> 00:06:29,733
+and I will see you in the next lecture.
+

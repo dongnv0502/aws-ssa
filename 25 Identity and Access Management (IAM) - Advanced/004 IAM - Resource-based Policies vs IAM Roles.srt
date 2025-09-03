@@ -1,0 +1,352 @@
+1
+00:00:00,360 --> 00:00:01,410
+So let's have a look now
+
+2
+00:00:01,410 --> 00:00:02,820
+at the fundamental differences
+
+3
+00:00:02,820 --> 00:00:05,880
+between IAM roles and resource-based policies.
+
+4
+00:00:05,880 --> 00:00:07,260
+So for cross accounts,
+
+5
+00:00:07,260 --> 00:00:10,230
+especially when you want to perform an API call
+
+6
+00:00:10,230 --> 00:00:12,000
+on an S3 bucket cross account,
+
+7
+00:00:12,000 --> 00:00:13,350
+you have two options.
+
+8
+00:00:13,350 --> 00:00:16,170
+You can attach a resource-based policy to a resource,
+
+9
+00:00:16,170 --> 00:00:19,350
+for example, an S3 bucket policy on an S3 bucket,
+
+10
+00:00:19,350 --> 00:00:21,210
+or you can decide to use a role
+
+11
+00:00:21,210 --> 00:00:23,190
+that can actually access the resource.
+
+12
+00:00:23,190 --> 00:00:25,260
+So let's take an example of these two options.
+
+13
+00:00:25,260 --> 00:00:26,580
+So this is the example
+
+14
+00:00:26,580 --> 00:00:30,750
+where the user in Account A can assume a role in Account B,
+
+15
+00:00:30,750 --> 00:00:32,100
+and that role has the permissions
+
+16
+00:00:32,100 --> 00:00:35,130
+to access your Amazon S3 buckets.
+
+17
+00:00:35,130 --> 00:00:38,460
+Or similarly, the user in Account A,
+
+18
+00:00:38,460 --> 00:00:42,270
+through a bucket policy placed on the Amazon S3 bucket
+
+19
+00:00:42,270 --> 00:00:43,440
+in Account B,
+
+20
+00:00:43,440 --> 00:00:45,240
+can access the S3 buckets.
+
+21
+00:00:45,240 --> 00:00:47,940
+So both these two situations are valid,
+
+22
+00:00:47,940 --> 00:00:49,830
+but there is a little bit of difference, okay?
+
+23
+00:00:49,830 --> 00:00:51,150
+The first one is an IAM role
+
+24
+00:00:51,150 --> 00:00:53,070
+that has access to the S3 bucket.
+
+25
+00:00:53,070 --> 00:00:56,430
+The second one is the S3 bucket policy that allows the user.
+
+26
+00:00:56,430 --> 00:00:58,530
+So what's the difference?
+
+27
+00:00:58,530 --> 00:01:01,110
+When you actually assume a role, okay,
+
+28
+00:01:01,110 --> 00:01:04,050
+you actually give up all your original permissions,
+
+29
+00:01:04,050 --> 00:01:06,870
+and you take all the permissions assigned to the role.
+
+30
+00:01:06,870 --> 00:01:08,460
+So this is very important.
+
+31
+00:01:08,460 --> 00:01:11,790
+That means that we, for example, assume a role,
+
+32
+00:01:11,790 --> 00:01:13,290
+and this role can do whatever.
+
+33
+00:01:13,290 --> 00:01:15,150
+We can now do anything that the role does,
+
+34
+00:01:15,150 --> 00:01:17,970
+but we cannot use our original permissions.
+
+35
+00:01:17,970 --> 00:01:20,580
+And so when you use a resource-based policy,
+
+36
+00:01:20,580 --> 00:01:24,000
+instead, the principal does not assume a role,
+
+37
+00:01:24,000 --> 00:01:27,000
+and therefore, he does not have to give up his permissions.
+
+38
+00:01:27,000 --> 00:01:30,690
+So if you take an example of user in Account A,
+
+39
+00:01:30,690 --> 00:01:33,300
+they need to scan a DynamoDB table in Account A,
+
+40
+00:01:33,300 --> 00:01:36,210
+and then dump it in an S3 bucket in Account B.
+
+41
+00:01:36,210 --> 00:01:40,230
+What they can do is we should use a resource-based policy
+
+42
+00:01:40,230 --> 00:01:42,240
+because this way, we don't have to assume a role,
+
+43
+00:01:42,240 --> 00:01:44,753
+and we can both scan the DynamoDB table
+
+44
+00:01:44,753 --> 00:01:48,090
+and write to an S3 bucket in another account.
+
+45
+00:01:48,090 --> 00:01:50,730
+So resource-based policies are supported
+
+46
+00:01:50,730 --> 00:01:54,750
+by more and more AWS services and resources over time.
+
+47
+00:01:54,750 --> 00:01:58,440
+So we have the Amazon S3 buckets, the SNS topics,
+
+48
+00:01:58,440 --> 00:02:01,650
+the SQS queues, the Lambda functions, and so on.
+
+49
+00:02:01,650 --> 00:02:04,080
+And the big difference of when this comes into play
+
+50
+00:02:04,080 --> 00:02:06,300
+is when you use Amazon EventBridge.
+
+51
+00:02:06,300 --> 00:02:08,669
+So when an EventBridge rule runs,
+
+52
+00:02:08,669 --> 00:02:11,610
+it's going to need permissions on the targets.
+
+53
+00:02:11,610 --> 00:02:14,640
+And if your target supports resource-based policies,
+
+54
+00:02:14,640 --> 00:02:17,460
+for example, Lambda functions, SNS topics,
+
+55
+00:02:17,460 --> 00:02:20,310
+SQS queues, S3 buckets, or API Gateway,
+
+56
+00:02:20,310 --> 00:02:22,410
+then it's possible that EventBridge
+
+57
+00:02:22,410 --> 00:02:25,620
+will just add a resource-based policy on the target
+
+58
+00:02:25,620 --> 00:02:29,040
+to allow the invocation from the EventBridge rule.
+
+59
+00:02:29,040 --> 00:02:30,390
+That's one case.
+
+60
+00:02:30,390 --> 00:02:31,560
+On the other hand,
+
+61
+00:02:31,560 --> 00:02:35,910
+if the resource doesn't necessarily support
+
+62
+00:02:35,910 --> 00:02:37,920
+a resource policy,
+
+63
+00:02:37,920 --> 00:02:40,710
+then EventBridge will use an IAM role
+
+64
+00:02:40,710 --> 00:02:42,720
+to invoke the target service,
+
+65
+00:02:42,720 --> 00:02:46,220
+for example, for Kinesis Stream, EC2 Auto Scaling,
+
+66
+00:02:46,220 --> 00:02:50,196
+System Manager Run Command, ECS task, and so on.
+
+67
+00:02:50,196 --> 00:02:53,640
+And for example, for Kinesis Data Streams,
+
+68
+00:02:53,640 --> 00:02:57,180
+as a note, it supports resource-based policies,
+
+69
+00:02:57,180 --> 00:03:00,300
+but still, EventBridge is going to use an IAM role.
+
+70
+00:03:00,300 --> 00:03:02,700
+So how do you know which one is going to be used in which?
+
+71
+00:03:02,700 --> 00:03:05,100
+Well, you need to look at the configuration
+
+72
+00:03:05,100 --> 00:03:06,900
+of the EventBridge role itself
+
+73
+00:03:06,900 --> 00:03:08,640
+to see how this is going to work,
+
+74
+00:03:08,640 --> 00:03:10,620
+and then you will know, okay?
+
+75
+00:03:10,620 --> 00:03:14,520
+But as a matter of fact, Lambda, SNS, SQS,
+
+76
+00:03:14,520 --> 00:03:17,250
+S3 buckets are using resource-based policies.
+
+77
+00:03:17,250 --> 00:03:19,440
+And Kinesis Data Streams, EC2 Auto Scaling,
+
+78
+00:03:19,440 --> 00:03:21,360
+and so on are using IAM roles.
+
+79
+00:03:21,360 --> 00:03:23,130
+Even though it's possible
+
+80
+00:03:23,130 --> 00:03:25,794
+for you to use a resource-based policy
+
+81
+00:03:25,794 --> 00:03:27,030
+with Kinesis Data Stream,
+
+82
+00:03:27,030 --> 00:03:29,010
+that's not yet supported by EventBridge.
+
+83
+00:03:29,010 --> 00:03:30,270
+So all the information you need to know
+
+84
+00:03:30,270 --> 00:03:31,890
+for the exam is on this slide,
+
+85
+00:03:31,890 --> 00:03:34,050
+and I know that'll be enough for you at the exam.
+
+86
+00:03:34,050 --> 00:03:34,883
+All right, that's it.
+
+87
+00:03:34,883 --> 00:03:35,716
+I hope you liked it,
+
+88
+00:03:35,716 --> 00:03:37,650
+and I will see you in the next lecture.
+

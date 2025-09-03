@@ -1,0 +1,368 @@
+1
+00:00:00,240 --> 00:00:01,290
+So now let's talk about
+
+2
+00:00:01,290 --> 00:00:02,940
+Kinesis Data Analytics.
+
+3
+00:00:02,940 --> 00:00:04,320
+And there are two flavors of it.
+
+4
+00:00:04,320 --> 00:00:06,480
+There is the first one for SQL applications,
+
+5
+00:00:06,480 --> 00:00:09,120
+and the second one for Apache Flink.
+
+6
+00:00:09,120 --> 00:00:10,710
+So let's first talk about the first kind,
+
+7
+00:00:10,710 --> 00:00:14,250
+which is Kinesis Data Analytics for SQL Applications.
+
+8
+00:00:14,250 --> 00:00:15,870
+So it sits in the center.
+
+9
+00:00:15,870 --> 00:00:19,020
+And the two data sources that it's able to read from
+
+10
+00:00:19,020 --> 00:00:23,370
+are Kinesis Data Streams and Kinesis Data Firehose.
+
+11
+00:00:23,370 --> 00:00:25,500
+So you can read from either of those,
+
+12
+00:00:25,500 --> 00:00:27,630
+and then you can apply SQL statements
+
+13
+00:00:27,630 --> 00:00:30,360
+to perform your real-time analytics.
+
+14
+00:00:30,360 --> 00:00:34,080
+It's also possible for you to join some reference data
+
+15
+00:00:34,080 --> 00:00:36,870
+by referencing it from an Amazon S3 bucket.
+
+16
+00:00:36,870 --> 00:00:37,703
+This will, for example,
+
+17
+00:00:37,703 --> 00:00:40,860
+allow you to enrich the data in real-time.
+
+18
+00:00:40,860 --> 00:00:43,710
+Then you can send data to various destinations,
+
+19
+00:00:43,710 --> 00:00:45,630
+and there are two of them.
+
+20
+00:00:45,630 --> 00:00:47,760
+The first one is a Kinesis data stream.
+
+21
+00:00:47,760 --> 00:00:49,050
+So you can create a stream
+
+22
+00:00:49,050 --> 00:00:52,320
+out of a Kinesis Data Analytics real-time query,
+
+23
+00:00:52,320 --> 00:00:55,800
+or you can send it directly into Kinesis Data Firehose,
+
+24
+00:00:55,800 --> 00:00:57,540
+each with their own use cases.
+
+25
+00:00:57,540 --> 00:00:59,940
+If you send directly into Kinesis Data Firehose,
+
+26
+00:00:59,940 --> 00:01:03,000
+then you can send into Amazon S3, Amazon Redshift,
+
+27
+00:01:03,000 --> 00:01:06,930
+or Amazon OpenSearch, or any other Firehose destinations.
+
+28
+00:01:06,930 --> 00:01:09,540
+Whereas if you send it into a Kinesis data stream,
+
+29
+00:01:09,540 --> 00:01:12,120
+you can do real-time processing of that stream of data
+
+30
+00:01:12,120 --> 00:01:13,950
+using AWS Lambda
+
+31
+00:01:13,950 --> 00:01:18,120
+or whatever applications you are running on EC2 instances.
+
+32
+00:01:18,120 --> 00:01:19,200
+So remember this diagram,
+
+33
+00:01:19,200 --> 00:01:21,870
+this is for Kinesis Data Analytics for SQL Applications.
+
+34
+00:01:21,870 --> 00:01:24,210
+Now, if we go into the details, as I said,
+
+35
+00:01:24,210 --> 00:01:28,320
+the two sources are only Kinesis Data Streams and Firehose.
+
+36
+00:01:28,320 --> 00:01:30,870
+You can enrich using data from Amazon S3.
+
+37
+00:01:30,870 --> 00:01:32,130
+It's a fully managed service,
+
+38
+00:01:32,130 --> 00:01:33,690
+you don't provision any servers.
+
+39
+00:01:33,690 --> 00:01:35,100
+There is automatic scaling,
+
+40
+00:01:35,100 --> 00:01:36,240
+and you actually pay for
+
+41
+00:01:36,240 --> 00:01:39,300
+whatever goes through Kinesis Data Analytics.
+
+42
+00:01:39,300 --> 00:01:40,560
+In terms of output, as I said,
+
+43
+00:01:40,560 --> 00:01:41,970
+you can go into Kinesis Data Streams
+
+44
+00:01:41,970 --> 00:01:44,130
+or Kinesis Data Firehose.
+
+45
+00:01:44,130 --> 00:01:47,520
+And the use cases would be to do time-series analytics,
+
+46
+00:01:47,520 --> 00:01:50,520
+real-time dashboards, or real-time metrics.
+
+47
+00:01:50,520 --> 00:01:52,260
+So that's for the first kind of Kinesis Data Analytics.
+
+48
+00:01:52,260 --> 00:01:56,730
+The second one is Kinesis Data Analytics for Apache Flink.
+
+49
+00:01:56,730 --> 00:01:58,260
+So as the name indicates,
+
+50
+00:01:58,260 --> 00:02:01,920
+you can use actually Apache Flink on the service.
+
+51
+00:02:01,920 --> 00:02:02,970
+And so if you use Flink,
+
+52
+00:02:02,970 --> 00:02:04,470
+you can write your application
+
+53
+00:02:04,470 --> 00:02:07,500
+using Java, Scala, or even SQL
+
+54
+00:02:07,500 --> 00:02:10,320
+to process and analyze streaming data.
+
+55
+00:02:10,320 --> 00:02:11,153
+So you may say, "Well, that's
+
+56
+00:02:11,153 --> 00:02:12,690
+the same thing, isn't it, from before?"
+
+57
+00:02:12,690 --> 00:02:13,620
+And it's not.
+
+58
+00:02:13,620 --> 00:02:17,760
+So Flink are special applications you need to write as code.
+
+59
+00:02:17,760 --> 00:02:19,020
+And what it allows you is that
+
+60
+00:02:19,020 --> 00:02:21,570
+you can actually run these Flink applications
+
+61
+00:02:21,570 --> 00:02:23,580
+on the cluster that's dedicated to it
+
+62
+00:02:23,580 --> 00:02:25,140
+on Kinesis Data Analytics.
+
+63
+00:02:25,140 --> 00:02:26,640
+But it's all behind the scenes.
+
+64
+00:02:26,640 --> 00:02:28,200
+And with Apache Flink,
+
+65
+00:02:28,200 --> 00:02:30,330
+you can read from two main data sources,
+
+66
+00:02:30,330 --> 00:02:34,020
+you can read from Kinesis Data Streams or Amazon MSK.
+
+67
+00:02:34,020 --> 00:02:35,820
+So with this service,
+
+68
+00:02:35,820 --> 00:02:40,230
+you run any Flink application on a managed cluster on AWS.
+
+69
+00:02:40,230 --> 00:02:41,250
+And the idea is that
+
+70
+00:02:41,250 --> 00:02:43,740
+Flink is going to be a lot more powerful
+
+71
+00:02:43,740 --> 00:02:45,420
+than just standard SQL.
+
+72
+00:02:45,420 --> 00:02:47,580
+So if you need advanced querying capability,
+
+73
+00:02:47,580 --> 00:02:50,700
+or to read streaming data from other services
+
+74
+00:02:50,700 --> 00:02:53,130
+such as Kinesis Data Streams or Amazon MSK,
+
+75
+00:02:53,130 --> 00:02:55,320
+which is managed Kafka on AWS,
+
+76
+00:02:55,320 --> 00:02:57,060
+then you would use this service.
+
+77
+00:02:57,060 --> 00:02:58,890
+So with this service,
+
+78
+00:02:58,890 --> 00:03:02,100
+you get automatic provisioning of compute resources,
+
+79
+00:03:02,100 --> 00:03:04,800
+parallel computation, and automatic scaling.
+
+80
+00:03:04,800 --> 00:03:06,210
+You get application backups,
+
+81
+00:03:06,210 --> 00:03:08,520
+they're implemented as checkpoints and snapshots.
+
+82
+00:03:08,520 --> 00:03:11,730
+You can use any of the Apache Flink programming features.
+
+83
+00:03:11,730 --> 00:03:13,110
+And just so you know,
+
+84
+00:03:13,110 --> 00:03:14,370
+with Flink you can only read
+
+85
+00:03:14,370 --> 00:03:17,370
+from Kinesis Data Streams and Amazon MSK.
+
+86
+00:03:17,370 --> 00:03:20,010
+You cannot read from Kinesis Data Firehose.
+
+87
+00:03:20,010 --> 00:03:22,950
+If you need to read and do real-time analytics
+
+88
+00:03:22,950 --> 00:03:24,810
+on Kinesis Data Firehose,
+
+89
+00:03:24,810 --> 00:03:29,040
+then you must use Kinesis Data Analytics for SQL.
+
+90
+00:03:29,040 --> 00:03:30,780
+Okay, so that's it for this lecture.
+
+91
+00:03:30,780 --> 00:03:31,740
+I hope you liked it.
+
+92
+00:03:31,740 --> 00:03:33,690
+And I will see you in the next lecture.
+

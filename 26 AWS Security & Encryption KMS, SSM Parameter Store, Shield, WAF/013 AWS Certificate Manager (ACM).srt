@@ -1,0 +1,724 @@
+1
+00:00:00,300 --> 00:00:01,260
+So now let's talk about
+
+2
+00:00:01,260 --> 00:00:05,939
+the AWS Certificate Manager service also called ACM.
+
+3
+00:00:05,939 --> 00:00:08,189
+So with ACM, you can easily provision,
+
+4
+00:00:08,189 --> 00:00:13,189
+manage and deploy TLS certificates on AWS.
+
+5
+00:00:13,500 --> 00:00:15,210
+What are TLS certificates used for?
+
+6
+00:00:15,210 --> 00:00:17,070
+And they sometimes say SSL.
+
+7
+00:00:17,070 --> 00:00:18,630
+So they're used to provide
+
+8
+00:00:18,630 --> 00:00:20,760
+in-flight encryptions for websites.
+
+9
+00:00:20,760 --> 00:00:23,010
+You know, when you go to websites and it says
+
+10
+00:00:23,010 --> 00:00:26,670
+HTTPS, the S stands for secure,
+
+11
+00:00:26,670 --> 00:00:28,620
+and therefore this is where you know that
+
+12
+00:00:28,620 --> 00:00:32,460
+there is a TLS certificate involved in the transaction.
+
+13
+00:00:32,460 --> 00:00:34,380
+So how does that work while you have an ALB, for example,
+
+14
+00:00:34,380 --> 00:00:36,480
+connected to your Auto Scaling group
+
+15
+00:00:36,480 --> 00:00:39,510
+but you want to expose your application balancer
+
+16
+00:00:39,510 --> 00:00:41,220
+as an HTTPS endpoint.
+
+17
+00:00:41,220 --> 00:00:42,630
+Therefore you would integrate it
+
+18
+00:00:42,630 --> 00:00:44,940
+with a certificate manager to provision
+
+19
+00:00:44,940 --> 00:00:46,590
+and maintain TLS certificates
+
+20
+00:00:46,590 --> 00:00:49,050
+directly on your application balancer
+
+21
+00:00:49,050 --> 00:00:51,840
+and your users will access your websites
+
+22
+00:00:51,840 --> 00:00:54,360
+or your API using the HTTPS protocol.
+
+23
+00:00:54,360 --> 00:00:59,360
+So ACM supports both public and private TLS certificates
+
+24
+00:01:00,480 --> 00:01:02,430
+and it's free of charge if you want to use
+
+25
+00:01:02,430 --> 00:01:04,860
+public TLS certificates.
+
+26
+00:01:04,860 --> 00:01:05,910
+There is also a feature
+
+27
+00:01:05,910 --> 00:01:07,710
+to automatically renew these certificates.
+
+28
+00:01:07,710 --> 00:01:10,410
+We will see this in a second on other slides
+
+29
+00:01:10,410 --> 00:01:14,190
+and you have integrations with many AWS services.
+
+30
+00:01:14,190 --> 00:01:17,730
+So you can load TLS certificates on Elastic Load Balancers.
+
+31
+00:01:17,730 --> 00:01:20,400
+For example, the Classic one, the Application Balancer
+
+32
+00:01:20,400 --> 00:01:22,590
+or the Network Load Balancer.
+
+33
+00:01:22,590 --> 00:01:24,046
+CloudFront Distributions
+
+34
+00:01:24,046 --> 00:01:27,540
+or any APIs on the API gateway.
+
+35
+00:01:27,540 --> 00:01:28,757
+One thing you cannot use
+
+36
+00:01:28,757 --> 00:01:33,360
+the AWS Certificate Manager with is EC2 instances.
+
+37
+00:01:33,360 --> 00:01:36,900
+So for public certificates and only for public certificates
+
+38
+00:01:36,900 --> 00:01:38,910
+they cannot be extracted.
+
+39
+00:01:38,910 --> 00:01:41,580
+And so you cannot create public certificates
+
+40
+00:01:41,580 --> 00:01:44,403
+for your EC2 instances through ACM.
+
+41
+00:01:45,270 --> 00:01:49,110
+So what's the process to request a public certificate?
+
+42
+00:01:49,110 --> 00:01:51,750
+First of all, you need to list the domain names
+
+43
+00:01:51,750 --> 00:01:54,840
+that are going to be included in your certificates.
+
+44
+00:01:54,840 --> 00:01:57,420
+So there could be a fully qualified domain name
+
+45
+00:01:57,420 --> 00:02:01,410
+FQDN such as corp.example.com,
+
+46
+00:02:01,410 --> 00:02:03,210
+or it could be a wildcard domain,
+
+47
+00:02:03,210 --> 00:02:06,330
+for example, star.example.com.
+
+48
+00:02:06,330 --> 00:02:08,460
+And you can include as many domains as you want.
+
+49
+00:02:08,460 --> 00:02:11,070
+Then you select the validation method.
+
+50
+00:02:11,070 --> 00:02:13,050
+Would it be through DNS validation
+
+51
+00:02:13,050 --> 00:02:15,450
+or through email validation?
+
+52
+00:02:15,450 --> 00:02:16,770
+And for automation purposes,
+
+53
+00:02:16,770 --> 00:02:18,930
+when it comes to automatically renewing
+
+54
+00:02:18,930 --> 00:02:20,497
+your SSL certificates,
+
+55
+00:02:20,497 --> 00:02:23,507
+DNS validation is going to be a preferred method.
+
+56
+00:02:23,507 --> 00:02:25,260
+And for email validation,
+
+57
+00:02:25,260 --> 00:02:27,240
+what's going to happen is that ACM
+
+58
+00:02:27,240 --> 00:02:30,030
+is going to send emails to contact addresses
+
+59
+00:02:30,030 --> 00:02:31,920
+in the registrar for your domain
+
+60
+00:02:31,920 --> 00:02:35,310
+and verify that you did request that certificates.
+
+61
+00:02:35,310 --> 00:02:38,220
+And if you decide to do DNS validation,
+
+62
+00:02:38,220 --> 00:02:40,950
+then you will have to create a CNAME record
+
+63
+00:02:40,950 --> 00:02:42,360
+in your DNS configuration
+
+64
+00:02:42,360 --> 00:02:44,550
+to verify that you own the domain.
+
+65
+00:02:44,550 --> 00:02:47,280
+And so if you have Route 53, for example,
+
+66
+00:02:47,280 --> 00:02:51,660
+then it's automatically integrated with ACM
+
+67
+00:02:51,660 --> 00:02:53,250
+to do this for you.
+
+68
+00:02:53,250 --> 00:02:55,650
+Next, you have to wait a few hours to get verified
+
+69
+00:02:55,650 --> 00:02:58,770
+and then your certificate will be issued.
+
+70
+00:02:58,770 --> 00:03:01,470
+And these public certificates will also be enrolled
+
+71
+00:03:01,470 --> 00:03:03,270
+for automatic renewal.
+
+72
+00:03:03,270 --> 00:03:04,638
+That means that automatically
+
+73
+00:03:04,638 --> 00:03:09,240
+ACM will renew any ACM-generated certificates,
+
+74
+00:03:09,240 --> 00:03:11,580
+60 days before expiry
+
+75
+00:03:11,580 --> 00:03:14,340
+which gives you a lot of peace of mind.
+
+76
+00:03:14,340 --> 00:03:15,900
+So when it comes to ACM,
+
+77
+00:03:15,900 --> 00:03:18,390
+what if you import a public certificates?
+
+78
+00:03:18,390 --> 00:03:20,820
+So you have the option to actually generate a certificate
+
+79
+00:03:20,820 --> 00:03:24,000
+outside of ACM and then import it into ACM.
+
+80
+00:03:24,000 --> 00:03:25,710
+But in that case, because it's been generated
+
+81
+00:03:25,710 --> 00:03:29,100
+outside of ACM, there is no automatic renewal.
+
+82
+00:03:29,100 --> 00:03:32,490
+And so therefore, before your existing certificate expires
+
+83
+00:03:32,490 --> 00:03:34,560
+you need to import a new one.
+
+84
+00:03:34,560 --> 00:03:38,040
+And how do you know when a certificate is going to expire?
+
+85
+00:03:38,040 --> 00:03:40,530
+Well, the ACM service is going to send
+
+86
+00:03:40,530 --> 00:03:42,420
+daily expiration events,
+
+87
+00:03:42,420 --> 00:03:45,600
+starting 45 days prior to expiration
+
+88
+00:03:45,600 --> 00:03:48,510
+into your event bridge service.
+
+89
+00:03:48,510 --> 00:03:50,040
+And the number of days can be configured.
+
+90
+00:03:50,040 --> 00:03:52,800
+You can set 45, you can set 30, whatever you want.
+
+91
+00:03:52,800 --> 00:03:54,570
+So that means that daily,
+
+92
+00:03:54,570 --> 00:03:56,580
+you will have an event in EventBridge
+
+93
+00:03:56,580 --> 00:03:58,860
+for expiring certificates
+
+94
+00:03:58,860 --> 00:04:00,180
+and that's one way of doing it.
+
+95
+00:04:00,180 --> 00:04:01,740
+And then from EventBridge
+
+96
+00:04:01,740 --> 00:04:03,878
+then you can trigger Lambda functions
+
+97
+00:04:03,878 --> 00:04:07,740
+or SNS topics or SQL, SQS.
+
+98
+00:04:07,740 --> 00:04:10,576
+There's another way to use AWS Config.
+
+99
+00:04:10,576 --> 00:04:12,480
+And there is a managed rule
+
+100
+00:04:12,480 --> 00:04:16,620
+in Config called the ACM-certificate-expiration-check.
+
+101
+00:04:16,620 --> 00:04:19,740
+And it's going to check for expiring certificates.
+
+102
+00:04:19,740 --> 00:04:21,810
+You can configure the number of days again.
+
+103
+00:04:21,810 --> 00:04:24,750
+And so the Config service is going to have
+
+104
+00:04:24,750 --> 00:04:27,420
+a rule that will check the ACM service.
+
+105
+00:04:27,420 --> 00:04:31,560
+And then if any certificate is deemed not compliant
+
+106
+00:04:31,560 --> 00:04:33,660
+then the event of non-compliance
+
+107
+00:04:33,660 --> 00:04:35,340
+will be sent to EventBridge.
+
+108
+00:04:35,340 --> 00:04:38,790
+And yet again, we can trigger Lambda, SNS or SQS.
+
+109
+00:04:38,790 --> 00:04:42,213
+So two ways of getting these automatic alerts.
+
+110
+00:04:43,320 --> 00:04:47,460
+Now, how does the ACM service integrate with the ALB?
+
+111
+00:04:47,460 --> 00:04:49,230
+So we've seen kind of an ALB
+
+112
+00:04:49,230 --> 00:04:51,390
+with an Auto Scaling group in the backend,
+
+113
+00:04:51,390 --> 00:04:54,420
+and we can provision and maintain a TLS certificate
+
+114
+00:04:54,420 --> 00:04:56,730
+through the ACM service.
+
+115
+00:04:56,730 --> 00:04:59,910
+But there is a very good specificity.
+
+116
+00:04:59,910 --> 00:05:04,910
+On your ALB, you can set a redirect rule from HTP to HTTPS.
+
+117
+00:05:05,700 --> 00:05:07,946
+That means that if your user is accessing
+
+118
+00:05:07,946 --> 00:05:11,160
+your Application Balancer on the HTP protocol
+
+119
+00:05:11,160 --> 00:05:13,770
+the ALB will return with a redirect
+
+120
+00:05:13,770 --> 00:05:16,920
+and say you need to redirect to HTTPS.
+
+121
+00:05:16,920 --> 00:05:19,860
+So the user comes back to the Application Balancer
+
+122
+00:05:19,860 --> 00:05:22,080
+now on the HTTPS protocol,
+
+123
+00:05:22,080 --> 00:05:23,267
+and therefore it will leverage
+
+124
+00:05:23,267 --> 00:05:27,360
+the TLS certificate coming from the Certificate Manager.
+
+125
+00:05:27,360 --> 00:05:31,320
+And then once a request is going through the HTTPS protocol
+
+126
+00:05:31,320 --> 00:05:35,100
+then it will be directed into your Auto Scaling group.
+
+127
+00:05:35,100 --> 00:05:38,130
+So let's look at how ACM integrates with the API gateway.
+
+128
+00:05:38,130 --> 00:05:40,620
+But first we have to remember the end point types.
+
+129
+00:05:40,620 --> 00:05:44,310
+So we have the Edge-optimized endpoint type for API gateway.
+
+130
+00:05:44,310 --> 00:05:45,990
+This is when your clients are global
+
+131
+00:05:45,990 --> 00:05:47,730
+and the requests are going to be routed
+
+132
+00:05:47,730 --> 00:05:50,280
+first through CloudFront Edge locations
+
+133
+00:05:50,280 --> 00:05:53,730
+to improve the latency and then sent to an API gateway
+
+134
+00:05:53,730 --> 00:05:56,130
+that still lives in only one region.
+
+135
+00:05:56,130 --> 00:05:58,590
+You can also have the Regional type of endpoint
+
+136
+00:05:58,590 --> 00:06:01,107
+in which clients are within the same region
+
+137
+00:06:01,107 --> 00:06:03,360
+as your API gateway.
+
+138
+00:06:03,360 --> 00:06:06,060
+In this case, we don't have CloudFront available
+
+139
+00:06:06,060 --> 00:06:07,770
+but we could still, if you wanted to,
+
+140
+00:06:07,770 --> 00:06:09,600
+create our own CloudFront distribution
+
+141
+00:06:09,600 --> 00:06:11,790
+to have more control over the caching
+
+142
+00:06:11,790 --> 00:06:14,850
+and the distribution strategy.
+
+143
+00:06:14,850 --> 00:06:17,160
+And then we have the private API gateway endpoints
+
+144
+00:06:17,160 --> 00:06:19,680
+that can only be accessed from within our VPC
+
+145
+00:06:19,680 --> 00:06:22,200
+using an interface VPC endpoint
+
+146
+00:06:22,200 --> 00:06:25,440
+and we need to use a resource policy to define access
+
+147
+00:06:25,440 --> 00:06:28,440
+to this API gateway in a private mode.
+
+148
+00:06:28,440 --> 00:06:32,130
+So ACM makes sense for Edge-optimized and regional endpoint.
+
+149
+00:06:32,130 --> 00:06:33,690
+So let's have a look at that.
+
+150
+00:06:33,690 --> 00:06:36,780
+So to integrate ACM with the API gateway,
+
+151
+00:06:36,780 --> 00:06:38,490
+first we need to create a resource
+
+152
+00:06:38,490 --> 00:06:41,250
+in the API gateway called a Custom Domain Name
+
+153
+00:06:41,250 --> 00:06:43,020
+and then we need to configure it.
+
+154
+00:06:43,020 --> 00:06:46,050
+So for Edge-optimized endpoints,
+
+155
+00:06:46,050 --> 00:06:49,500
+then because the requests are routed through CloudFront
+
+156
+00:06:49,500 --> 00:06:51,960
+then the TLS certificates
+
+157
+00:06:51,960 --> 00:06:54,990
+are going to be attached to your CloudFront distribution.
+
+158
+00:06:54,990 --> 00:06:57,030
+And therefore the TLS Certificate
+
+159
+00:06:57,030 --> 00:07:00,240
+must be created in the same region as CloudFront,
+
+160
+00:07:00,240 --> 00:07:02,190
+which is us-east-1.
+
+161
+00:07:02,190 --> 00:07:05,730
+So therefore your API gateway lives in one region
+
+162
+00:07:05,730 --> 00:07:08,520
+but then everything is distributed through CloudFront
+
+163
+00:07:08,520 --> 00:07:11,520
+and your ACM certificates must live
+
+164
+00:07:11,520 --> 00:07:12,990
+in the us-east-1 region
+
+165
+00:07:12,990 --> 00:07:15,720
+because this is where CloudFront is located.
+
+166
+00:07:15,720 --> 00:07:19,200
+All the certificates for CloudFront are in us-east-1.
+
+167
+00:07:19,200 --> 00:07:21,990
+So then we set up a CNAME or an alias record
+
+168
+00:07:21,990 --> 00:07:23,943
+in Route 53 to be done.
+
+169
+00:07:24,840 --> 00:07:27,690
+And the regional endpoints,
+
+170
+00:07:27,690 --> 00:07:31,830
+there for clients in the same region as your API gateway,
+
+171
+00:07:31,830 --> 00:07:34,290
+and therefore, because we only have an API gateway
+
+172
+00:07:34,290 --> 00:07:37,890
+then the TLS certificate must be imported on API gateway
+
+173
+00:07:37,890 --> 00:07:39,930
+in the same region as the API stage.
+
+174
+00:07:39,930 --> 00:07:41,123
+And therefore, in this example
+
+175
+00:07:41,123 --> 00:07:44,550
+my ACM is only in the ap-southeast-2.
+
+176
+00:07:44,550 --> 00:07:48,120
+And then we set up a CNAME or an alias record in Route 53,
+
+177
+00:07:48,120 --> 00:07:50,370
+to point to your DNS.
+
+178
+00:07:50,370 --> 00:07:51,540
+And that's it.
+
+179
+00:07:51,540 --> 00:07:55,290
+So you've learned a lot about AWS Certificate Manager
+
+180
+00:07:55,290 --> 00:07:56,790
+in this lecture.
+
+181
+00:07:56,790 --> 00:07:59,790
+I hope you liked it, and I will see you in the next lecture.
+

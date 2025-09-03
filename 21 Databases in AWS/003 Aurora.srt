@@ -1,0 +1,276 @@
+1
+00:00:00,300 --> 00:00:03,330
+So now let's do a summary of Amazon Aurora.
+
+2
+00:00:03,330 --> 00:00:06,330
+So Aurora is a compatible API for two database engines,
+
+3
+00:00:06,330 --> 00:00:08,730
+which are PostgreSQL and MySQL.
+
+4
+00:00:08,730 --> 00:00:10,680
+And Aurora is a very special service
+
+5
+00:00:10,680 --> 00:00:13,710
+because storage and compute are separate.
+
+6
+00:00:13,710 --> 00:00:14,940
+So about storage,
+
+7
+00:00:14,940 --> 00:00:17,640
+while the data is stored in six replicas
+
+8
+00:00:17,640 --> 00:00:19,950
+across three Availability Zones by default,
+
+9
+00:00:19,950 --> 00:00:21,390
+and you cannot change this,
+
+10
+00:00:21,390 --> 00:00:23,790
+therefore Aurora is highly available.
+
+11
+00:00:23,790 --> 00:00:26,820
+On top of it, in case there is any issue with the storage,
+
+12
+00:00:26,820 --> 00:00:28,590
+there's going to be a self-healing process
+
+13
+00:00:28,590 --> 00:00:30,000
+behind the scenes happening.
+
+14
+00:00:30,000 --> 00:00:33,390
+And if you wanted to increase the storage, no problem.
+
+15
+00:00:33,390 --> 00:00:35,760
+There is auto-scaling out of the box.
+
+16
+00:00:35,760 --> 00:00:36,780
+Now, for the compute side,
+
+17
+00:00:36,780 --> 00:00:39,600
+this is the actual database instances,
+
+18
+00:00:39,600 --> 00:00:40,800
+they are clustered,
+
+19
+00:00:40,800 --> 00:00:43,110
+and they can be across multiple Availability Zones
+
+20
+00:00:43,110 --> 00:00:44,370
+if you wanted to.
+
+21
+00:00:44,370 --> 00:00:45,870
+And then if you had read replicas,
+
+22
+00:00:45,870 --> 00:00:47,590
+you could auto-scale them as well
+
+23
+00:00:49,525 --> 00:00:52,410
+to increase the capacity in case the load increases.
+
+24
+00:00:52,410 --> 00:00:56,250
+Now, because you have a cluster of database instances,
+
+25
+00:00:56,250 --> 00:00:57,750
+then you need custom endpoints
+
+26
+00:00:57,750 --> 00:00:59,700
+to know where to write and read,
+
+27
+00:00:59,700 --> 00:01:01,860
+and therefore you have a writer endpoint
+
+28
+00:01:01,860 --> 00:01:03,840
+and a reader endpoint.
+
+29
+00:01:03,840 --> 00:01:06,360
+You have the same security, monitoring,
+
+30
+00:01:06,360 --> 00:01:08,130
+and maintenance features as RDS
+
+31
+00:01:08,130 --> 00:01:11,250
+because, end of the day, they use kind of the same engine.
+
+32
+00:01:11,250 --> 00:01:13,080
+And you need to know the backup
+
+33
+00:01:13,080 --> 00:01:14,850
+and restore options for Aurora,
+
+34
+00:01:14,850 --> 00:01:15,990
+which cannot summarized here,
+
+35
+00:01:15,990 --> 00:01:18,090
+but I suggest you go back to that lecture
+
+36
+00:01:18,090 --> 00:01:19,800
+if you ever need to.
+
+37
+00:01:19,800 --> 00:01:22,890
+Now, some extra features you need to know about Aurora.
+
+38
+00:01:22,890 --> 00:01:24,900
+The first one is Aurora Serverless.
+
+39
+00:01:24,900 --> 00:01:27,090
+This is when you have unpredictable
+
+40
+00:01:27,090 --> 00:01:28,710
+and intermittent workloads,
+
+41
+00:01:28,710 --> 00:01:31,140
+but you don't need to do any capacity planning,
+
+42
+00:01:31,140 --> 00:01:33,750
+so it is quite helpful in that use case.
+
+43
+00:01:33,750 --> 00:01:36,600
+If you wanted to have a global database,
+
+44
+00:01:36,600 --> 00:01:38,580
+you could use Aurora Global,
+
+45
+00:01:38,580 --> 00:01:42,480
+and that gives you up to 16 database read instances
+
+46
+00:01:42,480 --> 00:01:45,870
+in each region where your database is replicated.
+
+47
+00:01:45,870 --> 00:01:49,200
+And the storage replication happens
+
+48
+00:01:49,200 --> 00:01:51,750
+in less than one seconds usually across regions,
+
+49
+00:01:51,750 --> 00:01:55,170
+which is something you have to look out for at the exam.
+
+50
+00:01:55,170 --> 00:01:57,960
+And in case you have a problem in your primary region,
+
+51
+00:01:57,960 --> 00:01:59,820
+you can promote a secondary region
+
+52
+00:01:59,820 --> 00:02:01,830
+to become your new primary.
+
+53
+00:02:01,830 --> 00:02:03,990
+If you wanted to perform machine learning on top of Aurora,
+
+54
+00:02:03,990 --> 00:02:06,180
+you could use the Aurora Machine Learning module
+
+55
+00:02:06,180 --> 00:02:08,759
+to use SageMaker and Comprehend.
+
+56
+00:02:08,759 --> 00:02:12,120
+If you wanted to use a testing database
+
+57
+00:02:12,120 --> 00:02:13,500
+or a staging database
+
+58
+00:02:13,500 --> 00:02:15,630
+out of your production database, for example,
+
+59
+00:02:15,630 --> 00:02:18,570
+you could use the Aurora Database Cloning feature
+
+60
+00:02:18,570 --> 00:02:22,320
+to create a new Aurora cluster out of the existing one,
+
+61
+00:02:22,320 --> 00:02:23,550
+and it is much faster
+
+62
+00:02:23,550 --> 00:02:26,640
+than doing a snapshot and restoring it.
+
+63
+00:02:26,640 --> 00:02:29,730
+So the use cases for Aurora are the same as RDS,
+
+64
+00:02:29,730 --> 00:02:32,790
+but you have less maintenance, more flexibility,
+
+65
+00:02:32,790 --> 00:02:35,310
+more performance, and more features out of the box,
+
+66
+00:02:35,310 --> 00:02:37,350
+which makes Aurora a great choice.
+
+67
+00:02:37,350 --> 00:02:38,183
+Okay, that's it.
+
+68
+00:02:38,183 --> 00:02:39,016
+I hope you liked it,
+
+69
+00:02:39,016 --> 00:02:40,950
+and I will see you in the next lecture.
+

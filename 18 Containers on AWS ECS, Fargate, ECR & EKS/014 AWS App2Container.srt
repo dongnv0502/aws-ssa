@@ -1,0 +1,176 @@
+1
+00:00:00,180 --> 00:00:01,050
+So, now, let's talk
+
+2
+00:00:01,050 --> 00:00:04,410
+about AWS App2Container or A2C.
+
+3
+00:00:04,410 --> 00:00:07,290
+So, it's a CLI tool that is used to migrate
+
+4
+00:00:07,290 --> 00:00:09,420
+and modernize Java and .NET
+
+5
+00:00:09,420 --> 00:00:11,790
+web applications into Docker containers.
+
+6
+00:00:11,790 --> 00:00:13,260
+The idea is that you wanna do a migration.
+
+7
+00:00:13,260 --> 00:00:15,381
+It's called a lift-and-shift migration,
+
+8
+00:00:15,381 --> 00:00:18,000
+where your apps are running on premises
+
+9
+00:00:18,000 --> 00:00:19,140
+on whatever you have, for example,
+
+10
+00:00:19,140 --> 00:00:21,270
+bare metal or visual machines,
+
+11
+00:00:21,270 --> 00:00:24,360
+and then you migrate it to AWS.
+
+12
+00:00:24,360 --> 00:00:26,850
+And so, the idea is that you accelerate modernization,
+
+13
+00:00:26,850 --> 00:00:28,132
+but you don't change any code
+
+14
+00:00:28,132 --> 00:00:30,240
+and you migrate legacy apps this way
+
+15
+00:00:30,240 --> 00:00:33,090
+to the cloud without doing any code changes.
+
+16
+00:00:33,090 --> 00:00:34,350
+So, this will in the end,
+
+17
+00:00:34,350 --> 00:00:36,180
+generate a CloudFormation templates
+
+18
+00:00:36,180 --> 00:00:38,280
+for your compute, your network, and so on.
+
+19
+00:00:38,280 --> 00:00:41,460
+It will also register the generated Docker containers
+
+20
+00:00:41,460 --> 00:00:42,703
+into Amazon ECR,
+
+21
+00:00:42,703 --> 00:00:43,980
+and then you can choose
+
+22
+00:00:43,980 --> 00:00:47,520
+to deploy to ECS, EKS, or App Runner.
+
+23
+00:00:47,520 --> 00:00:50,940
+And this supports as well prebuilt CI/CD pipelines.
+
+24
+00:00:50,940 --> 00:00:53,670
+So, the idea is that you're going to use the CLI to discover
+
+25
+00:00:53,670 --> 00:00:56,846
+and analyze which apps can be migrated.
+
+26
+00:00:56,846 --> 00:00:59,855
+Then, everything's going to be extracted and containerized.
+
+27
+00:00:59,855 --> 00:01:03,244
+Then, the deployment artifacts are going to be generated.
+
+28
+00:01:03,244 --> 00:01:04,965
+That means that there's going to be
+
+29
+00:01:04,965 --> 00:01:07,440
+a CloudFormation templates with ECS Task
+
+30
+00:01:07,440 --> 00:01:09,240
+and EKS Pod definitions,
+
+31
+00:01:09,240 --> 00:01:12,270
+anything CI/CD if needed, and other infrastructure.
+
+32
+00:01:12,270 --> 00:01:13,920
+And then, deployed to AWS.
+
+33
+00:01:13,920 --> 00:01:16,200
+So, the image of the Docker container
+
+34
+00:01:16,200 --> 00:01:18,450
+is going to be stored in Amazon ECR,
+
+35
+00:01:18,450 --> 00:01:20,220
+and then deployed anywhere you want
+
+36
+00:01:20,220 --> 00:01:22,950
+on ECS, EKS, or App Runner.
+
+37
+00:01:22,950 --> 00:01:25,680
+So, the very simple concept to remember in this instance
+
+38
+00:01:25,680 --> 00:01:27,777
+that if you want to migrate a web application
+
+39
+00:01:27,777 --> 00:01:31,627
+using Java or .NET to AWS very simply,
+
+40
+00:01:31,627 --> 00:01:34,410
+then you should use AWS App2Container.
+
+41
+00:01:34,410 --> 00:01:35,243
+And that's it.
+
+42
+00:01:35,243 --> 00:01:38,430
+That's the level of detail required for the exam.
+
+43
+00:01:38,430 --> 00:01:39,263
+All right, that's it.
+
+44
+00:01:39,263 --> 00:01:41,980
+I hope you liked it and I will see you in the next lecture.
+

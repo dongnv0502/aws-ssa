@@ -1,0 +1,724 @@
+1
+00:00:00,090 --> 00:00:02,400
+So let's use the Systems Manager parameter store.
+
+2
+00:00:02,400 --> 00:00:04,670
+And for this, I'm just going to type parameter
+
+3
+00:00:04,670 --> 00:00:07,130
+and it takes me directly to Systems Manager.
+
+4
+00:00:07,130 --> 00:00:10,300
+You could also type systems manager to find the UI.
+
+5
+00:00:10,300 --> 00:00:12,110
+So within Systems Manager now,
+
+6
+00:00:12,110 --> 00:00:13,200
+to find the parameters store,
+
+7
+00:00:13,200 --> 00:00:15,260
+on the left hand side you have to scroll all the way down
+
+8
+00:00:15,260 --> 00:00:16,239
+and you'll find it right here,
+
+9
+00:00:16,239 --> 00:00:18,510
+second to last, Parameter Store.
+
+10
+00:00:18,510 --> 00:00:20,400
+So the Parameter Store is for secrets
+
+11
+00:00:20,400 --> 00:00:22,660
+and configuration data management
+
+12
+00:00:22,660 --> 00:00:25,200
+and it is a way to centralize all these parameters
+
+13
+00:00:25,200 --> 00:00:27,360
+within your AWS accounts, which is great.
+
+14
+00:00:27,360 --> 00:00:28,930
+So here you can see how it works.
+
+15
+00:00:28,930 --> 00:00:30,360
+You create a new parameter,
+
+16
+00:00:30,360 --> 00:00:32,360
+then you specify the parameter type and value,
+
+17
+00:00:32,360 --> 00:00:33,550
+and you reference that parameter
+
+18
+00:00:33,550 --> 00:00:35,360
+from within your commands on your code,
+
+19
+00:00:35,360 --> 00:00:37,530
+which is exactly what we're going to do.
+
+20
+00:00:37,530 --> 00:00:38,790
+So for this, to get started,
+
+21
+00:00:38,790 --> 00:00:40,343
+click on create parameter.
+
+22
+00:00:41,320 --> 00:00:44,150
+So here I'll create a parameter called my-app,
+
+23
+00:00:44,150 --> 00:00:45,940
+and it's in the dev environment.
+
+24
+00:00:45,940 --> 00:00:48,430
+And the first one is a database URL.
+
+25
+00:00:48,430 --> 00:00:53,430
+And so I'll say database URL for my app in development.
+
+26
+00:00:53,700 --> 00:00:54,560
+Okay.
+
+27
+00:00:54,560 --> 00:00:57,590
+Now here we can have three type of types,
+
+28
+00:00:57,590 --> 00:00:58,423
+we can have a String,
+
+29
+00:00:58,423 --> 00:01:00,220
+and we can put whatever characters we want.
+
+30
+00:01:00,220 --> 00:01:03,030
+StringList, you have a list of strings using commas,
+
+31
+00:01:03,030 --> 00:01:05,720
+or SecureString, what it's encrypted.
+
+32
+00:01:05,720 --> 00:01:07,370
+Let's go with String first.
+
+33
+00:01:07,370 --> 00:01:10,140
+And so for example, here is a database URL.
+
+34
+00:01:10,140 --> 00:01:11,330
+So you can put whatever you want,
+
+35
+00:01:11,330 --> 00:01:14,300
+but it has to be 4096 characters.
+
+36
+00:01:14,300 --> 00:01:16,420
+So let's go ahead and say,
+
+37
+00:01:16,420 --> 00:01:19,397
+dev.database.stephanetheteacher.com.
+
+38
+00:01:22,760 --> 00:01:24,540
+And that's just something very random,
+
+39
+00:01:24,540 --> 00:01:27,720
+and maybe I'll add the port 3306.
+
+40
+00:01:27,720 --> 00:01:30,040
+So it's just whatever you want it to be, okay.
+
+41
+00:01:30,040 --> 00:01:32,300
+So here's just a random URL for me,
+
+42
+00:01:32,300 --> 00:01:36,430
+dev.database.stephanetheteacher.com:3306.
+
+43
+00:01:36,430 --> 00:01:38,400
+I'll go ahead and create that parameter.
+
+44
+00:01:38,400 --> 00:01:41,760
+And so here, the create parameter request succeeded.
+
+45
+00:01:41,760 --> 00:01:43,880
+And we have our first parameter.
+
+46
+00:01:43,880 --> 00:01:45,770
+Turns out that we can see the description,
+
+47
+00:01:45,770 --> 00:01:47,400
+the type and also the version.
+
+48
+00:01:47,400 --> 00:01:50,200
+So if we ever modify this parameter,
+
+49
+00:01:50,200 --> 00:01:52,430
+we'll get a last modified data that will be new,
+
+50
+00:01:52,430 --> 00:01:55,270
+and the last modify user that will be tracked as well,
+
+51
+00:01:55,270 --> 00:01:58,133
+so we can know who modified what.
+
+52
+00:01:58,133 --> 00:02:00,480
+If I click on this, again you get a summary.
+
+53
+00:02:00,480 --> 00:02:02,160
+You can see the history of the values,
+
+54
+00:02:02,160 --> 00:02:03,680
+and you can see the tags.
+
+55
+00:02:03,680 --> 00:02:05,780
+And we have our db-url.
+
+56
+00:02:05,780 --> 00:02:08,169
+So what I want to do is maybe create another parameter,
+
+57
+00:02:08,169 --> 00:02:10,060
+so I'll create a parameter
+
+58
+00:02:10,060 --> 00:02:14,620
+and this time, I call it db-password for our database.
+
+59
+00:02:14,620 --> 00:02:17,800
+And so I'll just say database password
+
+60
+00:02:17,800 --> 00:02:19,840
+from my app in development.
+
+61
+00:02:19,840 --> 00:02:21,200
+And here I have a SecureString,
+
+62
+00:02:21,200 --> 00:02:24,020
+so this time we're going to encrypt our secret.
+
+63
+00:02:24,020 --> 00:02:26,210
+And so we'll use KMS to encrypting.
+
+64
+00:02:26,210 --> 00:02:29,730
+We can use our current account or another account.
+
+65
+00:02:29,730 --> 00:02:32,110
+For our KMS key source we'll use our current account.
+
+66
+00:02:32,110 --> 00:02:35,817
+And we can use the AWS provided key, okay,
+
+67
+00:02:35,817 --> 00:02:37,980
+but we also can use the key we've created from before
+
+68
+00:02:37,980 --> 00:02:41,560
+so I've created a tutorial KMS key from before.
+
+69
+00:02:41,560 --> 00:02:44,230
+And so we can just use that one as well.
+
+70
+00:02:44,230 --> 00:02:45,610
+It's whatever you prefer based on how
+
+71
+00:02:45,610 --> 00:02:47,200
+you wanna manage your security.
+
+72
+00:02:47,200 --> 00:02:49,140
+So I'll use the my tutorial.
+
+73
+00:02:49,140 --> 00:02:50,200
+And here's the value.
+
+74
+00:02:50,200 --> 00:02:55,190
+And I'll say, this is the dev password.
+
+75
+00:02:55,190 --> 00:02:57,200
+And we don't see it because it's a secret value,
+
+76
+00:02:57,200 --> 00:02:58,760
+and this will be encrypted.
+
+77
+00:02:58,760 --> 00:03:00,140
+So I'll create the parameter.
+
+78
+00:03:00,140 --> 00:03:04,380
+And now we see that we have a new parameter right here,
+
+79
+00:03:04,380 --> 00:03:06,280
+called dev/db-password.
+
+80
+00:03:06,280 --> 00:03:08,910
+It's a SecureString now so that means it's encrypted
+
+81
+00:03:08,910 --> 00:03:13,660
+and the key ID is alias/tutorial, and the version is one.
+
+82
+00:03:13,660 --> 00:03:16,720
+If I click on it, we can see that the value is hidden,
+
+83
+00:03:16,720 --> 00:03:18,220
+but I can click on show,
+
+84
+00:03:18,220 --> 00:03:20,350
+and this will decrypt the value for me on the fly
+
+85
+00:03:20,350 --> 00:03:22,440
+and say this is the dev password.
+
+86
+00:03:22,440 --> 00:03:23,440
+So this is pretty cool now,
+
+87
+00:03:23,440 --> 00:03:27,370
+because what we can do is definitely copy these
+
+88
+00:03:27,370 --> 00:03:30,600
+and so we're going to do it again but this time in prod.
+
+89
+00:03:30,600 --> 00:03:32,040
+So let's go ahead and create parameters.
+
+90
+00:03:32,040 --> 00:03:34,330
+I'll create this in prod.
+
+91
+00:03:34,330 --> 00:03:36,530
+So I'll just change a bit, the path,
+
+92
+00:03:36,530 --> 00:03:38,293
+and I'll say database URL,
+
+93
+00:03:39,709 --> 00:03:42,670
+URL for my app in prod.
+
+94
+00:03:42,670 --> 00:03:44,440
+And I'll just be quick,
+
+95
+00:03:44,440 --> 00:03:48,173
+prod.database.stephanetheteacher.com:3306.
+
+96
+00:03:52,170 --> 00:03:53,670
+I'll create it.
+
+97
+00:03:53,670 --> 00:03:56,090
+And I'll just create one last parameter.
+
+98
+00:03:56,090 --> 00:03:58,620
+And we're going to create the db-password in prod
+
+99
+00:03:58,620 --> 00:04:02,230
+and the description is going to be in production
+
+100
+00:04:02,230 --> 00:04:06,540
+and SecureString, I'll use my same tutorial value
+
+101
+00:04:06,540 --> 00:04:09,860
+and here I'll say prod password, okay.
+
+102
+00:04:09,860 --> 00:04:11,020
+I'll create the parameter.
+
+103
+00:04:11,020 --> 00:04:13,100
+So now we have four parameters
+
+104
+00:04:13,100 --> 00:04:15,480
+and we want to be able to access them.
+
+105
+00:04:15,480 --> 00:04:17,890
+So what we can do is access them,
+
+106
+00:04:17,890 --> 00:04:20,290
+for example, using this CLI first.
+
+107
+00:04:20,290 --> 00:04:23,440
+So we are going to use this CLI to get the parameters.
+
+108
+00:04:23,440 --> 00:04:25,970
+So it's called get-parameters.
+
+109
+00:04:25,970 --> 00:04:28,450
+And you have to provide a names
+
+110
+00:04:28,450 --> 00:04:29,420
+and for this we have to provide
+
+111
+00:04:29,420 --> 00:04:31,290
+the names of the parameters we want.
+
+112
+00:04:31,290 --> 00:04:33,170
+So for me, I'll just say I want
+
+113
+00:04:33,170 --> 00:04:37,494
+my db-url and my db-password, and press Enter.
+
+114
+00:04:37,494 --> 00:04:41,490
+And now we get back from the API, two results.
+
+115
+00:04:41,490 --> 00:04:44,280
+We get the db-password back and the db-url.
+
+116
+00:04:44,280 --> 00:04:46,170
+So let's look at the result, right.
+
+117
+00:04:46,170 --> 00:04:49,520
+The first one is that it's a String for the db-url,
+
+118
+00:04:49,520 --> 00:04:51,360
+and here's the value of the String.
+
+119
+00:04:51,360 --> 00:04:53,080
+And as you can see, because it was not encrypted,
+
+120
+00:04:53,080 --> 00:04:55,620
+the value comes back decrypted,
+
+121
+00:04:55,620 --> 00:04:57,360
+and the version is one.
+
+122
+00:04:57,360 --> 00:05:00,460
+So that's perfect, we can see our database URL and use this.
+
+123
+00:05:00,460 --> 00:05:02,890
+But for the password it's a SecureString,
+
+124
+00:05:02,890 --> 00:05:04,660
+and here is the value of it,
+
+125
+00:05:04,660 --> 00:05:06,760
+which is an encrypted value.
+
+126
+00:05:06,760 --> 00:05:10,690
+So for this, you basically need to decrypt it.
+
+127
+00:05:10,690 --> 00:05:13,030
+And for this you have a special parameter
+
+128
+00:05:13,030 --> 00:05:14,940
+and it's called with-decryption,
+
+129
+00:05:14,940 --> 00:05:17,750
+so I'll do with-decryption.
+
+130
+00:05:17,750 --> 00:05:20,030
+And so this will check whether or not
+
+131
+00:05:20,030 --> 00:05:23,740
+I have the KMS permission to decrypt
+
+132
+00:05:23,740 --> 00:05:27,680
+this secret that was encrypted with the KMS tutorial key.
+
+133
+00:05:27,680 --> 00:05:29,490
+So press Enter.
+
+134
+00:05:29,490 --> 00:05:31,440
+And now this time, for my SecureString,
+
+135
+00:05:31,440 --> 00:05:33,010
+the value has been decrypted
+
+136
+00:05:33,010 --> 00:05:36,340
+because I specified the with-decryption parameter.
+
+137
+00:05:36,340 --> 00:05:37,310
+And so this is pretty cool
+
+138
+00:05:37,310 --> 00:05:38,720
+because very, very quickly,
+
+139
+00:05:38,720 --> 00:05:40,900
+we're able to have encrypted values
+
+140
+00:05:40,900 --> 00:05:42,450
+and people that can't access them
+
+141
+00:05:42,450 --> 00:05:44,050
+because they don't have access to KMS
+
+142
+00:05:44,050 --> 00:05:45,410
+that protects my password.
+
+143
+00:05:45,410 --> 00:05:46,690
+But if I have access to KMS,
+
+144
+00:05:46,690 --> 00:05:49,850
+I'll just provide one extra flag with-decryption
+
+145
+00:05:49,850 --> 00:05:50,683
+and here we go,
+
+146
+00:05:50,683 --> 00:05:53,290
+I get the value of my dev password.
+
+147
+00:05:53,290 --> 00:05:54,750
+So it's really, really neat.
+
+148
+00:05:54,750 --> 00:05:55,890
+The other thing we can do is
+
+149
+00:05:55,890 --> 00:06:00,890
+do aws ssm get-parameters-by-path
+
+150
+00:06:02,300 --> 00:06:04,230
+and lets go to the help.
+
+151
+00:06:04,230 --> 00:06:05,450
+So the get-parameters-by-path
+
+152
+00:06:05,450 --> 00:06:06,770
+allows us to go through a path
+
+153
+00:06:06,770 --> 00:06:09,010
+and we have to provide the path name.
+
+154
+00:06:09,010 --> 00:06:10,970
+And it has to start with a forward slash.
+
+155
+00:06:10,970 --> 00:06:13,270
+So if we do get parameters by path,
+
+156
+00:06:13,270 --> 00:06:14,800
+and I'm going to delete this,
+
+157
+00:06:14,800 --> 00:06:18,180
+I'm just going to keep my-app/dev/.
+
+158
+00:06:18,180 --> 00:06:22,420
+And I'll say get-parameters-by-path
+
+159
+00:06:22,420 --> 00:06:24,830
+and the path is going to be this.
+
+160
+00:06:24,830 --> 00:06:25,930
+Then this is going to query
+
+161
+00:06:25,930 --> 00:06:29,060
+for all the parameters under this path.
+
+162
+00:06:29,060 --> 00:06:30,960
+And this is why we have a tree structure.
+
+163
+00:06:30,960 --> 00:06:32,630
+And what we get out of it, obviously,
+
+164
+00:06:32,630 --> 00:06:34,240
+is dependent on we had from before.
+
+165
+00:06:34,240 --> 00:06:37,900
+So what we could do now is go one level up to just my-app,
+
+166
+00:06:37,900 --> 00:06:40,230
+and you --recursive to get
+
+167
+00:06:40,230 --> 00:06:43,200
+all the parameters recursively under my-app.
+
+168
+00:06:43,200 --> 00:06:45,880
+Press Enter and now we get our four parameters back,
+
+169
+00:06:45,880 --> 00:06:49,020
+db-password, db-url, db-password for prod
+
+170
+00:06:49,020 --> 00:06:50,640
+and db-url for prod.
+
+171
+00:06:50,640 --> 00:06:52,420
+So using this tree structure,
+
+172
+00:06:52,420 --> 00:06:55,490
+we're basically able to organize our secrets
+
+173
+00:06:55,490 --> 00:06:58,600
+and get them all at once which is really neat.
+
+174
+00:06:58,600 --> 00:06:59,690
+So that's it.
+
+175
+00:06:59,690 --> 00:07:01,270
+You can also obviously provide
+
+176
+00:07:01,270 --> 00:07:04,650
+the with-decryption flag and get the decryption.
+
+177
+00:07:04,650 --> 00:07:05,960
+So that's just for this CLI,
+
+178
+00:07:05,960 --> 00:07:07,360
+but in the next lecture I just wanna show you
+
+179
+00:07:07,360 --> 00:07:08,410
+how it works with AWS Lambda
+
+180
+00:07:08,410 --> 00:07:10,470
+because it is very simple as well.
+
+181
+00:07:10,470 --> 00:07:12,020
+So see you in the next lecture.
+

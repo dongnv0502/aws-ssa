@@ -1,0 +1,544 @@
+1
+00:00:00,080 --> 00:00:00,930
+Okay, so let's go ahead
+
+2
+00:00:00,930 --> 00:00:03,290
+and demonstrate S3 Event Notifications.
+
+3
+00:00:03,290 --> 00:00:04,980
+For this, I'm going to create a bucket.
+
+4
+00:00:04,980 --> 00:00:09,543
+I call it "stephane-v3-events-notifications"
+
+5
+00:00:10,600 --> 00:00:12,060
+and then when Ireland's...
+
+6
+00:00:12,060 --> 00:00:15,483
+and I will just go ahead and create my bucket altogether.
+
+7
+00:00:16,870 --> 00:00:18,200
+Okay. So now bucket is created.
+
+8
+00:00:18,200 --> 00:00:20,300
+I'm going to go into it.
+
+9
+00:00:20,300 --> 00:00:21,600
+And what I'm going to do now
+
+10
+00:00:21,600 --> 00:00:24,530
+is make sure that event notifications are set up.
+
+11
+00:00:24,530 --> 00:00:26,100
+So I go to properties,
+
+12
+00:00:26,100 --> 00:00:30,490
+scroll down and then, here we have event notifications.
+
+13
+00:00:30,490 --> 00:00:32,890
+And as you can see, we have two options.
+
+14
+00:00:32,890 --> 00:00:34,690
+Number one is to create an event notification,
+
+15
+00:00:34,690 --> 00:00:36,750
+and I will show you this in a second,
+
+16
+00:00:36,750 --> 00:00:38,210
+or number two is to enable
+
+17
+00:00:38,210 --> 00:00:40,430
+the Amazon EventBridge integration
+
+18
+00:00:40,430 --> 00:00:41,900
+to send all the events
+
+19
+00:00:41,900 --> 00:00:44,187
+from this S3 bucket into EventBridge.
+
+20
+00:00:44,187 --> 00:00:46,210
+And for this, you just you set it on
+
+21
+00:00:46,210 --> 00:00:47,850
+and you'll be good to go.
+
+22
+00:00:47,850 --> 00:00:51,060
+So it is something that now if I wanted to,
+
+23
+00:00:51,060 --> 00:00:52,290
+I could use Amazon EventBridge
+
+24
+00:00:52,290 --> 00:00:54,980
+to catch the events happening in my S3 buckets.
+
+25
+00:00:54,980 --> 00:00:56,220
+But I will show you the simpler way
+
+26
+00:00:56,220 --> 00:00:57,870
+because it's a bit more complicated,
+
+27
+00:00:57,870 --> 00:01:00,180
+is to just create an event notification
+
+28
+00:01:00,180 --> 00:01:02,370
+and send it for example to SQS.
+
+29
+00:01:02,370 --> 00:01:05,340
+So I'll call this one "DemoEventNotification"
+
+30
+00:01:08,160 --> 00:01:10,480
+and then we can set up a prefix, a suffix,
+
+31
+00:01:10,480 --> 00:01:11,720
+but I won't do it.
+
+32
+00:01:11,720 --> 00:01:13,950
+And next, we to choose event types.
+
+33
+00:01:13,950 --> 00:01:17,310
+So we want to react to all object create events.
+
+34
+00:01:17,310 --> 00:01:19,680
+So that means that any time an object is created,
+
+35
+00:01:19,680 --> 00:01:21,470
+then an event is going to be created.
+
+36
+00:01:21,470 --> 00:01:23,700
+But if you wanted to, you could get more granular
+
+37
+00:01:23,700 --> 00:01:26,730
+and select which type of events you wanted.
+
+38
+00:01:26,730 --> 00:01:29,180
+But to keep it simple, I'll take it here.
+
+39
+00:01:29,180 --> 00:01:30,500
+And you can also include for example,
+
+40
+00:01:30,500 --> 00:01:32,440
+object removals, object restores,
+
+41
+00:01:32,440 --> 00:01:34,310
+and it shows you all the events you can catch
+
+42
+00:01:34,310 --> 00:01:35,550
+on the right hand side.
+
+43
+00:01:35,550 --> 00:01:36,740
+So I'll keep it simple.
+
+44
+00:01:36,740 --> 00:01:38,050
+I'm just going to scroll down,
+
+45
+00:01:38,050 --> 00:01:38,883
+but as you can see,
+
+46
+00:01:38,883 --> 00:01:39,730
+there are a lot of different events
+
+47
+00:01:39,730 --> 00:01:42,560
+you can react to in Amazon S3.
+
+48
+00:01:42,560 --> 00:01:45,850
+And then, you want to publish to a destination.
+
+49
+00:01:45,850 --> 00:01:47,080
+And so we have three options.
+
+50
+00:01:47,080 --> 00:01:50,490
+We have Lambda functions, SNS topic, and SQS queue.
+
+51
+00:01:50,490 --> 00:01:52,300
+And I'm going to choose SQS queue
+
+52
+00:01:52,300 --> 00:01:55,110
+but we first need to create a queue,
+
+53
+00:01:55,110 --> 00:01:57,270
+and then authorize Amazon S3
+
+54
+00:01:57,270 --> 00:02:00,490
+to publish messages into that destination.
+
+55
+00:02:00,490 --> 00:02:01,430
+So what I'm going to do now
+
+56
+00:02:01,430 --> 00:02:06,430
+is just go into Amazon SQS and then create a queue.
+
+57
+00:02:06,950 --> 00:02:09,366
+And I call this one "DemoS3Notification."
+
+58
+00:02:12,550 --> 00:02:14,603
+I will go ahead and create this queue.
+
+59
+00:02:15,650 --> 00:02:16,920
+And it's created.
+
+60
+00:02:16,920 --> 00:02:20,540
+So now wanting to do is to enhance the access policy
+
+61
+00:02:20,540 --> 00:02:25,540
+to allow my S3 bucket to write into my SQS queue.
+
+62
+00:02:25,860 --> 00:02:28,480
+So to do so, let me first demonstrate the problem.
+
+63
+00:02:28,480 --> 00:02:29,810
+So if I go back here
+
+64
+00:02:29,810 --> 00:02:33,680
+and I am going to refresh this page to see my queue appear.
+
+65
+00:02:33,680 --> 00:02:36,447
+So I refresh it and I say DemoS3Events.
+
+66
+00:02:38,500 --> 00:02:40,670
+All object created, and then scroll down
+
+67
+00:02:40,670 --> 00:02:43,860
+and then choose the SQS queue.
+
+68
+00:02:43,860 --> 00:02:45,130
+I can choose the queue ARN.
+
+69
+00:02:45,130 --> 00:02:47,240
+Sorry. I could choose queue here in the dropdown,
+
+70
+00:02:47,240 --> 00:02:48,780
+DemoS3Notification.
+
+71
+00:02:48,780 --> 00:02:50,550
+And if I try to save my changes,
+
+72
+00:02:50,550 --> 00:02:52,777
+I get an unknown error, which is saying that,
+
+73
+00:02:52,777 --> 00:02:55,890
+"Hey, you are not able to validate
+
+74
+00:02:55,890 --> 00:02:57,550
+the destination configuration
+
+75
+00:02:57,550 --> 00:03:00,780
+because this SQS queue does not accept yet messages
+
+76
+00:03:00,780 --> 00:03:03,530
+from my S3 buckets."
+
+77
+00:03:03,530 --> 00:03:05,820
+And so I need to change the access policy
+
+78
+00:03:05,820 --> 00:03:07,063
+by clicking on edits,
+
+79
+00:03:08,500 --> 00:03:10,850
+scroll down, here's my access policy.
+
+80
+00:03:10,850 --> 00:03:13,660
+And I need to go ahead and generate a new policy.
+
+81
+00:03:13,660 --> 00:03:15,350
+So I go to Policy Generator.
+
+82
+00:03:15,350 --> 00:03:18,250
+It's going to be an SQS queue policy.
+
+83
+00:03:18,250 --> 00:03:22,500
+And the effect is allow anyone, just to be very permissive,
+
+84
+00:03:22,500 --> 00:03:25,810
+to do a send message.
+
+85
+00:03:25,810 --> 00:03:28,660
+And my Amazon resource name is right here.
+
+86
+00:03:28,660 --> 00:03:32,920
+I need to copy it and paste it.
+
+87
+00:03:32,920 --> 00:03:35,980
+I add a statement, and then generate this policy.
+
+88
+00:03:35,980 --> 00:03:38,120
+And now, this is the policy I wanna use
+
+89
+00:03:38,120 --> 00:03:41,750
+which allows anyone to write to my SQS queue.
+
+90
+00:03:41,750 --> 00:03:44,573
+So it's very, very permissive, but it will work.
+
+91
+00:03:45,690 --> 00:03:47,430
+Let's save this.
+
+92
+00:03:47,430 --> 00:03:50,400
+And now my access policy has been updated.
+
+93
+00:03:50,400 --> 00:03:53,810
+So now, if I go back here and try to save my changes,
+
+94
+00:03:53,810 --> 00:03:57,730
+as you can see, the operation was successfully completed.
+
+95
+00:03:57,730 --> 00:04:00,450
+And what happened is that if I go into my SQS queue
+
+96
+00:04:00,450 --> 00:04:03,290
+and click on send and receive messages,
+
+97
+00:04:03,290 --> 00:04:05,980
+and then click on poll for messages,
+
+98
+00:04:05,980 --> 00:04:10,130
+as you can see, a message was being sent by Amazon S3
+
+99
+00:04:10,130 --> 00:04:14,750
+which is to test event, to test the connectivity.
+
+100
+00:04:14,750 --> 00:04:17,833
+So what I can do is I can take this message and delete it.
+
+101
+00:04:18,829 --> 00:04:21,100
+So now we want to test whether or not
+
+102
+00:04:21,100 --> 00:04:25,920
+the S3 Event Notification is working with SQS.
+
+103
+00:04:25,920 --> 00:04:28,620
+So therefore we're going to upload an object,
+
+104
+00:04:28,620 --> 00:04:31,853
+click on add files and choose our coffee, the JPEG.
+
+105
+00:04:32,770 --> 00:04:34,023
+I will upload this file.
+
+106
+00:04:35,080 --> 00:04:36,280
+Now the file has been uploaded.
+
+107
+00:04:36,280 --> 00:04:37,420
+And if I go into my bucket,
+
+108
+00:04:37,420 --> 00:04:40,950
+I can indeed see that my coffee, the JPEG, has been created.
+
+109
+00:04:40,950 --> 00:04:42,470
+And imagine we wanted to automate this
+
+110
+00:04:42,470 --> 00:04:44,240
+and create a thumbnail from it.
+
+111
+00:04:44,240 --> 00:04:47,200
+Then, we will need to have a message into our SQS queue
+
+112
+00:04:47,200 --> 00:04:49,470
+to then process it and create a thumbnail.
+
+113
+00:04:49,470 --> 00:04:50,950
+Therefore, I'm going to pull for messages.
+
+114
+00:04:50,950 --> 00:04:53,950
+And as you can see, a message was created here.
+
+115
+00:04:53,950 --> 00:04:55,500
+And if you look at the message itself,
+
+116
+00:04:55,500 --> 00:04:58,490
+and I'm going to try to increase this window size,
+
+117
+00:04:58,490 --> 00:05:00,870
+we can see the fact that the "eventName"
+
+118
+00:05:00,870 --> 00:05:02,880
+was "ObjectCreatedPut"
+
+119
+00:05:02,880 --> 00:05:05,180
+So an object was indeed created.
+
+120
+00:05:05,180 --> 00:05:06,970
+And if we look deeper,
+
+121
+00:05:06,970 --> 00:05:10,350
+we're going to see that the key of that message
+
+122
+00:05:10,350 --> 00:05:11,320
+is coffee, the JPEG.
+
+123
+00:05:11,320 --> 00:05:13,700
+So the coffee, the JPEG, was created
+
+124
+00:05:13,700 --> 00:05:17,540
+and it generated a whole event into my SQS queue.
+
+125
+00:05:17,540 --> 00:05:18,822
+And therefore, that shows the power
+
+126
+00:05:18,822 --> 00:05:21,070
+of S3 Event Notifications.
+
+127
+00:05:21,070 --> 00:05:23,310
+What I can do here is I can delete the message
+
+128
+00:05:23,310 --> 00:05:24,620
+and we're done.
+
+129
+00:05:24,620 --> 00:05:25,453
+Okay. So that's it.
+
+130
+00:05:25,453 --> 00:05:27,170
+We've seen S3 Event Notifications.
+
+131
+00:05:27,170 --> 00:05:28,290
+What you need to remember again
+
+132
+00:05:28,290 --> 00:05:31,590
+is that you can send to SQS, SNS and Lambda,
+
+133
+00:05:31,590 --> 00:05:34,270
+as well as send all events to Amazon EventBridge
+
+134
+00:05:34,270 --> 00:05:38,870
+for further processing and sending it to more destinations.
+
+135
+00:05:38,870 --> 00:05:40,180
+Okay. That's it.
+
+136
+00:05:40,180 --> 00:05:41,930
+I will see you in the next lecture.
+

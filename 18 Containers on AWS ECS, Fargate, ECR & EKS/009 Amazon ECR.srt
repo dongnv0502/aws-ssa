@@ -1,0 +1,252 @@
+1
+00:00:00,000 --> 00:00:01,990
+Okay, so let's do a short intro
+
+2
+00:00:01,990 --> 00:00:03,150
+to Amazon ECR.
+
+3
+00:00:03,150 --> 00:00:04,590
+So Amazon ECR stands
+
+4
+00:00:04,590 --> 00:00:06,880
+for Elastic Container Registry,
+
+5
+00:00:06,880 --> 00:00:07,830
+and it's used to store
+
+6
+00:00:07,830 --> 00:00:10,820
+and manage Docker images on AWS.
+
+7
+00:00:10,820 --> 00:00:13,090
+So so far, we've been using online repository
+
+8
+00:00:13,090 --> 00:00:14,120
+such as Docker hub
+
+9
+00:00:14,120 --> 00:00:16,100
+but we can also store our own images
+
+10
+00:00:16,100 --> 00:00:17,520
+on Amazon ECR.
+
+11
+00:00:17,520 --> 00:00:19,360
+And actually you have two options for ECR.
+
+12
+00:00:19,360 --> 00:00:21,110
+We can store images privately,
+
+13
+00:00:21,110 --> 00:00:22,480
+just for your account
+
+14
+00:00:22,480 --> 00:00:23,930
+or your own accounts
+
+15
+00:00:23,930 --> 00:00:25,040
+with an s
+
+16
+00:00:25,040 --> 00:00:28,020
+or you can use a public repository and publish
+
+17
+00:00:28,020 --> 00:00:31,250
+to the Amazon ECR public gallery.
+
+18
+00:00:31,250 --> 00:00:33,150
+Now ECR is fully integrated
+
+19
+00:00:33,150 --> 00:00:33,983
+with Amazon ECS,
+
+20
+00:00:33,983 --> 00:00:34,816
+which is great.
+
+21
+00:00:34,816 --> 00:00:35,920
+And your images
+
+22
+00:00:35,920 --> 00:00:37,380
+are behind the scenes stored
+
+23
+00:00:37,380 --> 00:00:39,080
+by Amazon S3.
+
+24
+00:00:39,080 --> 00:00:40,180
+So your ECR repository
+
+25
+00:00:40,180 --> 00:00:42,120
+may contain different Docker images
+
+26
+00:00:42,120 --> 00:00:43,530
+and then your ECS cluster.
+
+27
+00:00:43,530 --> 00:00:44,363
+And for example,
+
+28
+00:00:44,363 --> 00:00:45,370
+an EC2 instance
+
+29
+00:00:45,370 --> 00:00:47,360
+on your ECS cluster may want
+
+30
+00:00:47,360 --> 00:00:49,140
+to pull these images.
+
+31
+00:00:49,140 --> 00:00:50,090
+So to do so
+
+32
+00:00:50,090 --> 00:00:50,923
+while we're going
+
+33
+00:00:50,923 --> 00:00:52,130
+to sign an IAM role
+
+34
+00:00:52,130 --> 00:00:53,670
+to our EC2 instance
+
+35
+00:00:53,670 --> 00:00:55,940
+and this IAM role will allow our instance
+
+36
+00:00:55,940 --> 00:00:57,580
+to pull Docker images.
+
+37
+00:00:57,580 --> 00:00:59,370
+So of course, all access
+
+38
+00:00:59,370 --> 00:01:01,860
+to ECR is protected by IAM.
+
+39
+00:01:01,860 --> 00:01:03,930
+That includes that if you have a permission error
+
+40
+00:01:03,930 --> 00:01:05,530
+on ECR have a look
+
+41
+00:01:05,530 --> 00:01:06,680
+at your policies
+
+42
+00:01:06,680 --> 00:01:07,770
+and then your
+
+43
+00:01:07,770 --> 00:01:08,603
+containers are going
+
+44
+00:01:08,603 --> 00:01:09,436
+to be started
+
+45
+00:01:09,436 --> 00:01:10,900
+on your EC2 instance
+
+46
+00:01:10,900 --> 00:01:12,360
+after they are pulled
+
+47
+00:01:12,360 --> 00:01:13,770
+by your EC2 instance.
+
+48
+00:01:13,770 --> 00:01:15,480
+And this is how ECS
+
+49
+00:01:15,480 --> 00:01:18,580
+and ECR ECR work together.
+
+50
+00:01:18,580 --> 00:01:19,720
+Now, Amazon ECR is great
+
+51
+00:01:19,720 --> 00:01:20,553
+because on top
+
+52
+00:01:20,553 --> 00:01:22,080
+of being a repository,
+
+53
+00:01:22,080 --> 00:01:24,080
+it, supports image vulnerability
+
+54
+00:01:24,080 --> 00:01:26,730
+scanning, versioning, image tags,
+
+55
+00:01:26,730 --> 00:01:28,830
+and image lifecycle.
+
+56
+00:01:28,830 --> 00:01:29,951
+So overall, anytime you see
+
+57
+00:01:29,951 --> 00:01:32,750
+storing Docker images think ECR
+
+58
+00:01:32,750 --> 00:01:33,583
+and that should be it
+
+59
+00:01:33,583 --> 00:01:34,940
+for you at the exam.
+
+60
+00:01:34,940 --> 00:01:35,773
+All right.
+
+61
+00:01:35,773 --> 00:01:36,606
+I hope you liked it.
+
+62
+00:01:36,606 --> 00:01:37,439
+And I will see you
+
+63
+00:01:37,439 --> 00:01:38,330
+in the next lecture.
+

@@ -1,0 +1,924 @@
+1
+00:00:00,210 --> 00:00:03,030
+So let's have a look at the KMS service.
+
+2
+00:00:03,030 --> 00:00:04,050
+And first on the left hand side,
+
+3
+00:00:04,050 --> 00:00:06,840
+I wanna look at the AWS managed keys.
+
+4
+00:00:06,840 --> 00:00:09,810
+You can see if I've been using KMS encryption
+
+5
+00:00:09,810 --> 00:00:12,090
+throughout this course, then these keys
+
+6
+00:00:12,090 --> 00:00:13,500
+will appear right here.
+
+7
+00:00:13,500 --> 00:00:17,040
+So we can look for example at the AWS EBS,
+
+8
+00:00:17,040 --> 00:00:18,750
+and this is an Else managed key
+
+9
+00:00:18,750 --> 00:00:21,360
+because it belongs to the EBS service.
+
+10
+00:00:21,360 --> 00:00:23,730
+So we can have a look here, how it's being used.
+
+11
+00:00:23,730 --> 00:00:25,950
+So there is a key policy,
+
+12
+00:00:25,950 --> 00:00:29,790
+and this complex policy defines what can access this key.
+
+13
+00:00:29,790 --> 00:00:33,180
+And of course, because this is an EBS AWS key,
+
+14
+00:00:33,180 --> 00:00:35,400
+then you will look at all the actions,
+
+15
+00:00:35,400 --> 00:00:38,640
+so it can come from anywhere, do some kind of actions.
+
+16
+00:00:38,640 --> 00:00:41,910
+But the condition is that the caller accounts
+
+17
+00:00:41,910 --> 00:00:44,250
+has to be mine and the Via Service
+
+18
+00:00:44,250 --> 00:00:45,450
+has to be the EC2 service,
+
+19
+00:00:45,450 --> 00:00:49,140
+which is a service above the EBS service, okay?
+
+20
+00:00:49,140 --> 00:00:53,100
+If I looked for example, at another AWS managed key,
+
+21
+00:00:53,100 --> 00:00:55,230
+for example, the SQS one,
+
+22
+00:00:55,230 --> 00:00:59,100
+and look at the key policy, here the Via Service
+
+23
+00:00:59,100 --> 00:01:03,390
+as a condition to my KMS key policy is the SQS service,
+
+24
+00:01:03,390 --> 00:01:07,963
+therefore allowing only access from SQS to this key.
+
+25
+00:01:09,690 --> 00:01:12,000
+We can also look at the cryptographic configuration,
+
+26
+00:01:12,000 --> 00:01:15,570
+which show that this key is symmetric of origin KMS
+
+27
+00:01:15,570 --> 00:01:18,810
+and it's used to encrypt and decrypt data.
+
+28
+00:01:18,810 --> 00:01:19,643
+Okay.
+
+29
+00:01:19,643 --> 00:01:22,230
+So that's for the KMS managed key by AWS,
+
+30
+00:01:22,230 --> 00:01:23,790
+but then we have other kinds.
+
+31
+00:01:23,790 --> 00:01:25,950
+We have the customer managed keys,
+
+32
+00:01:25,950 --> 00:01:27,900
+as well as the custom key store.
+
+33
+00:01:27,900 --> 00:01:30,990
+So the custom key store is when we wanna use CloudHSM,
+
+34
+00:01:30,990 --> 00:01:34,020
+but this is out of scope for this exam.
+
+35
+00:01:34,020 --> 00:01:35,430
+So we don't go over this,
+
+36
+00:01:35,430 --> 00:01:38,310
+we're just gonna go over the customer managed key.
+
+37
+00:01:38,310 --> 00:01:41,340
+So this is when we want to create our own keys within KMS
+
+38
+00:01:41,340 --> 00:01:43,830
+and not use the ones managed by AWS.
+
+39
+00:01:43,830 --> 00:01:45,600
+So let's create a key, but if we do so,
+
+40
+00:01:45,600 --> 00:01:48,420
+remember this is going to cost you $1 per month.
+
+41
+00:01:48,420 --> 00:01:51,240
+So if you don't want to pay anything, then do not do this.
+
+42
+00:01:51,240 --> 00:01:53,190
+So here for the key type, have multiple options,
+
+43
+00:01:53,190 --> 00:01:56,280
+have the symmetric or asymmetric type of key.
+
+44
+00:01:56,280 --> 00:01:59,220
+So if I use asymmetric, this could be used for encrypt
+
+45
+00:01:59,220 --> 00:02:02,550
+and decrypt or sign and verify type of operations.
+
+46
+00:02:02,550 --> 00:02:04,230
+But this is out of scope for this lecture,
+
+47
+00:02:04,230 --> 00:02:07,500
+I'm going use the symmetric type of KMS key,
+
+48
+00:02:07,500 --> 00:02:09,990
+and we'll use the encrypt and decrypt option.
+
+49
+00:02:09,990 --> 00:02:13,410
+Okay, this is the most basic one I want to show you
+
+50
+00:02:13,410 --> 00:02:17,370
+For advanced options, the key origin is going to be KMS
+
+51
+00:02:17,370 --> 00:02:19,590
+because we want KMS to create this key for us.
+
+52
+00:02:19,590 --> 00:02:20,760
+If we wanted to import a key,
+
+53
+00:02:20,760 --> 00:02:24,330
+this would be the external type of key origin
+
+54
+00:02:24,330 --> 00:02:26,670
+or custom key store if we wanted to have CloudHSM,
+
+55
+00:02:26,670 --> 00:02:28,170
+but again, this is out of scope.
+
+56
+00:02:28,170 --> 00:02:29,520
+So we'll use KMS.
+
+57
+00:02:29,520 --> 00:02:32,460
+And here for regionality we have single region key
+
+58
+00:02:32,460 --> 00:02:33,990
+and multi region key.
+
+59
+00:02:33,990 --> 00:02:36,720
+And we're just going to consider single region key
+
+60
+00:02:36,720 --> 00:02:38,880
+right now because this is the most,
+
+61
+00:02:38,880 --> 00:02:42,210
+the oldest type of option and the most common for KMS.
+
+62
+00:02:42,210 --> 00:02:45,210
+So we'll use single region key, click on Next.
+
+63
+00:02:45,210 --> 00:02:46,410
+Next we have a key alias,
+
+64
+00:02:46,410 --> 00:02:48,693
+so I'll just have it as tutorial.
+
+65
+00:02:50,010 --> 00:02:51,090
+Click on Next.
+
+66
+00:02:51,090 --> 00:02:54,300
+And here we can start define key administrators.
+
+67
+00:02:54,300 --> 00:02:56,730
+So if I don't define one, then we're going
+
+68
+00:02:56,730 --> 00:03:00,030
+to use the default KMS key policy, which is what I want.
+
+69
+00:03:00,030 --> 00:03:02,010
+But if you wanted to be very specific about
+
+70
+00:03:02,010 --> 00:03:04,980
+who can use this key and who could administer it,
+
+71
+00:03:04,980 --> 00:03:06,960
+this is where it would happen.
+
+72
+00:03:06,960 --> 00:03:09,510
+So right now I'm not going to take anything,
+
+73
+00:03:09,510 --> 00:03:10,860
+and click on Next.
+
+74
+00:03:10,860 --> 00:03:12,510
+Then you can say, who can use this key?
+
+75
+00:03:12,510 --> 00:03:15,060
+So again, this is for your KMS key policy.
+
+76
+00:03:15,060 --> 00:03:17,880
+To be more specific, right now I want to allow everyone
+
+77
+00:03:17,880 --> 00:03:20,970
+to use it if they have the right IAM permissions.
+
+78
+00:03:20,970 --> 00:03:23,490
+But if you wanted to also have some extra security,
+
+79
+00:03:23,490 --> 00:03:26,490
+you could say, hey, only Stefan can use this key
+
+80
+00:03:26,490 --> 00:03:30,210
+and this would create a custom KMS key policy.
+
+81
+00:03:30,210 --> 00:03:32,130
+But in this instance, I don't want this.
+
+82
+00:03:32,130 --> 00:03:33,810
+And as you can see at the bottom,
+
+83
+00:03:33,810 --> 00:03:37,710
+I can choose other AWS accounts to access my key.
+
+84
+00:03:37,710 --> 00:03:39,660
+So this is if you had for example,
+
+85
+00:03:39,660 --> 00:03:42,713
+the use case of sharing an encrypted snapshot,
+
+86
+00:03:42,713 --> 00:03:44,760
+an EBS snapshot for example,
+
+87
+00:03:44,760 --> 00:03:48,933
+you would add another account to allow access to your key.
+
+88
+00:03:50,430 --> 00:03:53,790
+So we summarize everything, so we have a symmetric key,
+
+89
+00:03:53,790 --> 00:03:55,200
+and then this is the key policy
+
+90
+00:03:55,200 --> 00:03:57,870
+and this is what I call the default key policy.
+
+91
+00:03:57,870 --> 00:03:59,700
+This is just to enable IAM user permission,
+
+92
+00:03:59,700 --> 00:04:03,300
+so it allows anything to do any resource on KMS
+
+93
+00:04:03,300 --> 00:04:05,100
+as long as they will have, of course,
+
+94
+00:04:05,100 --> 00:04:07,080
+IAM permissions to do so.
+
+95
+00:04:07,080 --> 00:04:09,060
+So let's finish this.
+
+96
+00:04:09,060 --> 00:04:10,830
+And now my key has been created
+
+97
+00:04:10,830 --> 00:04:12,513
+and we can click on View Key.
+
+98
+00:04:13,530 --> 00:04:15,120
+So now that my key is created,
+
+99
+00:04:15,120 --> 00:04:17,579
+I can have a look at the key policy.
+
+100
+00:04:17,579 --> 00:04:20,820
+And so the key policy is just like this,
+
+101
+00:04:20,820 --> 00:04:22,950
+it's an IAM policy for your key.
+
+102
+00:04:22,950 --> 00:04:24,600
+But you can switch to the default view
+
+103
+00:04:24,600 --> 00:04:27,210
+and you can see in a better summary,
+
+104
+00:04:27,210 --> 00:04:29,130
+like who are the key administrators,
+
+105
+00:04:29,130 --> 00:04:30,420
+is it allowed for key deletion?
+
+106
+00:04:30,420 --> 00:04:31,830
+Who are the key users?
+
+107
+00:04:31,830 --> 00:04:34,170
+And can other accounts access it?
+
+108
+00:04:34,170 --> 00:04:35,460
+So I won't touch this.
+
+109
+00:04:35,460 --> 00:04:38,100
+Then you can have a look at the cryptographic configuration.
+
+110
+00:04:38,100 --> 00:04:39,270
+I won't touch this.
+
+111
+00:04:39,270 --> 00:04:40,680
+Tags not needed.
+
+112
+00:04:40,680 --> 00:04:44,340
+So for key rotation, we can enable automatic key rotation
+
+113
+00:04:44,340 --> 00:04:46,770
+by editing here and saying yes, it's enabled,
+
+114
+00:04:46,770 --> 00:04:49,590
+and we can set up the rotation period from 90 days
+
+115
+00:04:49,590 --> 00:04:52,800
+to many more days, to 2,560 days.
+
+116
+00:04:52,800 --> 00:04:54,120
+So here this is one year,
+
+117
+00:04:54,120 --> 00:04:56,190
+but you have the option to customize it.
+
+118
+00:04:56,190 --> 00:04:59,460
+If you enable this, then you know the next rotation dates.
+
+119
+00:04:59,460 --> 00:05:00,540
+And also for example,
+
+120
+00:05:00,540 --> 00:05:03,390
+you can initiate on demand key rotation
+
+121
+00:05:03,390 --> 00:05:05,130
+by just clicking on this button.
+
+122
+00:05:05,130 --> 00:05:07,830
+Whenever you rotate your key automatically
+
+123
+00:05:07,830 --> 00:05:09,720
+or on demand, it's going to appear
+
+124
+00:05:09,720 --> 00:05:11,550
+in the key rotation history.
+
+125
+00:05:11,550 --> 00:05:13,110
+So these options are available
+
+126
+00:05:13,110 --> 00:05:17,190
+because we have created their key directly from KMS.
+
+127
+00:05:17,190 --> 00:05:20,130
+And finally, see, finally what is the alias for my key?
+
+128
+00:05:20,130 --> 00:05:22,560
+It is named tutorial, so I can refer to it
+
+129
+00:05:22,560 --> 00:05:23,580
+with an alias ARN,
+
+130
+00:05:23,580 --> 00:05:26,250
+which will be a little bit simpler for us.
+
+131
+00:05:26,250 --> 00:05:28,140
+Finally, for key actions,
+
+132
+00:05:28,140 --> 00:05:31,740
+you can disable it or schedule key deletion.
+
+133
+00:05:31,740 --> 00:05:33,180
+So we have our key, it's great,
+
+134
+00:05:33,180 --> 00:05:35,970
+but now let's go use the CLI to encrypt
+
+135
+00:05:35,970 --> 00:05:38,160
+and decrypt some data.
+
+136
+00:05:38,160 --> 00:05:42,030
+So under KMS I have kms-demo-cli.sh,
+
+137
+00:05:42,030 --> 00:05:45,330
+which is going to show us how to use the encrypt
+
+138
+00:05:45,330 --> 00:05:48,240
+and decrypt call of KMS with an example.
+
+139
+00:05:48,240 --> 00:05:51,120
+So, first we have got to create a file,
+
+140
+00:05:51,120 --> 00:05:56,120
+and I'm going to call it ExampleSecretFile.txt.
+
+141
+00:05:56,430 --> 00:05:57,600
+And with it I'm going to say
+
+142
+00:05:57,600 --> 00:06:02,160
+there is a super, secret, password, okay?
+
+143
+00:06:02,160 --> 00:06:04,440
+So this is whatever you want in this text file.
+
+144
+00:06:04,440 --> 00:06:06,210
+For me I just entered a password
+
+145
+00:06:06,210 --> 00:06:07,560
+called SuperSecretPassword,
+
+146
+00:06:07,560 --> 00:06:10,920
+and we're going to encrypt it and then decrypt it using KMS.
+
+147
+00:06:10,920 --> 00:06:12,720
+So the first thing that you do for KMS encryption
+
+148
+00:06:12,720 --> 00:06:14,550
+is use the encrypt command.
+
+149
+00:06:14,550 --> 00:06:16,860
+So we have to specify a key ID,
+
+150
+00:06:16,860 --> 00:06:19,860
+for me it's alias/tutorial, so this corresponds
+
+151
+00:06:19,860 --> 00:06:22,470
+to the key you have created in My Console.
+
+152
+00:06:22,470 --> 00:06:23,670
+And you could use the alias,
+
+153
+00:06:23,670 --> 00:06:25,770
+you could use this key ID right here,
+
+154
+00:06:25,770 --> 00:06:27,420
+or you could use the full ARN,
+
+155
+00:06:27,420 --> 00:06:30,030
+it doesn't really matter, just use whatever you want.
+
+156
+00:06:30,030 --> 00:06:32,490
+And then you need to pass in plain text
+
+157
+00:06:32,490 --> 00:06:33,960
+the address of your file.
+
+158
+00:06:33,960 --> 00:06:36,810
+So for me it's ExampleSecretFile.txt.
+
+159
+00:06:36,810 --> 00:06:39,330
+The output of the query, so you're querying
+
+160
+00:06:39,330 --> 00:06:40,440
+for a Cipher text blog,
+
+161
+00:06:40,440 --> 00:06:42,540
+which represents the encrypted contents,
+
+162
+00:06:42,540 --> 00:06:44,520
+and you want the text as is.
+
+163
+00:06:44,520 --> 00:06:46,380
+And finally the region your key is in,
+
+164
+00:06:46,380 --> 00:06:48,990
+so for me, mine is manage region eu-west-2.
+
+165
+00:06:48,990 --> 00:06:52,230
+This is going to give us a base 64 file
+
+166
+00:06:52,230 --> 00:06:53,880
+containing the encrypted content.
+
+167
+00:06:53,880 --> 00:06:56,310
+So let's copy this command right here
+
+168
+00:06:56,310 --> 00:06:58,260
+and paste it, run it.
+
+169
+00:06:58,260 --> 00:07:01,049
+And now I have a file called
+
+170
+00:07:01,049 --> 00:07:03,390
+ExampleSecretFileEncrypted.base64.
+
+171
+00:07:03,390 --> 00:07:07,710
+And this represents my encrypted file, okay, in base 64,
+
+172
+00:07:07,710 --> 00:07:10,890
+so just with letters and numbers that we can recognize.
+
+173
+00:07:10,890 --> 00:07:14,040
+Now though, we're going to do a base 64 decode
+
+174
+00:07:14,040 --> 00:07:16,050
+to get the binary encrypted value.
+
+175
+00:07:16,050 --> 00:07:18,660
+So if you're on Windows, the command is different.
+
+176
+00:07:18,660 --> 00:07:20,400
+So for Linux, I'm just going to run this one,
+
+177
+00:07:20,400 --> 00:07:23,190
+but for Windows you can run the other one.
+
+178
+00:07:23,190 --> 00:07:24,930
+And so the idea is that you're going
+
+179
+00:07:24,930 --> 00:07:28,680
+to create a file called ExampleSecretFileEncrypted
+
+180
+00:07:28,680 --> 00:07:29,730
+without a base 64.
+
+181
+00:07:29,730 --> 00:07:32,523
+So let me copy this and paste it.
+
+182
+00:07:33,360 --> 00:07:36,090
+And now I have a new file called
+
+183
+00:07:36,090 --> 00:07:37,980
+ExampleSecretFileEncrypted.
+
+184
+00:07:37,980 --> 00:07:40,170
+And if I try to open it with my text editor,
+
+185
+00:07:40,170 --> 00:07:41,460
+it's not going to work because it say
+
+186
+00:07:41,460 --> 00:07:44,250
+it uses either binary or unsupported text encoding.
+
+187
+00:07:44,250 --> 00:07:46,020
+So this is indeed a binary file.
+
+188
+00:07:46,020 --> 00:07:47,670
+So this is the kind of secret file
+
+189
+00:07:47,670 --> 00:07:49,740
+that you would share with someone.
+
+190
+00:07:49,740 --> 00:07:52,440
+And so now I want to go and decrypt it.
+
+191
+00:07:52,440 --> 00:07:54,780
+So this is completely gibberish
+
+192
+00:07:54,780 --> 00:07:56,790
+and we cannot get any information of it.
+
+193
+00:07:56,790 --> 00:07:59,160
+Even this one, we cannot get any information.
+
+194
+00:07:59,160 --> 00:08:01,200
+How do we know it's super secret password?
+
+195
+00:08:01,200 --> 00:08:02,730
+So this is an encrypted file,
+
+196
+00:08:02,730 --> 00:08:06,030
+but now we want to take this encrypted binary file,
+
+197
+00:08:06,030 --> 00:08:07,500
+and decrypt it.
+
+198
+00:08:07,500 --> 00:08:11,010
+So for this we're going to run an KMS decrypt command.
+
+199
+00:08:11,010 --> 00:08:15,450
+So this time we pass in the file that was encrypted.
+
+200
+00:08:15,450 --> 00:08:18,150
+So this is where we pass in the file in here.
+
+201
+00:08:18,150 --> 00:08:19,980
+Then we query for the plain text value,
+
+202
+00:08:19,980 --> 00:08:21,480
+so the decrypted value,
+
+203
+00:08:21,480 --> 00:08:23,130
+and we write this to another file
+
+204
+00:08:23,130 --> 00:08:25,830
+that is going to be base 64 encrypted,
+
+205
+00:08:25,830 --> 00:08:27,540
+and we specify the region.
+
+206
+00:08:27,540 --> 00:08:28,560
+So let's go ahead.
+
+207
+00:08:28,560 --> 00:08:30,960
+KMS knows automatically which key to use
+
+208
+00:08:30,960 --> 00:08:33,179
+for the description because it is included
+
+209
+00:08:33,179 --> 00:08:36,630
+in the blob of encrypted value.
+
+210
+00:08:36,630 --> 00:08:39,720
+So let me enter this, and so this has succeeded.
+
+211
+00:08:39,720 --> 00:08:43,890
+So now if I go to my Example File decrypted base 64,
+
+212
+00:08:43,890 --> 00:08:46,410
+it is here, it's a much shorter thing,
+
+213
+00:08:46,410 --> 00:08:48,960
+and now we're going to base 64 decode this
+
+214
+00:08:48,960 --> 00:08:50,970
+to get my text value.
+
+215
+00:08:50,970 --> 00:08:53,430
+So we'll have a different command again,
+
+216
+00:08:53,430 --> 00:08:54,990
+if you're on Windows or if you're on Mac,
+
+217
+00:08:54,990 --> 00:08:57,090
+so I'm on Mac, so I'm going to use this one.
+
+218
+00:08:57,090 --> 00:09:00,660
+So I'm copying this command, pasting it,
+
+219
+00:09:00,660 --> 00:09:03,870
+and now we have done a base 64 decoding of our file.
+
+220
+00:09:03,870 --> 00:09:08,160
+So if we go back to Example File decrypted.txt,
+
+221
+00:09:08,160 --> 00:09:10,710
+we find back our super secret password.
+
+222
+00:09:10,710 --> 00:09:12,630
+So we have shown the encryption
+
+223
+00:09:12,630 --> 00:09:15,540
+and it's reverse operation, the decryption.
+
+224
+00:09:15,540 --> 00:09:17,130
+Obviously these are low level commands,
+
+225
+00:09:17,130 --> 00:09:19,680
+the SDK will abstract some of that for us,
+
+226
+00:09:19,680 --> 00:09:21,300
+but this shows you the full example of
+
+227
+00:09:21,300 --> 00:09:24,330
+how you can use the encrypt and decrypt command
+
+228
+00:09:24,330 --> 00:09:27,060
+of KMS with your own customer master key.
+
+229
+00:09:27,060 --> 00:09:28,410
+So that's it, super simple.
+
+230
+00:09:28,410 --> 00:09:29,580
+I hope that was helpful,
+
+231
+00:09:29,580 --> 00:09:31,530
+and I will see you in the next lecture.
+

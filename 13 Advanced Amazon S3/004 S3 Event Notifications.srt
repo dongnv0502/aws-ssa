@@ -1,0 +1,348 @@
+1
+00:00:00,000 --> 00:00:03,240
+So now let's talk about S3 Event Notifications.
+
+2
+00:00:03,240 --> 00:00:04,920
+And the idea is that your events
+
+3
+00:00:04,920 --> 00:00:07,230
+are going to happen in Amazon S3.
+
+4
+00:00:07,230 --> 00:00:08,220
+What are events?
+
+5
+00:00:08,220 --> 00:00:12,060
+Well, events are things such as an object is created,
+
+6
+00:00:12,060 --> 00:00:15,420
+or an object is removed, or an object is restored,
+
+7
+00:00:15,420 --> 00:00:17,760
+or there is replication happening.
+
+8
+00:00:17,760 --> 00:00:19,080
+And you can filter these events.
+
+9
+00:00:19,080 --> 00:00:22,020
+So you can say I only want to consider the objects
+
+10
+00:00:22,020 --> 00:00:23,760
+that end with JPEG.
+
+11
+00:00:23,760 --> 00:00:26,550
+So the use case for Event Notification will be, for example,
+
+12
+00:00:26,550 --> 00:00:28,890
+to automatically react to certain events
+
+13
+00:00:28,890 --> 00:00:30,510
+happening in Amazon S3.
+
+14
+00:00:30,510 --> 00:00:32,820
+For example, you want to generate thumbnails
+
+15
+00:00:32,820 --> 00:00:36,060
+of all the images upload to Amazon S3.
+
+16
+00:00:36,060 --> 00:00:38,970
+Therefore, you're going to create your Event Notification.
+
+17
+00:00:38,970 --> 00:00:41,400
+And then you can send it to a couple of destinations.
+
+18
+00:00:41,400 --> 00:00:45,450
+It could be an SNS topic, it could be an SQS queue,
+
+19
+00:00:45,450 --> 00:00:46,860
+and a Lambda function.
+
+20
+00:00:46,860 --> 00:00:48,810
+And don't worry if you don't know this by now,
+
+21
+00:00:48,810 --> 00:00:52,380
+we will learn about these features in the next lectures.
+
+22
+00:00:52,380 --> 00:00:55,710
+So you can create as many S3 events as desired,
+
+23
+00:00:55,710 --> 00:00:58,950
+and you can send them to whatever target you want.
+
+24
+00:00:58,950 --> 00:01:00,810
+So the idea is that these events
+
+25
+00:01:00,810 --> 00:01:03,060
+are typically delivered within seconds
+
+26
+00:01:03,060 --> 00:01:04,379
+to these destinations,
+
+27
+00:01:04,379 --> 00:01:07,350
+but sometimes it can take a minute or longer.
+
+28
+00:01:07,350 --> 00:01:09,810
+Now, for the Event Notifications to work,
+
+29
+00:01:09,810 --> 00:01:11,730
+we need to have IAM permissions.
+
+30
+00:01:11,730 --> 00:01:14,640
+So the S3 service is sending data
+
+31
+00:01:14,640 --> 00:01:16,920
+into an SNS topic, for example.
+
+32
+00:01:16,920 --> 00:01:20,340
+So to make this possible, we need to attach
+
+33
+00:01:20,340 --> 00:01:23,730
+what's called an SNS resource access policy.
+
+34
+00:01:23,730 --> 00:01:27,720
+This is a IAM policy you attach to the SNS topic,
+
+35
+00:01:27,720 --> 00:01:30,480
+and this will allow the S3 bucket
+
+36
+00:01:30,480 --> 00:01:34,170
+to send messages directly into the SNS topic.
+
+37
+00:01:34,170 --> 00:01:36,270
+Similarly, if we use SQS,
+
+38
+00:01:36,270 --> 00:01:39,690
+we create an SQS resource access policy,
+
+39
+00:01:39,690 --> 00:01:43,020
+which authorizes the S3 service to send data
+
+40
+00:01:43,020 --> 00:01:44,820
+into our SQS queue.
+
+41
+00:01:44,820 --> 00:01:47,250
+And finally, for Lambda function, you will have guessed,
+
+42
+00:01:47,250 --> 00:01:49,230
+we need a Lambda resource policy
+
+43
+00:01:49,230 --> 00:01:50,880
+attached to our Lambda function
+
+44
+00:01:50,880 --> 00:01:52,530
+to make sure that Amazon S3
+
+45
+00:01:52,530 --> 00:01:55,320
+has the right to invoke our function.
+
+46
+00:01:55,320 --> 00:01:58,470
+So here we don't use IAM roles for Amazon S3.
+
+47
+00:01:58,470 --> 00:02:01,980
+Instead, we define resource access policies
+
+48
+00:02:01,980 --> 00:02:04,800
+on the SNS topic, on the SQS queue,
+
+49
+00:02:04,800 --> 00:02:06,180
+or on the Lambda function.
+
+50
+00:02:06,180 --> 00:02:07,830
+And they function similarly
+
+51
+00:02:07,830 --> 00:02:11,700
+to what we had when we were using an S3 bucket policy.
+
+52
+00:02:11,700 --> 00:02:15,150
+So you have to remember SNS, SQS, and lambda function
+
+53
+00:02:15,150 --> 00:02:17,220
+as Event Notifications targets.
+
+54
+00:02:17,220 --> 00:02:18,840
+But now, there's a fourth integration
+
+55
+00:02:18,840 --> 00:02:20,880
+you need to also learn about.
+
+56
+00:02:20,880 --> 00:02:23,400
+So your events are going into your Amazon S3 buckets.
+
+57
+00:02:23,400 --> 00:02:26,670
+And all the events end up in Amazon Event Bridge
+
+58
+00:02:26,670 --> 00:02:27,503
+no matter what.
+
+59
+00:02:27,503 --> 00:02:28,860
+So all of them, okay?
+
+60
+00:02:28,860 --> 00:02:31,680
+And then from Event Bridge that you don't know yet,
+
+61
+00:02:31,680 --> 00:02:33,120
+but you can set up rules.
+
+62
+00:02:33,120 --> 00:02:33,960
+And from Event Bridge,
+
+63
+00:02:33,960 --> 00:02:36,450
+you can, thanks to these rules, send these events
+
+64
+00:02:36,450 --> 00:02:40,680
+to over 18 different AWS services as destinations.
+
+65
+00:02:40,680 --> 00:02:43,110
+So it really enhances the capability
+
+66
+00:02:43,110 --> 00:02:45,270
+of S3 Event Notification.
+
+67
+00:02:45,270 --> 00:02:47,910
+And again, we'll see Event Bridge later on this course,
+
+68
+00:02:47,910 --> 00:02:49,260
+but with Event Bridge,
+
+69
+00:02:49,260 --> 00:02:51,330
+you get advanced filtering options
+
+70
+00:02:51,330 --> 00:02:53,370
+a lot more than what we had from before.
+
+71
+00:02:53,370 --> 00:02:56,250
+So you can filter by metadata, object, size, and name.
+
+72
+00:02:56,250 --> 00:02:58,260
+You can send to multiple destinations at the time.
+
+73
+00:02:58,260 --> 00:03:00,210
+You can say, for example, to Step Functions,
+
+74
+00:03:00,210 --> 00:03:01,950
+Kinesis Data Streams, or Firehose,
+
+75
+00:03:01,950 --> 00:03:03,900
+or you even get the features
+
+76
+00:03:03,900 --> 00:03:05,760
+coming straight from Amazon Event Bridge.
+
+77
+00:03:05,760 --> 00:03:08,130
+So you can archive events, replay events,
+
+78
+00:03:08,130 --> 00:03:10,830
+and you get more reliable delivery.
+
+79
+00:03:10,830 --> 00:03:14,250
+Okay, there's a lot you don't know in this lecture
+
+80
+00:03:14,250 --> 00:03:15,600
+around the news services,
+
+81
+00:03:15,600 --> 00:03:18,990
+but let's just focus on Amazon S3 Event Notifications.
+
+82
+00:03:18,990 --> 00:03:21,480
+The idea is that you can react to events
+
+83
+00:03:21,480 --> 00:03:23,340
+happening in Amazon S3,
+
+84
+00:03:23,340 --> 00:03:26,370
+thanks to sending it to SQS, SNS, Lambda,
+
+85
+00:03:26,370 --> 00:03:28,110
+or Amazon Event Bridge.
+
+86
+00:03:28,110 --> 00:03:28,943
+Okay, that's it.
+
+87
+00:03:28,943 --> 00:03:30,550
+I will see you in the next lecture.
+

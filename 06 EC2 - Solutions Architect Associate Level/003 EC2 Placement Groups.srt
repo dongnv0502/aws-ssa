@@ -1,0 +1,552 @@
+1
+00:00:00,000 --> 00:00:02,009
+So now, let's talk about placement groups.
+
+2
+00:00:02,009 --> 00:00:03,780
+Placement groups are a little bit more advanced,
+
+3
+00:00:03,780 --> 00:00:05,280
+and we wanna use them once,
+
+4
+00:00:05,280 --> 00:00:08,640
+we want to have control over how our EC2 instances
+
+5
+00:00:08,640 --> 00:00:12,420
+are going to be placed within the AWS infrastructure.
+
+6
+00:00:12,420 --> 00:00:14,040
+So that strategy can be defined
+
+7
+00:00:14,040 --> 00:00:15,930
+using these placement groups.
+
+8
+00:00:15,930 --> 00:00:19,860
+So we don't get direct interaction with the hardware of AWS,
+
+9
+00:00:19,860 --> 00:00:23,370
+but we let AWS know how we would like our EC2 instance
+
+10
+00:00:23,370 --> 00:00:25,830
+to be placed compared to one another.
+
+11
+00:00:25,830 --> 00:00:27,660
+So when you create a placement group,
+
+12
+00:00:27,660 --> 00:00:30,420
+you have three strategies available for you.
+
+13
+00:00:30,420 --> 00:00:33,330
+You have the cluster placement group in which your instances
+
+14
+00:00:33,330 --> 00:00:37,680
+will be grouped together in a low-latency hardware setup
+
+15
+00:00:37,680 --> 00:00:39,750
+within a single availability zone.
+
+16
+00:00:39,750 --> 00:00:42,210
+This is going to give you high performance but high risk.
+
+17
+00:00:42,210 --> 00:00:44,100
+We'll see this in details in a second.
+
+18
+00:00:44,100 --> 00:00:46,320
+Spread means that your instances
+
+19
+00:00:46,320 --> 00:00:49,500
+are going to be spread across different hardware,
+
+20
+00:00:49,500 --> 00:00:50,940
+and there is a restriction on this.
+
+21
+00:00:50,940 --> 00:00:53,610
+That means you can only have seven EC2 instance
+
+22
+00:00:53,610 --> 00:00:56,790
+per placement group that spread per AZ.
+
+23
+00:00:56,790 --> 00:00:59,160
+So you would use a spread placement group
+
+24
+00:00:59,160 --> 00:01:01,590
+when you have critical applications.
+
+25
+00:01:01,590 --> 00:01:03,420
+Finally, the last one is a new kind
+
+26
+00:01:03,420 --> 00:01:05,129
+of placement group that is really helpful.
+
+27
+00:01:05,129 --> 00:01:06,450
+It's called partition.
+
+28
+00:01:06,450 --> 00:01:08,340
+It's similar to the spread,
+
+29
+00:01:08,340 --> 00:01:10,710
+meaning that you want to spread your instances,
+
+30
+00:01:10,710 --> 00:01:13,590
+but here, they're spread across many different partitions.
+
+31
+00:01:13,590 --> 00:01:16,770
+And these partitions rely on different sets of racks
+
+32
+00:01:16,770 --> 00:01:19,020
+of hardware within an AZ.
+
+33
+00:01:19,020 --> 00:01:21,060
+What does that mean is that they're still spread,
+
+34
+00:01:21,060 --> 00:01:23,910
+but they're not isolated one from another failure,
+
+35
+00:01:23,910 --> 00:01:25,680
+but a partition should be isolated
+
+36
+00:01:25,680 --> 00:01:27,750
+from another partition of failure.
+
+37
+00:01:27,750 --> 00:01:29,850
+The idea with this is that you can scale to hundreds
+
+38
+00:01:29,850 --> 00:01:32,730
+of EC2 instances per group, and that allows you
+
+39
+00:01:32,730 --> 00:01:34,920
+to run applications such as Hadoop,
+
+40
+00:01:34,920 --> 00:01:36,960
+Cassandra, or Kafka.
+
+41
+00:01:36,960 --> 00:01:38,610
+Now, let's have a look into each
+
+42
+00:01:38,610 --> 00:01:41,220
+of these placement groups in details.
+
+43
+00:01:41,220 --> 00:01:44,700
+So next, we have the cluster placement group,
+
+44
+00:01:44,700 --> 00:01:47,790
+and all your EC2 instances are going to be
+
+45
+00:01:47,790 --> 00:01:50,550
+in the same availability zone.
+
+46
+00:01:50,550 --> 00:01:52,110
+So why do we do this?
+
+47
+00:01:52,110 --> 00:01:55,200
+Well, this particular placement group
+
+48
+00:01:55,200 --> 00:01:57,270
+gives you great networking.
+
+49
+00:01:57,270 --> 00:02:01,080
+So you have around 10 gigabits per second
+
+50
+00:02:01,080 --> 00:02:03,870
+of bandwidth between all these instances
+
+51
+00:02:03,870 --> 00:02:06,630
+that will have enhanced networking enabled.
+
+52
+00:02:06,630 --> 00:02:09,960
+And so you get low latency, high throughput network.
+
+53
+00:02:09,960 --> 00:02:11,580
+And the idea is that out of this,
+
+54
+00:02:11,580 --> 00:02:12,750
+you can get great performance
+
+55
+00:02:12,750 --> 00:02:15,420
+for any kind of computational job.
+
+56
+00:02:15,420 --> 00:02:18,660
+So a drawback of using this architecture
+
+57
+00:02:18,660 --> 00:02:21,480
+is that if your availability zone fails,
+
+58
+00:02:21,480 --> 00:02:24,690
+then all the instances will fail at the same time.
+
+59
+00:02:24,690 --> 00:02:26,970
+But usually, for use case, this is fine.
+
+60
+00:02:26,970 --> 00:02:29,670
+So the use cases for this kind of placement group
+
+61
+00:02:29,670 --> 00:02:33,780
+are big data jobs that need to complete very fast
+
+62
+00:02:33,780 --> 00:02:35,490
+with very high networking
+
+63
+00:02:35,490 --> 00:02:38,460
+or applications that need extremely low latency
+
+64
+00:02:38,460 --> 00:02:39,990
+and high throughput network
+
+65
+00:02:39,990 --> 00:02:44,010
+between each instance of your application.
+
+66
+00:02:44,010 --> 00:02:45,810
+Now, spread is the complete opposite.
+
+67
+00:02:45,810 --> 00:02:48,510
+In spread, we want to minimize the failure risk.
+
+68
+00:02:48,510 --> 00:02:51,990
+And so in this case, when we ask for spread placement group,
+
+69
+00:02:51,990 --> 00:02:55,140
+all the EC2 instances are going to be located
+
+70
+00:02:55,140 --> 00:02:56,520
+on different hardware.
+
+71
+00:02:56,520 --> 00:02:58,920
+So as you can see here, we have three AZ,
+
+72
+00:02:58,920 --> 00:03:02,040
+and we have six EC2, and each EC2 instance
+
+73
+00:03:02,040 --> 00:03:03,720
+is on a different hardware.
+
+74
+00:03:03,720 --> 00:03:04,800
+So what does that mean?
+
+75
+00:03:04,800 --> 00:03:07,890
+Well, what we get is that we can span across multiple AZ,
+
+76
+00:03:07,890 --> 00:03:11,100
+and there is a reduced risk of simultaneous failure.
+
+77
+00:03:11,100 --> 00:03:11,933
+Why?
+
+78
+00:03:11,933 --> 00:03:14,370
+Well, because if my hardware one fails,
+
+79
+00:03:14,370 --> 00:03:16,740
+I'm pretty sure my hardware two will not fail.
+
+80
+00:03:16,740 --> 00:03:18,360
+And so we've separated the risk
+
+81
+00:03:18,360 --> 00:03:21,360
+of my two instances in the Us-east-1a
+
+82
+00:03:21,360 --> 00:03:23,100
+to fail at the same time.
+
+83
+00:03:23,100 --> 00:03:24,780
+And so that's the benefit from it.
+
+84
+00:03:24,780 --> 00:03:27,690
+The con is that from this configuration,
+
+85
+00:03:27,690 --> 00:03:31,500
+we're limited to seven instances per AZ per placement group.
+
+86
+00:03:31,500 --> 00:03:34,260
+So there is a limit to how big your placement group can be.
+
+87
+00:03:34,260 --> 00:03:36,120
+And so you need to have application
+
+88
+00:03:36,120 --> 00:03:39,210
+that's gonna be of good size but not too big.
+
+89
+00:03:39,210 --> 00:03:42,210
+The use case would be an application that needs to maximize
+
+90
+00:03:42,210 --> 00:03:44,250
+high availability and reduce the risk.
+
+91
+00:03:44,250 --> 00:03:46,920
+And in general, for critical applications
+
+92
+00:03:46,920 --> 00:03:49,830
+where your instance failures must be isolated
+
+93
+00:03:49,830 --> 00:03:51,000
+from one another.
+
+94
+00:03:51,000 --> 00:03:53,190
+Remember, here, we have a limitation
+
+95
+00:03:53,190 --> 00:03:56,223
+of seven instances per AZ per placement group.
+
+96
+00:03:57,090 --> 00:03:59,250
+Now, for the partition placement group,
+
+97
+00:03:59,250 --> 00:04:02,340
+we can have instances spread across partitions
+
+98
+00:04:02,340 --> 00:04:04,500
+in multiple available T-zones.
+
+99
+00:04:04,500 --> 00:04:06,990
+So we can have up to seven partitions per AZ.
+
+100
+00:04:06,990 --> 00:04:08,550
+So in this example, we have partition one
+
+101
+00:04:08,550 --> 00:04:11,760
+and partition two in us-east-1a
+
+102
+00:04:11,760 --> 00:04:14,910
+and partition three in us-east-1b.
+
+103
+00:04:14,910 --> 00:04:17,910
+And on each partition, you can have many EC2 instances.
+
+104
+00:04:17,910 --> 00:04:19,350
+So in the first one have four,
+
+105
+00:04:19,350 --> 00:04:20,399
+and the second one have four,
+
+106
+00:04:20,399 --> 00:04:22,590
+and the third one have four as well.
+
+107
+00:04:22,590 --> 00:04:24,600
+So why do we use a partition placement group?
+
+108
+00:04:24,600 --> 00:04:28,350
+Well, each partition represents a rack in AWS.
+
+109
+00:04:28,350 --> 00:04:30,270
+And so by having many partitions, you're making sure
+
+110
+00:04:30,270 --> 00:04:32,520
+that your instances are distributed
+
+111
+00:04:32,520 --> 00:04:35,400
+across many hardware racks, and so therefore,
+
+112
+00:04:35,400 --> 00:04:38,580
+they're safe from a rack failure from one another.
+
+113
+00:04:38,580 --> 00:04:41,550
+So you can have up to seven partitions per AZ,
+
+114
+00:04:41,550 --> 00:04:43,620
+and these partitions can span
+
+115
+00:04:43,620 --> 00:04:47,790
+across multiple availability zones in the same region.
+
+116
+00:04:47,790 --> 00:04:51,270
+You can get up to hundreds of EC2 instances with the setup.
+
+117
+00:04:51,270 --> 00:04:52,380
+So this is a difference
+
+118
+00:04:52,380 --> 00:04:55,170
+versus the spread type of placement group.
+
+119
+00:04:55,170 --> 00:04:58,110
+And as I said, the instances in the partition
+
+120
+00:04:58,110 --> 00:05:01,020
+do not share the same hardware physical rack
+
+121
+00:05:01,020 --> 00:05:03,420
+with the instances in the other partitions,
+
+122
+00:05:03,420 --> 00:05:07,950
+and therefore, each partition is isolated from failure.
+
+123
+00:05:07,950 --> 00:05:09,780
+So that means that, yes, if one goes down,
+
+124
+00:05:09,780 --> 00:05:12,420
+if partition goes down, the partition number two,
+
+125
+00:05:12,420 --> 00:05:14,970
+then partition number one should be fine.
+
+126
+00:05:14,970 --> 00:05:19,620
+And to know which partition these EC2 instances are on,
+
+127
+00:05:19,620 --> 00:05:22,510
+there is an option to access this information
+
+128
+00:05:24,150 --> 00:05:26,310
+with using the metadata service.
+
+129
+00:05:26,310 --> 00:05:28,680
+So when would you use a partition placement group?
+
+130
+00:05:28,680 --> 00:05:30,150
+Well, when you have an application
+
+131
+00:05:30,150 --> 00:05:33,120
+that it can be partition aware to distribute the data
+
+132
+00:05:33,120 --> 00:05:35,160
+and your servers across partitions.
+
+133
+00:05:35,160 --> 00:05:36,810
+And usually, the use cases
+
+134
+00:05:36,810 --> 00:05:38,966
+are going to be big data applications
+
+135
+00:05:38,966 --> 00:05:42,810
+which are partition aware, such as using HDFS,
+
+136
+00:05:42,810 --> 00:05:46,440
+HBase, Cassandra, and Apache Kafka.
+
+137
+00:05:46,440 --> 00:05:47,610
+So that's it for this lecture.
+
+138
+00:05:47,610 --> 00:05:50,610
+I hope you liked it, and I will see you in the next lecture.
+

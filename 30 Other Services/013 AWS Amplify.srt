@@ -1,0 +1,208 @@
+1
+00:00:00,160 --> 00:00:02,240
+So now let's talk about AWS Amplify
+
+2
+00:00:02,240 --> 00:00:03,645
+and it's a complicated service,
+
+3
+00:00:03,645 --> 00:00:06,680
+but at its core I want you to think of it
+
+4
+00:00:06,680 --> 00:00:09,980
+as a web and mobile application development tool.
+
+5
+00:00:09,980 --> 00:00:14,172
+So this Amplify will basically allow you to integrate a lot
+
+6
+00:00:14,172 --> 00:00:17,540
+of the stack of AWS into one place
+
+7
+00:00:17,540 --> 00:00:20,210
+to build your web and mobile applications.
+
+8
+00:00:20,210 --> 00:00:21,750
+So you're a developer,
+
+9
+00:00:21,750 --> 00:00:23,000
+and you know you wanna do a lot of things.
+
+10
+00:00:23,000 --> 00:00:25,390
+You wanna first create backends.
+
+11
+00:00:25,390 --> 00:00:27,320
+So you're going to use the Amplify CLI
+
+12
+00:00:27,320 --> 00:00:29,140
+to create an Amplify Backend.
+
+13
+00:00:29,140 --> 00:00:31,920
+And this backend is going to internally use a lot
+
+14
+00:00:31,920 --> 00:00:33,800
+of resources from AWS that we know.
+
+15
+00:00:33,800 --> 00:00:35,620
+Amazon S3 for data storage,
+
+16
+00:00:35,620 --> 00:00:37,500
+Amazon Cognito for identity,
+
+17
+00:00:37,500 --> 00:00:39,020
+AppSync for APIs,
+
+18
+00:00:39,020 --> 00:00:40,690
+API Gateway for APIs as well,
+
+19
+00:00:40,690 --> 00:00:42,440
+StageMaker for machine learning,
+
+20
+00:00:42,440 --> 00:00:44,330
+Lex for text detection,
+
+21
+00:00:44,330 --> 00:00:46,250
+Lambda for functions data service,
+
+22
+00:00:46,250 --> 00:00:48,768
+DynamoDB for data and so on.
+
+23
+00:00:48,768 --> 00:00:50,760
+And so the idea is that thanks to Amplify,
+
+24
+00:00:50,760 --> 00:00:53,820
+we have one place to configure authentication, storage,
+
+25
+00:00:53,820 --> 00:00:56,431
+API will be REST API or GraphQL API,
+
+26
+00:00:56,431 --> 00:00:58,994
+CI/CD, PubSub, Analytics,
+
+27
+00:00:58,994 --> 00:01:02,280
+AI/ML predictions, monitoring, and so on.
+
+28
+00:01:02,280 --> 00:01:03,370
+Then you connect your code.
+
+29
+00:01:03,370 --> 00:01:04,910
+It could be from anywhere from GitHub,
+
+30
+00:01:04,910 --> 00:01:07,800
+from CodeCommit on AWS or Bitbucket, GitLab,
+
+31
+00:01:07,800 --> 00:01:09,830
+or you can upload your code directly.
+
+32
+00:01:09,830 --> 00:01:10,663
+And so you would go ahead
+
+33
+00:01:10,663 --> 00:01:12,890
+you integrate all these backend services directly
+
+34
+00:01:12,890 --> 00:01:14,080
+from within Amplify.
+
+35
+00:01:14,080 --> 00:01:16,950
+Then you add the Amplify Frontend Libraries
+
+36
+00:01:16,950 --> 00:01:19,180
+to connect to your Amplify Backend.
+
+37
+00:01:19,180 --> 00:01:22,120
+And so you have Frontend Libraries for web applications,
+
+38
+00:01:22,120 --> 00:01:25,010
+mobile applications, as well as many, many frameworks.
+
+39
+00:01:25,010 --> 00:01:26,400
+And finally, when you're ready,
+
+40
+00:01:26,400 --> 00:01:29,046
+you're going to deploy using the Amplify Console
+
+41
+00:01:29,046 --> 00:01:32,220
+to Amplify itself and Amazon CloudFront
+
+42
+00:01:32,220 --> 00:01:35,052
+for your web or mobile application to be available.
+
+43
+00:01:35,052 --> 00:01:37,070
+Now they may seem like a lot
+
+44
+00:01:37,070 --> 00:01:38,525
+but I want you to think as Amplify
+
+45
+00:01:38,525 --> 00:01:42,960
+as the Elastic Beanstalk for web and mobile applications.
+
+46
+00:01:42,960 --> 00:01:45,230
+It's just a high level overview, but you need to see
+
+47
+00:01:45,230 --> 00:01:48,437
+that it allows you to integrate all these things of AWS
+
+48
+00:01:48,437 --> 00:01:51,780
+into one place, to have a one stop shop for developers
+
+49
+00:01:51,780 --> 00:01:54,450
+to create web and mobile applications.
+
+50
+00:01:54,450 --> 00:01:56,030
+All right, that's it for this overview,
+
+51
+00:01:56,030 --> 00:01:57,050
+I hope you liked it
+
+52
+00:01:57,050 --> 00:01:59,000
+and I will see you in the next lecture.
+

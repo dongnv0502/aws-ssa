@@ -1,0 +1,432 @@
+1
+00:00:00,000 --> 00:00:01,890
+So let's practice encryption.
+
+2
+00:00:01,890 --> 00:00:03,690
+And for this I'm going to create a bucket
+
+3
+00:00:03,690 --> 00:00:07,383
+called demo-encryption-stephane-v2.
+
+4
+00:00:08,280 --> 00:00:09,600
+And we scroll down,
+
+5
+00:00:09,600 --> 00:00:12,150
+we're going to leave this on, leave this on.
+
+6
+00:00:12,150 --> 00:00:15,180
+We're going to enable bucket versioning.
+
+7
+00:00:15,180 --> 00:00:18,210
+And then under default encryption, as we can see,
+
+8
+00:00:18,210 --> 00:00:20,070
+we have three different options
+
+9
+00:00:20,070 --> 00:00:23,460
+but we must choose a default encryption for our buckets.
+
+10
+00:00:23,460 --> 00:00:25,860
+So I will go over SSE-S3 right now
+
+11
+00:00:25,860 --> 00:00:30,660
+and we'll have a look at SSE-KMS and DSSE-KMS later on.
+
+12
+00:00:30,660 --> 00:00:33,150
+So let's click on Create a bucket.
+
+13
+00:00:33,150 --> 00:00:34,980
+And now we have created a bucket
+
+14
+00:00:34,980 --> 00:00:37,860
+that has default encryption turn on.
+
+15
+00:00:37,860 --> 00:00:40,710
+So let's verify this by actually uploading an object.
+
+16
+00:00:40,710 --> 00:00:42,360
+So we're going to add a file
+
+17
+00:00:42,360 --> 00:00:45,660
+and we'll add our coffee.jpg file.
+
+18
+00:00:45,660 --> 00:00:48,870
+And then we're going to just click on Upload.
+
+19
+00:00:48,870 --> 00:00:52,890
+And as you can see now I can click on this file
+
+20
+00:00:52,890 --> 00:00:54,780
+and scroll down,
+
+21
+00:00:54,780 --> 00:00:58,140
+look for the server side encryption settings.
+
+22
+00:00:58,140 --> 00:01:00,660
+And indeed the file was encrypted
+
+23
+00:01:00,660 --> 00:01:02,610
+with server side encryption
+
+24
+00:01:02,610 --> 00:01:06,900
+with Amazon S3 managed keys, so SSE-S3.
+
+25
+00:01:06,900 --> 00:01:10,320
+We can also edit the encryption mechanism for a file.
+
+26
+00:01:10,320 --> 00:01:12,060
+So I could just click on Edit.
+
+27
+00:01:12,060 --> 00:01:13,590
+And as you can see,
+
+28
+00:01:13,590 --> 00:01:16,740
+if we do edit the server side encryption,
+
+29
+00:01:16,740 --> 00:01:18,630
+then this will create a new version
+
+30
+00:01:18,630 --> 00:01:21,180
+of the object with updated setting.
+
+31
+00:01:21,180 --> 00:01:23,580
+And so therefore, this is why I have enabled versioning
+
+32
+00:01:23,580 --> 00:01:24,990
+for my bucket, is to show you
+
+33
+00:01:24,990 --> 00:01:27,840
+that a new version of the file will be created.
+
+34
+00:01:27,840 --> 00:01:29,370
+So let's change the encryption.
+
+35
+00:01:29,370 --> 00:01:33,510
+And for this, we're going to override the bucket settings
+
+36
+00:01:33,510 --> 00:01:35,640
+for default encryption for this one object.
+
+37
+00:01:35,640 --> 00:01:37,410
+And so we have a choice to use
+
+38
+00:01:37,410 --> 00:01:41,213
+either SSE-KMS or DSSE-KMS.
+
+39
+00:01:41,213 --> 00:01:44,130
+So DSSE-KMS, I won't spend a lot of time on this.
+
+40
+00:01:44,130 --> 00:01:47,580
+It's just two level of encryptions on KMS.
+
+41
+00:01:47,580 --> 00:01:49,350
+So just a stronger KMS.
+
+42
+00:01:49,350 --> 00:01:50,850
+We're just going to use KMS right now.
+
+43
+00:01:50,850 --> 00:01:55,350
+It is simpler and it is not going to cost us any money.
+
+44
+00:01:55,350 --> 00:01:58,530
+So we're going to use SSE-KMS as we learned.
+
+45
+00:01:58,530 --> 00:02:01,200
+And then we have to specify a KMS key.
+
+46
+00:02:01,200 --> 00:02:04,530
+So we can either enter a KMS key ARN,
+
+47
+00:02:04,530 --> 00:02:07,620
+or we can choose from your own KMS keys.
+
+48
+00:02:07,620 --> 00:02:09,240
+So if we choose from the KMS keys right now,
+
+49
+00:02:09,240 --> 00:02:11,760
+you should have only one key available
+
+50
+00:02:11,760 --> 00:02:16,760
+the AWS/S3 key, and it's called the default KMS key
+
+51
+00:02:16,920 --> 00:02:18,780
+for the S3 service.
+
+52
+00:02:18,780 --> 00:02:21,090
+So if you click on it, we can use this key.
+
+53
+00:02:21,090 --> 00:02:22,770
+And that's not going to cost us any money
+
+54
+00:02:22,770 --> 00:02:25,020
+because this is the default key for the service.
+
+55
+00:02:25,020 --> 00:02:27,270
+If you created your own KMS key,
+
+56
+00:02:27,270 --> 00:02:29,100
+then it would be available in this list.
+
+57
+00:02:29,100 --> 00:02:30,570
+But creating your own KMS key
+
+58
+00:02:30,570 --> 00:02:32,850
+will cost you some money every month.
+
+59
+00:02:32,850 --> 00:02:34,110
+So for this purpose, we're just going
+
+60
+00:02:34,110 --> 00:02:38,610
+to use the default AWS/S3 KMS key.
+
+61
+00:02:38,610 --> 00:02:41,463
+Okay, so let's save the changes.
+
+62
+00:02:42,300 --> 00:02:45,060
+We close this, and now if we go under Versions,
+
+63
+00:02:45,060 --> 00:02:47,250
+as we can see, we have two versions
+
+64
+00:02:47,250 --> 00:02:49,140
+of our file right now available.
+
+65
+00:02:49,140 --> 00:02:51,840
+And so the current version, if we scroll down
+
+66
+00:02:51,840 --> 00:02:53,880
+and go under service side encryption,
+
+67
+00:02:53,880 --> 00:02:57,690
+as we can see it is indeed encrypted with SSE-KMS
+
+68
+00:02:57,690 --> 00:03:00,330
+with this encryption key, which corresponds
+
+69
+00:03:00,330 --> 00:03:04,560
+to the default AWS/S3 KMS key.
+
+70
+00:03:04,560 --> 00:03:06,120
+Okay, so this is really good.
+
+71
+00:03:06,120 --> 00:03:08,940
+Next we go under this part.
+
+72
+00:03:08,940 --> 00:03:12,210
+So we can do the same process by uploading a file
+
+73
+00:03:12,210 --> 00:03:16,080
+and then we're going to add a file, for example, beach.jpg.
+
+74
+00:03:16,080 --> 00:03:17,730
+And under Properties,
+
+75
+00:03:17,730 --> 00:03:20,490
+we're going to find server side encryption.
+
+76
+00:03:20,490 --> 00:03:22,200
+And here we can specify an encryption key
+
+77
+00:03:22,200 --> 00:03:24,900
+to either use the default encryption mechanism
+
+78
+00:03:24,900 --> 00:03:29,900
+or to override it with SSE-S3, SSE-KMS or DSSE-KMS.
+
+79
+00:03:30,750 --> 00:03:32,373
+So this is one way of doing it.
+
+80
+00:03:33,330 --> 00:03:34,650
+And finally, let's have a look
+
+81
+00:03:34,650 --> 00:03:37,170
+at the default encryption properties.
+
+82
+00:03:37,170 --> 00:03:38,520
+So let's scroll down
+
+83
+00:03:38,520 --> 00:03:41,340
+and we're going to find default encryption.
+
+84
+00:03:41,340 --> 00:03:43,260
+Let's edit this, and here we have the option.
+
+85
+00:03:43,260 --> 00:03:46,687
+So we can enable SSE-S3, SSE-KMS
+
+86
+00:03:46,687 --> 00:03:50,550
+as the default encryption, or DSSE-KMS.
+
+87
+00:03:50,550 --> 00:03:53,640
+So in case we do SSE-KMS,
+
+88
+00:03:53,640 --> 00:03:56,400
+we have the bucket key option available to us.
+
+89
+00:03:56,400 --> 00:03:59,340
+So this is to reduce the cost
+
+90
+00:03:59,340 --> 00:04:02,970
+by doing less API calls to AWS KMS.
+
+91
+00:04:02,970 --> 00:04:05,460
+And so this is enabled by default.
+
+92
+00:04:05,460 --> 00:04:08,820
+If we just use SSE-S3, then this setting doesn't count.
+
+93
+00:04:08,820 --> 00:04:09,653
+So we've seen
+
+94
+00:04:09,653 --> 00:04:11,550
+that we can change the default encryption here.
+
+95
+00:04:11,550 --> 00:04:15,450
+And you may ask me, well, SSE-C is missing.
+
+96
+00:04:15,450 --> 00:04:16,709
+Well, indeed it is missing
+
+97
+00:04:16,709 --> 00:04:20,310
+because SSE-C you can only do from the CLI,
+
+98
+00:04:20,310 --> 00:04:21,600
+not from the console.
+
+99
+00:04:21,600 --> 00:04:25,380
+So that means that you cannot enable SSE-C right here.
+
+100
+00:04:25,380 --> 00:04:28,320
+And finally, for client side encryption,
+
+101
+00:04:28,320 --> 00:04:30,810
+while you have to encrypt everything client side,
+
+102
+00:04:30,810 --> 00:04:34,530
+then upload it to AWS and then decrypted client side,
+
+103
+00:04:34,530 --> 00:04:36,810
+and so you don't need to tell AWS
+
+104
+00:04:36,810 --> 00:04:39,330
+that the data is client side encrypted.
+
+105
+00:04:39,330 --> 00:04:41,340
+So therefore, the only options you can deal with
+
+106
+00:04:41,340 --> 00:04:46,340
+in the console are SSE-S3, SSE-KMS and DSSE-KMS.
+
+107
+00:04:47,670 --> 00:04:51,420
+So that's it, we've seen all the encryption options in AWS.
+
+108
+00:04:51,420 --> 00:04:54,633
+I hope you liked it, and I will see you in the next lecture.
+

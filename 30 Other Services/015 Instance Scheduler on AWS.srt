@@ -1,0 +1,564 @@
+1
+00:00:00,360 --> 00:00:01,500
+So now let's talk about
+
+2
+00:00:01,500 --> 00:00:04,290
+Instance Scheduler on AWS.
+
+3
+00:00:04,290 --> 00:00:05,640
+So it's a bit of a weird one.
+
+4
+00:00:05,640 --> 00:00:09,360
+It's not a service, it's an AWS solution
+
+5
+00:00:09,360 --> 00:00:11,370
+that's deployed through CloudFormation.
+
+6
+00:00:11,370 --> 00:00:13,200
+And here is the architecture.
+
+7
+00:00:13,200 --> 00:00:15,810
+It's quite complete and quite complicated,
+
+8
+00:00:15,810 --> 00:00:19,050
+but the idea is that you deploy this using CloudFormation
+
+9
+00:00:19,050 --> 00:00:22,260
+and this provides you a capability in your account
+
+10
+00:00:22,260 --> 00:00:26,340
+to automatically start and stop your AWS services
+
+11
+00:00:26,340 --> 00:00:28,980
+in order to reduce costs, maybe up to 70%.
+
+12
+00:00:28,980 --> 00:00:30,810
+For example, if you have a use case
+
+13
+00:00:30,810 --> 00:00:32,369
+where you want to stop the company's
+
+14
+00:00:32,369 --> 00:00:35,070
+EC2 instances outside business hours,
+
+15
+00:00:35,070 --> 00:00:37,350
+then you may want to use
+
+16
+00:00:37,350 --> 00:00:40,920
+the Instance Scheduler solution on AWS.
+
+17
+00:00:40,920 --> 00:00:44,040
+So this has support for EC2 instances,
+
+18
+00:00:44,040 --> 00:00:47,760
+EC2 Auto Scaling Groups and RDS instances.
+
+19
+00:00:47,760 --> 00:00:51,120
+Now, all the schedules are managed in a DynamoDB table
+
+20
+00:00:51,120 --> 00:00:54,240
+and the idea behind how this service works is that
+
+21
+00:00:54,240 --> 00:00:56,640
+there's a Lambda function that will look up the schedule
+
+22
+00:00:56,640 --> 00:01:00,120
+in DynamoDB and then it will trigger other lambdas
+
+23
+00:01:00,120 --> 00:01:04,950
+that will automatically stop or start the required instances
+
+24
+00:01:04,950 --> 00:01:06,720
+in the required services.
+
+25
+00:01:06,720 --> 00:01:08,400
+So this is a complete solution.
+
+26
+00:01:08,400 --> 00:01:11,250
+It supports cross-account and cross region resources
+
+27
+00:01:11,250 --> 00:01:12,600
+and is production ready.
+
+28
+00:01:12,600 --> 00:01:15,150
+If you are interested, this is the link
+
+29
+00:01:15,150 --> 00:01:16,500
+and the exam may ask you
+
+30
+00:01:16,500 --> 00:01:19,290
+about the idea behind this solution.
+
+31
+00:01:19,290 --> 00:01:23,220
+So again, this allows you to just stop and start resources
+
+32
+00:01:23,220 --> 00:01:24,780
+to save on costs.
+
+33
+00:01:24,780 --> 00:01:26,970
+Now I just wanna show you how this gets deployed.
+
+34
+00:01:26,970 --> 00:01:28,470
+We're not going to use it, but I want
+
+35
+00:01:28,470 --> 00:01:31,713
+for you to see it in action for the deployment part.
+
+36
+00:01:32,580 --> 00:01:34,893
+So let's type Instance Scheduler AWS,
+
+37
+00:01:36,090 --> 00:01:37,710
+and then we click on the solution
+
+38
+00:01:37,710 --> 00:01:40,020
+and we arrive on this webpage.
+
+39
+00:01:40,020 --> 00:01:44,970
+So this is to stop and start Amazon EC2 and RDS instances
+
+40
+00:01:44,970 --> 00:01:46,320
+to manage cost.
+
+41
+00:01:46,320 --> 00:01:47,610
+So we get the benefits,
+
+42
+00:01:47,610 --> 00:01:50,760
+we get some information around the version, the release,
+
+43
+00:01:50,760 --> 00:01:52,350
+we can look at the implementation guide
+
+44
+00:01:52,350 --> 00:01:55,230
+and you can download it, it's very helpful.
+
+45
+00:01:55,230 --> 00:01:56,730
+The source code is there,
+
+46
+00:01:56,730 --> 00:01:58,860
+this is the CloudFormation template and so on.
+
+47
+00:01:58,860 --> 00:02:01,020
+And then we have a developer guide and an operator guide.
+
+48
+00:02:01,020 --> 00:02:03,420
+So it's quite a complete solution and one of the most,
+
+49
+00:02:03,420 --> 00:02:07,320
+I would say complete one on AWS and this is architecture
+
+50
+00:02:07,320 --> 00:02:10,620
+and it shows you what is step 1, step 2, step 3,
+
+51
+00:02:10,620 --> 00:02:13,170
+step 4, step 5, step 6 and step 7.
+
+52
+00:02:13,170 --> 00:02:17,010
+Obviously, using it is out of the scope of this course,
+
+53
+00:02:17,010 --> 00:02:20,070
+but we're just going to do the quick start
+
+54
+00:02:20,070 --> 00:02:21,960
+to see how we can get started.
+
+55
+00:02:21,960 --> 00:02:25,140
+So the way to actually launch the stack is
+
+56
+00:02:25,140 --> 00:02:27,360
+to use the management console
+
+57
+00:02:27,360 --> 00:02:28,980
+and you click on launch solution here
+
+58
+00:02:28,980 --> 00:02:31,890
+and this takes you directly into CloudFormation.
+
+59
+00:02:31,890 --> 00:02:35,280
+And then automatically is going to pre-fill
+
+60
+00:02:35,280 --> 00:02:38,490
+the instance at this template and the Amazon S3 URL
+
+61
+00:02:38,490 --> 00:02:39,780
+and then we click on next.
+
+62
+00:02:39,780 --> 00:02:41,460
+So this is going to deploy the solution
+
+63
+00:02:41,460 --> 00:02:42,350
+as a CloudFormation template
+
+64
+00:02:42,350 --> 00:02:45,300
+so I'll call this one Instance Scheduler
+
+65
+00:02:45,300 --> 00:02:46,170
+and you don't have to do it,
+
+66
+00:02:46,170 --> 00:02:48,630
+I just wanna show you how it's done.
+
+67
+00:02:48,630 --> 00:02:50,640
+And here we get some information
+
+68
+00:02:50,640 --> 00:02:51,930
+around the different parameters.
+
+69
+00:02:51,930 --> 00:02:52,927
+So we have...
+
+70
+00:02:52,927 --> 00:02:55,680
+And I need to have no space, okay.
+
+71
+00:02:55,680 --> 00:02:58,083
+So we have here the tech key is Schedule.
+
+72
+00:02:59,040 --> 00:03:01,770
+This is every five minutes that we're going to look at
+
+73
+00:03:01,770 --> 00:03:03,510
+if we can shut down things.
+
+74
+00:03:03,510 --> 00:03:05,310
+What's the default time zone?
+
+75
+00:03:05,310 --> 00:03:07,170
+If you want to enable yes or no scheduling,
+
+76
+00:03:07,170 --> 00:03:08,310
+so no if you want to disable it
+
+77
+00:03:08,310 --> 00:03:12,030
+or yes, if you want to enable the solution.
+
+78
+00:03:12,030 --> 00:03:13,590
+Then we have services.
+
+79
+00:03:13,590 --> 00:03:15,003
+So do we want to allow it
+
+80
+00:03:15,003 --> 00:03:19,080
+to enable EC2 scheduling, yes;
+
+81
+00:03:19,080 --> 00:03:20,970
+RDS, RDS cluster
+
+82
+00:03:20,970 --> 00:03:23,340
+as well as Neptune, DocumentDB and auto-scaling
+
+83
+00:03:23,340 --> 00:03:25,020
+so it's possible that over time
+
+84
+00:03:25,020 --> 00:03:26,820
+more services are added to this,
+
+85
+00:03:26,820 --> 00:03:29,220
+but the main ones to remember are EC2 instances
+
+86
+00:03:29,220 --> 00:03:32,760
+and RDS instances and cluster.
+
+87
+00:03:32,760 --> 00:03:34,110
+And then you have tagging.
+
+88
+00:03:34,110 --> 00:03:38,550
+So this is what happens when an instance is started
+
+89
+00:03:38,550 --> 00:03:39,750
+or stopped.
+
+90
+00:03:39,750 --> 00:03:43,020
+A tag is going to be added automatically describing
+
+91
+00:03:43,020 --> 00:03:47,070
+how instant scheduler actually did an action on this date,
+
+92
+00:03:47,070 --> 00:03:48,510
+on this time zone.
+
+93
+00:03:48,510 --> 00:03:50,760
+And then, more service specific things
+
+94
+00:03:50,760 --> 00:03:52,650
+that we don't need to really look at.
+
+95
+00:03:52,650 --> 00:03:56,280
+Do we want to have RDS instances snapshot on stop?
+
+96
+00:03:56,280 --> 00:03:58,500
+What do we want to look at for ASG and so on?
+
+97
+00:03:58,500 --> 00:04:00,240
+So it's quite a very complete,
+
+98
+00:04:00,240 --> 00:04:04,050
+I would say solution monitoring and then other things.
+
+99
+00:04:04,050 --> 00:04:05,790
+But for now, we're good.
+
+100
+00:04:05,790 --> 00:04:07,380
+Let's click on next
+
+101
+00:04:07,380 --> 00:04:10,287
+and then let's click on yes and click on next.
+
+102
+00:04:10,287 --> 00:04:12,270
+And so this is going to create
+
+103
+00:04:12,270 --> 00:04:14,280
+based on all these parameters,
+
+104
+00:04:14,280 --> 00:04:18,149
+a stack on CloudFormation with all the solution.
+
+105
+00:04:18,149 --> 00:04:21,060
+So now I'm just going to wait for it to be created.
+
+106
+00:04:21,060 --> 00:04:24,060
+Okay, so the stack is now created
+
+107
+00:04:24,060 --> 00:04:26,220
+and what's important to see is the resources.
+
+108
+00:04:26,220 --> 00:04:28,173
+As you can see, there's a lot of resources
+
+109
+00:04:28,173 --> 00:04:29,970
+that have been created
+
+110
+00:04:29,970 --> 00:04:32,520
+and so we can tree view or a flat view.
+
+111
+00:04:32,520 --> 00:04:35,880
+And what I wanna show you though is a DynamoDB table.
+
+112
+00:04:35,880 --> 00:04:37,770
+So if a type dynamo,
+
+113
+00:04:37,770 --> 00:04:41,040
+okay, we have three tables, we have the config tables,
+
+114
+00:04:41,040 --> 00:04:43,110
+and that's the most important table here.
+
+115
+00:04:43,110 --> 00:04:46,110
+So, in this table that you would set your schedules.
+
+116
+00:04:46,110 --> 00:04:51,030
+So let's explore the table item and here we go.
+
+117
+00:04:51,030 --> 00:04:54,210
+So we have here the types of things that happen.
+
+118
+00:04:54,210 --> 00:04:59,210
+So we have the name, the begin time, the description,
+
+119
+00:04:59,250 --> 00:05:00,450
+the end time, and so on.
+
+120
+00:05:00,450 --> 00:05:01,710
+So this is just an example,
+
+121
+00:05:01,710 --> 00:05:03,180
+but it tells you like for example,
+
+122
+00:05:03,180 --> 00:05:06,390
+how to have office hours or days in the week or working days
+
+123
+00:05:06,390 --> 00:05:07,890
+or every first Monday of each quarter.
+
+124
+00:05:07,890 --> 00:05:10,620
+So this is where you would actually schedule
+
+125
+00:05:10,620 --> 00:05:12,120
+and set up everything.
+
+126
+00:05:12,120 --> 00:05:13,500
+And then for the rest,
+
+127
+00:05:13,500 --> 00:05:17,610
+then if you go into the Lambda console over here,
+
+128
+00:05:17,610 --> 00:05:19,590
+it's just a bunch of Lambda functions.
+
+129
+00:05:19,590 --> 00:05:21,690
+You can see I have a lot of them right here.
+
+130
+00:05:21,690 --> 00:05:24,720
+This bunch of Lambda functions are going to do
+
+131
+00:05:24,720 --> 00:05:25,553
+all the scheduling.
+
+132
+00:05:25,553 --> 00:05:26,670
+Of course, getting into the details
+
+133
+00:05:26,670 --> 00:05:28,650
+of the architecture is not what's necessary,
+
+134
+00:05:28,650 --> 00:05:30,540
+but for you to understand the idea behind it.
+
+135
+00:05:30,540 --> 00:05:31,373
+Okay, so that's it.
+
+136
+00:05:31,373 --> 00:05:32,970
+I went a little bit too deep into it probably,
+
+137
+00:05:32,970 --> 00:05:34,680
+but it's good for you to see it.
+
+138
+00:05:34,680 --> 00:05:35,670
+And I'm just going to go ahead
+
+139
+00:05:35,670 --> 00:05:37,860
+and delete my stack and we'll be done.
+
+140
+00:05:37,860 --> 00:05:38,693
+Alright, that's it.
+
+141
+00:05:38,693 --> 00:05:41,620
+I hope you liked it and I will see you in the next lecture.
+

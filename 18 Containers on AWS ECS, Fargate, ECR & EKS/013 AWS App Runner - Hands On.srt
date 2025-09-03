@@ -1,0 +1,400 @@
+1
+00:00:00,480 --> 00:00:03,450
+Okay, so I want to show you how AWS App Runner works
+
+2
+00:00:03,450 --> 00:00:04,890
+but this is not part of the feature
+
+3
+00:00:04,890 --> 00:00:07,017
+so if you do decide to follow along with me
+
+4
+00:00:07,017 --> 00:00:08,700
+just know you're going to pay some money
+
+5
+00:00:08,700 --> 00:00:11,640
+for vCPU and per gigabytes, okay?
+
+6
+00:00:11,640 --> 00:00:14,670
+So let's go and create an App Runner service.
+
+7
+00:00:14,670 --> 00:00:17,370
+So first we have to say the source of our deployment.
+
+8
+00:00:17,370 --> 00:00:19,680
+Is it part of a Container Registry
+
+9
+00:00:19,680 --> 00:00:22,350
+or is it part of a Source Code that we can connect,
+
+10
+00:00:22,350 --> 00:00:24,450
+for example, from GitHub, okay?
+
+11
+00:00:24,450 --> 00:00:26,640
+We are going to use a Container Registry.
+
+12
+00:00:26,640 --> 00:00:28,440
+Now it can either be Amazon ECR,
+
+13
+00:00:28,440 --> 00:00:31,770
+if it's an internal, private docker container that you have
+
+14
+00:00:31,770 --> 00:00:34,770
+in your infrastructure or Amazon ECR Public
+
+15
+00:00:34,770 --> 00:00:36,900
+if you wanted to deploy a public image,
+
+16
+00:00:36,900 --> 00:00:37,740
+and we're going to do this.
+
+17
+00:00:37,740 --> 00:00:38,970
+We're going to go into the
+
+18
+00:00:38,970 --> 00:00:42,180
+Amazon ECR Public Gallery website,
+
+19
+00:00:42,180 --> 00:00:45,240
+and I'm going to do HTTPD just to deploy
+
+20
+00:00:45,240 --> 00:00:48,840
+a very simple HTP server to do basically nothing
+
+21
+00:00:48,840 --> 00:00:50,700
+but show you how to deploy an HTTPD server.
+
+22
+00:00:50,700 --> 00:00:53,520
+So I'm going to just copy this right now.
+
+23
+00:00:53,520 --> 00:00:57,750
+Copy this address and paste it here.
+
+24
+00:00:57,750 --> 00:00:59,670
+Okay. Next, what is the Deployment Setting?
+
+25
+00:00:59,670 --> 00:01:02,760
+So whether or not we want to manually deploy our application
+
+26
+00:01:02,760 --> 00:01:03,900
+or automatically.
+
+27
+00:01:03,900 --> 00:01:05,220
+So if we were enabled
+
+28
+00:01:05,220 --> 00:01:08,370
+with a Source Code Repo or Amazon ECR, we could do automatic
+
+29
+00:01:08,370 --> 00:01:11,520
+but we are doing something manual right now, which is fine.
+
+30
+00:01:11,520 --> 00:01:13,380
+So, let's click on next.
+
+31
+00:01:13,380 --> 00:01:15,960
+Then I'll call it DemoHTTP.
+
+32
+00:01:15,960 --> 00:01:17,790
+We choose how many vCPUs we want
+
+33
+00:01:17,790 --> 00:01:19,080
+and how much memory we want.
+
+34
+00:01:19,080 --> 00:01:21,960
+So one vCPU and two gigabytes is fine.
+
+35
+00:01:21,960 --> 00:01:23,610
+This is the lowest I can get.
+
+36
+00:01:23,610 --> 00:01:24,930
+We can pass environment verbals.
+
+37
+00:01:24,930 --> 00:01:28,680
+We can configure the port of our service.
+
+38
+00:01:28,680 --> 00:01:32,550
+So if we go in here and we have a look at the documentation,
+
+39
+00:01:32,550 --> 00:01:36,180
+we can probably find that the ports of it is
+
+40
+00:01:36,180 --> 00:01:38,130
+port 80 of our image.
+
+41
+00:01:38,130 --> 00:01:42,210
+So we are going to use port 80 and then pretty quick,
+
+42
+00:01:42,210 --> 00:01:43,680
+because you don't need to know why exactly,
+
+43
+00:01:43,680 --> 00:01:44,513
+but here we go.
+
+44
+00:01:44,513 --> 00:01:48,270
+So it's port 80, then do we want to configure Auto Scaling?
+
+45
+00:01:48,270 --> 00:01:50,100
+So do we want to have the default configuration
+
+46
+00:01:50,100 --> 00:01:53,070
+from one instance to 25 instances
+
+47
+00:01:53,070 --> 00:01:54,570
+and what is the concurrency?
+
+48
+00:01:54,570 --> 00:01:57,660
+So with this scaling, we'll have 100 request
+
+49
+00:01:57,660 --> 00:02:00,120
+concurrent request, per instance, which is great.
+
+50
+00:02:00,120 --> 00:02:02,730
+Or you can use your custom configuration or add a new one.
+
+51
+00:02:02,730 --> 00:02:04,590
+Okay. Then you can do health checks.
+
+52
+00:02:04,590 --> 00:02:06,180
+So do you wanna perform health checks
+
+53
+00:02:06,180 --> 00:02:08,430
+on your application to make sure it's healthy?
+
+54
+00:02:08,430 --> 00:02:10,680
+So we can leave this as is.
+
+55
+00:02:10,680 --> 00:02:12,780
+Security if you want your containers
+
+56
+00:02:12,780 --> 00:02:14,460
+to have an instance role.
+
+57
+00:02:14,460 --> 00:02:17,490
+Networking, if you wanted to deploy into your Custom VPC,
+
+58
+00:02:17,490 --> 00:02:20,700
+but for now, we'll use a public access type of access,
+
+59
+00:02:20,700 --> 00:02:23,670
+and do we want tracing with AWS X-ray.
+
+60
+00:02:23,670 --> 00:02:27,150
+So for now I'll keep everything as default and press next.
+
+61
+00:02:27,150 --> 00:02:28,890
+So we verify the settings.
+
+62
+00:02:28,890 --> 00:02:31,410
+So we use a public HTTPD image,
+
+63
+00:02:31,410 --> 00:02:33,870
+and then the port is on port 80.
+
+64
+00:02:33,870 --> 00:02:34,703
+So this is pretty simple
+
+65
+00:02:34,703 --> 00:02:37,230
+because we just specified one container,
+
+66
+00:02:37,230 --> 00:02:39,930
+and then we just click on create and deploy,
+
+67
+00:02:39,930 --> 00:02:41,610
+and behind the scenes App Runner
+
+68
+00:02:41,610 --> 00:02:44,460
+is actually going to deploy an auto-scaling group.
+
+69
+00:02:44,460 --> 00:02:46,110
+It's going to deploy scaling triggers.
+
+70
+00:02:46,110 --> 00:02:49,110
+It's going to deploy most likely like target containers.
+
+71
+00:02:49,110 --> 00:02:51,180
+It's going to deploy a load balancer.
+
+72
+00:02:51,180 --> 00:02:52,770
+It's going to give us a domain and so on.
+
+73
+00:02:52,770 --> 00:02:54,570
+So it's quite handy,
+
+74
+00:02:54,570 --> 00:02:56,070
+and from this one interface,
+
+75
+00:02:56,070 --> 00:02:59,010
+I can get access to my logs, my activity,
+
+76
+00:02:59,010 --> 00:03:02,580
+my metrics, my observability, my configuration,
+
+77
+00:03:02,580 --> 00:03:05,130
+as well as connect any custom domain.
+
+78
+00:03:05,130 --> 00:03:08,160
+So it's very powerful, all-in-one service to
+
+79
+00:03:08,160 --> 00:03:11,610
+deploy containers in a production fashion on AWS,
+
+80
+00:03:11,610 --> 00:03:13,500
+and I really like it.
+
+81
+00:03:13,500 --> 00:03:17,010
+So I took a bit of time, but my service is now created,
+
+82
+00:03:17,010 --> 00:03:18,180
+and if I click on this
+
+83
+00:03:18,180 --> 00:03:20,400
+I'm able to access my default domain,
+
+84
+00:03:20,400 --> 00:03:22,590
+and it just says it works, which is the message
+
+85
+00:03:22,590 --> 00:03:26,670
+that is displayed when you have deployed HTTPD correctly.
+
+86
+00:03:26,670 --> 00:03:28,530
+So that's good news. It works,
+
+87
+00:03:28,530 --> 00:03:29,610
+and if you have a look at it
+
+88
+00:03:29,610 --> 00:03:31,890
+we can look at the event log into
+
+89
+00:03:31,890 --> 00:03:34,560
+where to see if everything was being deployed,
+
+90
+00:03:34,560 --> 00:03:37,020
+the health checks and so on, and that's about it.
+
+91
+00:03:37,020 --> 00:03:40,260
+It's as simple as that, and if we were to have a lot
+
+92
+00:03:40,260 --> 00:03:42,690
+of concurrent requests on this website
+
+93
+00:03:42,690 --> 00:03:45,440
+then automatically it would scale, which is quite nice.
+
+94
+00:03:46,500 --> 00:03:48,630
+So that's it really, I find App Runner
+
+95
+00:03:48,630 --> 00:03:50,280
+incredibly easy to use.
+
+96
+00:03:50,280 --> 00:03:53,100
+So now we can just delete this application
+
+97
+00:03:53,100 --> 00:03:55,260
+just type delete and we're done.
+
+98
+00:03:55,260 --> 00:03:56,430
+So that's it for this lecture.
+
+99
+00:03:56,430 --> 00:03:57,420
+I hope you liked it,
+
+100
+00:03:57,420 --> 00:03:59,463
+and I will see you in the next lecture.
+

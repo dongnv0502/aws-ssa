@@ -1,0 +1,399 @@
+1
+00:00:00,180 --> 00:00:03,120
+Xin chào và chào mừng bạn đến với
+
+2
+00:00:03,120 --> 00:00:04,710
+khóa học AWS Certified Solutions Architect Associate.
+
+3
+00:00:04,710 --> 00:00:05,820
+Tôi là Stéphane Maarek
+
+4
+00:00:05,820 --> 00:00:07,860
+và tôi sẽ là giảng viên hướng dẫn khóa học này.
+
+5
+00:00:07,860 --> 00:00:09,510
+Tôi rất vui khi có bạn ở đây.
+
+6
+00:00:09,510 --> 00:00:10,800
+Chúng ta sẽ bắt đầu sau 5 phút
+
+7
+00:00:10,800 --> 00:00:13,020
+nên hãy chú ý theo dõi bài giảng này.
+
+8
+00:00:13,020 --> 00:00:14,580
+Chúng ta sẽ chuẩn bị
+
+9
+00:00:14,580 --> 00:00:19,107
+cho kỳ thi Solutions Architect mã SAA-C03
+
+10
+00:00:19,107 --> 00:00:22,257
+- một chứng chỉ khó nhưng rất thú vị.
+
+11
+00:00:22,257 --> 00:00:24,960
+Khóa học này sẽ bao gồm mọi thứ
+
+12
+00:00:24,960 --> 00:00:26,490
+bạn cần để vượt qua chứng chỉ.
+
+13
+00:00:26,490 --> 00:00:27,600
+Khóa học này khá dài,
+
+14
+00:00:27,600 --> 00:00:29,700
+khoảng 25 tiếng,
+
+15
+00:00:29,700 --> 00:00:31,890
+nhưng tôi hứa với bạn
+
+16
+00:00:31,890 --> 00:00:34,830
+sẽ làm cho nó thú vị nhất có thể.
+
+17
+00:00:34,830 --> 00:00:35,970
+Bạn sẽ học được rất nhiều.
+
+18
+00:00:35,970 --> 00:00:38,850
+Tôi mong bạn có kiến thức IT cơ bản.
+
+19
+00:00:38,850 --> 00:00:39,990
+Dù vậy tôi sẽ dạy bạn một số thứ
+
+20
+00:00:39,990 --> 00:00:41,760
+trong quá trình và hãy tin chắc rằng
+
+21
+00:00:41,760 --> 00:00:45,570
+tôi sẽ dạy mọi thứ cần biết về AWS.
+
+22
+00:00:45,570 --> 00:00:47,820
+Khóa học này có video từ các khóa khác
+
+23
+00:00:47,820 --> 00:00:50,880
+như AWS Certified Cloud Practitioner,
+
+24
+00:00:50,880 --> 00:00:53,490
+Developer và SysOps, vì có nhiều
+
+25
+00:00:53,490 --> 00:00:56,520
+kiến thức chung giữa các khóa AWS.
+
+26
+00:00:56,520 --> 00:00:58,560
+Nếu nghe tôi nhắc đến từ khóa
+
+27
+00:00:58,560 --> 00:01:00,270
+hoặc nói về kỳ thi khác,
+
+28
+00:01:00,270 --> 00:01:02,970
+đừng lo - bạn vẫn đang ở đúng nơi.
+
+29
+00:01:02,970 --> 00:01:05,970
+Có một phần rất thú vị trong khóa học này,
+
+30
+00:01:05,970 --> 00:01:07,500
+thực tế là nhiều phần,
+
+31
+00:01:07,500 --> 00:01:09,840
+dành riêng cho solution architecture.
+
+32
+00:01:09,840 --> 00:01:13,130
+Chúng ta sẽ tìm hiểu sâu về điều này.
+
+33
+00:01:13,130 --> 00:01:16,260
+Sẽ tìm hiểu hơn 30 dịch vụ AWS chi tiết.
+
+34
+00:01:16,260 --> 00:01:18,420
+Bạn sẽ học được rất nhiều.
+
+35
+00:01:18,420 --> 00:01:21,330
+Cuối cùng, nếu bạn mới bắt đầu với AWS
+
+36
+00:01:21,330 --> 00:01:22,620
+thì rất được chào đón.
+
+37
+00:01:22,620 --> 00:01:23,850
+Hãy từ từ với khóa học này.
+
+38
+00:01:23,850 --> 00:01:25,530
+Đây không phải cuộc đua, nếu cần
+
+39
+00:01:25,530 --> 00:01:26,541
+xem lại khóa học lần thứ hai
+
+40
+00:01:26,541 --> 00:01:28,650
+hoặc xem lại video thì cũng bình thường.
+
+41
+00:01:28,650 --> 00:01:30,330
+Nhiều học viên phải làm vậy
+
+42
+00:01:30,330 --> 00:01:32,550
+trước khi nắm vững hết khái niệm.
+
+43
+00:01:32,550 --> 00:01:34,710
+Tại sao tôi nên dạy khóa học này?
+
+44
+00:01:34,710 --> 00:01:37,530
+Tôi vừa vượt qua kỳ thi SAA-C03
+
+45
+00:01:37,530 --> 00:01:39,780
+với điểm 96.1%.
+
+46
+00:01:39,780 --> 00:01:43,050
+Thậm chí trước khi tôi cập nhật nội dung mới.
+
+47
+00:01:43,050 --> 00:01:44,850
+Hy vọng tôi là giảng viên phù hợp.
+
+48
+00:01:44,850 --> 00:01:47,700
+Tôi cũng có 9 chứng chỉ AWS khác.
+
+49
+00:01:47,700 --> 00:01:51,930
+Tôi đã dạy AWS cho khá nhiều người rồi.
+
+50
+00:01:51,930 --> 00:01:52,860
+Tôi là ai?
+
+51
+00:01:52,860 --> 00:01:55,530
+Với ai chưa biết, tôi là Stéphane Maarek
+
+52
+00:01:55,530 --> 00:01:57,630
+và đã dạy chứng chỉ AWS
+
+53
+00:01:57,630 --> 00:02:00,270
+cho hàng trăm nghìn học viên toàn thế giới.
+
+54
+00:02:00,270 --> 00:02:02,400
+Tôi từng làm IT consultant
+
+55
+00:02:02,400 --> 00:02:05,130
+và AWS Solutions Architect, Developer, SysOps.
+
+56
+00:02:05,130 --> 00:02:06,765
+Nên khá quen với AWS
+
+57
+00:02:06,765 --> 00:02:09,240
+và cũng đã xây dựng website, ứng dụng
+
+58
+00:02:09,240 --> 00:02:11,730
+và nền tảng streaming trên cloud.
+
+59
+00:02:11,730 --> 00:02:13,320
+Tôi là giảng viên AWS kỳ cựu,
+
+60
+00:02:13,320 --> 00:02:15,600
+dạy khoảng 10 chứng chỉ.
+
+61
+00:02:15,600 --> 00:02:17,970
+Dạy về CloudFormation, Lambda, EC2
+
+62
+00:02:17,970 --> 00:02:21,030
+và tất nhiên Solutions Architect Associate.
+
+63
+00:02:21,030 --> 00:02:23,220
+Bạn có thể tìm tôi trên GitHub,
+
+64
+00:02:23,220 --> 00:02:24,480
+follow trên LinkedIn,
+
+65
+00:02:24,480 --> 00:02:27,300
+đọc trên Medium và follow Twitter.
+
+66
+00:02:27,300 --> 00:02:28,950
+Nếu muốn kết nối với tôi.
+
+67
+00:02:28,950 --> 00:02:31,590
+Nói ngắn gọn, chúng ta sẽ tìm hiểu sâu
+
+68
+00:02:31,590 --> 00:02:35,580
+AWS là gì, nhưng AWS - Amazon Web Services
+
+69
+00:02:35,580 --> 00:02:37,380
+là một cloud provider.
+
+70
+00:02:37,380 --> 00:02:40,320
+Cung cấp server và dịch vụ bạn có thể dùng
+
+71
+00:02:40,320 --> 00:02:43,177
+theo yêu cầu và mở rộng dễ dàng -
+
+72
+00:02:43,177 --> 00:02:46,770
+khác biệt lớn so với on-premises trong data center
+
+73
+00:02:46,770 --> 00:02:49,290
+nơi bạn phải đặt mua server vật lý
+
+74
+00:02:49,290 --> 00:02:51,210
+rồi cài đặt mới dùng được.
+
+75
+00:02:51,210 --> 00:02:53,880
+Trên cloud, có được ngay khi cần
+
+76
+00:02:53,880 --> 00:02:56,790
+và muốn bao nhiêu cũng được - dễ mở rộng.
+
+77
+00:02:56,790 --> 00:02:59,880
+AWS đã cách mạng hóa điều này.
+
+78
+00:02:59,880 --> 00:03:02,130
+Hiện AWS cung cấp sức mạnh cho
+
+79
+00:03:02,130 --> 00:03:03,540
+các website lớn nhất thế giới.
+
+80
+00:03:03,540 --> 00:03:04,860
+Bạn sẽ không ngạc nhiên
+
+81
+00:03:04,860 --> 00:03:07,940
+về amazon.com vì AWS thuộc Amazon,
+
+82
+00:03:07,940 --> 00:03:10,380
+nhưng với Netflix -
+
+83
+00:03:10,380 --> 00:03:12,630
+họ không sở hữu một server nào.
+
+84
+00:03:12,630 --> 00:03:15,240
+Thuê toàn bộ từ AWS
+
+85
+00:03:15,240 --> 00:03:18,270
+giúp Netflix vận hành quy mô lớn.
+
+86
+00:03:18,270 --> 00:03:20,370
+Chúng ta sẽ học gì trong khóa này?
+
+87
+00:03:20,370 --> 00:03:23,400
+Sẽ học rất nhiều dịch vụ AWS.
+
+88
+00:03:23,400 --> 00:03:25,230
+Như bạn thấy một số ở đây,
+
+89
+00:03:25,230 --> 00:03:27,330
+còn nhiều hơn nhưng tôi không hiện hết.
+
+90
+00:03:27,330 --> 00:03:29,010
+Đừng cảm thấy choáng ngợp.
+
+91
+00:03:29,010 --> 00:03:31,890
+Mục tiêu là dạy từng cái một.
+
+92
+00:03:31,890 --> 00:03:35,070
+Tôi hay nói AWS như bát mì ống
+
+93
+00:03:35,070 --> 00:03:37,140
+vì tất cả dịch vụ này liên kết
+
+94
+00:03:37,140 --> 00:03:38,970
+và kết nối với nhau.
+
+95
+00:03:38,970 --> 00:03:41,040
+Nhưng cùng tôi chúng ta sẽ gỡ rối
+
+96
+00:03:41,040 --> 00:03:42,450
+toàn bộ bát mì này,
+
+97
+00:03:42,450 --> 00:03:45,210
+có bữa ăn ngon và học AWS cùng nhau.
+
+98
+00:03:45,210 --> 00:03:46,110
+Hy vọng bạn hào hứng.
+
+99
+00:03:46,110 --> 00:03:47,640
+Tôi chắc chắn hào hứng dạy khóa này
+
+100
+00:03:47,640 --> 00:03:50,073
+và sẽ gặp bạn trong bài giảng sau.

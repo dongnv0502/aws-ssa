@@ -1,0 +1,380 @@
+1
+00:00:00,510 --> 00:00:03,840
+So now let's talk about S3 Glacier Vault Lock.
+
+2
+00:00:03,840 --> 00:00:07,680
+So the idea is that you want to lock your Glacier Vault
+
+3
+00:00:07,680 --> 00:00:09,180
+to adapt a WORM model.
+
+4
+00:00:09,180 --> 00:00:12,000
+That means Write Once Read Many.
+
+5
+00:00:12,000 --> 00:00:14,700
+So the idea is that you take an object,
+
+6
+00:00:14,700 --> 00:00:17,790
+you put it into your S3 Glacier Vault,
+
+7
+00:00:17,790 --> 00:00:19,170
+and then you lock it so it cannot
+
+8
+00:00:19,170 --> 00:00:22,710
+be ever modified or deleted.
+
+9
+00:00:22,710 --> 00:00:24,960
+So for this, you need to create a Vault Lock
+
+10
+00:00:24,960 --> 00:00:27,570
+Policy on top of your Glacier
+
+11
+00:00:27,570 --> 00:00:31,050
+and then you lock the policy itself for future edits.
+
+12
+00:00:31,050 --> 00:00:33,330
+That means that once you've set a Vault Lock
+
+13
+00:00:33,330 --> 00:00:35,220
+Policy and you locked it,
+
+14
+00:00:35,220 --> 00:00:38,730
+it can no longer be changed or deleted by anyone
+
+15
+00:00:38,730 --> 00:00:41,580
+which is very helpful for compliance and data retention.
+
+16
+00:00:41,580 --> 00:00:45,510
+So that means that once an object is inserted into your
+
+17
+00:00:45,510 --> 00:00:50,460
+Glacier vault and the vault itself has a Vault Lock Policy
+
+18
+00:00:50,460 --> 00:00:52,530
+then the object can never be deleted
+
+19
+00:00:52,530 --> 00:00:56,730
+and even by administrator or AWS or whatever you want.
+
+20
+00:00:56,730 --> 00:00:58,890
+So it's very helpful for anything legal
+
+21
+00:00:58,890 --> 00:01:01,530
+such as compliance or data retention.
+
+22
+00:01:01,530 --> 00:01:02,910
+So that's for the Glacier option.
+
+23
+00:01:02,910 --> 00:01:05,340
+And it's quite simple to understand.
+
+24
+00:01:05,340 --> 00:01:08,850
+Now, there is the same option or something similar at least
+
+25
+00:01:08,850 --> 00:01:12,660
+for the S3 buckets, but it's a bit more complicated.
+
+26
+00:01:12,660 --> 00:01:16,440
+So for enabling S3 Object Lock,
+
+27
+00:01:16,440 --> 00:01:18,750
+you must first enable versioning.
+
+28
+00:01:18,750 --> 00:01:22,590
+And again, it allows you to adapt a WORM model, okay?
+
+29
+00:01:22,590 --> 00:01:25,080
+But this time it's not a lock policy
+
+30
+00:01:25,080 --> 00:01:27,180
+at the whole S3 bucket level.
+
+31
+00:01:27,180 --> 00:01:32,180
+It is a lock you can adapt for each and every object
+
+32
+00:01:32,250 --> 00:01:34,080
+within your bucket.
+
+33
+00:01:34,080 --> 00:01:36,780
+So you can do an object lock on the single object.
+
+34
+00:01:36,780 --> 00:01:39,810
+And the idea is that thanks to an S3 object lock,
+
+35
+00:01:39,810 --> 00:01:43,500
+you want to block a specific object version to be deleted
+
+36
+00:01:43,500 --> 00:01:46,050
+for a specified amount of time.
+
+37
+00:01:46,050 --> 00:01:48,570
+So we have two retention modes.
+
+38
+00:01:48,570 --> 00:01:51,180
+And the first one is the compliance mode.
+
+39
+00:01:51,180 --> 00:01:54,000
+The compliance mode looks a lot like what we had
+
+40
+00:01:54,000 --> 00:01:55,740
+for S3 Glacier Vault Lock.
+
+41
+00:01:55,740 --> 00:01:58,860
+So the idea is that the object versions cannot be
+
+42
+00:01:58,860 --> 00:02:01,590
+overwritten or deleted by any user,
+
+43
+00:02:01,590 --> 00:02:02,820
+including the root user.
+
+44
+00:02:02,820 --> 00:02:05,460
+So that means that once you are in your compliance mode,
+
+45
+00:02:05,460 --> 00:02:07,230
+no one can change anything.
+
+46
+00:02:07,230 --> 00:02:09,713
+And also the retention modes themselves cannot be changed
+
+47
+00:02:09,713 --> 00:02:12,450
+and the retention period cannot be shortened.
+
+48
+00:02:12,450 --> 00:02:15,360
+So it's when you wanna be super compliance.
+
+49
+00:02:15,360 --> 00:02:17,700
+But if you want to be a bit more flexibility
+
+50
+00:02:17,700 --> 00:02:20,070
+you have the Governance Retention mode.
+
+51
+00:02:20,070 --> 00:02:23,580
+So in this case, most user cannot override or delete
+
+52
+00:02:23,580 --> 00:02:26,220
+an object version or alter its lock settings.
+
+53
+00:02:26,220 --> 00:02:28,650
+But some users, the admin users,
+
+54
+00:02:28,650 --> 00:02:32,280
+have special permissions and that's given through IAM
+
+55
+00:02:32,280 --> 00:02:35,070
+and they can change the retention or delete
+
+56
+00:02:35,070 --> 00:02:36,450
+an object directly.
+
+57
+00:02:36,450 --> 00:02:39,450
+So compliance is very strict as a retention mode.
+
+58
+00:02:39,450 --> 00:02:41,760
+Whereas government's is a bit more lenient
+
+59
+00:02:41,760 --> 00:02:44,280
+and some users have had admin powers
+
+60
+00:02:44,280 --> 00:02:46,620
+and can change a few things.
+
+61
+00:02:46,620 --> 00:02:50,640
+Now, in both these modes you have to set a retention period.
+
+62
+00:02:50,640 --> 00:02:53,370
+That means that you can either apply the compliance
+
+63
+00:02:53,370 --> 00:02:55,980
+or the governance mode with a retention period
+
+64
+00:02:55,980 --> 00:02:58,770
+to say that you want to protect the object for
+
+65
+00:02:58,770 --> 00:03:00,780
+a fixed period of time.
+
+66
+00:03:00,780 --> 00:03:02,880
+And that period of time can be extended,
+
+67
+00:03:02,880 --> 00:03:04,440
+if you wanted to.
+
+68
+00:03:04,440 --> 00:03:06,480
+Now, there is one more thing you can do
+
+69
+00:03:06,480 --> 00:03:10,140
+with the S3 object log, it's to pull the legal hold
+
+70
+00:03:10,140 --> 00:03:10,973
+on an object.
+
+71
+00:03:10,973 --> 00:03:12,480
+So this is different from what we saw.
+
+72
+00:03:12,480 --> 00:03:15,300
+So legal hold protects any object
+
+73
+00:03:15,300 --> 00:03:18,000
+on your S3 bucket indefinitely
+
+74
+00:03:18,000 --> 00:03:19,770
+and that's independent from the retention period.
+
+75
+00:03:19,770 --> 00:03:21,870
+So once you place a legal hold on an object
+
+76
+00:03:21,870 --> 00:03:24,914
+think of like, oh, this object is very important.
+
+77
+00:03:24,914 --> 00:03:26,580
+We need to use it in a trial.
+
+78
+00:03:26,580 --> 00:03:28,470
+Let's place a legal hold on it.
+
+79
+00:03:28,470 --> 00:03:30,660
+Then the object is protected forever
+
+80
+00:03:30,660 --> 00:03:32,683
+regardless of what retention mode
+
+81
+00:03:32,683 --> 00:03:36,120
+and retention period you've set on it from before.
+
+82
+00:03:36,120 --> 00:03:39,720
+And then someone who has the IAM permissions
+
+83
+00:03:39,720 --> 00:03:43,809
+S3 PutObjectLegalHold has the option to take any objects
+
+84
+00:03:43,809 --> 00:03:47,850
+and put legal holds on them or to remove them.
+
+85
+00:03:47,850 --> 00:03:50,880
+So this is a flexible mode where you can say, hey,
+
+86
+00:03:50,880 --> 00:03:53,550
+when someone wants to protect an object in admin,
+
+87
+00:03:53,550 --> 00:03:56,100
+they use the PutObjectLegalHold permission.
+
+88
+00:03:56,100 --> 00:03:59,880
+And then once, for example, a legal investigation is over
+
+89
+00:03:59,880 --> 00:04:02,400
+then it gets removed again using this
+
+90
+00:04:02,400 --> 00:04:04,530
+PutObjectLegalHold IAM permissions.
+
+91
+00:04:04,530 --> 00:04:05,363
+Okay.
+
+92
+00:04:05,363 --> 00:04:07,530
+So you need to know the differences
+
+93
+00:04:07,530 --> 00:04:10,111
+of the S3 object lock going at the exam.
+
+94
+00:04:10,111 --> 00:04:11,640
+So I hope you liked it.
+
+95
+00:04:11,640 --> 00:04:13,590
+And I will see you in the next lecture.
+

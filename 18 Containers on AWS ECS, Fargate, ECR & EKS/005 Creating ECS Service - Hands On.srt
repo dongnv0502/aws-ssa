@@ -1,0 +1,872 @@
+1
+00:00:00,480 --> 00:00:02,310
+Now let's create an ECS service.
+
+2
+00:00:02,310 --> 00:00:05,970
+But before we do so, we need to create a task definition.
+
+3
+00:00:05,970 --> 00:00:08,070
+So I'm going to create a new task definition
+
+4
+00:00:08,070 --> 00:00:10,140
+from the task definition panels
+
+5
+00:00:10,140 --> 00:00:11,550
+and I need to give it a name.
+
+6
+00:00:11,550 --> 00:00:15,900
+So I'll call this one nginxdemos-hello.
+
+7
+00:00:15,900 --> 00:00:20,220
+And this is coming from this Docker image
+
+8
+00:00:20,220 --> 00:00:24,510
+called nginxdemos/hello on Docker Hub.
+
+9
+00:00:24,510 --> 00:00:27,690
+And so this is the one we're going to be using in our demo.
+
+10
+00:00:27,690 --> 00:00:30,840
+So this is why I call my task definition nginxdemo
+
+11
+00:00:30,840 --> 00:00:33,210
+with a hyphen of hello.
+
+12
+00:00:33,210 --> 00:00:35,220
+Okay, next we need to choose
+
+13
+00:00:35,220 --> 00:00:36,980
+the infrastructure requirements.
+
+14
+00:00:36,980 --> 00:00:40,500
+So do we want to launch on Fargate or Amazon EC2 instances.
+
+15
+00:00:40,500 --> 00:00:42,480
+Well, Fargate is serverless compute
+
+16
+00:00:42,480 --> 00:00:43,920
+so we'll leave it enabled.
+
+17
+00:00:43,920 --> 00:00:47,400
+And if we enable this, we could launch this task,
+
+18
+00:00:47,400 --> 00:00:50,970
+this service on our Amazon EC2 instances.
+
+19
+00:00:50,970 --> 00:00:52,320
+But for simplicity's sake right now,
+
+20
+00:00:52,320 --> 00:00:54,630
+I'm just going to use AWS Fargate
+
+21
+00:00:54,630 --> 00:00:58,890
+and launch our containers into serverless compute mode.
+
+22
+00:00:58,890 --> 00:01:01,020
+Then we need to choose what type of OS
+
+23
+00:01:01,020 --> 00:01:01,920
+and architecture we have.
+
+24
+00:01:01,920 --> 00:01:03,660
+So Linux is fine.
+
+25
+00:01:03,660 --> 00:01:07,860
+And what is the task size for our Fargate container?
+
+26
+00:01:07,860 --> 00:01:12,450
+So we can say for example, that we have 0.5 or 1 vCPU
+
+27
+00:01:12,450 --> 00:01:16,050
+and you can go up to 16 vCPU in this example.
+
+28
+00:01:16,050 --> 00:01:18,210
+And then you can also adjust memory.
+
+29
+00:01:18,210 --> 00:01:20,820
+So you can say, hey, I want up to, for example,
+
+30
+00:01:20,820 --> 00:01:22,200
+120 gigabytes of memory.
+
+31
+00:01:22,200 --> 00:01:24,030
+So all of this would be provided
+
+32
+00:01:24,030 --> 00:01:26,370
+by Fargate in a serverless fashion.
+
+33
+00:01:26,370 --> 00:01:28,800
+To keep things very cheap and simple,
+
+34
+00:01:28,800 --> 00:01:33,480
+I will choose 0.5 vCPU, and one gigabytes.
+
+35
+00:01:33,480 --> 00:01:34,710
+Next we have task role.
+
+36
+00:01:34,710 --> 00:01:38,310
+So task role is an IAM role that we can assign to our task
+
+37
+00:01:38,310 --> 00:01:42,600
+if we wanted to make API request to AWS services.
+
+38
+00:01:42,600 --> 00:01:44,790
+But because we don't do this right now,
+
+39
+00:01:44,790 --> 00:01:46,620
+we are not going to specify a task role.
+
+40
+00:01:46,620 --> 00:01:48,870
+But this is something of utmost importance
+
+41
+00:01:48,870 --> 00:01:52,350
+if your containers need to use AWS.
+
+42
+00:01:52,350 --> 00:01:55,080
+Now for the task execution role, leave it as default
+
+43
+00:01:55,080 --> 00:01:59,100
+and if this ECS task execution role is not created yet
+
+44
+00:01:59,100 --> 00:02:02,580
+it's going to be created automatically by ECS service.
+
+45
+00:02:02,580 --> 00:02:03,900
+So we're good.
+
+46
+00:02:03,900 --> 00:02:06,780
+Next our container, so the name is going to be
+
+47
+00:02:06,780 --> 00:02:10,800
+nginxdemos-hello and the image URL
+
+48
+00:02:10,800 --> 00:02:14,640
+is going to be nginxdemos/hello.
+
+49
+00:02:14,640 --> 00:02:17,730
+And this is going to pull automatically this image
+
+50
+00:02:17,730 --> 00:02:19,860
+from the Docker Hub right here.
+
+51
+00:02:19,860 --> 00:02:23,820
+So this is very handy and it's an essential container.
+
+52
+00:02:23,820 --> 00:02:25,710
+Now we have lots of different options.
+
+53
+00:02:25,710 --> 00:02:27,000
+For example, the port mappings.
+
+54
+00:02:27,000 --> 00:02:30,150
+So we want to map the port 80 to the port 80
+
+55
+00:02:30,150 --> 00:02:33,840
+of the container, which is great and we'll leave it as is.
+
+56
+00:02:33,840 --> 00:02:36,600
+And then you could add more port mappings if you wanted to.
+
+57
+00:02:36,600 --> 00:02:39,960
+You could, for example, set the resource allocation limits,
+
+58
+00:02:39,960 --> 00:02:43,350
+the environment variables from file or manually
+
+59
+00:02:43,350 --> 00:02:44,190
+and the logging.
+
+60
+00:02:44,190 --> 00:02:46,620
+But all these things I'm gonna leave as default
+
+61
+00:02:46,620 --> 00:02:48,960
+because this is going to work fine for us.
+
+62
+00:02:48,960 --> 00:02:51,960
+Storage, Fargate comes with some ephemeral storage.
+
+63
+00:02:51,960 --> 00:02:54,870
+So we'll leave it as is, again, from 21 gigabytes
+
+64
+00:02:54,870 --> 00:02:56,160
+which is a default right here.
+
+65
+00:02:56,160 --> 00:02:59,130
+And this is fine, just leave the value you have right now.
+
+66
+00:02:59,130 --> 00:03:01,200
+So let's create this.
+
+67
+00:03:01,200 --> 00:03:03,810
+And this is creating our first task definition.
+
+68
+00:03:03,810 --> 00:03:05,460
+Now you see version two for me
+
+69
+00:03:05,460 --> 00:03:06,960
+because I've just created it twice.
+
+70
+00:03:06,960 --> 00:03:10,050
+But for you, you should see version one.
+
+71
+00:03:10,050 --> 00:03:13,740
+So next, let's launch this task definition as a service.
+
+72
+00:03:13,740 --> 00:03:17,520
+So let's go into Clusters and then DemoCluster.
+
+73
+00:03:17,520 --> 00:03:21,000
+And under services I'm going to create a service.
+
+74
+00:03:21,000 --> 00:03:24,570
+So for compute option, I'm going to go into Launch type
+
+75
+00:03:24,570 --> 00:03:27,840
+and choose Fargate as my launch time
+
+76
+00:03:27,840 --> 00:03:31,290
+and the platform version to be latest.
+
+77
+00:03:31,290 --> 00:03:33,930
+And then the application type is a service.
+
+78
+00:03:33,930 --> 00:03:36,450
+That means it's going to be a long running service,
+
+79
+00:03:36,450 --> 00:03:38,310
+for example, a web application.
+
+80
+00:03:38,310 --> 00:03:40,620
+But if you wanted to have a task that terminates
+
+81
+00:03:40,620 --> 00:03:44,280
+and done, for example, a batch job, then you could use task.
+
+82
+00:03:44,280 --> 00:03:45,690
+But we'll use service
+
+83
+00:03:45,690 --> 00:03:48,960
+and then we'll select the nginxdemo-hello family
+
+84
+00:03:48,960 --> 00:03:51,240
+and choose whatever revision is the latest for you.
+
+85
+00:03:51,240 --> 00:03:53,130
+Should be number one for you.
+
+86
+00:03:53,130 --> 00:03:56,160
+Then let's assign a name for this service,
+
+87
+00:03:56,160 --> 00:03:59,160
+so nginxdemos-hello, the same as our task definition,
+
+88
+00:03:59,160 --> 00:04:00,720
+it's pretty standard.
+
+89
+00:04:00,720 --> 00:04:02,790
+And then the service type is going to be replica
+
+90
+00:04:02,790 --> 00:04:04,830
+of one task.
+
+91
+00:04:04,830 --> 00:04:06,990
+For deployment option, leave it as is
+
+92
+00:04:06,990 --> 00:04:10,710
+and deployment failure detection, leave it as is as well.
+
+93
+00:04:10,710 --> 00:04:14,670
+Next for networking, so we want to deploy into our VPC
+
+94
+00:04:14,670 --> 00:04:16,920
+on these three subnets
+
+95
+00:04:16,920 --> 00:04:20,070
+and we are going to create a new security group.
+
+96
+00:04:20,070 --> 00:04:23,880
+I will call this one nginxdemos-hello.
+
+97
+00:04:23,880 --> 00:04:27,783
+And I'll call this one security group for NGINX.
+
+98
+00:04:28,710 --> 00:04:32,920
+Now the idea is that we want to allow on HTTP
+
+99
+00:04:33,810 --> 00:04:38,520
+on port 80 and the source right now is going to be anywhere.
+
+100
+00:04:38,520 --> 00:04:42,363
+And for public IP, I leave this turned on.
+
+101
+00:04:43,740 --> 00:04:46,100
+And for load balancing, yes, we do want a load balancer.
+
+102
+00:04:46,100 --> 00:04:48,000
+It is going to be an application balancer.
+
+103
+00:04:48,000 --> 00:04:49,290
+You're going to create it.
+
+104
+00:04:49,290 --> 00:04:54,290
+So DemoALBForECS is the name,
+
+105
+00:04:54,360 --> 00:04:56,850
+we'll leave it as zero as the health check grace period.
+
+106
+00:04:56,850 --> 00:04:59,970
+We should leave enough time for our containers to start.
+
+107
+00:04:59,970 --> 00:05:02,670
+And then our containers is going to be this one
+
+108
+00:05:02,670 --> 00:05:05,640
+on port 80 on protocol HTTP.
+
+109
+00:05:05,640 --> 00:05:10,193
+And the target group is going to be tg-nginxdemos-hello.
+
+110
+00:05:11,730 --> 00:05:13,050
+The protocol is HTTP,
+
+111
+00:05:13,050 --> 00:05:14,700
+the protocol health check is HTTP
+
+112
+00:05:14,700 --> 00:05:17,280
+and the health check path is slash.
+
+113
+00:05:17,280 --> 00:05:19,080
+So now we've defined our service
+
+114
+00:05:19,080 --> 00:05:22,380
+where we have an application balancer, a target group,
+
+115
+00:05:22,380 --> 00:05:24,360
+a security group, and so on,
+
+116
+00:05:24,360 --> 00:05:25,830
+so we should be good to go.
+
+117
+00:05:25,830 --> 00:05:28,680
+We're not going to touch anything into service auto scaling
+
+118
+00:05:28,680 --> 00:05:31,500
+and task placement, but these things are available.
+
+119
+00:05:31,500 --> 00:05:32,340
+That means that, of course,
+
+120
+00:05:32,340 --> 00:05:35,010
+you can scale automatically on ECS.
+
+121
+00:05:35,010 --> 00:05:37,320
+So now my deployment is in progress
+
+122
+00:05:37,320 --> 00:05:39,720
+and we need to wait a few minutes.
+
+123
+00:05:39,720 --> 00:05:42,900
+So our service has now been deployed successfully.
+
+124
+00:05:42,900 --> 00:05:45,840
+So let's click on the service and have a look at it.
+
+125
+00:05:45,840 --> 00:05:47,880
+So we can see right now we have one desired task
+
+126
+00:05:47,880 --> 00:05:50,460
+and one is running and the status is active.
+
+127
+00:05:50,460 --> 00:05:51,720
+So this is really good.
+
+128
+00:05:51,720 --> 00:05:55,350
+And we can see that the service is linked to a target group.
+
+129
+00:05:55,350 --> 00:05:57,510
+So I click on the target group
+
+130
+00:05:57,510 --> 00:05:59,070
+and in the target group itself
+
+131
+00:05:59,070 --> 00:06:01,710
+we can see that it's linked to our DemoALB
+
+132
+00:06:01,710 --> 00:06:03,750
+which is the application balancer that was created
+
+133
+00:06:03,750 --> 00:06:05,820
+as part of this service.
+
+134
+00:06:05,820 --> 00:06:10,680
+And it looks like one IP address is registered as a target.
+
+135
+00:06:10,680 --> 00:06:13,350
+And this is the IP address of my container
+
+136
+00:06:13,350 --> 00:06:14,700
+which is very good.
+
+137
+00:06:14,700 --> 00:06:18,480
+So now if we have a look at this load balancer itself,
+
+138
+00:06:18,480 --> 00:06:22,020
+it is active, I can copy the DNS name
+
+139
+00:06:22,020 --> 00:06:24,240
+and then open a new tab and paste it.
+
+140
+00:06:24,240 --> 00:06:27,180
+And I get the Nginx welcome page, which is very good.
+
+141
+00:06:27,180 --> 00:06:29,040
+So that means that everything is working.
+
+142
+00:06:29,040 --> 00:06:31,230
+The server address is the exact same
+
+143
+00:06:31,230 --> 00:06:33,840
+as the IP we have registered in here.
+
+144
+00:06:33,840 --> 00:06:35,890
+So this is the private IP, which is good.
+
+145
+00:06:36,750 --> 00:06:38,340
+And what else?
+
+146
+00:06:38,340 --> 00:06:41,190
+So if we go under the service itself now
+
+147
+00:06:41,190 --> 00:06:42,960
+we can have a look at tasks.
+
+148
+00:06:42,960 --> 00:06:45,540
+So as you can see, one container is running right now
+
+149
+00:06:45,540 --> 00:06:47,190
+and this is this one task.
+
+150
+00:06:47,190 --> 00:06:50,580
+And I can click on it and have a look at this task itself.
+
+151
+00:06:50,580 --> 00:06:53,970
+So it tells me the configuration, the task revision,
+
+152
+00:06:53,970 --> 00:06:56,940
+where it's been launched, the private IP, the containers.
+
+153
+00:06:56,940 --> 00:06:58,980
+We can have a look at logs to know the logs
+
+154
+00:06:58,980 --> 00:07:02,730
+of our Nginx container as well, which is good.
+
+155
+00:07:02,730 --> 00:07:05,700
+And if we look at the service itself,
+
+156
+00:07:05,700 --> 00:07:09,360
+so we are on the service and then we go to events,
+
+157
+00:07:09,360 --> 00:07:12,660
+we can have a look at where the events of this.
+
+158
+00:07:12,660 --> 00:07:16,080
+So that means that we have one task that has been started.
+
+159
+00:07:16,080 --> 00:07:17,940
+It was registered in target-group
+
+160
+00:07:17,940 --> 00:07:19,830
+and then it's been complete deployment
+
+161
+00:07:19,830 --> 00:07:21,480
+and now we have a steady state.
+
+162
+00:07:21,480 --> 00:07:22,980
+So as we can see in this,
+
+163
+00:07:22,980 --> 00:07:25,290
+I can go to /test, for example,
+
+164
+00:07:25,290 --> 00:07:26,670
+and the URI will change in here.
+
+165
+00:07:26,670 --> 00:07:29,730
+So Nginx is working as expected.
+
+166
+00:07:29,730 --> 00:07:32,160
+Now what we can do because we're under ECS,
+
+167
+00:07:32,160 --> 00:07:33,480
+is that we have a look at our task,
+
+168
+00:07:33,480 --> 00:07:36,870
+we have one of them, but we can launch some more.
+
+169
+00:07:36,870 --> 00:07:38,970
+So I want to show you how easy it is
+
+170
+00:07:38,970 --> 00:07:40,110
+to launch more tasks with Fargate.
+
+171
+00:07:40,110 --> 00:07:42,150
+So let's update this service.
+
+172
+00:07:42,150 --> 00:07:45,000
+And now the desired number of task is going to be three.
+
+173
+00:07:45,000 --> 00:07:48,300
+So one per AZ, for example,
+
+174
+00:07:48,300 --> 00:07:50,700
+and the rest I will just leave as is.
+
+175
+00:07:50,700 --> 00:07:53,730
+So we'll leave the task definition to the same.
+
+176
+00:07:53,730 --> 00:07:57,840
+We'll leave the compute configuration as Fargate
+
+177
+00:07:57,840 --> 00:07:59,760
+and load balancing does not change
+
+178
+00:07:59,760 --> 00:08:00,930
+in terms of health checks and so on.
+
+179
+00:08:00,930 --> 00:08:02,880
+So let's just click on Update.
+
+180
+00:08:02,880 --> 00:08:06,450
+And now what's going to happen is that we have asked
+
+181
+00:08:06,450 --> 00:08:09,840
+the ECS service to run two more tasks.
+
+182
+00:08:09,840 --> 00:08:13,200
+So if I refresh this and wait a little bit,
+
+183
+00:08:13,200 --> 00:08:15,870
+now we have two more tasks being provisioned
+
+184
+00:08:15,870 --> 00:08:18,390
+and they are provisioned on the Fargate engine.
+
+185
+00:08:18,390 --> 00:08:20,310
+So that means that behind the scenes,
+
+186
+00:08:20,310 --> 00:08:23,640
+AWS is going to provision automatically the resource
+
+187
+00:08:23,640 --> 00:08:26,760
+that it needs to launch these tasks.
+
+188
+00:08:26,760 --> 00:08:27,660
+So let's wait a little bit.
+
+189
+00:08:27,660 --> 00:08:30,630
+They're pending, now they're activating
+
+190
+00:08:30,630 --> 00:08:31,800
+and now they're running.
+
+191
+00:08:31,800 --> 00:08:33,960
+So this was very quick actually.
+
+192
+00:08:33,960 --> 00:08:35,490
+And if I go under here
+
+193
+00:08:35,490 --> 00:08:37,799
+and now refresh this page, as you can see
+
+194
+00:08:37,799 --> 00:08:40,620
+the IP address is changing every time I refresh.
+
+195
+00:08:40,620 --> 00:08:43,710
+So the application balancer is distributing the load
+
+196
+00:08:43,710 --> 00:08:47,280
+between all my containers on ECS, which is great.
+
+197
+00:08:47,280 --> 00:08:48,540
+So this is quite powerful
+
+198
+00:08:48,540 --> 00:08:50,250
+and we just demonstrated the scaling
+
+199
+00:08:50,250 --> 00:08:53,010
+of ECS while scaling up.
+
+200
+00:08:53,010 --> 00:08:56,100
+And just to scale back the demo and save on cost,
+
+201
+00:08:56,100 --> 00:08:57,780
+we can update the service here
+
+202
+00:08:57,780 --> 00:09:00,330
+and have the desired number of tasks to be zero.
+
+203
+00:09:00,330 --> 00:09:02,400
+This way the service is still there
+
+204
+00:09:02,400 --> 00:09:04,740
+but we are don't have any containers running.
+
+205
+00:09:04,740 --> 00:09:08,070
+And under my application load balancer,
+
+206
+00:09:08,070 --> 00:09:10,050
+my auto scaling group, sorry,
+
+207
+00:09:10,050 --> 00:09:12,300
+then I'm going to click on this
+
+208
+00:09:12,300 --> 00:09:15,930
+and make sure the desired capacity is also zero.
+
+209
+00:09:15,930 --> 00:09:19,350
+This way we are sure not to be running any type
+
+210
+00:09:19,350 --> 00:09:24,210
+of instances on our EC2 cluster for ECS, okay?
+
+211
+00:09:24,210 --> 00:09:25,230
+So now you can verify this
+
+212
+00:09:25,230 --> 00:09:27,330
+that the tasks are gone and you're good to go
+
+213
+00:09:27,330 --> 00:09:30,960
+and you can look at the events to see what has ECS done
+
+214
+00:09:30,960 --> 00:09:33,960
+while we were asking you to update the service.
+
+215
+00:09:33,960 --> 00:09:35,040
+Okay? So that's it.
+
+216
+00:09:35,040 --> 00:09:37,590
+We've seen how to create an ECS cluster,
+
+217
+00:09:37,590 --> 00:09:40,440
+we've seen how to create an ECS service on Fargate.
+
+218
+00:09:40,440 --> 00:09:43,473
+I hope you liked it and I will see you in the next lecture.
+

@@ -1,0 +1,348 @@
+1
+00:00:00,230 --> 00:00:02,870
+Okay, so yet another theoretical lecture,
+
+2
+00:00:02,870 --> 00:00:04,230
+but I still want to mention it
+
+3
+00:00:04,230 --> 00:00:06,700
+because I think it's extremely important going to the exam.
+
+4
+00:00:06,700 --> 00:00:08,430
+You need to know about the services
+
+5
+00:00:08,430 --> 00:00:11,060
+that AWS offers at a very, very high level,
+
+6
+00:00:11,060 --> 00:00:13,490
+but just hear about them once
+
+7
+00:00:13,490 --> 00:00:16,309
+to do on-premise strategy with cloud.
+
+8
+00:00:16,309 --> 00:00:20,130
+So we have the ability to download the Amazon Linux 2 AMI
+
+9
+00:00:20,130 --> 00:00:23,330
+as a virtual machine and that will be in the ISO format.
+
+10
+00:00:23,330 --> 00:00:25,560
+And you can load this ISO image
+
+11
+00:00:25,560 --> 00:00:28,470
+into the common software used to create VMs.
+
+12
+00:00:28,470 --> 00:00:31,480
+So that includes VMWare, KVM, Virtual Box,
+
+13
+00:00:31,480 --> 00:00:34,740
+which is Oracle VM or Microsoft Hyper-V.
+
+14
+00:00:34,740 --> 00:00:35,620
+And this would allow you
+
+15
+00:00:35,620 --> 00:00:39,050
+to run Amazon Linux 2 on your on-premise infrastructure
+
+16
+00:00:39,050 --> 00:00:40,290
+directly using that VM.
+
+17
+00:00:40,290 --> 00:00:41,870
+So that means that you can make it work
+
+18
+00:00:41,870 --> 00:00:43,620
+with some user data and so on.
+
+19
+00:00:43,620 --> 00:00:45,220
+So quite cool to think about.
+
+20
+00:00:45,220 --> 00:00:48,220
+Then we have a feature called VM import and export.
+
+21
+00:00:48,220 --> 00:00:49,580
+And what this allows you to do
+
+22
+00:00:49,580 --> 00:00:52,830
+is to migrate your existing VMs and applications
+
+23
+00:00:52,830 --> 00:00:55,180
+into EC2 directly using this feature.
+
+24
+00:00:55,180 --> 00:00:57,450
+And you can also create a, for example,
+
+25
+00:00:57,450 --> 00:01:00,030
+a disaster recovery repository strategy
+
+26
+00:01:00,030 --> 00:01:01,860
+if you had a lot of on-premise VMs,
+
+27
+00:01:01,860 --> 00:01:04,430
+but you want it to back them up into the cloud.
+
+28
+00:01:04,430 --> 00:01:06,940
+And because it's called imports and exports,
+
+29
+00:01:06,940 --> 00:01:09,080
+you can export back the VMs
+
+30
+00:01:09,080 --> 00:01:11,570
+from EC2 your on-premise environment
+
+31
+00:01:11,570 --> 00:01:13,260
+if you wanted to.
+
+32
+00:01:13,260 --> 00:01:16,100
+Now for AWS application discovery service,
+
+33
+00:01:16,100 --> 00:01:17,304
+well, this is a service
+
+34
+00:01:17,304 --> 00:01:19,070
+that allows you to gather information
+
+35
+00:01:19,070 --> 00:01:21,890
+about your on-premise servers and plan a migration.
+
+36
+00:01:21,890 --> 00:01:22,980
+This is very high level,
+
+37
+00:01:22,980 --> 00:01:25,800
+but it does give you some server utilization information
+
+38
+00:01:25,800 --> 00:01:27,090
+and dependency mappings.
+
+39
+00:01:27,090 --> 00:01:28,640
+And that could be quite helpful
+
+40
+00:01:28,640 --> 00:01:31,330
+when you want to do a massive migration
+
+41
+00:01:31,330 --> 00:01:33,130
+from on-premise to the cloud.
+
+42
+00:01:33,130 --> 00:01:35,280
+Finally, you can track all that migration
+
+43
+00:01:35,280 --> 00:01:38,170
+using the AWS Migration Hub.
+
+44
+00:01:38,170 --> 00:01:41,400
+Then we have AWS database migration service or DMS,
+
+45
+00:01:41,400 --> 00:01:43,859
+which allows you to replicate from on-premise to AWS,
+
+46
+00:01:43,859 --> 00:01:44,692
+AWS to AWS
+
+47
+00:01:44,692 --> 00:01:47,090
+or AWS to on-premise for your database.
+
+48
+00:01:47,090 --> 00:01:49,070
+So this is quite nice because
+
+49
+00:01:49,070 --> 00:01:51,150
+if you had a MySQL or a Postgres database
+
+50
+00:01:51,150 --> 00:01:52,070
+running on-premise,
+
+51
+00:01:52,070 --> 00:01:55,210
+and you wanted to start moving your workload into AWS,
+
+52
+00:01:55,210 --> 00:01:56,410
+you could use DMS
+
+53
+00:01:56,410 --> 00:01:58,220
+to replicate that database in the meantime,
+
+54
+00:01:58,220 --> 00:01:59,053
+and when you're ready,
+
+55
+00:01:59,053 --> 00:02:02,040
+you can fully transition to using AWS only.
+
+56
+00:02:02,040 --> 00:02:02,873
+And the nice thing about it is
+
+57
+00:02:02,873 --> 00:02:05,350
+that they work with various database technologies
+
+58
+00:02:05,350 --> 00:02:09,470
+that includes Oracle, MySQL, DynamoDB, et cetera,
+
+59
+00:02:09,470 --> 00:02:11,560
+and allows you to do some really
+
+60
+00:02:11,560 --> 00:02:13,780
+fancy use cases for example,
+
+61
+00:02:13,780 --> 00:02:16,173
+migrate data from MySQL into DynamoDB.
+
+62
+00:02:17,530 --> 00:02:18,837
+And then finally you have
+
+63
+00:02:18,837 --> 00:02:21,363
+AWS Server Migration Service or SMS.
+
+64
+00:02:22,220 --> 00:02:24,030
+And this is for incremental replication
+
+65
+00:02:24,030 --> 00:02:26,730
+of on-premise live servers to AWS.
+
+66
+00:02:26,730 --> 00:02:30,360
+So you can replicate the volumes directly into AWS.
+
+67
+00:02:30,360 --> 00:02:33,780
+And this is used for more ongoing type of replication.
+
+68
+00:02:33,780 --> 00:02:35,970
+Incremental replication.
+
+69
+00:02:35,970 --> 00:02:38,020
+And this is the last one that I have in my mind
+
+70
+00:02:38,020 --> 00:02:40,530
+for on-premise migration to AWS.
+
+71
+00:02:40,530 --> 00:02:42,157
+So at a high level, you may be like,
+
+72
+00:02:42,157 --> 00:02:43,920
+"Oh, this is a lot of services."
+
+73
+00:02:43,920 --> 00:02:45,700
+Just remember the names at a high level.
+
+74
+00:02:45,700 --> 00:02:49,330
+So in the next two on on-premise as possible,
+
+75
+00:02:49,330 --> 00:02:53,090
+we can do VM import and export for on-premise and EC2,
+
+76
+00:02:53,090 --> 00:02:54,760
+we can have migration services
+
+77
+00:02:54,760 --> 00:02:56,925
+such as application Discovery Service,
+
+78
+00:02:56,925 --> 00:02:59,670
+AWS Migration Hub, Database Migration Service
+
+79
+00:02:59,670 --> 00:03:02,430
+and Server Migration Service, DMS and SMS.
+
+80
+00:03:02,430 --> 00:03:03,740
+And just remember those at a high level.
+
+81
+00:03:03,740 --> 00:03:04,573
+That's it.
+
+82
+00:03:04,573 --> 00:03:06,500
+Just so you can see if you see the name in the question,
+
+83
+00:03:06,500 --> 00:03:09,510
+then you're not taken by surprise.
+
+84
+00:03:09,510 --> 00:03:10,800
+You know that all these things
+
+85
+00:03:10,800 --> 00:03:13,730
+have to relate to on-premise.
+
+86
+00:03:13,730 --> 00:03:15,580
+Well, that's it for this short theory lecture,
+
+87
+00:03:15,580 --> 00:03:17,330
+I will see you in the next lecture.
+

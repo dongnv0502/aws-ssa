@@ -1,0 +1,384 @@
+1
+00:00:00,000 --> 00:00:03,410
+Hello, and welcome to this lecture on AWS Backup.
+
+2
+00:00:03,410 --> 00:00:06,490
+So AWS Backup is a fully managed service
+
+3
+00:00:06,490 --> 00:00:08,600
+and it allows you to centrally manage
+
+4
+00:00:08,600 --> 00:00:10,710
+and automate backups across all
+
+5
+00:00:10,710 --> 00:00:12,080
+your AWS services.
+
+6
+00:00:12,080 --> 00:00:13,910
+And the list is getting bigger and bigger
+
+7
+00:00:13,910 --> 00:00:14,880
+by the day.
+
+8
+00:00:14,880 --> 00:00:15,770
+So the idea is that you want
+
+9
+00:00:15,770 --> 00:00:16,603
+to have a central place.
+
+10
+00:00:16,603 --> 00:00:18,660
+You don't want to create any custom scripts
+
+11
+00:00:18,660 --> 00:00:20,480
+or have any manual processes.
+
+12
+00:00:20,480 --> 00:00:21,750
+You want to have a central view
+
+13
+00:00:21,750 --> 00:00:24,000
+of your backup strategy.
+
+14
+00:00:24,000 --> 00:00:25,660
+So supported services are pretty wide.
+
+15
+00:00:25,660 --> 00:00:30,080
+For example, Amazon EC2, EBS, Amazon S3, RDS and
+
+16
+00:00:30,080 --> 00:00:31,850
+all database engines supported,
+
+17
+00:00:31,850 --> 00:00:36,090
+Aurora, DynamoDB, DocumentDB, Amazon Neptune,
+
+18
+00:00:36,090 --> 00:00:38,400
+EFS, FSX, including Lustre,
+
+19
+00:00:38,400 --> 00:00:39,450
+and Windows File Server
+
+20
+00:00:39,450 --> 00:00:40,723
+and probably others.
+
+21
+00:00:41,577 --> 00:00:42,520
+AWS Storage Gateway,
+
+22
+00:00:42,520 --> 00:00:44,180
+such as the Volume Gateway.
+
+23
+00:00:44,180 --> 00:00:47,080
+And it's more that can come over time, but I'm
+
+24
+00:00:47,080 --> 00:00:48,220
+not necessarily going to update
+
+25
+00:00:48,220 --> 00:00:49,780
+this lecture because, well
+
+26
+00:00:49,780 --> 00:00:50,613
+it doesn't really matter.
+
+27
+00:00:50,613 --> 00:00:52,990
+The ideas that you get the concept behind
+
+28
+00:00:52,990 --> 00:00:53,860
+database backup
+
+29
+00:00:53,860 --> 00:00:55,590
+and the most important services
+
+30
+00:00:55,590 --> 00:00:57,310
+are shown on the slide.
+
+31
+00:00:57,310 --> 00:00:59,140
+So it supports cross-region backups.
+
+32
+00:00:59,140 --> 00:01:00,660
+Doesn't mean that you cant have
+
+33
+00:01:00,660 --> 00:01:03,080
+your backup pushed to another region
+
+34
+00:01:03,080 --> 00:01:04,890
+for disaster recovery strategy,
+
+35
+00:01:04,890 --> 00:01:05,960
+all in one place.
+
+36
+00:01:05,960 --> 00:01:08,370
+And also supports cross-account backups,
+
+37
+00:01:08,370 --> 00:01:10,750
+if you are using multiple accounts
+
+38
+00:01:10,750 --> 00:01:12,540
+in your AWS strategy.
+
+39
+00:01:12,540 --> 00:01:14,180
+So, it supports point
+
+40
+00:01:14,180 --> 00:01:16,060
+in time recovery for supported services,
+
+41
+00:01:16,060 --> 00:01:17,360
+such as Aurora.
+
+42
+00:01:17,360 --> 00:01:19,539
+It supports on-demand and scheduled backups.
+
+43
+00:01:19,539 --> 00:01:22,020
+There's tag-based backup policies to
+
+44
+00:01:22,020 --> 00:01:23,388
+make sure you only backup
+
+45
+00:01:23,388 --> 00:01:25,057
+maybe resources that have been tagged
+
+46
+00:01:25,057 --> 00:01:26,960
+with production.
+
+47
+00:01:26,960 --> 00:01:29,080
+And you can create backup policies known
+
+48
+00:01:29,080 --> 00:01:30,160
+as Backup Plans.
+
+49
+00:01:30,160 --> 00:01:31,880
+You define the frequency, for example
+
+50
+00:01:31,880 --> 00:01:33,980
+every 12 hours or weekly or monthly
+
+51
+00:01:33,980 --> 00:01:36,470
+or whatever cron expression you have,
+
+52
+00:01:36,470 --> 00:01:37,940
+the Backup Window.
+
+53
+00:01:37,940 --> 00:01:39,440
+If you want to transition the backup
+
+54
+00:01:39,440 --> 00:01:40,780
+itself to Cold Storage.
+
+55
+00:01:40,780 --> 00:01:42,970
+So never, or maybe after some days,
+
+56
+00:01:42,970 --> 00:01:44,870
+some weeks, some months or some years,
+
+57
+00:01:44,870 --> 00:01:47,190
+and the Retention Period of your backup.
+
+58
+00:01:47,190 --> 00:01:51,350
+So every always or days, weeks, months, and years.
+
+59
+00:01:51,350 --> 00:01:53,440
+So it's quite supportive and comprehensive
+
+60
+00:01:53,440 --> 00:01:55,460
+and it supports really most services,
+
+61
+00:01:55,460 --> 00:01:57,160
+so it's a really nice addition
+
+62
+00:01:57,160 --> 00:01:59,180
+to the AWS services.
+
+63
+00:01:59,180 --> 00:02:01,550
+So if we have a look at AWS Backup,
+
+64
+00:02:01,550 --> 00:02:03,390
+we create a backup plan, as I said, and then
+
+65
+00:02:03,390 --> 00:02:05,937
+you assign specific AWS resources
+
+66
+00:02:05,937 --> 00:02:08,100
+that are important to you.
+
+67
+00:02:08,100 --> 00:02:10,680
+So here is a list, but it can get bigger.
+
+68
+00:02:10,680 --> 00:02:12,660
+And then once it's done well,
+
+69
+00:02:12,660 --> 00:02:13,830
+automatically your back,
+
+70
+00:02:13,830 --> 00:02:17,620
+your data is going to be backed up to Amazon S3
+
+71
+00:02:17,620 --> 00:02:19,830
+in an internal bucket that is specific
+
+72
+00:02:19,830 --> 00:02:21,253
+to AWS Backup.
+
+73
+00:02:23,050 --> 00:02:24,600
+And another feature you need to know about
+
+74
+00:02:24,600 --> 00:02:27,790
+for AWS Backup is the Vault Lock.
+
+75
+00:02:27,790 --> 00:02:31,550
+So you enforce a WORM read, Write Once Read Many
+
+76
+00:02:31,550 --> 00:02:32,520
+Policy.
+
+77
+00:02:32,520 --> 00:02:34,030
+That means that all your backup
+
+78
+00:02:34,030 --> 00:02:35,860
+that you store in your Backup Vault
+
+79
+00:02:35,860 --> 00:02:37,620
+cannot be deleted.
+
+80
+00:02:37,620 --> 00:02:39,470
+So the idea is that, you know for sure,
+
+81
+00:02:39,470 --> 00:02:41,230
+you can prove it that thanks
+
+82
+00:02:41,230 --> 00:02:42,760
+to the Vault Lock Policy,
+
+83
+00:02:42,760 --> 00:02:44,220
+you cannot delete your backups.
+
+84
+00:02:44,220 --> 00:02:46,450
+And it provides an additional layer of defense
+
+85
+00:02:46,450 --> 00:02:48,530
+for your backups against, for example
+
+86
+00:02:48,530 --> 00:02:52,270
+inadvertent or malicious delete operations or
+
+87
+00:02:52,270 --> 00:02:54,150
+updates that shorten or alter
+
+88
+00:02:54,150 --> 00:02:55,690
+the retention period.
+
+89
+00:02:55,690 --> 00:02:57,940
+And even the root user itself cannot delete
+
+90
+00:02:57,940 --> 00:02:59,310
+backups when enabled.
+
+91
+00:02:59,310 --> 00:03:02,370
+So it gives you strong guarantees on the safety
+
+92
+00:03:02,370 --> 00:03:03,680
+of your backups.
+
+93
+00:03:03,680 --> 00:03:05,150
+Okay, that's all you need to know
+
+94
+00:03:05,150 --> 00:03:07,280
+for the AWS Backup service.
+
+95
+00:03:07,280 --> 00:03:08,150
+I hope you liked it,
+
+96
+00:03:08,150 --> 00:03:10,100
+and I will see you in the next lecture.
+

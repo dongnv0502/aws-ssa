@@ -1,0 +1,240 @@
+1
+00:00:00,200 --> 00:00:01,450
+So now let's talk about a feature
+
+2
+00:00:01,450 --> 00:00:02,700
+that can come up in the exam,
+
+3
+00:00:02,700 --> 00:00:04,520
+which is called Connection Draining.
+
+4
+00:00:04,520 --> 00:00:06,530
+So it has two names, actually.
+
+5
+00:00:06,530 --> 00:00:08,620
+If you're using a Classic Load Balancer,
+
+6
+00:00:08,620 --> 00:00:09,900
+it is called Connection Draining,
+
+7
+00:00:09,900 --> 00:00:11,930
+but if you're using an Application Balancer
+
+8
+00:00:11,930 --> 00:00:13,890
+or a Network Load Balancer,
+
+9
+00:00:13,890 --> 00:00:16,360
+this is called a Deregistration Delay.
+
+10
+00:00:16,360 --> 00:00:18,650
+And the idea behind this concept is that
+
+11
+00:00:18,650 --> 00:00:21,530
+it will give some time for your instances
+
+12
+00:00:21,530 --> 00:00:24,680
+to complete the inflight request or the active request
+
+13
+00:00:24,680 --> 00:00:26,610
+while the instance is being deregistered
+
+14
+00:00:26,610 --> 00:00:28,330
+or marked unhealthy.
+
+15
+00:00:28,330 --> 00:00:30,540
+And once a connection is being drained,
+
+16
+00:00:30,540 --> 00:00:32,200
+so once an instance is being drained,
+
+17
+00:00:32,200 --> 00:00:35,320
+then the ELB will stop sending your request
+
+18
+00:00:35,320 --> 00:00:37,420
+to the EC2 instance that is being drained
+
+19
+00:00:37,420 --> 00:00:39,170
+while being deregistered.
+
+20
+00:00:39,170 --> 00:00:41,420
+So let's have a look at a diagram to understand better.
+
+21
+00:00:41,420 --> 00:00:44,150
+So we have three EC2 instances
+
+22
+00:00:44,150 --> 00:00:46,830
+and in one of them we'll set it in draining mode.
+
+23
+00:00:46,830 --> 00:00:50,470
+So the users that are already connected to that EC2 instance
+
+24
+00:00:50,470 --> 00:00:52,440
+are going to be given enough time,
+
+25
+00:00:52,440 --> 00:00:54,600
+which is the draining period, okay,
+
+26
+00:00:54,600 --> 00:00:56,480
+to complete their existing connection
+
+27
+00:00:56,480 --> 00:00:58,680
+and to complete their existing request.
+
+28
+00:00:58,680 --> 00:01:00,040
+And then once everything's done,
+
+29
+00:01:00,040 --> 00:01:02,600
+then all the connections will be shut down.
+
+30
+00:01:02,600 --> 00:01:05,440
+Now, if new users try to connect to our ELB,
+
+31
+00:01:05,440 --> 00:01:06,860
+our ELB is smart enough to know
+
+32
+00:01:06,860 --> 00:01:09,800
+that because our EC2 instance is in draining state,
+
+33
+00:01:09,800 --> 00:01:12,510
+then it will only establish new connections
+
+34
+00:01:12,510 --> 00:01:14,190
+with other EC2 instances, for example,
+
+35
+00:01:14,190 --> 00:01:18,140
+my second EC2 instance or my third EC2 instance.
+
+36
+00:01:18,140 --> 00:01:19,610
+Now you can parametrize
+
+37
+00:01:19,610 --> 00:01:21,060
+these Connection Draining parameters.
+
+38
+00:01:21,060 --> 00:01:26,060
+So you can set it anywhere between 1 to 3,600 seconds.
+
+39
+00:01:26,460 --> 00:01:29,360
+By default, it is 300 seconds, so five minutes,
+
+40
+00:01:29,360 --> 00:01:31,330
+and you can disable it altogether
+
+41
+00:01:31,330 --> 00:01:33,400
+if you set the value to zero,
+
+42
+00:01:33,400 --> 00:01:36,060
+which means that there's no draining happening.
+
+43
+00:01:36,060 --> 00:01:39,790
+Now, if you set it to low value, okay, this is good
+
+44
+00:01:39,790 --> 00:01:42,010
+if your requests are short, for example, if there were very,
+
+45
+00:01:42,010 --> 00:01:45,350
+very short requests for, let's say, less than one second,
+
+46
+00:01:45,350 --> 00:01:46,760
+well, it's a good idea to set
+
+47
+00:01:46,760 --> 00:01:50,550
+the draining connection parameter to maybe 30 seconds, okay,
+
+48
+00:01:50,550 --> 00:01:52,730
+because then this will allow your EC2 instance
+
+49
+00:01:52,730 --> 00:01:56,170
+to be drained really fast and then be taken offline,
+
+50
+00:01:56,170 --> 00:01:58,230
+maybe to be replaced or something like this.
+
+51
+00:01:58,230 --> 00:02:00,060
+If your request can be quite long, for example,
+
+52
+00:02:00,060 --> 00:02:03,300
+if you have uploads or long lived requests,
+
+53
+00:02:03,300 --> 00:02:06,030
+then you want to set it to something pretty high,
+
+54
+00:02:06,030 --> 00:02:08,220
+but the trade-off is that's your EC2 instance
+
+55
+00:02:08,220 --> 00:02:11,247
+is not going to go away as soon as soon as possible, okay,
+
+56
+00:02:11,247 --> 00:02:12,260
+it's going to have to wait
+
+57
+00:02:12,260 --> 00:02:15,610
+until this Connection Draining period is done, okay?
+
+58
+00:02:15,610 --> 00:02:18,450
+So this is what you need to know about this setting
+
+59
+00:02:18,450 --> 00:02:19,283
+at a high level.
+
+60
+00:02:19,283 --> 00:02:22,150
+I hope you liked it and I will see you in the next lecture.
+

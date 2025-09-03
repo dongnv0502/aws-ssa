@@ -1,0 +1,432 @@
+1
+00:00:00,270 --> 00:00:03,000
+So now, let's talk Amazon RDS Proxy.
+
+2
+00:00:03,000 --> 00:00:06,660
+So we know we can deploy our RDS database within our VPC,
+
+3
+00:00:06,660 --> 00:00:08,100
+but now we can also deploy
+
+4
+00:00:08,100 --> 00:00:12,030
+a fully managed database proxy for RDS.
+
+5
+00:00:12,030 --> 00:00:12,863
+So you may say,
+
+6
+00:00:12,863 --> 00:00:15,450
+"Okay, we can access our RDS database directly.
+
+7
+00:00:15,450 --> 00:00:18,840
+Why do we need a proxy to access our database?"
+
+8
+00:00:18,840 --> 00:00:21,150
+Well, if you use an As an RDS Proxy,
+
+9
+00:00:21,150 --> 00:00:23,610
+this will allow you, your application,
+
+10
+00:00:23,610 --> 00:00:26,850
+to pool and share the database connections
+
+11
+00:00:26,850 --> 00:00:28,230
+established with the database.
+
+12
+00:00:28,230 --> 00:00:31,050
+So instead of having every single application
+
+13
+00:00:31,050 --> 00:00:33,660
+connect to your RDS database instance,
+
+14
+00:00:33,660 --> 00:00:36,150
+they will be instead connecting to the proxy,
+
+15
+00:00:36,150 --> 00:00:38,730
+and the proxy will pool these connections together
+
+16
+00:00:38,730 --> 00:00:42,180
+into less connections to the RDS database instance.
+
+17
+00:00:42,180 --> 00:00:43,980
+So why may you do this?
+
+18
+00:00:43,980 --> 00:00:45,060
+Well, this makes a lot of sense
+
+19
+00:00:45,060 --> 00:00:46,410
+if you have a lot of connections
+
+20
+00:00:46,410 --> 00:00:48,270
+into your RDS database instance,
+
+21
+00:00:48,270 --> 00:00:51,240
+and it's going to improve your database efficiency
+
+22
+00:00:51,240 --> 00:00:53,550
+by reducing the stress on database resources,
+
+23
+00:00:53,550 --> 00:00:55,200
+for example, CPU and RAM,
+
+24
+00:00:55,200 --> 00:00:57,240
+and also minimize the open connections
+
+25
+00:00:57,240 --> 00:01:00,000
+and the timeouts into your database.
+
+26
+00:01:00,000 --> 00:01:01,560
+So that's one thing you need to look out for
+
+27
+00:01:01,560 --> 00:01:03,240
+from the exam perspective.
+
+28
+00:01:03,240 --> 00:01:06,750
+Now, as I said, the RDS Proxy is fully serverless.
+
+29
+00:01:06,750 --> 00:01:09,990
+It's auto scaling, so you don't need to manage its capacity.
+
+30
+00:01:09,990 --> 00:01:11,040
+And it's highly available.
+
+31
+00:01:11,040 --> 00:01:13,080
+It's across multiple AZ.
+
+32
+00:01:13,080 --> 00:01:15,180
+And therefore, in case, for example,
+
+33
+00:01:15,180 --> 00:01:17,160
+there is a failover that happens
+
+34
+00:01:17,160 --> 00:01:18,750
+on your RDS database instance.
+
+35
+00:01:18,750 --> 00:01:22,200
+For example, it goes from the primary instance
+
+36
+00:01:22,200 --> 00:01:24,480
+to the standby instance,
+
+37
+00:01:24,480 --> 00:01:27,090
+then it will, thanks to the RDS Proxy,
+
+38
+00:01:27,090 --> 00:01:32,040
+reduce the failover time by up to 66%.
+
+39
+00:01:32,040 --> 00:01:34,560
+So this is true for RDS and Aurora.
+
+40
+00:01:34,560 --> 00:01:36,960
+So again, instead of having all your applications
+
+41
+00:01:36,960 --> 00:01:39,870
+connect to the main RDS database instance
+
+42
+00:01:39,870 --> 00:01:42,390
+and then handle the feller themselves,
+
+43
+00:01:42,390 --> 00:01:44,760
+they will just connect to the RDS Proxy,
+
+44
+00:01:44,760 --> 00:01:47,550
+which does not know any failover.
+
+45
+00:01:47,550 --> 00:01:49,800
+And the RDS Proxy will, itself,
+
+46
+00:01:49,800 --> 00:01:52,770
+handle the failover of the RDS database instance,
+
+47
+00:01:52,770 --> 00:01:54,780
+therefore improving your failover time.
+
+48
+00:01:54,780 --> 00:01:56,790
+So something else you need to look for
+
+49
+00:01:56,790 --> 00:01:58,410
+from an exam perspective.
+
+50
+00:01:58,410 --> 00:02:02,520
+So the RDS Proxy supports MySQL, PostgreSQL, MariaDB,
+
+51
+00:02:02,520 --> 00:02:04,140
+Microsoft SQL Server,
+
+52
+00:02:04,140 --> 00:02:06,890
+as well as Aurora for MySQL and PostgreSQL.
+
+53
+00:02:08,190 --> 00:02:09,419
+It doesn't require you
+
+54
+00:02:09,419 --> 00:02:12,060
+to do any code change in your application.
+
+55
+00:02:12,060 --> 00:02:15,660
+Just instead of connecting to your RDS database instance
+
+56
+00:02:15,660 --> 00:02:17,190
+or your Aurora database,
+
+57
+00:02:17,190 --> 00:02:21,540
+you'd now just connect to your RDS Proxy and you are done.
+
+58
+00:02:21,540 --> 00:02:22,373
+On top of it,
+
+59
+00:02:22,373 --> 00:02:25,350
+there's a third advantage to using an RDS Proxy.
+
+60
+00:02:25,350 --> 00:02:27,930
+It is to enforce IAM authentication for your database.
+
+61
+00:02:27,930 --> 00:02:29,100
+So to make sure that people
+
+62
+00:02:29,100 --> 00:02:34,080
+can only connect to your RDS database instance using IAM.
+
+63
+00:02:34,080 --> 00:02:35,130
+And then these credentials
+
+64
+00:02:35,130 --> 00:02:37,950
+can be securely stored in another service
+
+65
+00:02:37,950 --> 00:02:40,500
+called the AWS Secrets Manager.
+
+66
+00:02:40,500 --> 00:02:41,970
+So again, if you need to see a way
+
+67
+00:02:41,970 --> 00:02:44,400
+to enforce IAM authentication for your database,
+
+68
+00:02:44,400 --> 00:02:46,770
+think RDS Proxy.
+
+69
+00:02:46,770 --> 00:02:50,790
+And finally, the RDS Proxy is never publicly accessible.
+
+70
+00:02:50,790 --> 00:02:53,160
+So it's only accessible from within your VPC.
+
+71
+00:02:53,160 --> 00:02:56,430
+So you cannot connect over the internet to your RDS Proxy,
+
+72
+00:02:56,430 --> 00:02:58,530
+which is enhanced security.
+
+73
+00:02:58,530 --> 00:03:01,380
+And so one service we haven't seen
+
+74
+00:03:01,380 --> 00:03:06,380
+that is going for sure to be very helped by the RDS Proxy
+
+75
+00:03:06,840 --> 00:03:08,850
+is called the Lambda functions.
+
+76
+00:03:08,850 --> 00:03:11,370
+And the Lambda functions, they will execute pieces of code.
+
+77
+00:03:11,370 --> 00:03:13,410
+We'll see them later on in this course.
+
+78
+00:03:13,410 --> 00:03:15,060
+Okay, you don't need to know them right now,
+
+79
+00:03:15,060 --> 00:03:16,380
+but we have to tackle them right now
+
+80
+00:03:16,380 --> 00:03:17,850
+because of the RDS Proxy feature.
+
+81
+00:03:17,850 --> 00:03:20,040
+And so the Lambda functions, they can multiply,
+
+82
+00:03:20,040 --> 00:03:21,360
+multiply many, many times.
+
+83
+00:03:21,360 --> 00:03:23,760
+And they will appear and disappear very, very fast.
+
+84
+00:03:23,760 --> 00:03:25,560
+And therefore, imagine you have 100
+
+85
+00:03:25,560 --> 00:03:28,200
+or 1,000 Lambda functions appearing and disappearing
+
+86
+00:03:28,200 --> 00:03:30,060
+just like that, and opening up connections
+
+87
+00:03:30,060 --> 00:03:33,180
+into your RDS database instance, they will be a big problem
+
+88
+00:03:33,180 --> 00:03:35,280
+because it will leave open connections and timeouts,
+
+89
+00:03:35,280 --> 00:03:36,660
+and it will be a mess.
+
+90
+00:03:36,660 --> 00:03:40,050
+And therefore what you do is that you use the RDS Proxy
+
+91
+00:03:40,050 --> 00:03:43,650
+to pool connections for your Lambda functions,
+
+92
+00:03:43,650 --> 00:03:47,100
+and then the Lambda functions will overload the RDS Proxy,
+
+93
+00:03:47,100 --> 00:03:48,600
+but it's meant to be overload.
+
+94
+00:03:48,600 --> 00:03:51,180
+And the RDS Proxy will pool these connections
+
+95
+00:03:51,180 --> 00:03:54,720
+into less connections to the RDS database instance,
+
+96
+00:03:54,720 --> 00:03:57,450
+thus, solving your problems, okay?
+
+97
+00:03:57,450 --> 00:04:00,570
+So that's it for this lecture. I hope you liked it.
+
+98
+00:04:00,570 --> 00:04:03,360
+And don't worry, we'll review the proxy once again
+
+99
+00:04:03,360 --> 00:04:06,150
+once we go into the Lambda lectures.
+
+100
+00:04:06,150 --> 00:04:09,052
+But again, RDS Proxy is used to minimize
+
+101
+00:04:09,052 --> 00:04:12,930
+and pool connections on your RDS database instance.
+
+102
+00:04:12,930 --> 00:04:15,690
+It's also used to minimize failover time
+
+103
+00:04:15,690 --> 00:04:19,589
+and reduce it by up to 66%.
+
+104
+00:04:19,589 --> 00:04:22,920
+And also, it's used to enforce IAM authentication
+
+105
+00:04:22,920 --> 00:04:26,400
+for your database and to securely store its credentials
+
+106
+00:04:26,400 --> 00:04:28,530
+in the Secrets Manager service.
+
+107
+00:04:28,530 --> 00:04:30,360
+All right, that's it. I hope you liked it.
+
+108
+00:04:30,360 --> 00:04:32,310
+And I will see you in the next lecture.
+

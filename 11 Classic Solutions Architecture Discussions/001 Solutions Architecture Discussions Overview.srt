@@ -1,0 +1,144 @@
+1
+00:00:00,220 --> 00:00:02,469
+So so far we've been learning
+
+2
+00:00:02,469 --> 00:00:05,190
+all about individual technologies,
+
+3
+00:00:05,190 --> 00:00:07,020
+but here we're going to learn
+
+4
+00:00:07,020 --> 00:00:08,360
+how they fit together.
+
+5
+00:00:08,360 --> 00:00:11,220
+And so we're going to view solution architectures,
+
+6
+00:00:11,220 --> 00:00:14,550
+now this is to me the best part of this course
+
+7
+00:00:14,550 --> 00:00:16,210
+so really this is the part I'm most
+
+8
+00:00:16,210 --> 00:00:17,710
+proud of is, okay.
+
+9
+00:00:17,710 --> 00:00:18,800
+No one does that,
+
+10
+00:00:18,800 --> 00:00:21,710
+how do we look and how do we see
+
+11
+00:00:21,710 --> 00:00:24,440
+how these technologies all fit together,
+
+12
+00:00:24,440 --> 00:00:26,280
+all work together into
+
+13
+00:00:26,280 --> 00:00:27,810
+a solution architecture.
+
+14
+00:00:27,810 --> 00:00:30,480
+So you need to be 100 percent comfortable
+
+15
+00:00:30,480 --> 00:00:31,990
+with everything I'm going to explain
+
+16
+00:00:31,990 --> 00:00:33,780
+in this section going into the exam
+
+17
+00:00:33,780 --> 00:00:36,840
+because this is pure solution architecture.
+
+18
+00:00:36,840 --> 00:00:39,320
+So to discuss this we'll be discussing
+
+19
+00:00:39,320 --> 00:00:41,120
+particularly how you can think of solution
+
+20
+00:00:41,120 --> 00:00:43,940
+architecture overall, iteratively,
+
+21
+00:00:43,940 --> 00:00:45,490
+through simple case studies.
+
+22
+00:00:45,490 --> 00:00:47,780
+We'll see whatisthetime.com,
+
+23
+00:00:47,780 --> 00:00:50,180
+myclothes.com, mywordpress.com,
+
+24
+00:00:50,180 --> 00:00:51,700
+how to instantiate applications
+
+25
+00:00:51,700 --> 00:00:53,520
+quickly, and Beanstalk.
+
+26
+00:00:53,520 --> 00:00:55,130
+So overall it will be a natural
+
+27
+00:00:55,130 --> 00:00:57,540
+progression, it will be increasingly complex.
+
+28
+00:00:57,540 --> 00:01:00,570
+But hopefully it will give you some good perspective on
+
+29
+00:01:00,570 --> 00:01:02,290
+EC2 vs ELB,
+
+30
+00:01:02,290 --> 00:01:04,193
+vs ASG vs EBS,
+
+31
+00:01:04,193 --> 00:01:06,020
+EFS, RDS, Elastic, H--
+
+32
+00:01:06,020 --> 00:01:07,030
+All these kind of things, Enroute
+
+33
+00:01:07,030 --> 00:01:07,863
+(mumbles)
+
+34
+00:01:07,863 --> 00:01:09,370
+how all they fit together.
+
+35
+00:01:09,370 --> 00:01:10,203
+Okay that's it,
+
+36
+00:01:10,203 --> 00:01:12,390
+let's get started with solution architecture.
+

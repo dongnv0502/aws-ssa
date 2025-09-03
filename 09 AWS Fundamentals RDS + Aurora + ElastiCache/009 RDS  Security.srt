@@ -1,0 +1,236 @@
+1
+00:00:00,210 --> 00:00:02,190
+Now, here is a quick lecture
+
+2
+00:00:02,190 --> 00:00:05,550
+around RDS and Aurora Security.
+
+3
+00:00:05,550 --> 00:00:07,980
+So you can encrypt the data at-rest
+
+4
+00:00:07,980 --> 00:00:10,140
+on your RDS and Aurora database.
+
+5
+00:00:10,140 --> 00:00:13,710
+That means that the data is encrypted on the volumes.
+
+6
+00:00:13,710 --> 00:00:16,079
+For this, you will be having the master
+
+7
+00:00:16,079 --> 00:00:19,740
+and any replica encrypted using KMS.
+
+8
+00:00:19,740 --> 00:00:22,020
+And this is defined at launch time
+
+9
+00:00:22,020 --> 00:00:24,390
+during the first launch of your database.
+
+10
+00:00:24,390 --> 00:00:27,390
+If somehow you haven't encrypted the master database,
+
+11
+00:00:27,390 --> 00:00:28,650
+the main database,
+
+12
+00:00:28,650 --> 00:00:31,650
+then the read replicas cannot be encrypted.
+
+13
+00:00:31,650 --> 00:00:33,930
+Also, if you wanted to encrypt
+
+14
+00:00:33,930 --> 00:00:36,750
+an already existing unencrypted database,
+
+15
+00:00:36,750 --> 00:00:39,870
+what you would have to do is to take a database snapshot
+
+16
+00:00:39,870 --> 00:00:41,760
+from that un-encrypted database,
+
+17
+00:00:41,760 --> 00:00:44,190
+and then you restore that database snapshot
+
+18
+00:00:44,190 --> 00:00:46,020
+as an encrypted database. Okay?
+
+19
+00:00:46,020 --> 00:00:50,280
+So you have to go through a snapshot and restore operation.
+
+20
+00:00:50,280 --> 00:00:51,540
+So this is for at-rest encryption.
+
+21
+00:00:51,540 --> 00:00:52,890
+Then you have in-flight encryption.
+
+22
+00:00:52,890 --> 00:00:56,160
+So between your clients and your database.
+
+23
+00:00:56,160 --> 00:00:59,400
+So each database on RDS and Aurora
+
+24
+00:00:59,400 --> 00:01:02,460
+is ready to have in-flight encryption by default.
+
+25
+00:01:02,460 --> 00:01:04,349
+And so therefore, your clients must
+
+26
+00:01:04,349 --> 00:01:07,890
+use the TLS root certificates from AWS.
+
+27
+00:01:07,890 --> 00:01:11,133
+They're provided on the AWS website.
+
+28
+00:01:12,390 --> 00:01:14,760
+In terms of database authentication.
+
+29
+00:01:14,760 --> 00:01:16,350
+Because this is RDS and Aurora,
+
+30
+00:01:16,350 --> 00:01:20,100
+you can use the classic combo of username and password.
+
+31
+00:01:20,100 --> 00:01:21,960
+But because it says AWS,
+
+32
+00:01:21,960 --> 00:01:25,590
+you can also use IAM roles to connect to your database.
+
+33
+00:01:25,590 --> 00:01:26,970
+That means that's, for example,
+
+34
+00:01:26,970 --> 00:01:29,340
+if you're EC2 instances had IAM roles,
+
+35
+00:01:29,340 --> 00:01:31,980
+they can authenticate to your database directly using that
+
+36
+00:01:31,980 --> 00:01:33,900
+and not a username and a password,
+
+37
+00:01:33,900 --> 00:01:36,450
+which can help you manage all the security
+
+38
+00:01:36,450 --> 00:01:39,030
+within AWS and IAM.
+
+39
+00:01:39,030 --> 00:01:41,970
+You can also control network access to your database
+
+40
+00:01:41,970 --> 00:01:43,500
+using security groups.
+
+41
+00:01:43,500 --> 00:01:46,470
+So you can allow or block specific ports,
+
+42
+00:01:46,470 --> 00:01:49,800
+specific IP, specific security groups.
+
+43
+00:01:49,800 --> 00:01:53,970
+And then finally RDS and Aurora do not have SSH access,
+
+44
+00:01:53,970 --> 00:01:55,920
+of course, because they're managed services,
+
+45
+00:01:55,920 --> 00:02:00,920
+except if you use the RDS custom service from AWS.
+
+46
+00:02:01,560 --> 00:02:03,480
+And if you wanted Audit Logs.
+
+47
+00:02:03,480 --> 00:02:05,550
+So to know what queries are being made
+
+48
+00:02:05,550 --> 00:02:07,620
+on RDS and Aurora over time
+
+49
+00:02:07,620 --> 00:02:09,240
+and what's happening on databases,
+
+50
+00:02:09,240 --> 00:02:11,100
+you can enable Audit Logs.
+
+51
+00:02:11,100 --> 00:02:13,680
+And then they will be lost after a bit of time.
+
+52
+00:02:13,680 --> 00:02:15,390
+Therefore, if you wanted to keep them
+
+53
+00:02:15,390 --> 00:02:17,640
+for a long period of time,
+
+54
+00:02:17,640 --> 00:02:20,940
+what you need to do is to send them into a dedicated service
+
+55
+00:02:20,940 --> 00:02:24,210
+called the CloudWatch Logs service on AWS.
+
+56
+00:02:24,210 --> 00:02:25,590
+So that's it for the short lecture
+
+57
+00:02:25,590 --> 00:02:29,520
+on the summary options for security, for RDS and Aurora.
+
+58
+00:02:29,520 --> 00:02:30,450
+I hope you liked it.
+
+59
+00:02:30,450 --> 00:02:32,400
+And I will see you in the next lecture.
+

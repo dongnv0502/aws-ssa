@@ -1,0 +1,304 @@
+1
+00:00:00,180 --> 00:00:01,050
+So now let's talk
+
+2
+00:00:01,050 --> 00:00:03,510
+about the Network Load Balancer.
+
+3
+00:00:03,510 --> 00:00:05,520
+So it's a layer 4 load balancer,
+
+4
+00:00:05,520 --> 00:00:08,910
+and therefore it allows you to deal with TCP
+
+5
+00:00:08,910 --> 00:00:10,620
+and UDP traffic.
+
+6
+00:00:10,620 --> 00:00:13,950
+Okay, this is lower level, layer 7 was HTTP,
+
+7
+00:00:13,950 --> 00:00:17,670
+and layer 4 is going to be TCP and UDP traffic.
+
+8
+00:00:17,670 --> 00:00:21,000
+So these work for the Network Load Balancer
+
+9
+00:00:21,000 --> 00:00:24,390
+and therefore when in the exam you see UDP,
+
+10
+00:00:24,390 --> 00:00:26,940
+think Network Load Balancer or even TCP.
+
+11
+00:00:26,940 --> 00:00:29,460
+Okay, also on top of it,
+
+12
+00:00:29,460 --> 00:00:31,140
+the Network Load Balancer
+
+13
+00:00:31,140 --> 00:00:33,180
+is really, really high performance,
+
+14
+00:00:33,180 --> 00:00:36,930
+and therefore it can handle millions of requests per seconds
+
+15
+00:00:36,930 --> 00:00:39,570
+and it has ultra-low latency.
+
+16
+00:00:39,570 --> 00:00:43,530
+Now, another specificity of the Network Load Balancer
+
+17
+00:00:43,530 --> 00:00:48,060
+is that it only has one static IP per availability zones,
+
+18
+00:00:48,060 --> 00:00:52,530
+and you can assign an elastic IP to each AZ.
+
+19
+00:00:52,530 --> 00:00:53,460
+So this is very helpful
+
+20
+00:00:53,460 --> 00:00:55,800
+when you need to expose your application
+
+21
+00:00:55,800 --> 00:00:58,830
+with a set of static IPs,
+
+22
+00:00:58,830 --> 00:01:00,840
+and this can be elastic IPs.
+
+23
+00:01:00,840 --> 00:01:01,777
+So in the exam you say,
+
+24
+00:01:01,777 --> 00:01:05,340
+"Hey, your application can only be accessed within one, two,
+
+25
+00:01:05,340 --> 00:01:06,780
+or three different IPs,"
+
+26
+00:01:06,780 --> 00:01:10,200
+then you need to think about the Network Load Balancer
+
+27
+00:01:10,200 --> 00:01:11,700
+as an option.
+
+28
+00:01:11,700 --> 00:01:16,700
+So if you see extreme performance TCP or UDP, or static IPs,
+
+29
+00:01:17,220 --> 00:01:19,200
+think Network Load Balancer.
+
+30
+00:01:19,200 --> 00:01:24,200
+Now using it is not included in the AWS free tier.
+
+31
+00:01:24,330 --> 00:01:25,740
+So let's have a look at how that works.
+
+32
+00:01:25,740 --> 00:01:30,390
+So it works very similarly to the application balancer.
+
+33
+00:01:30,390 --> 00:01:32,400
+We create target groups,
+
+34
+00:01:32,400 --> 00:01:36,450
+and then the network balancer will redirect to them.
+
+35
+00:01:36,450 --> 00:01:41,010
+So we can use, for example, the TCP traffic
+
+36
+00:01:41,010 --> 00:01:43,530
+or, for example, in the backend HTTP,
+
+37
+00:01:43,530 --> 00:01:45,513
+but still in the front end use TCP.
+
+38
+00:01:47,160 --> 00:01:49,020
+So what about the target groups?
+
+39
+00:01:49,020 --> 00:01:50,700
+This is the important parts.
+
+40
+00:01:50,700 --> 00:01:53,640
+So the target groups can be EC2 instances.
+
+41
+00:01:53,640 --> 00:01:56,970
+That means that your Network Load Balancer can redirect
+
+42
+00:01:56,970 --> 00:02:01,710
+to your EC2 instances and send TCP or UDP traffic to them.
+
+43
+00:02:01,710 --> 00:02:04,410
+But you can also register IP addresses,
+
+44
+00:02:04,410 --> 00:02:05,730
+and these IP addresses,
+
+45
+00:02:05,730 --> 00:02:08,160
+when they're hardcoded and they must be hardcoded,
+
+46
+00:02:08,160 --> 00:02:10,139
+they must be private IPs.
+
+47
+00:02:10,139 --> 00:02:11,070
+So why would you do this?
+
+48
+00:02:11,070 --> 00:02:14,520
+Well, you can of course send the private IP
+
+49
+00:02:14,520 --> 00:02:16,950
+of the EC2 instance that you own,
+
+50
+00:02:16,950 --> 00:02:19,440
+but also you could use the private IP
+
+51
+00:02:19,440 --> 00:02:22,170
+of a server that you have in your own data center,
+
+52
+00:02:22,170 --> 00:02:24,960
+and therefore both of them can be fronted
+
+53
+00:02:24,960 --> 00:02:27,273
+by the same Network Load Balancer.
+
+54
+00:02:28,200 --> 00:02:29,790
+And it's also possible for you
+
+55
+00:02:29,790 --> 00:02:31,110
+to have a Network Load Balancer
+
+56
+00:02:31,110 --> 00:02:34,260
+in front of an Application Load Balancer.
+
+57
+00:02:34,260 --> 00:02:38,370
+So in that case, the NLB is in front of your ALB.
+
+58
+00:02:38,370 --> 00:02:40,050
+So why would you do this?
+
+59
+00:02:40,050 --> 00:02:42,300
+Well, thanks to the Network Load Balancer,
+
+60
+00:02:42,300 --> 00:02:45,660
+you would get, for example, the fixed IP addresses,
+
+61
+00:02:45,660 --> 00:02:48,240
+and then, thanks to the Application Load Balancer,
+
+62
+00:02:48,240 --> 00:02:50,370
+you can get all the rules that you have
+
+63
+00:02:50,370 --> 00:02:53,190
+around handling HTP type of traffic,
+
+64
+00:02:53,190 --> 00:02:55,500
+so it is a valid combination.
+
+65
+00:02:55,500 --> 00:02:57,300
+Now one last thing you need to know for the exam
+
+66
+00:02:57,300 --> 00:02:59,820
+is that the health checks performed
+
+67
+00:02:59,820 --> 00:03:02,700
+by the Network Load Balancer target groups
+
+68
+00:03:02,700 --> 00:03:06,120
+are support three different kind of protocols.
+
+69
+00:03:06,120 --> 00:03:10,380
+They support the TCP protocol, the HTTP protocol,
+
+70
+00:03:10,380 --> 00:03:12,810
+and the HTTPS protocol.
+
+71
+00:03:12,810 --> 00:03:16,290
+So if your backend application supports the HTTP
+
+72
+00:03:16,290 --> 00:03:17,730
+or HTTPS protocol,
+
+73
+00:03:17,730 --> 00:03:19,350
+then it is definitely possible for you
+
+74
+00:03:19,350 --> 00:03:23,610
+to define a health check on these protocols.
+
+75
+00:03:23,610 --> 00:03:26,100
+Okay, so that's it for the Network Load Balancer.
+
+76
+00:03:26,100 --> 00:03:29,100
+I hope you liked it, and I will see you in the next lecture.
+

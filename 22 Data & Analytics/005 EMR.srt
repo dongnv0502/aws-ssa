@@ -1,0 +1,264 @@
+1
+00:00:00,000 --> 00:00:01,890
+Now let's talk about Amazon EMR.
+
+2
+00:00:01,890 --> 00:00:04,800
+So EMR stands for Elastic MapReduce
+
+3
+00:00:04,800 --> 00:00:08,640
+and EMR helps you create Hadoop clusters
+
+4
+00:00:08,640 --> 00:00:11,250
+for doing big data on AWS.
+
+5
+00:00:11,250 --> 00:00:12,840
+This allows you to analyze
+
+6
+00:00:12,840 --> 00:00:15,157
+and process vast amount of data.
+
+7
+00:00:15,157 --> 00:00:17,310
+Anytime you would see anything related
+
+8
+00:00:17,310 --> 00:00:20,730
+to big data clusters with Hadoop clusters,
+
+9
+00:00:20,730 --> 00:00:22,466
+then think Amazon EMR.
+
+10
+00:00:22,466 --> 00:00:24,750
+These clusters have to be provisioned
+
+11
+00:00:24,750 --> 00:00:28,380
+and they can be made of hundreds of EC2 instances.
+
+12
+00:00:28,380 --> 00:00:30,030
+Why would you use EMR?
+
+13
+00:00:30,030 --> 00:00:32,400
+EMR comes bundled with a lot of tools
+
+14
+00:00:32,400 --> 00:00:34,410
+that big data specialist use.
+
+15
+00:00:34,410 --> 00:00:36,690
+For example, Apache Spark, or HBase,
+
+16
+00:00:36,690 --> 00:00:39,125
+or Presto, or Apache Flink.
+
+17
+00:00:39,125 --> 00:00:41,160
+They're very difficult to set up,
+
+18
+00:00:41,160 --> 00:00:44,340
+so Amazon EMR will take care of all the provisioning
+
+19
+00:00:44,340 --> 00:00:47,190
+and the configuration of these services for you.
+
+20
+00:00:47,190 --> 00:00:50,040
+You can also auto-scale your entire cluster
+
+21
+00:00:50,040 --> 00:00:52,290
+and it's integrated with spot instances
+
+22
+00:00:52,290 --> 00:00:54,750
+for you to benefit from price reductions.
+
+23
+00:00:54,750 --> 00:00:56,610
+So the use cases of Amazon EMR
+
+24
+00:00:56,610 --> 00:00:58,740
+from an exam perspective are going to be
+
+25
+00:00:58,740 --> 00:01:00,180
+around data processing,
+
+26
+00:01:00,180 --> 00:01:02,340
+doing machine learning, web indexing and big data
+
+27
+00:01:02,340 --> 00:01:05,850
+but all of them using big data related technologies
+
+28
+00:01:05,850 --> 00:01:10,077
+such as Hadoop, Spark, HBase Preso Flink, and so on.
+
+29
+00:01:10,077 --> 00:01:13,950
+Amazon EMR is made of clusters of EC2 instances
+
+30
+00:01:13,950 --> 00:01:15,390
+and you have different kind of nodes.
+
+31
+00:01:15,390 --> 00:01:16,650
+You have the Master Node.
+
+32
+00:01:16,650 --> 00:01:18,720
+The Master Node manages the cluster,
+
+33
+00:01:18,720 --> 00:01:20,700
+it will coordinate and manage the health
+
+34
+00:01:20,700 --> 00:01:24,960
+of all your other nodes, and it must be long running.
+
+35
+00:01:24,960 --> 00:01:28,440
+Then you have the Core Node, they're here to run tasks
+
+36
+00:01:28,440 --> 00:01:32,070
+and also store data, and they must be long running as well.
+
+37
+00:01:32,070 --> 00:01:33,780
+Then you have this Task Node
+
+38
+00:01:33,780 --> 00:01:36,000
+which is there just to run tasks.
+
+39
+00:01:36,000 --> 00:01:38,400
+Usually you can take spot instances for it
+
+40
+00:01:38,400 --> 00:01:41,197
+and using task node is optional.
+
+41
+00:01:41,197 --> 00:01:43,830
+The purchasing options really depends.
+
+42
+00:01:43,830 --> 00:01:46,650
+If you have the on-demand EC2 instance type
+
+43
+00:01:46,650 --> 00:01:48,060
+then you're going to get reliable
+
+44
+00:01:48,060 --> 00:01:49,800
+predictable type of workloads
+
+45
+00:01:49,800 --> 00:01:51,870
+and then will never be terminated.
+
+46
+00:01:51,870 --> 00:01:53,550
+If you use reserved instances,
+
+47
+00:01:53,550 --> 00:01:56,190
+and remember it's minimum one year of usage,
+
+48
+00:01:56,190 --> 00:01:58,770
+then you're going to get big cost savings
+
+49
+00:01:58,770 --> 00:02:00,000
+and EMR will automatically
+
+50
+00:02:00,000 --> 00:02:03,030
+use your reserved instances if possible.
+
+51
+00:02:03,030 --> 00:02:06,420
+Therefore, good candidates for reserved instances
+
+52
+00:02:06,420 --> 00:02:08,370
+are going to be the Master Node
+
+53
+00:02:08,370 --> 00:02:13,050
+because it must be long running, and also the Core Nodes.
+
+54
+00:02:13,050 --> 00:02:16,920
+Regarding spot instances, because they can be terminated
+
+55
+00:02:16,920 --> 00:02:20,258
+they're less reliable but they're cheaper.
+
+56
+00:02:20,258 --> 00:02:23,790
+A good way for you to leverage spot instances
+
+57
+00:02:23,790 --> 00:02:25,773
+would be on Task Nodes.
+
+58
+00:02:26,820 --> 00:02:28,680
+Finally, for EMR, in terms of deployment
+
+59
+00:02:28,680 --> 00:02:30,780
+you can have either long running clusters
+
+60
+00:02:30,780 --> 00:02:34,290
+which would make sense than using reserved instances,
+
+61
+00:02:34,290 --> 00:02:36,840
+or you can use transient temporary clusters to
+
+62
+00:02:36,840 --> 00:02:39,060
+just do something and then tear it down
+
+63
+00:02:39,060 --> 00:02:40,768
+once the analysis is done.
+
+64
+00:02:40,768 --> 00:02:42,720
+Okay, you know all you need to know
+
+65
+00:02:42,720 --> 00:02:44,430
+for Amazon EMR, the exam.
+
+66
+00:02:44,430 --> 00:02:47,430
+I hope you liked it, and I will see you in the next lecture.
+

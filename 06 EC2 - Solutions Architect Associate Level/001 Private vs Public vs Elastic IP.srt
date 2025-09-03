@@ -1,0 +1,432 @@
+1
+00:00:00,210 --> 00:00:01,400
+Okay, so we're getting into
+
+2
+00:00:01,400 --> 00:00:04,500
+the very interesting concept of Private and Public IP.
+
+3
+00:00:04,500 --> 00:00:06,830
+That may be too basic for you, I'm sorry that is,
+
+4
+00:00:06,830 --> 00:00:08,180
+but some people need help with this
+
+5
+00:00:08,180 --> 00:00:09,690
+so I rather help everyone.
+
+6
+00:00:09,690 --> 00:00:13,900
+So networking is to sort of have IP, there is IPv4 and IPv6.
+
+7
+00:00:13,900 --> 00:00:16,930
+IPv4 is what is most common probably, you know already
+
+8
+00:00:16,930 --> 00:00:19,880
+it's basically four numbers separated by three dots.
+
+9
+00:00:19,880 --> 00:00:23,140
+IPv6 is a bit less common, it has this very long,
+
+10
+00:00:23,140 --> 00:00:26,820
+strange string of exotic symbol numbers, and letters
+
+11
+00:00:26,820 --> 00:00:30,290
+and basically, in this course, we'll be using just IPv4,
+
+12
+00:00:30,290 --> 00:00:33,726
+but know that AWS has support for IPv6 as well.
+
+13
+00:00:33,726 --> 00:00:37,129
+IPv4 right now is still the most common format used online
+
+14
+00:00:37,129 --> 00:00:40,210
+IPv6 is more for IoT or the Internet of Things
+
+15
+00:00:40,210 --> 00:00:43,130
+and basically, it solves a lot of problems but not for us
+
+16
+00:00:43,130 --> 00:00:45,970
+we don't have any problems with IPv4 so far.
+
+17
+00:00:45,970 --> 00:00:49,110
+IPv4 allows for 3.7 billion different addresses
+
+18
+00:00:49,110 --> 00:00:51,268
+in a public space and that's almost running out
+
+19
+00:00:51,268 --> 00:00:54,860
+of IP addresses, and basically, each number can vary
+
+20
+00:00:54,860 --> 00:00:58,340
+between zero and 255 each, where the dots
+
+21
+00:00:58,340 --> 00:00:59,230
+so if you do the math,
+
+22
+00:00:59,230 --> 00:01:02,330
+you get 3.7 billion different addresses.
+
+23
+00:01:02,330 --> 00:01:04,849
+Now, let's have an example of what that means
+
+24
+00:01:04,849 --> 00:01:06,761
+if you have a web server and it's public,
+
+25
+00:01:06,761 --> 00:01:09,810
+that could be our EC2 instance or have a public IP
+
+26
+00:01:09,810 --> 00:01:12,350
+and we can have another server with another public IP
+
+27
+00:01:12,350 --> 00:01:14,890
+and using the public IP, these servers
+
+28
+00:01:14,890 --> 00:01:17,670
+can talk to one another, which is great.
+
+29
+00:01:17,670 --> 00:01:21,200
+Now, when we have a company, for example, my company
+
+30
+00:01:21,200 --> 00:01:24,220
+and it has a private network, the private network, basically
+
+31
+00:01:24,220 --> 00:01:27,280
+has a private IP range, and private IPs
+
+32
+00:01:27,280 --> 00:01:30,200
+have this very specific way of being defined
+
+33
+00:01:30,200 --> 00:01:32,620
+but basically, that means that all the computers
+
+34
+00:01:32,620 --> 00:01:34,260
+within that private network
+
+35
+00:01:34,260 --> 00:01:37,090
+can talk to one another using the private IP.
+
+36
+00:01:37,090 --> 00:01:39,750
+Whereas, when you touch an internet gateway,
+
+37
+00:01:39,750 --> 00:01:42,020
+which is a public gateway, well, these instances
+
+38
+00:01:42,020 --> 00:01:45,147
+also will get access to other servers, and so on
+
+39
+00:01:45,147 --> 00:01:47,750
+and so that's a common pattern in AWS.
+
+40
+00:01:47,750 --> 00:01:50,220
+Now, basically, if you have another company
+
+41
+00:01:50,220 --> 00:01:52,020
+it will also have a private network
+
+42
+00:01:52,020 --> 00:01:53,560
+and within the private network,
+
+43
+00:01:53,560 --> 00:01:55,570
+every computer can talk to one another
+
+44
+00:01:55,570 --> 00:01:59,070
+and maybe also have an internet gateway with an IP
+
+45
+00:01:59,070 --> 00:02:01,570
+and basically can connect all over the internet
+
+46
+00:02:01,570 --> 00:02:03,530
+and talk to other servers, okay.
+
+47
+00:02:03,530 --> 00:02:05,900
+So basically, the difference I wanna show you is that
+
+48
+00:02:05,900 --> 00:02:07,840
+when you have a public IP, you're accessible
+
+49
+00:02:07,840 --> 00:02:10,440
+over the internet and when you have a private IP
+
+50
+00:02:10,440 --> 00:02:13,183
+you only accessible within your private network.
+
+51
+00:02:14,030 --> 00:02:16,720
+So some differences, public IP, as I said,
+
+52
+00:02:16,720 --> 00:02:18,260
+means that the machine can be identified
+
+53
+00:02:18,260 --> 00:02:21,200
+on the internets, and the public IP must be unique
+
+54
+00:02:21,200 --> 00:02:23,190
+across the whole web, so not two machines
+
+55
+00:02:23,190 --> 00:02:26,220
+can have the same public IP, and I think that makes sense.
+
+56
+00:02:26,220 --> 00:02:28,900
+And an IP usually gives you an IP, you can just Google it
+
+57
+00:02:28,900 --> 00:02:31,030
+and you can find a geolocation.
+
+58
+00:02:31,030 --> 00:02:32,660
+Whereas a private IP, it means that
+
+59
+00:02:32,660 --> 00:02:34,510
+the machine can only be identified
+
+60
+00:02:34,510 --> 00:02:37,220
+on the private network only and the IP
+
+61
+00:02:37,220 --> 00:02:40,200
+must be unique only across the private network
+
+62
+00:02:40,200 --> 00:02:42,130
+but two different private networks
+
+63
+00:02:42,130 --> 00:02:44,820
+so two different companies can have the same private IP
+
+64
+00:02:44,820 --> 00:02:46,560
+that is absolutely not problem.
+
+65
+00:02:46,560 --> 00:02:49,060
+And machines, when they're on the private network
+
+66
+00:02:49,060 --> 00:02:52,180
+they will connect to the Internet through a NAT device
+
+67
+00:02:52,180 --> 00:02:54,690
+and an internet gateway that will act as a proxy.
+
+68
+00:02:54,690 --> 00:02:57,910
+And finally, only a specified range of IPs
+
+69
+00:02:57,910 --> 00:03:00,720
+can be used as private IPs.
+
+70
+00:03:00,720 --> 00:03:03,290
+Finally, for Elastic IPs, basically when you start
+
+71
+00:03:03,290 --> 00:03:06,460
+and you stop an EC2 instance, it will change its public IP
+
+72
+00:03:06,460 --> 00:03:08,300
+and we'll see this in the hands on.
+
+73
+00:03:08,300 --> 00:03:10,750
+And if you have a fixed public IP for whatever reason
+
+74
+00:03:10,750 --> 00:03:12,810
+for your instance, what you are going to need
+
+75
+00:03:12,810 --> 00:03:15,050
+is something called an Elastic IP.
+
+76
+00:03:15,050 --> 00:03:18,160
+So the Elastic IP is what, it's a public IPv4
+
+77
+00:03:18,160 --> 00:03:21,180
+and you own it, as long as you don't delete it.
+
+78
+00:03:21,180 --> 00:03:23,020
+Basically, you can attach it to one instance
+
+79
+00:03:23,020 --> 00:03:25,980
+at a time only obviously, and basically,
+
+80
+00:03:25,980 --> 00:03:28,430
+when you have an IP address and it's elastic,
+
+81
+00:03:28,430 --> 00:03:30,880
+you can basically use it to mask the failure
+
+82
+00:03:30,880 --> 00:03:33,640
+of an instance or software, by basically quickly moving it
+
+83
+00:03:33,640 --> 00:03:36,030
+from one instance to another, but it's quite
+
+84
+00:03:36,030 --> 00:03:37,930
+an uncommon pattern, because you can only
+
+85
+00:03:37,930 --> 00:03:40,610
+have five Elastic IP in your accounts.
+
+86
+00:03:40,610 --> 00:03:43,220
+Now, you can ask to AWS to increase that
+
+87
+00:03:43,220 --> 00:03:45,670
+but it's quite rare to use them.
+
+88
+00:03:45,670 --> 00:03:49,460
+Overall, I would recommend to try avoiding using Elastic IP,
+
+89
+00:03:49,460 --> 00:03:52,030
+they're often referred very poor architectural decisions
+
+90
+00:03:52,030 --> 00:03:54,660
+and instead, you should use a random public IP
+
+91
+00:03:54,660 --> 00:03:56,940
+and assign a DNS name to it.
+
+92
+00:03:56,940 --> 00:03:59,700
+Now DNS, we'll see them route 53 and is something
+
+93
+00:03:59,700 --> 00:04:01,590
+that's gonna be much more in control for us
+
+94
+00:04:01,590 --> 00:04:04,600
+and much more scalable, or later, as we'll see,
+
+95
+00:04:04,600 --> 00:04:07,940
+we can also use a Load Balancer and not using public IP
+
+96
+00:04:07,940 --> 00:04:10,833
+at all, which is the best pattern you can have for AWS.
+
+97
+00:04:12,060 --> 00:04:14,090
+Now, let's go ahead and do a quick Hands On,
+
+98
+00:04:14,090 --> 00:04:16,610
+so we can get a good feeling for all these things.
+
+99
+00:04:16,610 --> 00:04:19,640
+By default, our EC2 machine will come with a private IP
+
+100
+00:04:19,640 --> 00:04:21,399
+for the internal AWS Network,
+
+101
+00:04:21,399 --> 00:04:24,500
+a public IP, for the WWW, so the World Wide Web
+
+102
+00:04:24,500 --> 00:04:27,440
+and then when we're doing SSH into our EC2 machines
+
+103
+00:04:27,440 --> 00:04:29,270
+we cannot use a private IP because we're not
+
+104
+00:04:29,270 --> 00:04:31,970
+on the same network, unless you have a VPN.
+
+105
+00:04:31,970 --> 00:04:35,440
+We can only use the public IP if you don't have a VPN
+
+106
+00:04:35,440 --> 00:04:37,600
+and if your machine is stopped and started,
+
+107
+00:04:37,600 --> 00:04:39,310
+the public IP can change.
+
+108
+00:04:39,310 --> 00:04:41,953
+So now let's go and observe all these behaviors.
+

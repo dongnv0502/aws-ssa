@@ -1,0 +1,40 @@
+1
+00:00:02,050 --> 00:00:08,740
+This section is one of the most important one the exam will ask you lots of question about security.
+
+2
+00:00:08,740 --> 00:00:14,270
+Now you may have noticed in all the previous lectures I have talked about security quite a bit.
+
+3
+00:00:14,410 --> 00:00:20,350
+I said how different AWS services were integrated with security and I'm sure you get a good idea of it but
+
+4
+00:00:20,350 --> 00:00:25,750
+I wanted to dedicate a whole section just to reflect on what we learn and learn about the KMS properly
+
+5
+00:00:26,530 --> 00:00:32,000
+encryption properly, the parameters store and so on. This section
+
+6
+00:00:32,080 --> 00:00:35,340
+should really bring light to everything you've seen on the security side.
+
+7
+00:00:35,440 --> 00:00:36,310
+I hope you like it.
+
+8
+00:00:36,310 --> 00:00:38,050
+It is very real world oriented.
+
+9
+00:00:38,100 --> 00:00:40,900
+And we're going to practice stuff with AWS Lambda.
+
+10
+00:00:40,930 --> 00:00:42,760
+So let's go and learn about security.
+

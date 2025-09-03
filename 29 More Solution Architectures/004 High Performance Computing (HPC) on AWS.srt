@@ -1,0 +1,724 @@
+1
+00:00:00,350 --> 00:00:02,320
+So there is this concept in AWS
+
+2
+00:00:02,320 --> 00:00:03,960
+that's becoming more and more common
+
+3
+00:00:03,960 --> 00:00:05,990
+and something that the exam will test you on
+
+4
+00:00:05,990 --> 00:00:08,810
+which is called High Performance Computing or HPC.
+
+5
+00:00:08,810 --> 00:00:10,830
+So the cloud is the perfect place
+
+6
+00:00:10,830 --> 00:00:12,810
+to perform high performance computing.
+
+7
+00:00:12,810 --> 00:00:15,340
+Why? Because you can create a very high number
+
+8
+00:00:15,340 --> 00:00:17,270
+of resources in no time,
+
+9
+00:00:17,270 --> 00:00:19,470
+and you can speed up the time to results
+
+10
+00:00:19,470 --> 00:00:20,740
+by adding more resources
+
+11
+00:00:20,740 --> 00:00:23,200
+and you only pay for what you've used.
+
+12
+00:00:23,200 --> 00:00:25,790
+Once you're done, you can destroy the entire infrastructure
+
+13
+00:00:25,790 --> 00:00:28,050
+and not be built a single dime.
+
+14
+00:00:28,050 --> 00:00:29,610
+So the idea here is that
+
+15
+00:00:29,610 --> 00:00:32,030
+we can have an extremely high number
+
+16
+00:00:32,030 --> 00:00:34,260
+of instances performing competition for us,
+
+17
+00:00:34,260 --> 00:00:36,480
+and then be done with it and just pay for what we used.
+
+18
+00:00:36,480 --> 00:00:37,380
+This is perfect.
+
+19
+00:00:37,380 --> 00:00:39,260
+This is a great use case for the cloud,
+
+20
+00:00:39,260 --> 00:00:41,640
+and something that AWS is encouraging you
+
+21
+00:00:41,640 --> 00:00:43,160
+to do more and more.
+
+22
+00:00:43,160 --> 00:00:44,800
+So where do we use HPC?
+
+23
+00:00:44,800 --> 00:00:46,270
+Well to perform genomics,
+
+24
+00:00:46,270 --> 00:00:49,308
+computational chemistry, financial risk modeling
+
+25
+00:00:49,308 --> 00:00:51,100
+weather prediction, machine learning
+
+26
+00:00:51,100 --> 00:00:53,470
+deep learning, autonomous driving and so on.
+
+27
+00:00:53,470 --> 00:00:54,380
+So the question is,
+
+28
+00:00:54,380 --> 00:00:58,910
+what services in AWS will help us perform HPC?
+
+29
+00:00:58,910 --> 00:01:00,430
+Let's have a look.
+
+30
+00:01:00,430 --> 00:01:03,010
+So the first category is, how do we manage the data
+
+31
+00:01:03,010 --> 00:01:05,880
+and how do we transfer the data into AWS?
+
+32
+00:01:05,880 --> 00:01:07,870
+The first one is going to be Direct Connect
+
+33
+00:01:07,870 --> 00:01:11,670
+to move data gigabytes per second of data into the cloud
+
+34
+00:01:11,670 --> 00:01:13,330
+over a private secure network.
+
+35
+00:01:13,330 --> 00:01:15,070
+So we've seen this in details.
+
+36
+00:01:15,070 --> 00:01:17,841
+Then we have Snowballs and Snowmobile to move PetaBytes
+
+37
+00:01:17,841 --> 00:01:21,170
+of data to the cloud through a physical route,
+
+38
+00:01:21,170 --> 00:01:25,040
+and they're usually four big transfers or one off transfers.
+
+39
+00:01:25,040 --> 00:01:26,880
+And then we have data sync,
+
+40
+00:01:26,880 --> 00:01:28,910
+where we have to install the data sync agents
+
+41
+00:01:28,910 --> 00:01:31,350
+and they will help us move large amount of data
+
+42
+00:01:31,350 --> 00:01:33,990
+between on-premise and FS or SMB systems
+
+43
+00:01:33,990 --> 00:01:37,270
+into S3 EFS or FSX for windows.
+
+44
+00:01:37,270 --> 00:01:38,830
+Okay. This makes sense.
+
+45
+00:01:38,830 --> 00:01:40,580
+Now what about Compute and Networking?
+
+46
+00:01:40,580 --> 00:01:41,810
+Very important.
+
+47
+00:01:41,810 --> 00:01:44,270
+The first one is obviously EC2 instances.
+
+48
+00:01:44,270 --> 00:01:47,190
+We have CPU optimized or GPU optimized instances
+
+49
+00:01:47,190 --> 00:01:49,860
+based on the type of computations we're trying to do.
+
+50
+00:01:49,860 --> 00:01:51,980
+We can also leverage Spot instances
+
+51
+00:01:51,980 --> 00:01:54,580
+or Spot fleets for huge cost saving
+
+52
+00:01:54,580 --> 00:01:57,820
+and Auto Scaling to automatically scale our fleets
+
+53
+00:01:57,820 --> 00:02:00,120
+based on the computation we're doing.
+
+54
+00:02:00,120 --> 00:02:03,340
+Finally, if our EC2 instances need to talk to one another
+
+55
+00:02:03,340 --> 00:02:06,040
+and perform some computation in a distributed fashion,
+
+56
+00:02:06,040 --> 00:02:09,430
+then using an EC2 placement group of type cluster
+
+57
+00:02:09,430 --> 00:02:12,930
+is great to get the best network performance.
+
+58
+00:02:12,930 --> 00:02:15,760
+In which case, we have a Low latency,
+
+59
+00:02:15,760 --> 00:02:18,210
+10 gigabyte per second network in this example,
+
+60
+00:02:18,210 --> 00:02:20,060
+and for the cluster placement group,
+
+61
+00:02:20,060 --> 00:02:21,310
+everything is on the same rack,
+
+62
+00:02:21,310 --> 00:02:22,760
+everything is on the same AZ.
+
+63
+00:02:23,900 --> 00:02:25,860
+Okay, next, how can we go even further
+
+64
+00:02:25,860 --> 00:02:28,510
+to improve the performance of our EC2 instances?
+
+65
+00:02:28,510 --> 00:02:31,610
+The first one is EC2 Enhanced Networking,
+
+66
+00:02:31,610 --> 00:02:33,310
+also called also called (SRI-IOV).
+
+67
+00:02:34,914 --> 00:02:36,810
+And this gives you higher bandwidth,
+
+68
+00:02:36,810 --> 00:02:39,170
+higher PPS which is packet per second,
+
+69
+00:02:39,170 --> 00:02:40,950
+and lower latency.
+
+70
+00:02:40,950 --> 00:02:44,120
+And how do we get this easy two enhance networking?
+
+71
+00:02:44,120 --> 00:02:46,810
+The Option 1, which is the most recent and popular,
+
+72
+00:02:46,810 --> 00:02:49,720
+is called an Elastic Network Adapter.
+
+73
+00:02:49,720 --> 00:02:51,830
+And this delivers you a network speed
+
+74
+00:02:51,830 --> 00:02:54,200
+of up to 100 gigabits per second.
+
+75
+00:02:54,200 --> 00:02:56,190
+And this is something you have to know going into the exam.
+
+76
+00:02:56,190 --> 00:02:59,280
+So, ENA, is for easy to enhance networking,
+
+77
+00:02:59,280 --> 00:03:00,440
+and gives you higher bandwidth,
+
+78
+00:03:00,440 --> 00:03:01,340
+higher package per second,
+
+79
+00:03:01,340 --> 00:03:02,920
+and lower latency.
+
+80
+00:03:02,920 --> 00:03:03,753
+Option number two,
+
+81
+00:03:03,753 --> 00:03:06,290
+is to use this very complicated things from Intel,
+
+82
+00:03:06,290 --> 00:03:08,680
+called 82599 VF,
+
+83
+00:03:08,680 --> 00:03:11,070
+and that gives you up to 10 gigabits per second,
+
+84
+00:03:11,070 --> 00:03:13,400
+and that was to be the old ENA,
+
+85
+00:03:13,400 --> 00:03:14,233
+so it's LEGACY
+
+86
+00:03:14,233 --> 00:03:15,480
+but I'm still including it here,
+
+87
+00:03:15,480 --> 00:03:16,890
+just in case this comes up in the exam
+
+88
+00:03:16,890 --> 00:03:18,420
+and you see it you know what it is.
+
+89
+00:03:18,420 --> 00:03:19,270
+So, both these things,
+
+90
+00:03:19,270 --> 00:03:21,061
+the ENA and the Intel,
+
+91
+00:03:21,061 --> 00:03:23,960
+allow you to get easy to enhance networking
+
+92
+00:03:23,960 --> 00:03:25,330
+on your instance.
+
+93
+00:03:25,330 --> 00:03:27,310
+But you can push this a step further,
+
+94
+00:03:27,310 --> 00:03:30,650
+and using the Elastic Fabric Adapter or EFA.
+
+95
+00:03:30,650 --> 00:03:32,800
+And this is an improved ENA,
+
+96
+00:03:32,800 --> 00:03:35,510
+dedicated for HPC for High Performance Computing,
+
+97
+00:03:35,510 --> 00:03:37,320
+and it only works for Linux,
+
+98
+00:03:37,320 --> 00:03:39,980
+and it's great when you have inter-node communication
+
+99
+00:03:39,980 --> 00:03:41,720
+or tightly coupled workload.
+
+100
+00:03:41,720 --> 00:03:43,860
+So think about distributed computation.
+
+101
+00:03:43,860 --> 00:03:46,810
+Why? Because it's going to leverage something called MPI,
+
+102
+00:03:46,810 --> 00:03:48,660
+the Message Passing Interface standard.
+
+103
+00:03:48,660 --> 00:03:52,400
+And this standard will bypass the underlying Linux OS
+
+104
+00:03:52,400 --> 00:03:56,420
+to provide even lower latency and more reliable transport.
+
+105
+00:03:56,420 --> 00:03:58,520
+So think of it as like, if you have a Linux instance,
+
+106
+00:03:58,520 --> 00:04:01,000
+and you're performing tightly a couple workloads,
+
+107
+00:04:01,000 --> 00:04:02,360
+then using an EFA,
+
+108
+00:04:02,360 --> 00:04:03,450
+will bypass the OS
+
+109
+00:04:03,450 --> 00:04:06,332
+and provide you even higher network performance.
+
+110
+00:04:06,332 --> 00:04:08,660
+So it is quite common in the exam,
+
+111
+00:04:08,660 --> 00:04:10,420
+that you will be asked to differentiate
+
+112
+00:04:10,420 --> 00:04:14,850
+between an ENA and EFA or ENI or something else.
+
+113
+00:04:14,850 --> 00:04:16,810
+And so this is good that we are seeing this right now.
+
+114
+00:04:16,810 --> 00:04:18,459
+You need to make sure to understand these concepts
+
+115
+00:04:18,459 --> 00:04:20,200
+very very clearly.
+
+116
+00:04:20,200 --> 00:04:22,480
+Okay. So we have transferred the data,
+
+117
+00:04:22,480 --> 00:04:23,620
+we're computing over the data,
+
+118
+00:04:23,620 --> 00:04:24,740
+and we've configured our network,
+
+119
+00:04:24,740 --> 00:04:26,700
+but how do we store the data?
+
+120
+00:04:26,700 --> 00:04:28,130
+So multiple choice,
+
+121
+00:04:28,130 --> 00:04:30,110
+we can use the instance-attached storage.
+
+122
+00:04:30,110 --> 00:04:31,800
+So we could be EBS,
+
+123
+00:04:31,800 --> 00:04:34,620
+and this can scale up to 256,000 IOPS
+
+124
+00:04:34,620 --> 00:04:36,160
+with io2 Block Express.
+
+125
+00:04:36,160 --> 00:04:37,430
+It could be an instant store,
+
+126
+00:04:37,430 --> 00:04:39,920
+and we've seen this can scale to million of IOPS.
+
+127
+00:04:39,920 --> 00:04:41,450
+And it's linked to the EC2 instance.
+
+128
+00:04:41,450 --> 00:04:42,570
+So it's on a hardware.
+
+129
+00:04:42,570 --> 00:04:44,000
+It's going to be lower latency,
+
+130
+00:04:44,000 --> 00:04:46,790
+but we can lose it if we lose our instance.
+
+131
+00:04:46,790 --> 00:04:48,660
+Then we can use network storage,
+
+132
+00:04:48,660 --> 00:04:52,070
+such as Amazon S3 to store large blob of data.
+
+133
+00:04:52,070 --> 00:04:52,910
+It's not a file system,
+
+134
+00:04:52,910 --> 00:04:55,180
+it's to store large objects.
+
+135
+00:04:55,180 --> 00:04:58,480
+Or EFS, where the IOPS is going to be scaled
+
+136
+00:04:58,480 --> 00:05:01,300
+based on the total size of your file system.
+
+137
+00:05:01,300 --> 00:05:04,530
+Or we can use provisioned IOPS mode on EFS
+
+138
+00:05:04,530 --> 00:05:06,140
+to get higher IOPS.
+
+139
+00:05:06,140 --> 00:05:07,640
+But we've seen there is a file system
+
+140
+00:05:07,640 --> 00:05:09,490
+that's dedicated to HPC,
+
+141
+00:05:09,490 --> 00:05:11,380
+which was called FSX for Luster.
+
+142
+00:05:11,380 --> 00:05:13,990
+And Luster was for Linux and cluster.
+
+143
+00:05:13,990 --> 00:05:16,060
+And it's gonna be HPC optimized,
+
+144
+00:05:16,060 --> 00:05:17,492
+gives you millions of IOPS,
+
+145
+00:05:17,492 --> 00:05:20,930
+and in the backend, it's backed by S3.
+
+146
+00:05:20,930 --> 00:05:23,130
+So lots of options again.
+
+147
+00:05:23,130 --> 00:05:26,280
+Finally, how about Automation and Orchestration?
+
+148
+00:05:26,280 --> 00:05:27,640
+The first thing will be to use batch,
+
+149
+00:05:27,640 --> 00:05:29,040
+which is (indistinct) indicates,
+
+150
+00:05:29,040 --> 00:05:32,420
+a support service to perform multi-node parallel jobs
+
+151
+00:05:32,420 --> 00:05:34,060
+and enables you to run jobs
+
+152
+00:05:34,060 --> 00:05:36,470
+that spend multiple EC2 instances.
+
+153
+00:05:36,470 --> 00:05:37,350
+There are Batch jobs,
+
+154
+00:05:37,350 --> 00:05:39,040
+and it's very easy to schedule these jobs
+
+155
+00:05:39,040 --> 00:05:41,390
+and launch the EC2 instance accordingly.
+
+156
+00:05:41,390 --> 00:05:43,380
+They will be managed by the batch service.
+
+157
+00:05:43,380 --> 00:05:46,173
+So batch is a very popular choice for HPC.
+
+158
+00:05:47,030 --> 00:05:49,710
+And we have AWS parallel cluster,
+
+159
+00:05:49,710 --> 00:05:51,810
+which is an open source cluster management tool
+
+160
+00:05:51,810 --> 00:05:55,300
+to deploy high performance computing on AWS.
+
+161
+00:05:55,300 --> 00:05:57,010
+So you configure it using text files,
+
+162
+00:05:57,010 --> 00:05:59,300
+and then you would deploy it on AWS.
+
+163
+00:05:59,300 --> 00:06:02,200
+And it's going to automate the creation for you of VPC,
+
+164
+00:06:02,200 --> 00:06:05,080
+Subnet, cluster types and instance types.
+
+165
+00:06:05,080 --> 00:06:06,430
+And it can come up in the exam
+
+166
+00:06:06,430 --> 00:06:10,060
+that you must use parallel cluster alongside EFA,
+
+167
+00:06:10,060 --> 00:06:12,570
+because there is a perameter in the text files
+
+168
+00:06:12,570 --> 00:06:15,130
+to enable elastic fabric adapters.
+
+169
+00:06:15,130 --> 00:06:17,090
+So EFA on the cluster,
+
+170
+00:06:17,090 --> 00:06:20,850
+and the impact of that is to improve the network performance
+
+171
+00:06:20,850 --> 00:06:25,703
+and therefore have a higher performance HPC cluster.
+
+172
+00:06:26,710 --> 00:06:27,543
+So to summarize,
+
+173
+00:06:27,543 --> 00:06:30,500
+HPC is something that comes up more and more in the exam,
+
+174
+00:06:30,500 --> 00:06:31,860
+and it's not a service,
+
+175
+00:06:31,860 --> 00:06:34,430
+it's a combination of service and different options,
+
+176
+00:06:34,430 --> 00:06:35,960
+and need to make sure you understand all,
+
+177
+00:06:35,960 --> 00:06:38,520
+of those to maximize the potential
+
+178
+00:06:38,520 --> 00:06:40,700
+of computation within AWS.
+
+179
+00:06:40,700 --> 00:06:43,350
+And I hope that for this, this lecture was helpful.
+
+180
+00:06:43,350 --> 00:06:44,183
+All right, that's it.
+
+181
+00:06:44,183 --> 00:06:45,860
+I will see you in the next lecture.
+

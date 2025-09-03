@@ -1,0 +1,268 @@
+1
+00:00:00,540 --> 00:00:01,830
+Let's do a summary of
+
+2
+00:00:01,830 --> 00:00:04,590
+what we learned in the Amazon RDS section.
+
+3
+00:00:04,590 --> 00:00:07,020
+And if you need to go back into any of these points,
+
+4
+00:00:07,020 --> 00:00:08,970
+I suggest you go back to the old lectures.
+
+5
+00:00:08,970 --> 00:00:11,370
+This is a summary to summarize what you should know
+
+6
+00:00:11,370 --> 00:00:12,930
+out of Amazon RDS.
+
+7
+00:00:12,930 --> 00:00:16,050
+So this is a managed PostgreSQL, MySQL
+
+8
+00:00:16,050 --> 00:00:19,386
+or Oracle, SQL Server, DB2, MariaDB,
+
+9
+00:00:19,386 --> 00:00:23,400
+or you have the custom version of RDS.
+
+10
+00:00:23,400 --> 00:00:24,233
+In Amazon RDS,
+
+11
+00:00:24,233 --> 00:00:27,090
+you need to provision an RDS instance size,
+
+12
+00:00:27,090 --> 00:00:29,550
+as well as an EBS volume type and size.
+
+13
+00:00:29,550 --> 00:00:31,290
+So everything is provisioned,
+
+14
+00:00:31,290 --> 00:00:33,930
+although you have auto-scaling capability
+
+15
+00:00:33,930 --> 00:00:36,450
+for the storage layer.
+
+16
+00:00:36,450 --> 00:00:38,580
+Amazon RDS supports read replicas
+
+17
+00:00:38,580 --> 00:00:40,440
+to scale read capabilities.
+
+18
+00:00:40,440 --> 00:00:43,800
+So if you have applications that need to run analytics
+
+19
+00:00:43,800 --> 00:00:45,990
+against a production database, it is much better
+
+20
+00:00:45,990 --> 00:00:47,610
+to create a read replica.
+
+21
+00:00:47,610 --> 00:00:49,410
+And for high availability purposes,
+
+22
+00:00:49,410 --> 00:00:53,040
+you can use the Multi-AZ to have a standby database,
+
+23
+00:00:53,040 --> 00:00:55,498
+although that database is just here for
+
+24
+00:00:55,498 --> 00:00:57,150
+in case a disaster strikes.
+
+25
+00:00:57,150 --> 00:00:58,350
+You cannot use it
+
+26
+00:00:58,350 --> 00:01:00,630
+to perform queries against it.
+
+27
+00:01:00,630 --> 00:01:04,500
+Security for your RDS database is done through IAM,
+
+28
+00:01:04,500 --> 00:01:05,790
+so you can use, for example,
+
+29
+00:01:05,790 --> 00:01:07,650
+username and password to connect to your database,
+
+30
+00:01:07,650 --> 00:01:09,780
+but also you can use IAM authentication,
+
+31
+00:01:09,780 --> 00:01:11,070
+for some of them.
+
+32
+00:01:11,070 --> 00:01:12,090
+You have security groups
+
+33
+00:01:12,090 --> 00:01:15,150
+for network security on your Amazon RDS database,
+
+34
+00:01:15,150 --> 00:01:17,220
+KMS for at risk encryption,
+
+35
+00:01:17,220 --> 00:01:21,600
+and you can have intrinsic encryption using SSL and TLS.
+
+36
+00:01:21,600 --> 00:01:23,550
+Now, if you wanted to do backups,
+
+37
+00:01:23,550 --> 00:01:25,860
+you have the automated backup option,
+
+38
+00:01:25,860 --> 00:01:28,830
+which is up to 35 days, and if you use that,
+
+39
+00:01:28,830 --> 00:01:31,440
+you can do point in time restore to any point
+
+40
+00:01:31,440 --> 00:01:33,360
+of time in these 35 days,
+
+41
+00:01:33,360 --> 00:01:35,670
+and this will create a new database out of it,
+
+42
+00:01:35,670 --> 00:01:39,120
+or if you want to retain backups for longer term recovery,
+
+43
+00:01:39,120 --> 00:01:42,810
+then you would use a manual database snapshots.
+
+44
+00:01:42,810 --> 00:01:44,640
+There is a managed
+
+45
+00:01:44,640 --> 00:01:45,900
+and schedule maintenance,
+
+46
+00:01:45,900 --> 00:01:47,970
+which will bring downtime into your database.
+
+47
+00:01:47,970 --> 00:01:50,820
+So this is due to the fact that you have to provision it
+
+48
+00:01:50,820 --> 00:01:52,260
+and that you have to update.
+
+49
+00:01:52,260 --> 00:01:55,890
+I mean, AWS has to update at some point database engine
+
+50
+00:01:55,890 --> 00:01:58,440
+or the underlying EC2 instance
+
+51
+00:01:58,440 --> 00:02:00,693
+for patches of security and so on.
+
+52
+00:02:01,800 --> 00:02:04,980
+There is support for IAM authentication on RDS,
+
+53
+00:02:04,980 --> 00:02:08,250
+and you can enforce it through the RDS proxy,
+
+54
+00:02:08,250 --> 00:02:10,650
+and it has integration with Secrets Manager
+
+55
+00:02:10,650 --> 00:02:12,780
+to manage the database credentials.
+
+56
+00:02:12,780 --> 00:02:16,770
+If you wanted to have access to the underlying instance
+
+57
+00:02:16,770 --> 00:02:20,790
+and customize it, then you can reuse the RDS custom option
+
+58
+00:02:20,790 --> 00:02:23,190
+and this is available for the Oracle
+
+59
+00:02:23,190 --> 00:02:26,580
+and SQL Server type of databases.
+
+60
+00:02:26,580 --> 00:02:29,070
+So the use cases of Amazon RDS is
+
+61
+00:02:29,070 --> 00:02:31,590
+to store relational databases.
+
+62
+00:02:31,590 --> 00:02:33,810
+For example, using the RDBMS
+
+63
+00:02:33,810 --> 00:02:37,500
+or have an online transaction processing database, so OLTP.
+
+64
+00:02:37,500 --> 00:02:40,710
+If you wanted to perform SQL queries on top of it
+
+65
+00:02:40,710 --> 00:02:42,330
+and transactions.
+
+66
+00:02:42,330 --> 00:02:44,680
+Okay, so hopefully nothing is new for you here.
+
+67
+00:02:45,990 --> 00:02:48,940
+I hope you liked it and I will see you in the next lecture.
+

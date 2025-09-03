@@ -1,0 +1,300 @@
+1
+00:00:00,340 --> 00:00:01,173
+So now let's talk
+
+2
+00:00:01,173 --> 00:00:04,059
+about ECS Service Auto Scaling.
+
+3
+00:00:04,059 --> 00:00:06,120
+So as we can see, we can manually increase
+
+4
+00:00:06,120 --> 00:00:08,560
+the number of ECS tasks in our service.
+
+5
+00:00:08,560 --> 00:00:10,500
+But we can also automatically increase
+
+6
+00:00:10,500 --> 00:00:11,650
+or decrease the number of tasks.
+
+7
+00:00:11,650 --> 00:00:13,770
+For this, we can leverage the service
+
+8
+00:00:13,770 --> 00:00:16,900
+called the AWS Application Auto Scaling.
+
+9
+00:00:16,900 --> 00:00:19,820
+And we have three metrics we can scale on using the service.
+
+10
+00:00:19,820 --> 00:00:24,290
+We can scale on the CPU Utilization of the ECS Service.
+
+11
+00:00:24,290 --> 00:00:26,810
+We can scale on the Memory Utilization,
+
+12
+00:00:26,810 --> 00:00:29,339
+which is the RAM of the ECS Service.
+
+13
+00:00:29,339 --> 00:00:32,780
+Or, the ALB Request Count Per Target,
+
+14
+00:00:32,780 --> 00:00:34,820
+which is a metric coming from the ALB.
+
+15
+00:00:34,820 --> 00:00:36,965
+So only these metrics you have to remember.
+
+16
+00:00:36,965 --> 00:00:40,230
+Then, you can set up different kind of auto scaling.
+
+17
+00:00:40,230 --> 00:00:42,500
+You can set up Target Tracking to track
+
+18
+00:00:42,500 --> 00:00:46,120
+for a specific target for the three metrics shown above.
+
+19
+00:00:46,120 --> 00:00:46,953
+Or Step Scaling.
+
+20
+00:00:46,953 --> 00:00:48,500
+Or Scheduled Scaling,
+
+21
+00:00:48,500 --> 00:00:51,710
+if you wanted to scale your ECS Service ahead of time
+
+22
+00:00:51,710 --> 00:00:54,180
+thanks to predictable changes.
+
+23
+00:00:54,180 --> 00:00:58,900
+Remember, that scaling your service, your ECS Service,
+
+24
+00:00:58,900 --> 00:01:03,245
+at the task level is not equal to scaling your cluster
+
+25
+00:01:03,245 --> 00:01:08,120
+of EC2 instances if you are in the EC2 launch type.
+
+26
+00:01:08,120 --> 00:01:10,680
+And so therefore, that's why when you don't
+
+27
+00:01:10,680 --> 00:01:13,500
+have an EC2 auto scaling that's necessary,
+
+28
+00:01:13,500 --> 00:01:16,090
+when you don't have EC2 instances in the backend,
+
+29
+00:01:16,090 --> 00:01:19,130
+then using Fargate makes service auto scaling much easier
+
+30
+00:01:19,130 --> 00:01:22,080
+to set up, because everything is serverless.
+
+31
+00:01:22,080 --> 00:01:24,110
+And it's why I'm fan of Fargate.
+
+32
+00:01:24,110 --> 00:01:26,920
+And the exam is pushing you to use Fargate a lot.
+
+33
+00:01:26,920 --> 00:01:28,995
+So for the EC2 launch type,
+
+34
+00:01:28,995 --> 00:01:33,010
+how can we actually scale the EC2 instances
+
+35
+00:01:33,010 --> 00:01:34,900
+in the backend if we're using it?
+
+36
+00:01:34,900 --> 00:01:37,410
+So we have multiple ways of doing it.
+
+37
+00:01:37,410 --> 00:01:39,973
+We can use an Auto Scaling Group Scaling.
+
+38
+00:01:39,973 --> 00:01:42,500
+And so we scale our ASG, for example,
+
+39
+00:01:42,500 --> 00:01:44,500
+based on CPU Utilization.
+
+40
+00:01:44,500 --> 00:01:47,030
+And then we can add EC2 instance over time
+
+41
+00:01:47,030 --> 00:01:49,220
+if the CPU skyrockets.
+
+42
+00:01:49,220 --> 00:01:51,810
+Or, we can use the newer and more advanced feature
+
+43
+00:01:51,810 --> 00:01:54,450
+called the ECS Cluster Capacity Provider
+
+44
+00:01:54,450 --> 00:01:56,420
+that we've seen before in the hands-on.
+
+45
+00:01:56,420 --> 00:02:00,800
+And with this one, the Capacity Provider is very smart.
+
+46
+00:02:00,800 --> 00:02:03,720
+And as soon as you lack capacity to launch new tasks,
+
+47
+00:02:03,720 --> 00:02:07,260
+it's going to automatically scale your ASG.
+
+48
+00:02:07,260 --> 00:02:09,160
+So the Capacity Provider is paired
+
+49
+00:02:09,160 --> 00:02:11,120
+with a Auto Scaling Group.
+
+50
+00:02:11,120 --> 00:02:13,172
+And then when you're missing RAM or CPU,
+
+51
+00:02:13,172 --> 00:02:16,380
+there you go, EC2 instances are created.
+
+52
+00:02:16,380 --> 00:02:19,340
+And so the second option is the smarter way of doing things.
+
+53
+00:02:19,340 --> 00:02:22,300
+So if you have to choose between Auto Scaling Group Scaling
+
+54
+00:02:22,300 --> 00:02:24,481
+and ECS Cluster Capacity Provider,
+
+55
+00:02:24,481 --> 00:02:27,320
+please use ECS Cluster Capacity Provider
+
+56
+00:02:27,320 --> 00:02:29,642
+for your EC2 launch type.
+
+57
+00:02:29,642 --> 00:02:31,680
+So let's have a look at the service.
+
+58
+00:02:31,680 --> 00:02:33,760
+So we have a Service A with two tasks.
+
+59
+00:02:33,760 --> 00:02:35,042
+And we have CPU Usage.
+
+60
+00:02:35,042 --> 00:02:37,240
+And it's going to be auto scaled
+
+61
+00:02:37,240 --> 00:02:39,579
+by the AWS Application Auto Scaling.
+
+62
+00:02:39,579 --> 00:02:41,330
+But let's assume we have more users,
+
+63
+00:02:41,330 --> 00:02:43,581
+and therefore your CPU usage goes really up,
+
+64
+00:02:43,581 --> 00:02:45,460
+then your CloudWatch Metric,
+
+65
+00:02:45,460 --> 00:02:50,460
+which monitors the CPU Usage at the ECS service level again,
+
+66
+00:02:50,781 --> 00:02:52,920
+is going to trigger a CloudWatch Alarm,
+
+67
+00:02:52,920 --> 00:02:55,042
+which will trigger a scaling activity
+
+68
+00:02:55,042 --> 00:02:58,610
+in your Auto Scaling for your ECS service.
+
+69
+00:02:58,610 --> 00:03:00,720
+The desired capacity will increase
+
+70
+00:03:00,720 --> 00:03:04,110
+for your ECS Service, and a new task will be created.
+
+71
+00:03:04,110 --> 00:03:06,642
+And optionally, if this service is running
+
+72
+00:03:06,642 --> 00:03:09,821
+on the EC2 launch type,
+
+73
+00:03:09,821 --> 00:03:12,870
+then the ECS Capacity Providers
+
+74
+00:03:12,870 --> 00:03:15,240
+can help you scale your ECS cluster
+
+75
+00:03:15,240 --> 00:03:17,790
+backed by EC2 instances.
+

@@ -1,0 +1,340 @@
+1
+00:00:00,240 --> 00:00:01,890
+So here is one thing you need
+
+2
+00:00:01,890 --> 00:00:04,980
+to know about CloudFormation and security.
+
+3
+00:00:04,980 --> 00:00:07,860
+So CloudFormation can use service roles.
+
+4
+00:00:07,860 --> 00:00:08,693
+What are they?
+
+5
+00:00:08,693 --> 00:00:11,160
+Well, they are iam roles that you create
+
+6
+00:00:11,160 --> 00:00:13,830
+and they're dedicated to CloudFormation
+
+7
+00:00:13,830 --> 00:00:15,210
+and they allow CloudFormation
+
+8
+00:00:15,210 --> 00:00:16,530
+to actually create update
+
+9
+00:00:16,530 --> 00:00:19,500
+and delete stack resources on your behalf.
+
+10
+00:00:19,500 --> 00:00:22,620
+So if you want to give the ability to users
+
+11
+00:00:22,620 --> 00:00:23,940
+to actually create, update
+
+12
+00:00:23,940 --> 00:00:25,530
+and delete stack resources,
+
+13
+00:00:25,530 --> 00:00:26,940
+but they don't have the permissions
+
+14
+00:00:26,940 --> 00:00:29,160
+to directly work with the resources,
+
+15
+00:00:29,160 --> 00:00:31,140
+what you would do is use a service role.
+
+16
+00:00:31,140 --> 00:00:33,240
+So for example, we define a template
+
+17
+00:00:33,240 --> 00:00:36,019
+and our own iam permissions as a user is
+
+18
+00:00:36,019 --> 00:00:39,120
+to do actions on the CloudFormation.
+
+19
+00:00:39,120 --> 00:00:41,520
+And we have iam PassRole.
+
+20
+00:00:41,520 --> 00:00:44,190
+We also create a service role that we're going
+
+21
+00:00:44,190 --> 00:00:46,590
+to be dedicating to CloudFormation.
+
+22
+00:00:46,590 --> 00:00:50,220
+And this service role has the S3 star buckets,
+
+23
+00:00:50,220 --> 00:00:51,090
+permissions, for example,
+
+24
+00:00:51,090 --> 00:00:53,880
+to create, update and delete a bucket.
+
+25
+00:00:53,880 --> 00:00:56,236
+So here CloudFormation will be able
+
+26
+00:00:56,236 --> 00:00:59,160
+to create this S3 bucket thanks
+
+27
+00:00:59,160 --> 00:01:02,010
+to its service role because the user was able
+
+28
+00:01:02,010 --> 00:01:05,099
+to pass that role to CloudFormation.
+
+29
+00:01:05,099 --> 00:01:07,890
+So the use cases for security is if you want
+
+30
+00:01:07,890 --> 00:01:10,245
+to achieve the least privileged principle
+
+31
+00:01:10,245 --> 00:01:12,990
+and you don't want to give the users
+
+32
+00:01:12,990 --> 00:01:13,890
+all the permissions
+
+33
+00:01:13,890 --> 00:01:15,420
+to create the stack resources,
+
+34
+00:01:15,420 --> 00:01:16,680
+only the permissions
+
+35
+00:01:16,680 --> 00:01:19,920
+to invoke a service role on CloudFormation.
+
+36
+00:01:19,920 --> 00:01:22,087
+For this to work, remember the user
+
+37
+00:01:22,087 --> 00:01:26,280
+must have the permission named iam PassRole,
+
+38
+00:01:26,280 --> 00:01:28,140
+which is a necessary permission
+
+39
+00:01:28,140 --> 00:01:32,970
+to give a role to a specific service in AWS.
+
+40
+00:01:32,970 --> 00:01:34,290
+So let me show you an example
+
+41
+00:01:34,290 --> 00:01:36,870
+of iam roles with CloudFormation.
+
+42
+00:01:36,870 --> 00:01:40,260
+So if you go to iam and then you go
+
+43
+00:01:40,260 --> 00:01:42,780
+to the roles section in iam,
+
+44
+00:01:42,780 --> 00:01:44,310
+we're going to create a role
+
+45
+00:01:44,310 --> 00:01:47,010
+and it's for an AWS service,
+
+46
+00:01:47,010 --> 00:01:49,893
+the service being CloudFormation.
+
+47
+00:01:51,390 --> 00:01:55,140
+And next for permission policies,
+
+48
+00:01:55,140 --> 00:01:58,230
+I'm going to give S3 full access
+
+49
+00:01:58,230 --> 00:02:00,540
+just to have dedicated role for Amazon S3,
+
+50
+00:02:00,540 --> 00:02:01,653
+just as an example.
+
+51
+00:02:02,880 --> 00:02:03,990
+Click on next and I'll call
+
+52
+00:02:03,990 --> 00:02:08,990
+it DemoRole for CFN with S3 capabilities.
+
+53
+00:02:11,910 --> 00:02:14,040
+And so this role allows CloudFormation
+
+54
+00:02:14,040 --> 00:02:16,980
+to do anything with Amazon S3.
+
+55
+00:02:16,980 --> 00:02:18,663
+So this role has been created.
+
+56
+00:02:19,620 --> 00:02:21,960
+Now if I go to CloudFormation
+
+57
+00:02:21,960 --> 00:02:24,540
+and create a stack, I will just use one
+
+58
+00:02:24,540 --> 00:02:25,740
+of my existing templates.
+
+59
+00:02:25,740 --> 00:02:27,960
+I don't need to have anything very fancy.
+
+60
+00:02:27,960 --> 00:02:30,090
+We will not go all the way with it.
+
+61
+00:02:30,090 --> 00:02:32,410
+So I call this one DemoRole.
+
+62
+00:02:32,410 --> 00:02:34,440
+Click on next.
+
+63
+00:02:34,440 --> 00:02:35,580
+And as you can see here,
+
+64
+00:02:35,580 --> 00:02:38,220
+within permissions there is an iam role.
+
+65
+00:02:38,220 --> 00:02:39,390
+This is optional.
+
+66
+00:02:39,390 --> 00:02:41,370
+So if I don't specify, then iam role is going
+
+67
+00:02:41,370 --> 00:02:43,590
+to use my own personal permissions.
+
+68
+00:02:43,590 --> 00:02:46,260
+But if I want to specify an iam role,
+
+69
+00:02:46,260 --> 00:02:48,407
+I can look at this DemoRole
+
+70
+00:02:48,407 --> 00:02:50,910
+for CFN with S3 capabilities.
+
+71
+00:02:50,910 --> 00:02:52,830
+And this role is going to be used
+
+72
+00:02:52,830 --> 00:02:55,290
+for all stack operations.
+
+73
+00:02:55,290 --> 00:02:58,260
+So that means that the role now
+
+74
+00:02:58,260 --> 00:02:59,820
+will not use my own personal permissions,
+
+75
+00:02:59,820 --> 00:03:02,460
+but this one, and because this one
+
+76
+00:03:02,460 --> 00:03:06,750
+is just powered with Amazon S3 permissions,
+
+77
+00:03:06,750 --> 00:03:08,250
+then actually my stack will fail
+
+78
+00:03:08,250 --> 00:03:09,330
+because my stack is actually
+
+79
+00:03:09,330 --> 00:03:11,160
+creating an EC2 instance.
+
+80
+00:03:11,160 --> 00:03:13,380
+But this is where actually the permissions
+
+81
+00:03:13,380 --> 00:03:14,370
+are defined if you want
+
+82
+00:03:14,370 --> 00:03:17,040
+to use an iam role for CloudFormation.
+
+83
+00:03:17,040 --> 00:03:18,060
+And that's it.
+
+84
+00:03:18,060 --> 00:03:20,340
+So I hope you liked it and I will see you
+
+85
+00:03:20,340 --> 00:03:21,423
+in the next lecture.
+

@@ -1,0 +1,496 @@
+1
+00:00:00,450 --> 00:00:01,589
+Okay, so let's talk about
+
+2
+00:00:01,589 --> 00:00:03,060
+a little bit of networking
+
+3
+00:00:03,060 --> 00:00:05,610
+because I want you to understand how it works
+
+4
+00:00:05,610 --> 00:00:09,420
+to block an IP address if you want it to in AWS.
+
+5
+00:00:09,420 --> 00:00:11,490
+So say for example, we have the architecture
+
+6
+00:00:11,490 --> 00:00:14,430
+of an EC2 instance in a public subnet
+
+7
+00:00:14,430 --> 00:00:16,500
+and a client wants to access it.
+
+8
+00:00:16,500 --> 00:00:19,980
+So the first line of defense in your public subnet
+
+9
+00:00:19,980 --> 00:00:23,400
+is going to be your Network ACL, or NACL.
+
+10
+00:00:23,400 --> 00:00:27,270
+And with it you can very cheaply and very simply
+
+11
+00:00:27,270 --> 00:00:30,870
+explicitly write, deny, or allow rules
+
+12
+00:00:30,870 --> 00:00:34,620
+which will allow or block the client if you need to.
+
+13
+00:00:34,620 --> 00:00:37,230
+But say you have a default Network ACL, for example,
+
+14
+00:00:37,230 --> 00:00:39,000
+and everything is allowed through,
+
+15
+00:00:39,000 --> 00:00:40,140
+your second line of defense
+
+16
+00:00:40,140 --> 00:00:42,030
+is going to be your Security Group.
+
+17
+00:00:42,030 --> 00:00:43,980
+And here you have no deny rules,
+
+18
+00:00:43,980 --> 00:00:45,840
+but you can only have allow rules,
+
+19
+00:00:45,840 --> 00:00:48,660
+so if you know in advance the IP of your clients,
+
+20
+00:00:48,660 --> 00:00:50,940
+you can specifically only allow
+
+21
+00:00:50,940 --> 00:00:54,180
+your clients to get to your EC2 instance.
+
+22
+00:00:54,180 --> 00:00:55,640
+If the traffic gets all the way through
+
+23
+00:00:55,640 --> 00:00:56,700
+to your EC2 instance,
+
+24
+00:00:56,700 --> 00:01:01,080
+it is possible for you to optionally run a firewall software
+
+25
+00:01:01,080 --> 00:01:02,790
+on your EC2 instance,
+
+26
+00:01:02,790 --> 00:01:06,210
+which is going to inspect all the packets getting to it.
+
+27
+00:01:06,210 --> 00:01:08,610
+And here you have a lot more control
+
+28
+00:01:08,610 --> 00:01:10,110
+over everything, of course,
+
+29
+00:01:10,110 --> 00:01:13,380
+because this is customized solutions, not AWS dependent,
+
+30
+00:01:13,380 --> 00:01:15,450
+but because you have firewall software running
+
+31
+00:01:15,450 --> 00:01:16,890
+on your EC2 instance,
+
+32
+00:01:16,890 --> 00:01:19,980
+there will be a CPU cost on your instance.
+
+33
+00:01:19,980 --> 00:01:21,840
+It can slow it down, for example.
+
+34
+00:01:21,840 --> 00:01:22,830
+So hopefully that makes sense
+
+35
+00:01:22,830 --> 00:01:25,320
+for this first line of defense.
+
+36
+00:01:25,320 --> 00:01:27,450
+Okay, so now let's consider this situation
+
+37
+00:01:27,450 --> 00:01:32,310
+in which we have a Network ACL, a Application Load Balancer,
+
+38
+00:01:32,310 --> 00:01:34,470
+and an EC2 instance.
+
+39
+00:01:34,470 --> 00:01:37,980
+So here what's happening is that we have the ability
+
+40
+00:01:37,980 --> 00:01:39,870
+to have the client connect directly
+
+41
+00:01:39,870 --> 00:01:41,610
+into an Application Load Balancer
+
+42
+00:01:41,610 --> 00:01:44,190
+that will be sitting in the public subnet.
+
+43
+00:01:44,190 --> 00:01:45,600
+And that Application Load Balancer
+
+44
+00:01:45,600 --> 00:01:48,120
+will be diverting traffic to the EC2 instance.
+
+45
+00:01:48,120 --> 00:01:52,140
+That means your EC2 instance can live in a private subnet
+
+46
+00:01:52,140 --> 00:01:54,120
+and it's going to be better for your security
+
+47
+00:01:54,120 --> 00:01:56,340
+of your application, of course.
+
+48
+00:01:56,340 --> 00:01:58,950
+And so your EC2 instance has a private IP,
+
+49
+00:01:58,950 --> 00:02:00,510
+and so you need to have a security group
+
+50
+00:02:00,510 --> 00:02:03,900
+around the EC2 instance that will allow only connections
+
+51
+00:02:03,900 --> 00:02:05,670
+from your Application Load Balancer.
+
+52
+00:02:05,670 --> 00:02:07,110
+We've seen this before.
+
+53
+00:02:07,110 --> 00:02:09,150
+So what's happening is that the Application Load Balancer
+
+54
+00:02:09,150 --> 00:02:10,830
+that sits in the public subnet
+
+55
+00:02:10,830 --> 00:02:13,530
+is doing a connection termination.
+
+56
+00:02:13,530 --> 00:02:15,900
+That means that the client connects to the ALB
+
+57
+00:02:15,900 --> 00:02:18,810
+and the ALB will connect to the EC2 instance.
+
+58
+00:02:18,810 --> 00:02:20,880
+That also means that you now have the ability
+
+59
+00:02:20,880 --> 00:02:24,450
+to manage security at the Application Load Balancer level
+
+60
+00:02:24,450 --> 00:02:27,240
+with the security group, or with some extra features
+
+61
+00:02:27,240 --> 00:02:29,790
+within the Application Load Balancer.
+
+62
+00:02:29,790 --> 00:02:32,070
+And if you need to, you can always, as well,
+
+63
+00:02:32,070 --> 00:02:35,970
+leverage the Network ACL to do allow or deny rules
+
+64
+00:02:35,970 --> 00:02:38,280
+at the public subnet level.
+
+65
+00:02:38,280 --> 00:02:39,870
+So all of this shouldn't be new
+
+66
+00:02:39,870 --> 00:02:41,403
+and should be mastered by now.
+
+67
+00:02:42,330 --> 00:02:44,640
+And the situation is very similar
+
+68
+00:02:44,640 --> 00:02:47,100
+if you are to use a Network Load Balancer
+
+69
+00:02:47,100 --> 00:02:48,720
+that will have a security group
+
+70
+00:02:48,720 --> 00:02:51,630
+that's connected to EC2 instances, okay?
+
+71
+00:02:51,630 --> 00:02:55,410
+So same for ALB and NLB in terms of security.
+
+72
+00:02:55,410 --> 00:02:57,660
+Now we can explore security features
+
+73
+00:02:57,660 --> 00:02:59,550
+around the application balancer.
+
+74
+00:02:59,550 --> 00:03:02,580
+So you can pair it with WAF,
+
+75
+00:03:02,580 --> 00:03:05,880
+the Web Application Firewall from AWS.
+
+76
+00:03:05,880 --> 00:03:07,320
+And this allows you, for example,
+
+77
+00:03:07,320 --> 00:03:10,290
+to set IP address filtering from within WAF.
+
+78
+00:03:10,290 --> 00:03:12,150
+So obviously, now this has a cost
+
+79
+00:03:12,150 --> 00:03:13,320
+because you have a firewall set up
+
+80
+00:03:13,320 --> 00:03:15,450
+at the Application Load Balancer level,
+
+81
+00:03:15,450 --> 00:03:18,870
+but WAF has more than just the IP address filtering feature.
+
+82
+00:03:18,870 --> 00:03:22,230
+It has a lot more and you will get a lot of control
+
+83
+00:03:22,230 --> 00:03:24,540
+and defenses for your infrastructure
+
+84
+00:03:24,540 --> 00:03:28,440
+if you expose directly your Application Load Balancer.
+
+85
+00:03:28,440 --> 00:03:32,040
+Another place where you can apply AWS WAF
+
+86
+00:03:32,040 --> 00:03:33,660
+is around CloudFronts.
+
+87
+00:03:33,660 --> 00:03:36,600
+So CloudFronts can be set up, for example,
+
+88
+00:03:36,600 --> 00:03:38,640
+on a public infrastructure, for example,
+
+89
+00:03:38,640 --> 00:03:41,340
+using an Application Load Balancer in public mode.
+
+90
+00:03:41,340 --> 00:03:43,440
+And so what's happening is that CloudFront
+
+91
+00:03:43,440 --> 00:03:47,070
+will send traffic directly from all the edge locations
+
+92
+00:03:47,070 --> 00:03:48,450
+with the public IPs of them
+
+93
+00:03:48,450 --> 00:03:50,910
+directly into your Application Load Balancer.
+
+94
+00:03:50,910 --> 00:03:53,550
+Here your Network ACL is not helpful
+
+95
+00:03:53,550 --> 00:03:55,740
+to filter traffic from the clients
+
+96
+00:03:55,740 --> 00:03:57,120
+because, well, the client
+
+97
+00:03:57,120 --> 00:04:00,466
+does not reach the traffic of AWS, okay?
+
+98
+00:04:00,466 --> 00:04:01,410
+CloudFront does.
+
+99
+00:04:01,410 --> 00:04:05,760
+And so therefore you must set up security at the ALB level
+
+100
+00:04:05,760 --> 00:04:07,410
+with your Security Group
+
+101
+00:04:07,410 --> 00:04:10,860
+so that you allow all the CloudFront public IPs
+
+102
+00:04:10,860 --> 00:04:13,290
+into your infrastructure only.
+
+103
+00:04:13,290 --> 00:04:16,019
+Also, you have the ability, for example,
+
+104
+00:04:16,019 --> 00:04:18,480
+if a client was coming from a specific country
+
+105
+00:04:18,480 --> 00:04:20,610
+and was attacking your infrastructure,
+
+106
+00:04:20,610 --> 00:04:22,800
+you could use the Geo Restriction feature
+
+107
+00:04:22,800 --> 00:04:24,720
+to block that specific country
+
+108
+00:04:24,720 --> 00:04:26,340
+and that's one line of defense.
+
+109
+00:04:26,340 --> 00:04:28,890
+Another line of defense, is again to use WAF
+
+110
+00:04:28,890 --> 00:04:30,330
+and all its features
+
+111
+00:04:30,330 --> 00:04:32,850
+to have a firewall at the CloudFront level
+
+112
+00:04:32,850 --> 00:04:35,910
+and, for example, implement IP address filtering.
+
+113
+00:04:35,910 --> 00:04:37,440
+So now hopefully that makes sense into
+
+114
+00:04:37,440 --> 00:04:39,450
+how network security is working.
+
+115
+00:04:39,450 --> 00:04:43,710
+This kind of diagrams hopefully show you the path
+
+116
+00:04:43,710 --> 00:04:45,330
+that the network traffic is taking
+
+117
+00:04:45,330 --> 00:04:49,320
+and so why it makes sense to apply some rules at some level.
+
+118
+00:04:49,320 --> 00:04:50,340
+And if you have any issue
+
+119
+00:04:50,340 --> 00:04:52,650
+understanding what are the specific rules,
+
+120
+00:04:52,650 --> 00:04:56,070
+it's always very helpful to draw what the network is doing.
+
+121
+00:04:56,070 --> 00:04:58,260
+And then it will make a lot of sense into
+
+122
+00:04:58,260 --> 00:05:00,600
+how to define the rules along the way.
+
+123
+00:05:00,600 --> 00:05:01,650
+So that's it for this lecture.
+
+124
+00:05:01,650 --> 00:05:04,600
+I hope you liked it and I will see you in the next lecture.
+

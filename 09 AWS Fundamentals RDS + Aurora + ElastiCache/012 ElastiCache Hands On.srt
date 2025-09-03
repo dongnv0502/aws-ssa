@@ -1,0 +1,500 @@
+1
+00:00:00,120 --> 00:00:01,620
+So let's go ahead and practice
+
+2
+00:00:01,620 --> 00:00:03,030
+using ElastiCache.
+
+3
+00:00:03,030 --> 00:00:04,500
+So we're going to get started
+
+4
+00:00:04,500 --> 00:00:07,590
+and then we're going to create a Redis-type
+
+5
+00:00:07,590 --> 00:00:11,370
+of ElastiCache, but you also have Memcached as an option.
+
+6
+00:00:11,370 --> 00:00:12,510
+So let's create a Redis cache
+
+7
+00:00:12,510 --> 00:00:14,370
+and we have multiple options here.
+
+8
+00:00:14,370 --> 00:00:16,290
+We can use a serverless offering,
+
+9
+00:00:16,290 --> 00:00:18,540
+which is to have a cache automatically scaling
+
+10
+00:00:18,540 --> 00:00:20,520
+to meet your application traffic
+
+11
+00:00:20,520 --> 00:00:21,750
+and no servers to manage.
+
+12
+00:00:21,750 --> 00:00:24,660
+It is way more expensive, but easier to manage.
+
+13
+00:00:24,660 --> 00:00:27,150
+Or we can design our own cache.
+
+14
+00:00:27,150 --> 00:00:28,770
+So we're going to design our own cache
+
+15
+00:00:28,770 --> 00:00:30,090
+because this is much easier
+
+16
+00:00:30,090 --> 00:00:32,640
+and better to understand for you to see
+
+17
+00:00:32,640 --> 00:00:35,370
+how you can architect and cache on AWS.
+
+18
+00:00:35,370 --> 00:00:37,350
+Alright, so from designing your own cache,
+
+19
+00:00:37,350 --> 00:00:38,370
+we have a different methods.
+
+20
+00:00:38,370 --> 00:00:41,970
+So we can restore from a backup, or we have easy create
+
+21
+00:00:41,970 --> 00:00:44,760
+to use recommended best practices configurations.
+
+22
+00:00:44,760 --> 00:00:47,760
+So for example, we have production type of configuration,
+
+23
+00:00:47,760 --> 00:00:49,920
+or dev/test, or demo.
+
+24
+00:00:49,920 --> 00:00:52,260
+And it depends on your needs of course,
+
+25
+00:00:52,260 --> 00:00:55,500
+or if you wanted to, you can configure everything
+
+26
+00:00:55,500 --> 00:00:58,080
+by having the cluster cache mode.
+
+27
+00:00:58,080 --> 00:01:00,210
+So here, we're going to want to configure everything
+
+28
+00:01:00,210 --> 00:01:02,490
+just to view all the options.
+
+29
+00:01:02,490 --> 00:01:05,670
+So the cluster mode is going to be disabled
+
+30
+00:01:05,670 --> 00:01:07,890
+where we have only a single shard
+
+31
+00:01:07,890 --> 00:01:11,250
+with one primary node and up to five read replica.
+
+32
+00:01:11,250 --> 00:01:13,260
+But if you want to have multiple shards
+
+33
+00:01:13,260 --> 00:01:16,320
+across multiple servers, then you would use cluster mode.
+
+34
+00:01:16,320 --> 00:01:18,510
+Alright, so we'll use it disabled.
+
+35
+00:01:18,510 --> 00:01:21,630
+Then this one is going to be called DemoCluster.
+
+36
+00:01:21,630 --> 00:01:24,360
+The location is going to be on AWS Cloud,
+
+37
+00:01:24,360 --> 00:01:26,520
+but you have the option to also run ElastiCache
+
+38
+00:01:26,520 --> 00:01:30,480
+on-premises using something called AWS Outpost.
+
+39
+00:01:30,480 --> 00:01:32,280
+Now, do we want multi-AZ or not?
+
+40
+00:01:32,280 --> 00:01:34,710
+This is very helpful for high availability
+
+41
+00:01:34,710 --> 00:01:37,590
+and fell over in case of a primary node fell over,
+
+42
+00:01:37,590 --> 00:01:39,300
+But for now, we disable it
+
+43
+00:01:39,300 --> 00:01:41,220
+because this will just incur more cost.
+
+44
+00:01:41,220 --> 00:01:44,580
+If we did, do we want auto fell over, yes or no?
+
+45
+00:01:44,580 --> 00:01:46,650
+We'll leave it as enabled.
+
+46
+00:01:46,650 --> 00:01:48,690
+Now, for cluster setting, you can specify
+
+47
+00:01:48,690 --> 00:01:51,960
+the engine version, the ports, the parameter groups,
+
+48
+00:01:51,960 --> 00:01:53,280
+and for node type, we're going
+
+49
+00:01:53,280 --> 00:01:56,220
+to use a micro type of instance.
+
+50
+00:01:56,220 --> 00:01:59,460
+And so we have t2 micro, t3 micro, and t4G micro
+
+51
+00:01:59,460 --> 00:02:03,270
+in this example, and I think t2 and t3 are in the free tier.
+
+52
+00:02:03,270 --> 00:02:05,280
+So use one of these.
+
+53
+00:02:05,280 --> 00:02:07,290
+Alright, so we have t2 micro,
+
+54
+00:02:07,290 --> 00:02:10,289
+and then we can have replicas, which is very helpful
+
+55
+00:02:10,289 --> 00:02:14,160
+when you have this kind of scaling for,
+
+56
+00:02:14,160 --> 00:02:16,410
+as we said, the cluster mode.
+
+57
+00:02:16,410 --> 00:02:18,990
+So we are going to just have it as zero right now,
+
+58
+00:02:18,990 --> 00:02:21,420
+just for cost purposes.
+
+59
+00:02:21,420 --> 00:02:24,630
+And this is, of course, when you have multi-AZ,
+
+60
+00:02:24,630 --> 00:02:25,830
+you should have more replicas.
+
+61
+00:02:25,830 --> 00:02:27,000
+So this makes sense.
+
+62
+00:02:27,000 --> 00:02:30,600
+So let's keep it as zero just for cost purposes.
+
+63
+00:02:30,600 --> 00:02:33,090
+Now, I'm going to create a subnet group.
+
+64
+00:02:33,090 --> 00:02:35,940
+So my first subnet group,
+
+65
+00:02:35,940 --> 00:02:39,150
+and this is going to indicate in ElastiCache,
+
+66
+00:02:39,150 --> 00:02:41,730
+which subnets we can run the cache in.
+
+67
+00:02:41,730 --> 00:02:43,020
+So we can choose the VPC,
+
+68
+00:02:43,020 --> 00:02:46,170
+and then automatically subnets are auto selected,
+
+69
+00:02:46,170 --> 00:02:49,770
+but we can specify them as well if you wanted to.
+
+70
+00:02:49,770 --> 00:02:52,860
+Now, for AZ placements, we can specify which replicas
+
+71
+00:02:52,860 --> 00:02:54,090
+can go to each AZ, but again,
+
+72
+00:02:54,090 --> 00:02:56,580
+we're not running into multi-AZ mode right now,
+
+73
+00:02:56,580 --> 00:02:58,440
+so it doesn't really matter.
+
+74
+00:02:58,440 --> 00:03:01,170
+Now, for next, do we want encryption at rest, yes or no?
+
+75
+00:03:01,170 --> 00:03:03,090
+In case that you want encryption at rest,
+
+76
+00:03:03,090 --> 00:03:04,710
+you need to specify a key.
+
+77
+00:03:04,710 --> 00:03:07,680
+And do you want encryption in transit to encrypt the data
+
+78
+00:03:07,680 --> 00:03:09,990
+between the clients and the server?
+
+79
+00:03:09,990 --> 00:03:12,180
+If you do enable encryption in transit,
+
+80
+00:03:12,180 --> 00:03:14,250
+then you get access control feature.
+
+81
+00:03:14,250 --> 00:03:16,200
+So to choose who can access your cache,
+
+82
+00:03:16,200 --> 00:03:19,590
+so we have Redis AUTH in which we specify a password
+
+83
+00:03:19,590 --> 00:03:22,860
+and AUTH token to connect to our Redis cluster,
+
+84
+00:03:22,860 --> 00:03:26,070
+or we can use an user group access control list.
+
+85
+00:03:26,070 --> 00:03:28,380
+And then you can create a user group right here
+
+86
+00:03:28,380 --> 00:03:30,540
+from the ElastiCache console.
+
+87
+00:03:30,540 --> 00:03:32,880
+So I'm going to disable encryption in transit.
+
+88
+00:03:32,880 --> 00:03:35,190
+And then you can also have a security groups
+
+89
+00:03:35,190 --> 00:03:38,880
+to manage which applications have access
+
+90
+00:03:38,880 --> 00:03:41,730
+to your cluster from a network perspective.
+
+91
+00:03:41,730 --> 00:03:45,720
+So in terms of backup, do we want backup, yes or no?
+
+92
+00:03:45,720 --> 00:03:48,180
+And then for maintenance, do we want maintenance windows
+
+93
+00:03:48,180 --> 00:03:51,600
+to actually perform minor versions upgrades?
+
+94
+00:03:51,600 --> 00:03:53,820
+Do we want to have logs such as slow logs
+
+95
+00:03:53,820 --> 00:03:56,910
+or engine logs that we can set into CloudWatch logs?
+
+96
+00:03:56,910 --> 00:03:58,830
+And finally, do we want to have tags?
+
+97
+00:03:58,830 --> 00:04:00,090
+So a lot of different options.
+
+98
+00:04:00,090 --> 00:04:01,530
+This is similar to RDS,
+
+99
+00:04:01,530 --> 00:04:03,480
+that's why I'm going a bit quicker over this.
+
+100
+00:04:03,480 --> 00:04:06,360
+But we've seen the different options to create our cache.
+
+101
+00:04:06,360 --> 00:04:07,950
+So then we can review everything
+
+102
+00:04:07,950 --> 00:04:11,193
+and then click on create to actually create our cache.
+
+103
+00:04:12,300 --> 00:04:15,780
+My ElastiCache database is now created
+
+104
+00:04:15,780 --> 00:04:18,540
+and I can click on it and if I had an application
+
+105
+00:04:18,540 --> 00:04:20,130
+that I wrote with some code,
+
+106
+00:04:20,130 --> 00:04:22,530
+I could actually use the primary endpoints
+
+107
+00:04:22,530 --> 00:04:25,050
+or if it was read replica, a reader endpoint
+
+108
+00:04:25,050 --> 00:04:27,840
+to allow to read from my cache, okay?
+
+109
+00:04:27,840 --> 00:04:30,360
+Now, there is no easy way for me to show you
+
+110
+00:04:30,360 --> 00:04:34,560
+how to connect to a Redis cache because it's not that easy
+
+111
+00:04:34,560 --> 00:04:36,390
+and you need to actually write some code
+
+112
+00:04:36,390 --> 00:04:37,980
+and it would be too complicated.
+
+113
+00:04:37,980 --> 00:04:41,160
+But from an AWS perspective, from this console,
+
+114
+00:04:41,160 --> 00:04:44,190
+you can see all the details as well as nodes,
+
+115
+00:04:44,190 --> 00:04:46,650
+metrics, logs, network security, and so on.
+
+116
+00:04:46,650 --> 00:04:48,960
+And it looks just like RDS because yes,
+
+117
+00:04:48,960 --> 00:04:51,150
+it is very similar service to RDS,
+
+118
+00:04:51,150 --> 00:04:55,020
+but it's intended for Redis and Memcached.
+
+119
+00:04:55,020 --> 00:04:57,030
+So the last thing you have to do is,
+
+120
+00:04:57,030 --> 00:05:00,150
+take this Redis cluster, action, and then delete.
+
+121
+00:05:00,150 --> 00:05:01,980
+And then do you wanna back up? No.
+
+122
+00:05:01,980 --> 00:05:05,100
+You just type the name of the cluster, delete,
+
+123
+00:05:05,100 --> 00:05:06,840
+and you're done with this hands-on.
+
+124
+00:05:06,840 --> 00:05:07,673
+Okay, that's it.
+
+125
+00:05:07,673 --> 00:05:10,650
+I hope you liked it, and I will see you in the next lecture.
+

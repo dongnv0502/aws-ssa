@@ -1,0 +1,144 @@
+1
+00:00:00,330 --> 00:00:03,390
+So here is a quick lecture about Amazon SES,
+
+2
+00:00:03,390 --> 00:00:06,120
+also called Simple Email Service.
+
+3
+00:00:06,120 --> 00:00:07,440
+So to fully managed service,
+
+4
+00:00:07,440 --> 00:00:08,280
+as the name indicates,
+
+5
+00:00:08,280 --> 00:00:10,860
+they will allow you to send email securely,
+
+6
+00:00:10,860 --> 00:00:12,840
+globally, and at scale.
+
+7
+00:00:12,840 --> 00:00:14,940
+So the idea is that your application
+
+8
+00:00:14,940 --> 00:00:18,540
+will use the SES API or SMTP server
+
+9
+00:00:18,540 --> 00:00:22,050
+and Amazon SES will then send bulk emails to users.
+
+10
+00:00:22,050 --> 00:00:24,600
+So this allows for outbound and inbound emails
+
+11
+00:00:24,600 --> 00:00:26,280
+so you can receive replies,
+
+12
+00:00:26,280 --> 00:00:27,960
+and it gives you a reputation dashboard,
+
+13
+00:00:27,960 --> 00:00:29,910
+if your emails are open or not,
+
+14
+00:00:29,910 --> 00:00:30,930
+performance insights,
+
+15
+00:00:30,930 --> 00:00:32,880
+as well as anti-spam feedback,
+
+16
+00:00:32,880 --> 00:00:35,430
+so if people rates your emails as spam or not.
+
+17
+00:00:35,430 --> 00:00:36,810
+It provides email statistics
+
+18
+00:00:36,810 --> 00:00:40,290
+such as deliveries, bounces, feedback loop results,
+
+19
+00:00:40,290 --> 00:00:42,300
+and whether or not the email was open,
+
+20
+00:00:42,300 --> 00:00:43,950
+and it supports the standard security
+
+21
+00:00:43,950 --> 00:00:45,690
+for email sending of today,
+
+22
+00:00:45,690 --> 00:00:49,053
+so you have DKIM and you have SPF.
+
+23
+00:00:50,160 --> 00:00:51,660
+There is a flexible deployment
+
+24
+00:00:51,660 --> 00:00:53,460
+so you can use a shared IP,
+
+25
+00:00:53,460 --> 00:00:54,570
+a dedicated IP,
+
+26
+00:00:54,570 --> 00:00:56,640
+or your own customer-owned IP.
+
+27
+00:00:56,640 --> 00:01:00,180
+This is to send emails from a specific IP address,
+
+28
+00:01:00,180 --> 00:01:03,900
+and then the APIs are accessible from the console,
+
+29
+00:01:03,900 --> 00:01:07,620
+specific AWS APIs, or the SSTP protocol.
+
+30
+00:01:07,620 --> 00:01:10,080
+So the use cases for Amazon SES
+
+31
+00:01:10,080 --> 00:01:11,580
+will be transactional emails,
+
+32
+00:01:11,580 --> 00:01:12,630
+marketing email,
+
+33
+00:01:12,630 --> 00:01:15,630
+and bulk emails communications.
+
+34
+00:01:15,630 --> 00:01:16,980
+So that's it for this lecture.
+
+35
+00:01:16,980 --> 00:01:17,850
+I hope you liked it,
+
+36
+00:01:17,850 --> 00:01:19,800
+and I will see you in the next lecture.
+

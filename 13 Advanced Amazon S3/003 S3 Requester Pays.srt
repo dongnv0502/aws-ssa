@@ -1,0 +1,160 @@
+1
+00:00:00,450 --> 00:00:02,830
+So here is a feature that you may get tested on
+
+2
+00:00:02,830 --> 00:00:03,663
+at the exam.
+
+3
+00:00:03,663 --> 00:00:05,720
+And this is called S3 Requester Pays.
+
+4
+00:00:05,720 --> 00:00:07,520
+And the name is quite obvious.
+
+5
+00:00:07,520 --> 00:00:10,530
+So, in general, from what we've seen,
+
+6
+00:00:10,530 --> 00:00:14,550
+the bucket owners will pay for all of the Amazon S3 storage
+
+7
+00:00:14,550 --> 00:00:16,880
+and also the data-transfer costs associated
+
+8
+00:00:16,880 --> 00:00:17,780
+with their buckets.
+
+9
+00:00:17,780 --> 00:00:19,360
+So let's take an example.
+
+10
+00:00:19,360 --> 00:00:20,590
+We have a set of buckets,
+
+11
+00:00:20,590 --> 00:00:22,240
+we're storing some objects in it,
+
+12
+00:00:22,240 --> 00:00:25,790
+and then a requester, so, a user will download a file
+
+13
+00:00:25,790 --> 00:00:27,000
+from our bucket.
+
+14
+00:00:27,000 --> 00:00:27,870
+And then what happens is that
+
+15
+00:00:27,870 --> 00:00:31,510
+the networking cost is also being billed
+
+16
+00:00:31,510 --> 00:00:35,520
+to the owner of the bucket and the objects, okay?
+
+17
+00:00:35,520 --> 00:00:39,430
+But, in case you are having a lot of heavy files
+
+18
+00:00:39,430 --> 00:00:41,610
+and some of the customers want to download them,
+
+19
+00:00:41,610 --> 00:00:44,960
+maybe you want to enable Requester Pays buckets.
+
+20
+00:00:44,960 --> 00:00:47,710
+And in that case, the requester will pay
+
+21
+00:00:47,710 --> 00:00:49,700
+instead of the bucket owner
+
+22
+00:00:49,700 --> 00:00:51,960
+for the data download of the objects.
+
+23
+00:00:51,960 --> 00:00:53,860
+So let's take an example again.
+
+24
+00:00:53,860 --> 00:00:56,360
+The owner still will pay for the storage costs
+
+25
+00:00:56,360 --> 00:00:58,320
+of the objects within the bucket,
+
+26
+00:00:58,320 --> 00:01:01,800
+but now the requester will download the object
+
+27
+00:01:01,800 --> 00:01:03,510
+and the requester will be the one paying
+
+28
+00:01:03,510 --> 00:01:06,650
+for the networking costs associated with that download.
+
+29
+00:01:06,650 --> 00:01:09,130
+The idea is that this is very helpful if you want to
+
+30
+00:01:09,130 --> 00:01:12,410
+start sharing large data sets with other accounts.
+
+31
+00:01:12,410 --> 00:01:13,870
+And for it to do so,
+
+32
+00:01:13,870 --> 00:01:17,050
+the requester must not be anonymous, okay?
+
+33
+00:01:17,050 --> 00:01:19,540
+The requester must be authenticated
+
+34
+00:01:19,540 --> 00:01:23,980
+in AWS because when it is authenticated with AWS,
+
+35
+00:01:23,980 --> 00:01:28,140
+then AWS knows to bill the requester of that request
+
+36
+00:01:28,140 --> 00:01:31,560
+for that specific download of the object, okay?
+
+37
+00:01:31,560 --> 00:01:32,910
+So that's it, just a feature to remember.
+
+38
+00:01:32,910 --> 00:01:35,380
+It can come up in the exam in a scenario.
+
+39
+00:01:35,380 --> 00:01:36,213
+I hope you liked it,
+
+40
+00:01:36,213 --> 00:01:38,130
+and I will see you in the next lecture.
+

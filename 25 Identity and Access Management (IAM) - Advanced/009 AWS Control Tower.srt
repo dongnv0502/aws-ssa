@@ -1,0 +1,292 @@
+1
+00:00:00,300 --> 00:00:01,133
+So now let's talk
+
+2
+00:00:01,133 --> 00:00:03,719
+about the AWS Control Tower service.
+
+3
+00:00:03,719 --> 00:00:06,420
+So it's a very easy way for you to set up and govern
+
+4
+00:00:06,420 --> 00:00:09,960
+a secure and compliant multi-account AWS environment
+
+5
+00:00:09,960 --> 00:00:11,580
+based on best practices.
+
+6
+00:00:11,580 --> 00:00:14,100
+So actually to create these accounts,
+
+7
+00:00:14,100 --> 00:00:15,360
+well, the Control Tower service
+
+8
+00:00:15,360 --> 00:00:18,630
+is going to use the AWS Organization service
+
+9
+00:00:18,630 --> 00:00:21,450
+and then the accounts are automatically being created
+
+10
+00:00:21,450 --> 00:00:22,830
+and we'll see in the next slide
+
+11
+00:00:22,830 --> 00:00:25,380
+how to make them secure and compliant.
+
+12
+00:00:25,380 --> 00:00:27,450
+And so the benefits of using a Control Tower
+
+13
+00:00:27,450 --> 00:00:29,550
+is that you automate the set up
+
+14
+00:00:29,550 --> 00:00:31,260
+of your environments in a few clicks
+
+15
+00:00:31,260 --> 00:00:34,200
+and you have all your configs you want in advance.
+
+16
+00:00:34,200 --> 00:00:35,520
+Then you can automate
+
+17
+00:00:35,520 --> 00:00:37,560
+ongoing policy management using guardrails.
+
+18
+00:00:37,560 --> 00:00:39,210
+I will show you this in the next slide.
+
+19
+00:00:39,210 --> 00:00:41,370
+You can detect policy violations
+
+20
+00:00:41,370 --> 00:00:43,500
+and remediate them automatically,
+
+21
+00:00:43,500 --> 00:00:45,750
+and you can monitor the overall compliance
+
+22
+00:00:45,750 --> 00:00:49,380
+of all your accounts through an interactive dashboard.
+
+23
+00:00:49,380 --> 00:00:52,830
+So it's yet another service on top of organizations.
+
+24
+00:00:52,830 --> 00:00:54,240
+So what are these guardrails?
+
+25
+00:00:54,240 --> 00:00:57,450
+So say you set up multiple accounts on AWS,
+
+26
+00:00:57,450 --> 00:00:59,850
+but you want to restrict all of them at once
+
+27
+00:00:59,850 --> 00:01:00,900
+for certain kind of things,
+
+28
+00:01:00,900 --> 00:01:02,460
+or you want to monitor the compliance
+
+29
+00:01:02,460 --> 00:01:04,379
+for certain kind of things.
+
+30
+00:01:04,379 --> 00:01:05,550
+So using these guardrails,
+
+31
+00:01:05,550 --> 00:01:08,310
+you're going to get ongoing governance for all your accounts
+
+32
+00:01:08,310 --> 00:01:10,620
+within your Control Tower environments.
+
+33
+00:01:10,620 --> 00:01:13,080
+So you have two kinds of guardrails.
+
+34
+00:01:13,080 --> 00:01:15,930
+The first one is called a preventive guardrail.
+
+35
+00:01:15,930 --> 00:01:19,200
+And so it's to prevent accounts from doing something
+
+36
+00:01:19,200 --> 00:01:21,150
+and therefore they're restrictive.
+
+37
+00:01:21,150 --> 00:01:25,020
+And so we're going to use SCP, so Service Control Policies,
+
+38
+00:01:25,020 --> 00:01:27,720
+from the AWS Organization service
+
+39
+00:01:27,720 --> 00:01:29,430
+to apply them to all our accounts.
+
+40
+00:01:29,430 --> 00:01:32,490
+For example, we could create a preventive guardrail
+
+41
+00:01:32,490 --> 00:01:35,340
+to restrict regions across all your accounts to say,
+
+42
+00:01:35,340 --> 00:01:38,670
+hey, you should only operate in the us-east-1
+
+43
+00:01:38,670 --> 00:01:40,740
+in the eu-west-2 regions.
+
+44
+00:01:40,740 --> 00:01:42,330
+And so therefore behind the scenes,
+
+45
+00:01:42,330 --> 00:01:46,560
+Control Tower is going to tell organizations to use SCPs.
+
+46
+00:01:46,560 --> 00:01:48,660
+The second kind of guardrail we have
+
+47
+00:01:48,660 --> 00:01:50,610
+is a detective guardrail.
+
+48
+00:01:50,610 --> 00:01:53,790
+So this time, we want to just detect non-compliance.
+
+49
+00:01:53,790 --> 00:01:55,860
+And because I talk to you about compliance,
+
+50
+00:01:55,860 --> 00:01:58,830
+of course, it's using the AWS Config service.
+
+51
+00:01:58,830 --> 00:02:02,550
+For example, we want to identify untagged resources
+
+52
+00:02:02,550 --> 00:02:03,690
+in our accounts.
+
+53
+00:02:03,690 --> 00:02:04,980
+So we have Control Tower
+
+54
+00:02:04,980 --> 00:02:07,710
+and we set up a detective guardrail.
+
+55
+00:02:07,710 --> 00:02:09,110
+And so it's going to use Config
+
+56
+00:02:09,110 --> 00:02:11,009
+and Config is going to be deployed
+
+57
+00:02:11,009 --> 00:02:12,870
+on all your member accounts
+
+58
+00:02:12,870 --> 00:02:14,730
+and is going through the rules,
+
+59
+00:02:14,730 --> 00:02:17,280
+monitor any untagged resources.
+
+60
+00:02:17,280 --> 00:02:19,110
+In case anything is non-compliant,
+
+61
+00:02:19,110 --> 00:02:21,180
+it's going to trigger an SNS topic.
+
+62
+00:02:21,180 --> 00:02:24,150
+So we could be notified as an administrator
+
+63
+00:02:24,150 --> 00:02:27,960
+or the SNS topic can also invoke a Lambda function.
+
+64
+00:02:27,960 --> 00:02:28,890
+And the Lambda function
+
+65
+00:02:28,890 --> 00:02:31,260
+can automatically remediate the action
+
+66
+00:02:31,260 --> 00:02:34,530
+and add tags to your untagged resources.
+
+67
+00:02:34,530 --> 00:02:35,580
+So we've seen Control Tower,
+
+68
+00:02:35,580 --> 00:02:38,220
+we've seen how it can generate new accounts
+
+69
+00:02:38,220 --> 00:02:39,570
+and how we can have guardrails,
+
+70
+00:02:39,570 --> 00:02:42,870
+either preventive or detective, to control the security
+
+71
+00:02:42,870 --> 00:02:45,450
+and the compliance of our environments.
+
+72
+00:02:45,450 --> 00:02:46,920
+So I hope you like this lecture
+
+73
+00:02:46,920 --> 00:02:48,870
+and I will see you in the next lecture.
+

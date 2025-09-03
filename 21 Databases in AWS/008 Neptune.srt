@@ -1,0 +1,264 @@
+1
+00:00:00,510 --> 00:00:02,730
+Now let's talk about Amazon Neptune.
+
+2
+00:00:02,730 --> 00:00:05,850
+Neptune is a fully managed graph database.
+
+3
+00:00:05,850 --> 00:00:08,970
+So an example of what a graph dataset would be
+
+4
+00:00:08,970 --> 00:00:10,950
+would be, for example, something we all know,
+
+5
+00:00:10,950 --> 00:00:12,540
+which is a social network.
+
+6
+00:00:12,540 --> 00:00:14,880
+So if we look at a social network, people are friends,
+
+7
+00:00:14,880 --> 00:00:17,100
+they like, they connect, they read, they comment, and so on.
+
+8
+00:00:17,100 --> 00:00:19,680
+So users have friends, posts will have comments,
+
+9
+00:00:19,680 --> 00:00:22,470
+comments have likes from users, users share and like posts.
+
+10
+00:00:22,470 --> 00:00:24,840
+And so all these things are interconnected,
+
+11
+00:00:24,840 --> 00:00:26,580
+and so they create a graph.
+
+12
+00:00:26,580 --> 00:00:30,450
+And so this is why Neptune is a great choice of database
+
+13
+00:00:30,450 --> 00:00:32,820
+when it comes to graph datasets.
+
+14
+00:00:32,820 --> 00:00:35,910
+So Neptune has replication across 3 AZ,
+
+15
+00:00:35,910 --> 00:00:37,620
+up to 15 read replicas.
+
+16
+00:00:37,620 --> 00:00:40,830
+It's used to build and run applications that are gonna be
+
+17
+00:00:40,830 --> 00:00:43,740
+with highly connected datasets, so like a social network,
+
+18
+00:00:43,740 --> 00:00:46,830
+and because Neptune is optimized to run queries
+
+19
+00:00:46,830 --> 00:00:49,950
+that are complex and hard on top of these graph datasets.
+
+20
+00:00:49,950 --> 00:00:53,850
+You can store up to billions of relations on the database
+
+21
+00:00:53,850 --> 00:00:56,580
+and query the graph with milliseconds latency.
+
+22
+00:00:56,580 --> 00:00:58,050
+It's highly available with application
+
+23
+00:00:58,050 --> 00:01:00,120
+across multiple availability zones,
+
+24
+00:01:00,120 --> 00:01:02,520
+and it's also great for storing knowledge graphs.
+
+25
+00:01:02,520 --> 00:01:05,730
+For example, the Wikipedia database is a knowledge graph
+
+26
+00:01:05,730 --> 00:01:08,130
+because all the Wikipedia articles are interconnected
+
+27
+00:01:08,130 --> 00:01:09,120
+with each other.
+
+28
+00:01:09,120 --> 00:01:11,730
+Fraud detection, recommendations engine,
+
+29
+00:01:11,730 --> 00:01:13,620
+and social networking.
+
+30
+00:01:13,620 --> 00:01:15,510
+So coming from an exam perspective,
+
+31
+00:01:15,510 --> 00:01:18,090
+any time you see anything related to graph databases,
+
+32
+00:01:18,090 --> 00:01:19,950
+think no more than Neptune.
+
+33
+00:01:19,950 --> 00:01:22,020
+Now Amazon Neptune also has a feature
+
+34
+00:01:22,020 --> 00:01:23,880
+called Neptune Streams.
+
+35
+00:01:23,880 --> 00:01:25,920
+So streams in Amazon Neptune are going
+
+36
+00:01:25,920 --> 00:01:30,600
+to be a real time ordered sequence of data for every change
+
+37
+00:01:30,600 --> 00:01:32,460
+that happens within your graph data
+
+38
+00:01:32,460 --> 00:01:34,170
+in your Neptune database.
+
+39
+00:01:34,170 --> 00:01:37,050
+So that means that whenever an application is writing
+
+40
+00:01:37,050 --> 00:01:38,430
+to Amazon Neptune,
+
+41
+00:01:38,430 --> 00:01:41,040
+then the changes will be available immediately
+
+42
+00:01:41,040 --> 00:01:44,130
+after writing into that Neptune streams.
+
+43
+00:01:44,130 --> 00:01:46,710
+So in that stream, you have no duplicates
+
+44
+00:01:46,710 --> 00:01:49,110
+and a strict ordering of changes happening
+
+45
+00:01:49,110 --> 00:01:51,000
+within your Neptune cluster.
+
+46
+00:01:51,000 --> 00:01:53,370
+So in a graph, we have rights,
+
+47
+00:01:53,370 --> 00:01:55,530
+and these rights are written, of course,
+
+48
+00:01:55,530 --> 00:01:59,580
+to your Neptune cluster, but also to a Neptune stream.
+
+49
+00:01:59,580 --> 00:02:03,630
+Now this stream data is accessible using an HTTP REST API.
+
+50
+00:02:03,630 --> 00:02:06,480
+That means that your applications, for example,
+
+51
+00:02:06,480 --> 00:02:08,610
+that want to read your Neptune Stream,
+
+52
+00:02:08,610 --> 00:02:13,320
+can use this API to get all the changes in real time.
+
+53
+00:02:13,320 --> 00:02:16,620
+So the use cases for enabling Neptune streams are,
+
+54
+00:02:16,620 --> 00:02:18,990
+for example, to send notifications
+
+55
+00:02:18,990 --> 00:02:23,310
+whenever some changes are made within your graph data,
+
+56
+00:02:23,310 --> 00:02:25,620
+or to maintain your data synchronized
+
+57
+00:02:25,620 --> 00:02:26,940
+into another data store.
+
+58
+00:02:26,940 --> 00:02:29,940
+For example, you want to replicate the changes happening
+
+59
+00:02:29,940 --> 00:02:34,440
+within your Neptune cluster into Amazon S3 or OpenSearch
+
+60
+00:02:34,440 --> 00:02:36,390
+or ElastiCache or more.
+
+61
+00:02:36,390 --> 00:02:40,260
+Or if you want to replicate data across multiple regions
+
+62
+00:02:40,260 --> 00:02:44,100
+for your Neptune cluster by looking at all the changes
+
+63
+00:02:44,100 --> 00:02:46,290
+in the stream and rewriting those
+
+64
+00:02:46,290 --> 00:02:49,170
+into a target Neptune cluster.
+
+65
+00:02:49,170 --> 00:02:50,730
+Okay, so that's it for this lecture.
+
+66
+00:02:50,730 --> 00:02:53,913
+I hope you liked it, and I will see you in the next lecture.
+

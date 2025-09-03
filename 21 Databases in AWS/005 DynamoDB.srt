@@ -1,0 +1,324 @@
+1
+00:00:00,360 --> 00:00:02,969
+So now let's do a summary of Amazon DynamoDB
+
+2
+00:00:02,969 --> 00:00:05,100
+which appears quite a bit at the exam.
+
+3
+00:00:05,100 --> 00:00:09,270
+So DynamoDB is a proprietary technology from AWS.
+
+4
+00:00:09,270 --> 00:00:10,650
+It's a managed serverless
+
+5
+00:00:10,650 --> 00:00:12,870
+and no SQL database that provides you
+
+6
+00:00:12,870 --> 00:00:15,780
+out of the box millisecond latency.
+
+7
+00:00:15,780 --> 00:00:18,240
+You have two capacity modes you need to choose from.
+
+8
+00:00:18,240 --> 00:00:21,240
+So one of them is the provision capacity
+
+9
+00:00:21,240 --> 00:00:23,400
+with optional auto scaling, which is great
+
+10
+00:00:23,400 --> 00:00:25,080
+when you have a smooth type of workload
+
+11
+00:00:25,080 --> 00:00:26,040
+that increases gradually
+
+12
+00:00:26,040 --> 00:00:29,130
+over time or decreases gradually over time.
+
+13
+00:00:29,130 --> 00:00:31,530
+Or you have the on demand capacity mode
+
+14
+00:00:31,530 --> 00:00:33,621
+where you don't have to provision capacity,
+
+15
+00:00:33,621 --> 00:00:35,910
+but it scales automatically for you,
+
+16
+00:00:35,910 --> 00:00:39,210
+which is great if you have very unpredictable workloads
+
+17
+00:00:39,210 --> 00:00:42,780
+or if you have sudden steep spikes of demand
+
+18
+00:00:42,780 --> 00:00:44,370
+on your database.
+
+19
+00:00:44,370 --> 00:00:47,850
+So DynamoDB can replace ElasticCache as a key value store
+
+20
+00:00:47,850 --> 00:00:51,240
+and it's a great way to, for example, store session data
+
+21
+00:00:51,240 --> 00:00:54,120
+for your website, combined with a TTL feature
+
+22
+00:00:54,120 --> 00:00:58,020
+to expire a row after a specific amount of time.
+
+23
+00:00:58,020 --> 00:01:01,230
+So DynamoDB is highly available.
+
+24
+00:01:01,230 --> 00:01:04,769
+It is across multiple availability zones by default.
+
+25
+00:01:04,769 --> 00:01:07,110
+The reads and the writes are fully decoupled
+
+26
+00:01:07,110 --> 00:01:09,780
+and it's possible for you to have transactions
+
+27
+00:01:09,780 --> 00:01:11,403
+on top of the DynamoDB tables.
+
+28
+00:01:12,300 --> 00:01:14,730
+It is possible for you to create a read cache
+
+29
+00:01:14,730 --> 00:01:17,580
+out of the box that is fully compatible with DynamoDB
+
+30
+00:01:17,580 --> 00:01:21,570
+which is a DAX cluster, DynamoDB accelerator,
+
+31
+00:01:21,570 --> 00:01:24,540
+and the particularity of it is
+
+32
+00:01:24,540 --> 00:01:28,320
+that you get then microsecond read latency.
+
+33
+00:01:28,320 --> 00:01:30,420
+So look for that in the exam.
+
+34
+00:01:30,420 --> 00:01:33,360
+In terms of security authentication and authorization,
+
+35
+00:01:33,360 --> 00:01:36,000
+everything is done through IAM.
+
+36
+00:01:36,000 --> 00:01:39,540
+You have event processing capability on top of DynamoDB,
+
+37
+00:01:39,540 --> 00:01:41,760
+so you can enable DynamoDB streams
+
+38
+00:01:41,760 --> 00:01:45,300
+to stream all the changes happening into your database
+
+39
+00:01:45,300 --> 00:01:48,425
+and you can have an integration to invoke Lambda
+
+40
+00:01:48,425 --> 00:01:50,370
+from the DynamoDB stream.
+
+41
+00:01:50,370 --> 00:01:52,260
+Therefore, Lambda can be invoked
+
+42
+00:01:52,260 --> 00:01:56,040
+for every single change in your DynamoDB table.
+
+43
+00:01:56,040 --> 00:01:57,570
+The other option is instead
+
+44
+00:01:57,570 --> 00:02:00,030
+of standing the data to DynamoDB streams,
+
+45
+00:02:00,030 --> 00:02:02,820
+you can send the data to Kinesis data streams.
+
+46
+00:02:02,820 --> 00:02:04,320
+The advantage is that on top of it,
+
+47
+00:02:04,320 --> 00:02:07,410
+you can use the Kinesis Data Firehose feature,
+
+48
+00:02:07,410 --> 00:02:09,419
+or you can use any type of integration
+
+49
+00:02:09,419 --> 00:02:11,310
+that leverages Kinesis data stream.
+
+50
+00:02:11,310 --> 00:02:13,350
+For example, you could have longer term retention
+
+51
+00:02:13,350 --> 00:02:16,740
+up to one year on Kinesis data streams.
+
+52
+00:02:16,740 --> 00:02:19,650
+You have a global table feature on top of the DynamoDB,
+
+53
+00:02:19,650 --> 00:02:23,160
+which allows you to do active-active replication
+
+54
+00:02:23,160 --> 00:02:25,170
+across multiple regions.
+
+55
+00:02:25,170 --> 00:02:28,140
+So anyone can read and write from any region;
+
+56
+00:02:28,140 --> 00:02:30,450
+this is why it's called active-active.
+
+57
+00:02:30,450 --> 00:02:31,800
+Now you have two backup options.
+
+58
+00:02:31,800 --> 00:02:34,380
+The first one is an automated backup.
+
+59
+00:02:34,380 --> 00:02:37,050
+You need to enable point in time recovery for that
+
+60
+00:02:37,050 --> 00:02:42,050
+and you can restore your table to a new dynamicDB table
+
+61
+00:02:42,150 --> 00:02:45,390
+for any point of time up to 35 days.
+
+62
+00:02:45,390 --> 00:02:49,140
+Or if you want to have longer term retention of backups,
+
+63
+00:02:49,140 --> 00:02:51,390
+you can enable on-demand backups,
+
+64
+00:02:51,390 --> 00:02:54,510
+which will also restore to a new table.
+
+65
+00:02:54,510 --> 00:02:56,760
+Now, you can export your DynamoDB table
+
+66
+00:02:56,760 --> 00:03:01,200
+to Amazon S3 without using any of the read capacity units
+
+67
+00:03:01,200 --> 00:03:03,330
+within the Pointing Time recovery windows,
+
+68
+00:03:03,330 --> 00:03:07,140
+So within 35 days using the export to S3 feature.
+
+69
+00:03:07,140 --> 00:03:08,940
+And you can also import from S3
+
+70
+00:03:08,940 --> 00:03:12,333
+without using any right capacity units into a new table.
+
+71
+00:03:13,560 --> 00:03:15,600
+So DynamoDB, from an exam perspective
+
+72
+00:03:15,600 --> 00:03:18,040
+anytime you see that you need to rapidly evolve schema
+
+73
+00:03:18,040 --> 00:03:21,180
+which have a flexible type of database schema
+
+74
+00:03:21,180 --> 00:03:22,920
+is going to be a great choice.
+
+75
+00:03:22,920 --> 00:03:26,460
+So the use cases for DynamoDB is when you want a database
+
+76
+00:03:26,460 --> 00:03:28,800
+and do serverless application development
+
+77
+00:03:28,800 --> 00:03:31,320
+and your data are small documents, for example,
+
+78
+00:03:31,320 --> 00:03:34,050
+in the hundreds of kilobytes of size maximum
+
+79
+00:03:34,050 --> 00:03:37,890
+or when you want a distributed serverless cache.
+
+80
+00:03:37,890 --> 00:03:39,900
+Okay, so that's it for DynamoDB.
+
+81
+00:03:39,900 --> 00:03:43,233
+I hope you liked it and I will see you in the next lecture.
+

@@ -1,0 +1,156 @@
+1
+00:00:00,300 --> 00:00:01,350
+So now let's talk about
+
+2
+00:00:01,350 --> 00:00:03,540
+the AWS App Runner service.
+
+3
+00:00:03,540 --> 00:00:05,820
+It's a fully managed service that makes it easy to deploy
+
+4
+00:00:05,820 --> 00:00:08,760
+web applications and APIs at scale
+
+5
+00:00:08,760 --> 00:00:11,700
+and with this, anyone can deploy to AWS.
+
+6
+00:00:11,700 --> 00:00:15,150
+You don't need to know anything about infrastructure,
+
+7
+00:00:15,150 --> 00:00:18,000
+for containers or your source code or whatever you want.
+
+8
+00:00:18,000 --> 00:00:20,340
+So the idea is that you start with your source code
+
+9
+00:00:20,340 --> 00:00:22,650
+or a Docker container image
+
+10
+00:00:22,650 --> 00:00:24,450
+and then you're going to configure the settings.
+
+11
+00:00:24,450 --> 00:00:26,550
+So it shows how many VCPS you want,
+
+12
+00:00:26,550 --> 00:00:28,350
+how much memory you want for your containers,
+
+13
+00:00:28,350 --> 00:00:30,840
+if you want autoscaling and a few health checks.
+
+14
+00:00:30,840 --> 00:00:33,960
+So some basic settings to define your web application
+
+15
+00:00:33,960 --> 00:00:37,500
+or your API, and then automatically, that's it,
+
+16
+00:00:37,500 --> 00:00:38,400
+it will start building
+
+17
+00:00:38,400 --> 00:00:41,160
+and deploying the web app using the App Runner survey.
+
+18
+00:00:41,160 --> 00:00:44,130
+So the container will be created and deployed,
+
+19
+00:00:44,130 --> 00:00:46,950
+and then your API or your web app is deployed
+
+20
+00:00:46,950 --> 00:00:50,550
+and you can access it right away using a URL
+
+21
+00:00:50,550 --> 00:00:53,520
+and so, as you can see, there was no knowledge whatsoever
+
+22
+00:00:53,520 --> 00:00:55,620
+of what goes on underneath.
+
+23
+00:00:55,620 --> 00:00:59,460
+Underneath, of course, uses the AWS services, but as a user,
+
+24
+00:00:59,460 --> 00:01:00,750
+you just don't know about it.
+
+25
+00:01:00,750 --> 00:01:01,830
+So it's very quick.
+
+26
+00:01:01,830 --> 00:01:04,319
+So with App Runner, you get a lot of goodness,
+
+27
+00:01:04,319 --> 00:01:07,140
+you get automatic scaling, it's highly available,
+
+28
+00:01:07,140 --> 00:01:08,460
+you get load balancing,
+
+29
+00:01:08,460 --> 00:01:10,950
+you get encryption and your application,
+
+30
+00:01:10,950 --> 00:01:13,867
+your container can also get access to your VPC.
+
+31
+00:01:13,867 --> 00:01:16,350
+That means that you can connect to your databases,
+
+32
+00:01:16,350 --> 00:01:20,010
+your cache, as well as your message queue services.
+
+33
+00:01:20,010 --> 00:01:23,460
+So the use case for this is to very quickly deploy web apps,
+
+34
+00:01:23,460 --> 00:01:27,210
+API, microservices, and do rapid production deployment
+
+35
+00:01:27,210 --> 00:01:31,680
+with best practices, all using the AWS App Runner service.
+
+36
+00:01:31,680 --> 00:01:33,000
+It's a very simple service.
+
+37
+00:01:33,000 --> 00:01:35,820
+It does very simple things, but it's very powerful.
+
+38
+00:01:35,820 --> 00:01:37,620
+Okay, that's it, I hope you liked it
+
+39
+00:01:37,620 --> 00:01:39,570
+and I will see you in the next lecture.
+

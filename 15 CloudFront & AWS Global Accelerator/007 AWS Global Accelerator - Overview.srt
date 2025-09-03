@@ -1,0 +1,680 @@
+1
+00:00:00,060 --> 00:00:02,250
+Okay, so in this lecture, we are going to talk about
+
+2
+00:00:02,250 --> 00:00:04,019
+a newer kind of service for AWS called
+
+3
+00:00:04,019 --> 00:00:05,939
+the AWS Global Accelerator.
+
+4
+00:00:05,939 --> 00:00:06,790
+But before we do so,
+
+5
+00:00:06,790 --> 00:00:08,230
+I want to introduce the problem to you
+
+6
+00:00:08,230 --> 00:00:10,750
+that we're trying to solve and how we're going to solve it.
+
+7
+00:00:10,750 --> 00:00:13,180
+So, say you have deployed and application,
+
+8
+00:00:13,180 --> 00:00:15,290
+and it's global and you've global users
+
+9
+00:00:15,290 --> 00:00:17,190
+who want to access it directly.
+
+10
+00:00:17,190 --> 00:00:19,880
+But our application is only deployed in one region.
+
+11
+00:00:19,880 --> 00:00:21,740
+So, for example here in India,
+
+12
+00:00:21,740 --> 00:00:24,250
+I have deployed a public application advancer.
+
+13
+00:00:24,250 --> 00:00:26,020
+But my users are all over the world.
+
+14
+00:00:26,020 --> 00:00:28,900
+They're in America, in Europe, in Australia.
+
+15
+00:00:28,900 --> 00:00:30,710
+And so as they access the application,
+
+16
+00:00:30,710 --> 00:00:32,619
+they want to go over the public internet.
+
+17
+00:00:32,619 --> 00:00:34,520
+And that can add a lot of latency
+
+18
+00:00:34,520 --> 00:00:36,790
+due to many hops through the routers. Okay?
+
+19
+00:00:36,790 --> 00:00:38,510
+So, I'm obviously overplaying this,
+
+20
+00:00:38,510 --> 00:00:40,030
+so you can see that in America,
+
+21
+00:00:40,030 --> 00:00:42,270
+there's five hops of routers or servers
+
+22
+00:00:42,270 --> 00:00:45,020
+before we get to the public ALB in India.
+
+23
+00:00:45,020 --> 00:00:47,090
+And that's because it goes over the public internet.
+
+24
+00:00:47,090 --> 00:00:48,650
+Same for Australia, many hops.
+
+25
+00:00:48,650 --> 00:00:50,290
+And same for Europe, many hops.
+
+26
+00:00:50,290 --> 00:00:53,920
+So you can see these hops I introduce a bit of risk
+
+27
+00:00:53,920 --> 00:00:55,270
+connection can get lost,
+
+28
+00:00:55,270 --> 00:00:56,605
+they also add a little bit of latency,
+
+29
+00:00:56,605 --> 00:00:58,610
+and they're not as direct as possible
+
+30
+00:00:58,610 --> 00:01:01,180
+into our amazon infrastructure.
+
+31
+00:01:01,180 --> 00:01:04,280
+So what we want to do is to wish to go as fast as possible
+
+32
+00:01:04,280 --> 00:01:07,770
+through as soon as possible the AWS US network
+
+33
+00:01:07,770 --> 00:01:10,480
+to minimize latency. And so before we do so
+
+34
+00:01:10,480 --> 00:01:12,630
+and use the global accelerator for this,
+
+35
+00:01:12,630 --> 00:01:14,320
+I want to introduce to you another concept
+
+36
+00:01:14,320 --> 00:01:17,250
+which is Unicast and Anycast IP.
+
+37
+00:01:17,250 --> 00:01:20,010
+So first, Unicast IP is what we know.
+
+38
+00:01:20,010 --> 00:01:22,050
+One server holds one IP address.
+
+39
+00:01:22,050 --> 00:01:24,250
+So our clients when they talk to two server
+
+40
+00:01:24,250 --> 00:01:26,210
+one has starting IP address is the left hand side
+
+41
+00:01:26,210 --> 00:01:28,190
+number 12 and the other one is 98.
+
+42
+00:01:28,190 --> 00:01:30,590
+Then if you refer to the IP address that begin with 12
+
+43
+00:01:30,590 --> 00:01:33,434
+we will be sent to the server on the left hand side.
+
+44
+00:01:33,434 --> 00:01:35,663
+And for the other one if you use the other IP
+
+45
+00:01:35,663 --> 00:01:38,050
+then we will go to the server on the right hand side.
+
+46
+00:01:38,050 --> 00:01:40,220
+This we know it makes a lot sense.
+
+47
+00:01:40,220 --> 00:01:43,070
+But for Anycast IP, is a little different.
+
+48
+00:01:43,070 --> 00:01:45,420
+All servers will hold the same IP address
+
+49
+00:01:45,420 --> 00:01:49,350
+and the client will be routed to the nearest one.
+
+50
+00:01:49,350 --> 00:01:51,470
+So this is contra-intuitive but this is how it works.
+
+51
+00:01:51,470 --> 00:01:53,540
+So our client has two servers
+
+52
+00:01:53,540 --> 00:01:55,440
+and these two servers as you can see in the bottom,
+
+53
+00:01:55,440 --> 00:01:57,160
+they have the same IP.
+
+54
+00:01:57,160 --> 00:02:00,319
+But our client when it tries to connect to this Anycast IP
+
+55
+00:02:00,319 --> 00:02:04,510
+will be sent to the server that is the closest to itself.
+
+56
+00:02:04,510 --> 00:02:07,350
+And as surprising as this is, this is how it works.
+
+57
+00:02:07,350 --> 00:02:11,890
+So Global Accelerator uses that Anycast IP concept to work.
+
+58
+00:02:11,890 --> 00:02:12,970
+So how does it work?
+
+59
+00:02:12,970 --> 00:02:16,520
+We're able to leverage the AWS internal global network
+
+60
+00:02:16,520 --> 00:02:18,380
+to route to our application.
+
+61
+00:02:18,380 --> 00:02:19,610
+So we have the same idea,
+
+62
+00:02:19,610 --> 00:02:21,270
+we want to route to India
+
+63
+00:02:21,270 --> 00:02:23,530
+and we have users all around the globe.
+
+64
+00:02:23,530 --> 00:02:26,510
+And is going to happen is that instead of sending it
+
+65
+00:02:26,510 --> 00:02:28,610
+through the public internet in America,
+
+66
+00:02:28,610 --> 00:02:31,560
+it's going to come to the closest edge location.
+
+67
+00:02:31,560 --> 00:02:32,680
+And from edge location,
+
+68
+00:02:32,680 --> 00:02:35,920
+it's going to go all the way straight to our ALB
+
+69
+00:02:35,920 --> 00:02:38,380
+through the internal AWS network.
+
+70
+00:02:38,380 --> 00:02:41,510
+Same for Australia, so it goes to closest edge location
+
+71
+00:02:41,510 --> 00:02:42,690
+near to Australia
+
+72
+00:02:42,690 --> 00:02:44,990
+and then it goes over the private AWS network
+
+73
+00:02:44,990 --> 00:02:48,000
+to get to the ALB and same for Europe.
+
+74
+00:02:48,000 --> 00:02:49,230
+So the idea with this is that,
+
+75
+00:02:49,230 --> 00:02:51,140
+we're going to use an Anycast IP
+
+76
+00:02:51,140 --> 00:02:52,042
+and there's actually going to be two of those
+
+77
+00:02:52,042 --> 00:02:54,270
+that are going to be created for your application
+
+78
+00:02:54,270 --> 00:02:55,450
+and they're global.
+
+79
+00:02:55,450 --> 00:02:58,670
+And the Anycast IP will send the traffic directly
+
+80
+00:02:58,670 --> 00:03:01,010
+to the closest edge location of your users.
+
+81
+00:03:01,010 --> 00:03:03,230
+And this is the power of Anycast IP.
+
+82
+00:03:03,230 --> 00:03:05,060
+So the edge location will then send the traffic
+
+83
+00:03:05,060 --> 00:03:06,052
+to you application, (mumbles)
+
+84
+00:03:06,052 --> 00:03:07,010
+For example,
+
+85
+00:03:07,010 --> 00:03:10,150
+through the private AWS network which is much more stable,
+
+86
+00:03:10,150 --> 00:03:12,410
+has less latency and so on.
+
+87
+00:03:12,410 --> 00:03:14,650
+So the Global Accelerator is absolutely unique
+
+88
+00:03:14,650 --> 00:03:17,960
+because it really allows to give two static IP addresses
+
+89
+00:03:17,960 --> 00:03:19,660
+all around the globe for the users
+
+90
+00:03:19,660 --> 00:03:21,750
+for whatever application you may have.
+
+91
+00:03:21,750 --> 00:03:23,860
+And right now I'm showing one ALB in one region
+
+92
+00:03:23,860 --> 00:03:25,180
+but it could be global as well
+
+93
+00:03:25,180 --> 00:03:27,400
+it could be multiple ALBs in multiple regions.
+
+94
+00:03:27,400 --> 00:03:29,020
+So it's a game changer to me.
+
+95
+00:03:29,020 --> 00:03:30,240
+So, what does it work with?
+
+96
+00:03:30,240 --> 00:03:33,200
+It works with Elastic IP, EC2 instances,
+
+97
+00:03:33,200 --> 00:03:35,480
+Application Load Balancer, Network Load Balancer
+
+98
+00:03:35,480 --> 00:03:38,360
+and they can either be public or private.
+
+99
+00:03:38,360 --> 00:03:39,480
+There is consistent performance
+
+100
+00:03:39,480 --> 00:03:41,070
+because we go over the network
+
+101
+00:03:41,070 --> 00:03:42,240
+so we have intelligent routing
+
+102
+00:03:42,240 --> 00:03:44,400
+to the lowest latency edge location
+
+103
+00:03:44,400 --> 00:03:46,060
+and we'll have fast regional failover
+
+104
+00:03:46,060 --> 00:03:47,490
+in case anything goes wrong.
+
+105
+00:03:47,490 --> 00:03:48,890
+There's no issue with client cache
+
+106
+00:03:48,890 --> 00:03:50,380
+because the client doesn't cache anything
+
+107
+00:03:50,380 --> 00:03:54,350
+the IP, the two Anycast IP we're using don't change.
+
+108
+00:03:54,350 --> 00:03:58,170
+It's internal AWS network to go after the edge location
+
+109
+00:03:58,170 --> 00:03:59,170
+so it's perfect.
+
+110
+00:03:59,170 --> 00:04:00,550
+And then we have health checks.
+
+111
+00:04:00,550 --> 00:04:02,680
+So the Global Accelerator will perform a health check
+
+112
+00:04:02,680 --> 00:04:04,640
+on your application and then make sure
+
+113
+00:04:04,640 --> 00:04:06,390
+that the application is global
+
+114
+00:04:06,390 --> 00:04:09,400
+and if health check fails for one ALB and one region
+
+115
+00:04:09,400 --> 00:04:12,240
+then there is automated failover in less than one minute
+
+116
+00:04:12,240 --> 00:04:13,710
+to a healthy end port.
+
+117
+00:04:13,710 --> 00:04:15,170
+So this is really, really great.
+
+118
+00:04:15,170 --> 00:04:17,040
+And it's amazing for disaster recovery,
+
+119
+00:04:17,040 --> 00:04:18,450
+thanks, to the health checks.
+
+120
+00:04:18,450 --> 00:04:19,640
+Now for security,
+
+121
+00:04:19,640 --> 00:04:20,829
+it's appropriately secured
+
+122
+00:04:20,829 --> 00:04:22,380
+because we only have two external IP
+
+123
+00:04:22,380 --> 00:04:24,170
+that needs to be whitelisted by your clients.
+
+124
+00:04:24,170 --> 00:04:26,600
+And you get DDoS protection automatically
+
+125
+00:04:26,600 --> 00:04:28,070
+through the Global Accelerator,
+
+126
+00:04:28,070 --> 00:04:28,948
+thanks to something called
+
+127
+00:04:28,948 --> 00:04:31,820
+AWS Shield that we'll see in the security session.
+
+128
+00:04:31,820 --> 00:04:32,653
+So this is great.
+
+129
+00:04:32,653 --> 00:04:34,150
+So you're really asking me what is the difference
+
+130
+00:04:34,150 --> 00:04:36,200
+between Global Accelerator and CloudFront?
+
+131
+00:04:36,200 --> 00:04:37,860
+And hopefully you already see the difference,
+
+132
+00:04:37,860 --> 00:04:40,440
+otherwise I failed but I want to outline these differences
+
+133
+00:04:40,440 --> 00:04:41,870
+very, very clearly.
+
+134
+00:04:41,870 --> 00:04:44,170
+So, Global Accelerator and CloudFront
+
+135
+00:04:44,170 --> 00:04:47,300
+they both use the same global network
+
+136
+00:04:47,300 --> 00:04:50,310
+and they will both use edge locations all around the globe
+
+137
+00:04:50,310 --> 00:04:52,350
+that AWS has created.
+
+138
+00:04:52,350 --> 00:04:55,220
+They both integrate with Shield for DDoS protection
+
+139
+00:04:55,220 --> 00:04:56,400
+so they both receive the same thing
+
+140
+00:04:56,400 --> 00:04:57,680
+but now their difference.
+
+141
+00:04:57,680 --> 00:05:00,080
+CloudFront is going to improve the performance
+
+142
+00:05:00,080 --> 00:05:03,150
+for both cacheable content such as images and video,
+
+143
+00:05:03,150 --> 00:05:05,090
+and also dynamic content such as,
+
+144
+00:05:05,090 --> 00:05:07,930
+API acceleration and dynamic site delivery.
+
+145
+00:05:07,930 --> 00:05:09,780
+And the content is going to be served
+
+146
+00:05:09,780 --> 00:05:11,660
+from the edge locations.
+
+147
+00:05:11,660 --> 00:05:13,270
+So once in a while the edge locations
+
+148
+00:05:13,270 --> 00:05:15,283
+are going to fetch the content from the origin
+
+149
+00:05:15,283 --> 00:05:18,030
+but most of the time hopefully CloudFront
+
+150
+00:05:18,030 --> 00:05:21,100
+will deliver cache content from the edges.
+
+151
+00:05:21,100 --> 00:05:24,220
+So here the users are getting content from the edges.
+
+152
+00:05:24,220 --> 00:05:25,750
+Whereas, for Global Accelerator,
+
+153
+00:05:25,750 --> 00:05:28,020
+it improves the performance of the wide range of application
+
+154
+00:05:28,020 --> 00:05:29,810
+over TCP or UDP.
+
+155
+00:05:29,810 --> 00:05:33,124
+But the packets are being proxyeed from the edge locations
+
+156
+00:05:33,124 --> 00:05:37,090
+to the applications running in two one or more AWS regions.
+
+157
+00:05:37,090 --> 00:05:40,010
+So in that case, all the request still make it
+
+158
+00:05:40,010 --> 00:05:41,120
+to our application end.
+
+159
+00:05:41,120 --> 00:05:43,610
+There is no caching available.
+
+160
+00:05:43,610 --> 00:05:46,470
+So it's a really good fit if you have a non-HTTP uses cases,
+
+161
+00:05:46,470 --> 00:05:49,100
+such as gaming, IoT or Voice over IP
+
+162
+00:05:49,100 --> 00:05:51,420
+or it's also really good if you have and HTTP use case
+
+163
+00:05:51,420 --> 00:05:54,800
+that require a static IP addresses globally.
+
+164
+00:05:54,800 --> 00:05:55,633
+Okay?
+
+165
+00:05:55,633 --> 00:05:57,520
+Or in case you need to have deterministic
+
+166
+00:05:57,520 --> 00:05:59,320
+and fast regional failover.
+
+167
+00:05:59,320 --> 00:06:01,300
+So, Global Accelerator is a newer kind of service
+
+168
+00:06:01,300 --> 00:06:03,100
+and it will appear in your exam.
+
+169
+00:06:03,100 --> 00:06:04,060
+I hope you like this lecture.
+
+170
+00:06:04,060 --> 00:06:06,313
+I will see you in the next lecture for some hands on.
+

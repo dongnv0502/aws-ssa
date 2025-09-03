@@ -1,0 +1,332 @@
+1
+00:00:00,140 --> 00:00:02,240
+Okay, so let's talk about caching strategies
+
+2
+00:00:02,240 --> 00:00:04,420
+on AWS, and what they imply.
+
+3
+00:00:04,420 --> 00:00:06,860
+So this is a typical solution architecture
+
+4
+00:00:06,860 --> 00:00:08,080
+that I've just described, it could be,
+
+5
+00:00:08,080 --> 00:00:09,790
+obviously, very different for you.
+
+6
+00:00:09,790 --> 00:00:12,250
+But, we have something that we know of.
+
+7
+00:00:12,250 --> 00:00:15,089
+So we have CloudFront in front of an API Gateway,
+
+8
+00:00:15,089 --> 00:00:17,100
+which is in front of our application logic,
+
+9
+00:00:17,100 --> 00:00:18,713
+could be EC2, could be Lambda.
+
+10
+00:00:18,713 --> 00:00:22,020
+Our application stores and uses data from the database,
+
+11
+00:00:22,020 --> 00:00:23,680
+and maybe you will use an internal cache
+
+12
+00:00:23,680 --> 00:00:25,860
+such as Redis, Memcached and DAX.
+
+13
+00:00:25,860 --> 00:00:27,600
+And then, that's where the dynamic routes,
+
+14
+00:00:27,600 --> 00:00:28,673
+or all the dynamic content.
+
+15
+00:00:28,673 --> 00:00:30,900
+And there be will an aesthetic content route,
+
+16
+00:00:30,900 --> 00:00:32,890
+in which our client goes through a CloudFront
+
+17
+00:00:32,890 --> 00:00:35,590
+and the CloudFront will source data from S3.
+
+18
+00:00:35,590 --> 00:00:37,640
+So this is something we've seen, this is not very new.
+
+19
+00:00:37,640 --> 00:00:38,760
+But what I wanna talk about
+
+20
+00:00:38,760 --> 00:00:40,860
+is all the caching strategies you have,
+
+21
+00:00:40,860 --> 00:00:42,490
+and their implication.
+
+22
+00:00:42,490 --> 00:00:44,710
+So, if we look at CloudFront,
+
+23
+00:00:44,710 --> 00:00:45,839
+these two CloudFronts right here
+
+24
+00:00:45,839 --> 00:00:47,960
+they're doing caching at the edge.
+
+25
+00:00:47,960 --> 00:00:50,440
+That means that they're doing caching as close as possible
+
+26
+00:00:50,440 --> 00:00:51,600
+to our users.
+
+27
+00:00:51,600 --> 00:00:53,687
+So that means that if we enable caching in CloudFront,
+
+28
+00:00:53,687 --> 00:00:57,350
+and the users do hit the cache, then they get a response
+
+29
+00:00:57,350 --> 00:00:59,380
+right away, it's very very quick.
+
+30
+00:00:59,380 --> 00:01:01,260
+But because it's at the edge, there is a chance
+
+31
+00:01:01,260 --> 00:01:03,120
+that things have changed in the back end,
+
+32
+00:01:03,120 --> 00:01:05,410
+and obviously that the thing is outdated here.
+
+33
+00:01:05,410 --> 00:01:06,407
+So we can use a TTL to make sure
+
+34
+00:01:06,407 --> 00:01:09,290
+the cache is often very renewed,
+
+35
+00:01:09,290 --> 00:01:11,590
+and the new stuff is picked up from backend.
+
+36
+00:01:11,590 --> 00:01:13,380
+And so we have a balancing act to do between
+
+37
+00:01:13,380 --> 00:01:15,260
+how much more to cache at the edge,
+
+38
+00:01:15,260 --> 00:01:18,130
+versus how much we want to cache in the app logic.
+
+39
+00:01:18,130 --> 00:01:20,547
+Okay, next, we go to API gateway.
+
+40
+00:01:20,547 --> 00:01:23,280
+And API gateway also has some caching capabilities,
+
+41
+00:01:23,280 --> 00:01:25,280
+so it doesn't have to be used with CloudFront.
+
+42
+00:01:25,280 --> 00:01:27,252
+And so the API gateway is a regional service
+
+43
+00:01:27,252 --> 00:01:30,225
+and so in case we do use the cache at the API gateway,
+
+44
+00:01:30,225 --> 00:01:32,350
+then the cache will be regional.
+
+45
+00:01:32,350 --> 00:01:34,590
+So that means that where there's going to be network lying
+
+46
+00:01:34,590 --> 00:01:36,193
+between the clients and the API gateway,
+
+47
+00:01:36,193 --> 00:01:38,574
+if the cache is hit here.
+
+48
+00:01:38,574 --> 00:01:40,530
+Then we have our app logic.
+
+49
+00:01:40,530 --> 00:01:42,840
+And our app logic usually doesn't do any caching,
+
+50
+00:01:42,840 --> 00:01:45,350
+but it will do caching in a cache that we could use
+
+51
+00:01:45,350 --> 00:01:48,937
+such as Redis, Memcached, or DAX if we have DynamoDB.
+
+52
+00:01:48,937 --> 00:01:51,750
+And the idea here is that we don't want to repeatedly hit
+
+53
+00:01:51,750 --> 00:01:54,600
+our database, which does not have any caching capability.
+
+54
+00:01:54,600 --> 00:01:56,700
+We want to make sure that the frequent queries
+
+55
+00:01:56,700 --> 00:01:59,080
+or the complex queries, the result is stored into
+
+56
+00:01:59,080 --> 00:02:01,090
+a shared cache that can be accessed
+
+57
+00:02:01,090 --> 00:02:02,880
+by your app logic more easily.
+
+58
+00:02:02,880 --> 00:02:05,650
+And so here, we are saving by using caching here.
+
+59
+00:02:05,650 --> 00:02:08,169
+We are saving pressure on our database,
+
+60
+00:02:08,169 --> 00:02:10,560
+and we are augmenting the read capacity.
+
+61
+00:02:10,560 --> 00:02:11,470
+Finally, I want you to notice that
+
+62
+00:02:11,470 --> 00:02:14,210
+there is no caching capability in your database
+
+63
+00:02:14,210 --> 00:02:15,840
+in Amazon S3 and so on.
+
+64
+00:02:15,840 --> 00:02:19,210
+And so, as we move along this line of caching,
+
+65
+00:02:19,210 --> 00:02:22,340
+the more we move alongside, the more there's gonna be
+
+66
+00:02:22,340 --> 00:02:25,140
+a computation to cost and it's gonna be a latency.
+
+67
+00:02:25,140 --> 00:02:27,910
+So it's really up to you, there's no right way
+
+68
+00:02:27,910 --> 00:02:29,000
+or wrong way of doing caching.
+
+69
+00:02:29,000 --> 00:02:31,150
+It's all up to what you want to achieve
+
+70
+00:02:31,150 --> 00:02:32,850
+and how you want to set up your application
+
+71
+00:02:32,850 --> 00:02:34,320
+to achieve that behavior.
+
+72
+00:02:34,320 --> 00:02:36,960
+So it's all about choosing where do we want to cache content
+
+73
+00:02:36,960 --> 00:02:38,760
+how do we want to cache content,
+
+74
+00:02:38,760 --> 00:02:40,720
+how long do we want to cache content,
+
+75
+00:02:40,720 --> 00:02:42,100
+and then, are we okay with some latency,
+
+76
+00:02:42,100 --> 00:02:45,920
+and which content actually do we want to be cached?
+
+77
+00:02:45,920 --> 00:02:49,330
+So, this lecture again is not a "you should do this",
+
+78
+00:02:49,330 --> 00:02:51,160
+it's just to hopefully show you that
+
+79
+00:02:51,160 --> 00:02:53,765
+there's a lot of different ways to do caching on AWS,
+
+80
+00:02:53,765 --> 00:02:55,970
+and it really depends on what the scenario is
+
+81
+00:02:55,970 --> 00:02:57,640
+to figure out where the caching
+
+82
+00:02:57,640 --> 00:03:00,440
+is going to be most appropriate and most efficient.
+
+83
+00:03:00,440 --> 00:03:03,040
+Okay, that's it, I will see you in the next lecture.
+

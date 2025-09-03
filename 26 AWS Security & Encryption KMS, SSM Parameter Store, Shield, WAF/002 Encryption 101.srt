@@ -1,0 +1,404 @@
+1
+00:00:00,560 --> 00:00:01,620
+Okay, so in this lecture,
+
+2
+00:00:01,620 --> 00:00:03,680
+if you're not too familiar with how encryption works,
+
+3
+00:00:03,680 --> 00:00:05,480
+I want to give you a little bit of details
+
+4
+00:00:05,480 --> 00:00:06,550
+on how it works at a high level.
+
+5
+00:00:06,550 --> 00:00:10,210
+So, first let's talk about encryption in flight,
+
+6
+00:00:10,210 --> 00:00:13,990
+which is going to be referred as TLS or SSL.
+
+7
+00:00:13,990 --> 00:00:15,700
+TLS is the newest version of SSL.
+
+8
+00:00:15,700 --> 00:00:19,100
+So what we have is that the data is going to be encrypted
+
+9
+00:00:19,100 --> 00:00:21,300
+before sending the data.
+
+10
+00:00:21,300 --> 00:00:23,750
+And then it will be decrypted after receiving it.
+
+11
+00:00:23,750 --> 00:00:24,950
+So this is for communication
+
+12
+00:00:24,950 --> 00:00:28,050
+between a client and a server over a network.
+
+13
+00:00:28,050 --> 00:00:29,630
+And so what's going to be happening
+
+14
+00:00:29,630 --> 00:00:31,420
+is that for encrypting the data
+
+15
+00:00:31,420 --> 00:00:33,690
+TLS certificates are going to be used.
+
+16
+00:00:33,690 --> 00:00:36,020
+And this is what you see when you go onto websites
+
+17
+00:00:36,020 --> 00:00:38,450
+and it says HTTPS, that means that the connection
+
+18
+00:00:38,450 --> 00:00:39,530
+between you and the server
+
+19
+00:00:39,530 --> 00:00:42,180
+is going to be encrypted using TLS certificates.
+
+20
+00:00:42,180 --> 00:00:43,870
+Why do we want encryption in flight?
+
+21
+00:00:43,870 --> 00:00:46,380
+Well, because we're sending data over a network
+
+22
+00:00:46,380 --> 00:00:47,817
+and sometimes a public network
+
+23
+00:00:47,817 --> 00:00:50,830
+and the data goes around many different servers.
+
+24
+00:00:50,830 --> 00:00:54,210
+We don't want to be having a man in the middle attacks
+
+25
+00:00:54,210 --> 00:00:57,070
+where a middle server receives the data
+
+26
+00:00:57,070 --> 00:01:01,321
+and just observes the packages we're sending to the server.
+
+27
+00:01:01,321 --> 00:01:04,890
+And so what we want to have HTTPS or TLS, or SSL,
+
+28
+00:01:04,890 --> 00:01:07,750
+this is when we know that only the target server
+
+29
+00:01:07,750 --> 00:01:10,260
+can decrypt the encrypted data we're sending.
+
+30
+00:01:10,260 --> 00:01:11,210
+So let's take an example.
+
+31
+00:01:11,210 --> 00:01:12,980
+We have a client and a server
+
+32
+00:01:12,980 --> 00:01:15,040
+and we want to be able to securely login
+
+33
+00:01:15,040 --> 00:01:18,970
+into the server by providing our username and password.
+
+34
+00:01:18,970 --> 00:01:22,200
+But we only want the target server to be able to receive it.
+
+35
+00:01:22,200 --> 00:01:24,650
+So we're going to have the username and password
+
+36
+00:01:24,650 --> 00:01:27,020
+and then we're going to apply TLS encryption
+
+37
+00:01:27,020 --> 00:01:29,090
+on the client side automatically.
+
+38
+00:01:29,090 --> 00:01:31,810
+The data is going to be encrypted and sent over the network.
+
+39
+00:01:31,810 --> 00:01:35,280
+So as you can see, no between server can decrypt the data
+
+40
+00:01:35,280 --> 00:01:37,160
+and only the target server
+
+41
+00:01:37,160 --> 00:01:40,250
+can use the TLS decryption mechanism
+
+42
+00:01:40,250 --> 00:01:42,000
+to decrypt that package
+
+43
+00:01:42,000 --> 00:01:45,110
+and then see that we've sent the username and password.
+
+44
+00:01:45,110 --> 00:01:47,580
+And therefore say that we're securely logged in.
+
+45
+00:01:47,580 --> 00:01:49,550
+So that's for encryption in flight.
+
+46
+00:01:49,550 --> 00:01:52,940
+The next one is around the server side encryption at rest.
+
+47
+00:01:52,940 --> 00:01:55,270
+The idea is that the data will be encrypted
+
+48
+00:01:55,270 --> 00:01:57,310
+after being received by the server
+
+49
+00:01:57,310 --> 00:01:59,240
+so that it's stored securely.
+
+50
+00:01:59,240 --> 00:02:00,360
+And then it will be decrypted
+
+51
+00:02:00,360 --> 00:02:02,600
+before being sent back to our clients.
+
+52
+00:02:02,600 --> 00:02:04,480
+It will be stored in an encrypted form
+
+53
+00:02:04,480 --> 00:02:07,550
+thanks to a key, and that key is usually a data key.
+
+54
+00:02:07,550 --> 00:02:09,729
+And so the whole idea of managing these keys
+
+55
+00:02:09,729 --> 00:02:11,290
+for encryption and decryption
+
+56
+00:02:11,290 --> 00:02:12,880
+is that the management must happen somewhere
+
+57
+00:02:12,880 --> 00:02:15,750
+and the server must have access to these keys.
+
+58
+00:02:15,750 --> 00:02:16,640
+So let's take a service,
+
+59
+00:02:16,640 --> 00:02:18,100
+for example, Amazon S3.
+
+60
+00:02:18,100 --> 00:02:20,550
+We're sending an object over HTTP,
+
+61
+00:02:20,550 --> 00:02:23,370
+maybe even HTTPS for inflight encryption.
+
+62
+00:02:23,370 --> 00:02:27,720
+And so the service receives our object, but it is decrypted.
+
+63
+00:02:27,720 --> 00:02:30,360
+So the service can use a data key,
+
+64
+00:02:30,360 --> 00:02:32,900
+and using the data key and the decrypted objects,
+
+65
+00:02:32,900 --> 00:02:36,240
+we can have encryption of that object at rest.
+
+66
+00:02:36,240 --> 00:02:39,220
+And then when it comes to sending back that object
+
+67
+00:02:39,220 --> 00:02:42,140
+to the clients, the encrypted objects and the data key
+
+68
+00:02:42,140 --> 00:02:44,420
+will be used together to decrypt.
+
+69
+00:02:44,420 --> 00:02:46,530
+We'll have a decrypted form of object,
+
+70
+00:02:46,530 --> 00:02:49,440
+and then that object will be sent over HTTPS
+
+71
+00:02:49,440 --> 00:02:50,580
+back to the clients.
+
+72
+00:02:50,580 --> 00:02:52,710
+So we received the decrypted object as is.
+
+73
+00:02:52,710 --> 00:02:54,130
+As we can see in this case,
+
+74
+00:02:54,130 --> 00:02:55,700
+there is a server side encryption
+
+75
+00:02:55,700 --> 00:02:57,810
+because all the encryption and decryption
+
+76
+00:02:57,810 --> 00:03:00,320
+happens on the server.
+
+77
+00:03:00,320 --> 00:03:03,280
+So finally let's talk about client-side encryption.
+
+78
+00:03:03,280 --> 00:03:04,690
+And the idea is that this time
+
+79
+00:03:04,690 --> 00:03:08,750
+the data is encrypted and decrypted at the client side.
+
+80
+00:03:08,750 --> 00:03:11,840
+And the server should never be able to decrypt the data
+
+81
+00:03:11,840 --> 00:03:14,390
+because we don't trust a server in that case.
+
+82
+00:03:14,390 --> 00:03:16,340
+So for this, we could leverage encryption
+
+83
+00:03:16,340 --> 00:03:17,180
+for this mechanism.
+
+84
+00:03:17,180 --> 00:03:18,460
+So let's have an example.
+
+85
+00:03:18,460 --> 00:03:20,320
+The client has an object
+
+86
+00:03:20,320 --> 00:03:22,670
+and the data key this time is client side.
+
+87
+00:03:22,670 --> 00:03:25,920
+And after encryption, we get an encrypted object.
+
+88
+00:03:25,920 --> 00:03:28,800
+That encrypted object can be sent then securely
+
+89
+00:03:28,800 --> 00:03:31,000
+to any storage service available, an FTP server,
+
+90
+00:03:31,000 --> 00:03:32,703
+Amazon S3, EBS volumes, et cetera.
+
+91
+00:03:33,606 --> 00:03:35,380
+And they will be stored in encrypted form.
+
+92
+00:03:35,380 --> 00:03:39,110
+So the entire server can not even decrypt the data contents.
+
+93
+00:03:39,110 --> 00:03:40,620
+When we retrieve the contents,
+
+94
+00:03:40,620 --> 00:03:43,340
+we retrieve the encrypted object directly.
+
+95
+00:03:43,340 --> 00:03:46,260
+And if we still have access to the data key client-site,
+
+96
+00:03:46,260 --> 00:03:49,240
+then we're able to perform the decryption mechanism
+
+97
+00:03:49,240 --> 00:03:52,000
+and get the decrypted objects back.
+
+98
+00:03:52,000 --> 00:03:54,560
+So that's it for the three encryption mechanisms
+
+99
+00:03:54,560 --> 00:03:56,710
+we can see in the Cloud.
+
+100
+00:03:56,710 --> 00:03:57,543
+I hope you liked it.
+
+101
+00:03:57,543 --> 00:03:59,440
+And I will see you in the next lecture.
+

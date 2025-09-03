@@ -1,0 +1,528 @@
+1
+00:00:00,150 --> 00:00:00,983
+So let's practice
+
+2
+00:00:00,983 --> 00:00:03,180
+elastic technical interfaces,
+
+3
+00:00:03,180 --> 00:00:05,510
+and to do so let's go ahead and launch two instances.
+
+4
+00:00:05,510 --> 00:00:07,190
+So I can just scroll down,
+
+5
+00:00:07,190 --> 00:00:08,850
+Amazon Linux 2, t.2.micro.
+
+6
+00:00:08,850 --> 00:00:11,600
+I'll just choose whatever key pair, doesn't matter.
+
+7
+00:00:11,600 --> 00:00:12,433
+For network settings,
+
+8
+00:00:12,433 --> 00:00:15,626
+I will just use an existing security group
+
+9
+00:00:15,626 --> 00:00:17,126
+which is my launch wizard one.
+
+10
+00:00:17,982 --> 00:00:18,815
+This is great.
+
+11
+00:00:18,815 --> 00:00:21,500
+And then I will launch two instances in here,
+
+12
+00:00:21,500 --> 00:00:24,340
+and then click on launch instances.
+
+13
+00:00:24,340 --> 00:00:27,470
+So what I wanna show you is that from these instances
+
+14
+00:00:27,470 --> 00:00:31,440
+we're going to get these two, and under networking,
+
+15
+00:00:31,440 --> 00:00:32,363
+if we scroll down,
+
+16
+00:00:33,220 --> 00:00:36,341
+we're going to look at the network interfaces.
+
+17
+00:00:36,341 --> 00:00:38,141
+So each of these instances
+
+18
+00:00:38,141 --> 00:00:39,410
+is going to have one network interface,
+
+19
+00:00:39,410 --> 00:00:40,910
+and we have an interface ID.
+
+20
+00:00:40,910 --> 00:00:43,490
+So there's an ENI and an ID right here.
+
+21
+00:00:43,490 --> 00:00:46,970
+And each interface contains a public IPv4,
+
+22
+00:00:46,970 --> 00:00:50,510
+a private IPv4 and a private IPv4 DNS.
+
+23
+00:00:50,510 --> 00:00:52,150
+So as we can see,
+
+24
+00:00:52,150 --> 00:00:53,960
+if we go on the left hand side,
+
+25
+00:00:53,960 --> 00:00:55,090
+so on the two instances,
+
+26
+00:00:55,090 --> 00:00:57,710
+we're gonna have two different network interfaces.
+
+27
+00:00:57,710 --> 00:00:59,310
+And if you go on the left hand side,
+
+28
+00:00:59,310 --> 00:01:01,460
+under network and security,
+
+29
+00:01:01,460 --> 00:01:04,810
+we're also going to have the network interfaces.
+
+30
+00:01:04,810 --> 00:01:07,060
+So here we can find the two ENIs,
+
+31
+00:01:07,060 --> 00:01:08,810
+one of each is going to be attached
+
+32
+00:01:08,810 --> 00:01:10,320
+to our EC2 instances,
+
+33
+00:01:10,320 --> 00:01:13,120
+and we can know it by going to the right hand side,
+
+34
+00:01:13,120 --> 00:01:14,750
+and the status is in-use,
+
+35
+00:01:14,750 --> 00:01:16,310
+and we can see that they are linked
+
+36
+00:01:16,310 --> 00:01:18,263
+to different instance IDs.
+
+37
+00:01:19,621 --> 00:01:21,160
+The one thing we can do
+
+38
+00:01:21,160 --> 00:01:23,860
+is that we can create a new network interface.
+
+39
+00:01:23,860 --> 00:01:28,228
+So in this instance, we can give our description.
+
+40
+00:01:28,228 --> 00:01:29,630
+So demo ENI.
+
+41
+00:01:29,630 --> 00:01:32,490
+We can to select a subnet for our ENI to be in.
+
+42
+00:01:32,490 --> 00:01:34,480
+So it is linked to a specific AZ,
+
+43
+00:01:34,480 --> 00:01:35,990
+and I will choose the AZ
+
+44
+00:01:35,990 --> 00:01:38,452
+my EC2 instances are in,
+
+45
+00:01:38,452 --> 00:01:39,880
+so us-east-2a.
+
+46
+00:01:39,880 --> 00:01:43,870
+So let's choose, not this one, this one.
+
+47
+00:01:43,870 --> 00:01:47,342
+Then we want to auto assign a private IPv4,
+
+48
+00:01:47,342 --> 00:01:48,480
+but we could also customize and say,
+
+49
+00:01:48,480 --> 00:01:50,910
+which IPv4 we want within the subnets,
+
+50
+00:01:50,910 --> 00:01:53,170
+so we'll use auto assign.
+
+51
+00:01:53,170 --> 00:01:55,560
+And then we can attach a security group to our ENI.
+
+52
+00:01:55,560 --> 00:02:00,560
+So here we go and then create this network interface.
+
+53
+00:02:00,620 --> 00:02:03,080
+So now we have created a new network interface
+
+54
+00:02:03,080 --> 00:02:06,900
+and it is right here, the demo ENI, and it is available.
+
+55
+00:02:06,900 --> 00:02:10,320
+So as we can see right now, we have created basically
+
+56
+00:02:10,320 --> 00:02:12,693
+a secondary private IPv4.
+
+57
+00:02:13,618 --> 00:02:16,250
+And what we can do is that we can attach this
+
+58
+00:02:16,250 --> 00:02:18,590
+to our instance so we can do action,
+
+59
+00:02:18,590 --> 00:02:21,760
+attach and choose an instance to attach it to.
+
+60
+00:02:21,760 --> 00:02:24,323
+So I'll choose this one and attach it.
+
+61
+00:02:27,420 --> 00:02:31,420
+And now if we go to our instance and refresh,
+
+62
+00:02:31,420 --> 00:02:35,390
+let's go back to our instances and refresh.
+
+63
+00:02:35,390 --> 00:02:38,300
+So we'll go into networking and scroll down.
+
+64
+00:02:38,300 --> 00:02:39,800
+So this one, I got lucky.
+
+65
+00:02:39,800 --> 00:02:43,050
+This one has two network interfaces.
+
+66
+00:02:43,050 --> 00:02:44,750
+And one of them was the primary one,
+
+67
+00:02:44,750 --> 00:02:48,100
+which gives us a public IPv4 and a private IPv4.
+
+68
+00:02:48,100 --> 00:02:53,100
+And this demo ENI gives us a secondary, private IPv4.
+
+69
+00:02:53,570 --> 00:02:55,010
+So why would you do this?
+
+70
+00:02:55,010 --> 00:02:57,550
+Well, this ENI we have control over,
+
+71
+00:02:57,550 --> 00:02:59,190
+so we could take it,
+
+72
+00:02:59,190 --> 00:03:00,320
+and we could actually move it
+
+73
+00:03:00,320 --> 00:03:02,300
+from one EC2 instance to another,
+
+74
+00:03:02,300 --> 00:03:05,065
+imagining that the two EC2 instances
+
+75
+00:03:05,065 --> 00:03:05,960
+are running the same application
+
+76
+00:03:05,960 --> 00:03:08,520
+and we want to access them using the private IPv4.
+
+77
+00:03:08,520 --> 00:03:10,340
+Then we can move the ENI over.
+
+78
+00:03:10,340 --> 00:03:11,900
+And the reason for doing so
+
+79
+00:03:11,900 --> 00:03:15,260
+is that we can do a very quick and easy network failover
+
+80
+00:03:15,260 --> 00:03:18,770
+between the two instances by moving an ENI,
+
+81
+00:03:18,770 --> 00:03:22,621
+because we can attach an IPv4 from one instance to another.
+
+82
+00:03:22,621 --> 00:03:25,490
+So let's do a demo of that. So I'm going to take this ENI.
+
+83
+00:03:25,490 --> 00:03:27,440
+I'm going to detach it.
+
+84
+00:03:27,440 --> 00:03:29,280
+Yes, detach.
+
+85
+00:03:29,280 --> 00:03:33,560
+And then once it's going to be detached in a few seconds
+
+86
+00:03:33,560 --> 00:03:37,560
+we can reattach it to the other instance,
+
+87
+00:03:37,560 --> 00:03:39,240
+and to do so, by the way,
+
+88
+00:03:39,240 --> 00:03:41,380
+maybe it's going to be an issue to detach it like this.
+
+89
+00:03:41,380 --> 00:03:43,460
+So what I can do is just click on it,
+
+90
+00:03:43,460 --> 00:03:46,660
+and to action detach with a force detach.
+
+91
+00:03:46,660 --> 00:03:48,013
+So here we go.
+
+92
+00:03:50,810 --> 00:03:54,410
+So after refresh, all the error messages are gone.
+
+93
+00:03:54,410 --> 00:03:56,380
+We can do action, attach,
+
+94
+00:03:56,380 --> 00:03:59,293
+and then we can choose the other instance to attach it to,
+
+95
+00:04:00,136 --> 00:04:01,240
+so then make sure yes, that's the other one.
+
+96
+00:04:01,240 --> 00:04:04,420
+So I'm going to attach it to the other instance
+
+97
+00:04:04,420 --> 00:04:05,500
+and now it's being attached.
+
+98
+00:04:05,500 --> 00:04:08,160
+And so, as we can see now, if I refresh this,
+
+99
+00:04:08,160 --> 00:04:11,950
+from two network interfaces, there's going to be only one.
+
+100
+00:04:11,950 --> 00:04:14,590
+And the other instance now has two network interfaces.
+
+101
+00:04:14,590 --> 00:04:17,380
+And this demo ENI I has moved to my other instance,
+
+102
+00:04:17,380 --> 00:04:20,329
+so we can see how we could do some failover
+
+103
+00:04:20,329 --> 00:04:21,740
+between the instances with the ENI,
+
+104
+00:04:21,740 --> 00:04:23,150
+which I think is really, really cool,
+
+105
+00:04:23,150 --> 00:04:24,230
+but it is advanced, okay.
+
+106
+00:04:24,230 --> 00:04:27,110
+And that's something you have to practice on your own.
+
+107
+00:04:27,110 --> 00:04:31,060
+So finally, if we go ahead and terminate these instances,
+
+108
+00:04:31,060 --> 00:04:33,333
+so let's terminate them and see what happens.
+
+109
+00:04:35,680 --> 00:04:37,130
+So they're shutting down,
+
+110
+00:04:37,130 --> 00:04:39,610
+and now from the ENIs, what do you think is going to happen?
+
+111
+00:04:39,610 --> 00:04:40,970
+So we have three ENI right now,
+
+112
+00:04:40,970 --> 00:04:42,713
+two were created alongside my EC2 instances,
+
+113
+00:04:42,713 --> 00:04:44,163
+and one was created manually.
+
+114
+00:04:45,680 --> 00:04:46,670
+Well, maybe you guess right?
+
+115
+00:04:46,670 --> 00:04:48,636
+So what's going to happen is
+
+116
+00:04:48,636 --> 00:04:51,420
+that my ENI that was created manually is going to stay.
+
+117
+00:04:51,420 --> 00:04:52,720
+Whereas the two ENIs
+
+118
+00:04:52,720 --> 00:04:54,770
+that were created alongside the instances
+
+119
+00:04:54,770 --> 00:04:57,120
+are going to be automatically deleted.
+
+120
+00:04:57,120 --> 00:04:59,570
+So by creating your own ENIs,
+
+121
+00:04:59,570 --> 00:05:02,170
+you have more control over your private IPv4s,
+
+122
+00:05:02,170 --> 00:05:04,240
+and more control over your networking.
+
+123
+00:05:04,240 --> 00:05:05,690
+And that could be a helpful
+
+124
+00:05:05,690 --> 00:05:07,683
+in some type of advanced use cases.
+
+125
+00:05:08,590 --> 00:05:09,950
+So we can see when ENI is gone
+
+126
+00:05:09,950 --> 00:05:13,850
+and the other one should be gone very soon.
+
+127
+00:05:13,850 --> 00:05:15,100
+So that's it for this hands-on.
+
+128
+00:05:15,100 --> 00:05:17,230
+You can leave the ENI on if you want,
+
+129
+00:05:17,230 --> 00:05:19,360
+or you can can delete it. It will not cost you any money.
+
+130
+00:05:19,360 --> 00:05:20,290
+So that's it for this hands-on.
+
+131
+00:05:20,290 --> 00:05:21,210
+I hope you liked it.
+
+132
+00:05:21,210 --> 00:05:23,160
+And I will see you in the next lecture.
+

@@ -1,0 +1,284 @@
+1
+00:00:00,490 --> 00:00:01,323
+Okay.
+
+2
+00:00:01,323 --> 00:00:02,469
+So it's very important that you understand
+
+3
+00:00:02,469 --> 00:00:06,630
+the difference between SQS, SNS and Kinesis.
+
+4
+00:00:06,630 --> 00:00:09,880
+So SQS has a model where consumers pull data
+
+5
+00:00:09,880 --> 00:00:13,730
+by requesting messages from the SQSQ.
+
+6
+00:00:13,730 --> 00:00:15,870
+And once the data is processed
+
+7
+00:00:15,870 --> 00:00:18,310
+then the consumer has to delete it from the queue
+
+8
+00:00:18,310 --> 00:00:21,460
+so that's no other consumers can read it ever again.
+
+9
+00:00:21,460 --> 00:00:23,510
+You can have as many workers as you want.
+
+10
+00:00:23,510 --> 00:00:24,710
+So as many consumers as you want
+
+11
+00:00:24,710 --> 00:00:27,210
+and they all work together to consume
+
+12
+00:00:27,210 --> 00:00:29,420
+and delete all the messages from the queue.
+
+13
+00:00:29,420 --> 00:00:31,240
+You don't need to provision throughput in advance
+
+14
+00:00:31,240 --> 00:00:32,780
+because it is a managed service
+
+15
+00:00:32,780 --> 00:00:35,160
+and it can scale to hundreds of thousands
+
+16
+00:00:35,160 --> 00:00:37,290
+of messages very quickly.
+
+17
+00:00:37,290 --> 00:00:39,670
+The ordering guarantees are only available
+
+18
+00:00:39,670 --> 00:00:40,880
+if you enable FIFO queues.
+
+19
+00:00:40,880 --> 00:00:43,100
+So first it in first out type of queues.
+
+20
+00:00:43,100 --> 00:00:46,120
+And you also have individual message delay capability
+
+21
+00:00:46,120 --> 00:00:49,690
+if you want a message to appear to a consumer in the queue
+
+22
+00:00:49,690 --> 00:00:52,840
+after a certain amount of time, for example, 30 seconds.
+
+23
+00:00:52,840 --> 00:00:55,140
+When you look at SNS, this is a different model.
+
+24
+00:00:55,140 --> 00:00:56,200
+This is a pup sub model.
+
+25
+00:00:56,200 --> 00:00:58,710
+So you push data to many subscribers
+
+26
+00:00:58,710 --> 00:01:00,980
+and they will all receive a copy
+
+27
+00:01:00,980 --> 00:01:02,760
+of the message you're sending.
+
+28
+00:01:02,760 --> 00:01:07,760
+You can get up to 12,500,000 subscribers per SNS topic.
+
+29
+00:01:07,960 --> 00:01:11,570
+And once the data is sent to SNS, it is not persistent.
+
+30
+00:01:11,570 --> 00:01:13,780
+That means that if it is not delivered
+
+31
+00:01:13,780 --> 00:01:15,910
+you have a chance of losing it.
+
+32
+00:01:15,910 --> 00:01:16,810
+So it's a pub, as I said
+
+33
+00:01:16,810 --> 00:01:20,180
+and you can scale to hundreds of thousands of topics.
+
+34
+00:01:20,180 --> 00:01:22,350
+You don't need to provision throughput as well.
+
+35
+00:01:22,350 --> 00:01:26,120
+And if you want to combine it with SQS, you can.
+
+36
+00:01:26,120 --> 00:01:28,550
+So using the fan out architecture pattern
+
+37
+00:01:28,550 --> 00:01:31,890
+you can combine SNS with SQS
+
+38
+00:01:31,890 --> 00:01:36,890
+or you can combine SNS FIFO topics with SQS FIFO queues.
+
+39
+00:01:37,560 --> 00:01:38,710
+Okay.
+
+40
+00:01:38,710 --> 00:01:42,040
+Now finally, Kinesis has two modes of consumption.
+
+41
+00:01:42,040 --> 00:01:43,380
+You have the standard mode
+
+42
+00:01:43,380 --> 00:01:46,770
+where consumers pull data from Kinesis.
+
+43
+00:01:46,770 --> 00:01:50,080
+In which case you get two megabytes per second, per shard
+
+44
+00:01:50,080 --> 00:01:52,280
+or if you have enhanced fan out type
+
+45
+00:01:52,280 --> 00:01:57,120
+of consumption mechanism, you have Kinesis, sorry,
+
+46
+00:01:57,120 --> 00:01:59,640
+that pushes data into your consumers.
+
+47
+00:01:59,640 --> 00:02:03,140
+In which case you get two megabytes per second, per shard
+
+48
+00:02:03,140 --> 00:02:06,147
+per consumer, which gives you a much higher throughput
+
+49
+00:02:06,147 --> 00:02:08,460
+and the ability to have much more applications reading
+
+50
+00:02:08,460 --> 00:02:11,170
+from your Kinesis stream.
+
+51
+00:02:11,170 --> 00:02:12,640
+You have the possibility to reply data
+
+52
+00:02:12,640 --> 00:02:15,510
+because the data is persisted with new Kinesis data stream.
+
+53
+00:02:15,510 --> 00:02:18,620
+And so Kinesis is going to be used for real time big data,
+
+54
+00:02:18,620 --> 00:02:20,660
+analytics and ETL.
+
+55
+00:02:20,660 --> 00:02:23,030
+You will get ordering at the shard level
+
+56
+00:02:23,030 --> 00:02:25,320
+and you have to specify how many shards you want
+
+57
+00:02:25,320 --> 00:02:27,360
+per Kinesis data stream in advance.
+
+58
+00:02:27,360 --> 00:02:30,530
+So you need to scale the shard yourself
+
+59
+00:02:30,530 --> 00:02:33,140
+and the data will expire after X days.
+
+60
+00:02:33,140 --> 00:02:34,200
+And at the time of recording
+
+61
+00:02:34,200 --> 00:02:38,740
+this is between one and 365 days of data retention.
+
+62
+00:02:38,740 --> 00:02:40,320
+In terms of capacity mode,
+
+63
+00:02:40,320 --> 00:02:42,420
+we have two modes, the provision mode
+
+64
+00:02:42,420 --> 00:02:45,700
+in which we specify in advance the amount of shards we want
+
+65
+00:02:45,700 --> 00:02:49,290
+for Kinesis streams or the on-demand capacity mode,
+
+66
+00:02:49,290 --> 00:02:51,630
+where the number of shard is adjusted
+
+67
+00:02:51,630 --> 00:02:54,530
+by Kinesis streams directly for us.
+
+68
+00:02:54,530 --> 00:02:55,363
+Okay.
+
+69
+00:02:55,363 --> 00:02:57,430
+So that's it for this summer lecture.
+
+70
+00:02:57,430 --> 00:02:58,263
+I hope you liked it.
+
+71
+00:02:58,263 --> 00:03:00,210
+And I will see you in the next lecture.
+

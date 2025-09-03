@@ -1,0 +1,496 @@
+1
+00:00:00,000 --> 00:00:03,660
+So, we have to talk about the S3 Baseline performance.
+
+2
+00:00:03,660 --> 00:00:06,600
+So, by default, Amazon S3 automatically scales
+
+3
+00:00:06,600 --> 00:00:09,180
+to a very, very high number of requests,
+
+4
+00:00:09,180 --> 00:00:13,050
+and has a very, very low S3 between 100 and 200 milliseconds
+
+5
+00:00:13,050 --> 00:00:15,300
+to get the first byte out of S3.
+
+6
+00:00:15,300 --> 00:00:16,920
+So, this is quite fast.
+
+7
+00:00:16,920 --> 00:00:19,590
+And in terms of how many requests per second you can get,
+
+8
+00:00:19,590 --> 00:00:22,440
+you can get 3,500 PUT/COPY/POST/DELETE,
+
+9
+00:00:22,440 --> 00:00:24,150
+per second, per prefix,
+
+10
+00:00:24,150 --> 00:00:27,540
+and 5,500 GET/HEAD requests
+
+11
+00:00:27,540 --> 00:00:29,430
+per second per prefix in the buckets.
+
+12
+00:00:29,430 --> 00:00:30,930
+So, this is something you can get on the website
+
+13
+00:00:30,930 --> 00:00:32,070
+and I think it's not very clear,
+
+14
+00:00:32,070 --> 00:00:35,490
+so I'll explain to you what per second per prefix means.
+
+15
+00:00:35,490 --> 00:00:36,660
+But what that means in viral is
+
+16
+00:00:36,660 --> 00:00:39,330
+that it's really, really high performance and,
+
+17
+00:00:39,330 --> 00:00:43,200
+there's no limits to the number of prefixes in your bucket.
+
+18
+00:00:43,200 --> 00:00:46,890
+So, let's take an example of four objects named file,
+
+19
+00:00:46,890 --> 00:00:49,770
+and let's analyze the prefix for that object.
+
+20
+00:00:49,770 --> 00:00:51,840
+The first one is in your bucket,
+
+21
+00:00:51,840 --> 00:00:55,170
+in folder one, sub folder one slash file.
+
+22
+00:00:55,170 --> 00:00:58,020
+In this case, the prefix is going to be anything
+
+23
+00:00:58,020 --> 00:01:00,420
+between the bucket and the file.
+
+24
+00:01:00,420 --> 00:01:03,990
+So, in this case it is slash folder one, slash sub one.
+
+25
+00:01:03,990 --> 00:01:07,020
+So, that means that for this file in this prefix,
+
+26
+00:01:07,020 --> 00:01:11,910
+you can get 3,500 Puts and 5,500 Gets per second.
+
+27
+00:01:11,910 --> 00:01:15,840
+Now, if we have another folder one and then sub two,
+
+28
+00:01:15,840 --> 00:01:18,990
+the prefix is anything between buckets and file,
+
+29
+00:01:18,990 --> 00:01:21,120
+so slash folder one slash sub two,
+
+30
+00:01:21,120 --> 00:01:24,720
+and so we get also 3,500 Puts and 5,500 Gets
+
+31
+00:01:24,720 --> 00:01:26,850
+for that one prefix, and so on.
+
+32
+00:01:26,850 --> 00:01:30,450
+So, if I have one and two we have different prefixes,
+
+33
+00:01:30,450 --> 00:01:33,180
+and so it's easy now to understand what a prefix is,
+
+34
+00:01:33,180 --> 00:01:36,240
+and so it's easy to understand the rule of 3,500 Puts
+
+35
+00:01:36,240 --> 00:01:39,510
+and 5,500 Gets per second per prefix in a bucket.
+
+36
+00:01:39,510 --> 00:01:41,040
+So, that means that if you spread reads
+
+37
+00:01:41,040 --> 00:01:44,070
+across all the four prefixes above evenly,
+
+38
+00:01:44,070 --> 00:01:46,620
+you can achieve 22,000 requests per second
+
+39
+00:01:46,620 --> 00:01:48,480
+for Head and Gets.
+
+40
+00:01:48,480 --> 00:01:50,100
+Now, let's talk about S3 performance,
+
+41
+00:01:50,100 --> 00:01:51,870
+how we can optimize it?
+
+42
+00:01:51,870 --> 00:01:54,270
+The first one is multi-part upload.
+
+43
+00:01:54,270 --> 00:01:56,280
+So, it is recommended to use multi-part upload
+
+44
+00:01:56,280 --> 00:01:58,470
+for files that are over 100 megabytes,
+
+45
+00:01:58,470 --> 00:02:02,190
+and it must be used for files that are over five gigabytes.
+
+46
+00:02:02,190 --> 00:02:03,690
+And what multi-part upload does is
+
+47
+00:02:03,690 --> 00:02:06,480
+that it parallelize uploads and that will help us
+
+48
+00:02:06,480 --> 00:02:09,419
+speed up the transfers to maximize the bandwidth.
+
+49
+00:02:09,419 --> 00:02:12,210
+So, as a diagram, it always makes more sense.
+
+50
+00:02:12,210 --> 00:02:13,470
+So, we have a byte file,
+
+51
+00:02:13,470 --> 00:02:15,870
+and we want to upload that file into Amazon S3.
+
+52
+00:02:15,870 --> 00:02:19,320
+We will divide it in parts, so smaller chunks of that files
+
+53
+00:02:19,320 --> 00:02:21,180
+and each of these files will be uploaded
+
+54
+00:02:21,180 --> 00:02:23,430
+in parallel to Amazon S3.
+
+55
+00:02:23,430 --> 00:02:26,250
+In Amazon S3, once all the parts have been uploaded,
+
+56
+00:02:26,250 --> 00:02:28,650
+it's smart enough to put them together
+
+57
+00:02:28,650 --> 00:02:30,780
+back into the big file.
+
+58
+00:02:30,780 --> 00:02:32,670
+Okay, very important.
+
+59
+00:02:32,670 --> 00:02:34,980
+Now, we have S3 transfer acceleration,
+
+60
+00:02:34,980 --> 00:02:37,080
+which is for upload and download
+
+61
+00:02:37,080 --> 00:02:39,300
+and it is to increase the transfer speed
+
+62
+00:02:39,300 --> 00:02:42,690
+by transferring a file to an AWS edge location,
+
+63
+00:02:42,690 --> 00:02:44,450
+which will forward the data to the S3 bucket
+
+64
+00:02:44,450 --> 00:02:46,080
+in the target region.
+
+65
+00:02:46,080 --> 00:02:47,880
+So, edge locations there are more than regions.
+
+66
+00:02:47,880 --> 00:02:50,970
+There are about over 200 edge locations today,
+
+67
+00:02:50,970 --> 00:02:52,110
+and it's growing,
+
+68
+00:02:52,110 --> 00:02:53,790
+and let me show you in the graph what that means?
+
+69
+00:02:53,790 --> 00:02:55,860
+And that's S3 transfer acceleration
+
+70
+00:02:55,860 --> 00:02:58,110
+is compatible with multi-part upload.
+
+71
+00:02:58,110 --> 00:02:59,610
+So, let's have a look.
+
+72
+00:02:59,610 --> 00:03:01,830
+We have a file in the United States of America,
+
+73
+00:03:01,830 --> 00:03:05,100
+and we want to upload it to S3 bucket in Australia.
+
+74
+00:03:05,100 --> 00:03:08,520
+So, what this will do is that we will upload that file
+
+75
+00:03:08,520 --> 00:03:10,650
+through an edge location in the United States,
+
+76
+00:03:10,650 --> 00:03:11,850
+which will be very, very quick,
+
+77
+00:03:11,850 --> 00:03:14,070
+and then we'll be using the public internet.
+
+78
+00:03:14,070 --> 00:03:15,900
+And then from that edge location
+
+79
+00:03:15,900 --> 00:03:18,300
+to the Amazon S3 bucket in Australia,
+
+80
+00:03:18,300 --> 00:03:19,800
+the edge location will transfer it
+
+81
+00:03:19,800 --> 00:03:22,440
+over the fast, private AWS network.
+
+82
+00:03:22,440 --> 00:03:24,180
+So, this is called transfer acceleration,
+
+83
+00:03:24,180 --> 00:03:27,330
+because we minimized the amount of public internet
+
+84
+00:03:27,330 --> 00:03:29,550
+that we go through and we maximized the amount
+
+85
+00:03:29,550 --> 00:03:31,950
+of private AWS network that we go through.
+
+86
+00:03:31,950 --> 00:03:33,210
+So, transfer acceleration
+
+87
+00:03:33,210 --> 00:03:35,550
+is a great way to speed up transfers.
+
+88
+00:03:35,550 --> 00:03:37,680
+Okay, now how about getting files?
+
+89
+00:03:37,680 --> 00:03:40,290
+How about reading the file in the most efficient way?
+
+90
+00:03:40,290 --> 00:03:43,740
+We have something called an S3 Byte Range Fetches,
+
+91
+00:03:43,740 --> 00:03:45,570
+and so it is to paralyze Gets,
+
+92
+00:03:45,570 --> 00:03:48,630
+by getting specific byte ranges for your files.
+
+93
+00:03:48,630 --> 00:03:50,940
+So, it's also in case you have a failure
+
+94
+00:03:50,940 --> 00:03:52,590
+to get a specific byte range,
+
+95
+00:03:52,590 --> 00:03:54,390
+then you can retry a smaller byte range
+
+96
+00:03:54,390 --> 00:03:56,520
+and you have better resilience in case of failures.
+
+97
+00:03:56,520 --> 00:03:59,280
+So, it can be used to speed up downloads this time.
+
+98
+00:03:59,280 --> 00:04:01,410
+So, let's try a file in S3, it's really, really big
+
+99
+00:04:01,410 --> 00:04:02,910
+and this is the file.
+
+100
+00:04:02,910 --> 00:04:04,440
+Maybe you want to request the first part,
+
+101
+00:04:04,440 --> 00:04:06,240
+which is the first few bytes of the file,
+
+102
+00:04:06,240 --> 00:04:09,300
+then the second part and then the end parts.
+
+103
+00:04:09,300 --> 00:04:11,130
+So, we request all these parts
+
+104
+00:04:11,130 --> 00:04:13,320
+as specific bytes range fetches,
+
+105
+00:04:13,320 --> 00:04:15,465
+that's why it's called byte range,
+
+106
+00:04:15,465 --> 00:04:17,010
+because we only request a specific range of the file.
+
+107
+00:04:17,010 --> 00:04:19,620
+And all these requests can be made in parallel.
+
+108
+00:04:19,620 --> 00:04:22,620
+So, the idea is that we can parallelize the Gets
+
+109
+00:04:22,620 --> 00:04:24,510
+and speed up the downloads.
+
+110
+00:04:24,510 --> 00:04:26,670
+The second use case is to only retrieve
+
+111
+00:04:26,670 --> 00:04:28,560
+a partial amount of the file.
+
+112
+00:04:28,560 --> 00:04:31,170
+For example, if you know that the first 50 bytes
+
+113
+00:04:31,170 --> 00:04:33,270
+of the file in S3 are a header
+
+114
+00:04:33,270 --> 00:04:35,520
+and give you some information about the file,
+
+115
+00:04:35,520 --> 00:04:37,460
+then you can just issue a header request
+
+116
+00:04:37,460 --> 00:04:39,330
+to byte range request for the headers
+
+117
+00:04:39,330 --> 00:04:41,250
+using the first say 50 bytes,
+
+118
+00:04:41,250 --> 00:04:43,950
+and you would get that information very quickly.
+
+119
+00:04:43,950 --> 00:04:45,450
+All right, so that's it for S3 performance.
+
+120
+00:04:45,450 --> 00:04:47,760
+We've seen how to speed up uploads-downloads.
+
+121
+00:04:47,760 --> 00:04:48,960
+We've seen the baseline performance
+
+122
+00:04:48,960 --> 00:04:50,250
+and we've seen the KMS limits.
+
+123
+00:04:50,250 --> 00:04:52,380
+So, make sure you know those going into the exam
+
+124
+00:04:52,380 --> 00:04:54,330
+and I will see you in the next lecture.
+

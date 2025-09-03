@@ -1,0 +1,380 @@
+1
+00:00:00,380 --> 00:00:02,300
+So let's practice using
+
+2
+00:00:02,300 --> 00:00:04,210
+the EC2 hibernate feature.
+
+3
+00:00:04,210 --> 00:00:06,290
+So let's go and launch an instance.
+
+4
+00:00:06,290 --> 00:00:08,170
+I'll choose Amazon Linux 2.
+
+5
+00:00:08,170 --> 00:00:11,270
+I'll go t2.micro, I'll select a key pair.
+
+6
+00:00:11,270 --> 00:00:12,990
+And then for network security
+
+7
+00:00:12,990 --> 00:00:16,100
+I will just use an existing security group
+
+8
+00:00:16,100 --> 00:00:20,050
+namely launch-wizard-1 and for storage,
+
+9
+00:00:20,050 --> 00:00:20,883
+for now we're good.
+
+10
+00:00:20,883 --> 00:00:23,580
+I'll show you a few things we have to set
+
+11
+00:00:23,580 --> 00:00:28,570
+but I will scroll down and then stop hibernate behavior.
+
+12
+00:00:28,570 --> 00:00:30,110
+We can enable it.
+
+13
+00:00:30,110 --> 00:00:33,490
+And this will allow us to enable hibernation
+
+14
+00:00:33,490 --> 00:00:35,360
+on our EC2 instance.
+
+15
+00:00:35,360 --> 00:00:36,680
+And there's a warning message.
+
+16
+00:00:36,680 --> 00:00:37,880
+You cannot really read it here
+
+17
+00:00:37,880 --> 00:00:40,980
+but it says that if you do enable hibernation
+
+18
+00:00:40,980 --> 00:00:43,900
+then you need to make sure that the root volume
+
+19
+00:00:43,900 --> 00:00:48,900
+has enough storage to fit the RAM of our EC2 instance.
+
+20
+00:00:50,180 --> 00:00:52,390
+And on top of it, the EBS volume,
+
+21
+00:00:52,390 --> 00:00:55,800
+the root EBS volume must be encrypted.
+
+22
+00:00:55,800 --> 00:00:57,230
+So first regarding the storage,
+
+23
+00:00:57,230 --> 00:01:00,040
+I will go to advanced, choose my EBS volume
+
+24
+00:01:00,040 --> 00:01:02,220
+and I will, yes I will encrypt it
+
+25
+00:01:02,220 --> 00:01:06,830
+and I will choose the default AWS/EBS key to encrypt it.
+
+26
+00:01:06,830 --> 00:01:09,660
+So now our EBS volume is correctly set up
+
+27
+00:01:09,660 --> 00:01:12,780
+and then we have an eight gigabytes volume.
+
+28
+00:01:12,780 --> 00:01:14,810
+And that is enough of storage
+
+29
+00:01:14,810 --> 00:01:17,900
+because if we look at this t2.micro,
+
+30
+00:01:17,900 --> 00:01:20,760
+here it says there's one gigabyte of memory of RAM.
+
+31
+00:01:20,760 --> 00:01:25,140
+So all the RAM fits onto the disk and that is good for us.
+
+32
+00:01:25,140 --> 00:01:26,380
+So we have set up everything
+
+33
+00:01:26,380 --> 00:01:29,300
+we need to enable hibernation.
+
+34
+00:01:29,300 --> 00:01:32,493
+And now what I'll do, is I will just launch my instances.
+
+35
+00:01:34,150 --> 00:01:36,680
+So our instance is now created
+
+36
+00:01:36,680 --> 00:01:40,270
+and we have enabled hibernation as a specific star behavior.
+
+37
+00:01:40,270 --> 00:01:42,840
+So how do we prove that hibernation works?
+
+38
+00:01:42,840 --> 00:01:44,670
+So let's connect to our instance
+
+39
+00:01:44,670 --> 00:01:48,050
+using the EC2 Instance Connect
+
+40
+00:01:48,050 --> 00:01:50,420
+and I'm going to connect right now.
+
+41
+00:01:50,420 --> 00:01:54,760
+I will go back into my instance and here we go.
+
+42
+00:01:54,760 --> 00:01:56,940
+So we are connected to our instance
+
+43
+00:01:56,940 --> 00:01:58,570
+using EC2 Instance Connect.
+
+44
+00:01:58,570 --> 00:02:01,920
+And there is one command called uptime that is quite special
+
+45
+00:02:01,920 --> 00:02:03,640
+because uptime allows you to know
+
+46
+00:02:03,640 --> 00:02:06,380
+for how long the instance has been turned on.
+
+47
+00:02:06,380 --> 00:02:08,470
+So if you do uptime,
+
+48
+00:02:08,470 --> 00:02:11,660
+it says that right now it's been up for zero minutes.
+
+49
+00:02:11,660 --> 00:02:14,750
+So we just need to wait maybe a little bit to do uptime
+
+50
+00:02:14,750 --> 00:02:16,420
+for it to become one minute.
+
+51
+00:02:16,420 --> 00:02:20,240
+But the idea is that the uptime is telling you
+
+52
+00:02:20,240 --> 00:02:24,253
+how long has the instance been on since its last restart.
+
+53
+00:02:25,560 --> 00:02:27,640
+So as we can see now, we do uptime
+
+54
+00:02:27,640 --> 00:02:30,550
+and we are getting one minute of uptime.
+
+55
+00:02:30,550 --> 00:02:32,900
+So that means that the instance has been up for one minute.
+
+56
+00:02:32,900 --> 00:02:33,800
+Okay, great.
+
+57
+00:02:33,800 --> 00:02:36,870
+So let's disconnect from our instance
+
+58
+00:02:36,870 --> 00:02:38,560
+and what we're going to do now is
+
+59
+00:02:38,560 --> 00:02:40,630
+that we're going to hibernate the instance.
+
+60
+00:02:40,630 --> 00:02:42,650
+So to do so we do instant state
+
+61
+00:02:42,650 --> 00:02:44,790
+and then hibernate instance,
+
+62
+00:02:44,790 --> 00:02:47,040
+and this is going to make sure that all the data
+
+63
+00:02:47,040 --> 00:02:52,040
+on the RAM is stored onto our EBS volume.
+
+64
+00:02:52,500 --> 00:02:54,420
+So we are hibernating the instance
+
+65
+00:02:54,420 --> 00:02:56,620
+and so we need to wait for it to be stopped.
+
+66
+00:02:57,490 --> 00:02:59,240
+So our instance is now stopped
+
+67
+00:02:59,240 --> 00:03:01,660
+and I'm going to start it again.
+
+68
+00:03:01,660 --> 00:03:04,180
+Now, if we do it a little mental exercise,
+
+69
+00:03:04,180 --> 00:03:06,470
+if we did not have hibernation
+
+70
+00:03:06,470 --> 00:03:08,840
+and then we stopped the instance,
+
+71
+00:03:08,840 --> 00:03:10,710
+and then we start it again,
+
+72
+00:03:10,710 --> 00:03:14,580
+we expect the uptime command to return again zero minutes
+
+73
+00:03:14,580 --> 00:03:17,350
+and then one minute, because we have effectively stopped
+
+74
+00:03:17,350 --> 00:03:19,040
+and started the instance.
+
+75
+00:03:19,040 --> 00:03:22,760
+But we have hibernated the instance and then started it.
+
+76
+00:03:22,760 --> 00:03:24,350
+And so if that's the case
+
+77
+00:03:24,350 --> 00:03:28,440
+then we should be able to have the uptime start not at zero,
+
+78
+00:03:28,440 --> 00:03:30,920
+but start at maybe three or four minutes.
+
+79
+00:03:30,920 --> 00:03:33,460
+So let's connect to the instance and do uptime.
+
+80
+00:03:33,460 --> 00:03:35,010
+And yes, we get up for two minutes
+
+81
+00:03:35,010 --> 00:03:36,270
+because I was really quick.
+
+82
+00:03:36,270 --> 00:03:38,870
+So the idea is that even though we have stopped,
+
+83
+00:03:38,870 --> 00:03:41,270
+quote unquote stopped the instance by hibernating it,
+
+84
+00:03:41,270 --> 00:03:45,350
+and restarted it from an operating system perspective,
+
+85
+00:03:45,350 --> 00:03:46,810
+the instance was never stopped.
+
+86
+00:03:46,810 --> 00:03:47,760
+It was hibernated.
+
+87
+00:03:47,760 --> 00:03:50,890
+And therefore the uptime command gives you two
+
+88
+00:03:50,890 --> 00:03:53,650
+or three minutes because it has never quote unquote
+
+89
+00:03:53,650 --> 00:03:56,220
+been stopped from an operating system perspective
+
+90
+00:03:56,220 --> 00:03:58,860
+which is the whole idea behind hibernation.
+
+91
+00:03:58,860 --> 00:03:59,693
+So that's it.
+
+92
+00:03:59,693 --> 00:04:01,310
+It's a really cool demo, I think.
+
+93
+00:04:01,310 --> 00:04:02,460
+And to finish this hands on,
+
+94
+00:04:02,460 --> 00:04:05,030
+just take your instance and terminate it.
+
+95
+00:04:05,030 --> 00:04:07,330
+That's it, I will see you in the next lecture.
+

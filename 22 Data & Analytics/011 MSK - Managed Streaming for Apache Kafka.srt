@@ -1,0 +1,356 @@
+1
+00:00:00,480 --> 00:00:02,730
+Another analytics service you will see
+
+2
+00:00:02,730 --> 00:00:06,120
+is Amazon Managed Streaming for Apache Kafka,
+
+3
+00:00:06,120 --> 00:00:08,280
+also called Amazon MSK.
+
+4
+00:00:08,280 --> 00:00:09,420
+And what is Kafka?
+
+5
+00:00:09,420 --> 00:00:12,960
+Well, Kafka is an alternative to Amazon Kinesis.
+
+6
+00:00:12,960 --> 00:00:16,140
+Kafka and Kinesis both allow you to stream data.
+
+7
+00:00:16,140 --> 00:00:18,840
+So, MSK is the ability to get
+
+8
+00:00:18,840 --> 00:00:22,320
+a fully-managed Kafka cluster on AWS.
+
+9
+00:00:22,320 --> 00:00:24,240
+And it allows you to create, update
+
+10
+00:00:24,240 --> 00:00:25,860
+and delete clusters on the fly.
+
+11
+00:00:25,860 --> 00:00:28,590
+And MSK is going to create and manage Kafka broker nodes
+
+12
+00:00:28,590 --> 00:00:31,230
+and Zookeeper broker nodes in your cluster for you
+
+13
+00:00:31,230 --> 00:00:35,700
+and you deploy the cluster in your VPC, across multiple AZ,
+
+14
+00:00:35,700 --> 00:00:38,040
+up to three for high availability.
+
+15
+00:00:38,040 --> 00:00:41,640
+You also have automatic recovery from common Kafka failures
+
+16
+00:00:41,640 --> 00:00:43,650
+and the data is stored on EBS volumes
+
+17
+00:00:43,650 --> 00:00:45,150
+for as long as you want.
+
+18
+00:00:45,150 --> 00:00:46,890
+So, from personal experience,
+
+19
+00:00:46,890 --> 00:00:49,410
+I know it's very difficult to set up Apache Kafka
+
+20
+00:00:49,410 --> 00:00:51,480
+and the fact you can just do one click
+
+21
+00:00:51,480 --> 00:00:54,510
+and then deploy Kafka on AWS is great
+
+22
+00:00:54,510 --> 00:00:57,150
+and this is the Amazon MSK service.
+
+23
+00:00:57,150 --> 00:01:01,650
+So on top of it, you have the option to use MSK Serverless.
+
+24
+00:01:01,650 --> 00:01:04,410
+And this is that you run Apache Kafka on MSK,
+
+25
+00:01:04,410 --> 00:01:06,270
+but this time you don't provision servers,
+
+26
+00:01:06,270 --> 00:01:07,890
+you don't manage capacity,
+
+27
+00:01:07,890 --> 00:01:10,200
+automatically MSK will provision resources
+
+28
+00:01:10,200 --> 00:01:12,840
+and scale, compute and storage for you.
+
+29
+00:01:12,840 --> 00:01:14,610
+So what is Apache Kafka then?
+
+30
+00:01:14,610 --> 00:01:17,790
+Apache Kafka is a way for you to stream data
+
+31
+00:01:17,790 --> 00:01:21,420
+and a Kafka cluster is made of multiple brokers
+
+32
+00:01:21,420 --> 00:01:24,027
+and then you will have producers that will produce data
+
+33
+00:01:24,027 --> 00:01:26,370
+and so they will have to ingest data from places,
+
+34
+00:01:26,370 --> 00:01:29,160
+such as Kinesis, IoT RDS, et cetera, et cetera,
+
+35
+00:01:29,160 --> 00:01:30,930
+and they will send the data directly
+
+36
+00:01:30,930 --> 00:01:34,230
+into a Kafka topic that is going to be fully replicated
+
+37
+00:01:34,230 --> 00:01:36,120
+into other brokers.
+
+38
+00:01:36,120 --> 00:01:38,730
+Now, this Kafka topic is having real-time streaming
+
+39
+00:01:38,730 --> 00:01:42,690
+of data and consumers will pull from the topic
+
+40
+00:01:42,690 --> 00:01:44,460
+to consume the data itself
+
+41
+00:01:44,460 --> 00:01:47,010
+and then your consumer can do whatever he wants,
+
+42
+00:01:47,010 --> 00:01:49,830
+process it or send it to various destinations,
+
+43
+00:01:49,830 --> 00:01:53,400
+such as EMR, S3, SageMaker, Kinesis and RDS.
+
+44
+00:01:53,400 --> 00:01:57,000
+So the idea is that Kafka is quite similar to Kinesis,
+
+45
+00:01:57,000 --> 00:01:59,760
+but there are differences to look out for.
+
+46
+00:01:59,760 --> 00:02:02,040
+So what are the differences between Kinesis Data Streams
+
+47
+00:02:02,040 --> 00:02:04,140
+and Amazon MSK?
+
+48
+00:02:04,140 --> 00:02:05,640
+Well, in Kinesis Data Streams,
+
+49
+00:02:05,640 --> 00:02:08,009
+you have one megabyte message limit,
+
+50
+00:02:08,009 --> 00:02:10,680
+which is the default in Amazon MSK,
+
+51
+00:02:10,680 --> 00:02:13,200
+but you can configure it for a higher message retention.
+
+52
+00:02:13,200 --> 00:02:15,060
+For example, 10 megabytes.
+
+53
+00:02:15,060 --> 00:02:17,760
+You can have Data Streams with Shards
+
+54
+00:02:17,760 --> 00:02:21,030
+in Kinesis Data Streams or in MSK,
+
+55
+00:02:21,030 --> 00:02:23,490
+it's called Kafka Topics with Partitions,
+
+56
+00:02:23,490 --> 00:02:25,980
+but the concept are sort of similar.
+
+57
+00:02:25,980 --> 00:02:28,440
+To scale Kinesis Data Stream,
+
+58
+00:02:28,440 --> 00:02:32,670
+you need to do Shard Splitting and to scale it down Merging.
+
+59
+00:02:32,670 --> 00:02:34,830
+But in Amazon MSK to scale a topic,
+
+60
+00:02:34,830 --> 00:02:36,420
+you can only add partitions.
+
+61
+00:02:36,420 --> 00:02:38,160
+You cannot remove partitions.
+
+62
+00:02:38,160 --> 00:02:41,400
+You have in-flight encryption for Kinesis data streams
+
+63
+00:02:41,400 --> 00:02:43,320
+and then you have either plain text
+
+64
+00:02:43,320 --> 00:02:46,230
+or TLS in-flight encryption for MSK.
+
+65
+00:02:46,230 --> 00:02:49,230
+You get at-risk encryption for both of these clusters
+
+66
+00:02:49,230 --> 00:02:52,230
+and, in the exam level, this is enough.
+
+67
+00:02:52,230 --> 00:02:54,330
+Just so you know, a few differences.
+
+68
+00:02:54,330 --> 00:02:58,500
+And also for Amazon MSK, you can keep data
+
+69
+00:02:58,500 --> 00:03:00,870
+for as long as you want, you can go over one year,
+
+70
+00:03:00,870 --> 00:03:03,450
+as long as you pay for the underlying EBS storage,
+
+71
+00:03:03,450 --> 00:03:04,350
+you're good to go.
+
+72
+00:03:05,220 --> 00:03:09,120
+So to produce to MSK you need to create a Kafka Producer
+
+73
+00:03:09,120 --> 00:03:12,180
+and then to consume from MSK, you have multiple options.
+
+74
+00:03:12,180 --> 00:03:14,940
+The first one is to use Kinesis Data Analytics
+
+75
+00:03:14,940 --> 00:03:16,260
+for Apache Flink.
+
+76
+00:03:16,260 --> 00:03:17,610
+So you want a Flink Application
+
+77
+00:03:17,610 --> 00:03:20,370
+and you make it read it directly from the MSK cluster.
+
+78
+00:03:20,370 --> 00:03:23,310
+You can use Glue as well to do streaming ETL jobs
+
+79
+00:03:23,310 --> 00:03:26,610
+and they're powered by, the time, Apache Spark Streaming.
+
+80
+00:03:26,610 --> 00:03:30,180
+You can use Lambda functions to directly have Amazon MSK
+
+81
+00:03:30,180 --> 00:03:33,930
+as an event source or you can write your own Kafka consumer
+
+82
+00:03:33,930 --> 00:03:36,360
+and you can make it run on whatever platform you want,
+
+83
+00:03:36,360 --> 00:03:39,060
+for example, your Amazon EC2 instances,
+
+84
+00:03:39,060 --> 00:03:42,420
+or an ECS cluster or an EKS cluster.
+
+85
+00:03:42,420 --> 00:03:43,350
+And once you know this,
+
+86
+00:03:43,350 --> 00:03:44,880
+you know pretty much everything there is to know
+
+87
+00:03:44,880 --> 00:03:46,650
+for Amazon MSK at the exam.
+
+88
+00:03:46,650 --> 00:03:47,910
+So I hope you liked it
+
+89
+00:03:47,910 --> 00:03:49,860
+and I will see you in the next lecture.
+

@@ -1,0 +1,488 @@
+1
+00:00:00,030 --> 00:00:01,290
+Okay, so let's discuss
+
+2
+00:00:01,290 --> 00:00:02,730
+serverless architectures now,
+
+3
+00:00:02,730 --> 00:00:03,840
+and we're going to create
+
+4
+00:00:03,840 --> 00:00:06,540
+a mobile application called MyTodoList.
+
+5
+00:00:06,540 --> 00:00:08,760
+So, what we want to do is have the following requirements.
+
+6
+00:00:08,760 --> 00:00:13,760
+We want to expose a REST API that has HTTPS endpoints.
+
+7
+00:00:13,890 --> 00:00:15,780
+We want to be serverless architecture,
+
+8
+00:00:15,780 --> 00:00:18,720
+and we want the users to be able to directly interact
+
+9
+00:00:18,720 --> 00:00:20,670
+with their own folder in S3
+
+10
+00:00:20,670 --> 00:00:22,530
+to manage their data if you want to.
+
+11
+00:00:22,530 --> 00:00:24,810
+And users should be able to also authenticate
+
+12
+00:00:24,810 --> 00:00:27,720
+through a managed serverless service.
+
+13
+00:00:27,720 --> 00:00:30,870
+And finally, users can write and read to-dos,
+
+14
+00:00:30,870 --> 00:00:32,130
+but they mostly read them.
+
+15
+00:00:32,130 --> 00:00:34,590
+So, maybe there's something to do around performance here.
+
+16
+00:00:34,590 --> 00:00:36,240
+The database layer should scale
+
+17
+00:00:36,240 --> 00:00:39,540
+and should have some really high read throughputs.
+
+18
+00:00:39,540 --> 00:00:40,890
+So, that's a pretty good requirements.
+
+19
+00:00:40,890 --> 00:00:42,840
+Now, let's see how we can do it.
+
+20
+00:00:42,840 --> 00:00:46,230
+Number one is to get started, we have mobile clients,
+
+21
+00:00:46,230 --> 00:00:49,710
+and we talked about doing a REST HTTPS thing.
+
+22
+00:00:49,710 --> 00:00:52,050
+So, let's use Amazon API Gateway for this.
+
+23
+00:00:52,050 --> 00:00:53,670
+This is a great way of doing it.
+
+24
+00:00:53,670 --> 00:00:57,000
+Now, in the classic serverless API fashion,
+
+25
+00:00:57,000 --> 00:00:59,460
+API Gateway will invoke a Lambda function,
+
+26
+00:00:59,460 --> 00:01:00,990
+which basically allows us to scale
+
+27
+00:01:00,990 --> 00:01:03,630
+and use serverless infrastructure.
+
+28
+00:01:03,630 --> 00:01:06,030
+Okay, Amazon Lambda needs to be able to store
+
+29
+00:01:06,030 --> 00:01:08,640
+and read to-do from a database.
+
+30
+00:01:08,640 --> 00:01:10,380
+A database that scales really well
+
+31
+00:01:10,380 --> 00:01:13,050
+that is serverless is DynamoDB.
+
+32
+00:01:13,050 --> 00:01:15,390
+So, here we have DynamoDB as our backend.
+
+33
+00:01:15,390 --> 00:01:17,310
+Now, we said there was going to be also some kind
+
+34
+00:01:17,310 --> 00:01:19,770
+of authentication layer going on.
+
+35
+00:01:19,770 --> 00:01:21,990
+So, for this, we can use a serverless technology such
+
+36
+00:01:21,990 --> 00:01:25,080
+as Amazon Cognito, so our mobile client can connect
+
+37
+00:01:25,080 --> 00:01:26,820
+and authenticate to Cognito,
+
+38
+00:01:26,820 --> 00:01:29,610
+and then API Gateway along the way will verify
+
+39
+00:01:29,610 --> 00:01:31,380
+the authentication with Cognito.
+
+40
+00:01:31,380 --> 00:01:35,160
+And so, that gives us a very classic serverless API
+
+41
+00:01:35,160 --> 00:01:36,570
+that we've just created here.
+
+42
+00:01:36,570 --> 00:01:39,300
+Nothing new for you here, but it's good to see it again.
+
+43
+00:01:39,300 --> 00:01:42,210
+Now, if you wanna give our users access
+
+44
+00:01:42,210 --> 00:01:44,670
+to Amazon S3 bucket, how do we do this?
+
+45
+00:01:44,670 --> 00:01:46,860
+Well, we have our mobile clients
+
+46
+00:01:46,860 --> 00:01:49,170
+that authenticates to Amazon Cognito
+
+47
+00:01:49,170 --> 00:01:52,590
+and Cognito that can generate temporary credentials for us
+
+48
+00:01:52,590 --> 00:01:54,810
+and return these credentials to our mobile clients.
+
+49
+00:01:54,810 --> 00:01:58,200
+And these credentials allow our mobile clients to store
+
+50
+00:01:58,200 --> 00:02:00,330
+and retrieve files in Amazon S3
+
+51
+00:02:00,330 --> 00:02:04,800
+and basically access their own little space in S3.
+
+52
+00:02:04,800 --> 00:02:08,009
+So, this is a very classic question as well, how to do this?
+
+53
+00:02:08,009 --> 00:02:10,888
+And the wrong answer is to store
+
+54
+00:02:10,888 --> 00:02:13,560
+AWS user credentials on your mobile clients.
+
+55
+00:02:13,560 --> 00:02:15,480
+You definitely do not want to do this.
+
+56
+00:02:15,480 --> 00:02:17,850
+What you want to do is really use Amazon Cognito,
+
+57
+00:02:17,850 --> 00:02:20,550
+and then Amazon is free with temporary credentials.
+
+58
+00:02:20,550 --> 00:02:23,070
+Okay, so it's a very common question.
+
+59
+00:02:23,070 --> 00:02:24,840
+So, next, our app is starting to scale.
+
+60
+00:02:24,840 --> 00:02:26,100
+We're starting to get more users,
+
+61
+00:02:26,100 --> 00:02:28,980
+and it turns out that we, by looking at the patterns,
+
+62
+00:02:28,980 --> 00:02:31,470
+figure out that we have a very high read throughput.
+
+63
+00:02:31,470 --> 00:02:33,330
+So, we have many RCUs,
+
+64
+00:02:33,330 --> 00:02:35,040
+and the to-dos don't really change much.
+
+65
+00:02:35,040 --> 00:02:36,960
+They don't get edited very often.
+
+66
+00:02:36,960 --> 00:02:39,270
+So, how can we change this architecture
+
+67
+00:02:39,270 --> 00:02:42,480
+to basically improve the read throughput
+
+68
+00:02:42,480 --> 00:02:45,060
+and decrease maybe the cost overall?
+
+69
+00:02:45,060 --> 00:02:47,400
+What we can do is use DAX as a caching layer.
+
+70
+00:02:47,400 --> 00:02:50,580
+So, just before DynamoDB, we'll use DynamoDB DAX,
+
+71
+00:02:50,580 --> 00:02:52,860
+and this will basically have a caching layer.
+
+72
+00:02:52,860 --> 00:02:54,450
+And because we're doing so many reads,
+
+73
+00:02:54,450 --> 00:02:56,160
+now the reads will be cached in DAX.
+
+74
+00:02:56,160 --> 00:03:00,090
+And so DynamoDB, we won't need as much read capacity units.
+
+75
+00:03:00,090 --> 00:03:02,670
+Maybe we'll scale better, maybe we'll have less cost overall
+
+76
+00:03:02,670 --> 00:03:04,170
+because so many reads are cached.
+
+77
+00:03:04,170 --> 00:03:05,490
+And this is a great way overall
+
+78
+00:03:05,490 --> 00:03:07,920
+to keep on improving our architecture
+
+79
+00:03:07,920 --> 00:03:09,720
+in a serverless fashion.
+
+80
+00:03:09,720 --> 00:03:11,790
+Now, there could be another way of doing caching.
+
+81
+00:03:11,790 --> 00:03:14,190
+Maybe we want to use DAX, but maybe also we want
+
+82
+00:03:14,190 --> 00:03:16,080
+to start caching the responses
+
+83
+00:03:16,080 --> 00:03:17,940
+at the Amazon API gateway level.
+
+84
+00:03:17,940 --> 00:03:19,800
+This is also something we can do,
+
+85
+00:03:19,800 --> 00:03:22,260
+and this is also a very good one if you think
+
+86
+00:03:22,260 --> 00:03:24,060
+that the answers never really change
+
+87
+00:03:24,060 --> 00:03:26,370
+and that you can start caching a few responses
+
+88
+00:03:26,370 --> 00:03:27,930
+for a few API routes.
+
+89
+00:03:27,930 --> 00:03:30,240
+So, overall, really interesting to see these kind
+
+90
+00:03:30,240 --> 00:03:32,340
+of architectures because they really show you
+
+91
+00:03:32,340 --> 00:03:35,490
+how serverless is done, where the caching appears.
+
+92
+00:03:35,490 --> 00:03:38,550
+And in this architecture, nothing is managed by us.
+
+93
+00:03:38,550 --> 00:03:40,230
+We really pay per usage,
+
+94
+00:03:40,230 --> 00:03:42,990
+and we really don't think about management of databases.
+
+95
+00:03:42,990 --> 00:03:45,240
+All these things is done by AWS for us.
+
+96
+00:03:45,240 --> 00:03:46,230
+So, in this lecture,
+
+97
+00:03:46,230 --> 00:03:49,290
+we've seen the classic serverless REST API architecture,
+
+98
+00:03:49,290 --> 00:03:52,110
+basically leveraging HTTPS, API Gateway,
+
+99
+00:03:52,110 --> 00:03:53,940
+Lambda, and DynamoDB.
+
+100
+00:03:53,940 --> 00:03:55,680
+And then, we've used Cognito
+
+101
+00:03:55,680 --> 00:03:58,890
+to generate temporary credential, which gives us access
+
+102
+00:03:58,890 --> 00:04:01,320
+to an S3 bucket with a restricted policy.
+
+103
+00:04:01,320 --> 00:04:05,100
+And we could use the exact same app pattern using Cognito.
+
+104
+00:04:05,100 --> 00:04:08,250
+So, our app can access maybe DynamoDB
+
+105
+00:04:08,250 --> 00:04:10,080
+or Lambda directly or whatever.
+
+106
+00:04:10,080 --> 00:04:11,970
+This is a very common pattern.
+
+107
+00:04:11,970 --> 00:04:15,450
+Now, caching the reads on DynamoDB can be done using DAX.
+
+108
+00:04:15,450 --> 00:04:16,829
+It's a very easy way to enable,
+
+109
+00:04:16,829 --> 00:04:19,620
+and you can bring not only performance improvement,
+
+110
+00:04:19,620 --> 00:04:22,800
+but also cost reduction and caching the REST request
+
+111
+00:04:22,800 --> 00:04:24,990
+can be done at the API Gateway level
+
+112
+00:04:24,990 --> 00:04:27,660
+if we have very static responses.
+
+113
+00:04:27,660 --> 00:04:30,810
+Security, finally, for the entire thing can be done
+
+114
+00:04:30,810 --> 00:04:33,600
+with Cognito and Cognito is directly integrated
+
+115
+00:04:33,600 --> 00:04:35,010
+with the API Gateway.
+
+116
+00:04:35,010 --> 00:04:36,450
+So, this was a very basic example,
+
+117
+00:04:36,450 --> 00:04:38,400
+but it gives us started basically
+
+118
+00:04:38,400 --> 00:04:39,960
+on serverless architectures
+
+119
+00:04:39,960 --> 00:04:41,700
+and shows us all the different components we've seen
+
+120
+00:04:41,700 --> 00:04:42,900
+in the past section.
+
+121
+00:04:42,900 --> 00:04:43,770
+So, I hope that helps,
+
+122
+00:04:43,770 --> 00:04:45,720
+and I will see you in the next lecture.
+

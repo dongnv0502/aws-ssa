@@ -1,0 +1,176 @@
+1
+00:00:00,510 --> 00:00:01,410
+So now let's talk about
+
+2
+00:00:01,410 --> 00:00:05,160
+the Multi-Attach feature of the EBS volumes.
+
+3
+00:00:05,160 --> 00:00:06,630
+So as the name indicates,
+
+4
+00:00:06,630 --> 00:00:08,730
+the Multi-Attach feature allows you to attach
+
+5
+00:00:08,730 --> 00:00:13,170
+the same EBS volume to multiple EC2 instances
+
+6
+00:00:13,170 --> 00:00:15,660
+in the same availability zone.
+
+7
+00:00:15,660 --> 00:00:16,493
+So what does that mean?
+
+8
+00:00:16,493 --> 00:00:17,340
+That means that, well,
+
+9
+00:00:17,340 --> 00:00:19,590
+we have multiple EC2 instances,
+
+10
+00:00:19,590 --> 00:00:21,360
+and we have an io2 volume
+
+11
+00:00:21,360 --> 00:00:23,520
+with the Multi-Attach feature enabled.
+
+12
+00:00:23,520 --> 00:00:25,440
+Then this volume can be attached
+
+13
+00:00:25,440 --> 00:00:28,620
+to multiple EC2 instances at a time,
+
+14
+00:00:28,620 --> 00:00:31,740
+which is something that is only available
+
+15
+00:00:31,740 --> 00:00:36,740
+for the io1 and the io2 family of EBS volumes.
+
+16
+00:00:36,960 --> 00:00:38,850
+Now, each instance will have
+
+17
+00:00:38,850 --> 00:00:41,250
+full read and write permissions
+
+18
+00:00:41,250 --> 00:00:43,680
+to the high-performance volume.
+
+19
+00:00:43,680 --> 00:00:44,880
+And so that means that they can all
+
+20
+00:00:44,880 --> 00:00:46,740
+write and read at the same time.
+
+21
+00:00:46,740 --> 00:00:48,390
+So the use case for this is
+
+22
+00:00:48,390 --> 00:00:51,120
+you have higher application availability
+
+23
+00:00:51,120 --> 00:00:53,340
+in case of a clustered Linux application,
+
+24
+00:00:53,340 --> 00:00:55,200
+for example, using Teradata,
+
+25
+00:00:55,200 --> 00:00:57,390
+or if your application must manage
+
+26
+00:00:57,390 --> 00:00:59,370
+concurrent rights operation.
+
+27
+00:00:59,370 --> 00:01:00,660
+So just so you know,
+
+28
+00:01:00,660 --> 00:01:03,390
+this Multi-Attach feature is only available
+
+29
+00:01:03,390 --> 00:01:07,200
+from within a specified availability zone, of course.
+
+30
+00:01:07,200 --> 00:01:09,900
+It doesn't allow you to attach an EBS volume
+
+31
+00:01:09,900 --> 00:01:12,420
+from one AZ to another AZ.
+
+32
+00:01:12,420 --> 00:01:14,850
+Another limitation of Multi-Attach is
+
+33
+00:01:14,850 --> 00:01:19,080
+that it is up to 16 EC2 instances at a time
+
+34
+00:01:19,080 --> 00:01:21,630
+that can be attaching the same volume.
+
+35
+00:01:21,630 --> 00:01:23,820
+And this is something you have to know for the exam,
+
+36
+00:01:23,820 --> 00:01:26,910
+so be careful to that 16 number.
+
+37
+00:01:26,910 --> 00:01:28,800
+Finally, for it to work,
+
+38
+00:01:28,800 --> 00:01:30,030
+you must use a file system
+
+39
+00:01:30,030 --> 00:01:31,920
+that is going to be cluster-aware.
+
+40
+00:01:31,920 --> 00:01:35,700
+So it's a different file system than XFS or EX4.
+
+41
+00:01:35,700 --> 00:01:37,740
+And this is just a little bit more details,
+
+42
+00:01:37,740 --> 00:01:41,040
+but in case you wanted to use this feature, now you know.
+
+43
+00:01:41,040 --> 00:01:43,500
+Okay, that's it for this lecture, I hope you liked it.
+
+44
+00:01:43,500 --> 00:01:45,650
+And then we'll see you in the next lecture.
+

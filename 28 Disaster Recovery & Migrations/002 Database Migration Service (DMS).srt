@@ -1,0 +1,476 @@
+1
+00:00:00,120 --> 00:00:02,640
+So let's say you wanted to migrate a database
+
+2
+00:00:02,640 --> 00:00:06,090
+from your on-premise systems to the AWS Cloud.
+
+3
+00:00:06,090 --> 00:00:07,490
+In this case, you should use DMS,
+
+4
+00:00:07,490 --> 00:00:09,240
+or Database Migration Service.
+
+5
+00:00:09,240 --> 00:00:12,360
+It's a quick and secure database service
+
+6
+00:00:12,360 --> 00:00:13,980
+that allows you to migrate your database
+
+7
+00:00:13,980 --> 00:00:16,440
+from on-premise to AWS, but the cool thing
+
+8
+00:00:16,440 --> 00:00:19,050
+is that it's resilient and it's self-healing.
+
+9
+00:00:19,050 --> 00:00:20,520
+And all alongside the migration,
+
+10
+00:00:20,520 --> 00:00:22,440
+the source database remains available.
+
+11
+00:00:22,440 --> 00:00:24,870
+And it supports many types of engines,
+
+12
+00:00:24,870 --> 00:00:26,490
+such as homogeneous migration,
+
+13
+00:00:26,490 --> 00:00:30,330
+so from Oracle to Oracle, or Postgres to Postgres,
+
+14
+00:00:30,330 --> 00:00:32,490
+but also heterogeneous migrations.
+
+15
+00:00:32,490 --> 00:00:33,600
+For example, if you want to migrate
+
+16
+00:00:33,600 --> 00:00:36,540
+from Microsoft SQL server all the way to Aurora
+
+17
+00:00:36,540 --> 00:00:39,780
+and it supports continuous data replication using CDC,
+
+18
+00:00:39,780 --> 00:00:41,910
+which is Change Data Capture.
+
+19
+00:00:41,910 --> 00:00:43,650
+Finally, to use DMS,
+
+20
+00:00:43,650 --> 00:00:46,860
+you need to create an EC2 instance, and that EC2 instance
+
+21
+00:00:46,860 --> 00:00:49,260
+will perform the replication tasks for you.
+
+22
+00:00:49,260 --> 00:00:52,110
+So very simply, your source database may be on-premise
+
+23
+00:00:52,110 --> 00:00:53,760
+and then you're running an EC2 instance
+
+24
+00:00:53,760 --> 00:00:55,560
+that has the DMS software
+
+25
+00:00:55,560 --> 00:00:57,990
+and it will pull data from the source database,
+
+26
+00:00:57,990 --> 00:01:02,190
+in continuously, and put it in the target database.
+
+27
+00:01:02,190 --> 00:01:03,180
+So the question is
+
+28
+00:01:03,180 --> 00:01:05,580
+what are the sources and what are the targets?
+
+29
+00:01:05,580 --> 00:01:07,200
+You don't need to remember them all,
+
+30
+00:01:07,200 --> 00:01:08,610
+but the important to see ones,
+
+31
+00:01:08,610 --> 00:01:11,130
+just to understand the concepts behind the DMS.
+
+32
+00:01:11,130 --> 00:01:14,250
+So the sources can be on-premises databases
+
+33
+00:01:14,250 --> 00:01:16,103
+or EC2 instances based databases,
+
+34
+00:01:16,103 --> 00:01:20,077
+such as Oracle, Microsoft SQL Server, MySQL,
+
+35
+00:01:20,077 --> 00:01:24,780
+MariaDB, PostgreSQL, MongoDB, SAP, and DB2.
+
+36
+00:01:24,780 --> 00:01:28,830
+It can also be Azure databases, such as Azure SQL Database.
+
+37
+00:01:28,830 --> 00:01:32,460
+It could be Amazon RDS, any database including Aurora.
+
+38
+00:01:32,460 --> 00:01:36,000
+It could be Amazon S3 and DocumentDB.
+
+39
+00:01:36,000 --> 00:01:37,710
+In terms of targets,
+
+40
+00:01:37,710 --> 00:01:39,660
+well we have different options, as well.
+
+41
+00:01:39,660 --> 00:01:42,810
+We have on-premises and EC2 instances databases.
+
+42
+00:01:42,810 --> 00:01:46,400
+So we can have Oracle, Microsoft SQL Server, MySQL,
+
+43
+00:01:46,400 --> 00:01:49,140
+MariaDB, PostgreSQL, SAP.
+
+44
+00:01:49,140 --> 00:01:52,020
+We can also have any database on Amazon RDS.
+
+45
+00:01:52,020 --> 00:01:55,020
+We can have Redshift, DynamoDB, Amazon S3,
+
+46
+00:01:55,020 --> 00:01:57,870
+the OpenSource service, Kinesis Data Streams,
+
+47
+00:01:57,870 --> 00:02:01,350
+Apache Kafka, DocumentDB, and Amazon Neptune,
+
+48
+00:02:01,350 --> 00:02:03,720
+as well as Redis and Babelfish.
+
+49
+00:02:03,720 --> 00:02:05,940
+So you don't need to remember all of these, of course,
+
+50
+00:02:05,940 --> 00:02:08,820
+but the general idea is that DMS can help you
+
+51
+00:02:08,820 --> 00:02:12,300
+take a database, for example, an on-premise database
+
+52
+00:02:12,300 --> 00:02:17,300
+and have it put and exported and migrated onto a target
+
+53
+00:02:17,340 --> 00:02:22,020
+that is, pretty much, any database that AWS is offering.
+
+54
+00:02:22,020 --> 00:02:23,250
+If you understand this,
+
+55
+00:02:23,250 --> 00:02:26,700
+then you have the general idea behind DMS.
+
+56
+00:02:26,700 --> 00:02:30,240
+So what if the source database and the target database
+
+57
+00:02:30,240 --> 00:02:32,280
+do not have the same engine?
+
+58
+00:02:32,280 --> 00:02:35,340
+Then you need to use something called AWS SCT,
+
+59
+00:02:35,340 --> 00:02:37,200
+for Schema Conversion Tool,
+
+60
+00:02:37,200 --> 00:02:38,700
+and it will convert the database schema
+
+61
+00:02:38,700 --> 00:02:40,080
+from one engine to another.
+
+62
+00:02:40,080 --> 00:02:42,810
+So for example, if you're using an OLTP, we can migrate
+
+63
+00:02:42,810 --> 00:02:47,520
+from SQL server or Oracle to MySQL, PostgreSQL, or Aurora.
+
+64
+00:02:47,520 --> 00:02:50,790
+As you can see on the left hand side, the database engine
+
+65
+00:02:50,790 --> 00:02:52,704
+is different from the one on the right hand side,
+
+66
+00:02:52,704 --> 00:02:54,930
+but also you can transform for analytics process,
+
+67
+00:02:54,930 --> 00:02:59,190
+such as Teradata or Oracle, all the way to Amazon Redshift.
+
+68
+00:02:59,190 --> 00:03:01,620
+So the idea is that here, the source database
+
+69
+00:03:01,620 --> 00:03:03,930
+has a different engine than the Target database.
+
+70
+00:03:03,930 --> 00:03:05,520
+In the middle, we have DMS,
+
+71
+00:03:05,520 --> 00:03:08,940
+but it's now also running SCT, or Schema Conversion Tool.
+
+72
+00:03:08,940 --> 00:03:10,920
+And the thing to know going into the exam
+
+73
+00:03:10,920 --> 00:03:14,370
+is that you do not need to use SCT
+
+74
+00:03:14,370 --> 00:03:16,590
+if you are migrating the same database engine.
+
+75
+00:03:16,590 --> 00:03:21,030
+So if you're doing on-premise PostgreSQL to RDS PostgreSQL,
+
+76
+00:03:21,030 --> 00:03:24,180
+it is the same database agent, it is PostgreSQL.
+
+77
+00:03:24,180 --> 00:03:26,850
+And so this for, you will not use SCT.
+
+78
+00:03:26,850 --> 00:03:30,360
+But if you're doing something such as Oracle to Postgres,
+
+79
+00:03:30,360 --> 00:03:32,610
+then you will need to use SCT.
+
+80
+00:03:32,610 --> 00:03:35,640
+So just so you know, the database agent is PostgreSQL,
+
+81
+00:03:35,640 --> 00:03:37,500
+but RDS is just a platform
+
+82
+00:03:37,500 --> 00:03:40,170
+that we're using to run this database engine.
+
+83
+00:03:40,170 --> 00:03:41,340
+So how would you go to set up
+
+84
+00:03:41,340 --> 00:03:43,620
+a continuous replication for DMS?
+
+85
+00:03:43,620 --> 00:03:45,150
+Well, you would have your corporate data center,
+
+86
+00:03:45,150 --> 00:03:47,790
+for example, with an Oracle database as a source
+
+87
+00:03:47,790 --> 00:03:51,600
+and an Amazon RDS database for MySQL DB as a target.
+
+88
+00:03:51,600 --> 00:03:53,100
+And as we can see,
+
+89
+00:03:53,100 --> 00:03:57,420
+we have two different kinds of types of database.
+
+90
+00:03:57,420 --> 00:04:00,630
+So in this case, we have to use SCT,
+
+91
+00:04:00,630 --> 00:04:01,860
+otherwise it will not work.
+
+92
+00:04:01,860 --> 00:04:03,600
+So the Schema Conversion Tool.
+
+93
+00:04:03,600 --> 00:04:06,750
+So we set up a server with AWS SCT installed
+
+94
+00:04:06,750 --> 00:04:08,100
+and we can set it up on-premises,
+
+95
+00:04:08,100 --> 00:04:09,480
+this is best practice,
+
+96
+00:04:09,480 --> 00:04:11,490
+and then we will do the schema conversion
+
+97
+00:04:11,490 --> 00:04:15,450
+into our Amazon RDS database running MySQL.
+
+98
+00:04:15,450 --> 00:04:18,209
+Then we can set up a DMS replication instance
+
+99
+00:04:18,209 --> 00:04:21,810
+that will do the full load and the change data capture, CDC,
+
+100
+00:04:21,810 --> 00:04:23,460
+to have continuous replication.
+
+101
+00:04:23,460 --> 00:04:25,050
+And so it will perform the data migration
+
+102
+00:04:25,050 --> 00:04:27,150
+by reading the database on-premises,
+
+103
+00:04:27,150 --> 00:04:29,190
+the source Oracle database,
+
+104
+00:04:29,190 --> 00:04:32,370
+and inserting the data into your private subnets.
+
+105
+00:04:32,370 --> 00:04:34,230
+That's it. So that's all you need to know for DMS.
+
+106
+00:04:34,230 --> 00:04:35,880
+This is for Database Migration Service.
+
+107
+00:04:35,880 --> 00:04:39,000
+Remember, you need to use SCT whenever you have
+
+108
+00:04:39,000 --> 00:04:42,480
+two different kinds of databases that you're migrating from.
+
+109
+00:04:42,480 --> 00:04:44,820
+And for DMS, there is a multi AZ deployment.
+
+110
+00:04:44,820 --> 00:04:46,200
+So when you have this,
+
+111
+00:04:46,200 --> 00:04:50,100
+then you have a DMS replication instance in one AZ
+
+112
+00:04:50,100 --> 00:04:52,770
+and then you have synchronous replication of that instance
+
+113
+00:04:52,770 --> 00:04:56,910
+into another AZ, which is going to be a standby replica.
+
+114
+00:04:56,910 --> 00:04:58,770
+So the benefits of using this is, of course,
+
+115
+00:04:58,770 --> 00:05:02,880
+to be resilient to a failure in one specific AZ,
+
+116
+00:05:02,880 --> 00:05:04,830
+but also gives you data redundancy,
+
+117
+00:05:04,830 --> 00:05:09,660
+will eliminate IO freezes and will minimize latency spikes.
+
+118
+00:05:09,660 --> 00:05:10,860
+So that's it for this lecture.
+
+119
+00:05:10,860 --> 00:05:13,923
+I hope you liked it and I will see you in the next lecture.
+

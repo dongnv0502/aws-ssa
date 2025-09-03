@@ -1,0 +1,328 @@
+1
+00:00:00,100 --> 00:00:02,350
+So let's talk about a lesser-known feature
+
+2
+00:00:02,350 --> 00:00:04,210
+called EC2 Hibernate.
+
+3
+00:00:04,210 --> 00:00:06,670
+So we know that we can stop and terminate instances,
+
+4
+00:00:06,670 --> 00:00:08,860
+and when we do so, when we stop it,
+
+5
+00:00:08,860 --> 00:00:10,720
+the data on disk, on your EBS disk,
+
+6
+00:00:10,720 --> 00:00:13,480
+is going to be kept intact until the next start.
+
+7
+00:00:13,480 --> 00:00:14,313
+That makes sense.
+
+8
+00:00:14,313 --> 00:00:16,170
+And if we terminate it, well,
+
+9
+00:00:16,170 --> 00:00:17,290
+if you set up the root volume
+
+10
+00:00:17,290 --> 00:00:18,480
+to be destroyed with your instance,
+
+11
+00:00:18,480 --> 00:00:19,700
+it's going to be destroyed,
+
+12
+00:00:19,700 --> 00:00:22,430
+but any volume that is not set up to be destroyed
+
+13
+00:00:22,430 --> 00:00:25,300
+when your instance is terminated will be kept.
+
+14
+00:00:25,300 --> 00:00:27,070
+And then when you start an instance,
+
+15
+00:00:27,070 --> 00:00:29,300
+well, the OS, the operating system will boot
+
+16
+00:00:29,300 --> 00:00:32,100
+and then the EC2 User Data that was going to be run,
+
+17
+00:00:32,100 --> 00:00:35,270
+the script, and then the OS will boot up.
+
+18
+00:00:35,270 --> 00:00:38,780
+And then your application starts, your caches get warmed,
+
+19
+00:00:38,780 --> 00:00:40,130
+and that can take time,
+
+20
+00:00:40,130 --> 00:00:43,060
+because you are booting your machine, right?
+
+21
+00:00:43,060 --> 00:00:44,800
+But the idea is that with Hibernate,
+
+22
+00:00:44,800 --> 00:00:46,920
+we want to achieve a new state.
+
+23
+00:00:46,920 --> 00:00:50,350
+So when we hibernate an instance, whatever was in RAM,
+
+24
+00:00:50,350 --> 00:00:53,150
+the in-memory state is going to be preserved.
+
+25
+00:00:53,150 --> 00:00:53,983
+What does that mean?
+
+26
+00:00:53,983 --> 00:00:55,940
+That means that your instance boot is going
+
+27
+00:00:55,940 --> 00:00:57,180
+to be much faster,
+
+28
+00:00:57,180 --> 00:01:00,400
+because the operating system is not stopped or restarted,
+
+29
+00:01:00,400 --> 00:01:02,930
+the operating system is actually just frozen,
+
+30
+00:01:02,930 --> 00:01:04,349
+it's hibernated.
+
+31
+00:01:04,349 --> 00:01:05,800
+And under the hood, well,
+
+32
+00:01:05,800 --> 00:01:08,270
+whatever was in the RAM state is going to be written
+
+33
+00:01:08,270 --> 00:01:11,660
+into a file in the root EBS volume.
+
+34
+00:01:11,660 --> 00:01:14,500
+So that means that the root EBS volume must be encrypted
+
+35
+00:01:14,500 --> 00:01:17,840
+and that it must have enough space to contain the RAM.
+
+36
+00:01:17,840 --> 00:01:19,080
+So let me show you what happens.
+
+37
+00:01:19,080 --> 00:01:20,530
+So we take an EC2 instance,
+
+38
+00:01:20,530 --> 00:01:23,560
+and it's running and there is data in RAM,
+
+39
+00:01:23,560 --> 00:01:26,460
+and then we start a hibernation process.
+
+40
+00:01:26,460 --> 00:01:28,520
+So what happens that the instance will go
+
+41
+00:01:28,520 --> 00:01:30,030
+in the stopping state,
+
+42
+00:01:30,030 --> 00:01:34,730
+and the RAM is going to be dumped into your EBS volume.
+
+43
+00:01:34,730 --> 00:01:37,850
+Then the instance is shut down and the RAM disappears,
+
+44
+00:01:37,850 --> 00:01:41,200
+because as soon as you stop an instance the RAM goes away,
+
+45
+00:01:41,200 --> 00:01:45,370
+but the EBS volume still contains the dump of the RAM.
+
+46
+00:01:45,370 --> 00:01:47,870
+And then when your instance is started,
+
+47
+00:01:47,870 --> 00:01:50,730
+then the RAM is going to be loaded from disk
+
+48
+00:01:50,730 --> 00:01:53,150
+onto the EC2 instance memory.
+
+49
+00:01:53,150 --> 00:01:56,570
+And that means that it is just as is
+
+50
+00:01:56,570 --> 00:01:58,500
+your EC2 instance never got stopped.
+
+51
+00:01:58,500 --> 00:02:01,090
+And we'll have a look at this in the hands-on.
+
+52
+00:02:01,090 --> 00:02:03,130
+So the use cases for hibernation is
+
+53
+00:02:03,130 --> 00:02:05,300
+if you want to have long-running processes
+
+54
+00:02:05,300 --> 00:02:07,480
+and never actually stop them,
+
+55
+00:02:07,480 --> 00:02:09,500
+or if you want to save the RAM state,
+
+56
+00:02:09,500 --> 00:02:13,006
+or if you just want to reboot, like boot up fast,
+
+57
+00:02:13,006 --> 00:02:16,060
+and you have services that take time to initialize.
+
+58
+00:02:16,060 --> 00:02:17,360
+So you actually don't want them to initialize,
+
+59
+00:02:17,360 --> 00:02:19,710
+you want them to stay up and running
+
+60
+00:02:19,710 --> 00:02:23,210
+even if you hibernate your instance.
+
+61
+00:02:23,210 --> 00:02:25,730
+So, some good things to know about EC2 Hibernate is that
+
+62
+00:02:25,730 --> 00:02:27,990
+it supports a lot of different families.
+
+63
+00:02:27,990 --> 00:02:31,230
+The instance RAM size must be less than 150 gigabytes.
+
+64
+00:02:31,230 --> 00:02:32,140
+Now, that can change,
+
+65
+00:02:32,140 --> 00:02:34,730
+and again, you're not tested on limits at the exam,
+
+66
+00:02:34,730 --> 00:02:37,130
+but I'm just putting this as an indication for you
+
+67
+00:02:37,130 --> 00:02:39,500
+to get an idea of how that works.
+
+68
+00:02:39,500 --> 00:02:42,220
+It doesn't work for bare metal instances.
+
+69
+00:02:42,220 --> 00:02:44,280
+It works for many different operating systems,
+
+70
+00:02:44,280 --> 00:02:46,510
+including Linux and Windows.
+
+71
+00:02:46,510 --> 00:02:47,360
+It works for the root volume,
+
+72
+00:02:47,360 --> 00:02:49,660
+so the root volume must be an EBS volume,
+
+73
+00:02:49,660 --> 00:02:51,410
+it must be encrypted, okay?
+
+74
+00:02:51,410 --> 00:02:53,330
+And it must be large to contain the RAM
+
+75
+00:02:53,330 --> 00:02:54,790
+that you dump onto it.
+
+76
+00:02:54,790 --> 00:02:56,610
+It's available for all kind of instances,
+
+77
+00:02:56,610 --> 00:02:59,750
+such as on-demand, reserved, and spot instances.
+
+78
+00:02:59,750 --> 00:03:04,180
+And hibernation is meant to be no more than 60 days.
+
+79
+00:03:04,180 --> 00:03:05,280
+Again, this can change,
+
+80
+00:03:05,280 --> 00:03:08,000
+but right now this is the actual limits.
+
+81
+00:03:08,000 --> 00:03:10,340
+Okay, so that's it for this lecture, I hope you liked it,
+
+82
+00:03:10,340 --> 00:03:13,040
+and I will see you in the next lecture for a hands-on.
+

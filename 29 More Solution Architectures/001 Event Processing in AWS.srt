@@ -1,0 +1,552 @@
+1
+00:00:00,000 --> 00:00:03,120
+So let's talk about event processing in AWS
+
+2
+00:00:03,120 --> 00:00:04,830
+and the different possibilities we have
+
+3
+00:00:04,830 --> 00:00:08,039
+and the kind of constraints that we have alongside them.
+
+4
+00:00:08,039 --> 00:00:11,048
+So the first one is to use SQS and Lambda.
+
+5
+00:00:11,048 --> 00:00:13,750
+And if you use SQS and Lambda with our SQS queue
+
+6
+00:00:13,750 --> 00:00:15,480
+in the Lambda function
+
+7
+00:00:15,480 --> 00:00:17,280
+and so the events are going to be inserted
+
+8
+00:00:17,280 --> 00:00:19,050
+into our SQS queue.
+
+9
+00:00:19,050 --> 00:00:21,187
+And the Lambda service is going to pull the SQS queue.
+
+10
+00:00:21,187 --> 00:00:23,054
+And in case there are issues,
+
+11
+00:00:23,054 --> 00:00:27,480
+it's going to put back the messages into the SQS queue
+
+12
+00:00:27,480 --> 00:00:29,370
+and try and retry to pull them, okay?
+
+13
+00:00:29,370 --> 00:00:32,130
+And this can go into some sort of infinite loop.
+
+14
+00:00:32,130 --> 00:00:34,110
+So in case there is a big problem with one message,
+
+15
+00:00:34,110 --> 00:00:38,730
+what we can do is set up SQS to send the message
+
+16
+00:00:38,730 --> 00:00:42,480
+to a dead letter Q after say, five tries, okay?
+
+17
+00:00:42,480 --> 00:00:44,250
+This will be our way out of it.
+
+18
+00:00:44,250 --> 00:00:47,910
+Now we can also use SQS FIFO and Lambda.
+
+19
+00:00:47,910 --> 00:00:50,970
+In this case, FIFO means first in, first out.
+
+20
+00:00:50,970 --> 00:00:52,170
+And that means that the messages
+
+21
+00:00:52,170 --> 00:00:54,270
+are going to be processed in order.
+
+22
+00:00:54,270 --> 00:00:55,950
+So now our Lambda function is going to try
+
+23
+00:00:55,950 --> 00:00:58,200
+and retry to get the messages from the queue.
+
+24
+00:00:58,200 --> 00:01:00,840
+But because it's just to process them in order,
+
+25
+00:01:00,840 --> 00:01:02,670
+in case one message doesn't go through,
+
+26
+00:01:02,670 --> 00:01:05,120
+it's going to be a blocking, never ending process
+
+27
+00:01:06,921 --> 00:01:07,879
+and the whole queue processing will be blocked.
+
+28
+00:01:07,879 --> 00:01:10,290
+In which case, yet again, we can set up a dead letter queue
+
+29
+00:01:10,290 --> 00:01:12,450
+to send these messages off to SQS queue
+
+30
+00:01:12,450 --> 00:01:15,300
+and allow our functions to keep on processing it.
+
+31
+00:01:15,300 --> 00:01:16,320
+Okay.
+
+32
+00:01:16,320 --> 00:01:19,290
+Next, we have another option, SNS and Lambda.
+
+33
+00:01:19,290 --> 00:01:21,390
+In this case, SNS is a service
+
+34
+00:01:21,390 --> 00:01:23,160
+and the message goes through with it
+
+35
+00:01:23,160 --> 00:01:27,360
+and then the message is sent asynchronously to Lambda.
+
+36
+00:01:27,360 --> 00:01:28,470
+In which case, the Lambda function
+
+37
+00:01:28,470 --> 00:01:30,000
+is a different retry behavior.
+
+38
+00:01:30,000 --> 00:01:31,683
+In case it cannot process that message,
+
+39
+00:01:31,683 --> 00:01:34,020
+it's going to retry, but internally.
+
+40
+00:01:34,020 --> 00:01:36,240
+And that retry will be three times.
+
+41
+00:01:36,240 --> 00:01:38,760
+And if the message is not processed successfully,
+
+42
+00:01:38,760 --> 00:01:41,910
+it will be discarded, or we can set up a DLQ.
+
+43
+00:01:41,910 --> 00:01:44,280
+But this time, at the Lambda service level
+
+44
+00:01:44,280 --> 00:01:47,250
+to send that message into, for example, the SQS queue
+
+45
+00:01:47,250 --> 00:01:48,840
+for letter processing.
+
+46
+00:01:48,840 --> 00:01:51,690
+So as we can see, this is a different kind of architecture.
+
+47
+00:01:51,690 --> 00:01:55,110
+With SQS, the DLQ is set up on the SQS side.
+
+48
+00:01:55,110 --> 00:01:59,250
+And for Lambda, the DLQ is set up on the Lambda side.
+
+49
+00:01:59,250 --> 00:02:01,830
+So different architectures with different needs.
+
+50
+00:02:01,830 --> 00:02:04,350
+Now let's talk about the Fan Out pattern,
+
+51
+00:02:04,350 --> 00:02:08,430
+which is, how do you deliver a data to multiple SQS queues?
+
+52
+00:02:08,430 --> 00:02:10,440
+So, option one, we have our application
+
+53
+00:02:10,440 --> 00:02:12,930
+and it has the AWS SDK installed on it.
+
+54
+00:02:12,930 --> 00:02:14,760
+And we have say three SQS SQS
+
+55
+00:02:14,760 --> 00:02:16,980
+we'd like to deliver a message on to.
+
+56
+00:02:16,980 --> 00:02:19,050
+So what we could do, very easily,
+
+57
+00:02:19,050 --> 00:02:20,700
+is to write our application,
+
+58
+00:02:20,700 --> 00:02:23,430
+to first send a message to the first queue
+
+59
+00:02:23,430 --> 00:02:25,630
+and then send a message to the second queue.
+
+60
+00:02:27,447 --> 00:02:28,920
+And then send again the same message to the third queue.
+
+61
+00:02:28,920 --> 00:02:30,150
+And that would work,
+
+62
+00:02:30,150 --> 00:02:32,880
+but that would be somewhat not too reliable, right?
+
+63
+00:02:32,880 --> 00:02:35,130
+Because for example, if our application crashes
+
+64
+00:02:35,130 --> 00:02:37,740
+after we send a message to the second queue,
+
+65
+00:02:37,740 --> 00:02:40,530
+then the third queue will never receive the last message.
+
+66
+00:02:40,530 --> 00:02:43,200
+And the content of each queue will be different.
+
+67
+00:02:43,200 --> 00:02:45,570
+So while this works, this is not very reliable
+
+68
+00:02:45,570 --> 00:02:46,720
+and this is not pretty.
+
+69
+00:02:47,986 --> 00:02:49,650
+Instead, we can use a fan out pattern,
+
+70
+00:02:49,650 --> 00:02:52,080
+which is to combine your SQS queue
+
+71
+00:02:52,080 --> 00:02:54,540
+with an SNS topic in the middle.
+
+72
+00:02:54,540 --> 00:02:56,160
+And in this case, what happens?
+
+73
+00:02:56,160 --> 00:02:58,830
+Well, our SQS queues are going to be subscribers
+
+74
+00:02:58,830 --> 00:03:00,990
+of our SNS topic in the middle?
+
+75
+00:03:00,990 --> 00:03:03,330
+And what will happen is that anytime we send a message
+
+76
+00:03:03,330 --> 00:03:06,680
+to the SNS topic, it will be sent by the SNS service
+
+77
+00:03:06,680 --> 00:03:11,190
+into all of our SQS queues, which is a higher guarantee.
+
+78
+00:03:11,190 --> 00:03:13,170
+So from our application perspective now,
+
+79
+00:03:13,170 --> 00:03:16,800
+we just do a put into our SNS topic.
+
+80
+00:03:16,800 --> 00:03:18,810
+And automatically, the SNS service
+
+81
+00:03:18,810 --> 00:03:20,720
+will fan out that message into your other SQS queue.
+
+82
+00:03:20,720 --> 00:03:22,802
+And this works really well.
+
+83
+00:03:22,802 --> 00:03:25,254
+And that's a very common design pattern on AWS.
+
+84
+00:03:25,254 --> 00:03:28,307
+Regarding S3 event notifications,
+
+85
+00:03:28,307 --> 00:03:30,720
+it's possible for you to react
+
+86
+00:03:30,720 --> 00:03:33,570
+to specific events on your Amazon S3 buckets
+
+87
+00:03:33,570 --> 00:03:36,240
+such as when the objects is created, removed, restored,
+
+88
+00:03:36,240 --> 00:03:37,620
+when replication happens,
+
+89
+00:03:37,620 --> 00:03:39,870
+and you can filter by name as well.
+
+90
+00:03:39,870 --> 00:03:41,910
+So a use case would be to generate thumbnails
+
+91
+00:03:41,910 --> 00:03:44,190
+of images uploaded to Amazon S3.
+
+92
+00:03:44,190 --> 00:03:47,400
+So from Amazon S3 events, you can send to SNS,
+
+93
+00:03:47,400 --> 00:03:49,470
+SQS or a Lambda function
+
+94
+00:03:49,470 --> 00:03:52,620
+and you can create as many S3 events as desired.
+
+95
+00:03:52,620 --> 00:03:54,150
+And these event notifications
+
+96
+00:03:54,150 --> 00:03:55,830
+typically get delivered within seconds,
+
+97
+00:03:55,830 --> 00:03:58,320
+but sometimes it can take a minute or longer.
+
+98
+00:03:58,320 --> 00:04:01,170
+So you have to remember these three integrations.
+
+99
+00:04:01,170 --> 00:04:04,320
+And there's one last, which is to use Amazon event bridge.
+
+100
+00:04:04,320 --> 00:04:05,190
+So in this case
+
+101
+00:04:05,190 --> 00:04:07,743
+the events will happen in your Amazon S3 buckets.
+
+102
+00:04:10,365 --> 00:04:11,941
+And all the events are actually sent
+
+103
+00:04:11,941 --> 00:04:12,774
+to now Amazon event bridge.
+
+104
+00:04:12,774 --> 00:04:13,680
+And using rules, we can send them
+
+105
+00:04:14,705 --> 00:04:17,730
+to over 18 AWS services as destination.
+
+106
+00:04:17,730 --> 00:04:19,529
+So why would you use EventBridge?
+
+107
+00:04:19,529 --> 00:04:21,870
+Well, because you get filtering options
+
+108
+00:04:21,870 --> 00:04:22,710
+with adjacent rules.
+
+109
+00:04:22,710 --> 00:04:25,533
+So you can filter on metadata, on object-size,
+
+110
+00:04:26,689 --> 00:04:28,100
+on name and so on.
+
+111
+00:04:28,100 --> 00:04:30,143
+You can also send it to multiple destinations at once,
+
+112
+00:04:31,336 --> 00:04:33,623
+such as step functions, Kinesis Streams or Data Firehose.
+
+113
+00:04:35,694 --> 00:04:36,720
+And then, you can also the EventBridge capabilities,
+
+114
+00:04:36,720 --> 00:04:38,820
+such as archiving, replaying,
+
+115
+00:04:38,820 --> 00:04:40,890
+and reliable delivery of events,
+
+116
+00:04:40,890 --> 00:04:43,620
+which is something that may be desirable.
+
+117
+00:04:43,620 --> 00:04:45,150
+Talking about EventBridge.
+
+118
+00:04:45,150 --> 00:04:47,490
+Remember, you can intercept any API call
+
+119
+00:04:47,490 --> 00:04:48,900
+with Amazon EventBridge
+
+120
+00:04:48,900 --> 00:04:51,720
+by using the integration with CloudTrail.
+
+121
+00:04:51,720 --> 00:04:54,030
+So for example, if you wanna react to the events
+
+122
+00:04:54,030 --> 00:04:57,390
+of a user deleting a table from DynamoDB
+
+123
+00:04:57,390 --> 00:04:59,790
+so using the delete table API call.
+
+124
+00:04:59,790 --> 00:05:03,060
+Then this API call is going to be logged in CloudTrail.
+
+125
+00:05:03,060 --> 00:05:05,610
+Actually all of them will be logged in CloudTrail.
+
+126
+00:05:05,610 --> 00:05:08,490
+These will trigger an event in Amazon EventBridge.
+
+127
+00:05:08,490 --> 00:05:12,960
+And from this, you can create alerts to alert Amazon SNS.
+
+128
+00:05:12,960 --> 00:05:15,930
+And finally, you can have external events onto AWS.
+
+129
+00:05:15,930 --> 00:05:17,850
+For example, using the API gateway.
+
+130
+00:05:17,850 --> 00:05:20,640
+So they say clients will send the request
+
+131
+00:05:20,640 --> 00:05:22,020
+into an API gateway.
+
+132
+00:05:22,020 --> 00:05:23,850
+The API gateway will send messages
+
+133
+00:05:23,850 --> 00:05:26,010
+into Kinesis Data Stream.
+
+134
+00:05:26,010 --> 00:05:28,410
+The records will end up at Nemesis data Firehose
+
+135
+00:05:29,730 --> 00:05:31,980
+and then the data for example, can end up in Amazon S3.
+
+136
+00:05:31,980 --> 00:05:34,350
+So you've seen a lot of options to integrate events
+
+137
+00:05:34,350 --> 00:05:36,600
+in AWS and to build some cool automations.
+
+138
+00:05:36,600 --> 00:05:39,813
+I hope you liked it and I will see you in the next lecture.
+

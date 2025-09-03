@@ -1,0 +1,660 @@
+1
+00:00:00,480 --> 00:00:04,170
+So I wanna show you a quick hands on for Amazon EKS
+
+2
+00:00:04,170 --> 00:00:06,600
+but this is completely out of the feature.
+
+3
+00:00:06,600 --> 00:00:08,070
+So if you do decide to do it
+
+4
+00:00:08,070 --> 00:00:09,840
+it's going to cost you quite a bit of money.
+
+5
+00:00:09,840 --> 00:00:12,150
+So I just suggest you just watch what I'm doing
+
+6
+00:00:12,150 --> 00:00:13,440
+just to understand a bit better
+
+7
+00:00:13,440 --> 00:00:16,260
+the Kubernetes per service from AWS.
+
+8
+00:00:16,260 --> 00:00:21,260
+So we are going to create a new cluster on AWS.
+
+9
+00:00:21,420 --> 00:00:23,460
+So I use demo EKS as a name.
+
+10
+00:00:23,460 --> 00:00:25,110
+I can select a Kubernetes version.
+
+11
+00:00:25,110 --> 00:00:26,073
+I will use the default
+
+12
+00:00:26,073 --> 00:00:27,390
+and then we need to
+
+13
+00:00:27,390 --> 00:00:29,910
+have a service role to manage everything.
+
+14
+00:00:29,910 --> 00:00:31,950
+So to create this role
+
+15
+00:00:31,950 --> 00:00:35,340
+I need to follow the instructions from the EKS user guide.
+
+16
+00:00:35,340 --> 00:00:37,140
+So I go to IAM
+
+17
+00:00:37,140 --> 00:00:39,960
+and then I will have to create a role for EKS.
+
+18
+00:00:39,960 --> 00:00:43,590
+And then I will need to add the EKS cluster role.
+
+19
+00:00:43,590 --> 00:00:44,640
+So let's do this.
+
+20
+00:00:44,640 --> 00:00:46,680
+We're going to go to roles.
+
+21
+00:00:46,680 --> 00:00:47,793
+Create a role.
+
+22
+00:00:48,660 --> 00:00:50,400
+This is for a service.
+
+23
+00:00:50,400 --> 00:00:53,370
+This is for the EKS service.
+
+24
+00:00:53,370 --> 00:00:54,690
+Here we go.
+
+25
+00:00:54,690 --> 00:00:58,680
+And we'll do EKS cluster to allow access
+
+26
+00:00:58,680 --> 00:01:02,790
+to other services that are operated by our cluster.
+
+27
+00:01:02,790 --> 00:01:04,170
+So here we go.
+
+28
+00:01:04,170 --> 00:01:05,003
+We're good.
+
+29
+00:01:05,003 --> 00:01:06,600
+Next.
+
+30
+00:01:06,600 --> 00:01:08,910
+Then the permission is selected already
+
+31
+00:01:08,910 --> 00:01:11,670
+and the role name is EKS cluster role.
+
+32
+00:01:11,670 --> 00:01:12,993
+Let's create this role.
+
+33
+00:01:15,750 --> 00:01:19,230
+Invalid name, so let's just remove the
+
+34
+00:01:19,230 --> 00:01:20,680
+first space in the beginning.
+
+35
+00:01:24,720 --> 00:01:26,910
+And now the role is being created.
+
+36
+00:01:26,910 --> 00:01:28,620
+Okay, so let's refresh this
+
+37
+00:01:28,620 --> 00:01:30,780
+and we can find this role right here.
+
+38
+00:01:30,780 --> 00:01:34,620
+Now, do we want to encrypt our secrets with KMS?
+
+39
+00:01:34,620 --> 00:01:36,240
+For now I'm not going to do it, but this is a
+
+40
+00:01:36,240 --> 00:01:38,130
+possibility for security.
+
+41
+00:01:38,130 --> 00:01:40,380
+Then where do you want to deploy our clusters?
+
+42
+00:01:40,380 --> 00:01:42,600
+So we have a VPC and subnet.
+
+43
+00:01:42,600 --> 00:01:45,630
+So this is so we are, we are highly available.
+
+44
+00:01:45,630 --> 00:01:49,350
+Then security groups we want out of this.
+
+45
+00:01:49,350 --> 00:01:52,890
+So we could select, for example, the default security group.
+
+46
+00:01:52,890 --> 00:01:56,730
+And then we choose the IPv4 type of services.
+
+47
+00:01:56,730 --> 00:01:58,950
+Then the cluster endpoint access is going to be public
+
+48
+00:01:58,950 --> 00:02:01,170
+so that we can access it from our computer.
+
+49
+00:02:01,170 --> 00:02:02,640
+Do we want any networking add-ons?
+
+50
+00:02:02,640 --> 00:02:04,710
+So we'll just choose the default again
+
+51
+00:02:04,710 --> 00:02:07,200
+and the default for proxy and DNS.
+
+52
+00:02:07,200 --> 00:02:08,729
+So as you can see, these are like a lot
+
+53
+00:02:08,729 --> 00:02:11,580
+of configuration and EKS should be its own course.
+
+54
+00:02:11,580 --> 00:02:14,370
+To be honest, I just want to run through you the options
+
+55
+00:02:14,370 --> 00:02:16,080
+so you can understand what's happening.
+
+56
+00:02:16,080 --> 00:02:18,330
+Then we can configure logging for the control plane.
+
+57
+00:02:18,330 --> 00:02:19,950
+I'm not going to do it.
+
+58
+00:02:19,950 --> 00:02:21,510
+And then we review the settings.
+
+59
+00:02:21,510 --> 00:02:25,350
+So we have set up security groups, networking, cluster, API
+
+60
+00:02:25,350 --> 00:02:28,320
+access to public, and we are good to go.
+
+61
+00:02:28,320 --> 00:02:29,730
+So let's create this.
+
+62
+00:02:29,730 --> 00:02:31,170
+And what this is going to do is
+
+63
+00:02:31,170 --> 00:02:34,530
+that it's going to create the cluster itself
+
+64
+00:02:34,530 --> 00:02:37,330
+and then we'll have to create the nodes for the cluster.
+
+65
+00:02:38,460 --> 00:02:41,070
+So my cluster is now created.
+
+66
+00:02:41,070 --> 00:02:43,410
+And the next step is to provision compute capacity
+
+67
+00:02:43,410 --> 00:02:45,252
+for your cluster, by adding a managed node group
+
+68
+00:02:45,252 --> 00:02:47,100
+or creating your fargate profile.
+
+69
+00:02:47,100 --> 00:02:49,230
+So we've seen this in the overview
+
+70
+00:02:49,230 --> 00:02:50,520
+and that's just what I wanted to show you.
+
+71
+00:02:50,520 --> 00:02:54,480
+So if we go into the resources, this is where
+
+72
+00:02:54,480 --> 00:02:57,720
+all your Kubernetes resources are going to be managed.
+
+73
+00:02:57,720 --> 00:03:00,810
+And this is some Kubernetes specific knowledge, okay?
+
+74
+00:03:00,810 --> 00:03:04,860
+But this is where you have it for the Kubernetes experts.
+
+75
+00:03:04,860 --> 00:03:08,100
+Then in compute, this is where we can add node groups.
+
+76
+00:03:08,100 --> 00:03:11,580
+So if I go into node groups, I can add node group here.
+
+77
+00:03:11,580 --> 00:03:14,010
+I call this one demo node group.
+
+78
+00:03:14,010 --> 00:03:17,130
+You would need to create an IAM role for this node group.
+
+79
+00:03:17,130 --> 00:03:19,010
+So we go into the IAM console...
+
+80
+00:03:22,950 --> 00:03:25,380
+And then we create a new role.
+
+81
+00:03:25,380 --> 00:03:29,760
+And this role are, is for the EC2 instances that are part
+
+82
+00:03:29,760 --> 00:03:30,950
+of my manage node group.
+
+83
+00:03:30,950 --> 00:03:32,590
+So I will just use EC2
+
+84
+00:03:33,660 --> 00:03:36,420
+and then I will search for policies.
+
+85
+00:03:36,420 --> 00:03:38,160
+I will type EKS
+
+86
+00:03:38,160 --> 00:03:42,510
+and you want an Amazon EKS worker node policy added in it.
+
+87
+00:03:42,510 --> 00:03:45,060
+So let's click on next.
+
+88
+00:03:45,060 --> 00:03:46,710
+And for this, I will enter
+
+89
+00:03:46,710 --> 00:03:48,780
+and it's somewhere in documentation.
+
+90
+00:03:48,780 --> 00:03:51,530
+So I will enter the...
+
+91
+00:03:53,400 --> 00:03:55,090
+Amazon EKS node role
+
+92
+00:03:56,040 --> 00:04:00,240
+and actually there's add permissions for this.
+
+93
+00:04:00,240 --> 00:04:02,610
+And then we need to also add the Amazon EC2
+
+94
+00:04:02,610 --> 00:04:06,000
+container registry read only policy in this.
+
+95
+00:04:06,000 --> 00:04:07,173
+So let's go back.
+
+96
+00:04:08,580 --> 00:04:10,770
+In here, we're going to edit permissions
+
+97
+00:04:10,770 --> 00:04:11,970
+and add one more thing.
+
+98
+00:04:11,970 --> 00:04:14,940
+The Amazon EC2 container registry.
+
+99
+00:04:14,940 --> 00:04:16,230
+So let's look for this.
+
+100
+00:04:16,230 --> 00:04:17,063
+Here we go.
+
+101
+00:04:17,063 --> 00:04:18,750
+It's here, next.
+
+102
+00:04:18,750 --> 00:04:20,370
+And we're good to go.
+
+103
+00:04:20,370 --> 00:04:21,300
+Let's create this role.
+
+104
+00:04:21,300 --> 00:04:24,030
+So just make sure it doesn't start with the space.
+
+105
+00:04:24,030 --> 00:04:24,863
+Here we go.
+
+106
+00:04:28,680 --> 00:04:30,110
+The role is created...
+
+107
+00:04:32,760 --> 00:04:34,530
+and now I'm able to go in here
+
+108
+00:04:34,530 --> 00:04:38,520
+refresh this, and I will find the Amazon EKS node role.
+
+109
+00:04:38,520 --> 00:04:41,520
+Great. Then do we want to have a launch template
+
+110
+00:04:41,520 --> 00:04:43,050
+for our EC2 instances?
+
+111
+00:04:43,050 --> 00:04:43,950
+We can specify one
+
+112
+00:04:43,950 --> 00:04:48,690
+but I will leave this unticked and then click on next.
+
+113
+00:04:48,690 --> 00:04:50,400
+What type of node group do we want?
+
+114
+00:04:50,400 --> 00:04:52,800
+So Amazon Linux 2 is great.
+
+115
+00:04:52,800 --> 00:04:55,590
+Do we want on-demand or spot instances?
+
+116
+00:04:55,590 --> 00:04:56,970
+What type of instances do we want?
+
+117
+00:04:56,970 --> 00:05:00,510
+So we want T3 medium? T3 micro? Whatever you want.
+
+118
+00:05:00,510 --> 00:05:01,950
+What is the disc size?
+
+119
+00:05:01,950 --> 00:05:03,900
+What is the node scaling configuration?
+
+120
+00:05:03,900 --> 00:05:06,990
+So how many nodes in your node groups do you want?
+
+121
+00:05:06,990 --> 00:05:10,080
+So this is the settings for the OS scaling group.
+
+122
+00:05:10,080 --> 00:05:12,120
+And then what is the node group update?
+
+123
+00:05:12,120 --> 00:05:13,110
+So when you do update
+
+124
+00:05:13,110 --> 00:05:15,260
+how many nodes can you tolerate to be done?
+
+125
+00:05:16,290 --> 00:05:17,123
+So click on next.
+
+126
+00:05:17,123 --> 00:05:19,770
+What subnets do you want access to?
+
+127
+00:05:19,770 --> 00:05:21,660
+And then when we're good to go
+
+128
+00:05:21,660 --> 00:05:24,270
+we create this managed node group.
+
+129
+00:05:24,270 --> 00:05:25,320
+And so to show you this
+
+130
+00:05:25,320 --> 00:05:27,870
+this is the way to deploy EC2 instances
+
+131
+00:05:27,870 --> 00:05:31,266
+for your Amazon EKS cluster, but they are entirely managed
+
+132
+00:05:31,266 --> 00:05:34,380
+by AWS, which is, makes it very easy.
+
+133
+00:05:34,380 --> 00:05:38,100
+And the other way to create nodes in here.
+
+134
+00:05:38,100 --> 00:05:42,330
+So, we go one level up, we go back into computes.
+
+135
+00:05:42,330 --> 00:05:43,980
+The other way to create nodes, except
+
+136
+00:05:43,980 --> 00:05:47,670
+from this node group is actually to have fargates
+
+137
+00:05:47,670 --> 00:05:51,450
+and fargates allows you not to provision EC2 instances.
+
+138
+00:05:51,450 --> 00:05:52,283
+And so we would have
+
+139
+00:05:52,283 --> 00:05:54,630
+with a setup to go and add a target profile.
+
+140
+00:05:54,630 --> 00:05:55,500
+Now we're not going do this.
+
+141
+00:05:55,500 --> 00:05:56,670
+I just want to show you the options
+
+142
+00:05:56,670 --> 00:05:58,560
+for node groups for fargate profiles.
+
+143
+00:05:58,560 --> 00:06:00,030
+Actually don't need this one.
+
+144
+00:06:00,030 --> 00:06:02,250
+So I'll delete it when it's finished creating.
+
+145
+00:06:02,250 --> 00:06:05,130
+And the last option I wanna show you is around add-ons.
+
+146
+00:06:05,130 --> 00:06:08,940
+So if we wanted to actually use EBS volumes
+
+147
+00:06:08,940 --> 00:06:10,080
+we can install add-ons.
+
+148
+00:06:10,080 --> 00:06:13,440
+And one of them is the Amazon EBS CSI driver.
+
+149
+00:06:13,440 --> 00:06:15,396
+And this will allow us to leverage EBS
+
+150
+00:06:15,396 --> 00:06:17,940
+for our Amazon EKS cluster
+
+151
+00:06:17,940 --> 00:06:21,330
+and they will be STS side driver also for EFS X,
+
+152
+00:06:21,330 --> 00:06:22,620
+EFS, and so on.
+
+153
+00:06:22,620 --> 00:06:25,830
+Okay. So this is all the actions, I am gonna show you.
+
+154
+00:06:25,830 --> 00:06:27,930
+Kubernetes requires its own knowledge
+
+155
+00:06:27,930 --> 00:06:29,130
+to be honest, and it's very
+
+156
+00:06:29,130 --> 00:06:31,500
+very difficult and requires a full course on it.
+
+157
+00:06:31,500 --> 00:06:33,480
+So what I'm going to do now is just go ahead
+
+158
+00:06:33,480 --> 00:06:35,160
+and delete this cluster.
+
+159
+00:06:35,160 --> 00:06:37,770
+So for this I'll just type demo EKS, and this will be
+
+160
+00:06:37,770 --> 00:06:42,120
+it all I wanted to show you was how to create an EKS cluster
+
+161
+00:06:42,120 --> 00:06:44,400
+and to delete the first need to delete the note groups.
+
+162
+00:06:44,400 --> 00:06:46,320
+I will skip that from the video.
+
+163
+00:06:46,320 --> 00:06:47,430
+So that's it for this lecture.
+
+164
+00:06:47,430 --> 00:06:48,263
+I hope you liked it.
+
+165
+00:06:48,263 --> 00:06:50,100
+And I will see you in the next lecture.
+

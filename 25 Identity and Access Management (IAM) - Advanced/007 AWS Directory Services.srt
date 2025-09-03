@@ -1,0 +1,604 @@
+1
+00:00:00,000 --> 00:00:00,990
+Hey, so now let's talk
+
+2
+00:00:00,990 --> 00:00:05,700
+about Microsoft Active Directory and AWS Directory Services.
+
+3
+00:00:05,700 --> 00:00:08,039
+So in case you don't know what Microsoft AD is,
+
+4
+00:00:08,039 --> 00:00:09,750
+it is a software that is found on
+
+5
+00:00:09,750 --> 00:00:13,170
+any Windows Server with AD Domain Services.
+
+6
+00:00:13,170 --> 00:00:14,700
+And it's a database of objects,
+
+7
+00:00:14,700 --> 00:00:17,190
+and the objects can be user accounts, computers, printers,
+
+8
+00:00:17,190 --> 00:00:18,660
+file shares, security groups.
+
+9
+00:00:18,660 --> 00:00:20,040
+So all your users manage
+
+10
+00:00:20,040 --> 00:00:22,770
+within your entire Microsoft ecosystem on premise
+
+11
+00:00:22,770 --> 00:00:25,320
+is going to be managed by Microsoft Active Directory.
+
+12
+00:00:25,320 --> 00:00:27,450
+And there's going to be a centralized security management.
+
+13
+00:00:27,450 --> 00:00:29,850
+You can create account, assign permissions, and so on.
+
+14
+00:00:29,850 --> 00:00:32,759
+And all the objects will be organized into a tree.
+
+15
+00:00:32,759 --> 00:00:34,680
+And a group of tree is called a forest.
+
+16
+00:00:34,680 --> 00:00:36,450
+That's just for some terminology.
+
+17
+00:00:36,450 --> 00:00:38,970
+So let's take an example, we have a domain controller
+
+18
+00:00:38,970 --> 00:00:41,280
+and we're going to create an account on it.
+
+19
+00:00:41,280 --> 00:00:42,900
+We're create an account username is John,
+
+20
+00:00:42,900 --> 00:00:44,550
+and the password is Password.
+
+21
+00:00:44,550 --> 00:00:45,450
+And the idea is that
+
+22
+00:00:45,450 --> 00:00:48,420
+all the other Windows machines we have within our network
+
+23
+00:00:48,420 --> 00:00:51,420
+are going to be connected to the domain controller.
+
+24
+00:00:51,420 --> 00:00:53,760
+So that's if we're using the John password
+
+25
+00:00:53,760 --> 00:00:55,020
+on the first machine,
+
+26
+00:00:55,020 --> 00:00:57,270
+it's going to look it up in the controller and say,
+
+27
+00:00:57,270 --> 00:00:58,710
+yes, we have that login.
+
+28
+00:00:58,710 --> 00:01:00,810
+And then, allow you to log in from that machine.
+
+29
+00:01:00,810 --> 00:01:02,970
+So all these machines are going to be connected
+
+30
+00:01:02,970 --> 00:01:05,190
+to your domain controller and that allows you
+
+31
+00:01:05,190 --> 00:01:08,640
+to have the users accessible on any single machine.
+
+32
+00:01:08,640 --> 00:01:11,040
+So that's the whole idea behind Active Directory
+
+33
+00:01:11,040 --> 00:01:12,960
+in a very, very high level.
+
+34
+00:01:12,960 --> 00:01:15,030
+Now we have AWS Directory Services,
+
+35
+00:01:15,030 --> 00:01:16,320
+which is to provide you
+
+36
+00:01:16,320 --> 00:01:19,050
+a way to create an Active Directory on AWS.
+
+37
+00:01:19,050 --> 00:01:21,270
+And we have three flavors on it.
+
+38
+00:01:21,270 --> 00:01:22,740
+We don't have to do a deep dive on them,
+
+39
+00:01:22,740 --> 00:01:24,150
+but you have to understand the differences
+
+40
+00:01:24,150 --> 00:01:25,950
+between these three flavors.
+
+41
+00:01:25,950 --> 00:01:28,890
+The first one is AWS Manage Microsoft AD
+
+42
+00:01:28,890 --> 00:01:31,440
+to create your own Active Directory in AWS.
+
+43
+00:01:31,440 --> 00:01:33,270
+And you can manage users locally
+
+44
+00:01:33,270 --> 00:01:36,090
+and it supports multi-factor authentication.
+
+45
+00:01:36,090 --> 00:01:39,150
+The idea is that with this standalone Active Directory,
+
+46
+00:01:39,150 --> 00:01:41,220
+you can also create a trust connection
+
+47
+00:01:41,220 --> 00:01:42,960
+with your on-premise AD
+
+48
+00:01:42,960 --> 00:01:45,030
+where you have your own users there as well.
+
+49
+00:01:45,030 --> 00:01:48,630
+And what that means is that your AD in here, for example,
+
+50
+00:01:48,630 --> 00:01:50,160
+can be trusted with the on-premise AD.
+
+51
+00:01:50,160 --> 00:01:51,597
+So AWS trust the on-premise AD
+
+52
+00:01:51,597 --> 00:01:53,850
+and on-premise AD trust AWS.
+
+53
+00:01:53,850 --> 00:01:55,200
+And so that means that if your users
+
+54
+00:01:55,200 --> 00:01:56,850
+authenticated to the right,
+
+55
+00:01:56,850 --> 00:02:00,390
+and used an account that is not managed by AWS,
+
+56
+00:02:00,390 --> 00:02:02,190
+it can go and look up the accounts
+
+57
+00:02:02,190 --> 00:02:04,320
+into the on-premise Active Directory.
+
+58
+00:02:04,320 --> 00:02:07,740
+And similarly, if an on-premise directory user goes
+
+59
+00:02:07,740 --> 00:02:10,830
+and authentic to your on-premise AD using the AWS accounts,
+
+60
+00:02:10,830 --> 00:02:13,110
+it can be trusted to go and look it up.
+
+61
+00:02:13,110 --> 00:02:14,880
+So here our users are going to be shared
+
+62
+00:02:14,880 --> 00:02:19,020
+between our on-premise Active Directory and AWS, okay?
+
+63
+00:02:19,020 --> 00:02:20,550
+A little bit complicated, I know if you're new to this,
+
+64
+00:02:20,550 --> 00:02:21,990
+but hopefully it makes sense.
+
+65
+00:02:21,990 --> 00:02:24,060
+The AD Connector is a little bit different.
+
+66
+00:02:24,060 --> 00:02:28,830
+This is a direct gateway proxy to redirect to on-premise AD
+
+67
+00:02:28,830 --> 00:02:33,300
+and it supports MFA if you need multi-factor authentication
+
+68
+00:02:33,300 --> 00:02:36,450
+and the users are solely managed into the on-premise AD.
+
+69
+00:02:36,450 --> 00:02:37,800
+So here is the example.
+
+70
+00:02:37,800 --> 00:02:41,790
+In this example, our AD Connector is just acting as a proxy.
+
+71
+00:02:41,790 --> 00:02:44,673
+So if the users try to authenticate with our AD Connector
+
+72
+00:02:44,673 --> 00:02:46,620
+it's going to proxy the request
+
+73
+00:02:46,620 --> 00:02:49,830
+back to our on-premise AD and look it up.
+
+74
+00:02:49,830 --> 00:02:51,120
+So the idea here is that
+
+75
+00:02:51,120 --> 00:02:54,450
+in the first case with Microsoft Managed Microsoft AD,
+
+76
+00:02:54,450 --> 00:02:58,230
+we have users sitting in AWS Managed AD
+
+77
+00:02:58,230 --> 00:03:00,360
+and users sitting in on-premise AD.
+
+78
+00:03:00,360 --> 00:03:02,610
+Whereas with Ad Connector, as the name indicates,
+
+79
+00:03:02,610 --> 00:03:04,320
+it connects, it proxies
+
+80
+00:03:04,320 --> 00:03:06,480
+the queries, the connection requests
+
+81
+00:03:06,480 --> 00:03:08,460
+back to our on-premise Active Directory.
+
+82
+00:03:08,460 --> 00:03:10,470
+And the only place where we can manage users
+
+83
+00:03:10,470 --> 00:03:13,200
+is going to be on the on-premise AD.
+
+84
+00:03:13,200 --> 00:03:15,000
+Finally, you have Simple AD.
+
+85
+00:03:15,000 --> 00:03:18,060
+And it's an AD-compatible managed directory on AWS.
+
+86
+00:03:18,060 --> 00:03:20,250
+It doesn't use Microsoft Directory.
+
+87
+00:03:20,250 --> 00:03:22,710
+And it cannot be joined with a non-premise Active Directory.
+
+88
+00:03:22,710 --> 00:03:25,830
+So the idea is that if you don't have an on-premise AD
+
+89
+00:03:25,830 --> 00:03:28,860
+and you need an Active Directory for your AWS Cloud,
+
+90
+00:03:28,860 --> 00:03:32,760
+then you can have just a Simple AD as a standalone thing.
+
+91
+00:03:32,760 --> 00:03:35,040
+And the idea here is that using Active Directory
+
+92
+00:03:35,040 --> 00:03:36,600
+you can create EC2 instances
+
+93
+00:03:36,600 --> 00:03:38,190
+that are going to be running Windows.
+
+94
+00:03:38,190 --> 00:03:42,300
+And these Windows instances can join the domain controllers
+
+95
+00:03:42,300 --> 00:03:43,410
+for your network
+
+96
+00:03:43,410 --> 00:03:46,080
+and share all the logins, and the credentials, and so on.
+
+97
+00:03:46,080 --> 00:03:49,350
+So this is why we want to have a directory in AWS
+
+98
+00:03:49,350 --> 00:03:50,700
+to have a directory closer
+
+99
+00:03:50,700 --> 00:03:52,560
+to your EC2 instances running Windows.
+
+100
+00:03:52,560 --> 00:03:54,120
+And hopefully that makes sense.
+
+101
+00:03:54,120 --> 00:03:55,680
+Now, the exam should has queue
+
+102
+00:03:55,680 --> 00:03:57,630
+some very, very high level question,
+
+103
+00:03:57,630 --> 00:04:01,140
+saying we want to proxy our users to on-premise
+
+104
+00:04:01,140 --> 00:04:02,850
+and therefore you need AD Connector,
+
+105
+00:04:02,850 --> 00:04:04,560
+or we want to manage our users
+
+106
+00:04:04,560 --> 00:04:07,200
+on the cloud in AWS and have MFA
+
+107
+00:04:07,200 --> 00:04:09,480
+and therefore you need AWS Managed AD,
+
+108
+00:04:09,480 --> 00:04:10,527
+or we just want a Simple AD
+
+109
+00:04:10,527 --> 00:04:12,450
+and we don't have any on-premise stuff.
+
+110
+00:04:12,450 --> 00:04:14,430
+In this case, you want a Simple AD.
+
+111
+00:04:14,430 --> 00:04:15,630
+So now something that you know
+
+112
+00:04:15,630 --> 00:04:19,019
+is how to integrate the IAM Identity Center
+
+113
+00:04:19,019 --> 00:04:20,940
+with Active Directory.
+
+114
+00:04:20,940 --> 00:04:23,700
+So if you connect to an Active Directory
+
+115
+00:04:23,700 --> 00:04:27,810
+that is managed on your AWS using the directory service
+
+116
+00:04:27,810 --> 00:04:30,240
+then the integration is out of the box.
+
+117
+00:04:30,240 --> 00:04:33,030
+You just tell IAM Identity Center
+
+118
+00:04:33,030 --> 00:04:37,410
+to integrate and connect to your AWS Managed Microsoft AD.
+
+119
+00:04:37,410 --> 00:04:38,640
+Very simple.
+
+120
+00:04:38,640 --> 00:04:40,350
+But what if you don't manage
+
+121
+00:04:40,350 --> 00:04:42,120
+your Active Directory users on the cloud?
+
+122
+00:04:42,120 --> 00:04:44,430
+What if you have a self-managed directory
+
+123
+00:04:44,430 --> 00:04:46,620
+for example, on premises?
+
+124
+00:04:46,620 --> 00:04:49,080
+In that case, you have two ways of connecting
+
+125
+00:04:49,080 --> 00:04:50,880
+to your self-managed directory.
+
+126
+00:04:50,880 --> 00:04:52,650
+The first one is what we should call
+
+127
+00:04:52,650 --> 00:04:55,380
+a two-way trust relationship
+
+128
+00:04:55,380 --> 00:04:58,800
+using the AWS Managed Microsoft AD.
+
+129
+00:04:58,800 --> 00:05:01,440
+So you would create a Managed Microsoft AD
+
+130
+00:05:01,440 --> 00:05:03,450
+from the directory service,
+
+131
+00:05:03,450 --> 00:05:06,870
+and then you would set up a two-way trust relationship
+
+132
+00:05:06,870 --> 00:05:08,160
+between your Active Directory,
+
+133
+00:05:08,160 --> 00:05:11,790
+for example on premises and your Managed AD.
+
+134
+00:05:11,790 --> 00:05:14,460
+And then you would use the out of the box integration
+
+135
+00:05:14,460 --> 00:05:18,510
+coming from the IAM Identity Center for single sign-up.
+
+136
+00:05:18,510 --> 00:05:21,900
+The other option would be to use an AD Connector.
+
+137
+00:05:21,900 --> 00:05:24,450
+So an AD Connector here would have the role
+
+138
+00:05:24,450 --> 00:05:27,210
+to of course integrate with IAM Identity Center.
+
+139
+00:05:27,210 --> 00:05:28,860
+And then you would connect to it
+
+140
+00:05:28,860 --> 00:05:32,460
+and then it would automatically proxy any kind of request
+
+141
+00:05:32,460 --> 00:05:35,430
+onto your self-managed directory.
+
+142
+00:05:35,430 --> 00:05:37,680
+So if you had to choose one or the other,
+
+143
+00:05:37,680 --> 00:05:39,150
+it will depends on
+
+144
+00:05:39,150 --> 00:05:41,940
+if you want to also be able to manage users
+
+145
+00:05:41,940 --> 00:05:45,780
+from within the cloud on Active Directory in the cloud.
+
+146
+00:05:45,780 --> 00:05:47,940
+And then the first solution may better.
+
+147
+00:05:47,940 --> 00:05:50,010
+But if you just wanted to proxy API calls
+
+148
+00:05:50,010 --> 00:05:52,440
+then the second solution could be a fit,
+
+149
+00:05:52,440 --> 00:05:54,360
+although with a bit more latency.
+
+150
+00:05:54,360 --> 00:05:55,680
+So that's it for this lecture.
+
+151
+00:05:55,680 --> 00:05:58,630
+I hope you liked it and I will see you in the next lecture.
+

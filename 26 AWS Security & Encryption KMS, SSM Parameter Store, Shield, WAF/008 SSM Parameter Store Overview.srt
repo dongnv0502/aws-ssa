@@ -1,0 +1,452 @@
+1
+00:00:00,210 --> 00:00:01,200
+So now let's talk about
+
+2
+00:00:01,200 --> 00:00:02,969
+the SSM Parameter Store.
+
+3
+00:00:02,969 --> 00:00:04,717
+It's a secure storage for your configuration
+
+4
+00:00:04,717 --> 00:00:06,540
+and your secrets.
+
+5
+00:00:06,540 --> 00:00:07,373
+And optionally,
+
+6
+00:00:07,373 --> 00:00:09,510
+you can choose to encrypt these configurations
+
+7
+00:00:09,510 --> 00:00:10,860
+and therefore make it secrets
+
+8
+00:00:10,860 --> 00:00:12,990
+by using the KMS service.
+
+9
+00:00:12,990 --> 00:00:14,640
+SSM Parameter Store is serverless,
+
+10
+00:00:14,640 --> 00:00:15,990
+it's scalable, it's durable,
+
+11
+00:00:15,990 --> 00:00:17,730
+and the SDK is very easy to use.
+
+12
+00:00:17,730 --> 00:00:20,760
+On top of it, if you update your parameters
+
+13
+00:00:20,760 --> 00:00:23,280
+then you have version tracking of them.
+
+14
+00:00:23,280 --> 00:00:25,731
+The security is provided through IAM
+
+15
+00:00:25,731 --> 00:00:28,237
+and you get notifications with Amazon EventBridge,
+
+16
+00:00:28,237 --> 00:00:30,600
+in certain amount of cases.
+
+17
+00:00:30,600 --> 00:00:32,966
+You have full integration with CloudFormation.
+
+18
+00:00:32,966 --> 00:00:34,440
+That means that CloudFormation can leverage the parameters
+
+19
+00:00:34,440 --> 00:00:38,280
+from parameter store as input parameters for your stacks.
+
+20
+00:00:38,280 --> 00:00:39,210
+So let's take an example.
+
+21
+00:00:39,210 --> 00:00:40,560
+We have an application
+
+22
+00:00:40,560 --> 00:00:42,870
+and then we have the SSM parameter store.
+
+23
+00:00:42,870 --> 00:00:45,720
+So we can store plain text configuration in this way.
+
+24
+00:00:45,720 --> 00:00:47,760
+Then the IAM permissions of your applications
+
+25
+00:00:47,760 --> 00:00:48,593
+are going to be checked.
+
+26
+00:00:48,593 --> 00:00:50,859
+For example, your EC2 instance role
+
+27
+00:00:50,859 --> 00:00:53,700
+or you can have encrypted configuration.
+
+28
+00:00:53,700 --> 00:00:54,660
+In that case
+
+29
+00:00:54,660 --> 00:00:57,870
+the SSM parameter store is going to encrypt it with KMS.
+
+30
+00:00:57,870 --> 00:01:00,030
+And so the KMS service is going to be used
+
+31
+00:01:00,030 --> 00:01:02,220
+for encryption and decryption.
+
+32
+00:01:02,220 --> 00:01:03,420
+And of course, you need to make sure
+
+33
+00:01:03,420 --> 00:01:05,550
+that your applications do have access
+
+34
+00:01:05,550 --> 00:01:08,700
+to the underlying KMS key to perform that encryption
+
+35
+00:01:08,700 --> 00:01:09,723
+and that decryption.
+
+36
+00:01:10,620 --> 00:01:13,204
+So you can store parameters in the parameter store
+
+37
+00:01:13,204 --> 00:01:14,820
+with a hierarchy.
+
+38
+00:01:14,820 --> 00:01:16,890
+So for example, you can define my department
+
+39
+00:01:16,890 --> 00:01:20,250
+as a path and underneath the My-app and then the Dev
+
+40
+00:01:20,250 --> 00:01:22,950
+and then we have the Dev DB-URL
+
+41
+00:01:22,950 --> 00:01:25,650
+and then the DB-password within that folder.
+
+42
+00:01:25,650 --> 00:01:28,320
+So that means that your parameters goes all the way down
+
+43
+00:01:28,320 --> 00:01:29,520
+into the hierarchy.
+
+44
+00:01:29,520 --> 00:01:32,010
+We can go one level up and store a parameter
+
+45
+00:01:32,010 --> 00:01:35,617
+for the Prod DB-URL, as well as a Prod DB password
+
+46
+00:01:35,617 --> 00:01:39,434
+and go up to another app or another department.
+
+47
+00:01:39,434 --> 00:01:41,640
+That really allows you to organize your parameters
+
+48
+00:01:41,640 --> 00:01:43,980
+the way you want in a structured fashion.
+
+49
+00:01:43,980 --> 00:01:47,670
+And then this is going to simplify your IAM policies to
+
+50
+00:01:47,670 --> 00:01:51,180
+allow applications to have access to an entire department,
+
+51
+00:01:51,180 --> 00:01:52,530
+or to an entire app,
+
+52
+00:01:52,530 --> 00:01:57,060
+or just to an app department environment specific path.
+
+53
+00:01:57,060 --> 00:01:58,590
+You also have the opportunity
+
+54
+00:01:58,590 --> 00:02:01,029
+to access Secrets of Secrets Manager
+
+55
+00:02:01,029 --> 00:02:02,842
+through the Parameter Store
+
+56
+00:02:02,842 --> 00:02:05,250
+by using this reference right here.
+
+57
+00:02:05,250 --> 00:02:07,830
+So it's a little trick that not many people know.
+
+58
+00:02:07,830 --> 00:02:10,620
+And there are something called Public Parameters
+
+59
+00:02:10,620 --> 00:02:13,110
+that are issued by AWS that you can use.
+
+60
+00:02:13,110 --> 00:02:16,500
+For example, if you want to find the latest AMI
+
+61
+00:02:16,500 --> 00:02:19,410
+for the Amazon Index 2 in your specific region.
+
+62
+00:02:19,410 --> 00:02:20,850
+This is something that's available
+
+63
+00:02:20,850 --> 00:02:24,360
+within the Parameter Store as an API call.
+
+64
+00:02:24,360 --> 00:02:25,470
+So if you take an application,
+
+65
+00:02:25,470 --> 00:02:28,170
+for example our Dev Lambda function is going to have
+
+66
+00:02:28,170 --> 00:02:30,630
+an IAM roll that allows it to access
+
+67
+00:02:30,630 --> 00:02:34,020
+the DB-URL and DB-password within the Dev of my app.
+
+68
+00:02:34,020 --> 00:02:36,150
+And then if you have a Prod Lambda Function,
+
+69
+00:02:36,150 --> 00:02:38,520
+thanks to again, a different IAM policy
+
+70
+00:02:38,520 --> 00:02:40,200
+and maybe some environment variables,
+
+71
+00:02:40,200 --> 00:02:41,880
+you can access the Prod DB-URL
+
+72
+00:02:41,880 --> 00:02:44,688
+and Prod DB-password of another path.
+
+73
+00:02:44,688 --> 00:02:45,521
+(mouse clicks)
+
+74
+00:02:45,521 --> 00:02:46,710
+Now, within Systems Manager,
+
+75
+00:02:46,710 --> 00:02:49,260
+you have two kinds of parameter tiers.
+
+76
+00:02:49,260 --> 00:02:51,480
+You have the standard and the advanced tier.
+
+77
+00:02:51,480 --> 00:02:54,510
+So the big difference is going to be around the size
+
+78
+00:02:54,510 --> 00:02:57,000
+of 4KB which is 8KB,
+
+79
+00:02:57,000 --> 00:03:00,570
+and also the availability of a parameter policy.
+
+80
+00:03:00,570 --> 00:03:02,490
+For the standard one, we have none but for advanced,
+
+81
+00:03:02,490 --> 00:03:03,540
+we have some.
+
+82
+00:03:03,540 --> 00:03:05,610
+The advanced type of parameters
+
+83
+00:03:05,610 --> 00:03:09,180
+is going to be a $0.05 per month.
+
+84
+00:03:09,180 --> 00:03:12,000
+Whereas the first one is going to be free.
+
+85
+00:03:12,000 --> 00:03:14,550
+So what are these parameter policies?
+
+86
+00:03:14,550 --> 00:03:16,101
+And this is only for advanced parameters.
+
+87
+00:03:16,101 --> 00:03:16,934
+(mouse clicks)
+
+88
+00:03:16,934 --> 00:03:19,530
+Well, this allows you to assign a time to live
+
+89
+00:03:19,530 --> 00:03:21,570
+to a parameter, that means an expiration date.
+
+90
+00:03:21,570 --> 00:03:23,790
+So that you forced users to update
+
+91
+00:03:23,790 --> 00:03:26,310
+or delete sensitive data such as passwords.
+
+92
+00:03:26,310 --> 00:03:28,389
+And you can assign multiple policies at a time.
+
+93
+00:03:28,389 --> 00:03:30,690
+So here is an example policy.
+
+94
+00:03:30,690 --> 00:03:33,600
+So this is an expiration policy to delete a parameter
+
+95
+00:03:33,600 --> 00:03:35,520
+and you say, "Hey, on this time stamp
+
+96
+00:03:35,520 --> 00:03:37,830
+you must delete these parameter."
+
+97
+00:03:37,830 --> 00:03:41,220
+And then through the EventBridge integration,
+
+98
+00:03:41,220 --> 00:03:43,410
+EventBridge is going to get notifications of it.
+
+99
+00:03:43,410 --> 00:03:47,160
+So in this example, 15 days before the parameter expires
+
+100
+00:03:47,160 --> 00:03:49,020
+we'll receive notification in EventBridge
+
+101
+00:03:49,020 --> 00:03:51,780
+which gives us enough time to actually update it
+
+102
+00:03:51,780 --> 00:03:54,000
+and make sure the parameter is not getting deleted
+
+103
+00:03:54,000 --> 00:03:55,710
+because of the TTL.
+
+104
+00:03:55,710 --> 00:03:58,470
+Or maybe sometimes you wanna make sure the parameters
+
+105
+00:03:58,470 --> 00:03:59,730
+change once in a while.
+
+106
+00:03:59,730 --> 00:04:02,430
+So you can have a no change notification in EventBridge
+
+107
+00:04:02,430 --> 00:04:05,700
+so that if a parameter has not been updated for 20 days,
+
+108
+00:04:05,700 --> 00:04:07,710
+then you will be notified as well.
+
+109
+00:04:07,710 --> 00:04:09,420
+So you can get very, you know,
+
+110
+00:04:09,420 --> 00:04:11,010
+creative with the parameter store.
+
+111
+00:04:11,010 --> 00:04:13,170
+But now you get the idea behind it.
+
+112
+00:04:13,170 --> 00:04:14,400
+So I hope you like this lecture
+
+113
+00:04:14,400 --> 00:04:16,350
+and I will see you in the next lecture.
+

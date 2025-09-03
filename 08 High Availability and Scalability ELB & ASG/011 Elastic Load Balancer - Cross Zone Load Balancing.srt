@@ -1,0 +1,504 @@
+1
+00:00:00,510 --> 00:00:03,150
+Now let's talk about cross zone balancing.
+
+2
+00:00:03,150 --> 00:00:06,060
+So let's take an example of a very imbalanced situation
+
+3
+00:00:06,060 --> 00:00:08,100
+but it will illustrate the point.
+
+4
+00:00:08,100 --> 00:00:10,110
+So we two availability zones
+
+5
+00:00:10,110 --> 00:00:11,850
+and the first one has a load balancer
+
+6
+00:00:11,850 --> 00:00:13,167
+with two EC2 instances.
+
+7
+00:00:13,167 --> 00:00:15,540
+And the second one also has a load balancer.
+
+8
+00:00:15,540 --> 00:00:18,030
+So a load balancer instance obviously,
+
+9
+00:00:18,030 --> 00:00:19,770
+with eight EC2 instances.
+
+10
+00:00:19,770 --> 00:00:21,720
+The Load balance serves instances are part
+
+11
+00:00:21,720 --> 00:00:25,080
+of the same more general load balancer.
+
+12
+00:00:25,080 --> 00:00:28,950
+So the client is accessing these load balancers.
+
+13
+00:00:28,950 --> 00:00:32,310
+And so with cross zone load balancing
+
+14
+00:00:32,310 --> 00:00:35,520
+each load balancer instance will distribute evenly
+
+15
+00:00:35,520 --> 00:00:39,270
+across all registered instances in all availability zones.
+
+16
+00:00:39,270 --> 00:00:42,450
+So the client itself is sending 50%
+
+17
+00:00:42,450 --> 00:00:45,690
+of the traffic to the first ALB instance
+
+18
+00:00:45,690 --> 00:00:49,080
+and 50% of traffic to the other ALB instance.
+
+19
+00:00:49,080 --> 00:00:52,590
+But each ALB is going to redirect the traffic
+
+20
+00:00:52,590 --> 00:00:55,320
+across all 10 EC2 instances
+
+21
+00:00:55,320 --> 00:00:58,440
+regardless of which availability zones they're in.
+
+22
+00:00:58,440 --> 00:01:01,140
+This is why it's called cross zone load balancing.
+
+23
+00:01:01,140 --> 00:01:03,360
+So if you take a look at the first
+
+24
+00:01:03,360 --> 00:01:05,580
+at the second ALB, sorry instance
+
+25
+00:01:05,580 --> 00:01:09,990
+it's going to send 10% of the traffic it receives, okay?
+
+26
+00:01:09,990 --> 00:01:14,130
+To all these instances because we have 10 instances.
+
+27
+00:01:14,130 --> 00:01:16,890
+So each of them gets 10% of the traffic.
+
+28
+00:01:16,890 --> 00:01:20,490
+And same story with the first ALB instance.
+
+29
+00:01:20,490 --> 00:01:21,780
+It's going to send also 10%
+
+30
+00:01:21,780 --> 00:01:23,850
+of traffic to all these instances.
+
+31
+00:01:23,850 --> 00:01:26,640
+So in this example with cross zone balancing
+
+32
+00:01:26,640 --> 00:01:29,160
+we are distributing the traffic evenly
+
+33
+00:01:29,160 --> 00:01:31,230
+across all EC2 instances.
+
+34
+00:01:31,230 --> 00:01:34,290
+And then maybe something you want to have or not, who knows
+
+35
+00:01:34,290 --> 00:01:37,710
+but at least this behavior is available to you.
+
+36
+00:01:37,710 --> 00:01:39,180
+The second behavior that's available
+
+37
+00:01:39,180 --> 00:01:42,480
+to you is to not have cross zone balancing.
+
+38
+00:01:42,480 --> 00:01:44,850
+So we take the same example
+
+39
+00:01:44,850 --> 00:01:46,920
+but without cross zone balancing.
+
+40
+00:01:46,920 --> 00:01:49,860
+The requests, the requests, sorry, are distributed
+
+41
+00:01:49,860 --> 00:01:53,970
+in the instances of the node of the elastic load balancer.
+
+42
+00:01:53,970 --> 00:01:56,340
+So in this example, what we have is that the client
+
+43
+00:01:56,340 --> 00:02:00,450
+sends 50% of the traffic to the first AZ and the 50%
+
+44
+00:02:00,450 --> 00:02:02,400
+of traffic to the second AZ, okay?
+
+45
+00:02:02,400 --> 00:02:07,400
+But the first ALB instance is going to send the traffic
+
+46
+00:02:07,440 --> 00:02:09,810
+to only the EC2 instances in its region.
+
+47
+00:02:09,810 --> 00:02:14,076
+So that means that each EC2 instance in this sorry ability
+
+48
+00:02:14,076 --> 00:02:16,830
+zone is going to get 25% of the traffic overall, okay?
+
+49
+00:02:16,830 --> 00:02:18,090
+So half and half.
+
+50
+00:02:18,090 --> 00:02:20,460
+And the one on the right hand side will again divide
+
+51
+00:02:20,460 --> 00:02:23,550
+up the traffic it receives into the EC2 instances
+
+52
+00:02:23,550 --> 00:02:24,920
+that are registered within its AZ.
+
+53
+00:02:24,920 --> 00:02:26,340
+So AZ2.
+
+54
+00:02:26,340 --> 00:02:29,700
+So we can see here without cross balancing
+
+55
+00:02:29,700 --> 00:02:32,190
+the traffic is contained within each AZ.
+
+56
+00:02:32,190 --> 00:02:36,300
+But if there are an imbalanced number of EC2 instances
+
+57
+00:02:36,300 --> 00:02:40,470
+in each AZ, then some EC2 instances of a specific AZ we'll
+
+58
+00:02:40,470 --> 00:02:42,720
+receive more traffic than others.
+
+59
+00:02:42,720 --> 00:02:44,700
+It's just an option to know about.
+
+60
+00:02:44,700 --> 00:02:46,080
+There's no right or wrong answer.
+
+61
+00:02:46,080 --> 00:02:48,840
+It depends on the use case, obviously.
+
+62
+00:02:48,840 --> 00:02:52,320
+So for the application balancer, by default
+
+63
+00:02:52,320 --> 00:02:54,760
+cross zone load balancing is going to be enabled
+
+64
+00:02:55,789 --> 00:02:58,980
+but you can disable it at the target group level and
+
+65
+00:02:58,980 --> 00:03:00,720
+there's going to be no charges
+
+66
+00:03:00,720 --> 00:03:03,660
+if your data goes across availability zones
+
+67
+00:03:03,660 --> 00:03:06,450
+because usually in AWS, if data goes
+
+68
+00:03:06,450 --> 00:03:09,840
+from one AZ to another one, you're going to pay some money.
+
+69
+00:03:09,840 --> 00:03:11,490
+But for the application balancer
+
+70
+00:03:11,490 --> 00:03:14,490
+because cross zone lowdown is enabled by default
+
+71
+00:03:14,490 --> 00:03:19,290
+you won't have any charges for inter AZ data.
+
+72
+00:03:19,290 --> 00:03:21,180
+Now, if you consider the network load balancer
+
+73
+00:03:21,180 --> 00:03:23,190
+and the gateway load balancer,
+
+74
+00:03:23,190 --> 00:03:26,940
+then cross zone load balancing is disabled by default.
+
+75
+00:03:26,940 --> 00:03:28,560
+And if you enable it
+
+76
+00:03:28,560 --> 00:03:31,620
+then you're going to pay some amount of money
+
+77
+00:03:31,620 --> 00:03:35,343
+because the data is going to go from one AZ to the next.
+
+78
+00:03:36,270 --> 00:03:38,730
+Finally, for the classic load balancer
+
+79
+00:03:38,730 --> 00:03:42,300
+it is disabled by default, and in case you enable it
+
+80
+00:03:42,300 --> 00:03:46,443
+you're not going to be charged for inter AZ data transfers.
+
+81
+00:03:48,930 --> 00:03:51,690
+Okay, so just for the sake of doing a hands on
+
+82
+00:03:51,690 --> 00:03:55,080
+I've created a workload balancer, an application balancer
+
+83
+00:03:55,080 --> 00:03:57,090
+and a gateway load balancer.
+
+84
+00:03:57,090 --> 00:04:00,060
+So let's first have a look at the network load balancer.
+
+85
+00:04:00,060 --> 00:04:03,870
+So if I scroll down and click on attributes, as you can see
+
+86
+00:04:03,870 --> 00:04:06,450
+cross zone low balancing is off
+
+87
+00:04:06,450 --> 00:04:09,750
+but I can edit this and turn this on.
+
+88
+00:04:09,750 --> 00:04:12,960
+And as you can see, I will enable cross zone balancing
+
+89
+00:04:12,960 --> 00:04:17,959
+and this may include some regional charges for your NLB.
+
+90
+00:04:18,029 --> 00:04:21,300
+So this is a similar setting for the gateway low balancer
+
+91
+00:04:21,300 --> 00:04:24,360
+because they have a similar behavior in that regard.
+
+92
+00:04:24,360 --> 00:04:26,313
+So for the attributes, again, cross zone
+
+93
+00:04:26,313 --> 00:04:28,260
+load balancing is off
+
+94
+00:04:28,260 --> 00:04:30,570
+but I can edit it and turn it on.
+
+95
+00:04:30,570 --> 00:04:33,180
+And this will imply data charges.
+
+96
+00:04:33,180 --> 00:04:36,690
+Now if you have a look at the application load balancer
+
+97
+00:04:36,690 --> 00:04:38,550
+it is a little bit different.
+
+98
+00:04:38,550 --> 00:04:40,140
+So if you go to attributes
+
+99
+00:04:40,140 --> 00:04:44,430
+you can see that cross zone load balancing is on by default.
+
+100
+00:04:44,430 --> 00:04:48,780
+And if I edit this and and scroll down, as you can see
+
+101
+00:04:48,780 --> 00:04:50,190
+I will show you in a second.
+
+102
+00:04:50,190 --> 00:04:53,880
+As you can see, the cross zone balancing is always on,
+
+103
+00:04:53,880 --> 00:04:54,713
+okay?
+
+104
+00:04:54,713 --> 00:04:55,546
+And this message
+
+105
+00:04:55,546 --> 00:04:57,600
+you can discard it because I think it's wrong.
+
+106
+00:04:57,600 --> 00:04:59,400
+But anyway, so cross zone load balancing
+
+107
+00:04:59,400 --> 00:05:01,380
+is always on for your ALB.
+
+108
+00:05:01,380 --> 00:05:06,360
+But if you go to your actual target group, so if I go
+
+109
+00:05:06,360 --> 00:05:11,100
+to my target group that has been created for this and I go
+
+110
+00:05:11,100 --> 00:05:15,630
+to attributes of the target group, we can actually do edit.
+
+111
+00:05:15,630 --> 00:05:19,020
+And for the cross zone load balancing here, we can
+
+112
+00:05:19,020 --> 00:05:21,510
+either inherit settings from the low balancer attributes
+
+113
+00:05:21,510 --> 00:05:25,080
+which is on by default or force on or off
+
+114
+00:05:25,080 --> 00:05:28,890
+and turn it off for that one specific target group.
+
+115
+00:05:28,890 --> 00:05:29,723
+And when it comes
+
+116
+00:05:29,723 --> 00:05:32,790
+to doing the demo for the classic load balancer,
+
+117
+00:05:32,790 --> 00:05:34,440
+I will not include it this time
+
+118
+00:05:34,440 --> 00:05:37,620
+because the classic load balancer is going away.
+
+119
+00:05:37,620 --> 00:05:39,060
+It is previous generation
+
+120
+00:05:39,060 --> 00:05:40,560
+and is going to be retired very soon.
+
+121
+00:05:40,560 --> 00:05:41,760
+So I don't think you will need to know
+
+122
+00:05:41,760 --> 00:05:43,920
+about it for the exam.
+
+123
+00:05:43,920 --> 00:05:45,030
+Okay, so let's see.
+
+124
+00:05:45,030 --> 00:05:46,170
+For this lecture, just make sure
+
+125
+00:05:46,170 --> 00:05:49,590
+if you wanted to follow along to delete the load balancers.
+
+126
+00:05:49,590 --> 00:05:52,623
+I hope you liked it and I will see you in the next lecture.
+

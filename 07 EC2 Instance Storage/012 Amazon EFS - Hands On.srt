@@ -1,0 +1,1172 @@
+1
+00:00:00,330 --> 00:00:02,160
+So let's go ahead and practice using
+
+2
+00:00:02,160 --> 00:00:05,040
+the Amazon Elastic File System Service.
+
+3
+00:00:05,040 --> 00:00:07,050
+So let's create our file system
+
+4
+00:00:07,050 --> 00:00:08,580
+and here we can give it an optional name,
+
+5
+00:00:08,580 --> 00:00:10,170
+but I'll leave it empty and we have
+
+6
+00:00:10,170 --> 00:00:13,800
+to choose a VPC where we want to connect to our file system.
+
+7
+00:00:13,800 --> 00:00:16,230
+So we'll leave it as the default VPC as well,
+
+8
+00:00:16,230 --> 00:00:17,640
+and we could just click on create and be done.
+
+9
+00:00:17,640 --> 00:00:18,900
+But I wanna show you the options.
+
+10
+00:00:18,900 --> 00:00:21,000
+So let's click on Customize.
+
+11
+00:00:21,000 --> 00:00:24,570
+So here again, we'll leave the name empty and optional.
+
+12
+00:00:24,570 --> 00:00:26,760
+Next, we need to choose a file system type.
+
+13
+00:00:26,760 --> 00:00:27,720
+So we have two options.
+
+14
+00:00:27,720 --> 00:00:30,450
+We have regional, which gives you a file system
+
+15
+00:00:30,450 --> 00:00:33,330
+within the region across multiple availability zones,
+
+16
+00:00:33,330 --> 00:00:35,130
+which gives you very high availability
+
+17
+00:00:35,130 --> 00:00:37,080
+and durability of the data.
+
+18
+00:00:37,080 --> 00:00:39,300
+But if you need to reduce costs, you could use
+
+19
+00:00:39,300 --> 00:00:41,430
+the one zone option, in which case you have
+
+20
+00:00:41,430 --> 00:00:44,250
+to choose one specific availability zone.
+
+21
+00:00:44,250 --> 00:00:46,740
+And this is going to be good for development environments
+
+22
+00:00:46,740 --> 00:00:48,120
+but not good for production environment
+
+23
+00:00:48,120 --> 00:00:51,120
+because if that availability zone becomes unavailable,
+
+24
+00:00:51,120 --> 00:00:53,040
+then your data will be unaccessible.
+
+25
+00:00:53,040 --> 00:00:55,530
+So definitely, you want to use regional
+
+26
+00:00:55,530 --> 00:00:57,750
+in production settings and we'll use regional right now
+
+27
+00:00:57,750 --> 00:00:59,400
+for this hands-on.
+
+28
+00:00:59,400 --> 00:01:02,310
+Next we can enable or disabled automatic backups,
+
+29
+00:01:02,310 --> 00:01:04,950
+but it's recommended to keep it enabled.
+
+30
+00:01:04,950 --> 00:01:06,690
+Next we have lifecycle management.
+
+31
+00:01:06,690 --> 00:01:08,670
+So this is to move data
+
+32
+00:01:08,670 --> 00:01:12,150
+across different storage tiers to save costs.
+
+33
+00:01:12,150 --> 00:01:13,980
+So it turns out that you can transition
+
+34
+00:01:13,980 --> 00:01:18,690
+into infrequent access or archive and then back to standard.
+
+35
+00:01:18,690 --> 00:01:21,540
+So we're saying that hey, if a file hasn't been accessed
+
+36
+00:01:21,540 --> 00:01:24,360
+for 30 days, but you can obviously customize this,
+
+37
+00:01:24,360 --> 00:01:27,900
+if a file hasn't been accessed to 30 days, then move it
+
+38
+00:01:27,900 --> 00:01:29,970
+to the infrequent access storage tier
+
+39
+00:01:29,970 --> 00:01:30,960
+and it's going to be cheaper
+
+40
+00:01:30,960 --> 00:01:33,000
+for you except when you access the file.
+
+41
+00:01:33,000 --> 00:01:34,110
+But the likelihood is that
+
+42
+00:01:34,110 --> 00:01:37,350
+after 30 days, you're rarely accessing the file.
+
+43
+00:01:37,350 --> 00:01:40,200
+And then if the file was not accessed, for example,
+
+44
+00:01:40,200 --> 00:01:42,595
+in 90 days since the last access, then moving
+
+45
+00:01:42,595 --> 00:01:46,200
+into the archive, which is going to be even cheaper
+
+46
+00:01:46,200 --> 00:01:47,940
+as a storage class.
+
+47
+00:01:47,940 --> 00:01:49,500
+And then for example, you say
+
+48
+00:01:49,500 --> 00:01:52,020
+that here when the file is accessed the first time,
+
+49
+00:01:52,020 --> 00:01:54,720
+so on first access, transition back into standard
+
+50
+00:01:54,720 --> 00:01:56,970
+because for example, we assume that it's going
+
+51
+00:01:56,970 --> 00:01:59,220
+to be reused a lot more.
+
+52
+00:01:59,220 --> 00:02:01,770
+So this is called a lifecycle management.
+
+53
+00:02:01,770 --> 00:02:04,590
+So we can keep this on as is encryption.
+
+54
+00:02:04,590 --> 00:02:06,870
+We leave it enable, that's perfect.
+
+55
+00:02:06,870 --> 00:02:09,210
+And then we have performance settings.
+
+56
+00:02:09,210 --> 00:02:12,540
+So for performance settings we have throughput mode
+
+57
+00:02:12,540 --> 00:02:14,160
+and you should have three options.
+
+58
+00:02:14,160 --> 00:02:15,990
+So, enhanced is just a category
+
+59
+00:02:15,990 --> 00:02:18,450
+to regroup, elastic and provisions.
+
+60
+00:02:18,450 --> 00:02:21,240
+But so you have elastic throughput mode,
+
+61
+00:02:21,240 --> 00:02:23,820
+you have provisioned throughput mode as well
+
+62
+00:02:23,820 --> 00:02:25,950
+as bursting throughput mode.
+
+63
+00:02:25,950 --> 00:02:27,480
+So let's start with bursting.
+
+64
+00:02:27,480 --> 00:02:31,290
+So bursting is a way for you to have the throughput scale
+
+65
+00:02:31,290 --> 00:02:33,330
+with the amount of storage you're actually using
+
+66
+00:02:33,330 --> 00:02:34,890
+and going a little bit over,
+
+67
+00:02:34,890 --> 00:02:36,720
+that's why it's called bursting.
+
+68
+00:02:36,720 --> 00:02:37,980
+So if you have one gigabytes,
+
+69
+00:02:37,980 --> 00:02:40,290
+you get a throughput based on one gigabyte.
+
+70
+00:02:40,290 --> 00:02:42,270
+If you have one terabyte, you get higher throughput
+
+71
+00:02:42,270 --> 00:02:44,220
+because you use more storage.
+
+72
+00:02:44,220 --> 00:02:45,570
+Then there was enhanced mode.
+
+73
+00:02:45,570 --> 00:02:48,330
+And now elastic is recommended, which is saying,
+
+74
+00:02:48,330 --> 00:02:53,330
+Hey, regardless of the size of your EFS file system,
+
+75
+00:02:53,580 --> 00:02:56,070
+we're going to give you all the I/O you need
+
+76
+00:02:56,070 --> 00:02:57,510
+and we'll scale automatically
+
+77
+00:02:57,510 --> 00:03:00,480
+and you're going to only pay for what you use.
+
+78
+00:03:00,480 --> 00:03:02,580
+So this is best when you have a workload
+
+79
+00:03:02,580 --> 00:03:05,880
+with unpredictable I/O where for example, you can scale
+
+80
+00:03:05,880 --> 00:03:07,800
+from zero megabytes per second
+
+81
+00:03:07,800 --> 00:03:10,200
+to a hundred megabytes per second in no time.
+
+82
+00:03:10,200 --> 00:03:11,850
+This is why it is the recommended mode
+
+83
+00:03:11,850 --> 00:03:13,380
+because it doesn't require for you
+
+84
+00:03:13,380 --> 00:03:15,120
+to think about any settings.
+
+85
+00:03:15,120 --> 00:03:17,100
+And then the last one, so we have bursting elastic,
+
+86
+00:03:17,100 --> 00:03:18,633
+and the last one is provisioned.
+
+87
+00:03:18,633 --> 00:03:19,920
+This is when you know
+
+88
+00:03:19,920 --> 00:03:23,070
+in advance the throughput you're going to be needing.
+
+89
+00:03:23,070 --> 00:03:24,330
+So this is the provision mode.
+
+90
+00:03:24,330 --> 00:03:25,163
+So you say,
+
+91
+00:03:25,163 --> 00:03:28,350
+Hey, I will need 100 megabytes per second for sure.
+
+92
+00:03:28,350 --> 00:03:30,690
+And then you also have a bursting limit
+
+93
+00:03:30,690 --> 00:03:32,670
+of 300 megabytes per second.
+
+94
+00:03:32,670 --> 00:03:34,050
+And because you provision throughput
+
+95
+00:03:34,050 --> 00:03:37,050
+in advance, you're going to pay for it in advance.
+
+96
+00:03:37,050 --> 00:03:39,660
+So elastic is the recommended setting.
+
+97
+00:03:39,660 --> 00:03:41,760
+And then if you look at the additional settings,
+
+98
+00:03:41,760 --> 00:03:44,400
+so we have general purpose and max I/O.
+
+99
+00:03:44,400 --> 00:03:47,640
+So in the case of elastic, you get the I/O you need based
+
+100
+00:03:47,640 --> 00:03:49,080
+on the performance you need.
+
+101
+00:03:49,080 --> 00:03:53,610
+So general purpose is the only option for performance mode,
+
+102
+00:03:53,610 --> 00:03:56,820
+but if you use bursting or if you use provisions,
+
+103
+00:03:56,820 --> 00:03:58,650
+then you have the option between two settings.
+
+104
+00:03:58,650 --> 00:04:01,710
+So general purpose, which is giving you high performance
+
+105
+00:04:01,710 --> 00:04:04,080
+and latency sensitive applications.
+
+106
+00:04:04,080 --> 00:04:05,880
+So that means the latency is very low,
+
+107
+00:04:05,880 --> 00:04:07,920
+but if you want to get a maximum amount
+
+108
+00:04:07,920 --> 00:04:11,310
+of I/O mode, then this is for highly paralyzed workloads
+
+109
+00:04:11,310 --> 00:04:13,050
+and you can tolerate higher latency.
+
+110
+00:04:13,050 --> 00:04:15,270
+So at the expense of a higher latency, you
+
+111
+00:04:15,270 --> 00:04:16,740
+also get more I/O.
+
+112
+00:04:16,740 --> 00:04:19,740
+This is good in a big data type of setting,
+
+113
+00:04:19,740 --> 00:04:22,590
+but the best recommended setting now for AWS is
+
+114
+00:04:22,590 --> 00:04:26,430
+to use enhanced with general purpose and elastic.
+
+115
+00:04:26,430 --> 00:04:28,230
+Okay? So that's it for the options.
+
+116
+00:04:28,230 --> 00:04:30,180
+Hopefully it's not too confusing.
+
+117
+00:04:30,180 --> 00:04:32,820
+I don't love the fact that under enhanced there is elastic
+
+118
+00:04:32,820 --> 00:04:35,400
+and provision, it's really just three options we have.
+
+119
+00:04:35,400 --> 00:04:38,220
+We have bursting, elastic and provision,
+
+120
+00:04:38,220 --> 00:04:40,890
+and that's what you should remember for the exam.
+
+121
+00:04:40,890 --> 00:04:42,660
+Okay, let's click on Next now.
+
+122
+00:04:42,660 --> 00:04:45,750
+Next we have the network access settings
+
+123
+00:04:45,750 --> 00:04:47,940
+and they're very important, we have to choose a VPC.
+
+124
+00:04:47,940 --> 00:04:50,880
+I'll choose the default VPC and then the mount targets.
+
+125
+00:04:50,880 --> 00:04:52,682
+And because we've chosen a regional type
+
+126
+00:04:52,682 --> 00:04:56,760
+of EFS file system, we have free AZ available to us.
+
+127
+00:04:56,760 --> 00:04:59,190
+So each AZ is going to be assigned to a subnet.
+
+128
+00:04:59,190 --> 00:05:01,290
+I'll leave it as is, which is the default subnets.
+
+129
+00:05:01,290 --> 00:05:05,190
+The IP is automatic and we need to assign a security group.
+
+130
+00:05:05,190 --> 00:05:06,210
+And so we need to go ahead
+
+131
+00:05:06,210 --> 00:05:10,890
+and create a specific security group for my EFS file system.
+
+132
+00:05:10,890 --> 00:05:14,520
+So I'll go into the EC2 console and then I will go
+
+133
+00:05:14,520 --> 00:05:16,410
+into Security Groups.
+
+134
+00:05:16,410 --> 00:05:18,630
+I will create a security group
+
+135
+00:05:18,630 --> 00:05:22,203
+and I will call it sg-efs-demo.
+
+136
+00:05:23,550 --> 00:05:27,480
+And I will call this one EFS Demo SG.
+
+137
+00:05:27,480 --> 00:05:30,420
+For now, we will not have any inbound rules.
+
+138
+00:05:30,420 --> 00:05:33,780
+I'll click on Create Security Group and we cannot have this.
+
+139
+00:05:33,780 --> 00:05:37,560
+So EFS demo is good enough.
+
+140
+00:05:37,560 --> 00:05:41,010
+Okay, so my EFS demo is created successfully
+
+141
+00:05:41,010 --> 00:05:43,309
+and to have it appear here, what I need
+
+142
+00:05:43,309 --> 00:05:45,570
+to do is to refresh the page.
+
+143
+00:05:45,570 --> 00:05:46,830
+So we'll start all over,
+
+144
+00:05:46,830 --> 00:05:50,040
+but the settings are the basic ones,
+
+145
+00:05:50,040 --> 00:05:51,990
+the default ones that we come next.
+
+146
+00:05:51,990 --> 00:05:55,050
+And now I can remove these security groups
+
+147
+00:05:55,050 --> 00:05:58,680
+and choose the EFS demo security group
+
+148
+00:05:58,680 --> 00:06:01,413
+that I have created from before.
+
+149
+00:06:04,920 --> 00:06:06,360
+Okay, we're good.
+
+150
+00:06:06,360 --> 00:06:10,260
+So now we have done all the network access configuration.
+
+151
+00:06:10,260 --> 00:06:11,790
+I will click on Next.
+
+152
+00:06:11,790 --> 00:06:13,801
+We have a file system policy that is optional
+
+153
+00:06:13,801 --> 00:06:15,270
+and we will not touch it right now.
+
+154
+00:06:15,270 --> 00:06:18,030
+This is pretty advanced and we don't need it right now.
+
+155
+00:06:18,030 --> 00:06:19,590
+So I will click on Next.
+
+156
+00:06:19,590 --> 00:06:20,460
+And here we can review
+
+157
+00:06:20,460 --> 00:06:22,920
+and create all the file system settings.
+
+158
+00:06:22,920 --> 00:06:23,970
+So we're happy with that.
+
+159
+00:06:23,970 --> 00:06:26,580
+And when we're done, we just click on Create.
+
+160
+00:06:26,580 --> 00:06:28,590
+Now my file system is creating and I will get back
+
+161
+00:06:28,590 --> 00:06:30,450
+to you when it is created.
+
+162
+00:06:30,450 --> 00:06:34,170
+My file system is now available and I can go in it
+
+163
+00:06:34,170 --> 00:06:36,810
+and see that the fact that there is six kilobytes of size
+
+164
+00:06:36,810 --> 00:06:38,160
+that is being used right now.
+
+165
+00:06:38,160 --> 00:06:41,820
+And when you have a EFS file system, you only pay
+
+166
+00:06:41,820 --> 00:06:45,060
+for the storage you use, so right now my cost are zero.
+
+167
+00:06:45,060 --> 00:06:46,710
+So this is good, this is created.
+
+168
+00:06:46,710 --> 00:06:50,490
+And now we want to mount this onto EC2 instances.
+
+169
+00:06:50,490 --> 00:06:52,290
+Therefore, you know the next step we're going
+
+170
+00:06:52,290 --> 00:06:54,540
+to create EC2 instances.
+
+171
+00:06:54,540 --> 00:06:56,463
+So let's launch some instance.
+
+172
+00:06:58,050 --> 00:07:00,450
+And I will name this one Instance A,
+
+173
+00:07:00,450 --> 00:07:03,033
+because we will launch it in subnet of AZA.
+
+174
+00:07:04,380 --> 00:07:07,800
+So we are going to run Amazon Linux version 2.
+
+175
+00:07:07,800 --> 00:07:09,390
+We're good to go, we'll use the t2.micro
+
+176
+00:07:09,390 --> 00:07:11,160
+because it's free tier eligible.
+
+177
+00:07:11,160 --> 00:07:13,230
+We will disable the key pair.
+
+178
+00:07:13,230 --> 00:07:14,893
+We'll just do EC2 instance connect to connect
+
+179
+00:07:14,893 --> 00:07:16,830
+to our EC2 instance.
+
+180
+00:07:16,830 --> 00:07:19,950
+For network settings, I will leave it as is
+
+181
+00:07:19,950 --> 00:07:22,590
+and there will be a new security group created
+
+182
+00:07:22,590 --> 00:07:24,300
+with these rules right here.
+
+183
+00:07:24,300 --> 00:07:28,500
+So allow SSH access from anywhere, which is good.
+
+184
+00:07:28,500 --> 00:07:31,110
+Then we have eight gigabytes of GP2 storage.
+
+185
+00:07:31,110 --> 00:07:33,510
+But now because we want to configure the storage
+
+186
+00:07:33,510 --> 00:07:34,560
+of the EC2 instance
+
+187
+00:07:34,560 --> 00:07:37,470
+into Amazon EFS, we can actually now do it
+
+188
+00:07:37,470 --> 00:07:40,230
+from within the EC2 console, which is very exciting.
+
+189
+00:07:40,230 --> 00:07:41,610
+So let me show you how to do it.
+
+190
+00:07:41,610 --> 00:07:43,320
+Before we had to run some commands.
+
+191
+00:07:43,320 --> 00:07:46,920
+So there are 0 x file systems and you do edit
+
+192
+00:07:46,920 --> 00:07:49,620
+and it says that you cannot add a file system
+
+193
+00:07:49,620 --> 00:07:52,110
+before you choose to select a subnet.
+
+194
+00:07:52,110 --> 00:07:55,800
+So we scroll back up, we go to Network Settings, we Edit it,
+
+195
+00:07:55,800 --> 00:08:00,060
+and in subnet I'm going to choose eu-west-1a.
+
+196
+00:08:00,060 --> 00:08:03,240
+So now that my subnet is created, I can go back
+
+197
+00:08:03,240 --> 00:08:04,440
+into file systems.
+
+198
+00:08:04,440 --> 00:08:07,440
+And as you can see, I can add an EFS or an FSx file system.
+
+199
+00:08:07,440 --> 00:08:09,750
+So we'll add an EFS file system,
+
+200
+00:08:09,750 --> 00:08:12,423
+then we'll click on Add Shared File System.
+
+201
+00:08:12,423 --> 00:08:16,050
+It's going to be linked to my EFS right here.
+
+202
+00:08:16,050 --> 00:08:21,050
+The mount point is /mnt/efs/fs1. This is good enough for us.
+
+203
+00:08:22,290 --> 00:08:24,480
+This is going to automatically create
+
+204
+00:08:24,480 --> 00:08:27,810
+and attach security groups for us, which is amazing.
+
+205
+00:08:27,810 --> 00:08:28,980
+And then it's automatically going
+
+206
+00:08:28,980 --> 00:08:31,170
+to mount shared file system
+
+207
+00:08:31,170 --> 00:08:33,960
+by attaching the required user data scripts.
+
+208
+00:08:33,960 --> 00:08:35,700
+So these in the past we had
+
+209
+00:08:35,700 --> 00:08:38,520
+to run ourselves onto the EC2 instance manually
+
+210
+00:08:38,520 --> 00:08:39,960
+or create our own user data script.
+
+211
+00:08:39,960 --> 00:08:42,030
+But now this is done for us
+
+212
+00:08:42,030 --> 00:08:44,850
+by the EC2 console, which is really nice.
+
+213
+00:08:44,850 --> 00:08:48,843
+Okay, let's create one instance and launch it.
+
+214
+00:08:53,940 --> 00:08:55,680
+Okay, so this instance is launched.
+
+215
+00:08:55,680 --> 00:08:56,940
+I can go view all instances
+
+216
+00:08:56,940 --> 00:08:58,560
+and I'm going to launch a new one.
+
+217
+00:08:58,560 --> 00:09:03,180
+Okay, I will call this one Instance B.
+
+218
+00:09:03,180 --> 00:09:06,330
+We'll have Amazon Linux 2, again to make it quick, I'm going
+
+219
+00:09:06,330 --> 00:09:11,330
+to proceed without a key pair, I will go into eu-west-1b.
+
+220
+00:09:14,070 --> 00:09:17,364
+I can just select the security group of launch-wizard-2
+
+221
+00:09:17,364 --> 00:09:19,500
+that was created just from before.
+
+222
+00:09:19,500 --> 00:09:21,750
+And then again, we need to edit this
+
+223
+00:09:21,750 --> 00:09:24,100
+and add a file system of type EFS
+
+224
+00:09:24,990 --> 00:09:27,690
+and we'll use the same file system as before
+
+225
+00:09:27,690 --> 00:09:28,792
+and the same mount points
+
+226
+00:09:28,792 --> 00:09:31,713
+and we'll leave these options on as well.
+
+227
+00:09:32,700 --> 00:09:35,403
+So we're good. Let's launch that instance.
+
+228
+00:09:37,890 --> 00:09:38,790
+And now let's have a look
+
+229
+00:09:38,790 --> 00:09:40,500
+at the interesting stuff that has happened.
+
+230
+00:09:40,500 --> 00:09:45,150
+So I'm going to just do instant state equals running
+
+231
+00:09:45,150 --> 00:09:48,240
+and refresh this until I see both of my instances.
+
+232
+00:09:48,240 --> 00:09:49,073
+So now they're both running.
+
+233
+00:09:49,073 --> 00:09:50,790
+And the interesting thing is
+
+234
+00:09:50,790 --> 00:09:53,520
+that if we go into the EFS console
+
+235
+00:09:53,520 --> 00:09:56,430
+and go to the network tab, as we can see now,
+
+236
+00:09:56,430 --> 00:09:59,880
+each availability zone now has multiple security groups.
+
+237
+00:09:59,880 --> 00:10:02,400
+So we have the EFS demo we created from before,
+
+238
+00:10:02,400 --> 00:10:07,400
+but also the efs-sg-1 and efs-sg-2, which were auto created
+
+239
+00:10:08,100 --> 00:10:10,530
+by the EC2 console for us and attached
+
+240
+00:10:10,530 --> 00:10:12,510
+into our EFS file system.
+
+241
+00:10:12,510 --> 00:10:15,660
+So if I go into my EC2 instances
+
+242
+00:10:15,660 --> 00:10:18,930
+and then security group right here, I can look at
+
+243
+00:10:18,930 --> 00:10:23,100
+for example, this efs-sg-2, look at the inbound rules.
+
+244
+00:10:23,100 --> 00:10:27,127
+And as you see, it allows the protocol NFS on port 2049
+
+245
+00:10:28,530 --> 00:10:30,750
+and the source of it, if we have a look
+
+246
+00:10:30,750 --> 00:10:32,670
+at the inbound rules himself, the source
+
+247
+00:10:32,670 --> 00:10:34,740
+of this is this security group
+
+248
+00:10:34,740 --> 00:10:35,820
+and that security group is the one
+
+249
+00:10:35,820 --> 00:10:40,050
+that is attached into my EC2 instance, instance B.
+
+250
+00:10:40,050 --> 00:10:43,440
+So this allows my instance B to access the EFS file system
+
+251
+00:10:43,440 --> 00:10:46,890
+because that security group right here called efs-sg-2
+
+252
+00:10:46,890 --> 00:10:49,860
+is attached into my EFS file system.
+
+253
+00:10:49,860 --> 00:10:53,940
+So all the setup is done by AWS for us, which is truly nice.
+
+254
+00:10:53,940 --> 00:10:56,550
+So now if I go into one of these instance, we're going
+
+255
+00:10:56,550 --> 00:11:00,190
+to connect using EC2 instance connect
+
+256
+00:11:01,110 --> 00:11:05,400
+on this tab, and then I will also do the exact same thing
+
+257
+00:11:05,400 --> 00:11:10,263
+by connecting to instance B over EC2 instance connect.
+
+258
+00:11:12,150 --> 00:11:16,170
+So now I can, for example, verify the fact that yes,
+
+259
+00:11:16,170 --> 00:11:21,170
+in ls /mnt/efs/fs1/ there is an EFS file system
+
+260
+00:11:21,570 --> 00:11:23,340
+and now we need to create files in it.
+
+261
+00:11:23,340 --> 00:11:25,680
+So to make it simple, I will elevate my right
+
+262
+00:11:25,680 --> 00:11:27,900
+and type sudo SU
+
+263
+00:11:27,900 --> 00:11:30,900
+and then I can do echo "hello world"
+
+264
+00:11:30,900 --> 00:11:35,900
+into the /mnt/efs/fs1/hello.txt.
+
+265
+00:11:36,900 --> 00:11:40,170
+So we've created that file named hello.txt.
+
+266
+00:11:40,170 --> 00:11:44,130
+And if I do cat and then this entire file name right here,
+
+267
+00:11:44,130 --> 00:11:46,350
+as you can see it says hello world.
+
+268
+00:11:46,350 --> 00:11:49,770
+So this file has been created into my EFS file system
+
+269
+00:11:49,770 --> 00:11:54,300
+from this EC2 instance, which is an eu-west-1a.
+
+270
+00:11:54,300 --> 00:11:58,260
+But now if I go into my second EC2 instance and do LS
+
+271
+00:11:58,260 --> 00:12:01,860
+and then the same file system, so I look for files in it,
+
+272
+00:12:01,860 --> 00:12:06,267
+as you can see, we also see this hello.txt file in it.
+
+273
+00:12:06,267 --> 00:12:11,267
+And if I do cat and then cat the file, hello.txt,
+
+274
+00:12:11,940 --> 00:12:12,930
+it says hello world as well.
+
+275
+00:12:12,930 --> 00:12:16,290
+So as you can see, the EFS file system is indeed mounted
+
+276
+00:12:16,290 --> 00:12:20,340
+as a network drive onto both my EC2 instances
+
+277
+00:12:20,340 --> 00:12:22,380
+and they are in different AZs
+
+278
+00:12:22,380 --> 00:12:23,940
+and they share it the same EFS.
+
+279
+00:12:23,940 --> 00:12:26,700
+So that's amazing and that's a different kind of storage
+
+280
+00:12:26,700 --> 00:12:29,190
+that you had the demo of it right now.
+
+281
+00:12:29,190 --> 00:12:31,980
+So that's it for the EFS demo. That was pretty complete.
+
+282
+00:12:31,980 --> 00:12:34,320
+Now to just clean it up, what you can do
+
+283
+00:12:34,320 --> 00:12:37,560
+is you can terminate these two EC2 instances.
+
+284
+00:12:37,560 --> 00:12:40,773
+So you go here and you terminate them.
+
+285
+00:12:42,990 --> 00:12:45,000
+And something else you can do is you can go
+
+286
+00:12:45,000 --> 00:12:48,540
+into the EFS file system, you can delete it
+
+287
+00:12:48,540 --> 00:12:50,493
+by entering the file system ID,
+
+288
+00:12:52,260 --> 00:12:55,140
+and then when everything is deleted, you can go ahead
+
+289
+00:12:55,140 --> 00:12:56,760
+into your security groups
+
+290
+00:12:56,760 --> 00:12:58,443
+and delete the extra security groups
+
+291
+00:12:58,443 --> 00:13:00,510
+that have been created during this demo.
+
+292
+00:13:00,510 --> 00:13:02,040
+Okay, that's it for this lecture.
+
+293
+00:13:02,040 --> 00:13:04,990
+I hope you liked it and I will see you in the next lecture.
+

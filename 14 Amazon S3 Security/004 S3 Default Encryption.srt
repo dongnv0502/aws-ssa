@@ -1,0 +1,124 @@
+1
+00:00:00,120 --> 00:00:01,440
+So just a short lecture
+
+2
+00:00:01,440 --> 00:00:04,680
+on default encryption versus bucket policies.
+
+3
+00:00:04,680 --> 00:00:05,790
+So by default
+
+4
+00:00:05,790 --> 00:00:10,790
+now all buckets are having a default encryption of SSE-S3.
+
+5
+00:00:10,950 --> 00:00:12,060
+So it's applied automatically
+
+6
+00:00:12,060 --> 00:00:14,160
+to new objects toward the new buckets.
+
+7
+00:00:14,160 --> 00:00:15,120
+But you can change this
+
+8
+00:00:15,120 --> 00:00:19,110
+to be a different default encryption, for example, SSE-KMS.
+
+9
+00:00:19,110 --> 00:00:21,270
+Nonetheless, you can also force encryption
+
+10
+00:00:21,270 --> 00:00:24,780
+by using a bucket policy to refuse any API call
+
+11
+00:00:24,780 --> 00:00:28,680
+to put an S3 object without the correct encryption headers.
+
+12
+00:00:28,680 --> 00:00:31,650
+So for example, SSC-KMS or SSE-C.
+
+13
+00:00:31,650 --> 00:00:35,340
+So this is the kind of bucket policies
+
+14
+00:00:35,340 --> 00:00:37,080
+you could have in, for example,
+
+15
+00:00:37,080 --> 00:00:39,990
+this one is saying, hey, if you do a PUT object
+
+16
+00:00:39,990 --> 00:00:44,430
+but you don't have the encryption header that says AWS KMS,
+
+17
+00:00:44,430 --> 00:00:45,930
+then deny this request.
+
+18
+00:00:45,930 --> 00:00:48,390
+Or, hey, if you are uploading this
+
+19
+00:00:48,390 --> 00:00:52,680
+but there is no customer side algorithm, so no SSE-C,
+
+20
+00:00:52,680 --> 00:00:53,970
+then deny this object.
+
+21
+00:00:53,970 --> 00:00:55,290
+So this is just an example,
+
+22
+00:00:55,290 --> 00:00:57,660
+but at least you see that a bucket policy
+
+23
+00:00:57,660 --> 00:01:01,680
+can also force a way to have encryption in your buckets.
+
+24
+00:01:01,680 --> 00:01:04,290
+And by the way, bucket policies are always going
+
+25
+00:01:04,290 --> 00:01:08,220
+to be evaluated before your default encryption settings.
+
+26
+00:01:08,220 --> 00:01:10,290
+So that's it, just remember, default encryption
+
+27
+00:01:10,290 --> 00:01:13,680
+is on by default with SSC-S3 but you can change it
+
+28
+00:01:13,680 --> 00:01:16,350
+and you can apply a bucket policy preemptively
+
+29
+00:01:16,350 --> 00:01:19,110
+to force encryption to the one you want.
+
+30
+00:01:19,110 --> 00:01:20,040
+Alright, that's it.
+
+31
+00:01:20,040 --> 00:01:23,073
+I hope you liked it and I will see you in the next lecture.
+

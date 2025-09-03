@@ -1,0 +1,256 @@
+1
+00:00:00,240 --> 00:00:02,370
+So now let's talk about AWS WAF,
+
+2
+00:00:02,370 --> 00:00:04,530
+the Web Application Firewall.
+
+3
+00:00:04,530 --> 00:00:07,440
+It's used to protect your web application
+
+4
+00:00:07,440 --> 00:00:10,530
+from common web exploits at the Layer 7.
+
+5
+00:00:10,530 --> 00:00:12,840
+Just a reminder Layer 7 is HTTP,
+
+6
+00:00:12,840 --> 00:00:15,150
+so it protects you against HTTP exploits.
+
+7
+00:00:15,150 --> 00:00:19,620
+Whereas as comparison Layer 4 is for TCP or UDP protocol.
+
+8
+00:00:19,620 --> 00:00:23,280
+So this WAF, this Web Application Firewall can be deployed
+
+9
+00:00:23,280 --> 00:00:28,260
+on the Application Balancer, and API gateway, CloudFront,
+
+10
+00:00:28,260 --> 00:00:33,030
+the AppSync GraphQL API, or Cognito user pools.
+
+11
+00:00:33,030 --> 00:00:34,260
+So remember, this is very important.
+
+12
+00:00:34,260 --> 00:00:35,700
+You remember the targets of WAF
+
+13
+00:00:35,700 --> 00:00:37,470
+because the exam will try to trick you,
+
+14
+00:00:37,470 --> 00:00:40,680
+and for example, make you deploy WAF on an NLB
+
+15
+00:00:40,680 --> 00:00:42,660
+but this is not possible.
+
+16
+00:00:42,660 --> 00:00:46,590
+So once you've deployed a firewall on these services,
+
+17
+00:00:46,590 --> 00:00:48,330
+you can define web ACL,
+
+18
+00:00:48,330 --> 00:00:51,150
+they're web access control lists, and their rules.
+
+19
+00:00:51,150 --> 00:00:53,400
+And so you can set a rule, for example,
+
+20
+00:00:53,400 --> 00:00:56,190
+to filter based on IP addresses.
+
+21
+00:00:56,190 --> 00:00:58,050
+So you can define an IP sets.
+
+22
+00:00:58,050 --> 00:01:01,260
+Each IP set can be up to 10,000 IP addresses.
+
+23
+00:01:01,260 --> 00:01:03,540
+And if you need more IP addresses,
+
+24
+00:01:03,540 --> 00:01:05,820
+you can use multiple rules for more IPs.
+
+25
+00:01:05,820 --> 00:01:09,000
+You can also filter based on HTTP headers, body.
+
+26
+00:01:09,000 --> 00:01:12,000
+You can use URI strings to protect
+
+27
+00:01:12,000 --> 00:01:14,790
+from the most common attacks, such as SQL injection
+
+28
+00:01:14,790 --> 00:01:16,890
+and cross-site scripting.
+
+29
+00:01:16,890 --> 00:01:18,990
+You can have size constraints to make sure
+
+30
+00:01:18,990 --> 00:01:22,260
+that the request are only up to, for example, two megabytes
+
+31
+00:01:22,260 --> 00:01:26,280
+or geo match to allow or block specific countries.
+
+32
+00:01:26,280 --> 00:01:28,800
+And you can even have rate-based rules
+
+33
+00:01:28,800 --> 00:01:31,890
+to count the occurrences of requests per IP
+
+34
+00:01:31,890 --> 00:01:35,100
+for DDoS protection, for example, to prevent a specific IP
+
+35
+00:01:35,100 --> 00:01:38,040
+from sending more than 10 requests per second.
+
+36
+00:01:38,040 --> 00:01:42,660
+So these web ACLs, they're regional, except for CloudFront,
+
+37
+00:01:42,660 --> 00:01:45,240
+where they are defined globally.
+
+38
+00:01:45,240 --> 00:01:47,970
+And if you see the term rule group, well,
+
+39
+00:01:47,970 --> 00:01:50,490
+it's a set, it's a reasonable set of rules
+
+40
+00:01:50,490 --> 00:01:52,590
+that you can add it to many web ACL.
+
+41
+00:01:52,590 --> 00:01:54,750
+So this is just to organize them.
+
+42
+00:01:54,750 --> 00:01:56,580
+So WAF has a really good use case.
+
+43
+00:01:56,580 --> 00:02:01,200
+So what if you want to get a fixed IP on our application
+
+44
+00:02:01,200 --> 00:02:05,580
+while using WAF with an application load balancer?
+
+45
+00:02:05,580 --> 00:02:08,910
+So WAF does not support the Network Load Balancer
+
+46
+00:02:08,910 --> 00:02:13,910
+because the NLB operates on Layer 4 and WAF is for Layer 7.
+
+47
+00:02:13,920 --> 00:02:17,640
+So therefore, to provide WAF, you need to have
+
+48
+00:02:17,640 --> 00:02:20,160
+an application load balancer.
+
+49
+00:02:20,160 --> 00:02:22,290
+But we know that an application balancer
+
+50
+00:02:22,290 --> 00:02:23,940
+does not have fixed IPs.
+
+51
+00:02:23,940 --> 00:02:26,700
+So to solve a problem, we can use a Global Accelerator
+
+52
+00:02:26,700 --> 00:02:28,770
+to get fixed IP for application,
+
+53
+00:02:28,770 --> 00:02:32,010
+and then enable WAF on our ALB.
+
+54
+00:02:32,010 --> 00:02:34,080
+So the architecture looks like this.
+
+55
+00:02:34,080 --> 00:02:37,080
+We have one region with an ALB and EC2 instances.
+
+56
+00:02:37,080 --> 00:02:40,410
+We're going to front our ALB with a Global Accelerator
+
+57
+00:02:40,410 --> 00:02:43,560
+to get a fixed IP for our application.
+
+58
+00:02:43,560 --> 00:02:46,260
+And we're going to attach a Web Application Firewall
+
+59
+00:02:46,260 --> 00:02:49,500
+with a WebACL on the same region
+
+60
+00:02:49,500 --> 00:02:53,250
+as where our application low balancer is located.
+
+61
+00:02:53,250 --> 00:02:56,490
+And therefore, we have achieved our target architecture.
+
+62
+00:02:56,490 --> 00:02:58,110
+So that's it for this lecture.
+
+63
+00:02:58,110 --> 00:02:59,400
+I hope you liked it.
+
+64
+00:02:59,400 --> 00:03:01,350
+And I will see you in the next lecture.
+

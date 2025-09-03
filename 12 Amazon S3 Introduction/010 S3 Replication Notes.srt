@@ -1,0 +1,92 @@
+1
+00:00:00,330 --> 00:00:01,740
+Hey, so just a few notes
+
+2
+00:00:01,740 --> 00:00:03,810
+about Amazon S3 Replications.
+
+3
+00:00:03,810 --> 00:00:06,480
+So after you enable Replication, as you've seen,
+
+4
+00:00:06,480 --> 00:00:09,570
+only new objects are going to be replicated.
+
+5
+00:00:09,570 --> 00:00:12,390
+And if you want to replicate existing objects,
+
+6
+00:00:12,390 --> 00:00:16,770
+then you need to use the S3 Batch Replication feature.
+
+7
+00:00:16,770 --> 00:00:19,440
+So this will replicate the existing objects
+
+8
+00:00:19,440 --> 00:00:21,750
+and the objects that have failed Replication,
+
+9
+00:00:21,750 --> 00:00:24,510
+and in case you have delete operations,
+
+10
+00:00:24,510 --> 00:00:26,580
+you can replicate these delete markers
+
+11
+00:00:26,580 --> 00:00:28,320
+from the source bucket to the target bucket.
+
+12
+00:00:28,320 --> 00:00:31,650
+It's an optional setting, but if you have a deletion
+
+13
+00:00:31,650 --> 00:00:34,110
+with the version ID, they are not replicated,
+
+14
+00:00:34,110 --> 00:00:35,910
+so if it's a permanent deletion,
+
+15
+00:00:35,910 --> 00:00:39,000
+because you want to avoid malicious deletes happening
+
+16
+00:00:39,000 --> 00:00:41,190
+from one bucket to another.
+
+17
+00:00:41,190 --> 00:00:43,590
+Finally, there's no chaining of replications.
+
+18
+00:00:43,590 --> 00:00:45,150
+So that means that if bucket one
+
+19
+00:00:45,150 --> 00:00:47,010
+has replication to bucket two,
+
+20
+00:00:47,010 --> 00:00:49,470
+and then, bucket two has replication to bucket three,
+
+21
+00:00:49,470 --> 00:00:51,090
+then the objects of bucket one
+
+22
+00:00:51,090 --> 00:00:55,110
+are not replicated into the bucket three, so that's it.
+
+23
+00:00:55,110 --> 00:00:58,013
+I hope you liked it and I will see you in the next lecture.
+

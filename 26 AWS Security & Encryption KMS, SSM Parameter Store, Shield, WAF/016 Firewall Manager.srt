@@ -1,0 +1,268 @@
+1
+00:00:00,510 --> 00:00:01,343
+So now let's talk
+
+2
+00:00:01,343 --> 00:00:04,110
+about the AWS Firewall Manager.
+
+3
+00:00:04,110 --> 00:00:07,530
+So this is a service to manage all the firewall rules
+
+4
+00:00:07,530 --> 00:00:10,680
+in all accounts of an AWS organization.
+
+5
+00:00:10,680 --> 00:00:12,450
+So the idea is that you can manage rules
+
+6
+00:00:12,450 --> 00:00:14,760
+across many, many accounts at the same time.
+
+7
+00:00:14,760 --> 00:00:17,280
+So you can set a security policy,
+
+8
+00:00:17,280 --> 00:00:20,640
+and a security policy is a common set of security rules.
+
+9
+00:00:20,640 --> 00:00:23,370
+And so this could be Web Application Firewall rules,
+
+10
+00:00:23,370 --> 00:00:26,487
+so they apply it to the ALB, the API gateways, CloudFronts
+
+11
+00:00:26,487 --> 00:00:27,600
+and so on.
+
+12
+00:00:27,600 --> 00:00:29,520
+Or it could be Shield Advanced rules,
+
+13
+00:00:29,520 --> 00:00:33,930
+so for your ALB, CLB, NLB, the Elastic IP, and CloudFront.
+
+14
+00:00:33,930 --> 00:00:37,440
+It could be security policy to standardize security groups
+
+15
+00:00:37,440 --> 00:00:39,900
+for EC2, your Application Load Balancer,
+
+16
+00:00:39,900 --> 00:00:42,150
+and ENI resources in your VPC.
+
+17
+00:00:42,150 --> 00:00:43,740
+And it could be, as well,
+
+18
+00:00:43,740 --> 00:00:47,520
+rules for your AWS Network Firewall at the VPC level.
+
+19
+00:00:47,520 --> 00:00:49,290
+So this is something we haven't seen yet
+
+20
+00:00:49,290 --> 00:00:53,010
+or your Amazon Route 53 Resolver DNS Firewall.
+
+21
+00:00:53,010 --> 00:00:55,560
+So the idea is that Firewall Manager allows you
+
+22
+00:00:55,560 --> 00:00:58,260
+to manage all your firewalls in one place.
+
+23
+00:00:58,260 --> 00:01:02,250
+The policies are created at the region level, okay?
+
+24
+00:01:02,250 --> 00:01:04,890
+And then they are applied to all the accounts
+
+25
+00:01:04,890 --> 00:01:06,870
+of your organization.
+
+26
+00:01:06,870 --> 00:01:07,950
+And on top of it,
+
+27
+00:01:07,950 --> 00:01:10,020
+if somehow in your organization, for example,
+
+28
+00:01:10,020 --> 00:01:13,290
+you create a WAF rule for an Application Load Balancer,
+
+29
+00:01:13,290 --> 00:01:15,330
+and somehow there's a new Application Load Balancer
+
+30
+00:01:15,330 --> 00:01:16,500
+being created,
+
+31
+00:01:16,500 --> 00:01:19,140
+then automatically the Firewall Manager
+
+32
+00:01:19,140 --> 00:01:21,000
+is going to apply the same rule
+
+33
+00:01:21,000 --> 00:01:23,070
+to this newly created ALB.
+
+34
+00:01:23,070 --> 00:01:25,530
+That's a feature of Firewall Manager.
+
+35
+00:01:25,530 --> 00:01:26,363
+So you may ask yourself,
+
+36
+00:01:26,363 --> 00:01:27,810
+"Well, what is the difference between WAF
+
+37
+00:01:27,810 --> 00:01:29,670
+and Firewall Manager and Shield?"
+
+38
+00:01:29,670 --> 00:01:32,040
+Well, WAF, Shield, and Firewall Manager
+
+39
+00:01:32,040 --> 00:01:34,590
+are used together for comprehensive protection
+
+40
+00:01:34,590 --> 00:01:35,790
+of your accounts.
+
+41
+00:01:35,790 --> 00:01:40,110
+So first you define your Web ACL rules in WAF.
+
+42
+00:01:40,110 --> 00:01:44,340
+And in case you need one-time protection,
+
+43
+00:01:44,340 --> 00:01:46,740
+then WAF is going to be the right choice for you.
+
+44
+00:01:46,740 --> 00:01:50,610
+But if you want to use WAF across multiple accounts
+
+45
+00:01:50,610 --> 00:01:52,950
+and accelerate WAF configuration
+
+46
+00:01:52,950 --> 00:01:55,860
+and automate the protection of new resources,
+
+47
+00:01:55,860 --> 00:01:57,870
+then you would manage your WAF rules
+
+48
+00:01:57,870 --> 00:01:59,220
+within Firewall Manager.
+
+49
+00:01:59,220 --> 00:02:01,470
+And Firewall Manager will just apply
+
+50
+00:02:01,470 --> 00:02:03,180
+all these rules to all your accounts
+
+51
+00:02:03,180 --> 00:02:05,850
+and all your resources automatically.
+
+52
+00:02:05,850 --> 00:02:08,039
+So now we also have Shield Advanced
+
+53
+00:02:08,039 --> 00:02:11,250
+to help you get protected against DDoS attacks.
+
+54
+00:02:11,250 --> 00:02:14,460
+And it has additional features on top of WAF
+
+55
+00:02:14,460 --> 00:02:16,380
+such as a dedicated support
+
+56
+00:02:16,380 --> 00:02:18,780
+from the Shield Response Team, SRT,
+
+57
+00:02:18,780 --> 00:02:20,190
+advanced reporting,
+
+58
+00:02:20,190 --> 00:02:24,300
+and also, it can automatically create WAF rules for you.
+
+59
+00:02:24,300 --> 00:02:26,610
+And if you're prone to frequent DDoS attacks,
+
+60
+00:02:26,610 --> 00:02:27,990
+then you should definitely consider
+
+61
+00:02:27,990 --> 00:02:30,600
+purchasing Shield Advanced.
+
+62
+00:02:30,600 --> 00:02:32,310
+And so Firewall Manager
+
+63
+00:02:32,310 --> 00:02:34,710
+can also help you deploy Shield Advanced
+
+64
+00:02:34,710 --> 00:02:36,450
+across all your accounts
+
+65
+00:02:36,450 --> 00:02:39,390
+So hopefully the distinction is pretty clear for you now.
+
+66
+00:02:39,390 --> 00:02:40,380
+I hope you liked this lecture,
+
+67
+00:02:40,380 --> 00:02:42,330
+and I will see you in the next lecture.
+

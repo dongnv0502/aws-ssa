@@ -1,0 +1,132 @@
+1
+00:00:00,270 --> 00:00:02,400
+So here is a question that can come up
+
+2
+00:00:02,400 --> 00:00:03,233
+in the exam.
+
+3
+00:00:03,233 --> 00:00:05,670
+This is around the process to share an AMI
+
+4
+00:00:05,670 --> 00:00:08,670
+with another account, and the AMI has been encrypted
+
+5
+00:00:08,670 --> 00:00:10,230
+with a KMS key.
+
+6
+00:00:10,230 --> 00:00:11,940
+So the AMI is in your source account,
+
+7
+00:00:11,940 --> 00:00:14,730
+and it's encrypted with your KMS key.
+
+8
+00:00:14,730 --> 00:00:17,070
+So how do you launch an EC2 instance
+
+9
+00:00:17,070 --> 00:00:20,610
+in account B from the AMI in account A?
+
+10
+00:00:20,610 --> 00:00:23,850
+So first you must modify the AMI property
+
+11
+00:00:23,850 --> 00:00:26,970
+with a launch permission, and the list launch permission
+
+12
+00:00:26,970 --> 00:00:30,840
+allows account B to launch this AMI.
+
+13
+00:00:30,840 --> 00:00:33,180
+So effectively, this is how you share an AMI.
+
+14
+00:00:33,180 --> 00:00:34,890
+You must modify the launch permissions
+
+15
+00:00:34,890 --> 00:00:38,880
+and add the specified target to its account ID.
+
+16
+00:00:38,880 --> 00:00:41,432
+Then you need to also share the KMS key
+
+17
+00:00:41,432 --> 00:00:45,000
+for the accounts B to be able to use it.
+
+18
+00:00:45,000 --> 00:00:48,120
+So this is done usually with a key policy.
+
+19
+00:00:48,120 --> 00:00:51,180
+Then in account B, you would create an IAM role
+
+20
+00:00:51,180 --> 00:00:54,390
+or IAM user with enough permissions to actually
+
+21
+00:00:54,390 --> 00:00:58,500
+use both the KMS key and the AMI.
+
+22
+00:00:58,500 --> 00:01:01,530
+So you must have it on the KMS side, access to the
+
+23
+00:01:01,530 --> 00:01:05,310
+Describekey API call, the ReEncrypted API call,
+
+24
+00:01:05,310 --> 00:01:08,850
+CreateGrant and Decrypt API calls.
+
+25
+00:01:08,850 --> 00:01:11,880
+And then once all of this is done, you can simply launch
+
+26
+00:01:11,880 --> 00:01:15,450
+an EC2 instance from that AMI and optionally
+
+27
+00:01:15,450 --> 00:01:18,270
+the target accounts can choose to re-encrypt everything
+
+28
+00:01:18,270 --> 00:01:20,760
+with the KMS key that it's owned, that it owns
+
+29
+00:01:20,760 --> 00:01:23,490
+in its own accounts, to re-encrypt the volumes.
+
+30
+00:01:23,490 --> 00:01:25,920
+But there you go, you can launch an EC2 instance.
+
+31
+00:01:25,920 --> 00:01:27,780
+And so if you understand this process you're good to go
+
+32
+00:01:27,780 --> 00:01:30,240
+to maybe answer one question at the exam.
+
+33
+00:01:30,240 --> 00:01:33,240
+I hope you liked it, and I will see you in the next lecture.
+

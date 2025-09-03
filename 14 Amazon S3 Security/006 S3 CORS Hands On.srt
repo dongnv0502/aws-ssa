@@ -1,0 +1,716 @@
+1
+00:00:00,120 --> 00:00:01,710
+So let's practice using CORS.
+
+2
+00:00:01,710 --> 00:00:05,430
+And for this we first must change the index.html files.
+
+3
+00:00:05,430 --> 00:00:06,368
+So if you open it,
+
+4
+00:00:06,368 --> 00:00:09,420
+you will find that this part has been commented out
+
+5
+00:00:09,420 --> 00:00:11,730
+and this part is to demo CORS.
+
+6
+00:00:11,730 --> 00:00:14,370
+Okay, so the way to just make it work
+
+7
+00:00:14,370 --> 00:00:16,440
+is that you first go to line 13
+
+8
+00:00:16,440 --> 00:00:19,470
+and you remove the first characters before the div.
+
+9
+00:00:19,470 --> 00:00:20,463
+And after script,
+
+10
+00:00:21,764 --> 00:00:25,140
+you remove as well the dash, dash and arrow.
+
+11
+00:00:25,140 --> 00:00:26,850
+So this is going to enable CORS.
+
+12
+00:00:26,850 --> 00:00:28,170
+And what's going to happen is that
+
+13
+00:00:28,170 --> 00:00:29,910
+my first webpage is now gonna say
+
+14
+00:00:29,910 --> 00:00:30,840
+Hello world I love coffee
+
+15
+00:00:30,840 --> 00:00:32,250
+and show the coffee image.
+
+16
+00:00:32,250 --> 00:00:34,830
+But after this, we're going to have a script
+
+17
+00:00:34,830 --> 00:00:37,110
+that is going to fetch an extra page,
+
+18
+00:00:37,110 --> 00:00:39,120
+an extra HTML page, okay?
+
+19
+00:00:39,120 --> 00:00:41,040
+And then displays underneath.
+
+20
+00:00:41,040 --> 00:00:44,100
+And this extra HTML page right here is saying
+
+21
+00:00:44,100 --> 00:00:47,310
+this extra page has been successfully loaded.
+
+22
+00:00:47,310 --> 00:00:50,220
+So let's go into our buckets
+
+23
+00:00:50,220 --> 00:00:52,020
+and we're going to upload two files.
+
+24
+00:00:53,100 --> 00:00:58,100
+So we have the extra-page.html and the index.html.
+
+25
+00:00:58,860 --> 00:00:59,700
+So we're going to do
+
+26
+00:00:59,700 --> 00:01:02,253
+is that we're going to upload these two files now,
+
+27
+00:01:03,150 --> 00:01:04,739
+because this is successful.
+
+28
+00:01:04,739 --> 00:01:07,470
+And if I go into my Properties
+
+29
+00:01:07,470 --> 00:01:11,160
+and look for my endpoints right here,
+
+30
+00:01:11,160 --> 00:01:13,410
+I can click on this to open in a new tab.
+
+31
+00:01:13,410 --> 00:01:15,540
+And we have I love coffee, Hello world! The coffee image.
+
+32
+00:01:15,540 --> 00:01:18,720
+And then this extra page has been successfully loaded.
+
+33
+00:01:18,720 --> 00:01:21,840
+So that means that the fetch request worked
+
+34
+00:01:21,840 --> 00:01:23,430
+from within the same origin
+
+35
+00:01:23,430 --> 00:01:25,770
+because, well, both my extra page
+
+36
+00:01:25,770 --> 00:01:30,150
+and my index.html files are on the same bucket.
+
+37
+00:01:30,150 --> 00:01:31,890
+So now let's demonstrate CORS.
+
+38
+00:01:31,890 --> 00:01:32,850
+And to do this,
+
+39
+00:01:32,850 --> 00:01:35,430
+I must first create another extra extra bucket
+
+40
+00:01:35,430 --> 00:01:37,500
+and enable it as a website.
+
+41
+00:01:37,500 --> 00:01:39,030
+So let's create a bucket and call it
+
+42
+00:01:39,030 --> 00:01:44,030
+demo-other-origin-stephane.
+
+43
+00:01:44,370 --> 00:01:47,730
+And I will choose it to be in another region, for example,
+
+44
+00:01:47,730 --> 00:01:49,860
+to demonstrate that there are very different servers.
+
+45
+00:01:49,860 --> 00:01:52,950
+For example, I will put this one in Canada.
+
+46
+00:01:52,950 --> 00:01:54,750
+Okay, so I'll scroll down.
+
+47
+00:01:54,750 --> 00:01:56,820
+I will unblock all public access
+
+48
+00:01:56,820 --> 00:01:58,890
+because we will make this public.
+
+49
+00:01:58,890 --> 00:02:01,893
+And then I will scroll down, create this bucket.
+
+50
+00:02:04,050 --> 00:02:05,943
+Now I go into the bucket itself.
+
+51
+00:02:06,840 --> 00:02:10,289
+And then under Properties I will scroll down
+
+52
+00:02:10,289 --> 00:02:12,780
+and make sure that we have enabled this as a website.
+
+53
+00:02:12,780 --> 00:02:14,618
+So yes, this is a website
+
+54
+00:02:14,618 --> 00:02:17,160
+and I wanna host a static website.
+
+55
+00:02:17,160 --> 00:02:19,350
+And then we'll say index.html,
+
+56
+00:02:19,350 --> 00:02:20,580
+even though we don't have one,
+
+57
+00:02:20,580 --> 00:02:23,370
+this will be enough for the index documents.
+
+58
+00:02:23,370 --> 00:02:25,020
+Okay, so this is good.
+
+59
+00:02:25,020 --> 00:02:27,780
+Next, we need to make this bucket public.
+
+60
+00:02:27,780 --> 00:02:29,730
+So let's go into Permissions.
+
+61
+00:02:29,730 --> 00:02:33,840
+And then for the bucket policy, let's edit it, okay.
+
+62
+00:02:33,840 --> 00:02:34,890
+And to make it simple,
+
+63
+00:02:34,890 --> 00:02:36,930
+I'm going to just copy the one I had from before.
+
+64
+00:02:36,930 --> 00:02:40,110
+So this one is going to be copied here and pasted,
+
+65
+00:02:40,110 --> 00:02:42,960
+and I will just swap out the buckets ARN,
+
+66
+00:02:42,960 --> 00:02:44,820
+right here under the resource.
+
+67
+00:02:44,820 --> 00:02:46,320
+So this is effectively going to make
+
+68
+00:02:46,320 --> 00:02:48,600
+these buckets public as well.
+
+69
+00:02:48,600 --> 00:02:51,060
+So let's save these changes.
+
+70
+00:02:51,060 --> 00:02:52,560
+And we have an unexpected response
+
+71
+00:02:52,560 --> 00:02:54,933
+because we just removed the first character.
+
+72
+00:02:56,040 --> 00:02:58,440
+Save the changes. Perfect.
+
+73
+00:02:58,440 --> 00:03:01,350
+Back in here, we are going to now upload,
+
+74
+00:03:01,350 --> 00:03:04,770
+in my other-origin, we're going to upload a file.
+
+75
+00:03:04,770 --> 00:03:07,803
+So we're going to upload this extra-page.html.
+
+76
+00:03:09,060 --> 00:03:12,000
+Upload it, and we're good.
+
+77
+00:03:12,000 --> 00:03:14,160
+So this file should now be a public file
+
+78
+00:03:14,160 --> 00:03:17,160
+on my buckets enabled as a website.
+
+79
+00:03:17,160 --> 00:03:20,373
+So if I click on this, this Object URL right here,
+
+80
+00:03:21,480 --> 00:03:23,970
+as we can see the extra page has been loaded
+
+81
+00:03:23,970 --> 00:03:26,100
+and the file is public.
+
+82
+00:03:26,100 --> 00:03:26,933
+So now what we have
+
+83
+00:03:26,933 --> 00:03:31,170
+is that we have the origin buckets in here
+
+84
+00:03:31,170 --> 00:03:33,630
+and we can remove this extra-page.html
+
+85
+00:03:33,630 --> 00:03:36,540
+because we don't need this one right now
+
+86
+00:03:36,540 --> 00:03:38,880
+because we have placed it in another bucket.
+
+87
+00:03:38,880 --> 00:03:42,570
+And then we're going to have to change the index.html file
+
+88
+00:03:42,570 --> 00:03:47,570
+to point instead to the extra page in my other origin.
+
+89
+00:03:48,390 --> 00:03:49,860
+So first, let's go to this page,
+
+90
+00:03:49,860 --> 00:03:51,930
+and I'm going to refresh this.
+
+91
+00:03:51,930 --> 00:03:54,090
+And I get a "404 Not Found" because, well,
+
+92
+00:03:54,090 --> 00:03:57,240
+we cannot find the extra-page.html.
+
+93
+00:03:57,240 --> 00:03:58,320
+So this is perfect.
+
+94
+00:03:58,320 --> 00:04:01,590
+Right now we shows that we have something to fix.
+
+95
+00:04:01,590 --> 00:04:02,700
+So let's close this.
+
+96
+00:04:02,700 --> 00:04:06,960
+Let's go to this demo-origin-stephane, other-origin.
+
+97
+00:04:06,960 --> 00:04:11,460
+Let's go to the properties, find the public URL, this one.
+
+98
+00:04:11,460 --> 00:04:13,460
+So let's open this as an STS website,
+
+99
+00:04:13,460 --> 00:04:16,050
+/extra-page.html.
+
+100
+00:04:16,050 --> 00:04:19,380
+So perfect, we have this extra page, this puzzle website.
+
+101
+00:04:19,380 --> 00:04:23,700
+And we'll use this entire URL and change our index.html.
+
+102
+00:04:23,700 --> 00:04:27,690
+And this time to fetch, we're going to fetch not this
+
+103
+00:04:27,690 --> 00:04:32,130
+but the full path to my extra-page.html on another bucket.
+
+104
+00:04:32,130 --> 00:04:33,450
+And this is going to trigger
+
+105
+00:04:33,450 --> 00:04:36,900
+across origin resource share request.
+
+106
+00:04:36,900 --> 00:04:40,120
+So now I need to re-upload this index.html file
+
+107
+00:04:41,250 --> 00:04:42,083
+where I need to.
+
+108
+00:04:42,083 --> 00:04:44,490
+So let's upload it here on the main buckets,
+
+109
+00:04:44,490 --> 00:04:45,323
+the first one.
+
+110
+00:04:47,550 --> 00:04:49,473
+Perfect. And let's override it.
+
+111
+00:04:50,730 --> 00:04:53,250
+Okay, so now my file is uploaded.
+
+112
+00:04:53,250 --> 00:04:56,040
+So let's go onto my first webpage right now.
+
+113
+00:04:56,040 --> 00:04:58,020
+And it's using the new index.html.
+
+114
+00:04:58,020 --> 00:05:01,800
+And I'm going to first open, under More tools,
+
+115
+00:05:01,800 --> 00:05:04,590
+I'm going to open the web developer tools.
+
+116
+00:05:04,590 --> 00:05:06,930
+This is something also called the Chrome Developer Tools.
+
+117
+00:05:06,930 --> 00:05:08,100
+And I'm going to refresh this page
+
+118
+00:05:08,100 --> 00:05:09,750
+to see if we have an error.
+
+119
+00:05:09,750 --> 00:05:11,370
+So let's refresh this page.
+
+120
+00:05:11,370 --> 00:05:13,710
+As you can see now, we don't have any error message here,
+
+121
+00:05:13,710 --> 00:05:16,440
+but in my console log debugger,
+
+122
+00:05:16,440 --> 00:05:18,120
+we have something that is written very, very small
+
+123
+00:05:18,120 --> 00:05:18,953
+and may be aware.
+
+124
+00:05:18,953 --> 00:05:21,510
+But it says cross-origin request blocked
+
+125
+00:05:21,510 --> 00:05:23,730
+because the policy does not allow this.
+
+126
+00:05:23,730 --> 00:05:24,870
+There's a CORS header called
+
+127
+00:05:24,870 --> 00:05:27,840
+the Access-Control-Allow that is missing.
+
+128
+00:05:27,840 --> 00:05:29,220
+And so therefore, currently,
+
+129
+00:05:29,220 --> 00:05:32,400
+because my request is going onto this other bucket,
+
+130
+00:05:32,400 --> 00:05:35,220
+but this other bucket is not set up for CORS yet,
+
+131
+00:05:35,220 --> 00:05:36,570
+then this request is failing.
+
+132
+00:05:36,570 --> 00:05:37,770
+And the web browser is saying
+
+133
+00:05:37,770 --> 00:05:40,410
+that the cross-origin request has been blocked.
+
+134
+00:05:40,410 --> 00:05:42,630
+So let's fix this by adding the CORS setting.
+
+135
+00:05:42,630 --> 00:05:46,710
+So let's go here under my other origin, okay,
+
+136
+00:05:46,710 --> 00:05:49,440
+and you go under Permissions, scroll down,
+
+137
+00:05:49,440 --> 00:05:53,610
+and we have the CORS setting here that we define in JSON.
+
+138
+00:05:53,610 --> 00:05:54,990
+So let's edit this.
+
+139
+00:05:54,990 --> 00:05:56,790
+And we need to add the correct CORS setting.
+
+140
+00:05:56,790 --> 00:05:58,500
+So thankfully I have them here.
+
+141
+00:05:58,500 --> 00:06:03,420
+So you just copy this block of code and you paste it here.
+
+142
+00:06:03,420 --> 00:06:06,030
+And here, the AllowedOrigins we need to define
+
+143
+00:06:06,030 --> 00:06:09,360
+are going to be a URL of the first bucket with http
+
+144
+00:06:09,360 --> 00:06:11,580
+without a slash at the end.
+
+145
+00:06:11,580 --> 00:06:12,540
+So fair lazy.
+
+146
+00:06:12,540 --> 00:06:13,770
+Let's go to my first web page.
+
+147
+00:06:13,770 --> 00:06:15,810
+We copy this entirely,
+
+148
+00:06:15,810 --> 00:06:18,420
+we paste it here,
+
+149
+00:06:18,420 --> 00:06:20,850
+and if there's a slash at the end like right now,
+
+150
+00:06:20,850 --> 00:06:22,110
+just remove it.
+
+151
+00:06:22,110 --> 00:06:24,960
+And then you're going to save these CORS settings.
+
+152
+00:06:24,960 --> 00:06:27,690
+So now we're saying to this other origin that's, yes
+
+153
+00:06:27,690 --> 00:06:30,540
+it's okay to make requests from the first origin.
+
+154
+00:06:30,540 --> 00:06:32,100
+So how do we know that it's going to work?
+
+155
+00:06:32,100 --> 00:06:34,113
+Well, let's refresh this page now.
+
+156
+00:06:35,130 --> 00:06:35,963
+As we can see now,
+
+157
+00:06:35,963 --> 00:06:37,950
+this extra pet has been successfully loaded,
+
+158
+00:06:37,950 --> 00:06:39,262
+and that's correct.
+
+159
+00:06:39,262 --> 00:06:40,980
+And we can also have a look at this
+
+160
+00:06:40,980 --> 00:06:42,870
+by going into the networking tab.
+
+161
+00:06:42,870 --> 00:06:45,870
+And if you look at the request that was made
+
+162
+00:06:45,870 --> 00:06:49,620
+on the extra page, and we look at the response headers,
+
+163
+00:06:49,620 --> 00:06:51,840
+we can see right here, again, it's very small,
+
+164
+00:06:51,840 --> 00:06:53,220
+but we can see that there is
+
+165
+00:06:53,220 --> 00:06:56,310
+Access-Control-Allow-Methods GET,
+
+166
+00:06:56,310 --> 00:06:57,690
+Access-Control-Allow-Origin,
+
+167
+00:06:57,690 --> 00:07:00,060
+and this is the origin of my first buckets.
+
+168
+00:07:00,060 --> 00:07:00,900
+So these are the headers
+
+169
+00:07:00,900 --> 00:07:03,780
+that allow this cross origin request to be made.
+
+170
+00:07:03,780 --> 00:07:06,210
+Now, I know that what we've seen right now
+
+171
+00:07:06,210 --> 00:07:08,250
+may be a bit advanced, of course,
+
+172
+00:07:08,250 --> 00:07:11,460
+but this CORS settings just come up at the exam
+
+173
+00:07:11,460 --> 00:07:12,450
+at a high level.
+
+174
+00:07:12,450 --> 00:07:13,283
+Did you know what it is?
+
+175
+00:07:13,283 --> 00:07:15,060
+But I wanted to show you exactly how it worked
+
+176
+00:07:15,060 --> 00:07:16,290
+so that it becomes very easy
+
+177
+00:07:16,290 --> 00:07:18,360
+for you to answer this one question.
+
+178
+00:07:18,360 --> 00:07:20,040
+Okay, that's it for this lecture.
+
+179
+00:07:20,040 --> 00:07:23,040
+I hope you liked it, and I will see you in the next lecture.
+

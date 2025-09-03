@@ -1,0 +1,404 @@
+1
+00:00:00,240 --> 00:00:01,200
+So now let's talk
+
+2
+00:00:01,200 --> 00:00:02,670
+about how we can move objects
+
+3
+00:00:02,670 --> 00:00:04,410
+between different storage classes
+
+4
+00:00:04,410 --> 00:00:05,820
+so you can transition them,
+
+5
+00:00:05,820 --> 00:00:08,970
+and this is a diagram of how it's possible.
+
+6
+00:00:08,970 --> 00:00:09,803
+So as you can see,
+
+7
+00:00:09,803 --> 00:00:11,880
+you can go from the Standard, for example,
+
+8
+00:00:11,880 --> 00:00:16,140
+to Standard IA to Intelligent Tiering to One-Zone IA,
+
+9
+00:00:16,140 --> 00:00:17,910
+and then from One-Zone IA, as you can see,
+
+10
+00:00:17,910 --> 00:00:20,940
+you can go to Flexible Retrieval or Deep Archive.
+
+11
+00:00:20,940 --> 00:00:22,380
+And so all the types
+
+12
+00:00:22,380 --> 00:00:25,410
+of permutations are shown in this graph.
+
+13
+00:00:25,410 --> 00:00:27,270
+So as a matter of fact, if you know
+
+14
+00:00:27,270 --> 00:00:29,940
+that your objects are going to be infrequently accessed,
+
+15
+00:00:29,940 --> 00:00:31,770
+then move them to Standard IA.
+
+16
+00:00:31,770 --> 00:00:34,170
+And if you know that you're going to archive objects,
+
+17
+00:00:34,170 --> 00:00:35,520
+move them into the Glacier
+
+18
+00:00:35,520 --> 00:00:38,220
+of tiers or the Deep Archive tier.
+
+19
+00:00:38,220 --> 00:00:40,800
+Now, moving these objects can be done manually, of course,
+
+20
+00:00:40,800 --> 00:00:44,430
+but we can automate this using lifecycle rules.
+
+21
+00:00:44,430 --> 00:00:47,310
+So these lifecycle rules are made of multiple things.
+
+22
+00:00:47,310 --> 00:00:49,890
+The first thing is a transition action
+
+23
+00:00:49,890 --> 00:00:51,000
+to configure the object
+
+24
+00:00:51,000 --> 00:00:53,280
+to transition to another storage class.
+
+25
+00:00:53,280 --> 00:00:55,080
+For example, you say move
+
+26
+00:00:55,080 --> 00:00:58,950
+to Standard IA class after 60 days after creations
+
+27
+00:00:58,950 --> 00:01:03,540
+or move to Glacier for archiving after six months.
+
+28
+00:01:03,540 --> 00:01:05,940
+You can also set up expiration actions.
+
+29
+00:01:05,940 --> 00:01:07,980
+So configure objects to be deleted,
+
+30
+00:01:07,980 --> 00:01:09,810
+to be expired after some time.
+
+31
+00:01:09,810 --> 00:01:12,180
+For example, your access log files,
+
+32
+00:01:12,180 --> 00:01:15,270
+you want to delete them after 365 days.
+
+33
+00:01:15,270 --> 00:01:16,770
+Or you can, for example,
+
+34
+00:01:16,770 --> 00:01:20,100
+use an expiration action to delete old versions
+
+35
+00:01:20,100 --> 00:01:22,590
+of files if you have enabled versioning.
+
+36
+00:01:22,590 --> 00:01:26,400
+Or we can use this to delete incomplete multi-part uploads
+
+37
+00:01:26,400 --> 00:01:28,950
+if, for example, the multi-part uploads is more
+
+38
+00:01:28,950 --> 00:01:31,170
+than two weeks old because, well,
+
+39
+00:01:31,170 --> 00:01:34,470
+the thing should have been fully uploaded by now.
+
+40
+00:01:34,470 --> 00:01:37,110
+The rules can also be specified for a certain prefix.
+
+41
+00:01:37,110 --> 00:01:38,850
+So they can apply to entire buckets
+
+42
+00:01:38,850 --> 00:01:42,510
+or to a specific path within your buckets.
+
+43
+00:01:42,510 --> 00:01:46,260
+And you can also specify it for specific object tags.
+
+44
+00:01:46,260 --> 00:01:48,450
+So if you want to only do a rule
+
+45
+00:01:48,450 --> 00:01:50,820
+for the department finance, you can.
+
+46
+00:01:50,820 --> 00:01:51,930
+So here's some scenarios.
+
+47
+00:01:51,930 --> 00:01:54,690
+For example, you have an application on EC2,
+
+48
+00:01:54,690 --> 00:01:56,700
+and it creates images, thumbnails
+
+49
+00:01:56,700 --> 00:01:59,640
+after profile photos are uploaded to Amazon S3.
+
+50
+00:01:59,640 --> 00:02:01,800
+But these thumbnails, they can be easily recreated
+
+51
+00:02:01,800 --> 00:02:03,150
+from the original photo
+
+52
+00:02:03,150 --> 00:02:05,700
+and they only need to be kept for 60 days.
+
+53
+00:02:05,700 --> 00:02:07,560
+But the source images, they should be able
+
+54
+00:02:07,560 --> 00:02:09,630
+to be immediately retrieved for these 60 days
+
+55
+00:02:09,630 --> 00:02:12,570
+and afterwards the user can wait up to six hours.
+
+56
+00:02:12,570 --> 00:02:14,370
+So how would you design this?
+
+57
+00:02:14,370 --> 00:02:16,590
+This is what an exam question will ask you.
+
+58
+00:02:16,590 --> 00:02:20,370
+So the S3 source images can be on the Standard class
+
+59
+00:02:20,370 --> 00:02:23,550
+with a lifecycle configuration to transition them
+
+60
+00:02:23,550 --> 00:02:27,480
+to Glacier after 60 days and the thumbnails images,
+
+61
+00:02:27,480 --> 00:02:29,910
+so this is how you would use a prefix to differentiate
+
+62
+00:02:29,910 --> 00:02:32,190
+between source and thumbnails, for example.
+
+63
+00:02:32,190 --> 00:02:34,740
+So the thumbnails can be on One-Zone IA
+
+64
+00:02:34,740 --> 00:02:36,810
+because well, they're infrequently accessed,
+
+65
+00:02:36,810 --> 00:02:39,960
+and they can be recreated easily,
+
+66
+00:02:39,960 --> 00:02:42,540
+and you can have a lifecycle configuration to expire them
+
+67
+00:02:42,540 --> 00:02:45,510
+or delete them after 60 days.
+
+68
+00:02:45,510 --> 00:02:47,160
+Another scenario, so a rule
+
+69
+00:02:47,160 --> 00:02:49,080
+in your company states that you should be able
+
+70
+00:02:49,080 --> 00:02:53,520
+to recover deleted S3 objects immediately for 30 days,
+
+71
+00:02:53,520 --> 00:02:55,860
+although this may happen rarely.
+
+72
+00:02:55,860 --> 00:02:59,190
+After this time, for up to 365 days,
+
+73
+00:02:59,190 --> 00:03:02,760
+deleted objects should be recoverable within 48 hours.
+
+74
+00:03:02,760 --> 00:03:06,240
+For this, we can enable S3 versioning in order to keep
+
+75
+00:03:06,240 --> 00:03:09,330
+and have object versions so that the deleted objects
+
+76
+00:03:09,330 --> 00:03:11,460
+are in fact hidden by a delete marker
+
+77
+00:03:11,460 --> 00:03:13,440
+and then can be recovered.
+
+78
+00:03:13,440 --> 00:03:16,680
+And then you will create a rule to transition
+
+79
+00:03:16,680 --> 00:03:20,160
+the non-current versions of the objects to Standard IA.
+
+80
+00:03:20,160 --> 00:03:21,540
+So that means the versions
+
+81
+00:03:21,540 --> 00:03:23,880
+that are not the top level versions,
+
+82
+00:03:23,880 --> 00:03:27,060
+and then transition afterwards these non-current versions
+
+83
+00:03:27,060 --> 00:03:30,123
+to Glacier Deep Archive for archival purposes.
+
+84
+00:03:31,050 --> 00:03:34,140
+Lastly, how do we determine what's the optimal number
+
+85
+00:03:34,140 --> 00:03:38,160
+of days to transition an object from one class to another?
+
+86
+00:03:38,160 --> 00:03:42,210
+Well, you can do this thanks to Amazon S3 Analytics.
+
+87
+00:03:42,210 --> 00:03:44,490
+So it's going to give you recommendations
+
+88
+00:03:44,490 --> 00:03:46,320
+for Standard and for Standard IA.
+
+89
+00:03:46,320 --> 00:03:48,720
+It does not work with One-Zone IA or Glacier.
+
+90
+00:03:48,720 --> 00:03:49,768
+And so the S3 buckets
+
+91
+00:03:49,768 --> 00:03:52,680
+will have S3 Analytics run on top of it.
+
+92
+00:03:52,680 --> 00:03:54,930
+And this will create a CSV report
+
+93
+00:03:54,930 --> 00:03:58,170
+that will give you some recommendations and some statistics.
+
+94
+00:03:58,170 --> 00:04:00,600
+The report is going to be updated daily
+
+95
+00:04:00,600 --> 00:04:03,900
+and then it can take between 24 to 48 hours
+
+96
+00:04:03,900 --> 00:04:07,440
+to start seeing data analysis coming out of it.
+
+97
+00:04:07,440 --> 00:04:09,990
+So this is a good first step, this CSV report
+
+98
+00:04:09,990 --> 00:04:12,750
+to put together lifecycle rules that makes sense
+
+99
+00:04:12,750 --> 00:04:14,760
+or to improve them.
+
+100
+00:04:14,760 --> 00:04:16,680
+Okay, so that's it for this lecture.
+
+101
+00:04:16,680 --> 00:04:19,773
+I hope you liked it and I will see you in the next lecture.
+

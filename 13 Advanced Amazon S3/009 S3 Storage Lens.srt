@@ -1,0 +1,548 @@
+1
+00:00:00,000 --> 00:00:03,060
+Next, we have S3 Storage Lens, which is a service
+
+2
+00:00:03,060 --> 00:00:05,250
+to help you understand, analyze, and optimize
+
+3
+00:00:05,250 --> 00:00:08,490
+storage across your entire AWS Organization.
+
+4
+00:00:08,490 --> 00:00:10,800
+With this, you're going to discover anomalies,
+
+5
+00:00:10,800 --> 00:00:12,660
+identify cost efficiencies,
+
+6
+00:00:12,660 --> 00:00:14,400
+and you're going to apply protection
+
+7
+00:00:14,400 --> 00:00:18,540
+best practices across your entire AWS Organization.
+
+8
+00:00:18,540 --> 00:00:21,900
+You're going to get 30-day usage and activity metrics.
+
+9
+00:00:21,900 --> 00:00:24,540
+You can aggregate the data at the organization
+
+10
+00:00:24,540 --> 00:00:26,760
+level or for specific accounts, regions,
+
+11
+00:00:26,760 --> 00:00:28,560
+buckets, or even prefixes.
+
+12
+00:00:28,560 --> 00:00:30,450
+You can create your own dashboard or use
+
+13
+00:00:30,450 --> 00:00:33,390
+a default dashboard provided by the Storage Lens service.
+
+14
+00:00:33,390 --> 00:00:35,340
+And finally, all these metrics,
+
+15
+00:00:35,340 --> 00:00:37,830
+all these reports can be exported into an
+
+16
+00:00:37,830 --> 00:00:40,890
+S3 bucket in the CSV or Parquet format.
+
+17
+00:00:40,890 --> 00:00:44,130
+So to summarize, Storage Lens will take all
+
+18
+00:00:44,130 --> 00:00:45,900
+these things into account, organization,
+
+19
+00:00:45,900 --> 00:00:48,060
+accounts, region, buckets.
+
+20
+00:00:48,060 --> 00:00:51,240
+Then you aggregate all this data into a report,
+
+21
+00:00:51,240 --> 00:00:53,100
+which is going to help you with your analysis.
+
+22
+00:00:53,100 --> 00:00:56,340
+And then finally, this can be sent for summary insights,
+
+23
+00:00:56,340 --> 00:00:58,830
+data protection, cost efficiency, which allows you
+
+24
+00:00:58,830 --> 00:01:02,040
+to optimize your usage of Amazon S3.
+
+25
+00:01:02,040 --> 00:01:05,220
+So when you use the S3 Storage Lens service,
+
+26
+00:01:05,220 --> 00:01:07,200
+you have a default dashboard
+
+27
+00:01:07,200 --> 00:01:09,360
+and the dashboard gives you summarized insights
+
+28
+00:01:09,360 --> 00:01:12,840
+and trends for both the free and the advanced metrics.
+
+29
+00:01:12,840 --> 00:01:16,290
+This default dashboard will show data across multiple
+
+30
+00:01:16,290 --> 00:01:18,900
+regions and across multiple accounts.
+
+31
+00:01:18,900 --> 00:01:20,910
+So you don't have to do anything special just
+
+32
+00:01:20,910 --> 00:01:22,470
+to set up the filters.
+
+33
+00:01:22,470 --> 00:01:24,630
+It is pre-configured by Amazon S3.
+
+34
+00:01:24,630 --> 00:01:26,760
+You cannot delete the default dashboard,
+
+35
+00:01:26,760 --> 00:01:29,010
+but you can disable it, if you wanted to.
+
+36
+00:01:29,010 --> 00:01:31,350
+So in this UI right here, you would select
+
+37
+00:01:31,350 --> 00:01:33,510
+the region you want, the accounts you want,
+
+38
+00:01:33,510 --> 00:01:36,570
+the buckets you want, storage classes, and so on.
+
+39
+00:01:36,570 --> 00:01:39,390
+And this is a centralized configuration.
+
+40
+00:01:39,390 --> 00:01:40,800
+And then once you have that,
+
+41
+00:01:40,800 --> 00:01:43,230
+the dashboard right here gives you information
+
+42
+00:01:43,230 --> 00:01:45,420
+such as, for example, the total storage,
+
+43
+00:01:45,420 --> 00:01:48,240
+the objects count, the average object size,
+
+44
+00:01:48,240 --> 00:01:50,580
+the number of buckets you have, accounts,
+
+45
+00:01:50,580 --> 00:01:54,120
+and you can get detailed per accounts,
+
+46
+00:01:54,120 --> 00:01:56,010
+or per region.
+
+47
+00:01:56,010 --> 00:01:57,630
+So let's have a look at what kind
+
+48
+00:01:57,630 --> 00:02:00,450
+of metrics are available into Storage Lens,
+
+49
+00:02:00,450 --> 00:02:02,940
+because this will help you understand if Storage Lens
+
+50
+00:02:02,940 --> 00:02:06,630
+is a service you should be choosing for the exam.
+
+51
+00:02:06,630 --> 00:02:10,014
+So you have summary metrics which give you general
+
+52
+00:02:10,014 --> 00:02:10,919
+insights about your S3 storage.
+
+53
+00:02:10,919 --> 00:02:13,650
+For example, storage bytes to know the size
+
+54
+00:02:13,650 --> 00:02:15,570
+of your storage and object counts to know
+
+55
+00:02:15,570 --> 00:02:17,610
+how many objects you have in your storage.
+
+56
+00:02:17,610 --> 00:02:19,890
+So use cases for this is to identify, for example,
+
+57
+00:02:19,890 --> 00:02:23,790
+the fastest-growing or not used bucket and prefixes,
+
+58
+00:02:23,790 --> 00:02:26,190
+because if the storage bytes remains the same,
+
+59
+00:02:26,190 --> 00:02:28,680
+that means that no new objects have been added
+
+60
+00:02:28,680 --> 00:02:30,720
+or same for object counts.
+
+61
+00:02:30,720 --> 00:02:33,030
+Then you have cost optimization metrics
+
+62
+00:02:33,030 --> 00:02:35,340
+and they provide you insights to manage
+
+63
+00:02:35,340 --> 00:02:37,920
+and optimize your storage cost.
+
+64
+00:02:37,920 --> 00:02:40,800
+So they give you an information about the non-current
+
+65
+00:02:40,800 --> 00:02:44,190
+version storage bytes, meaning how many version objects
+
+66
+00:02:44,190 --> 00:02:45,960
+that are not current,
+
+67
+00:02:45,960 --> 00:02:47,910
+how much space they're actually taking,
+
+68
+00:02:47,910 --> 00:02:51,210
+or incomplete multi-part upload storage bytes.
+
+69
+00:02:51,210 --> 00:02:52,380
+You know, if for example,
+
+70
+00:02:52,380 --> 00:02:54,420
+you've had some incomplete uploads,
+
+71
+00:02:54,420 --> 00:02:56,820
+how much space they take
+
+72
+00:02:56,820 --> 00:02:58,890
+in your bucket and you can clean it.
+
+73
+00:02:58,890 --> 00:03:00,870
+So the use cases will be, for example,
+
+74
+00:03:00,870 --> 00:03:04,470
+to see which buckets have failed multi-part uploads,
+
+75
+00:03:04,470 --> 00:03:06,600
+or which objects could be transitioned
+
+76
+00:03:06,600 --> 00:03:09,090
+to lower-cost storage classes.
+
+77
+00:03:09,090 --> 00:03:11,340
+You have data protection metrics to provide insights
+
+78
+00:03:11,340 --> 00:03:13,050
+for data protection features.
+
+79
+00:03:13,050 --> 00:03:15,750
+So here we have versioning enabled bucket counts
+
+80
+00:03:15,750 --> 00:03:18,120
+to make sure that all your buckets have been
+
+81
+00:03:18,120 --> 00:03:20,156
+enabled with versioning and so on.
+
+82
+00:03:20,156 --> 00:03:23,370
+MFA, delete enabled bucket counts.
+
+83
+00:03:23,370 --> 00:03:26,640
+SSCKMS enable bucket counts, cross replication
+
+84
+00:03:26,640 --> 00:03:28,530
+region rules, counts, and so on.
+
+85
+00:03:28,530 --> 00:03:31,080
+So the use cases are, for example, to identify
+
+86
+00:03:31,080 --> 00:03:34,050
+the buckets which are not following your data
+
+87
+00:03:34,050 --> 00:03:36,390
+protection best practices.
+
+88
+00:03:36,390 --> 00:03:38,430
+You have access management metrics to provide
+
+89
+00:03:38,430 --> 00:03:40,410
+insights for S3 bucket ownership.
+
+90
+00:03:40,410 --> 00:03:42,720
+So here's the name of the metric
+
+91
+00:03:42,720 --> 00:03:45,600
+and the use cases will be to identify which object
+
+92
+00:03:45,600 --> 00:03:48,510
+ownership settings your buckets currently use.
+
+93
+00:03:48,510 --> 00:03:50,250
+You have event metrics to get insights
+
+94
+00:03:50,250 --> 00:03:52,320
+for S3 event notifications
+
+95
+00:03:52,320 --> 00:03:55,080
+and to know how many buckets have the S3 event
+
+96
+00:03:55,080 --> 00:03:56,670
+notifications configured.
+
+97
+00:03:56,670 --> 00:03:57,780
+You have performance metrics
+
+98
+00:03:57,780 --> 00:04:01,230
+to get insights into S3 transfer acceleration
+
+99
+00:04:01,230 --> 00:04:03,180
+and see how many buckets have
+
+100
+00:04:03,180 --> 00:04:05,430
+S3 transfer acceleration enabled.
+
+101
+00:04:05,430 --> 00:04:07,380
+And you have activity metrics such
+
+102
+00:04:07,380 --> 00:04:10,530
+as information about all requests, get requests,
+
+103
+00:04:10,530 --> 00:04:13,350
+put requests, the number of bytes downloaded and so on.
+
+104
+00:04:13,350 --> 00:04:17,279
+And finally, metrics around the HTTP status code
+
+105
+00:04:17,279 --> 00:04:20,850
+such as 200OK, 403 Forbidden, et cetera, et cetera,
+
+106
+00:04:20,850 --> 00:04:22,920
+to understand the type of usage
+
+107
+00:04:22,920 --> 00:04:24,303
+your buckets are getting.
+
+108
+00:04:25,530 --> 00:04:27,150
+Now, you have different kinds of metrics
+
+109
+00:04:27,150 --> 00:04:28,950
+in two Storage Lens, you have the free
+
+110
+00:04:28,950 --> 00:04:30,840
+and the paid metrics.
+
+111
+00:04:30,840 --> 00:04:34,650
+So the metrics selection can be done in the UI as well.
+
+112
+00:04:34,650 --> 00:04:36,150
+But just as a summary,
+
+113
+00:04:36,150 --> 00:04:38,400
+while the three metrics are automatically available
+
+114
+00:04:38,400 --> 00:04:42,720
+to all customers, and it contains around 28 usage metrics,
+
+115
+00:04:42,720 --> 00:04:45,750
+and the data is available for queries for 14 days,
+
+116
+00:04:45,750 --> 00:04:48,510
+whereas for advanced metrics and recommendations,
+
+117
+00:04:48,510 --> 00:04:50,730
+you get additional paid metrics and features
+
+118
+00:04:50,730 --> 00:04:54,780
+such as the activity, the advanced cost optimization,
+
+119
+00:04:54,780 --> 00:04:57,480
+the advanced data protection and status codes.
+
+120
+00:04:57,480 --> 00:04:59,340
+And then you get also these metrics being
+
+121
+00:04:59,340 --> 00:05:00,720
+published to CloudWatch.
+
+122
+00:05:00,720 --> 00:05:03,810
+So you can access them without any additional charges.
+
+123
+00:05:03,810 --> 00:05:06,870
+And then you can collect metrics at the prefix
+
+124
+00:05:06,870 --> 00:05:09,570
+level within your S3 buckets.
+
+125
+00:05:09,570 --> 00:05:11,580
+And finally, the data when you pay,
+
+126
+00:05:11,580 --> 00:05:14,250
+is available for 15 months.
+
+127
+00:05:14,250 --> 00:05:15,783
+So that's it for S3 Storage Lens.
+
+128
+00:05:15,783 --> 00:05:17,670
+It's a very helpful service.
+
+129
+00:05:17,670 --> 00:05:19,050
+You have to remember the difference
+
+130
+00:05:19,050 --> 00:05:20,760
+between free and paid.
+
+131
+00:05:20,760 --> 00:05:23,010
+You have to remember that the default dashboard
+
+132
+00:05:23,010 --> 00:05:26,550
+has data across multiple accounts and multiple regions.
+
+133
+00:05:26,550 --> 00:05:28,020
+And of course, the fact that Storage Lens
+
+134
+00:05:28,020 --> 00:05:31,650
+covers your object storage, the fact that you can
+
+135
+00:05:31,650 --> 00:05:34,290
+count how many objects are encrypted and so on.
+
+136
+00:05:34,290 --> 00:05:35,970
+So let's say for this lecture, I hope you liked it
+
+137
+00:05:35,970 --> 00:05:38,133
+and I will see you in the next lecture.
+

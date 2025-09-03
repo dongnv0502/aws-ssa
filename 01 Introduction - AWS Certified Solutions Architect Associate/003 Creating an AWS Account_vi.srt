@@ -1,0 +1,175 @@
+1
+00:00:00,170 --> 00:00:03,610
+Hãy cùng tạo một tài khoản AWS.
+
+2
+00:00:03,610 --> 00:00:04,890
+Điều đầu tiên bạn cần làm
+
+3
+00:00:04,890 --> 00:00:08,100
+là nhập địa chỉ email root user
+
+4
+00:00:08,100 --> 00:00:10,460
+đây là email chính của bạn.
+
+5
+00:00:10,460 --> 00:00:13,360
+Email này sẽ dùng để đăng nhập tài khoản Amazon.
+
+6
+00:00:13,360 --> 00:00:16,890
+Bạn cũng có thể đặt tên cho tài khoản,
+
+7
+00:00:16,890 --> 00:00:19,833
+ví dụ: stefane-demo-v3.
+
+8
+00:00:22,220 --> 00:00:23,970
+Sau khi xác minh tài khoản,
+
+9
+00:00:23,970 --> 00:00:26,020
+bạn cần đặt mật khẩu root user
+
+10
+00:00:26,020 --> 00:00:28,370
+và xác nhận mật khẩu root user này.
+
+11
+00:00:28,370 --> 00:00:30,370
+Nếu quên mật khẩu root,
+
+12
+00:00:30,370 --> 00:00:31,620
+bạn có thể khôi phục
+
+13
+00:00:31,620 --> 00:00:34,600
+thông qua email, nhưng tốt nhất là đừng quên
+
+14
+00:00:34,600 --> 00:00:38,130
+địa chỉ email và mật khẩu root user.
+
+15
+00:00:38,130 --> 00:00:40,940
+Tiếp theo, chỉ định đây là tài khoản cá nhân
+
+16
+00:00:40,940 --> 00:00:44,310
+và nhập thông tin chi tiết cho tài khoản.
+
+17
+00:00:44,310 --> 00:00:46,310
+Sau đó phải nhập thông tin thẻ tín dụng
+
+18
+00:00:46,310 --> 00:00:48,470
+và bạn sẽ được ủy quyền
+
+19
+00:00:48,470 --> 00:00:50,270
+$1 trên thẻ tín dụng này.
+
+20
+00:00:50,270 --> 00:00:52,920
+Đây không phải khoản phí, là giao dịch chờ xử lý
+
+21
+00:00:52,920 --> 00:00:55,340
+chỉ là ủy quyền và sẽ bị hủy.
+
+22
+00:00:55,340 --> 00:00:57,730
+Miễn là bạn ở trong Free Tier,
+
+23
+00:00:57,730 --> 00:00:58,710
+bạn sẽ không bị tính phí.
+
+24
+00:00:58,710 --> 00:01:01,670
+Nhưng nếu vượt quá Free Tier thì sẽ bị tính phí.
+
+25
+00:01:01,670 --> 00:01:02,720
+Tất nhiên tôi sẽ chỉ bạn
+
+26
+00:01:02,720 --> 00:01:04,459
+cách giám sát những điều này.
+
+27
+00:01:04,459 --> 00:01:05,519
+Nhưng nếu làm theo khóa học,
+
+28
+00:01:05,519 --> 00:01:07,940
+bạn sẽ ở trong giới hạn Free Tier.
+
+29
+00:01:07,940 --> 00:01:11,160
+Sau bước đó, bạn phải xác minh danh tính
+
+30
+00:01:11,160 --> 00:01:13,610
+bằng cách cung cấp số điện thoại và nhận
+
+31
+00:01:13,610 --> 00:01:17,750
+SMS hoặc cuộc gọi thoại để xác nhận số đó.
+
+32
+00:01:17,750 --> 00:01:19,880
+Sau đó chọn gói hỗ trợ
+
+33
+00:01:19,880 --> 00:01:23,330
+và sẽ dùng Basic Support miễn phí cho khóa này
+
+34
+00:01:23,330 --> 00:01:25,190
+vì đó là tất cả những gì cần.
+
+35
+00:01:25,190 --> 00:01:26,760
+Sau đó hoàn tất đăng ký
+
+36
+00:01:26,760 --> 00:01:29,760
+và chúc mừng bạn đã đăng ký AWS.
+
+37
+00:01:29,760 --> 00:01:32,420
+Sẽ mất vài phút để kích hoạt tài khoản
+
+38
+00:01:32,420 --> 00:01:35,430
+và bạn sẽ nhận email khi hoàn tất.
+
+39
+00:01:35,430 --> 00:01:36,820
+Trong lúc đó, bạn có thể click
+
+40
+00:01:36,820 --> 00:01:39,580
+vào "Go to the AWS Management Console".
+
+41
+00:01:39,580 --> 00:01:42,420
+Bạn phải nhập địa chỉ email root user
+
+42
+00:01:42,420 --> 00:01:44,120
+và mật khẩu, sau đó sẽ đăng nhập
+
+43
+00:01:44,120 --> 00:01:46,100
+vào AWS Console.
+
+44
+00:01:46,100 --> 00:01:48,700
+Chúc mừng, hãy bắt đầu với khóa học này.

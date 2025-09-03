@@ -1,0 +1,548 @@
+1
+00:00:00,200 --> 00:00:01,270
+So, it's just a quick lecture,
+
+2
+00:00:01,270 --> 00:00:02,103
+just to touch base
+
+3
+00:00:02,103 --> 00:00:04,290
+on what is scalability and high availability.
+
+4
+00:00:04,290 --> 00:00:05,350
+This is quite the beginners level,
+
+5
+00:00:05,350 --> 00:00:07,120
+so if you feel very confident about these concepts,
+
+6
+00:00:07,120 --> 00:00:09,450
+feel free to skip this lecture.
+
+7
+00:00:09,450 --> 00:00:11,550
+Now, scalability means that your application system
+
+8
+00:00:11,550 --> 00:00:14,650
+can hinder a greater load by adapting.
+
+9
+00:00:14,650 --> 00:00:16,670
+And so, there are two kind of scalability.
+
+10
+00:00:16,670 --> 00:00:18,740
+There's going to be vertical scalability
+
+11
+00:00:18,740 --> 00:00:22,650
+or horizontal scalability, also called elasticity.
+
+12
+00:00:22,650 --> 00:00:26,160
+And so, scalability is different from high availability.
+
+13
+00:00:26,160 --> 00:00:28,520
+They're linked but different.
+
+14
+00:00:28,520 --> 00:00:31,340
+So, what I want to do is deep dive into all this distinction
+
+15
+00:00:31,340 --> 00:00:33,660
+and we'll use a call center as a fun example
+
+16
+00:00:33,660 --> 00:00:36,030
+to really put into practice how things work.
+
+17
+00:00:36,030 --> 00:00:38,470
+So, let's talk about vertical scalability.
+
+18
+00:00:38,470 --> 00:00:39,400
+Vertical scalability,
+
+19
+00:00:39,400 --> 00:00:40,520
+that means that you need
+
+20
+00:00:40,520 --> 00:00:43,180
+to increase the size of your instance.
+
+21
+00:00:43,180 --> 00:00:45,500
+So, let's take a phone operator, for example.
+
+22
+00:00:45,500 --> 00:00:47,620
+We have a junior operator and we just hired him.
+
+23
+00:00:47,620 --> 00:00:51,070
+He's great but he can only take five calls per minute.
+
+24
+00:00:51,070 --> 00:00:54,730
+Now, we have a senior operator and he's much greater.
+
+25
+00:00:54,730 --> 00:00:57,720
+He can take up to ten calls per minute.
+
+26
+00:00:57,720 --> 00:01:00,760
+So, we've basically scaled up our junior operator
+
+27
+00:01:00,760 --> 00:01:03,830
+into senior operator and he's faster and better.
+
+28
+00:01:03,830 --> 00:01:05,290
+This is vertical scalability.
+
+29
+00:01:05,290 --> 00:01:07,630
+As you can see, it goes up.
+
+30
+00:01:07,630 --> 00:01:09,260
+So, for example, in EC2,
+
+31
+00:01:09,260 --> 00:01:11,360
+our application runs on a a t2.micro
+
+32
+00:01:11,360 --> 00:01:13,210
+and we want to upscale that application,
+
+33
+00:01:13,210 --> 00:01:16,000
+that means we want to run it on a t2.large
+
+34
+00:01:16,000 --> 00:01:19,090
+So, when do we use vertical scalability?
+
+35
+00:01:19,090 --> 00:01:22,120
+Well, it's very common when you have non distributed system,
+
+36
+00:01:22,120 --> 00:01:23,510
+such as a data base.
+
+37
+00:01:23,510 --> 00:01:25,650
+So, it's quite common for a data base, for example,
+
+38
+00:01:25,650 --> 00:01:27,300
+on RDS or ElastiCache,
+
+39
+00:01:27,300 --> 00:01:30,660
+these are services that you can just scale vertically
+
+40
+00:01:30,660 --> 00:01:33,073
+by upgrading the underlying instance type,
+
+41
+00:01:33,940 --> 00:01:35,180
+although, there usually are limits
+
+42
+00:01:35,180 --> 00:01:37,710
+to how much you can vertically scale
+
+43
+00:01:37,710 --> 00:01:39,280
+and that's a hardware limit
+
+44
+00:01:39,280 --> 00:01:40,900
+but still, vertical scalability
+
+45
+00:01:40,900 --> 00:01:44,010
+is fine for a lot of use cases.
+
+46
+00:01:44,010 --> 00:01:46,570
+Now, let's talk about horizontal scalability.
+
+47
+00:01:46,570 --> 00:01:47,880
+Horizontal scalability means
+
+48
+00:01:47,880 --> 00:01:50,970
+that you increases the number of instances/systems
+
+49
+00:01:50,970 --> 00:01:52,560
+for your application.
+
+50
+00:01:52,560 --> 00:01:54,420
+So, let's take again, our call center.
+
+51
+00:01:54,420 --> 00:01:57,450
+We have an operator and he is being overloaded.
+
+52
+00:01:57,450 --> 00:01:59,150
+I don't want to vertically scale it,
+
+53
+00:01:59,150 --> 00:02:01,250
+I want to hire a second operator
+
+54
+00:02:01,250 --> 00:02:02,900
+and now, I've just doubled my capacity.
+
+55
+00:02:02,900 --> 00:02:05,140
+Actually, I'll hire a third operator.
+
+56
+00:02:05,140 --> 00:02:05,973
+You know what?
+
+57
+00:02:05,973 --> 00:02:07,600
+I'll hire six operators.
+
+58
+00:02:07,600 --> 00:02:11,020
+I have horizontally scaled my call center.
+
+59
+00:02:11,020 --> 00:02:12,770
+So, when you have horizontal scaling,
+
+60
+00:02:12,770 --> 00:02:15,310
+that implies you have distributed systems
+
+61
+00:02:15,310 --> 00:02:17,830
+and this is quite common when you have a web application
+
+62
+00:02:17,830 --> 00:02:19,130
+or a modern application
+
+63
+00:02:19,130 --> 00:02:19,963
+but remember,
+
+64
+00:02:19,963 --> 00:02:23,280
+that not every application can be a distributed system.
+
+65
+00:02:23,280 --> 00:02:26,960
+And I think it's easy, now a days, to horizontally scale,
+
+66
+00:02:26,960 --> 00:02:29,850
+thanks to the cloud offerings such as Amazon EC2
+
+67
+00:02:29,850 --> 00:02:33,003
+because we just right click on the web page and boom,
+
+68
+00:02:34,130 --> 00:02:37,140
+all of the sudden we have a new EC2 instance
+
+69
+00:02:37,140 --> 00:02:40,040
+and we can just horizontally scale our application.
+
+70
+00:02:40,040 --> 00:02:42,020
+Now let's talk about high availability.
+
+71
+00:02:42,020 --> 00:02:43,720
+High availability, that goes usually hand in hand
+
+72
+00:02:43,720 --> 00:02:46,270
+with horizontal scaling but not all the time.
+
+73
+00:02:46,270 --> 00:02:47,430
+High availability, that means
+
+74
+00:02:47,430 --> 00:02:49,530
+that you're running your application or system
+
+75
+00:02:49,530 --> 00:02:51,530
+in at least two data centers,
+
+76
+00:02:51,530 --> 00:02:54,410
+or two availability zones in AWS.
+
+77
+00:02:54,410 --> 00:02:56,320
+And he goal of high availability
+
+78
+00:02:56,320 --> 00:02:58,690
+is to be able to survive a data center loss,
+
+79
+00:02:58,690 --> 00:03:02,320
+so in case one center goes down, then we're still running.
+
+80
+00:03:02,320 --> 00:03:04,430
+So, let's talk about our phone operators.
+
+81
+00:03:04,430 --> 00:03:06,240
+Maybe I'll have three of my phone operators
+
+82
+00:03:06,240 --> 00:03:07,820
+in the first building in New York
+
+83
+00:03:07,820 --> 00:03:10,356
+and maybe I'll have three of my phone operators
+
+84
+00:03:10,356 --> 00:03:11,189
+in the second building
+
+85
+00:03:11,189 --> 00:03:14,230
+on the other side of the United States, in San Francisco.
+
+86
+00:03:14,230 --> 00:03:16,130
+Now, if my building in New York
+
+87
+00:03:16,130 --> 00:03:19,720
+loses their internet connection or their call connection,
+
+88
+00:03:19,720 --> 00:03:21,640
+then that's okay, they can't work
+
+89
+00:03:21,640 --> 00:03:23,520
+but my second building in San Francisco
+
+90
+00:03:23,520 --> 00:03:26,370
+is still fine and they can still take the phone calls.
+
+91
+00:03:26,370 --> 00:03:30,250
+So, in that case, my call center is highly available.
+
+92
+00:03:30,250 --> 00:03:32,720
+Now, high availability, can also be passive,
+
+93
+00:03:32,720 --> 00:03:36,150
+for example, when we have RDS Multi AZ, for example,
+
+94
+00:03:36,150 --> 00:03:38,870
+we have a passive kind of high availability
+
+95
+00:03:38,870 --> 00:03:40,550
+but it can also be active
+
+96
+00:03:40,550 --> 00:03:42,600
+and this is when we have a horizontal scaling,
+
+97
+00:03:42,600 --> 00:03:43,660
+so this is where, for example,
+
+98
+00:03:43,660 --> 00:03:46,310
+I have all my phone calls in two buildings in New York.
+
+99
+00:03:46,310 --> 00:03:48,190
+They're all taking calls at the same time.
+
+100
+00:03:48,190 --> 00:03:49,890
+So, for EC2, what does that mean?
+
+101
+00:03:49,890 --> 00:03:51,240
+Well, vertical scaling again,
+
+102
+00:03:51,240 --> 00:03:52,900
+increasing the instance size,
+
+103
+00:03:52,900 --> 00:03:54,740
+it's going to scale up or down.
+
+104
+00:03:54,740 --> 00:03:56,960
+So, for example, the smallest kind of instance you can get
+
+105
+00:03:56,960 --> 00:04:01,960
+in AWS today is t2.nano and this is 0.5 gigs of RAM, 1 vCPU
+
+106
+00:04:02,160 --> 00:04:05,730
+and the biggest is A u-t12tb1.metal,
+
+107
+00:04:05,730 --> 00:04:10,730
+which has 12.3 terabytes of Ram and 450 vCPUs,
+
+108
+00:04:10,890 --> 00:04:12,210
+so quite a big instance
+
+109
+00:04:12,210 --> 00:04:13,920
+and I'm sure these things will get bigger
+
+110
+00:04:13,920 --> 00:04:15,130
+as time goes along.
+
+111
+00:04:15,130 --> 00:04:17,640
+So, you can vertically scale from something very, very small
+
+112
+00:04:17,640 --> 00:04:19,149
+to something extremely large.
+
+113
+00:04:19,149 --> 00:04:21,519
+Horizontal scaling, that means you increase the number
+
+114
+00:04:21,519 --> 00:04:22,760
+of instances you have
+
+115
+00:04:22,760 --> 00:04:26,170
+and in AWS terms, it's called scale out or scale in.
+
+116
+00:04:26,170 --> 00:04:28,600
+Out, when you increase the number of instances.
+
+117
+00:04:28,600 --> 00:04:31,120
+In, when you decrease number of instances
+
+118
+00:04:31,120 --> 00:04:32,180
+and this could be used
+
+119
+00:04:32,180 --> 00:04:34,480
+for other scaling groups or load balancers.
+
+120
+00:04:34,480 --> 00:04:36,020
+And then finally, high availability
+
+121
+00:04:36,020 --> 00:04:38,220
+is when you run the same instance
+
+122
+00:04:38,220 --> 00:04:40,590
+of the same application across multiple AZ
+
+123
+00:04:40,590 --> 00:04:42,340
+and so this is for an auto scaler group
+
+124
+00:04:42,340 --> 00:04:43,810
+that has multi AZ enabled
+
+125
+00:04:43,810 --> 00:04:47,100
+or a load balancer that has multi AZ enabled, as well.
+
+126
+00:04:47,100 --> 00:04:47,933
+So, that's it.
+
+127
+00:04:47,933 --> 00:04:49,580
+Just a quick run down were fine
+
+128
+00:04:49,580 --> 00:04:51,880
+on the terms high availability and scalability.
+
+129
+00:04:51,880 --> 00:04:53,370
+They're necessary for you to understand
+
+130
+00:04:53,370 --> 00:04:55,260
+when you look at the exam questions
+
+131
+00:04:55,260 --> 00:04:56,650
+'cause they can trick you sometime,
+
+132
+00:04:56,650 --> 00:04:58,470
+so make sure you're very confident with those.
+
+133
+00:04:58,470 --> 00:05:00,040
+They're pretty easy when you think about it.
+
+134
+00:05:00,040 --> 00:05:02,010
+Remember the call center in your mind
+
+135
+00:05:02,010 --> 00:05:03,360
+when you have these questions.
+
+136
+00:05:03,360 --> 00:05:04,420
+Okay, that's good.
+
+137
+00:05:04,420 --> 00:05:06,120
+I will see yo in the next lecture.
+

@@ -1,0 +1,420 @@
+1
+00:00:00,660 --> 00:00:03,030
+So, let me show you quickly WAF, Shield
+
+2
+00:00:03,030 --> 00:00:04,620
+and Firewall Manager.
+
+3
+00:00:04,620 --> 00:00:08,760
+So, if you go into the console and you type WAF and Shield,
+
+4
+00:00:08,760 --> 00:00:10,320
+you arrive in this UI.
+
+5
+00:00:10,320 --> 00:00:12,120
+So we have WAF on the left hand side,
+
+6
+00:00:12,120 --> 00:00:15,660
+Shield in here and we have Firewall Manager in here.
+
+7
+00:00:15,660 --> 00:00:18,030
+So WAF helps you protect your web applications
+
+8
+00:00:18,030 --> 00:00:21,480
+from common web exploits at the layer seven
+
+9
+00:00:21,480 --> 00:00:23,430
+So it's for your Amazon API gateway,
+
+10
+00:00:23,430 --> 00:00:24,720
+your CloudFront distributions
+
+11
+00:00:24,720 --> 00:00:27,420
+or an Application Load Balancer.
+
+12
+00:00:27,420 --> 00:00:28,350
+So then what you would do
+
+13
+00:00:28,350 --> 00:00:31,380
+is that you would create a web ACL out of it.
+
+14
+00:00:31,380 --> 00:00:34,437
+So we'll give it a name, 'Demo Web ACL',
+
+15
+00:00:35,670 --> 00:00:38,670
+and then whether or not it's for a regional resource,
+
+16
+00:00:38,670 --> 00:00:41,340
+such as your ALB, API gateway or others,
+
+17
+00:00:41,340 --> 00:00:43,290
+or if it's a CloudFront distribution,
+
+18
+00:00:43,290 --> 00:00:45,840
+in which case it is going to be global for CloudFront
+
+19
+00:00:45,840 --> 00:00:48,570
+and only in U.S. East one.
+
+20
+00:00:48,570 --> 00:00:50,760
+So, let's go back to regional resource
+
+21
+00:00:50,760 --> 00:00:54,180
+and then I'm going to say, this is going to go into
+
+22
+00:00:54,180 --> 00:00:58,110
+say for example the Ireland region of Europe,
+
+23
+00:00:58,110 --> 00:01:00,813
+and this is again my 'Demo Web ACL.
+
+24
+00:01:01,740 --> 00:01:02,820
+Okay.
+
+25
+00:01:02,820 --> 00:01:05,280
+So, we can associate resources with it,
+
+26
+00:01:05,280 --> 00:01:08,160
+so which resources do we want to protect with this?
+
+27
+00:01:08,160 --> 00:01:09,750
+So I don't have any ALB right now
+
+28
+00:01:09,750 --> 00:01:12,600
+but this is where you would add AWS resources to it
+
+29
+00:01:12,600 --> 00:01:13,920
+by just clicking on this button
+
+30
+00:01:13,920 --> 00:01:17,610
+and finding the right resource to protect with your web ACL.
+
+31
+00:01:17,610 --> 00:01:19,260
+Next, you need to add some rules.
+
+32
+00:01:19,260 --> 00:01:22,200
+So, you can add many rules into your web ACL.
+
+33
+00:01:22,200 --> 00:01:25,380
+So, we can add managed rule groups or create your own rules.
+
+34
+00:01:25,380 --> 00:01:26,610
+So, what about managed rules?
+
+35
+00:01:26,610 --> 00:01:28,380
+Well, you can have a look at the categories.
+
+36
+00:01:28,380 --> 00:01:30,300
+You have some coming from AWS
+
+37
+00:01:30,300 --> 00:01:32,670
+but also some coming from partners.
+
+38
+00:01:32,670 --> 00:01:34,350
+And if you look at AWS,
+
+39
+00:01:34,350 --> 00:01:36,240
+we can have, for example, a bot control rule
+
+40
+00:01:36,240 --> 00:01:39,510
+to prevent bots from accessing our application.
+
+41
+00:01:39,510 --> 00:01:42,390
+Or we can have a look at the Amazon IP reputation list
+
+42
+00:01:42,390 --> 00:01:45,570
+to only have access to IP that are reputable
+
+43
+00:01:45,570 --> 00:01:47,160
+into our application.
+
+44
+00:01:47,160 --> 00:01:49,290
+Or we can block for example, anonymous IPs,
+
+45
+00:01:49,290 --> 00:01:50,760
+so let's add this one.
+
+46
+00:01:50,760 --> 00:01:53,608
+Here, we're going to block IPs coming from VPNs,
+
+47
+00:01:53,608 --> 00:01:56,190
+from proxies and so on.
+
+48
+00:01:56,190 --> 00:01:58,140
+And let's have known bad inputs
+
+49
+00:01:58,140 --> 00:02:00,420
+so we know that like some inputs are bad
+
+50
+00:02:00,420 --> 00:02:02,070
+so let's block them as well.
+
+51
+00:02:02,070 --> 00:02:04,743
+So, we add all these rules, okay?
+
+52
+00:02:04,743 --> 00:02:07,140
+And as you can see, each rule has a capacity.
+
+53
+00:02:07,140 --> 00:02:10,410
+So, the maximum capacity is 1500,
+
+54
+00:02:10,410 --> 00:02:12,210
+this is so that you don't have too many rules
+
+55
+00:02:12,210 --> 00:02:13,560
+on the web ACL.
+
+56
+00:02:13,560 --> 00:02:17,850
+So, now I'm protected against anonymous IPs and bad inputs.
+
+57
+00:02:17,850 --> 00:02:18,750
+Okay.
+
+58
+00:02:18,750 --> 00:02:21,870
+So what happens if it doesn't match any rule
+
+59
+00:02:21,870 --> 00:02:23,760
+then the default action is to allow,
+
+60
+00:02:23,760 --> 00:02:25,350
+else it will be blocked.
+
+61
+00:02:25,350 --> 00:02:27,270
+So, let's click on next.
+
+62
+00:02:27,270 --> 00:02:29,280
+Here, we can set up the rule priorities.
+
+63
+00:02:29,280 --> 00:02:32,340
+So, do you want to have first the bad inputs rule set
+
+64
+00:02:32,340 --> 00:02:35,280
+or the anonymous IP list, so you can change this.
+
+65
+00:02:35,280 --> 00:02:38,130
+Then you would have metrics associated with it.
+
+66
+00:02:38,130 --> 00:02:41,850
+And finally, you could go ahead and create this web ACL.
+
+67
+00:02:41,850 --> 00:02:44,370
+So, this is a created, and if you wanted to
+
+68
+00:02:44,370 --> 00:02:45,933
+you could associate it with your ALB,
+
+69
+00:02:45,933 --> 00:02:47,790
+your API gateway and so on.
+
+70
+00:02:47,790 --> 00:02:50,380
+So, this is for WAF and next.
+
+71
+00:02:50,380 --> 00:02:53,220
+And also in here, you could set up IP sets
+
+72
+00:02:53,220 --> 00:02:56,297
+and this is where you would set up your IP addresses, okay?
+
+73
+00:02:56,297 --> 00:02:58,230
+One per line inside your format,
+
+74
+00:02:58,230 --> 00:03:01,166
+run what to block or what to allow in.
+
+75
+00:03:01,166 --> 00:03:02,943
+Okay, so next we have Shield.
+
+76
+00:03:05,430 --> 00:03:08,970
+So, Shield is to get DDoS protection
+
+77
+00:03:08,970 --> 00:03:11,160
+and if I click on subscribe to Shield Advanced,
+
+78
+00:03:11,160 --> 00:03:14,490
+I'm going to pay $3,000 per month, which I will not do.
+
+79
+00:03:14,490 --> 00:03:16,260
+So, the idea is that you just know
+
+80
+00:03:16,260 --> 00:03:17,550
+that Shield is for DDoS protection
+
+81
+00:03:17,550 --> 00:03:19,170
+and we just don't experiment with it
+
+82
+00:03:19,170 --> 00:03:21,912
+otherwise we're gonna have a bad surprise.
+
+83
+00:03:21,912 --> 00:03:25,590
+So, I'm going to scroll down and go to Firewall Manager.
+
+84
+00:03:25,590 --> 00:03:27,270
+So, Firewall Manager is to have
+
+85
+00:03:27,270 --> 00:03:30,990
+centralized security management of your rules.
+
+86
+00:03:30,990 --> 00:03:32,190
+So, you can create a policy,
+
+87
+00:03:32,190 --> 00:03:34,950
+but again a policy will cost you $100 per month.
+
+88
+00:03:34,950 --> 00:03:36,900
+So. I will not display this
+
+89
+00:03:36,900 --> 00:03:39,000
+but the idea is that all these policies
+
+90
+00:03:39,000 --> 00:03:43,020
+will be applied to all accounts across your organization.
+
+91
+00:03:43,020 --> 00:03:45,150
+So if you wanted to just go through policy,
+
+92
+00:03:45,150 --> 00:03:47,100
+you can have it look quickly, the options.
+
+93
+00:03:47,100 --> 00:03:49,920
+So you can apply a policy for WAF, for Shield Advanced,
+
+94
+00:03:49,920 --> 00:03:52,980
+for security groups, network firewalls, or more.
+
+95
+00:03:52,980 --> 00:03:54,540
+And so this is WAF,
+
+96
+00:03:54,540 --> 00:03:57,450
+let's apply to, for example the Ireland region.
+
+97
+00:03:57,450 --> 00:03:58,890
+And if I were to do so
+
+98
+00:03:58,890 --> 00:04:02,370
+then I would be able to define a WAF policy
+
+99
+00:04:02,370 --> 00:04:07,020
+for all my accounts for the Ireland region.
+
+100
+00:04:07,020 --> 00:04:09,930
+So you could configure the rules here
+
+101
+00:04:09,930 --> 00:04:12,450
+and then you could have more configuration and so on.
+
+102
+00:04:12,450 --> 00:04:15,390
+So hopefully you get the idea of these three services
+
+103
+00:04:15,390 --> 00:04:18,029
+and you understand how they compliment each other.
+
+104
+00:04:18,029 --> 00:04:19,260
+I hope you liked it
+
+105
+00:04:19,260 --> 00:04:21,209
+and I will see you in the next lecture.
+

@@ -1,0 +1,272 @@
+1
+00:00:00,150 --> 00:00:03,030
+So there is another use case for EFS three access points
+
+2
+00:00:03,030 --> 00:00:05,700
+and it's called S3 Object Lambda.
+
+3
+00:00:05,700 --> 00:00:08,280
+So the idea is that you have an S3 bucket,
+
+4
+00:00:08,280 --> 00:00:11,640
+but you want to modify the object
+
+5
+00:00:11,640 --> 00:00:15,990
+just before it is being retrieved by a color application.
+
+6
+00:00:15,990 --> 00:00:17,850
+And instead of, for example
+
+7
+00:00:17,850 --> 00:00:20,910
+duplicating our buckets to have different versions
+
+8
+00:00:20,910 --> 00:00:24,750
+of each object, we can use S3 Object Lambda instead.
+
+9
+00:00:24,750 --> 00:00:28,530
+And for this, we need the S3 access points that we just saw.
+
+10
+00:00:28,530 --> 00:00:29,700
+So how does that work?
+
+11
+00:00:29,700 --> 00:00:33,330
+Say we have the cloud and we have an S3 bucket in it.
+
+12
+00:00:33,330 --> 00:00:36,210
+So an E-commerce application maybe owns the data
+
+13
+00:00:36,210 --> 00:00:37,530
+in this S3 bucket
+
+14
+00:00:37,530 --> 00:00:40,620
+and so they're able to access directly the S3 buckets
+
+15
+00:00:40,620 --> 00:00:44,520
+and put and get the original object out of it.
+
+16
+00:00:44,520 --> 00:00:47,910
+But then an analytics application may want to
+
+17
+00:00:47,910 --> 00:00:50,760
+only have access to the redacted object.
+
+18
+00:00:50,760 --> 00:00:54,790
+That means that some data has been deleted from the object.
+
+19
+00:00:54,790 --> 00:00:57,810
+And so instead of creating a new S3 bucket for this
+
+20
+00:00:57,810 --> 00:01:00,930
+what we can do is that we create an S3 access point
+
+21
+00:01:00,930 --> 00:01:04,860
+on top of a S3 bucket and is connected to a Lambda function.
+
+22
+00:01:04,860 --> 00:01:06,600
+Now, we haven't seen Lambda in depth,
+
+23
+00:01:06,600 --> 00:01:09,390
+but a Lambda function allows you to run a bit of code
+
+24
+00:01:09,390 --> 00:01:10,950
+in the cloud very easily.
+
+25
+00:01:10,950 --> 00:01:15,570
+And so this Lambda function is going to redact the object
+
+26
+00:01:15,570 --> 00:01:17,370
+as it is being retrieved.
+
+27
+00:01:17,370 --> 00:01:19,080
+And on top of this Lambda function,
+
+28
+00:01:19,080 --> 00:01:22,920
+we're going to create an S3 object Lambda access point.
+
+29
+00:01:22,920 --> 00:01:25,950
+And, this is how the analytics application is
+
+30
+00:01:25,950 --> 00:01:27,750
+going to access our S3 buckets.
+
+31
+00:01:27,750 --> 00:01:28,583
+So to summarize
+
+32
+00:01:28,583 --> 00:01:31,890
+the analytics application accesses our S3 Object
+
+33
+00:01:31,890 --> 00:01:35,520
+Lambda access points, which invokes our Lambda function.
+
+34
+00:01:35,520 --> 00:01:37,740
+Our Lambda function is going to retrieve the data
+
+35
+00:01:37,740 --> 00:01:41,250
+from the S3 bucket and runs some code to redact the data.
+
+36
+00:01:41,250 --> 00:01:44,010
+And therefore the analytics application is
+
+37
+00:01:44,010 --> 00:01:47,550
+obtaining a redacted object from the very same S3 bucket
+
+38
+00:01:47,550 --> 00:01:49,443
+as the E-commerce application.
+
+39
+00:01:50,550 --> 00:01:53,550
+Now, a marketing application may want to have access
+
+40
+00:01:53,550 --> 00:01:56,490
+to an enriched object, and they have a customer
+
+41
+00:01:56,490 --> 00:01:59,220
+loyalty database to enhance the data.
+
+42
+00:01:59,220 --> 00:02:03,600
+So instead of, again, creating a new S3 bucket and
+
+43
+00:02:03,600 --> 00:02:05,910
+creating all the objects with all the enriched data.
+
+44
+00:02:05,910 --> 00:02:09,330
+What we can do is, again, using a Lambda function.
+
+45
+00:02:09,330 --> 00:02:10,550
+So another piece of code.
+
+46
+00:02:10,550 --> 00:02:14,340
+And this one will enrich the data by looking it up
+
+47
+00:02:14,340 --> 00:02:16,390
+from the customer loyalty database.
+
+48
+00:02:16,390 --> 00:02:18,750
+And therefore we can also create an object
+
+49
+00:02:18,750 --> 00:02:20,760
+Lambda access point on top of it.
+
+50
+00:02:20,760 --> 00:02:22,560
+And therefore our marketing application
+
+51
+00:02:22,560 --> 00:02:25,200
+can access this access point,
+
+52
+00:02:25,200 --> 00:02:28,440
+this S3 object Lambda access point to get, again
+
+53
+00:02:28,440 --> 00:02:29,460
+the enriched objects.
+
+54
+00:02:29,460 --> 00:02:31,830
+As you can see, we only need one S3 bucket
+
+55
+00:02:31,830 --> 00:02:33,510
+but we can create access points
+
+56
+00:02:33,510 --> 00:02:36,220
+and object Lambda to modify the data
+
+57
+00:02:37,989 --> 00:02:38,822
+as we wish.
+
+58
+00:02:38,822 --> 00:02:42,960
+So the use cases for it is to redact, for example, PII data.
+
+59
+00:02:42,960 --> 00:02:46,410
+So personally identifiable information, for analytics
+
+60
+00:02:46,410 --> 00:02:48,720
+or non-production environments, or for example
+
+61
+00:02:48,720 --> 00:02:52,680
+to convert data from XML to JSON or to perform any kind
+
+62
+00:02:52,680 --> 00:02:53,730
+of transformation you want.
+
+63
+00:02:53,730 --> 00:02:57,600
+For example resizing and watermarking images on the fly
+
+64
+00:02:57,600 --> 00:02:59,780
+but the watermark is specific
+
+65
+00:02:59,780 --> 00:03:02,130
+to the user who request the object.
+
+66
+00:03:02,130 --> 00:03:07,050
+So that's kind of a cool usage for S3 Object Lambda.
+
+67
+00:03:07,050 --> 00:03:08,670
+So I hope you liked it,
+
+68
+00:03:08,670 --> 00:03:10,620
+and I will see you in the next lecture.
+

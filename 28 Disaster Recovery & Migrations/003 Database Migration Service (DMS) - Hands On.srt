@@ -1,0 +1,608 @@
+1
+00:00:00,000 --> 00:00:00,870
+So let's have a look
+
+2
+00:00:00,870 --> 00:00:02,220
+at the different options
+
+3
+00:00:02,220 --> 00:00:06,540
+offered by the AWS Database Migration Service, or DMS.
+
+4
+00:00:06,540 --> 00:00:08,250
+So we're going to get started
+
+5
+00:00:08,250 --> 00:00:09,930
+and we are going to, with the screen,
+
+6
+00:00:09,930 --> 00:00:13,290
+to figure out the right kind of migration we need.
+
+7
+00:00:13,290 --> 00:00:16,470
+So here, I can first discover and assess.
+
+8
+00:00:16,470 --> 00:00:20,010
+So this is going to use AWS DMS Fleet Advisor,
+
+9
+00:00:20,010 --> 00:00:22,290
+which is going to have a look at the inventory
+
+10
+00:00:22,290 --> 00:00:24,810
+of all your on-premises database
+
+11
+00:00:24,810 --> 00:00:28,050
+and will identify the right potential migration path.
+
+12
+00:00:28,050 --> 00:00:30,870
+So this is used to give you results in hours,
+
+13
+00:00:30,870 --> 00:00:33,240
+and save you a lot of planning time
+
+14
+00:00:33,240 --> 00:00:34,680
+without using third-party tools
+
+15
+00:00:34,680 --> 00:00:37,020
+or hiring migration experts.
+
+16
+00:00:37,020 --> 00:00:38,940
+The second option is to convert.
+
+17
+00:00:38,940 --> 00:00:42,540
+So this is to use the DMS Schema Conversion tool
+
+18
+00:00:42,540 --> 00:00:44,610
+to basically convert database schemas
+
+19
+00:00:44,610 --> 00:00:48,060
+from one database technology to another one.
+
+20
+00:00:48,060 --> 00:00:50,520
+And so this is good to just get an idea
+
+21
+00:00:50,520 --> 00:00:53,310
+of the kind of transformations you can do.
+
+22
+00:00:53,310 --> 00:00:54,870
+Then you have migration options,
+
+23
+00:00:54,870 --> 00:00:57,450
+and this is to actually migrate your data.
+
+24
+00:00:57,450 --> 00:01:00,690
+So you have different kind of migrations that are possible.
+
+25
+00:01:00,690 --> 00:01:04,050
+The first one is homogenous data migration.
+
+26
+00:01:04,050 --> 00:01:07,320
+And so this is when you go from, for example,
+
+27
+00:01:07,320 --> 00:01:10,290
+one database to the very same database technology.
+
+28
+00:01:10,290 --> 00:01:13,770
+So for example, from Oracle to Oracle,
+
+29
+00:01:13,770 --> 00:01:15,600
+and this is very helpful, for example,
+
+30
+00:01:15,600 --> 00:01:17,670
+and you would use native database tools
+
+31
+00:01:17,670 --> 00:01:20,640
+to gain some speed and be faster.
+
+32
+00:01:20,640 --> 00:01:24,210
+Then you have the heterogeneous migrations
+
+33
+00:01:24,210 --> 00:01:28,110
+and so they are when the database types are different.
+
+34
+00:01:28,110 --> 00:01:30,450
+For example, you migrate from Oracle
+
+35
+00:01:30,450 --> 00:01:34,440
+to Aurora or from Oracle to PostgreSQL, whatever.
+
+36
+00:01:34,440 --> 00:01:37,350
+In this case, you can use serverless replication
+
+37
+00:01:37,350 --> 00:01:40,050
+or instance-based migration.
+
+38
+00:01:40,050 --> 00:01:40,980
+So the difference here
+
+39
+00:01:40,980 --> 00:01:43,560
+is that with instance-based migration,
+
+40
+00:01:43,560 --> 00:01:45,060
+there is an EC2 instance
+
+41
+00:01:45,060 --> 00:01:48,810
+behind those scenes that you manage to do the migration,
+
+42
+00:01:48,810 --> 00:01:51,360
+but that DMS manages the instance itself
+
+43
+00:01:51,360 --> 00:01:54,780
+and does the the task on it.
+
+44
+00:01:54,780 --> 00:01:56,790
+And serverless, well, you don't manage
+
+45
+00:01:56,790 --> 00:01:58,740
+any kind of resources,
+
+46
+00:01:58,740 --> 00:02:03,300
+but it doesn't support every kind of database engines.
+
+47
+00:02:03,300 --> 00:02:05,070
+So try out with serverless
+
+48
+00:02:05,070 --> 00:02:07,740
+because obviously, it's a little bit nicer, easier,
+
+49
+00:02:07,740 --> 00:02:11,310
+but see if your technology is supported or not.
+
+50
+00:02:11,310 --> 00:02:14,430
+If not, use instance-based migrations.
+
+51
+00:02:14,430 --> 00:02:17,310
+So I'm going to show you instance-based migrations
+
+52
+00:02:17,310 --> 00:02:20,280
+in which we're going to create a replication instance
+
+53
+00:02:20,280 --> 00:02:21,840
+and just look at the options.
+
+54
+00:02:21,840 --> 00:02:23,610
+So you would give it a name,
+
+55
+00:02:23,610 --> 00:02:25,320
+then you would give a description,
+
+56
+00:02:25,320 --> 00:02:26,910
+and then you configure the instance.
+
+57
+00:02:26,910 --> 00:02:30,270
+So of course, based on how much data has to be transiting,
+
+58
+00:02:30,270 --> 00:02:32,160
+you would need to size up your instance.
+
+59
+00:02:32,160 --> 00:02:33,600
+So you have different options
+
+60
+00:02:33,600 --> 00:02:37,890
+from t3.micro, all the way to really large instances.
+
+61
+00:02:37,890 --> 00:02:40,230
+And it's really up to you to see what is going
+
+62
+00:02:40,230 --> 00:02:44,370
+to be necessary based on what load you are getting.
+
+63
+00:02:44,370 --> 00:02:46,500
+You choose a DMS version
+
+64
+00:02:46,500 --> 00:02:48,360
+and see the DMS release notes
+
+65
+00:02:48,360 --> 00:02:50,400
+to see what are the new updates
+
+66
+00:02:50,400 --> 00:02:52,890
+given by different engine versions.
+
+67
+00:02:52,890 --> 00:02:54,570
+And then you choose high availability.
+
+68
+00:02:54,570 --> 00:02:57,810
+So if you're doing a production workload of replication,
+
+69
+00:02:57,810 --> 00:03:00,780
+it's usually better to be in multiple availability zones,
+
+70
+00:03:00,780 --> 00:03:03,390
+in case one of these AZ goes down.
+
+71
+00:03:03,390 --> 00:03:06,030
+If you're doing a very simple migration
+
+72
+00:03:06,030 --> 00:03:10,050
+in dev or test, then single AZ may be sufficient.
+
+73
+00:03:10,050 --> 00:03:11,940
+So we use multi AZ,
+
+74
+00:03:11,940 --> 00:03:13,500
+and sometimes you get restrictions
+
+75
+00:03:13,500 --> 00:03:16,650
+around the type of database class you need.
+
+76
+00:03:16,650 --> 00:03:20,010
+So let's just go for Single-AZ to get no warning.
+
+77
+00:03:20,010 --> 00:03:24,210
+Then how much storage you want on your EC2 instance,
+
+78
+00:03:24,210 --> 00:03:26,400
+and then the connectivity and security.
+
+79
+00:03:26,400 --> 00:03:30,600
+So the IP, the VPC, the subnet group,
+
+80
+00:03:30,600 --> 00:03:31,890
+whether or not you want your instance
+
+81
+00:03:31,890 --> 00:03:33,750
+to be publicly accessible.
+
+82
+00:03:33,750 --> 00:03:36,090
+And then you have more advanced settings if you wanted to,
+
+83
+00:03:36,090 --> 00:03:38,100
+and maintenance settings to do maintenance
+
+84
+00:03:38,100 --> 00:03:40,800
+on the operating system of your instance.
+
+85
+00:03:40,800 --> 00:03:42,900
+When you're good, you click on Create replication instance,
+
+86
+00:03:42,900 --> 00:03:44,010
+but we're not going to do this
+
+87
+00:03:44,010 --> 00:03:45,660
+because this would cost us money,
+
+88
+00:03:45,660 --> 00:03:49,290
+and we don't have databases anyway to migrate to and from.
+
+89
+00:03:49,290 --> 00:03:51,900
+So just cancel this, but I just wanna show you the options.
+
+90
+00:03:51,900 --> 00:03:54,608
+So once you have chosen a replication instance,
+
+91
+00:03:54,608 --> 00:03:56,370
+on the left hand side,
+
+92
+00:03:56,370 --> 00:04:00,090
+we can create what's called a endpoint.
+
+93
+00:04:00,090 --> 00:04:03,330
+So endpoints allow you to define where your databases are.
+
+94
+00:04:03,330 --> 00:04:04,800
+So you can create an endpoint
+
+95
+00:04:04,800 --> 00:04:08,370
+and it could be a source endpoint or a target endpoint.
+
+96
+00:04:08,370 --> 00:04:09,660
+If it's a database in RDS,
+
+97
+00:04:09,660 --> 00:04:13,050
+you have a easy selector by choosing this option.
+
+98
+00:04:13,050 --> 00:04:16,920
+If not, then you can set up the endpoint identifier,
+
+99
+00:04:16,920 --> 00:04:18,269
+then the source engine type.
+
+100
+00:04:18,269 --> 00:04:21,779
+So you have all of these options in here for source engine.
+
+101
+00:04:21,779 --> 00:04:23,550
+And if you choose targets,
+
+102
+00:04:23,550 --> 00:04:26,760
+you have all of these options right here as well.
+
+103
+00:04:26,760 --> 00:04:28,740
+And then you would choose the endpoint settings.
+
+104
+00:04:28,740 --> 00:04:31,290
+So either a wizard to get guided to connect
+
+105
+00:04:31,290 --> 00:04:34,650
+or an editor and to provide it as a JSON format.
+
+106
+00:04:34,650 --> 00:04:37,500
+So these are very specific to your database,
+
+107
+00:04:37,500 --> 00:04:39,060
+and this is why I don't go deep into it,
+
+108
+00:04:39,060 --> 00:04:42,360
+but they provide information on how to connect
+
+109
+00:04:42,360 --> 00:04:45,060
+to your source or your target database.
+
+110
+00:04:45,060 --> 00:04:48,510
+So then you can test your connection
+
+111
+00:04:48,510 --> 00:04:52,080
+from a specific replication instance as well.
+
+112
+00:04:52,080 --> 00:04:53,520
+So when you have your source
+
+113
+00:04:53,520 --> 00:04:54,990
+and your target defined,
+
+114
+00:04:54,990 --> 00:04:58,140
+then you would go into Database migration tasks.
+
+115
+00:04:58,140 --> 00:05:00,480
+And this is where you can create a task
+
+116
+00:05:00,480 --> 00:05:04,380
+and say, Hey, here is my replication instance I want to use.
+
+117
+00:05:04,380 --> 00:05:05,970
+Here is my source database endpoint.
+
+118
+00:05:05,970 --> 00:05:08,280
+Here's my target database endpoint,
+
+119
+00:05:08,280 --> 00:05:09,990
+and what is my migration type.
+
+120
+00:05:09,990 --> 00:05:12,360
+So here we can migrate existing data
+
+121
+00:05:12,360 --> 00:05:15,270
+or we can also migrate the existing data
+
+122
+00:05:15,270 --> 00:05:17,340
+and replicate ongoing changes.
+
+123
+00:05:17,340 --> 00:05:20,730
+So that's for continuous data replication,
+
+124
+00:05:20,730 --> 00:05:24,150
+or just do the replication of data changes only.
+
+125
+00:05:24,150 --> 00:05:26,010
+Again, we can have a test setting,
+
+126
+00:05:26,010 --> 00:05:27,570
+so what settings we want,
+
+127
+00:05:27,570 --> 00:05:29,970
+we use Wizard and we choose all these settings,
+
+128
+00:05:29,970 --> 00:05:33,660
+or we just specify it as a JSON to see everything
+
+129
+00:05:33,660 --> 00:05:36,510
+that can be configured for your DMS task,
+
+130
+00:05:36,510 --> 00:05:38,370
+and as you can see, that is a lot of settings.
+
+131
+00:05:38,370 --> 00:05:42,030
+This is why maybe JSON editor may be better at some point.
+
+132
+00:05:42,030 --> 00:05:42,863
+Okay?
+
+133
+00:05:42,863 --> 00:05:44,460
+Then you can do an assessment
+
+134
+00:05:44,460 --> 00:05:46,920
+and do some configuration and then create your task.
+
+135
+00:05:46,920 --> 00:05:48,690
+Obviously, we're not doing any of this
+
+136
+00:05:48,690 --> 00:05:50,370
+because this would cost us some money,
+
+137
+00:05:50,370 --> 00:05:51,450
+but you get the idea.
+
+138
+00:05:51,450 --> 00:05:53,880
+You create a replication instance, then endpoints.
+
+139
+00:05:53,880 --> 00:05:56,430
+And then finally, a database migration tasks,
+
+140
+00:05:56,430 --> 00:05:59,490
+and DMS is evolving towards serverless replication
+
+141
+00:05:59,490 --> 00:06:01,950
+where you can just create a replication directly
+
+142
+00:06:01,950 --> 00:06:04,110
+from database to database without managing
+
+143
+00:06:04,110 --> 00:06:05,640
+any replication instance.
+
+144
+00:06:05,640 --> 00:06:09,450
+And then you have more features around schema conversion
+
+145
+00:06:09,450 --> 00:06:11,640
+and Fleet Advisor recommendations,
+
+146
+00:06:11,640 --> 00:06:13,740
+and as well as homogenous data migrations
+
+147
+00:06:13,740 --> 00:06:16,140
+to leverage the native database tooling
+
+148
+00:06:16,140 --> 00:06:18,270
+to perform these migrations.
+
+149
+00:06:18,270 --> 00:06:21,090
+So that's it for DMS and its overview.
+
+150
+00:06:21,090 --> 00:06:22,650
+That should be enough for the exam.
+
+151
+00:06:22,650 --> 00:06:23,910
+So I hope you liked it,
+
+152
+00:06:23,910 --> 00:06:25,953
+and I will see you in the next lecture.
+

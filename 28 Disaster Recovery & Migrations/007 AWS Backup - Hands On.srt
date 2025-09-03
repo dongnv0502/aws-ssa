@@ -1,0 +1,452 @@
+1
+00:00:00,300 --> 00:00:02,969
+Okay, so let's practice using AWS Backup.
+
+2
+00:00:02,969 --> 00:00:07,140
+So I'm going to type AWS Backup into the search bar
+
+3
+00:00:07,140 --> 00:00:09,210
+and open the Backup service.
+
+4
+00:00:09,210 --> 00:00:11,580
+So we are going to create our first backup plan.
+
+5
+00:00:11,580 --> 00:00:13,680
+So I'm going to click on Create Backup plan.
+
+6
+00:00:13,680 --> 00:00:14,760
+And we have three options.
+
+7
+00:00:14,760 --> 00:00:17,700
+Either we start with a template or we build a new plan,
+
+8
+00:00:17,700 --> 00:00:19,560
+or we define a plan using JSON.
+
+9
+00:00:19,560 --> 00:00:21,990
+So the simplest for us is to start with a template,
+
+10
+00:00:21,990 --> 00:00:23,160
+and we can have different templates.
+
+11
+00:00:23,160 --> 00:00:25,680
+For example, Daily-35day-Retention,
+
+12
+00:00:25,680 --> 00:00:27,750
+Daily-Monthly-1yr-Retention, and so on.
+
+13
+00:00:27,750 --> 00:00:30,390
+So let's go with Daily-Monthly-1yr-Retention,
+
+14
+00:00:30,390 --> 00:00:32,073
+and I'll call it TestPlan.
+
+15
+00:00:33,510 --> 00:00:35,340
+Next, we click at Backup rules.
+
+16
+00:00:35,340 --> 00:00:37,410
+And you see we can have many Backup rules
+
+17
+00:00:37,410 --> 00:00:38,760
+in our Backup rules.
+
+18
+00:00:38,760 --> 00:00:42,390
+So we have two, we have daily Backups and monthly.
+
+19
+00:00:42,390 --> 00:00:44,400
+So if I click on Daily Backup,
+
+20
+00:00:44,400 --> 00:00:45,990
+as we can see, there's a rule name.
+
+21
+00:00:45,990 --> 00:00:48,120
+The Backup vault is wherever the backup is going.
+
+22
+00:00:48,120 --> 00:00:50,460
+So we can use a default one by AWS,
+
+23
+00:00:50,460 --> 00:00:53,310
+or we can create our own new Backup vault if we wanted to.
+
+24
+00:00:53,310 --> 00:00:56,880
+The Backup frequency, the Backup window, so when to start,
+
+25
+00:00:56,880 --> 00:01:00,240
+which is 5:00 AM UTC, start within eight hours,
+
+26
+00:01:00,240 --> 00:01:01,920
+or you can customize it if you want.
+
+27
+00:01:01,920 --> 00:01:04,440
+Whether or not you want to transition to cold storage,
+
+28
+00:01:04,440 --> 00:01:07,200
+never, after some days, weeks, months, or years.
+
+29
+00:01:07,200 --> 00:01:08,700
+And the retention period of your backup,
+
+30
+00:01:08,700 --> 00:01:11,580
+for example, this one is retained for five weeks.
+
+31
+00:01:11,580 --> 00:01:13,800
+Then we can also copy these backups
+
+32
+00:01:13,800 --> 00:01:15,330
+to a specific destination.
+
+33
+00:01:15,330 --> 00:01:19,140
+For example, another region for disaster recovery purposes.
+
+34
+00:01:19,140 --> 00:01:20,940
+So I'm going to save this backup rule.
+
+35
+00:01:20,940 --> 00:01:23,340
+And for monthly while we get the similar thing,
+
+36
+00:01:23,340 --> 00:01:25,710
+so it's going into the default Backup vault.
+
+37
+00:01:25,710 --> 00:01:28,740
+It's monthly on day one of each month,
+
+38
+00:01:28,740 --> 00:01:30,360
+and the rest looks the same.
+
+39
+00:01:30,360 --> 00:01:32,430
+So we actually transition these ones to cold storage
+
+40
+00:01:32,430 --> 00:01:35,853
+after one month, and then we retain them for one year.
+
+41
+00:01:36,960 --> 00:01:39,480
+Okay, so we have these ready,
+
+42
+00:01:39,480 --> 00:01:43,290
+and then I can just scroll down and click on create plan.
+
+43
+00:01:43,290 --> 00:01:46,230
+So now our test plan is created
+
+44
+00:01:46,230 --> 00:01:48,240
+and we need to assign resources to it.
+
+45
+00:01:48,240 --> 00:01:50,550
+So I'm going to click on assign resources,
+
+46
+00:01:50,550 --> 00:01:53,370
+and I will just call it TestAssignments.
+
+47
+00:01:53,370 --> 00:01:54,330
+And so here for IAM role,
+
+48
+00:01:54,330 --> 00:01:55,500
+we're going to use the default role,
+
+49
+00:01:55,500 --> 00:01:57,060
+which is going to create a role for us
+
+50
+00:01:57,060 --> 00:01:58,200
+with the correct permissions,
+
+51
+00:01:58,200 --> 00:01:59,160
+or you can choose your own one,
+
+52
+00:01:59,160 --> 00:02:01,590
+but let's go with default role, easy.
+
+53
+00:02:01,590 --> 00:02:02,760
+And then for resource selection,
+
+54
+00:02:02,760 --> 00:02:04,890
+we have two things we can do.
+
+55
+00:02:04,890 --> 00:02:07,470
+Number one, we can include all resource types,
+
+56
+00:02:07,470 --> 00:02:09,690
+or number two, we can include specific resource types.
+
+57
+00:02:09,690 --> 00:02:13,080
+For example, if you wanted to just have a DynamoDB table,
+
+58
+00:02:13,080 --> 00:02:16,230
+and then you could select the resource you want on there,
+
+59
+00:02:16,230 --> 00:02:17,280
+you could do this.
+
+60
+00:02:17,280 --> 00:02:20,040
+Or if you wanted to, you can have all tables.
+
+61
+00:02:20,040 --> 00:02:20,970
+So it's one way of doing it.
+
+62
+00:02:20,970 --> 00:02:23,460
+Or if you go with all resource types,
+
+63
+00:02:23,460 --> 00:02:26,040
+usually we'd use this as a combination with tags.
+
+64
+00:02:26,040 --> 00:02:27,960
+And so for tags you would say, well,
+
+65
+00:02:27,960 --> 00:02:32,960
+if the key environment is equal to the value production,
+
+66
+00:02:35,940 --> 00:02:37,140
+then do a backup.
+
+67
+00:02:37,140 --> 00:02:39,000
+This would be the kind of use cases for backups,
+
+68
+00:02:39,000 --> 00:02:41,550
+but you're free to do anything you want, of course.
+
+69
+00:02:41,550 --> 00:02:44,790
+And then when you're done, you click on assign resources.
+
+70
+00:02:44,790 --> 00:02:47,370
+And so just to make it very, very clear,
+
+71
+00:02:47,370 --> 00:02:52,370
+if I went into EC2 and I were to create an EBS volume,
+
+72
+00:02:54,180 --> 00:02:58,140
+and that volume would have, so for example, one gigabytes
+
+73
+00:02:58,140 --> 00:03:03,140
+and then the key would be environment production.
+
+74
+00:03:03,510 --> 00:03:07,020
+Then this would be automatically backed up by my Backup plan
+
+75
+00:03:07,020 --> 00:03:08,790
+because it has the correct tags.
+
+76
+00:03:08,790 --> 00:03:10,770
+So if we look at our volume right now,
+
+77
+00:03:10,770 --> 00:03:12,060
+and we go into tags,
+
+78
+00:03:12,060 --> 00:03:14,550
+as we can see has environment production,
+
+79
+00:03:14,550 --> 00:03:16,918
+which corresponds to the tags that I've set up
+
+80
+00:03:16,918 --> 00:03:19,290
+for my backup plan, okay?
+
+81
+00:03:19,290 --> 00:03:21,360
+So this is the assignments right here.
+
+82
+00:03:21,360 --> 00:03:25,410
+And we can have multiple assignments as well in here. Okay?
+
+83
+00:03:25,410 --> 00:03:26,370
+And then that's it.
+
+84
+00:03:26,370 --> 00:03:28,890
+The backup plan is going to run automatically,
+
+85
+00:03:28,890 --> 00:03:30,990
+and then the backups are going to happen here
+
+86
+00:03:30,990 --> 00:03:33,180
+in my Backup vaults, okay?
+
+87
+00:03:33,180 --> 00:03:35,850
+The jobs are the jobs that are going to be scheduled
+
+88
+00:03:35,850 --> 00:03:36,683
+and happening.
+
+89
+00:03:36,683 --> 00:03:38,220
+So we have backup jobs, restore jobs
+
+90
+00:03:38,220 --> 00:03:40,290
+and copy jobs if we wanted to.
+
+91
+00:03:40,290 --> 00:03:42,210
+And then we can look at the settings.
+
+92
+00:03:42,210 --> 00:03:43,680
+So the settings is around,
+
+93
+00:03:43,680 --> 00:03:45,270
+do you want to have backup policies,
+
+94
+00:03:45,270 --> 00:03:46,380
+cross account monitoring,
+
+95
+00:03:46,380 --> 00:03:48,270
+cross account backups, and so on.
+
+96
+00:03:48,270 --> 00:03:51,540
+But we've seen the basics of how backups work.
+
+97
+00:03:51,540 --> 00:03:52,590
+And so that's it.
+
+98
+00:03:52,590 --> 00:03:54,480
+I want to show you all this, okay?
+
+99
+00:03:54,480 --> 00:03:55,740
+That's all you need to know.
+
+100
+00:03:55,740 --> 00:03:57,120
+And I'm going to delete everything.
+
+101
+00:03:57,120 --> 00:04:00,450
+So for that, please make sure to delete your EBS volume,
+
+102
+00:04:00,450 --> 00:04:01,283
+or you could wait a day
+
+103
+00:04:01,283 --> 00:04:03,870
+if you wanted to see if the backups work, obviously.
+
+104
+00:04:03,870 --> 00:04:05,160
+And then when you're done,
+
+105
+00:04:05,160 --> 00:04:07,440
+you take the assignments and you delete it.
+
+106
+00:04:07,440 --> 00:04:11,253
+So type the name of the assignment in here,
+
+107
+00:04:13,230 --> 00:04:14,820
+and then for the Daily Backup rules,
+
+108
+00:04:14,820 --> 00:04:17,399
+you can delete them or delete directly the Backup plan.
+
+109
+00:04:17,399 --> 00:04:20,040
+And for this, just enter the name of the backup plan
+
+110
+00:04:20,040 --> 00:04:21,420
+and press delete.
+
+111
+00:04:21,420 --> 00:04:22,260
+And that's it.
+
+112
+00:04:22,260 --> 00:04:23,093
+We've seen backups.
+
+113
+00:04:23,093 --> 00:04:25,853
+I hope you liked it, and I will see you in the next lecture.
+

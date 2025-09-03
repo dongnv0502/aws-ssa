@@ -1,0 +1,552 @@
+1
+00:00:00,000 --> 00:00:00,833
+So let's have a look
+
+2
+00:00:00,833 --> 00:00:04,440
+at a few more advanced concepts for our load balancer.
+
+3
+00:00:04,440 --> 00:00:07,110
+Number one is around network security.
+
+4
+00:00:07,110 --> 00:00:10,680
+So currently we access this load balancer
+
+5
+00:00:10,680 --> 00:00:13,320
+through a security group here.
+
+6
+00:00:13,320 --> 00:00:15,570
+This is my load balancer security group.
+
+7
+00:00:15,570 --> 00:00:18,120
+And then we access our EC2 instances
+
+8
+00:00:18,120 --> 00:00:20,100
+through their own security group.
+
+9
+00:00:20,100 --> 00:00:22,860
+So right now if I look at the public IP and access it,
+
+10
+00:00:22,860 --> 00:00:26,220
+as you can see I can access my EC2 instance directly
+
+11
+00:00:26,220 --> 00:00:30,870
+or I can access it, of course, through my load balancer.
+
+12
+00:00:30,870 --> 00:00:35,340
+But it may be preferable to only access my EC2 instance
+
+13
+00:00:35,340 --> 00:00:36,720
+through my load balancer.
+
+14
+00:00:36,720 --> 00:00:37,950
+So how do we do this?
+
+15
+00:00:37,950 --> 00:00:41,310
+Well under instances, let's go for Security Groups,
+
+16
+00:00:41,310 --> 00:00:42,143
+so right here.
+
+17
+00:00:43,830 --> 00:00:44,670
+And we're going to look at
+
+18
+00:00:44,670 --> 00:00:47,550
+the launch-wizard-1 security group.
+
+19
+00:00:47,550 --> 00:00:51,600
+And in here for the inbound rules, we're going to edit them
+
+20
+00:00:51,600 --> 00:00:53,430
+and we're going to look at the HTTP rule.
+
+21
+00:00:53,430 --> 00:00:56,610
+Right now we allow everything from everywhere
+
+22
+00:00:56,610 --> 00:00:58,410
+on this security group.
+
+23
+00:00:58,410 --> 00:01:01,440
+But what we wanna say is that no, the only traffic allowed
+
+24
+00:01:01,440 --> 00:01:04,050
+into our EC2 instance should be traffic
+
+25
+00:01:04,050 --> 00:01:06,420
+coming from the load balancer.
+
+26
+00:01:06,420 --> 00:01:07,950
+So how do we change this?
+
+27
+00:01:07,950 --> 00:01:09,450
+Well, let's first delete this rule.
+
+28
+00:01:09,450 --> 00:01:12,540
+You have to first delete it and then you add a new rule.
+
+29
+00:01:12,540 --> 00:01:15,090
+And so again, we want HTTP.
+
+30
+00:01:15,090 --> 00:01:18,870
+But this time instead of having a CIDR block,
+
+31
+00:01:18,870 --> 00:01:20,490
+you can scroll down and you can see
+
+32
+00:01:20,490 --> 00:01:22,530
+that you can have security groups in there.
+
+33
+00:01:22,530 --> 00:01:25,050
+So the security group we want to allow in
+
+34
+00:01:25,050 --> 00:01:28,140
+is the security group of my load balancer.
+
+35
+00:01:28,140 --> 00:01:29,700
+So if you just type load as well
+
+36
+00:01:29,700 --> 00:01:31,110
+is going to filter the list.
+
+37
+00:01:31,110 --> 00:01:35,160
+So then you select the security group of the load balancer.
+
+38
+00:01:35,160 --> 00:01:38,670
+And the effect of this is that if we save this role
+
+39
+00:01:38,670 --> 00:01:40,470
+and have a look at it,
+
+40
+00:01:40,470 --> 00:01:44,160
+now if we have a look at our EC2 instance directly
+
+41
+00:01:44,160 --> 00:01:48,210
+and I refresh this page, as you can see it's timing out
+
+42
+00:01:48,210 --> 00:01:50,670
+because it's like not being able to access the instance
+
+43
+00:01:50,670 --> 00:01:54,570
+because I'm not allowed to access directly the instance.
+
+44
+00:01:54,570 --> 00:01:58,020
+But if you refresh the load balancer,
+
+45
+00:01:58,020 --> 00:02:01,050
+well the load balancer can still access my instances
+
+46
+00:02:01,050 --> 00:02:03,240
+because in the rule that we have created
+
+47
+00:02:03,240 --> 00:02:07,470
+in our security group, we allow inbound coming from,
+
+48
+00:02:07,470 --> 00:02:08,550
+if you have a look at here,
+
+49
+00:02:08,550 --> 00:02:10,710
+we allow inbound coming from the security group
+
+50
+00:02:10,710 --> 00:02:12,720
+of the application balancer.
+
+51
+00:02:12,720 --> 00:02:15,153
+So here we have tightened network security.
+
+52
+00:02:16,050 --> 00:02:17,580
+The second thing I want to show you
+
+53
+00:02:17,580 --> 00:02:20,370
+is around application balancer rules.
+
+54
+00:02:20,370 --> 00:02:23,400
+So currently if you go into this ALB right here,
+
+55
+00:02:23,400 --> 00:02:27,270
+and we go under listeners and I click on it.
+
+56
+00:02:27,270 --> 00:02:30,270
+So as you can see I have my listener right here.
+
+57
+00:02:30,270 --> 00:02:33,120
+There are some details over it and then I scroll down
+
+58
+00:02:33,120 --> 00:02:35,190
+and we have the rules, listener rules.
+
+59
+00:02:35,190 --> 00:02:37,020
+So here we can add some rules.
+
+60
+00:02:37,020 --> 00:02:38,887
+So we have the default over now which is saying that,
+
+61
+00:02:38,887 --> 00:02:42,720
+"Hey, for every request, send it to my demo target group
+
+62
+00:02:42,720 --> 00:02:43,830
+for my ALB."
+
+63
+00:02:43,830 --> 00:02:47,160
+But we can add rules and make it as complex as we want.
+
+64
+00:02:47,160 --> 00:02:49,560
+So this one is going to be a DemoRule,
+
+65
+00:02:49,560 --> 00:02:51,540
+that's the name I want to give it.
+
+66
+00:02:51,540 --> 00:02:54,060
+And next we need to add conditions.
+
+67
+00:02:54,060 --> 00:02:56,940
+So conditions is what do we want to filter
+
+68
+00:02:56,940 --> 00:02:58,770
+in terms of requests for this role?
+
+69
+00:02:58,770 --> 00:03:02,100
+So do we want to look at host headers or, for example,
+
+70
+00:03:02,100 --> 00:03:03,450
+have a look at, for example,
+
+71
+00:03:03,450 --> 00:03:08,070
+if we are on the star.example.com or myapp.example.com
+
+72
+00:03:08,070 --> 00:03:09,270
+or whatever you want.
+
+73
+00:03:09,270 --> 00:03:10,620
+Path is for the path.
+
+74
+00:03:10,620 --> 00:03:12,577
+So we'll use /error and saying,
+
+75
+00:03:12,577 --> 00:03:15,000
+"Okay if in the path we have /error
+
+76
+00:03:15,000 --> 00:03:16,410
+then this rule should come in."
+
+77
+00:03:16,410 --> 00:03:19,620
+We can also have the HTTP request method to be get
+
+78
+00:03:19,620 --> 00:03:21,210
+or post whatever you want.
+
+79
+00:03:21,210 --> 00:03:24,660
+You can filter and condition based on the source IP
+
+80
+00:03:24,660 --> 00:03:27,960
+and then you can have query string and HTTP header as well.
+
+81
+00:03:27,960 --> 00:03:31,080
+So, quite a lot of different possibilities
+
+82
+00:03:31,080 --> 00:03:32,820
+but for now I'm going to use path
+
+83
+00:03:32,820 --> 00:03:34,593
+and the path is going to be /error.
+
+84
+00:03:35,640 --> 00:03:36,780
+Okay, confirm.
+
+85
+00:03:36,780 --> 00:03:39,390
+So we can add multiple conditions if we wanted to.
+
+86
+00:03:39,390 --> 00:03:41,640
+Right now in the rules limit you can see
+
+87
+00:03:41,640 --> 00:03:43,590
+the types of limits you can have.
+
+88
+00:03:43,590 --> 00:03:44,423
+So let's click on Next.
+
+89
+00:03:44,423 --> 00:03:46,050
+We have one condition, that's enough.
+
+90
+00:03:46,050 --> 00:03:47,100
+And then what is the action?
+
+91
+00:03:47,100 --> 00:03:49,170
+So once we match on the condition,
+
+92
+00:03:49,170 --> 00:03:50,700
+what do we want to do with it?
+
+93
+00:03:50,700 --> 00:03:53,220
+Do we want to forward to specific target groups?
+
+94
+00:03:53,220 --> 00:03:55,440
+For example, if you had more than one target group
+
+95
+00:03:55,440 --> 00:03:57,390
+then we could define one or more applications
+
+96
+00:03:57,390 --> 00:04:00,630
+based on path or based on host domain.
+
+97
+00:04:00,630 --> 00:04:03,420
+Or we can redirect to a specific URL, for example,
+
+98
+00:04:03,420 --> 00:04:07,890
+with a URI parts or full URL on the protocol HTTP or HTTPS,
+
+99
+00:04:07,890 --> 00:04:09,870
+and then a specific status code.
+
+100
+00:04:09,870 --> 00:04:12,360
+And then as well customize the host, the path,
+
+101
+00:04:12,360 --> 00:04:13,500
+and the query.
+
+102
+00:04:13,500 --> 00:04:15,780
+Or we can return a fixed response,
+
+103
+00:04:15,780 --> 00:04:17,519
+and this is the one I'm going to do right now.
+
+104
+00:04:17,519 --> 00:04:19,950
+So we can say, "Hey, 404, it's not found.
+
+105
+00:04:19,950 --> 00:04:23,037
+So not found, custom error."
+
+106
+00:04:24,150 --> 00:04:25,950
+So this is the what we're going to return
+
+107
+00:04:25,950 --> 00:04:27,390
+when we go to /error.
+
+108
+00:04:27,390 --> 00:04:29,820
+You'll see in a second that will make more sense to you.
+
+109
+00:04:29,820 --> 00:04:31,680
+Then what is the priority of this rule?
+
+110
+00:04:31,680 --> 00:04:33,960
+So right now it is pending.
+
+111
+00:04:33,960 --> 00:04:34,980
+And so we have rules
+
+112
+00:04:34,980 --> 00:04:36,990
+and we can have maybe a hundred rules in here.
+
+113
+00:04:36,990 --> 00:04:39,150
+So we can define priorities
+
+114
+00:04:39,150 --> 00:04:41,490
+and the one is going to be the highest priority,
+
+115
+00:04:41,490 --> 00:04:44,250
+five is going to be a bit lower, up to 50,000.
+
+116
+00:04:44,250 --> 00:04:46,320
+So, of course based on like, for example,
+
+117
+00:04:46,320 --> 00:04:49,290
+if a condition is matched by multiple rule
+
+118
+00:04:49,290 --> 00:04:52,410
+is the rule with the highest priority, that will win.
+
+119
+00:04:52,410 --> 00:04:54,240
+So we're going to use priority of five
+
+120
+00:04:54,240 --> 00:04:55,860
+just to give it as an example.
+
+121
+00:04:55,860 --> 00:04:58,740
+And now we can see both our listener rules.
+
+122
+00:04:58,740 --> 00:05:00,030
+Let's click on Next.
+
+123
+00:05:00,030 --> 00:05:02,220
+Everything looks good for this demo rule
+
+124
+00:05:02,220 --> 00:05:03,690
+and it has been created.
+
+125
+00:05:03,690 --> 00:05:05,940
+So we can see now we have two rules,
+
+126
+00:05:05,940 --> 00:05:07,770
+the default rule and the demo rule.
+
+127
+00:05:07,770 --> 00:05:08,603
+And they're here
+
+128
+00:05:08,603 --> 00:05:10,650
+and you can add more rules if you wanted to.
+
+129
+00:05:10,650 --> 00:05:11,550
+Now let's test it out.
+
+130
+00:05:11,550 --> 00:05:14,940
+So if I go into my load balancer detail,
+
+131
+00:05:14,940 --> 00:05:18,900
+look at the DNS name, copy it and add /error,
+
+132
+00:05:18,900 --> 00:05:21,390
+then this is going to trigger my rule
+
+133
+00:05:21,390 --> 00:05:24,300
+and the result is not found, custom error.
+
+134
+00:05:24,300 --> 00:05:27,600
+Which means that yes, indeed, this request was matching
+
+135
+00:05:27,600 --> 00:05:30,660
+the path pattern of /error and so therefore 404
+
+136
+00:05:30,660 --> 00:05:32,550
+and text plain was returned.
+
+137
+00:05:32,550 --> 00:05:33,840
+So, okay, that's it.
+
+138
+00:05:33,840 --> 00:05:36,963
+I hope you liked it and I will see you in the next lecture.
+

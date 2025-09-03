@@ -1,0 +1,168 @@
+1
+00:00:00,450 --> 00:00:01,950
+So now let's do a short lecture
+
+2
+00:00:01,950 --> 00:00:03,600
+on RDS Custom.
+
+3
+00:00:03,600 --> 00:00:06,540
+So, we know that with RDS we don't have access
+
+4
+00:00:06,540 --> 00:00:10,440
+to any underlying operating system, or customization,
+
+5
+00:00:10,440 --> 00:00:12,930
+but with RDS Custom we actually do.
+
+6
+00:00:12,930 --> 00:00:15,600
+And RDS Custom is for two database types,
+
+7
+00:00:15,600 --> 00:00:19,620
+it's for Oracle and Microsoft SQL Server.
+
+8
+00:00:19,620 --> 00:00:22,980
+In which, thanks to RDS Custom, we have access to the OS,
+
+9
+00:00:22,980 --> 00:00:25,080
+and database customization.
+
+10
+00:00:25,080 --> 00:00:27,270
+So with RDS, we still get all the benefits
+
+11
+00:00:27,270 --> 00:00:29,190
+of automated setup, operations,
+
+12
+00:00:29,190 --> 00:00:32,009
+and scaling of the database in AWS.
+
+13
+00:00:32,009 --> 00:00:34,020
+But with the RDS Custom option,
+
+14
+00:00:34,020 --> 00:00:36,030
+the custom part of RDS Custom,
+
+15
+00:00:36,030 --> 00:00:38,490
+we actually have access to the underlying database
+
+16
+00:00:38,490 --> 00:00:39,810
+and operating system.
+
+17
+00:00:39,810 --> 00:00:42,690
+So we can actually configure internal settings,
+
+18
+00:00:42,690 --> 00:00:45,540
+install patches, enable native features,
+
+19
+00:00:45,540 --> 00:00:49,110
+and we can actually access the underlying EC2 instance
+
+20
+00:00:49,110 --> 00:00:53,790
+behind RDS, using SSH or SSM Session Manager.
+
+21
+00:00:53,790 --> 00:00:56,670
+So here is my EC2 instance, and as a user,
+
+22
+00:00:56,670 --> 00:00:59,430
+we can now, if it's using Amazon RDS Custom,
+
+23
+00:00:59,430 --> 00:01:02,400
+apply customizations and SSH into it.
+
+24
+00:01:02,400 --> 00:01:05,220
+To perform any customization it is recommended
+
+25
+00:01:05,220 --> 00:01:07,770
+to deactivate the automation mode,
+
+26
+00:01:07,770 --> 00:01:10,170
+so that RDS does not perform any automation,
+
+27
+00:01:10,170 --> 00:01:12,180
+or maintenance, or scaling, or whatever you want,
+
+28
+00:01:12,180 --> 00:01:14,280
+while you perform your customization.
+
+29
+00:01:14,280 --> 00:01:17,010
+And also because you may actually break things,
+
+30
+00:01:17,010 --> 00:01:19,920
+because now you have access to the underlying EC2 instance,
+
+31
+00:01:19,920 --> 00:01:22,050
+it is much better to take a database snapshot,
+
+32
+00:01:22,050 --> 00:01:25,830
+otherwise you will not be able to recover from your actions.
+
+33
+00:01:25,830 --> 00:01:28,710
+So to summarize, RDS versus RDS Custom.
+
+34
+00:01:28,710 --> 00:01:30,960
+RDS will manage your entire database,
+
+35
+00:01:30,960 --> 00:01:32,430
+and your operating system.
+
+36
+00:01:32,430 --> 00:01:35,070
+Everything is managed by AWS, you don't have to do anything,
+
+37
+00:01:35,070 --> 00:01:37,350
+and RDS Custom, it's for Oracle
+
+38
+00:01:37,350 --> 00:01:39,600
+and Microsoft SQL Server only,
+
+39
+00:01:39,600 --> 00:01:41,550
+and you have actually full admin access
+
+40
+00:01:41,550 --> 00:01:45,000
+to the underlying operating system and the database.
+
+41
+00:01:45,000 --> 00:01:47,160
+So that's it for this lecture, I hope you liked it,
+
+42
+00:01:47,160 --> 00:01:49,113
+and I will see you in the next lecture.
+

@@ -1,0 +1,848 @@
+1
+00:00:00,710 --> 00:00:01,960
+Okay, so now let's have a look
+
+2
+00:00:01,960 --> 00:00:03,573
+at automatic scaling for your ASG.
+
+3
+00:00:03,573 --> 00:00:05,860
+As you can see we have three categories,
+
+4
+00:00:05,860 --> 00:00:08,920
+dynamic scaling policies, predictive scaling policies,
+
+5
+00:00:08,920 --> 00:00:10,400
+and scheduled actions.
+
+6
+00:00:10,400 --> 00:00:11,430
+So let's start with the simplest.
+
+7
+00:00:11,430 --> 00:00:12,340
+So schedule actions
+
+8
+00:00:12,340 --> 00:00:16,290
+is when you want to schedule a scaling action in the future,
+
+9
+00:00:16,290 --> 00:00:17,610
+so you can create one
+
+10
+00:00:17,610 --> 00:00:20,310
+and then you say what you want the desired capacity
+
+11
+00:00:20,310 --> 00:00:22,300
+or the min or the max to be,
+
+12
+00:00:22,300 --> 00:00:25,060
+and then is it once every week, every hour,
+
+13
+00:00:25,060 --> 00:00:27,500
+is it's based on a specific schedule and so on?
+
+14
+00:00:27,500 --> 00:00:29,830
+And then a start time and an end time
+
+15
+00:00:29,830 --> 00:00:31,769
+if you wanted it to be done.
+
+16
+00:00:31,769 --> 00:00:34,890
+So this is pretty cool and this is allowing you to schedule
+
+17
+00:00:34,890 --> 00:00:36,890
+based on events that you can predict
+
+18
+00:00:36,890 --> 00:00:38,050
+and that you know in advance.
+
+19
+00:00:38,050 --> 00:00:38,890
+Because you know, for example
+
+20
+00:00:38,890 --> 00:00:41,683
+that you're going to run a big promotion next Saturday.
+
+21
+00:00:42,840 --> 00:00:45,150
+Next, predictive scaling policies
+
+22
+00:00:45,150 --> 00:00:47,380
+is where it's going to be machine learning driven.
+
+23
+00:00:47,380 --> 00:00:49,830
+So you need to scale it based on a forecast.
+
+24
+00:00:49,830 --> 00:00:53,290
+So you need to have a look at the actual policy
+
+25
+00:00:53,290 --> 00:00:55,420
+and the actual scaling based on the past
+
+26
+00:00:55,420 --> 00:00:58,040
+and then it will have a look at a metric to look at.
+
+27
+00:00:58,040 --> 00:01:01,250
+For example, CPU utilization or network in, network out,
+
+28
+00:01:01,250 --> 00:01:03,300
+the application load balancer request counts
+
+29
+00:01:03,300 --> 00:01:05,000
+or a custom metric that you want.
+
+30
+00:01:05,000 --> 00:01:06,143
+And then you want to, for example,
+
+31
+00:01:06,143 --> 00:01:10,600
+to have a target of 50% of CPU utilization for instance,
+
+32
+00:01:10,600 --> 00:01:12,980
+and then you can set up some additional settings,
+
+33
+00:01:12,980 --> 00:01:14,450
+but based on this,
+
+34
+00:01:14,450 --> 00:01:16,960
+and based on the actual scheduled utilization
+
+35
+00:01:16,960 --> 00:01:18,810
+for the past week, for example,
+
+36
+00:01:18,810 --> 00:01:21,370
+then a forecast is going to be created
+
+37
+00:01:21,370 --> 00:01:24,860
+and your ASG is going to be scaling based on that forecast.
+
+38
+00:01:24,860 --> 00:01:26,370
+So it's not something I can demonstrate with you
+
+39
+00:01:26,370 --> 00:01:28,270
+because I would need to enable this
+
+40
+00:01:28,270 --> 00:01:29,590
+for a very long time a week
+
+41
+00:01:29,590 --> 00:01:31,760
+and then make sure I have some usage on my application.
+
+42
+00:01:31,760 --> 00:01:33,960
+But at least you see that predictive scaling policy
+
+43
+00:01:33,960 --> 00:01:35,040
+is quite simple to set up,
+
+44
+00:01:35,040 --> 00:01:37,160
+you just specify the metric you want
+
+45
+00:01:37,160 --> 00:01:38,530
+and the target utilization,
+
+46
+00:01:38,530 --> 00:01:40,410
+and then some machine learning will be applied
+
+47
+00:01:40,410 --> 00:01:42,230
+for the scaling to happen.
+
+48
+00:01:42,230 --> 00:01:44,880
+So the one policy I can demonstrate to you
+
+49
+00:01:44,880 --> 00:01:46,820
+is the dynamic scaling policy.
+
+50
+00:01:46,820 --> 00:01:49,630
+So let's go ahead and create a dynamic scaling policy.
+
+51
+00:01:49,630 --> 00:01:51,130
+So here we have three options.
+
+52
+00:01:51,130 --> 00:01:54,650
+We have target tracking, step scaling and simple scaling.
+
+53
+00:01:54,650 --> 00:01:56,720
+So let's have a look at simple scaling first.
+
+54
+00:01:56,720 --> 00:02:00,400
+So here we have to specify a name than a CloudWatch alarm,
+
+55
+00:02:00,400 --> 00:02:02,450
+which is an alarm that can scale capacity
+
+56
+00:02:02,450 --> 00:02:03,650
+whenever it is being triggered.
+
+57
+00:02:03,650 --> 00:02:06,160
+So we need to create an alarm beforehand,
+
+58
+00:02:06,160 --> 00:02:07,840
+but we'll see this later on.
+
+59
+00:02:07,840 --> 00:02:10,139
+And so in case the alarm is being triggered
+
+60
+00:02:10,139 --> 00:02:14,030
+and what happens, maybe you want to add two capacity units,
+
+61
+00:02:14,030 --> 00:02:18,270
+or maybe you want to add 10% of your group.
+
+62
+00:02:18,270 --> 00:02:20,040
+And then add capacity units
+
+63
+00:02:20,040 --> 00:02:23,610
+in increments of at least two capacity units.
+
+64
+00:02:23,610 --> 00:02:25,330
+So this is a simple scaling policy.
+
+65
+00:02:25,330 --> 00:02:27,810
+So we can have a scaling policy that goes out
+
+66
+00:02:27,810 --> 00:02:29,220
+by adding instances,
+
+67
+00:02:29,220 --> 00:02:32,420
+or that goes in by removing instances here.
+
+68
+00:02:32,420 --> 00:02:34,663
+Or you can have a set to action as well.
+
+69
+00:02:35,930 --> 00:02:37,420
+And next we have step scaling.
+
+70
+00:02:37,420 --> 00:02:40,430
+So this is allowing you to set up multiple an alarm
+
+71
+00:02:40,430 --> 00:02:42,950
+and based on the alarm value to have different steps
+
+72
+00:02:42,950 --> 00:02:45,400
+to, for example, if the alarm is very, very high
+
+73
+00:02:45,400 --> 00:02:48,160
+in terms of the value, then add 10 capacity units.
+
+74
+00:02:48,160 --> 00:02:50,370
+But if it's high, but not too high, add one.
+
+75
+00:02:50,370 --> 00:02:52,060
+This is the idea behind step scaling,
+
+76
+00:02:52,060 --> 00:02:54,970
+but we'll set up a target tracking scaling policy
+
+77
+00:02:54,970 --> 00:02:58,100
+because this is going to create a CloudWatch alarms for us.
+
+78
+00:02:58,100 --> 00:03:00,220
+So here's the name target tracking policy
+
+79
+00:03:00,220 --> 00:03:02,930
+and it will track the average CPU utilization
+
+80
+00:03:02,930 --> 00:03:06,180
+of a target value of 40,
+
+81
+00:03:06,180 --> 00:03:09,260
+and then I will go ahead and create my policy.
+
+82
+00:03:09,260 --> 00:03:11,050
+So now what we're saying is that, hey,
+
+83
+00:03:11,050 --> 00:03:13,090
+the goal of this ASG
+
+84
+00:03:13,090 --> 00:03:16,450
+is to maintain the CPU utilization to 40.
+
+85
+00:03:16,450 --> 00:03:18,430
+And in case, then you go over,
+
+86
+00:03:18,430 --> 00:03:20,220
+then please add capacity units.
+
+87
+00:03:20,220 --> 00:03:23,550
+So to see this in action, we need to change a few things.
+
+88
+00:03:23,550 --> 00:03:25,750
+So right now the main end of the desired
+
+89
+00:03:25,750 --> 00:03:29,030
+is one which is good, but let's set the max capacity
+
+90
+00:03:29,030 --> 00:03:31,490
+to be three or two whatever happens.
+
+91
+00:03:31,490 --> 00:03:33,490
+The idea is that you want to give it a maximum
+
+92
+00:03:33,490 --> 00:03:35,620
+that is greater than the minimum
+
+93
+00:03:35,620 --> 00:03:38,300
+so that the capacity can go from one to two
+
+94
+00:03:38,300 --> 00:03:39,670
+and then to three.
+
+95
+00:03:39,670 --> 00:03:42,970
+And so the idea now is that we want the CPU utilization
+
+96
+00:03:42,970 --> 00:03:46,540
+of my autoscaling group to be at a target value of 40.
+
+97
+00:03:46,540 --> 00:03:49,400
+So if you have a look right now at the CPU utilization
+
+98
+00:03:49,400 --> 00:03:51,080
+is going to be zero, obviously.
+
+99
+00:03:51,080 --> 00:03:52,520
+So let's have a look at EC2
+
+100
+00:03:53,580 --> 00:03:55,280
+is going to be close to zero because,
+
+101
+00:03:55,280 --> 00:03:57,710
+well, my EC2 instance is not doing anything.
+
+102
+00:03:57,710 --> 00:04:01,150
+So what I want to do is to go to my EC2 instance,
+
+103
+00:04:01,150 --> 00:04:04,770
+and I'm going to stress it to make the CPU utilization
+
+104
+00:04:04,770 --> 00:04:07,070
+skyrocket to 100%.
+
+105
+00:04:07,070 --> 00:04:09,400
+So I'm going to connect to my EC2 instance,
+
+106
+00:04:09,400 --> 00:04:12,850
+using EC2 instance connect, and then connect to it
+
+107
+00:04:12,850 --> 00:04:17,850
+and then I'll Google install stress Amazon Linux 2.
+
+108
+00:04:19,800 --> 00:04:22,590
+Cause there's a few commands and here is the commands,
+
+109
+00:04:22,590 --> 00:04:24,973
+so I'll copy the first command in here,
+
+110
+00:04:27,950 --> 00:04:31,573
+and then I'll copy the second command to install stress.
+
+111
+00:04:35,710 --> 00:04:36,543
+Here we go.
+
+112
+00:04:36,543 --> 00:04:37,900
+So stress is installed.
+
+113
+00:04:37,900 --> 00:04:42,700
+And then I just run the command stress -C 4
+
+114
+00:04:42,700 --> 00:04:45,880
+and this is going to make the CPU go to 100%
+
+115
+00:04:45,880 --> 00:04:50,160
+by leveraging four CPU units by making four VCPUs
+
+116
+00:04:50,160 --> 00:04:50,993
+being used at a time.
+
+117
+00:04:50,993 --> 00:04:53,940
+So this should make my CPU go to 100%
+
+118
+00:04:53,940 --> 00:04:55,800
+and so what's going to happen is that
+
+119
+00:04:55,800 --> 00:04:59,010
+in my monitoring of my ASG in here,
+
+120
+00:04:59,010 --> 00:05:01,670
+what I wanted to happen is to go see the CPU tradition
+
+121
+00:05:01,670 --> 00:05:04,060
+to go to something very, very, very high.
+
+122
+00:05:04,060 --> 00:05:08,410
+And then in activities, I want to see a scaling action.
+
+123
+00:05:08,410 --> 00:05:11,110
+And so that means that I will go from one instance
+
+124
+00:05:11,110 --> 00:05:12,760
+to two instances.
+
+125
+00:05:12,760 --> 00:05:15,430
+So what I'm going to do is just pause the video until,
+
+126
+00:05:15,430 --> 00:05:17,040
+well, enough metrics are being captured
+
+127
+00:05:17,040 --> 00:05:19,910
+and until we can see that the CPU utilization
+
+128
+00:05:19,910 --> 00:05:21,330
+is at a very high value
+
+129
+00:05:21,330 --> 00:05:24,183
+and then we'll see how the target tracking policy works.
+
+130
+00:05:25,440 --> 00:05:29,490
+So now I went into activity and under Activity history,
+
+131
+00:05:29,490 --> 00:05:32,390
+it says that's a alarm has been triggered
+
+132
+00:05:32,390 --> 00:05:34,270
+and due to the target driving policy,
+
+133
+00:05:34,270 --> 00:05:37,870
+then the capacity went from one instance to two instances.
+
+134
+00:05:37,870 --> 00:05:39,750
+So if I go into instance management,
+
+135
+00:05:39,750 --> 00:05:41,800
+as you can see, now I have two EC2 instances
+
+136
+00:05:41,800 --> 00:05:43,080
+due to the scaling.
+
+137
+00:05:43,080 --> 00:05:44,870
+And if I go into monitoring
+
+138
+00:05:44,870 --> 00:05:47,100
+and look at the EC2 level monitoring,
+
+139
+00:05:47,100 --> 00:05:50,110
+as we can see the CPU utilization went to a very high value
+
+140
+00:05:50,110 --> 00:05:51,690
+and then four scaling happens.
+
+141
+00:05:51,690 --> 00:05:53,400
+So how do we know that the scaling happens?
+
+142
+00:05:53,400 --> 00:05:55,900
+So if you're going to Automatic scaling, as you can see,
+
+143
+00:05:55,900 --> 00:05:59,380
+there is a target tracking policy right here.
+
+144
+00:05:59,380 --> 00:06:01,160
+And what I want to show you is the backend.
+
+145
+00:06:01,160 --> 00:06:06,160
+So if we go into the CloudWatch service in here
+
+146
+00:06:07,000 --> 00:06:08,820
+and go into CloudWatch,
+
+147
+00:06:08,820 --> 00:06:12,460
+at the left hand side, I want to go into Alarms.
+
+148
+00:06:12,460 --> 00:06:14,830
+So we need to go into alarms.
+
+149
+00:06:14,830 --> 00:06:18,200
+As you can see, two alarms are created directly
+
+150
+00:06:18,200 --> 00:06:20,910
+by the target tracking policy.
+
+151
+00:06:20,910 --> 00:06:24,900
+And one of them is called AlarmHigh, which is to scale out,
+
+152
+00:06:24,900 --> 00:06:26,620
+so add instances.
+
+153
+00:06:26,620 --> 00:06:28,450
+And one of them is called AlarmLow,
+
+154
+00:06:28,450 --> 00:06:31,650
+which is to scale in so less instances.
+
+155
+00:06:31,650 --> 00:06:34,770
+And so this one is looking at if the CPU utilization
+
+156
+00:06:34,770 --> 00:06:37,870
+is more than 40% for three to the points
+
+157
+00:06:37,870 --> 00:06:40,810
+within three minutes, then go into the alarm states.
+
+158
+00:06:40,810 --> 00:06:42,860
+And this one is looking at if CPU utilization
+
+159
+00:06:42,860 --> 00:06:46,773
+is less than 20 eights for 15 data points, then scale in.
+
+160
+00:06:47,640 --> 00:06:48,500
+So this is the idea.
+
+161
+00:06:48,500 --> 00:06:49,830
+So this one was in alarm
+
+162
+00:06:49,830 --> 00:06:54,800
+and so due to the metric itself, going into the alarm state,
+
+163
+00:06:54,800 --> 00:06:56,050
+by having the CPU utilization
+
+164
+00:06:56,050 --> 00:06:58,090
+going over that limit right here,
+
+165
+00:06:58,090 --> 00:06:59,560
+well, it got triggered
+
+166
+00:06:59,560 --> 00:07:02,730
+and this made a scaling activity happen
+
+167
+00:07:02,730 --> 00:07:04,170
+from my autoscaling group,
+
+168
+00:07:04,170 --> 00:07:07,680
+which in turn made a new instance being in service.
+
+169
+00:07:07,680 --> 00:07:11,900
+And so now if I go here and I stop this command
+
+170
+00:07:11,900 --> 00:07:13,940
+and I'm not even sure that I can stop it,
+
+171
+00:07:13,940 --> 00:07:18,610
+but if I stop this command or let me just finish it
+
+172
+00:07:18,610 --> 00:07:19,920
+and to stop this command,
+
+173
+00:07:19,920 --> 00:07:24,600
+I can probably go to my EC2 instances and reboot it.
+
+174
+00:07:24,600 --> 00:07:28,403
+So I'm going to have a look at this one, I believe,
+
+175
+00:07:29,750 --> 00:07:31,760
+and I'm going to reboot it.
+
+176
+00:07:31,760 --> 00:07:33,510
+So reboot this instance,
+
+177
+00:07:33,510 --> 00:07:36,293
+and I'm going to also reboot that one just in case.
+
+178
+00:07:39,720 --> 00:07:43,640
+So this should make my CPU utilization go back to zero
+
+179
+00:07:43,640 --> 00:07:47,430
+and this would trigger a scale in action within 15 minutes.
+
+180
+00:07:47,430 --> 00:07:51,380
+So I'm going to yet again, pause the video in my ASG
+
+181
+00:07:51,380 --> 00:07:54,870
+and see if by any chance within the activity,
+
+182
+00:07:54,870 --> 00:07:56,620
+I see a scale in action happening.
+
+183
+00:07:56,620 --> 00:07:58,340
+So I will pause right now
+
+184
+00:07:59,360 --> 00:08:01,990
+and actually just because I wasn't quick enough
+
+185
+00:08:01,990 --> 00:08:03,810
+because the CPU still was high,
+
+186
+00:08:03,810 --> 00:08:06,450
+then the desired capacity went from two to three.
+
+187
+00:08:06,450 --> 00:08:09,070
+So as we can see yet another instance has been added.
+
+188
+00:08:09,070 --> 00:08:11,130
+So this really shows the power of autoscaling group
+
+189
+00:08:11,130 --> 00:08:12,750
+and now if I go into instance managements,
+
+190
+00:08:12,750 --> 00:08:15,280
+we'll have three EC2 instances,
+
+191
+00:08:15,280 --> 00:08:17,310
+and I'm going to have to wait a little while
+
+192
+00:08:17,310 --> 00:08:19,690
+until they're being terminated.
+
+193
+00:08:19,690 --> 00:08:22,670
+So now let's go back into activity and as you can see,
+
+194
+00:08:22,670 --> 00:08:24,520
+more activities have been going on.
+
+195
+00:08:24,520 --> 00:08:26,410
+So some instances have been terminated.
+
+196
+00:08:26,410 --> 00:08:31,000
+So because the alarm went from the lower CPU
+
+197
+00:08:31,000 --> 00:08:34,650
+and then the capacity was set from three to two
+
+198
+00:08:34,650 --> 00:08:37,090
+and then one more time from two to one.
+
+199
+00:08:37,090 --> 00:08:38,900
+And so if you go into your instance management,
+
+200
+00:08:38,900 --> 00:08:41,059
+as you can see, one instance was already terminated
+
+201
+00:08:41,059 --> 00:08:44,380
+and the other one is in the terminating phase,
+
+202
+00:08:44,380 --> 00:08:48,160
+as that means that's your target tracking policy is working.
+
+203
+00:08:48,160 --> 00:08:51,350
+And you can see this by going into this alarm right here.
+
+204
+00:08:51,350 --> 00:08:53,550
+And as you can see, the CPU utilization went up
+
+205
+00:08:53,550 --> 00:08:54,430
+and then it went down
+
+206
+00:08:54,430 --> 00:08:59,070
+and then as soon it's past this 28% threshold,
+
+207
+00:08:59,070 --> 00:09:00,570
+then it went to do the alarm state,
+
+208
+00:09:00,570 --> 00:09:04,240
+which means that your ASG we'll start removing instances.
+
+209
+00:09:04,240 --> 00:09:06,870
+So that really shows the power of target tracking policies.
+
+210
+00:09:06,870 --> 00:09:10,660
+When you're done, please make sure to delete this policy
+
+211
+00:09:10,660 --> 00:09:12,550
+and you'll be good to go for the cleanup.
+
+212
+00:09:12,550 --> 00:09:14,850
+That's it, I will see you in the next lecture.
+

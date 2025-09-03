@@ -1,0 +1,476 @@
+1
+00:00:00,450 --> 00:00:02,790
+So, now, let's talk about EBS volumes
+
+2
+00:00:02,790 --> 00:00:04,230
+and their different volume types.
+
+3
+00:00:04,230 --> 00:00:06,300
+They come in six different types today,
+
+4
+00:00:06,300 --> 00:00:08,670
+and we can group them in several categories.
+
+5
+00:00:08,670 --> 00:00:11,070
+The first one is gp2, gp3,
+
+6
+00:00:11,070 --> 00:00:13,320
+which is a general purpose SSD volume
+
+7
+00:00:13,320 --> 00:00:15,120
+that will balance price and performance
+
+8
+00:00:15,120 --> 00:00:17,580
+for a wide variety of workloads, and this is something
+
+9
+00:00:17,580 --> 00:00:19,590
+we've been using so far in this course.
+
+10
+00:00:19,590 --> 00:00:22,410
+Then we have io1 and io2 Block Express.
+
+11
+00:00:22,410 --> 00:00:24,540
+They're highest-performance SSD volumes
+
+12
+00:00:24,540 --> 00:00:26,670
+that will be used for mission-critical low-latency
+
+13
+00:00:26,670 --> 00:00:29,040
+and high-throughput workloads.
+
+14
+00:00:29,040 --> 00:00:30,840
+Then we have st1 volumes,
+
+15
+00:00:30,840 --> 00:00:32,520
+and they're low cost HDD volume
+
+16
+00:00:32,520 --> 00:00:34,110
+designed for frequently accessed
+
+17
+00:00:34,110 --> 00:00:35,940
+throughput intensive workloads.
+
+18
+00:00:35,940 --> 00:00:37,770
+We have sc1 volume, which are going to be
+
+19
+00:00:37,770 --> 00:00:40,950
+the lowest cost HDD volume, and it will be designed
+
+20
+00:00:40,950 --> 00:00:43,470
+for less frequently accessed workloads.
+
+21
+00:00:43,470 --> 00:00:45,870
+Now, how do you define an EBS volume?
+
+22
+00:00:45,870 --> 00:00:49,080
+Well, you can have several factors, for example, size,
+
+23
+00:00:49,080 --> 00:00:54,080
+throughput, and IOPS, which means I/O operations per second,
+
+24
+00:00:54,480 --> 00:00:55,980
+and, obviously, when in doubt,
+
+25
+00:00:55,980 --> 00:00:58,470
+always consult the documentation.
+
+26
+00:00:58,470 --> 00:01:01,320
+Now, for your EC2 instances,
+
+27
+00:01:01,320 --> 00:01:04,290
+only gp2 and gp3 and io1 and io2
+
+28
+00:01:04,290 --> 00:01:05,970
+can be used as boot volumes.
+
+29
+00:01:05,970 --> 00:01:10,110
+That means where the root OS is going to be running.
+
+30
+00:01:10,110 --> 00:01:11,850
+So, now, let's go do a deeper dive
+
+31
+00:01:11,850 --> 00:01:15,060
+onto gp2, gp3, io1 io2, and the other ones,
+
+32
+00:01:15,060 --> 00:01:18,180
+but gp2, the general purpose and the provisioned IOPS
+
+33
+00:01:18,180 --> 00:01:20,460
+are going to be the most important for your exam.
+
+34
+00:01:20,460 --> 00:01:24,180
+So gp2 is cost effective storage with low-latency,
+
+35
+00:01:24,180 --> 00:01:25,950
+and you can use it for system boot volumes,
+
+36
+00:01:25,950 --> 00:01:28,350
+virtual desktops, development and test environments.
+
+37
+00:01:28,350 --> 00:01:31,560
+The size can vary between one gigabytes to 16 terabytes,
+
+38
+00:01:31,560 --> 00:01:34,497
+and so we have differences between gp2 and gp3.
+
+39
+00:01:34,497 --> 00:01:37,620
+Gp3 is the newer generation of volumes.
+
+40
+00:01:37,620 --> 00:01:40,500
+So gp3 gives you a baseline of 3000 IOPS
+
+41
+00:01:40,500 --> 00:01:43,530
+and a throughput of 125 megabytes per second,
+
+42
+00:01:43,530 --> 00:01:47,070
+and then we can increase IOPS up to 16,000
+
+43
+00:01:47,070 --> 00:01:49,140
+and throughput up to 1,000 megabytes
+
+44
+00:01:49,140 --> 00:01:52,920
+per second independently, okay, so they're not linked.
+
+45
+00:01:52,920 --> 00:01:55,149
+For gp2, this is the older version,
+
+46
+00:01:55,149 --> 00:01:58,800
+there're small gp2 volumes that can burst up to 3,000 IOPS,
+
+47
+00:01:58,800 --> 00:02:01,740
+and then the size of the volume and the IOPS are linked.
+
+48
+00:02:01,740 --> 00:02:04,320
+That means that if you increase the IOPS,
+
+49
+00:02:04,320 --> 00:02:06,630
+if you increase the number of gigabytes on your volume,
+
+50
+00:02:06,630 --> 00:02:08,850
+then you're going to get three more IOPS
+
+51
+00:02:08,850 --> 00:02:11,520
+up to 16,000 IOPS,
+
+52
+00:02:11,520 --> 00:02:15,870
+and so that means that if you have 5,334 gigabytes,
+
+53
+00:02:15,870 --> 00:02:18,570
+then you will have 16,000 IOPS, and you'll maxed it out.
+
+54
+00:02:18,570 --> 00:02:20,460
+So what do you remember from this slide?
+
+55
+00:02:20,460 --> 00:02:22,770
+You remember that in gp2, gp3,
+
+56
+00:02:22,770 --> 00:02:25,650
+this is for cost-effective storage latency,
+
+57
+00:02:25,650 --> 00:02:28,620
+and then gp3, you can independently set the IOPS
+
+58
+00:02:28,620 --> 00:02:30,540
+and the throughput, whereas for gp2,
+
+59
+00:02:30,540 --> 00:02:32,250
+they're linked together.
+
+60
+00:02:32,250 --> 00:02:34,830
+So, now, let's talk about provisioned IOPS volumes.
+
+61
+00:02:34,830 --> 00:02:38,190
+So they're used for critical business applications
+
+62
+00:02:38,190 --> 00:02:40,440
+that need to sustain IOPS performance
+
+63
+00:02:40,440 --> 00:02:42,420
+or applications that need a lot of IOPS,
+
+64
+00:02:42,420 --> 00:02:44,640
+for example, more than 16,000.
+
+65
+00:02:44,640 --> 00:02:46,440
+So from an exam perspective,
+
+66
+00:02:46,440 --> 00:02:49,020
+whenever you see, for example, a database workload
+
+67
+00:02:49,020 --> 00:02:51,570
+that is very sensitive to storage performance
+
+68
+00:02:51,570 --> 00:02:54,900
+and consistency, then the provisioned volumes
+
+69
+00:02:54,900 --> 00:02:55,733
+are going to be great.
+
+70
+00:02:55,733 --> 00:02:57,840
+So we have the io1 type of volume
+
+71
+00:02:57,840 --> 00:03:00,000
+between four and 16 terabytes,
+
+72
+00:03:00,000 --> 00:03:03,660
+and the max IOPS you can provision, so the max PIOPS,
+
+73
+00:03:03,660 --> 00:03:07,050
+is going to be around 64,000 for natural EC2 instances
+
+74
+00:03:07,050 --> 00:03:09,780
+and 32,000 for the other kind of instances,
+
+75
+00:03:09,780 --> 00:03:12,090
+and because we have an io1 type of volume,
+
+76
+00:03:12,090 --> 00:03:14,160
+we can increase the provisioned IOPS
+
+77
+00:03:14,160 --> 00:03:16,590
+independently from the storage size.
+
+78
+00:03:16,590 --> 00:03:20,310
+If we consider the io2 block express type of volume,
+
+79
+00:03:20,310 --> 00:03:23,640
+you can go up to 64 terabytes of data.
+
+80
+00:03:23,640 --> 00:03:25,860
+You get sub-millisecond latency,
+
+81
+00:03:25,860 --> 00:03:30,000
+and you get a lot of max IOPS, such as 256,000
+
+82
+00:03:30,000 --> 00:03:32,670
+with an IOPS to gigabyte ratio of 1,000 per one.
+
+83
+00:03:32,670 --> 00:03:33,930
+So this is definitely
+
+84
+00:03:33,930 --> 00:03:36,450
+a very high performance I/O type of volume,
+
+85
+00:03:36,450 --> 00:03:39,330
+and on top of this, the provisioned IOPS volumes
+
+86
+00:03:39,330 --> 00:03:40,770
+that we'll see in the next lectures
+
+87
+00:03:40,770 --> 00:03:43,683
+support the EBS multi-attach feature.
+
+88
+00:03:44,580 --> 00:03:48,870
+So, now, let's quickly touch upon st1 and sc1.
+
+89
+00:03:48,870 --> 00:03:50,220
+So they cannot be a boot volumes.
+
+90
+00:03:50,220 --> 00:03:52,530
+This is only for the previous types of volumes.
+
+91
+00:03:52,530 --> 00:03:55,440
+You can get the size up to 16 terabytes,
+
+92
+00:03:55,440 --> 00:03:58,020
+and we get two kinds of volumes here.
+
+93
+00:03:58,020 --> 00:04:01,140
+We have the throughput optimized HDD, so st1,
+
+94
+00:04:01,140 --> 00:04:02,250
+which is great for big data,
+
+95
+00:04:02,250 --> 00:04:04,590
+data warehousing, and log processing,
+
+96
+00:04:04,590 --> 00:04:07,290
+which gives you a max throughput of 500 megabytes per second
+
+97
+00:04:07,290 --> 00:04:09,720
+and a max IOPS of 500,
+
+98
+00:04:09,720 --> 00:04:13,650
+and then for cold HDD, so sc1, this is for archive data,
+
+99
+00:04:13,650 --> 00:04:16,290
+so data that is infrequently accessed,
+
+100
+00:04:16,290 --> 00:04:17,820
+and this is when you would use it
+
+101
+00:04:17,820 --> 00:04:19,980
+when you need to have the lowest possible cost.
+
+102
+00:04:19,980 --> 00:04:23,220
+Here, the max throughput is 250 megabytes per second,
+
+103
+00:04:23,220 --> 00:04:25,710
+and the max IOPS is 250 as well.
+
+104
+00:04:25,710 --> 00:04:26,670
+Now, you don't have to remember
+
+105
+00:04:26,670 --> 00:04:28,500
+all these details going into the exam.
+
+106
+00:04:28,500 --> 00:04:29,820
+You just need to understand the differences
+
+107
+00:04:29,820 --> 00:04:31,920
+at a high level of all these volumes.
+
+108
+00:04:31,920 --> 00:04:35,213
+So the general purpose SSD versus the provisioned IOPS SSD,
+
+109
+00:04:35,213 --> 00:04:39,291
+in case you need a database, versus some st1 and sc1,
+
+110
+00:04:39,291 --> 00:04:42,720
+in case you need to have high throughput and lowest cost,
+
+111
+00:04:42,720 --> 00:04:45,240
+and so you can find a summary of all I said
+
+112
+00:04:45,240 --> 00:04:47,640
+in this link right here, okay,
+
+113
+00:04:47,640 --> 00:04:49,260
+which is a screenshot I just took you.
+
+114
+00:04:49,260 --> 00:04:51,570
+So don't need to remember the details again,
+
+115
+00:04:51,570 --> 00:04:53,580
+but, remember, that if you want to get, also,
+
+116
+00:04:53,580 --> 00:04:58,580
+over 32,000 IOPS, you need EC2 Nitro with io1 or io2,
+
+117
+00:04:58,980 --> 00:05:00,750
+and that will be it for this lecture.
+
+118
+00:05:00,750 --> 00:05:01,620
+So I hope you liked it,
+
+119
+00:05:01,620 --> 00:05:03,570
+and I will see you in the next lecture.
+

@@ -1,0 +1,404 @@
+1
+00:00:00,270 --> 00:00:01,530
+Okay, so, now let's talk
+
+2
+00:00:01,530 --> 00:00:05,730
+about another architecture for Big Data Ingestion Pipeline.
+
+3
+00:00:05,730 --> 00:00:08,880
+So, ideally, we want the application ingestion pipeline
+
+4
+00:00:08,880 --> 00:00:11,790
+to be fully serverless, fully managed by AWS,
+
+5
+00:00:11,790 --> 00:00:13,770
+and we want to collect data in real time,
+
+6
+00:00:13,770 --> 00:00:15,330
+we want to transform the data,
+
+7
+00:00:15,330 --> 00:00:18,390
+we want to query the transformed data using SQL,
+
+8
+00:00:18,390 --> 00:00:20,700
+and the reports we create using these queries,
+
+9
+00:00:20,700 --> 00:00:22,560
+maybe they should be stored in S3,
+
+10
+00:00:22,560 --> 00:00:25,320
+and then we want to load that data into a data warehouse
+
+11
+00:00:25,320 --> 00:00:26,460
+and create dashboards on it.
+
+12
+00:00:26,460 --> 00:00:27,900
+So, overall, you know,
+
+13
+00:00:27,900 --> 00:00:30,990
+the usual big data problems of ingestion,
+
+14
+00:00:30,990 --> 00:00:34,290
+collection, transformations, querying, and analysis.
+
+15
+00:00:34,290 --> 00:00:36,047
+Okay, so how do we do this?
+
+16
+00:00:36,047 --> 00:00:37,650
+And there's some technologies,
+
+17
+00:00:37,650 --> 00:00:40,350
+we may not have seen them directly in this course,
+
+18
+00:00:40,350 --> 00:00:41,183
+but that's okay,
+
+19
+00:00:41,183 --> 00:00:43,710
+I'll just introduce them to you in this pipeline
+
+20
+00:00:43,710 --> 00:00:45,000
+because they really help.
+
+21
+00:00:45,000 --> 00:00:46,080
+So, IoT devices,
+
+22
+00:00:46,080 --> 00:00:49,950
+so let's assume that the producers are data are IoT devices?
+
+23
+00:00:49,950 --> 00:00:52,170
+And so there is this really cool services
+
+24
+00:00:52,170 --> 00:00:56,070
+in Amazon Cloud services and it's called IoT Core.
+
+25
+00:00:56,070 --> 00:00:59,040
+And IoT Core helps you manage these IoT devices.
+
+26
+00:00:59,040 --> 00:01:01,440
+So remember this, if you go into the exam.
+
+27
+00:01:01,440 --> 00:01:05,430
+Now, these devices can send data in real time to IoT Core
+
+28
+00:01:05,430 --> 00:01:09,330
+and IoT Core directly into a Kinesis data stream.
+
+29
+00:01:09,330 --> 00:01:11,670
+So data stream for Kinesis, remember it allows us
+
+30
+00:01:11,670 --> 00:01:14,671
+to basically pipe big data in real time,
+
+31
+00:01:14,671 --> 00:01:17,522
+very fast into this Kinesis service.
+
+32
+00:01:17,522 --> 00:01:21,227
+Now, Kinesis can be talking to Kinesis data Firehose,
+
+33
+00:01:21,227 --> 00:01:26,055
+and Firehose allows us to, for example, every one minute
+
+34
+00:01:26,055 --> 00:01:30,630
+put and offload our data into an Amazon S3 bucket
+
+35
+00:01:30,630 --> 00:01:32,340
+and that will be an ingestion bucket.
+
+36
+00:01:32,340 --> 00:01:33,990
+So here, what we've done here is
+
+37
+00:01:33,990 --> 00:01:36,870
+that we've just had a whole pipeline to get a lot
+
+38
+00:01:36,870 --> 00:01:39,360
+of data from a lot of devices in real time
+
+39
+00:01:39,360 --> 00:01:43,170
+and put it every one minute into an S3 bucket.
+
+40
+00:01:43,170 --> 00:01:44,003
+On top of it,
+
+41
+00:01:44,003 --> 00:01:45,660
+it's possible for us to cleanse
+
+42
+00:01:45,660 --> 00:01:47,583
+or really quickly transform the data
+
+43
+00:01:47,583 --> 00:01:50,520
+using an AWS Lambda function that is directly linked
+
+44
+00:01:50,520 --> 00:01:52,500
+to Kenesis Data Firehose.
+
+45
+00:01:52,500 --> 00:01:54,570
+Okay, so now we have that ingestion bucket,
+
+46
+00:01:54,570 --> 00:01:55,920
+what can we do with it?
+
+47
+00:01:55,920 --> 00:01:57,120
+Well, for example,
+
+48
+00:01:57,120 --> 00:01:59,987
+we can trigger an SQS topic,
+
+49
+00:01:59,987 --> 00:02:03,810
+an SQS Queue, sorry, and it's optional.
+
+50
+00:02:03,810 --> 00:02:06,960
+And maybe the SQS Queue can trigger AWS Lambda function.
+
+51
+00:02:06,960 --> 00:02:09,499
+I say optional because Lambda can be directly triggered
+
+52
+00:02:09,499 --> 00:02:11,850
+by our S3 bucket,
+
+53
+00:02:11,850 --> 00:02:13,380
+but I just wanted to show you the possibility
+
+54
+00:02:13,380 --> 00:02:15,690
+of invoking SQS through that slide.
+
+55
+00:02:15,690 --> 00:02:19,470
+Okay, so Lambda, what we'll do, well Lambda will trigger
+
+56
+00:02:19,470 --> 00:02:21,990
+an Amazon Athena SQL query.
+
+57
+00:02:21,990 --> 00:02:24,180
+And this Athena query will pull data
+
+58
+00:02:24,180 --> 00:02:25,710
+from the ingestion bucket
+
+59
+00:02:25,710 --> 00:02:28,710
+and we'll do an SQL query that's all serverless.
+
+60
+00:02:28,710 --> 00:02:29,790
+And the outputs
+
+61
+00:02:29,790 --> 00:02:33,660
+of this serverless query will go into a reporting bucket,
+
+62
+00:02:33,660 --> 00:02:36,480
+maybe again in Amazon S3 B is different bucket.
+
+63
+00:02:36,480 --> 00:02:39,330
+Okay, so from this we have the data it's being reported on,
+
+64
+00:02:39,330 --> 00:02:41,310
+it's being cleansed and analyzed.
+
+65
+00:02:41,310 --> 00:02:44,115
+We can either directly visualize it using QuickSight.
+
+66
+00:02:44,115 --> 00:02:46,350
+So QuickSight is a way for us
+
+67
+00:02:46,350 --> 00:02:49,680
+to visualize our data into an Amazon S3 bucket,
+
+68
+00:02:49,680 --> 00:02:53,370
+or we can load the data into a proper data warehouse
+
+69
+00:02:53,370 --> 00:02:55,650
+for analytics, such as Amazon Redshift.
+
+70
+00:02:55,650 --> 00:02:58,436
+And so this Redshift data warehouse can also serve
+
+71
+00:02:58,436 --> 00:03:02,220
+as an endpoint for QuickSight.
+
+72
+00:03:02,220 --> 00:03:04,200
+But this shows you overall
+
+73
+00:03:04,200 --> 00:03:07,410
+what you can expect in data ingestion pipeline
+
+74
+00:03:07,410 --> 00:03:08,370
+at a high level,
+
+75
+00:03:08,370 --> 00:03:11,160
+including real-time ingestion, transformation,
+
+76
+00:03:11,160 --> 00:03:15,330
+serverless Lambda, and some data warehousing using Redshift
+
+77
+00:03:15,330 --> 00:03:17,610
+and visualization using QuickSight.
+
+78
+00:03:17,610 --> 00:03:19,220
+So let's discuss about the pipeline.
+
+79
+00:03:19,220 --> 00:03:20,790
+IoT Core allows you
+
+80
+00:03:20,790 --> 00:03:23,970
+to harvest many data from many IoT devices.
+
+81
+00:03:23,970 --> 00:03:26,430
+Kinesis is great for real-time data connection,
+
+82
+00:03:26,430 --> 00:03:28,620
+and Firehose helps you with data delivery
+
+83
+00:03:28,620 --> 00:03:30,750
+to S3 in near real time.
+
+84
+00:03:30,750 --> 00:03:33,930
+So one minute is the lowest frequency you can choose.
+
+85
+00:03:33,930 --> 00:03:37,020
+Lambda can help Firehose with data transformation,
+
+86
+00:03:37,020 --> 00:03:39,330
+and then Amazon S3 can trigger notifications
+
+87
+00:03:39,330 --> 00:03:40,739
+to SQS, SNS or Lambda.
+
+88
+00:03:40,739 --> 00:03:43,920
+Lambda can subscribe to SQS,
+
+89
+00:03:43,920 --> 00:03:47,010
+but we could have, as I said, connected S3 to Lambda.
+
+90
+00:03:47,010 --> 00:03:49,590
+And Athena is a serverless SQL service
+
+91
+00:03:49,590 --> 00:03:50,820
+and we can store the results
+
+92
+00:03:50,820 --> 00:03:53,580
+of Athena directly back into S3.
+
+93
+00:03:53,580 --> 00:03:55,740
+And the reporting buckets contain analyzed data
+
+94
+00:03:55,740 --> 00:03:58,470
+and we can use reporting tools such as QuickSight
+
+95
+00:03:58,470 --> 00:04:00,180
+for visualization or Redshift
+
+96
+00:04:00,180 --> 00:04:02,250
+if you want to do more analytics on it.
+
+97
+00:04:02,250 --> 00:04:03,870
+So that's it for a big data ingestion pipeline,
+
+98
+00:04:03,870 --> 00:04:04,740
+but at a high level
+
+99
+00:04:04,740 --> 00:04:06,210
+from a solution architecture perspective.
+
+100
+00:04:06,210 --> 00:04:08,520
+It's really good to know how all these things work.
+
+101
+00:04:08,520 --> 00:04:11,520
+I hope you like this and I will see you in the next lecture.
+

@@ -1,0 +1,152 @@
+1
+00:00:00,240 --> 00:00:02,430
+So now let's talk about S3 Replication
+
+2
+00:00:02,430 --> 00:00:05,190
+and its relation to encrypted objects.
+
+3
+00:00:05,190 --> 00:00:09,360
+So if you enable S3 Replication from one bucket to another,
+
+4
+00:00:09,360 --> 00:00:11,340
+then any unencrypted objects
+
+5
+00:00:11,340 --> 00:00:13,950
+and objects encrypted with SSE-S3
+
+6
+00:00:13,950 --> 00:00:16,200
+will be replicated by default.
+
+7
+00:00:16,200 --> 00:00:19,050
+Objects that are also encrypted with SSE-C,
+
+8
+00:00:19,050 --> 00:00:20,850
+with the customer provided key,
+
+9
+00:00:20,850 --> 00:00:22,563
+can also be replicated,
+
+10
+00:00:23,550 --> 00:00:27,030
+and then we have objects encrypted with SSE-KMS.
+
+11
+00:00:27,030 --> 00:00:29,250
+So by default, they're not replicated
+
+12
+00:00:29,250 --> 00:00:31,050
+but we need to enable the option
+
+13
+00:00:31,050 --> 00:00:33,960
+to actually replicate these objects.
+
+14
+00:00:33,960 --> 00:00:37,020
+And so we specify with which KMS Key
+
+15
+00:00:37,020 --> 00:00:40,740
+we want to encrypt the objects within the target buckets,
+
+16
+00:00:40,740 --> 00:00:44,400
+and then we adapt this KMS Key Policy for the target key
+
+17
+00:00:44,400 --> 00:00:46,200
+and we create an IAM Role
+
+18
+00:00:46,200 --> 00:00:49,530
+that is allowing the S3 Replication service
+
+19
+00:00:49,530 --> 00:00:53,100
+to first decrypt the data in the source bucket
+
+20
+00:00:53,100 --> 00:00:57,210
+and then re-encrypt the data in the target bucket
+
+21
+00:00:57,210 --> 00:00:59,490
+with the target KMS Key.
+
+22
+00:00:59,490 --> 00:01:01,800
+And so when you do so, this enables replication
+
+23
+00:01:01,800 --> 00:01:03,540
+because there is a lot of encryption
+
+24
+00:01:03,540 --> 00:01:05,160
+and decryption happening.
+
+25
+00:01:05,160 --> 00:01:07,080
+You may get KMS throttling errors,
+
+26
+00:01:07,080 --> 00:01:09,900
+in which case you need to ask for a service quotas.
+
+27
+00:01:09,900 --> 00:01:11,820
+So the question you may have is
+
+28
+00:01:11,820 --> 00:01:15,630
+should I use multi-region key with S3 Replication?
+
+29
+00:01:15,630 --> 00:01:19,500
+And the documentation says that you can use multi-region key
+
+30
+00:01:19,500 --> 00:01:21,900
+for S3 Replication
+
+31
+00:01:21,900 --> 00:01:24,780
+but currently they are treated as independent keys
+
+32
+00:01:24,780 --> 00:01:26,730
+by the Amazon S3 service,
+
+33
+00:01:26,730 --> 00:01:30,120
+and therefore the object is still going to be decrypted
+
+34
+00:01:30,120 --> 00:01:32,640
+and then encrypted using the same key
+
+35
+00:01:32,640 --> 00:01:35,610
+even though the key is a multi-region key, okay?
+
+36
+00:01:35,610 --> 00:01:37,560
+So this is it for this lecture,
+
+37
+00:01:37,560 --> 00:01:38,760
+I hope you liked it,
+
+38
+00:01:38,760 --> 00:01:40,710
+and I will see you in the next lecture.
+

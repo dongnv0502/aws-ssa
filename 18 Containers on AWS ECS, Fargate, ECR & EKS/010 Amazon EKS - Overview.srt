@@ -1,0 +1,336 @@
+1
+00:00:00,300 --> 00:00:01,710
+So let's talk about the other way
+
+2
+00:00:01,710 --> 00:00:06,060
+to run containers onto AWS, and this is using Amazon EKS.
+
+3
+00:00:06,060 --> 00:00:10,950
+So Amazon EKS stands for Amazon Elastic Kubernetes Service.
+
+4
+00:00:10,950 --> 00:00:13,290
+So it is a way, as the name indicates,
+
+5
+00:00:13,290 --> 00:00:17,550
+to launch and manage Kubernetes cluster onto AWS.
+
+6
+00:00:17,550 --> 00:00:18,630
+So what is Kubernetes?
+
+7
+00:00:18,630 --> 00:00:19,530
+Well, this is the blue logo
+
+8
+00:00:19,530 --> 00:00:21,390
+you see in the top right corner of the screen.
+
+9
+00:00:21,390 --> 00:00:23,760
+Kubernetes is an open-source system
+
+10
+00:00:23,760 --> 00:00:26,670
+for automatic deployments, scaling and management
+
+11
+00:00:26,670 --> 00:00:29,580
+of containerized, usually Docker, applications.
+
+12
+00:00:29,580 --> 00:00:32,820
+So it is an alternative to ECS, which has a similar goal
+
+13
+00:00:32,820 --> 00:00:36,657
+which is to run your containers, but a very different API.
+
+14
+00:00:36,657 --> 00:00:40,110
+The idea is that ECS is definitely not open-source.
+
+15
+00:00:40,110 --> 00:00:41,820
+Whereas Kubernetes is open-source
+
+16
+00:00:41,820 --> 00:00:45,060
+and used by many different cloud providers
+
+17
+00:00:45,060 --> 00:00:47,400
+which gives you some sort of standardization.
+
+18
+00:00:47,400 --> 00:00:50,400
+So EKS supports two launch modes,
+
+19
+00:00:50,400 --> 00:00:53,040
+again the EC2 launch mode if you want to deploy
+
+20
+00:00:53,040 --> 00:00:55,770
+worker mode like EC2 instances,
+
+21
+00:00:55,770 --> 00:00:57,840
+or the Fargate mode if you wanted to deploy
+
+22
+00:00:57,840 --> 00:01:00,810
+serverless containers in an EKS cluster.
+
+23
+00:01:00,810 --> 00:01:03,780
+So the use case for using EKS is that your company
+
+24
+00:01:03,780 --> 00:01:06,060
+is already using Kubernetes on-premises,
+
+25
+00:01:06,060 --> 00:01:08,400
+or already using Kubernetes in another cloud,
+
+26
+00:01:08,400 --> 00:01:10,920
+or they just want use the Kubernetes API,
+
+27
+00:01:10,920 --> 00:01:13,800
+and they want to use AWS to manage the Kubernetes cluster,
+
+28
+00:01:13,800 --> 00:01:16,380
+then they would use Amazon EKS.
+
+29
+00:01:16,380 --> 00:01:19,260
+So again, Kubernetes from an exam perspective,
+
+30
+00:01:19,260 --> 00:01:21,960
+is cloud agnostic, it can be used into any cloud
+
+31
+00:01:21,960 --> 00:01:24,420
+such as Azure, Google Cloud and so on.
+
+32
+00:01:24,420 --> 00:01:26,400
+And so that means that if you are trying to migrate
+
+33
+00:01:26,400 --> 00:01:28,530
+between clouds or your containers,
+
+34
+00:01:28,530 --> 00:01:32,250
+using Amazon EKS may be a much more simple solution.
+
+35
+00:01:32,250 --> 00:01:34,410
+So in terms of diagram, this is what it looks like.
+
+36
+00:01:34,410 --> 00:01:37,110
+So we have a VPC, 3 AZ separated
+
+37
+00:01:37,110 --> 00:01:39,150
+into public subnets and private subnets.
+
+38
+00:01:39,150 --> 00:01:41,850
+And so you would create EKS Worker Nodes
+
+39
+00:01:41,850 --> 00:01:44,220
+they would be EC2 instances for example,
+
+40
+00:01:44,220 --> 00:01:47,940
+and each of these nodes will be running EKS Pods.
+
+41
+00:01:47,940 --> 00:01:50,250
+So they're very similar to ECS tasks,
+
+42
+00:01:50,250 --> 00:01:52,140
+but from a naming perspective,
+
+43
+00:01:52,140 --> 00:01:56,820
+anytime you see pods, it relates to Amazon Kubernetes, okay?
+
+44
+00:01:56,820 --> 00:02:01,050
+So we have EKS Pods and they're running onto EKS Nodes,
+
+45
+00:02:01,050 --> 00:02:04,050
+and so these nodes can be managed by an Auto Scaling group.
+
+46
+00:02:04,050 --> 00:02:06,600
+Now, very similarly to ECS,
+
+47
+00:02:06,600 --> 00:02:10,919
+if you wanted to expose EKS Service and Kubernetes Service,
+
+48
+00:02:10,919 --> 00:02:13,980
+we could set up a private load balancer,
+
+49
+00:02:13,980 --> 00:02:17,700
+or a public load balancer to talk to the web.
+
+50
+00:02:17,700 --> 00:02:19,650
+So let's summarize the different node types
+
+51
+00:02:19,650 --> 00:02:21,660
+that exist for Amazon EKS.
+
+52
+00:02:21,660 --> 00:02:23,700
+So you have the Manage Node Groups,
+
+53
+00:02:23,700 --> 00:02:26,940
+and this is AWS that will create and manage Nodes,
+
+54
+00:02:26,940 --> 00:02:29,520
+so EC2 instances for you.
+
+55
+00:02:29,520 --> 00:02:31,860
+And these nodes are part of an Auto Scaling group,
+
+56
+00:02:31,860 --> 00:02:34,320
+managed by the EKS service itself.
+
+57
+00:02:34,320 --> 00:02:38,190
+And you have support for On-Demand and Spot Instances.
+
+58
+00:02:38,190 --> 00:02:39,630
+You can also choose if you wanted to,
+
+59
+00:02:39,630 --> 00:02:42,180
+to self-manage nodes, this is if you want to have
+
+60
+00:02:42,180 --> 00:02:44,190
+more customizations and more control.
+
+61
+00:02:44,190 --> 00:02:46,740
+So in that case you need to create the nodes yourself,
+
+62
+00:02:46,740 --> 00:02:49,950
+and then you need to register them to an EKS cluster,
+
+63
+00:02:49,950 --> 00:02:53,010
+and then you manage your own nodes as part of an ASG.
+
+64
+00:02:53,010 --> 00:02:57,000
+You can still use the pre-built Amazon EKS Optimized AMI
+
+65
+00:02:57,000 --> 00:02:58,770
+for this, which saves you a bit of time,
+
+66
+00:02:58,770 --> 00:03:02,130
+or you can build your own AMI, which is more complicated.
+
+67
+00:03:02,130 --> 00:03:06,270
+This supports as well, the On-Demand and the Spot Instances.
+
+68
+00:03:06,270 --> 00:03:08,910
+And finally, if you don't wanna see any nodes at all,
+
+69
+00:03:08,910 --> 00:03:12,630
+then Amazon EKS, as I told you, supports the Fargate mode
+
+70
+00:03:12,630 --> 00:03:14,700
+in which there is no maintenance required,
+
+71
+00:03:14,700 --> 00:03:18,330
+and no nodes are managed at all you can just run containers
+
+72
+00:03:18,330 --> 00:03:20,760
+on top of Amazon EKS.
+
+73
+00:03:20,760 --> 00:03:24,390
+Now you can attach data volumes to your Amazon EKS cluster.
+
+74
+00:03:24,390 --> 00:03:27,990
+For this, you need to specify a StorageClass manifest
+
+75
+00:03:27,990 --> 00:03:30,840
+on your EKS cluster, and this leverages something called
+
+76
+00:03:30,840 --> 00:03:35,220
+the Container Storage Interface, CSI compliant driver.
+
+77
+00:03:35,220 --> 00:03:38,070
+So keywords to look out for at the exam.
+
+78
+00:03:38,070 --> 00:03:40,620
+And you have support for Amazon EBS,
+
+79
+00:03:40,620 --> 00:03:43,590
+you have support for Amazon EFS, and this is the only type
+
+80
+00:03:43,590 --> 00:03:47,640
+of storage class that works with Fargate.
+
+81
+00:03:47,640 --> 00:03:49,710
+You have Amazon FSx for Lustre
+
+82
+00:03:49,710 --> 00:03:53,070
+and Amazon FSx for NetApp ONTAP.
+
+83
+00:03:53,070 --> 00:03:55,050
+So that's it for Amazon EKS.
+
+84
+00:03:55,050 --> 00:03:58,000
+I hope you liked it and I will see you in the next lecture.
+

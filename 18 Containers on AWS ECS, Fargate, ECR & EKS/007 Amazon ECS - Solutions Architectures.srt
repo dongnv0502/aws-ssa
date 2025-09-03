@@ -1,0 +1,264 @@
+1
+00:00:00,450 --> 00:00:01,283
+Now let's talk about
+
+2
+00:00:01,283 --> 00:00:02,790
+a few solution architectures
+
+3
+00:00:02,790 --> 00:00:05,490
+you can encounter with Amazon ECS.
+
+4
+00:00:05,490 --> 00:00:09,330
+So the first one are ECS tasks invoked by Event Bridge.
+
+5
+00:00:09,330 --> 00:00:11,208
+So for example, say we have an Amazon ECS cluster,
+
+6
+00:00:11,208 --> 00:00:14,970
+it's backed by Fargate, and we have S3 buckets.
+
+7
+00:00:14,970 --> 00:00:18,870
+Our users are going to upload objects into our S3 buckets,
+
+8
+00:00:18,870 --> 00:00:21,270
+And these S3 buckets can be, for example,
+
+9
+00:00:21,270 --> 00:00:23,370
+integrated with Amazon Event Bridge
+
+10
+00:00:23,370 --> 00:00:25,500
+to send all the events to it.
+
+11
+00:00:25,500 --> 00:00:28,230
+And Amazon Event Bridge can have a rule
+
+12
+00:00:28,230 --> 00:00:30,900
+to run ECS tasks on the go.
+
+13
+00:00:30,900 --> 00:00:33,120
+Now, when ECS tasks are going to be created,
+
+14
+00:00:33,120 --> 00:00:36,030
+they will have an ECS task role associated with them,
+
+15
+00:00:36,030 --> 00:00:37,320
+and from the task itself
+
+16
+00:00:37,320 --> 00:00:41,430
+what it can do is that it can get the objects, process it,
+
+17
+00:00:41,430 --> 00:00:45,090
+and then send the results into Amazon DynamoDB.
+
+18
+00:00:45,090 --> 00:00:46,410
+And that is thanks to the fact
+
+19
+00:00:46,410 --> 00:00:49,260
+that we have an ECS task role associated with it.
+
+20
+00:00:49,260 --> 00:00:51,090
+And so effectively here, what we've done
+
+21
+00:00:51,090 --> 00:00:54,330
+is that we've created a serverless architecture
+
+22
+00:00:54,330 --> 00:00:57,990
+to process images, or to process objects,
+
+23
+00:00:57,990 --> 00:01:01,440
+from your S3 buckets using a Docker container.
+
+24
+00:01:01,440 --> 00:01:04,697
+And that is using Amazon Event Bridge ECS
+
+25
+00:01:04,697 --> 00:01:07,680
+in the Fargate mode, as well as an ECS task role
+
+26
+00:01:07,680 --> 00:01:12,060
+to talk to Amazon S3 and Amazon DynamoDB.
+
+27
+00:01:12,060 --> 00:01:14,820
+Another architecture using, again, Event Bridge,
+
+28
+00:01:14,820 --> 00:01:16,830
+is to use an Event Bridge schedule.
+
+29
+00:01:16,830 --> 00:01:18,510
+So we have an Amazon ECS cluster
+
+30
+00:01:18,510 --> 00:01:21,180
+backed by Fargate and Amazon Event Bridge,
+
+31
+00:01:21,180 --> 00:01:25,020
+and we schedule a rule to be triggered every 1 hour.
+
+32
+00:01:25,020 --> 00:01:29,040
+Now, this rule is going to run ECS tasks for us in Fargate,
+
+33
+00:01:29,040 --> 00:01:31,140
+and so that means that every 1 hour,
+
+34
+00:01:31,140 --> 00:01:33,900
+a new task will be created in our Fargate cluster,
+
+35
+00:01:33,900 --> 00:01:35,700
+and the task can do whatever we want.
+
+36
+00:01:35,700 --> 00:01:38,370
+For example, we can create an ECS task role
+
+37
+00:01:38,370 --> 00:01:42,480
+with access to Amazon S3, and therefore our task,
+
+38
+00:01:42,480 --> 00:01:45,630
+our Docker container, our program can, for example,
+
+39
+00:01:45,630 --> 00:01:48,450
+do every 1 hour some batch processing
+
+40
+00:01:48,450 --> 00:01:50,790
+against some files in Amazon S3.
+
+41
+00:01:50,790 --> 00:01:55,110
+And again, all of that architecture is fully serverless.
+
+42
+00:01:55,110 --> 00:01:58,470
+A last example is using ECS and an SQS queue,
+
+43
+00:01:58,470 --> 00:02:02,970
+so we could have a service on ECS with two ECS tasks,
+
+44
+00:02:02,970 --> 00:02:05,640
+and messages are being sent into an SQS queue,
+
+45
+00:02:05,640 --> 00:02:09,060
+and the service itself is pulling for messages
+
+46
+00:02:09,060 --> 00:02:11,580
+from the SQS queue, and processing them.
+
+47
+00:02:11,580 --> 00:02:14,010
+We can enable ECS Service Auto Scaling
+
+48
+00:02:14,010 --> 00:02:15,480
+on top of this service.
+
+49
+00:02:15,480 --> 00:02:18,210
+That means that, for example, the more messages we have
+
+50
+00:02:18,210 --> 00:02:21,060
+in our SQS queue, the more tasks we're going to have
+
+51
+00:02:21,060 --> 00:02:25,080
+into our ECS service, thanks to auto-scaling.
+
+52
+00:02:25,080 --> 00:02:28,140
+Another integration is when you want to use Event Bridge
+
+53
+00:02:28,140 --> 00:02:33,140
+to actually intercept events from within your ECS cluster.
+
+54
+00:02:33,330 --> 00:02:35,220
+So, for example, say you wanted to react
+
+55
+00:02:35,220 --> 00:02:37,500
+to tasks being exited.
+
+56
+00:02:37,500 --> 00:02:40,110
+In that case, any task exiting or starting
+
+57
+00:02:40,110 --> 00:02:42,930
+in your ECS cluster can be triggered as an event
+
+58
+00:02:42,930 --> 00:02:45,210
+in Event Bridge, and it will look like this.
+
+59
+00:02:45,210 --> 00:02:49,440
+For example, the ECS task state change for "stopped"
+
+60
+00:02:49,440 --> 00:02:50,910
+and the stopped reason.
+
+61
+00:02:50,910 --> 00:02:54,088
+Then from there, for example, we could alert an SNS topic
+
+62
+00:02:54,088 --> 00:02:57,480
+and send emails to your administrators.
+
+63
+00:02:57,480 --> 00:03:00,570
+So, bottom line, Event Bridge does allow you to understand
+
+64
+00:03:00,570 --> 00:03:04,380
+the lifecycle of your containers in your ECS cluster.
+
+65
+00:03:04,380 --> 00:03:06,300
+Okay, so that's it for this lecture.
+
+66
+00:03:06,300 --> 00:03:09,423
+I hope you liked it, and I will see you in the next lecture.
+

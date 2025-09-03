@@ -1,0 +1,400 @@
+1
+00:00:00,240 --> 00:00:01,800
+So now let's talk about CORS.
+
+2
+00:00:01,800 --> 00:00:04,860
+CORS is Cross-Origin Resource Sharing.
+
+3
+00:00:04,860 --> 00:00:06,030
+And this is something you need to know
+
+4
+00:00:06,030 --> 00:00:07,710
+at the exam for one question.
+
+5
+00:00:07,710 --> 00:00:09,900
+Now, I'm gonna go in depth to how that works
+
+6
+00:00:09,900 --> 00:00:12,930
+and that will make answering that question very easy.
+
+7
+00:00:12,930 --> 00:00:16,890
+So, the origin is a scheme, a protocol
+
+8
+00:00:16,890 --> 00:00:18,900
+a host, a domain, and a port.
+
+9
+00:00:18,900 --> 00:00:23,900
+For example, if you look at https://www.example.com
+
+10
+00:00:24,390 --> 00:00:27,270
+the implied port is 443 for HTTPS,
+
+11
+00:00:27,270 --> 00:00:29,640
+the protocol is HTTPS itself
+
+12
+00:00:29,640 --> 00:00:33,690
+and the domain of course is www.example.com
+
+13
+00:00:33,690 --> 00:00:37,830
+Now, CORS is a web browser based mechanism of security
+
+14
+00:00:37,830 --> 00:00:39,210
+to allow or to deny request
+
+15
+00:00:39,210 --> 00:00:41,820
+to other origins while visiting the main origin.
+
+16
+00:00:41,820 --> 00:00:44,370
+So, let's have a look at what the same origin means.
+
+17
+00:00:44,370 --> 00:00:48,300
+So, it's the same origin if we have the same scheme,
+
+18
+00:00:48,300 --> 00:00:50,370
+the same host and the same port.
+
+19
+00:00:50,370 --> 00:00:52,380
+For example, we have these two URLs,
+
+20
+00:00:52,380 --> 00:00:54,210
+they're share the same origin.
+
+21
+00:00:54,210 --> 00:00:56,070
+But, we can have different origins.
+
+22
+00:00:56,070 --> 00:01:01,070
+For example, www.example.com and other.example.com
+
+23
+00:01:01,590 --> 00:01:04,650
+And so, if our web browser is visiting one website
+
+24
+00:01:04,650 --> 00:01:05,940
+and supposed to make a request
+
+25
+00:01:05,940 --> 00:01:09,210
+to another website as part of the request scheme
+
+26
+00:01:09,210 --> 00:01:11,430
+then these requests will not be fulfilled
+
+27
+00:01:11,430 --> 00:01:13,650
+unless the other origin allows
+
+28
+00:01:13,650 --> 00:01:15,870
+for the request using the CORS header.
+
+29
+00:01:15,870 --> 00:01:18,930
+They're called the Access-Control-Allow-Origin headers.
+
+30
+00:01:18,930 --> 00:01:21,420
+So, let's go through a diagram to understand how that works
+
+31
+00:01:21,420 --> 00:01:22,980
+and how they can be leveraged.
+
+32
+00:01:22,980 --> 00:01:26,040
+So, we have a web server and that's your origin
+
+33
+00:01:26,040 --> 00:01:31,040
+and it's https://www.example.com and a web browser.
+
+34
+00:01:31,830 --> 00:01:35,280
+And the second web server, which is the cross-origin, okay?
+
+35
+00:01:35,280 --> 00:01:38,220
+So, www.other.com
+
+36
+00:01:38,220 --> 00:01:41,100
+Now, the web browser is going to do an HTTPS request
+
+37
+00:01:41,100 --> 00:01:43,980
+into the first origin web server.
+
+38
+00:01:43,980 --> 00:01:45,900
+And as part of the result
+
+39
+00:01:45,900 --> 00:01:48,480
+the index that HTML file retrieved is gonna say,
+
+40
+00:01:48,480 --> 00:01:51,600
+Hey, you must also get some images, for example,
+
+41
+00:01:51,600 --> 00:01:53,790
+from this other web server.
+
+42
+00:01:53,790 --> 00:01:56,880
+So, the web browser has a security built in,
+
+43
+00:01:56,880 --> 00:01:59,790
+and first is going to do a pre-flight request
+
+44
+00:01:59,790 --> 00:02:01,740
+to the cross-origin.
+
+45
+00:02:01,740 --> 00:02:04,200
+So, it's gonna say, Hey, I wanna get the options
+
+46
+00:02:04,200 --> 00:02:06,750
+for www.other.com
+
+47
+00:02:06,750 --> 00:02:10,350
+And, by the way, my origin where the request is coming from
+
+48
+00:02:10,350 --> 00:02:14,040
+is the https://www.example.com.
+
+49
+00:02:14,040 --> 00:02:16,710
+And then the web server, if it's considered
+
+50
+00:02:16,710 --> 00:02:21,000
+and configured to use the Cross-Origin Resource Sharing
+
+51
+00:02:21,000 --> 00:02:24,120
+is going to say, Yes, I do allow this origin,
+
+52
+00:02:24,120 --> 00:02:28,530
+the example.com origin, for the get, put and delete methods.
+
+53
+00:02:28,530 --> 00:02:31,200
+So, this is what we call the CORS headers.
+
+54
+00:02:31,200 --> 00:02:34,080
+And, if the web browser is happy with this CORS
+
+55
+00:02:34,080 --> 00:02:36,270
+headers, then the web browser is going
+
+56
+00:02:36,270 --> 00:02:39,060
+to make a request to the other server
+
+57
+00:02:39,060 --> 00:02:40,770
+to retrieve these files
+
+58
+00:02:40,770 --> 00:02:42,240
+and make these calls.
+
+59
+00:02:42,240 --> 00:02:44,850
+So, how does it apply to Amazon S3?
+
+60
+00:02:44,850 --> 00:02:47,640
+Well, if a client makes a cross-origin request
+
+61
+00:02:47,640 --> 00:02:48,870
+on our S3 buckets,
+
+62
+00:02:48,870 --> 00:02:51,780
+we need to enable the correct CORS headers.
+
+63
+00:02:51,780 --> 00:02:53,730
+It's a very popular exam question,
+
+64
+00:02:53,730 --> 00:02:56,400
+and one way to do it very quickly is to allow
+
+65
+00:02:56,400 --> 00:02:59,280
+for a specific origin or to allow for*,
+
+66
+00:02:59,280 --> 00:03:00,930
+that means all origins.
+
+67
+00:03:00,930 --> 00:03:01,763
+So, let's have a look.
+
+68
+00:03:01,763 --> 00:03:04,290
+We have a web browser and we have an S3 bucket,
+
+69
+00:03:04,290 --> 00:03:06,720
+which has a static website being enabled.
+
+70
+00:03:06,720 --> 00:03:09,150
+So, that's my bucket HTML.
+
+71
+00:03:09,150 --> 00:03:11,850
+And we are storing our assets, our images
+
+72
+00:03:11,850 --> 00:03:15,000
+in another S3 bucket called my-buckets-assets.
+
+73
+00:03:15,000 --> 00:03:17,730
+And again, we have enabled a static website for it.
+
+74
+00:03:17,730 --> 00:03:20,490
+So, the web browser goes to the first S3 bucket
+
+75
+00:03:20,490 --> 00:03:22,530
+and say, Hey, I want to get the index,
+
+76
+00:03:22,530 --> 00:03:25,350
+that HTML file, for this URL right here
+
+77
+00:03:25,350 --> 00:03:28,110
+which is, of course, the static website URL.
+
+78
+00:03:28,110 --> 00:03:30,600
+So, we get back the index.html
+
+79
+00:03:30,600 --> 00:03:33,450
+and within the index.html there is an image
+
+80
+00:03:33,450 --> 00:03:36,120
+and that image lives on another website.
+
+81
+00:03:36,120 --> 00:03:38,550
+So, we get the images/coffee
+
+82
+00:03:38,550 --> 00:03:40,590
+this is the web browser doing its thing,
+
+83
+00:03:40,590 --> 00:03:42,270
+but this time it's saying, Hey
+
+84
+00:03:42,270 --> 00:03:44,610
+the target host is this other website,
+
+85
+00:03:44,610 --> 00:03:47,070
+but the origin is this first website.
+
+86
+00:03:47,070 --> 00:03:49,650
+And if the S3 bucket is not configured
+
+87
+00:03:49,650 --> 00:03:51,210
+to have the correct CORS headers
+
+88
+00:03:51,210 --> 00:03:52,920
+it's going to refuse the request,
+
+89
+00:03:52,920 --> 00:03:55,290
+or else if it's allowing this request,
+
+90
+00:03:55,290 --> 00:03:56,550
+then it's going to have the correct headers
+
+91
+00:03:56,550 --> 00:03:58,620
+and say, Okay, you can do this request
+
+92
+00:03:58,620 --> 00:04:00,210
+and you can get the image.
+
+93
+00:04:00,210 --> 00:04:04,590
+So remember, CORS is a web browser security that allows you
+
+94
+00:04:04,590 --> 00:04:08,550
+to enable images or assets or files being retrieved
+
+95
+00:04:08,550 --> 00:04:11,820
+from one S3 bucket in case the request is originating
+
+96
+00:04:11,820 --> 00:04:13,500
+from another origin.
+
+97
+00:04:13,500 --> 00:04:14,333
+So, that's it.
+
+98
+00:04:14,333 --> 00:04:16,320
+I hope you liked it, and I will see you in the next lecture
+
+99
+00:04:16,320 --> 00:04:17,250
+for some hands on
+
+100
+00:04:17,250 --> 00:04:19,413
+to show you exactly how CORS works.
+

@@ -1,0 +1,340 @@
+1
+00:00:00,150 --> 00:00:01,950
+So here is a quick summary lecture
+
+2
+00:00:01,950 --> 00:00:04,260
+to describe to you all the ways you can transfer
+
+3
+00:00:04,260 --> 00:00:06,630
+a large amount of data into AWS
+
+4
+00:00:06,630 --> 00:00:09,330
+and which one is going to be the most appropriate based
+
+5
+00:00:09,330 --> 00:00:11,010
+on the constraints you have.
+
+6
+00:00:11,010 --> 00:00:12,060
+So for example,
+
+7
+00:00:12,060 --> 00:00:14,460
+let's say we want to transfer 200 terabytes of data
+
+8
+00:00:14,460 --> 00:00:15,630
+into the cloud,
+
+9
+00:00:15,630 --> 00:00:16,920
+and what we have currently
+
+10
+00:00:16,920 --> 00:00:20,430
+is a 100 megabits per second internet connection.
+
+11
+00:00:20,430 --> 00:00:22,470
+So, option number one would be to use the internet,
+
+12
+00:00:22,470 --> 00:00:23,303
+the public internet,
+
+13
+00:00:23,303 --> 00:00:25,200
+or establish a Site-to-Site VPN,
+
+14
+00:00:25,200 --> 00:00:27,630
+which also uses the public internet.
+
+15
+00:00:27,630 --> 00:00:29,850
+And the advantage of this is that it's immediate to set up.
+
+16
+00:00:29,850 --> 00:00:31,470
+We can leverage our connection right away.
+
+17
+00:00:31,470 --> 00:00:33,570
+If we do a quick computation,
+
+18
+00:00:33,570 --> 00:00:36,420
+what we get is that it will take 200 terabytes converted
+
+19
+00:00:36,420 --> 00:00:38,490
+into gigabytes and then megabytes,
+
+20
+00:00:38,490 --> 00:00:40,140
+then you have to convert this to megabits,
+
+21
+00:00:40,140 --> 00:00:41,670
+so times eight,
+
+22
+00:00:41,670 --> 00:00:43,650
+then you divide by the speed you have,
+
+23
+00:00:43,650 --> 00:00:45,630
+so 100 megabits per second,
+
+24
+00:00:45,630 --> 00:00:48,720
+and that gives you about 16 million seconds,
+
+25
+00:00:48,720 --> 00:00:51,210
+which is the equivalent of 185 days.
+
+26
+00:00:51,210 --> 00:00:52,650
+So, almost half a year
+
+27
+00:00:52,650 --> 00:00:54,720
+to transfer 200 terabytes of data
+
+28
+00:00:54,720 --> 00:00:56,970
+over 100 megabits internet connection,
+
+29
+00:00:56,970 --> 00:00:58,410
+so this can take a long time.
+
+30
+00:00:58,410 --> 00:01:00,990
+Obviously, based on the size you have of the data,
+
+31
+00:01:00,990 --> 00:01:02,520
+it could be appropriate or not.
+
+32
+00:01:02,520 --> 00:01:03,353
+And in this case,
+
+33
+00:01:03,353 --> 00:01:05,220
+I will never probably transfer 200 terabytes
+
+34
+00:01:05,220 --> 00:01:07,410
+over this internet connection speed.
+
+35
+00:01:07,410 --> 00:01:09,930
+If I want to transfer now over direct connect
+
+36
+00:01:09,930 --> 00:01:13,860
+and say we have provisioned a one gigabits per second line,
+
+37
+00:01:13,860 --> 00:01:14,693
+then the first thing
+
+38
+00:01:14,693 --> 00:01:16,830
+is that it's going to be a long, one-time setup.
+
+39
+00:01:16,830 --> 00:01:18,960
+So if I'd never had direct connect before,
+
+40
+00:01:18,960 --> 00:01:20,220
+it will take about a month
+
+41
+00:01:20,220 --> 00:01:22,320
+to get this connection established.
+
+42
+00:01:22,320 --> 00:01:24,210
+And then, once I have this connection,
+
+43
+00:01:24,210 --> 00:01:25,050
+it will take about,
+
+44
+00:01:25,050 --> 00:01:27,180
+if we do the exact same computation,
+
+45
+00:01:27,180 --> 00:01:29,250
+10 times faster than my first connection,
+
+46
+00:01:29,250 --> 00:01:32,070
+so it's gonna end up being 18.5 days.
+
+47
+00:01:32,070 --> 00:01:35,100
+So a lot quicker, but still quite long.
+
+48
+00:01:35,100 --> 00:01:38,100
+Now, if I use Snowball, how long do I need?
+
+49
+00:01:38,100 --> 00:01:40,260
+Well, first of all, I need to order my Snowballs,
+
+50
+00:01:40,260 --> 00:01:42,180
+and then it takes about one week all in all
+
+51
+00:01:42,180 --> 00:01:44,340
+from the Snowball to being delivered, to being loaded,
+
+52
+00:01:44,340 --> 00:01:47,310
+to being sent back to AWS and the data being transferred.
+
+53
+00:01:47,310 --> 00:01:49,620
+It'll take about one week for the end-to-end transfer
+
+54
+00:01:49,620 --> 00:01:50,670
+and on top of it,
+
+55
+00:01:50,670 --> 00:01:52,260
+if there was a database
+
+56
+00:01:52,260 --> 00:01:53,790
+that was being transferred through Snowball,
+
+57
+00:01:53,790 --> 00:01:54,990
+it could be combined with DMS
+
+58
+00:01:54,990 --> 00:01:57,360
+to transfer the rest of the data afterwards.
+
+59
+00:01:57,360 --> 00:01:59,520
+So finally, for ongoing replications,
+
+60
+00:01:59,520 --> 00:02:01,470
+so this is like for one-off transfers.
+
+61
+00:02:01,470 --> 00:02:02,430
+For ongoing replications,
+
+62
+00:02:02,430 --> 00:02:05,190
+we could use techniques such as Site-to-Site VPN,
+
+63
+00:02:05,190 --> 00:02:07,125
+again, because we'll have less data to transfer
+
+64
+00:02:07,125 --> 00:02:08,460
+on an ongoing basis,
+
+65
+00:02:08,460 --> 00:02:11,039
+or use direct connect, or use DMS,
+
+66
+00:02:11,039 --> 00:02:13,770
+or use a service like we just saw, like DataSync.
+
+67
+00:02:13,770 --> 00:02:17,280
+So, all these things would allow us to transfer the data
+
+68
+00:02:17,280 --> 00:02:19,620
+on an ongoing basis continuously or not
+
+69
+00:02:19,620 --> 00:02:22,620
+through some more reasonable internet lines,
+
+70
+00:02:22,620 --> 00:02:25,410
+such as a Site-to-Site VPN or direct connect, okay?
+
+71
+00:02:25,410 --> 00:02:26,700
+Snowball is going to be used more
+
+72
+00:02:26,700 --> 00:02:29,070
+for one-off large transfers.
+
+73
+00:02:29,070 --> 00:02:31,200
+And as you can see, Snowball in this case
+
+74
+00:02:31,200 --> 00:02:32,970
+is really, really helpful into speeding up
+
+75
+00:02:32,970 --> 00:02:35,790
+our first data transfer into AWS, okay?
+
+76
+00:02:35,790 --> 00:02:38,100
+So, this lecture is just about to make you realize
+
+77
+00:02:38,100 --> 00:02:39,900
+which use case is more appropriate
+
+78
+00:02:39,900 --> 00:02:41,970
+and what are the constraints of each use case.
+
+79
+00:02:41,970 --> 00:02:43,080
+And then in the exam,
+
+80
+00:02:43,080 --> 00:02:44,130
+you will be asked to figure out
+
+81
+00:02:44,130 --> 00:02:47,130
+what is the easiest, fastest, or most reliable way
+
+82
+00:02:47,130 --> 00:02:48,840
+to send data into AWS
+
+83
+00:02:48,840 --> 00:02:51,090
+if it's a small data or a large data set.
+
+84
+00:02:51,090 --> 00:02:52,020
+All right, that's it.
+
+85
+00:02:52,020 --> 00:02:53,770
+I will see you in the next lecture.
+
