@@ -1,0 +1,112 @@
+1
+00:00:00,300 --> 00:00:02,250
+Chào bạn, trước khi chúng ta bắt đầu
+
+2
+00:00:02,250 --> 00:00:06,689
+với khóa học này, xin lưu ý về việc UI của AWS đã thay đổi.
+
+3
+00:00:06,689 --> 00:00:10,410
+Bạn có thể thấy giao diện console như thế này, nền trắng sáng lớn,
+
+4
+00:00:10,410 --> 00:00:14,610
+và các nút bo tròn màu xanh dương sáng.
+
+5
+00:00:14,610 --> 00:00:16,830
+Đây là UI mới của AWS,
+
+6
+00:00:16,830 --> 00:00:19,950
+còn UI cũ trông hơi xám hơn,
+
+7
+00:00:19,950 --> 00:00:21,780
+màu xanh thì nhạt hơn một chút.
+
+8
+00:00:21,780 --> 00:00:24,540
+Các nút lúc đó vuông chứ không tròn.
+
+9
+00:00:24,540 --> 00:00:27,960
+Và đây là UI mới với nhiều đường bo tròn hơn, hiện đại hơn.
+
+10
+00:00:27,960 --> 00:00:31,920
+Về mặt hình ảnh, nó có thể trông hơi khác một chút, được chứ?
+
+11
+00:00:31,920 --> 00:00:34,110
+Nhưng về khía cạnh sử dụng,
+
+12
+00:00:34,110 --> 00:00:36,030
+UI vẫn sẽ hoàn toàn giống nhau.
+
+13
+00:00:36,030 --> 00:00:40,410
+Vì vậy nếu bạn thấy các video của tôi được ghi với kiểu UI này,
+
+14
+00:00:40,410 --> 00:00:43,110
+hãy yên tâm rằng UI mới
+
+15
+00:00:43,110 --> 00:00:45,360
+về mặt sử dụng sẽ trông hoàn toàn giống,
+
+16
+00:00:45,360 --> 00:00:47,520
+chứ không chỉ về mặt hình ảnh.
+
+17
+00:00:47,520 --> 00:00:49,560
+Nếu mọi thứ thay đổi quá nhiều
+
+18
+00:00:49,560 --> 00:00:51,810
+và các nút thay đổi vị trí v.v.,
+
+19
+00:00:51,810 --> 00:00:53,790
+hãy cho tôi biết và tôi sẽ cố gắng hết sức
+
+20
+00:00:53,790 --> 00:00:55,680
+để cập nhật một số video.
+
+21
+00:00:55,680 --> 00:00:58,230
+Nhưng trong thời gian này, tôi vẫn giữ các video của mình
+
+22
+00:00:58,230 --> 00:01:00,150
+vì có rất nhiều video đang chạy
+
+23
+00:01:00,150 --> 00:01:03,630
+trên UI cũ,
+
+24
+00:01:03,630 --> 00:01:05,790
+còn UI mới thì bạn chỉ cần tự làm quen.
+
+25
+00:01:05,790 --> 00:01:07,320
+Nhưng thực chất nó giống hệt nhau,
+
+26
+00:01:07,320 --> 00:01:10,590
+chỉ khác màu sắc và hình dạng nút bấm, được chứ?
+
+27
+00:01:10,590 --> 00:01:11,520
+Vì vậy xin cảm ơn bạn rất nhiều,
+
+28
+00:01:11,520 --> 00:01:13,470
+và hẹn gặp bạn ở bài giảng tiếp theo.
+

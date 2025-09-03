@@ -1,0 +1,188 @@
+1
+00:00:00,500 --> 00:00:02,410
+Chào bạn, tôi muốn nói với bạn
+
+2
+00:00:02,410 --> 00:00:04,830
+về những thay đổi giao diện bạn có thể thấy
+
+3
+00:00:04,830 --> 00:00:07,460
+giữa các video của tôi và AWS.
+
+4
+00:00:07,460 --> 00:00:08,810
+Vì vậy tôi muốn giải thích với bạn,
+
+5
+00:00:08,810 --> 00:00:12,930
+AWS đang thực hiện một chuyển đổi lớn cho giao diện của họ
+
+6
+00:00:12,930 --> 00:00:14,990
+theo các hướng dẫn thiết kế mới.
+
+7
+00:00:14,990 --> 00:00:17,860
+Vì vậy đôi khi giao diện sẽ trông mới
+
+8
+00:00:17,860 --> 00:00:19,920
+và tôi gọi đây là kiểu UI mới
+
+9
+00:00:19,920 --> 00:00:22,190
+trông khá vuông vức, v.v.
+
+10
+00:00:22,190 --> 00:00:24,410
+nhưng đôi khi bạn sẽ thấy kiểu UI cũ
+
+11
+00:00:24,410 --> 00:00:25,690
+trông như thế này.
+
+12
+00:00:25,690 --> 00:00:28,741
+AWS đang chuyển đổi cho tất cả dịch vụ của họ,
+
+13
+00:00:28,741 --> 00:00:32,770
+toàn bộ UI và không diễn ra đồng thời.
+
+14
+00:00:32,770 --> 00:00:35,210
+Điều này diễn ra trong một hoặc hai năm
+
+15
+00:00:35,210 --> 00:00:36,484
+và hiện vẫn đang diễn ra.
+
+16
+00:00:36,484 --> 00:00:38,821
+Mục tiêu của tôi dĩ nhiên là có các video
+
+17
+00:00:38,821 --> 00:00:42,980
+cập nhật nhất có thể, nhưng thật sự không thể
+
+18
+00:00:42,980 --> 00:00:44,140
+theo kịp mọi thay đổi
+
+19
+00:00:44,140 --> 00:00:45,530
+cho đến khi họ hoàn tất.
+
+20
+00:00:45,530 --> 00:00:48,750
+Vì thế tôi cố gắng hết sức để giữ các video của mình
+
+21
+00:00:48,750 --> 00:00:50,648
+được cập nhật nếu có thay đổi lớn,
+
+22
+00:00:50,648 --> 00:00:52,974
+nhưng nếu tôi tin rằng thay đổi đủ nhỏ
+
+23
+00:00:52,974 --> 00:00:55,311
+để bạn vẫn có thể tự tìm trong console,
+
+24
+00:00:55,311 --> 00:00:58,860
+tôi sẽ chưa cập nhật video, nhưng hãy tin tôi,
+
+25
+00:00:58,860 --> 00:01:00,850
+tôi luôn lắng nghe phản hồi
+
+26
+00:01:00,850 --> 00:01:02,840
+và khi nào video đã lỗi thời,
+
+27
+00:01:02,840 --> 00:01:04,450
+tôi sẽ cập nhật.
+
+28
+00:01:04,450 --> 00:01:05,283
+Được chứ.
+
+29
+00:01:05,283 --> 00:01:07,650
+Một điều khác bạn có thể làm nếu thực sự bị lạc,
+
+30
+00:01:07,650 --> 00:01:10,590
+bạn có thể bật một nút trong hầu hết các dịch vụ
+
+31
+00:01:10,590 --> 00:01:14,170
+có trải nghiệm mới và chuyển về giao diện cũ.
+
+32
+00:01:14,170 --> 00:01:16,280
+Nếu bạn chuyển về giao diện cũ như ở đây
+
+33
+00:01:16,280 --> 00:01:18,398
+như bạn thấy, đôi khi bạn sẽ thấy UI cũ
+
+34
+00:01:18,398 --> 00:01:21,590
+giống như trong video của tôi, nhưng tôi chỉ muốn
+
+35
+00:01:21,590 --> 00:01:23,600
+đưa ra một lời nhắc để giải thích với bạn
+
+36
+00:01:23,600 --> 00:01:24,750
+rằng khóa học không lỗi thời.
+
+37
+00:01:24,750 --> 00:01:27,470
+Đó là niềm đam mê và trách nhiệm của tôi đảm bảo
+
+38
+00:01:27,470 --> 00:01:29,870
+bạn vượt qua kỳ thi và học được nhiều điều trong khóa học
+
+39
+00:01:29,870 --> 00:01:33,330
+vì vậy hãy tin rằng tôi theo dõi mỗi ngày
+
+40
+00:01:33,330 --> 00:01:35,900
+để xem có cập nhật hay thay đổi nào làm hỏng khóa học
+
+41
+00:01:35,900 --> 00:01:37,040
+và nếu điều đó xảy ra,
+
+42
+00:01:37,040 --> 00:01:39,270
+tôi hứa sẽ cập nhật video, nhưng làm ơn,
+
+43
+00:01:39,270 --> 00:01:40,990
+hãy tha lỗi cho tôi trước
+
+44
+00:01:40,990 --> 00:01:44,460
+nếu video không được cập nhật như giao diện AWS,
+
+45
+00:01:44,460 --> 00:01:46,070
+hiện giờ rất khó
+
+46
+00:01:46,070 --> 00:01:47,350
+để theo kịp các thay đổi của họ.
+
+47
+00:01:47,350 --> 00:01:50,250
+Cảm ơn bạn rất nhiều và chúc bạn học thật vui vẻ.
+
