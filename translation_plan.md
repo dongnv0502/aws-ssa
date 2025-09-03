@@ -67,7 +67,7 @@ Next text content
 
 ## Tiến Độ Thực Hiện
 - [ ] Module 01: 7/7 files ✅ 001, 003, 004, 005, 006, 006, 007
-- [ ] Module 03: 3/6 files ✅ 002 [Important], 003 About, 004 About
+- [ ] Module 03: 4/6 files ✅ 001 AWS Cloud Overview, 002 [Important], 003 About, 004 About
 - [ ] Module 06: 0/9 files
 - [ ] Module 07: 0/24 files
 - [ ] Module 08: 0/30 files
@@ -88,7 +88,7 @@ Next text content
 - [ ] Module 29: 0/12 files
 - [ ] Module 30: 0/20 files
 
-**Tổng tiến độ: 10/229 files (4.4%)**
+**Tổng tiến độ: 11/229 files (4.8%)**
 
 ## Ghi Chú
 - Ưu tiên dịch các module cơ bản trước (01, 03, 06)
