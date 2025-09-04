@@ -1,0 +1,43 @@
+1
+00:00:00,000 --> 00:00:03,000
+Thực hành: tạo EC2 + EC2 User Data để dựng website đơn giản.
+
+2
+00:00:03,000 --> 00:00:08,000
+- Chọn AMI: Amazon Linux 2; Instance type: t2.micro/t3.micro (Free Tier).
+
+3
+00:00:08,000 --> 00:00:13,000
+- Tạo/Chọn Key pair; Security Group: mở SSH (22) và HTTP (80).
+
+4
+00:00:13,000 --> 00:00:20,000
+- User Data (bootstrap): cài web server và trang demo, ví dụ:
+
+5
+00:00:20,000 --> 00:00:33,000
+  #!/bin/bash
+  yum update -y
+  yum install -y httpd
+  systemctl enable httpd
+  systemctl start httpd
+  echo "<h1>Hello from EC2 User Data</h1>" > /var/www/html/index.html
+
+6
+00:00:33,000 --> 00:00:38,000
+- Khởi chạy instance; chờ 1–2 phút để script hoàn tất.
+
+7
+00:00:38,000 --> 00:00:43,000
+- Mở trình duyệt: http://<public-ip> — thấy trang đã tạo.
+
+8
+00:00:43,000 --> 00:00:48,000
+Ghi chú:
+- User Data chỉ chạy tự động ở lần boot đầu (mặc định).
+- Log tại `/var/log/cloud-init-output.log`.
+
+9
+00:00:48,000 --> 00:00:53,000
+Dọn dẹp: terminate instance/Security Group/Key Pair nếu không còn dùng.
+

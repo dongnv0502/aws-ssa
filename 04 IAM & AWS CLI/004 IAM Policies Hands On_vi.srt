@@ -1,0 +1,628 @@
+1
+00:00:00,000 --> 00:00:01,080
+Bây giờ chúng ta sẽ xem
+
+2
+00:00:01,080 --> 00:00:02,850
+IAM policies một cách chi tiết.
+
+3
+00:00:02,850 --> 00:00:05,340
+Trước hết, vào Users.
+
+4
+00:00:05,340 --> 00:00:06,810
+Bạn thấy user Stephane
+
+5
+00:00:06,810 --> 00:00:09,030
+thuộc nhóm admin,
+
+6
+00:00:09,030 --> 00:00:12,510
+vì thế có quyền AdministratorAccess với AWS.
+
+7
+00:00:12,510 --> 00:00:15,300
+Điều đó nghĩa là nếu tôi dùng user Stephane
+
+8
+00:00:15,300 --> 00:00:19,203
+để vào IAM console — giờ tôi đang dùng user của mình —
+
+9
+00:00:20,490 --> 00:00:22,650
+và ở bên trái bấm vào Users,
+
+10
+00:00:22,650 --> 00:00:25,470
+tôi có thể thấy user Stephane của mình ở đây.
+
+11
+00:00:25,470 --> 00:00:26,550
+Ngay tại đây.
+
+12
+00:00:26,550 --> 00:00:29,730
+User Stephane của tôi có quyền làm mọi thứ
+
+13
+00:00:29,730 --> 00:00:31,530
+vì là administrator.
+
+14
+00:00:31,530 --> 00:00:34,860
+Nhưng tôi sẽ vào nhóm admins
+
+15
+00:00:34,860 --> 00:00:39,450
+và loại user Stephane của tôi
+
+16
+00:00:39,450 --> 00:00:40,680
+ra khỏi nhóm đó.
+
+17
+00:00:40,680 --> 00:00:43,320
+Khi bỏ user (tôi đã làm rồi),
+
+18
+00:00:43,320 --> 00:00:46,740
+Stephane sẽ mất permissions ở cửa sổ bên phải.
+
+19
+00:00:46,740 --> 00:00:47,760
+Làm sao chắc điều này?
+
+20
+00:00:47,760 --> 00:00:49,920
+Hãy refresh trang.
+
+21
+00:00:49,920 --> 00:00:52,530
+Giờ tôi thấy 0 users
+
+22
+00:00:52,530 --> 00:00:54,270
+và nhận AccessDenied: tôi không có quyền
+
+23
+00:00:54,270 --> 00:00:56,973
+thực hiện iam:ListUsers.
+
+24
+00:00:57,840 --> 00:01:00,720
+Vì tôi đã bỏ user Stephane khỏi admin group,
+
+25
+00:01:00,720 --> 00:01:04,019
+nên tôi mất quyền xem Users ở cửa sổ bên phải.
+
+26
+00:01:04,019 --> 00:01:05,940
+Hãy sửa điều này.
+
+27
+00:01:05,940 --> 00:01:06,870
+Vào IAM,
+
+28
+00:01:06,870 --> 00:01:09,210
+vào Users và tìm Stephane.
+
+29
+00:01:09,210 --> 00:01:13,320
+Lúc này, bạn thấy Stephane có 0 permission policies.
+
+30
+00:01:13,320 --> 00:01:14,153
+Hãy thêm quyền.
+
+31
+00:01:14,153 --> 00:01:16,890
+Ta có thể cấp trực tiếp hoặc tạo Inline policy.
+
+32
+00:01:16,890 --> 00:01:18,630
+Hãy thêm permissions — cách này dễ hơn.
+
+33
+00:01:18,630 --> 00:01:20,220
+Ta cũng có thể thêm user lại vào group,
+
+34
+00:01:20,220 --> 00:01:22,290
+nhưng đây không phải điều ta muốn.
+
+35
+00:01:22,290 --> 00:01:25,440
+Hoặc gán policy trực tiếp cho user.
+
+36
+00:01:25,440 --> 00:01:27,330
+Policy tôi sẽ gán là
+
+37
+00:01:27,330 --> 00:01:28,500
+IAMReadOnlyAccess.
+
+38
+00:01:32,520 --> 00:01:35,790
+Điều này cho phép user Stephane
+
+39
+00:01:37,290 --> 00:01:40,110
+đọc mọi thứ trong IAM — đúng như ta cần.
+
+40
+00:01:40,110 --> 00:01:43,800
+Thêm permission này
+
+41
+00:01:43,800 --> 00:01:46,140
+và policy đã được thêm vào.
+
+42
+00:01:46,140 --> 00:01:50,973
+Quay lại cửa sổ bên phải, refresh trang.
+
+43
+00:01:52,620 --> 00:01:55,800
+Bây giờ tôi có thể gọi API trở lại
+
+44
+00:01:55,800 --> 00:01:59,670
+và xem user Stephane trong danh mục Users.
+
+45
+00:01:59,670 --> 00:02:04,110
+Tôi có thể xem Users, xem User groups như admin —
+
+46
+00:02:04,110 --> 00:02:05,970
+nhưng tôi có tạo được group không?
+
+47
+00:02:05,970 --> 00:02:07,920
+Hãy thử tạo group developers
+
+48
+00:02:09,000 --> 00:02:10,830
+và Create group.
+
+49
+00:02:10,830 --> 00:02:13,200
+Bạn thấy tôi không tạo được
+
+50
+00:02:13,200 --> 00:02:15,780
+vì tôi không có quyền tạo group.
+
+51
+00:02:15,780 --> 00:02:19,680
+Tôi chỉ có ReadOnlyAccess trên IAM.
+
+52
+00:02:19,680 --> 00:02:21,630
+Vì chỉ có quyền đọc,
+
+53
+00:02:21,630 --> 00:02:23,520
+tôi không thể tạo groups.
+
+54
+00:02:23,520 --> 00:02:27,750
+Điều này cho thấy bạn chỉ nên cấp đúng quyền
+
+55
+00:02:27,750 --> 00:02:28,710
+cho việc họ cần làm.
+
+56
+00:02:28,710 --> 00:02:31,500
+Nếu muốn cấp quyền tạo group ở cửa sổ bên phải,
+
+57
+00:02:31,500 --> 00:02:35,070
+tôi cần gắn một bộ quyền lớn hơn,
+
+58
+00:02:35,070 --> 00:02:37,173
+như IAMFullAccess.
+
+59
+00:02:38,070 --> 00:02:40,230
+Tiếp theo, ta làm thế này.
+
+60
+00:02:40,230 --> 00:02:43,650
+Ở bên trái, vào User groups
+
+61
+00:02:43,650 --> 00:02:48,030
+và tạo một group.
+
+62
+00:02:48,030 --> 00:02:50,763
+Group này sẽ tên là developers.
+
+63
+00:02:52,380 --> 00:02:55,620
+Tôi sẽ thêm user Stephane vào group này
+
+64
+00:02:55,620 --> 00:02:58,110
+và gắn bất kỳ policy nào, ví dụ
+
+65
+00:02:58,110 --> 00:03:00,090
+AlexaForBusiness — không quá quan trọng.
+
+66
+00:03:00,090 --> 00:03:00,960
+Chỉ cần gắn policy đầu tiên bạn thấy
+
+67
+00:03:00,960 --> 00:03:03,540
+và tạo group.
+
+68
+00:03:04,800 --> 00:03:06,660
+Xong, đã thêm.
+
+69
+00:03:06,660 --> 00:03:09,450
+Cuối cùng, vào nhóm admin.
+
+70
+00:03:09,450 --> 00:03:11,340
+Thêm Users
+
+71
+00:03:11,340 --> 00:03:14,790
+và thêm lại Stephane vào nhóm này.
+
+72
+00:03:14,790 --> 00:03:18,210
+Giờ quay lại user Stephane: vào IAM,
+
+73
+00:03:18,210 --> 00:03:22,083
+vào Users và chọn Stephane.
+
+74
+00:03:23,550 --> 00:03:25,560
+Tôi tắt thông báo ở bên phải.
+
+75
+00:03:25,560 --> 00:03:28,410
+Nhìn vào user Stephane, bạn thấy
+
+76
+00:03:28,410 --> 00:03:31,860
+có ba permission policies được gắn.
+
+77
+00:03:31,860 --> 00:03:34,920
+Có AdministratorAccess thừa hưởng từ group admin.
+
+78
+00:03:34,920 --> 00:03:36,570
+Có AlexaForBusiness managed policy
+
+79
+00:03:36,570 --> 00:03:42,930
+được gắn qua group developers.
+
+80
+00:03:42,930 --> 00:03:44,940
+Và IAMReadOnlyAccess
+
+81
+00:03:44,940 --> 00:03:46,680
+được gắn trực tiếp.
+
+82
+00:03:46,680 --> 00:03:49,590
+Bạn thấy tôi thừa hưởng các quyền khác nhau
+
+83
+00:03:49,590 --> 00:03:51,780
+tùy cách chúng được gắn.
+
+84
+00:03:51,780 --> 00:03:54,450
+Giờ hãy xem Policies chi tiết.
+
+85
+00:03:54,450 --> 00:03:57,510
+Ở bên trái, vào Policies.
+
+86
+00:04:10,980 --> 00:04:13,410
+Policy này cho phép tất cả dịch vụ trong AWS.
+
+87
+00:04:13,410 --> 00:04:14,790
+Con số có thể thay đổi theo thời gian.
+
+88
+00:04:14,790 --> 00:04:15,810
+Không sao cả.
+
+89
+00:04:15,810 --> 00:04:16,829
+Khóa học sẽ cập nhật.
+
+90
+00:04:16,829 --> 00:04:20,640
+Tất cả các dịch vụ như App Mesh,
+
+91
+00:04:20,640 --> 00:04:24,660
+Alexa for Business, Amplify đều có full access.
+
+92
+00:04:24,660 --> 00:04:26,550
+Quyền này được định nghĩa thế nào?
+
+93
+00:04:26,550 --> 00:04:28,710
+Bấm vào JSON,
+
+94
+00:04:28,710 --> 00:04:32,880
+đây là dạng JSON của policy. Ta thấy
+
+95
+00:04:32,880 --> 00:04:37,880
+Effect: Allow, Action: "*", Resource: "*".
+
+96
+00:04:37,920 --> 00:04:40,290
+Dấu "*" trong AWS nghĩa là mọi thứ.
+
+97
+00:04:40,290 --> 00:04:44,400
+Tức là cho phép mọi Action trên mọi Resource.
+
+98
+00:04:44,400 --> 00:04:45,990
+Và rõ ràng, cho phép mọi Action
+
+99
+00:04:45,990 --> 00:04:48,330
+trên mọi Resource chính là
+
+100
+00:04:48,330 --> 00:04:51,450
+quyền AdministratorAccess.
+
+101
+00:04:51,450 --> 00:04:53,190
+Đó là cách policy này được định nghĩa.
+
+102
+00:04:53,190 --> 00:04:55,440
+Nếu nhìn policy khác, ví dụ
+
+103
+00:04:55,440 --> 00:04:59,670
+IAMReadOnlyAccess như lúc trước.
+
+104
+00:04:59,670 --> 00:05:01,350
+Ta thấy IAM được cấp
+
+105
+00:05:01,350 --> 00:05:06,350
+Full: List và Limited: Read.
+
+106
+00:05:07,920 --> 00:05:10,680
+Bấm vào, bạn có thể xem tất cả API calls
+
+107
+00:05:10,680 --> 00:05:13,290
+được Allow trong policy này — rất tiện.
+
+108
+00:05:13,290 --> 00:05:20,850
+Nếu xem cách định nghĩa, bấm JSON.
+
+109
+00:05:20,850 --> 00:05:22,500
+Đây là tài liệu JSON cho thấy
+
+110
+00:05:22,500 --> 00:05:26,130
+cách định nghĩa: Effect là Allow, rồi liệt kê
+
+111
+00:05:26,130 --> 00:05:31,290
+các API calls được Allow.
+
+112
+00:05:31,290 --> 00:05:35,680
+Ví dụ có Get*,
+
+113
+00:05:35,680 --> 00:05:38,970
+nghĩa là mọi API bắt đầu bằng Get và theo sau là gì đó
+
+114
+00:05:38,970 --> 00:05:42,240
+đều được phép — như GetUser, GetGroup.
+
+115
+00:05:42,240 --> 00:05:45,870
+Tương tự với List* — ListUsers, ListGroups.
+
+116
+00:05:45,870 --> 00:05:52,015
+Dùng dấu "*" giúp gom nhiều API calls lại.
+
+117
+00:05:52,015 --> 00:05:56,190
+Tất cả được Allow trên Resource "*".
+
+118
+00:05:56,190 --> 00:06:01,320
+Đó là nội dung của policy ReadOnlyAccess cho IAM.
+
+119
+00:06:01,320 --> 00:06:05,550
+Bạn cũng có thể tạo policy của riêng bạn.
+
+120
+00:06:05,550 --> 00:06:07,020
+Hãy tạo một policy.
+
+121
+00:06:07,020 --> 00:06:11,040
+Ta có Visual editor hoặc JSON editor.
+
+122
+00:06:11,040 --> 00:06:14,340
+Nếu có JSON, bạn có thể chỉnh rất đơn giản
+
+123
+00:06:14,340 --> 00:06:18,690
+và tạo tài liệu JSON bằng builder này — rất tiện.
+
+124
+00:06:18,690 --> 00:06:23,400
+Hoặc dùng Visual editor.
+
+125
+00:06:23,400 --> 00:06:25,020
+Ví dụ, chọn IAM,
+
+126
+00:06:25,020 --> 00:06:27,240
+ta muốn tạo quyền cho IAM.
+
+127
+00:06:27,240 --> 00:06:29,580
+Hành động muốn cho phép là gì?
+
+128
+00:06:29,580 --> 00:06:31,650
+Ta sẽ cho phép ListUsers
+
+129
+00:06:31,650 --> 00:06:34,365
+và GetUser — chỉ hai API.
+
+130
+00:06:34,365 --> 00:06:37,120
+Bạn sẽ thấy đã chọn 1/38 ở List
+
+131
+00:06:41,160 --> 00:06:44,430
+và 1/32 ở Read.
+
+132
+00:06:44,430 --> 00:06:49,770
+Tiếp theo, áp dụng lên All resources hay Specific resources?
+
+133
+00:06:49,770 --> 00:06:54,870
+Ví dụ đơn giản thôi, nhưng builder này rất tiện.
+
+134
+00:06:54,870 --> 00:06:58,740
+Nhấn Next,
+
+135
+00:06:58,740 --> 00:07:01,143
+đặt tên MyIAMPermissions
+
+136
+00:07:03,120 --> 00:07:05,940
+và tạo policy.
+
+137
+00:07:05,940 --> 00:07:08,640
+Xem policy vừa tạo,
+
+138
+00:07:08,640 --> 00:07:10,560
+xem JSON tương ứng
+
+139
+00:07:10,560 --> 00:07:14,790
+và thấy rằng qua Visual editor,
+
+140
+00:07:14,790 --> 00:07:19,790
+chúng ta đã Allow iam:ListUsers và iam:GetUser trên Resource "*".
+
+141
+00:07:20,070 --> 00:07:21,960
+Policy này có thể gắn cho Groups
+
+142
+00:07:21,960 --> 00:07:23,370
+hoặc Users, v.v.
+
+143
+00:07:23,370 --> 00:07:26,490
+Đó là cách bạn quản lý permissions trong AWS.
+
+144
+00:07:26,490 --> 00:07:28,680
+Để kết thúc phần thực hành,
+
+145
+00:07:28,680 --> 00:07:29,790
+vào User groups
+
+146
+00:07:29,790 --> 00:07:32,490
+và xóa nhóm developers vì không cần nữa.
+
+147
+00:07:34,590 --> 00:07:37,740
+Sau đó vào user Stephane
+
+148
+00:07:37,740 --> 00:07:41,040
+và gỡ policy IAMReadOnlyAccess
+
+149
+00:07:41,040 --> 00:07:43,050
+đã gắn trực tiếp.
+
+150
+00:07:43,050 --> 00:07:45,840
+Giờ Stephane chỉ thuộc group admin
+
+151
+00:07:45,840 --> 00:07:47,670
+và có AdministratorAccess.
+
+152
+00:07:47,670 --> 00:07:48,900
+Tất nhiên, nếu quay lại
+
+153
+00:07:48,900 --> 00:07:53,220
+IAM console và vào Users,
+
+154
+00:07:53,220 --> 00:07:55,170
+bạn thấy mọi thứ hiển thị bình thường.
+
+155
+00:07:55,170 --> 00:07:56,790
+Mọi thứ hoạt động đúng.
+
+156
+00:07:56,790 --> 00:07:58,350
+Vậy là xong bài này.
+
+157
+00:07:58,350 --> 00:08:01,533
+Hẹn gặp bạn ở bài tiếp theo.
+

@@ -1,0 +1,80 @@
+1
+00:00:00,090 --> 00:00:03,093
+Hãy cài AWS CLI trên macOS.
+
+2
+00:00:03,093 --> 00:00:04,718
+Vào Google và chọn hướng dẫn
+
+3
+00:00:04,718 --> 00:00:06,720
+"Installing the AWS CLI version 2 on macOS".
+
+4
+00:00:06,720 --> 00:00:10,240
+Sau đó làm theo các bước: cuộn xuống
+
+5
+00:00:10,240 --> 00:00:12,240
+và xem cách cài đặt.
+
+6
+00:00:12,240 --> 00:00:13,950
+Tải file .pkg
+
+7
+00:00:13,950 --> 00:00:15,720
+để dùng trình cài đặt đồ họa.
+
+8
+00:00:15,720 --> 00:00:18,220
+Mở file .pkg, bấm Continue vài lần,
+
+9
+00:00:18,220 --> 00:00:21,040
+Agree, chọn Install for all users,
+
+10
+00:00:21,040 --> 00:00:23,060
+Continue rồi Install.
+
+11
+00:00:23,060 --> 00:00:24,713
+CLI sẽ được cài lên mac.
+
+12
+00:00:25,719 --> 00:00:29,460
+Chờ hoàn tất; khi thành công, chuyển installer vào Trash.
+
+13
+00:00:29,460 --> 00:00:30,800
+Tiếp theo, mở Terminal trên mac.
+
+14
+00:00:30,800 --> 00:00:32,857
+Tìm "Terminal" (hoặc dùng iTerm).
+
+15
+00:00:32,857 --> 00:00:34,180
+Gõ: `aws --version`
+
+16
+00:00:34,180 --> 00:00:35,550
+Nếu mọi thứ ổn,
+
+17
+00:00:35,550 --> 00:00:37,560
+CLI sẽ in ra phiên bản.
+
+18
+00:00:37,560 --> 00:00:41,000
+Ví dụ: AWS CLI 2.0.10 — cài đặt thành công.
+
+19
+00:00:41,000 --> 00:00:43,050
+Nếu gặp vấn đề, hãy xem lại hướng dẫn.
+
+20
+00:00:43,050 --> 00:00:44,690
+Hẹn gặp bạn ở bài tiếp theo.
+

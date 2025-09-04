@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:03,000
+Thực hành Launch Types EC2: On-Demand, RI/Savings, Spot, Dedicated.
+
+2
+00:00:03,000 --> 00:00:08,000
+- Tạo instance On-Demand: chọn AMI, type, key pair, SG, User Data.
+
+3
+00:00:08,000 --> 00:00:13,000
+- Tạo nhóm Auto Scaling: On-Demand base + Spot capacity mở rộng.
+
+4
+00:00:13,000 --> 00:00:18,000
+- Quan sát chi phí ước tính và tình trạng khởi chạy.
+
+5
+00:00:18,000 --> 00:00:23,000
+- Dọn dẹp tài nguyên để tránh phát sinh chi phí.
+

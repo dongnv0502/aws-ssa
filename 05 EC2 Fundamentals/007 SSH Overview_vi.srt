@@ -1,0 +1,172 @@
+1
+00:00:00,980 --> 00:00:03,270
+Bạn sắp tới một phần hơi “khó nhằn”
+
+2
+00:00:03,270 --> 00:00:06,030
+khi vận hành trên Cloud: làm sao kết nối
+
+3
+00:00:06,030 --> 00:00:07,560
+vào bên trong server
+
+4
+00:00:07,560 --> 00:00:10,430
+để bảo trì hoặc thực hiện tác vụ.
+
+5
+00:00:10,430 --> 00:00:11,970
+Với Linux servers,
+
+6
+00:00:11,970 --> 00:00:16,020
+chúng ta dùng SSH (Secure Shell) để đăng nhập an toàn.
+
+7
+00:00:16,020 --> 00:00:19,310
+Tùy hệ điều hành máy của bạn mà cách làm khác nhau.
+
+8
+00:00:19,310 --> 00:00:21,310
+Tôi tách thành: Mac, Linux,
+
+9
+00:00:21,310 --> 00:00:23,420
+Windows trước bản 10 và Windows từ bản 10.
+
+10
+00:00:23,420 --> 00:00:27,580
+SSH là tiện ích dòng lệnh có sẵn trên Mac/Linux
+
+11
+00:00:27,580 --> 00:00:31,830
+và Windows 10 trở lên.
+
+12
+00:00:31,830 --> 00:00:34,930
+Nếu Windows cũ hơn 10, bạn có thể dùng PuTTY.
+
+13
+00:00:34,930 --> 00:00:38,940
+PuTTY làm đúng điều SSH làm. Khi tôi nói “SSH”,
+
+14
+00:00:38,940 --> 00:00:41,890
+nếu ở Windows bạn có thể dùng PuTTY.
+
+15
+00:00:41,890 --> 00:00:44,060
+PuTTY dùng được trên mọi phiên bản Windows.
+
+16
+00:00:44,060 --> 00:00:46,660
+Cả hai đều dùng giao thức SSH để kết nối
+
+17
+00:00:46,660 --> 00:00:49,100
+vào EC2 instances của bạn.
+
+18
+00:00:49,100 --> 00:00:51,730
+Cuối cùng, còn có EC2 Instance Connect
+
+19
+00:00:51,730 --> 00:00:53,840
+— chạy ngay trong trình duyệt web.
+
+20
+00:00:53,840 --> 00:00:55,680
+Không cần terminal hay PuTTY, chỉ dùng browser
+
+21
+00:00:55,680 --> 00:00:58,450
+để kết nối vào EC2 instance.
+
+22
+00:00:58,450 --> 00:01:01,100
+Tôi rất thích vì chạy được trên Mac, Linux, Windows.
+
+23
+00:01:01,100 --> 00:01:03,840
+Lưu ý: EC2 Instance Connect hiện chỉ làm việc
+
+24
+00:01:03,840 --> 00:01:05,680
+với Amazon Linux 2, nên tôi dùng AMI này.
+
+25
+00:01:05,680 --> 00:01:08,450
+Bạn nên làm gì?
+
+26
+00:01:08,450 --> 00:01:12,540
+Nếu dùng Mac/Linux: xem bài SSH trên Mac/Linux.
+
+27
+00:01:12,540 --> 00:01:16,070
+Nếu dùng Windows: xem bài về PuTTY, hoặc nếu Windows 10
+
+28
+00:01:16,070 --> 00:01:18,320
+thì xem bài SSH trên Windows 10.
+
+29
+00:01:18,320 --> 00:01:20,887
+Về phần tôi, trong các bài sau tôi sẽ dùng
+
+30
+00:01:20,887 --> 00:01:22,200
+EC2 Instance Connect.
+
+31
+00:01:22,200 --> 00:01:24,210
+Bạn có thể thử — rất đơn giản,
+
+32
+00:01:24,210 --> 00:01:26,290
+không cần cài gì hay dùng CLI nếu chưa quen.
+
+33
+00:01:26,290 --> 00:01:27,840
+Rất tiện cho mọi người.
+
+34
+00:01:27,840 --> 00:01:31,300
+Tuy nhiên, theo kinh nghiệm (tôi đã dạy rất nhiều học viên),
+
+35
+00:01:31,300 --> 00:01:34,710
+SSH là thứ gây rắc rối nhiều nhất trong khóa học.
+
+36
+00:01:34,710 --> 00:01:36,320
+Nếu gặp vấn đề với SSH,
+
+37
+00:01:36,320 --> 00:01:38,890
+hãy xem lại bài giảng (có thể bạn bỏ sót gì đó:
+
+38
+00:01:38,890 --> 00:01:41,990
+rule của Security Group, câu lệnh, hoặc lỗi gõ),
+
+39
+00:01:41,990 --> 00:01:44,710
+tôi cũng có kèm hướng dẫn troubleshoot.
+
+40
+00:01:44,710 --> 00:01:46,710
+Tôi khuyên thử EC2 Instance Connect
+
+41
+00:01:46,710 --> 00:01:48,100
+— đôi khi giải quyết mọi vấn đề.
+
+42
+00:01:48,100 --> 00:01:50,060
+Chỉ cần một phương án hoạt động
+
+43
+00:01:50,060 --> 00:01:52,980
+là bạn có thể tiếp tục học.
+

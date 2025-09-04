@@ -1,0 +1,56 @@
+1
+00:00:00,170 --> 00:00:01,002
+Được rồi.
+
+2
+00:00:01,002 --> 00:00:04,920
+Ta sẽ SSH vào EC2 bằng Windows (dùng PuTTY).
+
+3
+00:00:04,920 --> 00:00:08,100
+SSH giúp điều khiển máy từ xa qua command line.
+
+4
+00:00:08,100 --> 00:00:11,170
+EC2 chạy Amazon Linux 2, có Public IP,
+
+5
+00:00:11,170 --> 00:00:13,130
+Security Group cho phép SSH (22) từ mọi nơi.
+
+6
+00:00:13,130 --> 00:00:16,388
+Trên Windows 7/8/phiên bản cũ, ta dùng PuTTY.
+
+7
+00:00:16,388 --> 00:00:18,190
+(Windows 10 có cách khác ở bài sau — cả hai đều được.)
+
+8
+00:00:18,190 --> 00:00:22,390
+Tải PuTTY (SSH client miễn phí) và cài đặt (64-bit installer).
+
+9
+00:00:22,390 --> 00:00:26,900
+Ngoài app PuTTY, có PuTTYgen để chuyển khóa sang định dạng `.ppk`.
+
+10
+00:00:26,900 --> 00:00:33,350
+Mở PuTTYgen, Load file `.pem` (hoặc `.ppk` nếu đã có),
+
+11
+00:00:33,350 --> 00:00:36,030
+rồi Save private key thành `.ppk` (nếu cần).
+
+12
+00:00:36,030 --> 00:00:40,290
+Mở PuTTY, nhập Host Name: `ec2-user@<public-ip>`.
+
+13
+00:00:40,290 --> 00:00:45,900
+Vào Connection > SSH > Auth, chọn Private key file (`.ppk`).
+
+14
+00:00:45,900 --> 00:00:49,500
+Nhấn Open, xác nhận fingerprint, và đăng nhập thành công.
+

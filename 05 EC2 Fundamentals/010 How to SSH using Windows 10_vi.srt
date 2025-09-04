@@ -1,0 +1,124 @@
+1
+00:00:00,150 --> 00:00:00,983
+Trên Windows 10,
+
+2
+00:00:00,983 --> 00:00:02,590
+bạn có thể dùng lệnh SSH.
+
+3
+00:00:02,590 --> 00:00:04,900
+Mở Windows PowerShell, gõ `ssh`;
+
+4
+00:00:04,900 --> 00:00:07,040
+nếu hiện trợ giúp lệnh, tức là đã có.
+
+5
+00:00:07,040 --> 00:00:08,800
+Command Prompt cũng vậy.
+
+6
+00:00:08,800 --> 00:00:12,708
+Nếu không có `ssh`, bạn cần dùng phương án PuTTY ở bài trước.
+
+7
+00:00:12,708 --> 00:00:13,970
+Tôi sẽ dùng PowerShell.
+
+8
+00:00:13,970 --> 00:00:18,610
+Đầu tiên, chuyển tới thư mục chứa file `.pem`.
+
+9
+00:00:18,610 --> 00:00:22,160
+Ví dụ tôi ở `C:\Users\<name>`, không thấy file `.pem`,
+
+10
+00:00:22,160 --> 00:00:24,650
+chuyển sang Desktop: `cd .\Desktop`.
+
+11
+00:00:24,650 --> 00:00:26,420
+`ls` thấy file `EC2Tutorial.pem`
+
+12
+00:00:26,420 --> 00:00:29,090
+(`.ppk` là cho PuTTY, không cần ở đây).
+
+13
+00:00:29,090 --> 00:00:30,690
+Đảm bảo Security Group đã mở
+
+14
+00:00:30,690 --> 00:00:34,020
+port 22 (SSH).
+
+15
+00:00:34,020 --> 00:00:39,140
+Lệnh SSH tương tự trên Mac: `ssh -i EC2Tutorial.pem ec2-user@<public-ip>`.
+
+16
+00:00:39,140 --> 00:00:45,300
+Bạn có thể dùng Tab để tự động hoàn thành tên file `.pem`.
+
+17
+00:00:45,300 --> 00:00:48,940
+`ec2-user` là username mặc định của Amazon Linux 2.
+
+18
+00:00:48,940 --> 00:00:52,950
+Nhấn Enter; xác nhận fingerprint (gõ `yes`) và vào máy.
+
+19
+00:00:52,950 --> 00:00:56,660
+Nếu gặp lỗi permission với file `.pem`,
+
+20
+00:00:56,660 --> 00:00:59,800
+thoát ra và sửa quyền file:
+
+21
+00:00:59,800 --> 00:01:04,200
+Right click `.pem` > Properties > Security > Advanced.
+
+22
+00:01:04,200 --> 00:01:09,630
+- Đảm bảo Owner là chính bạn (Change nếu cần).
+
+23
+00:01:09,630 --> 00:01:13,420
+- Disable inheritance, Remove all inherited permissions.
+
+24
+00:01:13,420 --> 00:01:18,250
+- Add principal là chính bạn, cấp Full control, OK.
+
+25
+00:01:18,250 --> 00:01:22,120
+Quay lại Properties > Security: chỉ còn bạn với Full control.
+
+26
+00:01:22,120 --> 00:01:27,330
+Chạy lại lệnh `ssh -i ... ec2-user@<ip>` — sẽ không còn lỗi
+
+27
+00:01:27,330 --> 00:01:30,000
+và không bị hỏi lại.
+
+28
+00:01:30,000 --> 00:01:33,240
+Bạn cũng có thể SSH từ Command Prompt tương tự.
+
+29
+00:01:33,240 --> 00:01:39,200
+Để thoát, gõ `exit` hoặc `Ctrl+D`.
+
+30
+00:01:39,200 --> 00:01:42,950
+Vậy là bạn đã SSH vào EC2 từ Windows 10.
+
+31
+00:01:42,950 --> 00:01:45,600
+Hẹn gặp bạn ở bài tiếp theo.
+

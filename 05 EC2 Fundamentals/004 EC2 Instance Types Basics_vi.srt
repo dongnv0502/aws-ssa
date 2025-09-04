@@ -1,0 +1,40 @@
+1
+00:00:00,000 --> 00:00:03,000
+Các nhóm Instance Type EC2 (theo mục đích sử dụng):
+
+2
+00:00:03,000 --> 00:00:08,000
+- General purpose (tổng quát): cân bằng compute/memory/network (ví dụ: t3, t4g, m6i).
+
+3
+00:00:08,000 --> 00:00:13,000
+- Compute optimized: CPU mạnh cho xử lý tính toán (c6i, c7g...).
+
+4
+00:00:13,000 --> 00:00:18,000
+- Memory optimized: RAM lớn cho in-memory DB, analytics (r6i, x2idn...).
+
+5
+00:00:18,000 --> 00:00:23,000
+- Storage optimized: IOPS/throughput cao (i3en, im4gn, d3...).
+
+6
+00:00:23,000 --> 00:00:28,000
+- Accelerated computing: GPU/FPGA (p3, p4d, g5, f1...).
+
+7
+00:00:28,000 --> 00:00:33,000
+Kích thước (size) trong mỗi họ: small → large (ví dụ: m6i.large, m6i.4xlarge...).
+
+8
+00:00:33,000 --> 00:00:38,000
+Chọn loại dựa trên khối lượng công việc: CPU-bound, memory-bound, IO-bound, GPU.
+
+9
+00:00:38,000 --> 00:00:43,000
+Có tùy chọn kiến trúc: x86-64 (Intel/AMD) hoặc Arm (Graviton — chi phí/tính năng tốt).
+
+10
+00:00:43,000 --> 00:00:48,000
+Nhớ xem tài liệu instance type cho số vCPU, RAM, băng thông, EBS bandwidth, NVMe, v.v.
+

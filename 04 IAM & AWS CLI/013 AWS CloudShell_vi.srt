@@ -1,0 +1,168 @@
+1
+00:00:00,000 --> 00:00:00,833
+Được rồi.
+
+2
+00:00:00,833 --> 00:00:03,360
+Tôi muốn giới thiệu một lựa chọn khác thay cho terminal
+
+3
+00:00:03,360 --> 00:00:07,480
+khi chạy lệnh với AWS: đó là CloudShell.
+
+4
+00:00:07,480 --> 00:00:08,600
+CloudShell là biểu tượng ở góc
+
+5
+00:00:08,600 --> 00:00:11,020
+trên bên phải màn hình.
+
+6
+00:00:11,020 --> 00:00:12,210
+Nếu bạn không thấy, hãy kiểm tra
+
+7
+00:00:12,210 --> 00:00:14,330
+các region được hỗ trợ cho CloudShell —
+
+8
+00:00:14,330 --> 00:00:17,216
+vì không phải region nào cũng có.
+
+9
+00:00:17,216 --> 00:00:19,060
+Theo trang FAQ, một số region chưa có.
+
+10
+00:00:19,060 --> 00:00:21,950
+Tại thời điểm ghi hình, chỉ có một số region hỗ trợ.
+
+11
+00:00:21,950 --> 00:00:24,910
+Nếu muốn theo dõi, bạn nên chọn một trong các region này.
+
+12
+00:00:24,910 --> 00:00:26,940
+Nếu bạn không dùng CloudShell
+
+13
+00:00:26,940 --> 00:00:28,580
+thì cũng không sao — terminal của bạn hoạt động là đủ.
+
+14
+00:00:28,580 --> 00:00:31,690
+CloudShell có thể mất một lúc để khởi tạo môi trường.
+
+15
+00:00:31,690 --> 00:00:33,810
+Bạn có thể chạy các lệnh AWS ngay trong đó.
+
+16
+00:00:33,810 --> 00:00:36,440
+Ví dụ `aws --version` cho thấy tôi đang dùng v2.1.
+
+17
+00:01:01,990 --> 00:01:06,950
+CloudShell về cơ bản là một terminal trong đám mây AWS, miễn phí.
+
+18
+00:01:06,950 --> 00:01:10,120
+Điều hay là khi bạn chạy CLI, ví dụ `aws iam list-users`,
+
+19
+00:01:10,120 --> 00:01:14,430
+các API calls dùng chính thông tin xác thực của tài khoản
+
+20
+00:01:14,430 --> 00:01:16,440
+đang đăng nhập CloudShell, nên lệnh hoạt động ngay.
+
+21
+00:01:16,440 --> 00:01:19,910
+Mặc định, region dùng trong CloudShell là region hiện tại
+
+22
+00:01:19,910 --> 00:01:22,610
+bạn đang chọn trong Console (có thể override bằng `--region`).
+
+23
+00:01:22,610 --> 00:01:25,260
+Một điều khác: CloudShell có storage.
+
+24
+00:01:25,260 --> 00:01:27,830
+Ví dụ ban đầu bạn có 0 files; nếu bạn chạy:
+
+25
+00:01:27,830 --> 00:01:31,360
+`echo test > demo.txt`, file sẽ được tạo và giữ lại
+
+26
+00:01:31,360 --> 00:01:34,140
+ngay cả khi bạn khởi động lại CloudShell.
+
+27
+00:01:34,140 --> 00:01:36,320
+Bạn cũng có thể cấu hình CloudShell:
+
+28
+00:01:36,320 --> 00:01:37,950
+chọn cỡ font (small/medium/large),
+
+29
+00:01:37,950 --> 00:01:39,780
+theme (light/dark), bật paste an toàn, v.v.
+
+30
+00:01:39,780 --> 00:01:42,100
+Bạn có thể Upload/Download files.
+
+31
+00:01:42,100 --> 00:01:43,260
+Ví dụ lấy đường dẫn file `demo.txt`,
+
+32
+00:01:43,260 --> 00:01:46,320
+chọn Action > Download file để tải xuống.
+
+33
+00:01:46,320 --> 00:01:48,700
+Ngược lại, có thể Upload file vào môi trường CloudShell.
+
+34
+00:01:48,700 --> 00:01:51,900
+Bạn cũng có thể mở nhiều tab, chia cột, v.v.
+
+35
+00:01:51,900 --> 00:01:53,120
+Rất tiện khi làm việc nâng cao.
+
+36
+00:01:53,120 --> 00:01:56,240
+Tóm lại: CloudShell chỉ có ở một số region; nếu muốn dùng,
+
+37
+00:01:56,240 --> 00:01:58,170
+hãy chọn region được hỗ trợ.
+
+38
+00:01:58,170 --> 00:02:00,120
+Nếu không dùng CloudShell, dùng terminal local
+
+39
+00:02:00,120 --> 00:02:03,730
+như đã cấu hình trước đó là đủ.
+
+40
+00:02:03,730 --> 00:02:05,230
+Tôi cũng rất thích tính năng Upload/Download file
+
+41
+00:02:05,230 --> 00:02:07,440
+của CloudShell.
+
+42
+00:02:07,440 --> 00:02:09,390
+Vậy là xong bài này. Hẹn gặp lại ở bài sau.
+

@@ -1,0 +1,104 @@
+1
+00:00:00,150 --> 00:00:02,400
+Hãy thực hành với Roles.
+
+2
+00:00:02,400 --> 00:00:04,080
+Ở bên trái, chọn Roles.
+
+3
+00:00:04,080 --> 00:00:05,970
+Có thể đã có sẵn một vài roles trong tài khoản.
+
+4
+00:00:05,970 --> 00:00:07,410
+Không sao — ta sẽ tạo role của mình.
+
+5
+00:00:07,410 --> 00:00:09,600
+Role là cách cấp permissions
+
+6
+00:00:09,600 --> 00:00:11,250
+cho các thực thể AWS để làm việc trong AWS.
+
+7
+00:00:11,250 --> 00:00:13,590
+Có nhiều loại role; với hands-on và kỳ thi,
+
+8
+00:00:13,590 --> 00:00:17,250
+bạn cần nắm Role for an AWS service.
+
+9
+00:00:17,250 --> 00:00:19,590
+Chọn loại đó, rồi chọn service áp dụng role.
+
+10
+00:00:19,590 --> 00:00:21,720
+Các dịch vụ phổ biến: EC2, Lambda,
+
+11
+00:00:21,720 --> 00:00:23,640
+hoặc role cho hầu hết mọi dịch vụ AWS.
+
+12
+00:00:23,640 --> 00:00:26,070
+Ta sẽ tạo role cho EC2 (dùng ở phần EC2).
+
+13
+00:00:26,070 --> 00:00:30,570
+Chọn EC2 làm use case.
+
+14
+00:00:30,570 --> 00:00:34,560
+Nhấn Next; vì là role cho EC2, ta cần attach policy.
+
+15
+00:00:34,560 --> 00:00:37,710
+Tôi sẽ gắn `IAMReadOnlyAccess`
+
+16
+00:00:37,710 --> 00:00:41,220
+để EC2 có thể đọc thông tin trong IAM.
+
+17
+00:00:41,220 --> 00:00:44,950
+Nhấn Next; đặt tên role, ví dụ `DemoRoleForEC2`.
+
+18
+00:00:44,950 --> 00:00:48,210
+Trusted entities hiển thị EC2 có thể assume role này —
+
+19
+00:00:48,210 --> 00:00:50,850
+đó là lý do nó là role cho Amazon EC2.
+
+20
+00:00:50,850 --> 00:00:53,700
+Xác nhận permissions (IAMReadOnlyAccess) và Create role.
+
+21
+00:00:53,700 --> 00:00:55,567
+Role đã được tạo và xuất hiện trong danh sách.
+
+22
+00:00:55,567 --> 00:00:59,880
+Bạn có thể kiểm tra permissions của role.
+
+23
+00:00:59,880 --> 00:01:02,220
+Chúng ta chưa dùng role này ngay bây giờ
+
+24
+00:01:02,220 --> 00:01:04,950
+cho đến phần EC2, nhưng bạn đã biết cách tạo role
+
+25
+00:01:04,950 --> 00:01:07,710
+và gắn permissions phù hợp.
+
+26
+00:01:07,710 --> 00:01:11,220
+Vậy là xong bài này. Hẹn gặp bạn ở bài tiếp theo.
+

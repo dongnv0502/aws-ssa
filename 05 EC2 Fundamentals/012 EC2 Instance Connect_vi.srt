@@ -1,0 +1,112 @@
+1
+00:00:00,210 --> 00:00:02,620
+Tôi muốn giới thiệu một cách thay cho SSH
+
+2
+00:00:02,620 --> 00:00:04,410
+dễ dùng hơn: EC2 Instance Connect.
+
+3
+00:00:04,410 --> 00:00:06,840
+Chọn instance của bạn, nhấn Connect ở trên.
+
+4
+00:00:06,840 --> 00:00:09,460
+Có nhiều tùy chọn, gồm SSH client như trước.
+
+5
+00:00:09,460 --> 00:00:12,800
+Ở đây chọn EC2 Instance Connect.
+
+6
+00:00:12,800 --> 00:00:14,210
+Cách này mở phiên SSH trong browser
+
+7
+00:00:14,210 --> 00:00:16,050
+vào EC2 instance của bạn.
+
+8
+00:00:16,050 --> 00:00:19,320
+Kiểm tra Public IP, username mặc định là `ec2-user`
+
+9
+00:00:19,320 --> 00:00:22,460
+vì AWS đoán bạn dùng Amazon Linux 2.
+
+10
+00:00:22,460 --> 00:00:24,060
+Bạn có thể đổi nhưng thường phải để `ec2-user`.
+
+11
+00:00:24,060 --> 00:00:27,010
+Không có tùy chọn SSH key vì khi kết nối,
+
+12
+00:00:27,010 --> 00:00:30,080
+AWS sẽ upload tạm một SSH key và dùng key đó.
+
+13
+00:00:30,080 --> 00:00:32,409
+Với cách này, bạn không cần tự quản lý SSH keys.
+
+14
+00:00:32,409 --> 00:00:35,240
+Nhấn Connect sẽ mở tab mới; bạn sẽ vào Amazon Linux 2 AMI
+
+15
+00:00:35,240 --> 00:00:37,080
+và có thể chạy lệnh (`whoami`, `ping google.com`).
+
+16
+00:00:37,080 --> 00:00:39,040
+Phiên chạy ngay trong browser,
+
+17
+00:00:39,040 --> 00:00:41,910
+không cần mở terminal riêng.
+
+18
+00:00:41,910 --> 00:00:44,230
+Trong khóa học, khi tôi nói “dùng SSH”, bạn có thể
+
+19
+00:00:44,230 --> 00:00:47,070
+dùng terminal của bạn, PuTTY, SSH trên Windows,
+
+20
+00:00:47,070 --> 00:00:49,473
+hoặc EC2 Instance Connect (Windows/Linux/Mac).
+
+21
+00:00:49,473 --> 00:00:52,850
+Lưu ý: EC2 Instance Connect vẫn dựa trên SSH phía sau.
+
+22
+00:00:52,850 --> 00:00:54,630
+Nếu Security Group không mở port 22,
+
+23
+00:00:54,630 --> 00:00:55,700
+kết nối sẽ lỗi.
+
+24
+00:00:55,700 --> 00:00:59,770
+Vào Security Group, edit Inbound rules, thêm SSH (22)
+
+25
+00:00:59,770 --> 00:01:02,780
+From Anywhere IPv4; nếu cần, thêm cả Anywhere IPv6.
+
+26
+00:01:02,780 --> 00:01:06,310
+Sau đó thử Connect lại — bạn sẽ vào được instance.
+
+27
+00:01:06,310 --> 00:01:10,980
+Đây là demo nhanh EC2 Instance Connect. Tôi sẽ dùng nhiều.
+
+28
+00:01:10,980 --> 00:01:12,870
+Hẹn gặp bạn ở bài tiếp theo.
+

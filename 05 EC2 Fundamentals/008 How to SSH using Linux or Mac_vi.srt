@@ -1,0 +1,96 @@
+1
+00:00:00,000 --> 00:00:00,833
+Được rồi.
+
+2
+00:00:00,833 --> 00:00:03,750
+Bây giờ ta sẽ SSH vào EC2 instance
+
+3
+00:00:03,750 --> 00:00:06,030
+bằng máy Linux hoặc Mac.
+
+4
+00:00:06,030 --> 00:00:08,860
+SSH là gì? Đó là cách điều khiển máy từ xa
+
+5
+00:00:08,860 --> 00:00:10,700
+bằng terminal/command line — cực kỳ quan trọng
+
+6
+00:00:10,700 --> 00:00:13,600
+khi làm việc với Amazon Cloud.
+
+7
+00:00:13,600 --> 00:00:15,210
+Sơ đồ: EC2 (Amazon Linux 2)
+
+8
+00:00:15,210 --> 00:00:16,350
+có Public IP; Security Group
+
+9
+00:00:16,350 --> 00:00:19,030
+đã mở port 22 (SSH). Máy bạn sẽ kết nối
+
+10
+00:00:19,030 --> 00:00:21,810
+qua Internet tới EC2 trên port 22.
+
+11
+00:00:21,810 --> 00:00:23,860
+Các bước chuẩn bị:
+
+12
+00:00:23,860 --> 00:00:25,340
+- Đổi tên file khóa thành `EC2Tutorial.pem`
+
+13
+00:00:25,340 --> 00:00:27,640
+(không có khoảng trắng) và đặt ở thư mục bạn chọn.
+
+14
+00:00:27,640 --> 00:00:29,960
+- Lấy Public IPv4 của instance.
+
+15
+00:00:29,960 --> 00:00:33,260
+- Kiểm tra Security Group có rule SSH (22) từ `0.0.0.0/0`.
+
+16
+00:00:33,260 --> 00:00:36,270
+Thử SSH cơ bản: `ssh ec2-user@<public-ip>`.
+
+17
+00:00:36,270 --> 00:00:40,670
+Nếu lỗi auth (thiếu key) là đúng — ta chưa chỉ định `.pem`.
+
+18
+00:00:40,670 --> 00:00:44,120
+Chuyển terminal tới đúng thư mục chứa `.pem`
+
+19
+00:00:44,120 --> 00:00:47,890
+(`pwd`, `ls` để kiểm tra), sau đó dùng:
+
+20
+00:00:47,890 --> 00:00:55,180
+`ssh -i EC2Tutorial.pem ec2-user@<public-ip>`.
+
+21
+00:00:55,180 --> 00:01:01,750
+Nếu gặp cảnh báo “unprotected private key”, đặt quyền:
+
+22
+00:01:01,750 --> 00:01:05,730
+`chmod 400 EC2Tutorial.pem` rồi SSH lại.
+
+23
+00:01:05,730 --> 00:01:09,710
+Khi được hỏi fingerprint lần đầu, nhập `yes` để tiếp tục.
+
+24
+00:01:09,710 --> 00:01:13,630
+Bạn sẽ vào máy với user `ec2-user`.
+

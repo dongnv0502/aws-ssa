@@ -1,0 +1,367 @@
+1
+00:00:00,100 --> 00:00:01,650
+- [Stephane] Chào mừng
+đến với phần đào sâu đầu tiên
+
+2
+00:00:01,650 --> 00:00:03,220
+về một dịch vụ "iterator".
+
+3
+00:00:03,220 --> 00:00:04,920
+Phần đầu tiên này gọi là IAM.
+
+4
+00:00:04,920 --> 00:00:08,210
+IAM là viết tắt của Identity and Access Management
+(Quản lý danh tính và truy cập).
+
+5
+00:00:08,210 --> 00:00:10,860
+Đây là dịch vụ global vì trong IAM,
+
+6
+00:00:10,860 --> 00:00:14,330
+chúng ta sẽ tạo người dùng (users)
+và gán họ vào nhóm (groups).
+
+7
+00:00:14,330 --> 00:00:16,430
+Thực ra ta đã dùng IAM mà không biết,
+
+8
+00:00:17,440 --> 00:00:19,970
+khi tạo tài khoản, ta đã tạo
+một tài khoản root,
+
+9
+00:00:19,970 --> 00:00:21,420
+và nó được tạo sẵn theo mặc định.
+
+10
+00:00:21,420 --> 00:00:23,570
+Đó là root user của tài khoản.
+
+11
+00:00:23,570 --> 00:00:25,800
+Và thứ duy nhất bạn nên dùng tài khoản đó
+
+12
+00:00:25,800 --> 00:00:27,830
+là để thiết lập tài khoản,
+như ta sẽ làm ngay bây giờ.
+
+13
+00:00:27,830 --> 00:00:29,620
+Sau đó, bạn không nên dùng
+tài khoản đó nữa,
+
+14
+00:00:29,620 --> 00:00:31,110
+và cũng không nên chia sẻ nó.
+
+15
+00:00:31,110 --> 00:00:34,250
+Thay vào đó, bạn nên tạo các người dùng.
+
+16
+00:00:34,250 --> 00:00:36,410
+Bạn sẽ tạo users trong IAM,
+
+17
+00:00:36,410 --> 00:00:40,060
+và mỗi user đại diện cho một người
+trong tổ chức của bạn.
+
+18
+00:00:40,060 --> 00:00:42,960
+Các user có thể được gom nhóm
+khi thấy phù hợp.
+
+19
+00:00:42,960 --> 00:00:44,770
+Ví dụ, ta có một tổ chức
+
+20
+00:00:44,770 --> 00:00:45,870
+với sáu người.
+
+21
+00:00:45,870 --> 00:00:49,160
+Có Alice, Bob, Charles, David, Edward
+
+22
+00:00:49,160 --> 00:00:52,440
+và Fred — tất cả đều thuộc tổ chức của bạn.
+
+23
+00:00:52,440 --> 00:00:55,130
+Bây giờ Alice, Bob và Charles
+làm việc cùng nhau.
+
+24
+00:00:55,130 --> 00:00:56,440
+Họ đều là lập trình viên.
+
+25
+00:00:56,440 --> 00:00:58,530
+Vì vậy ta sẽ tạo một nhóm gọi là
+
+26
+00:00:58,530 --> 00:01:00,940
+nhóm Developers, gồm Alice,
+
+27
+00:01:00,940 --> 00:01:02,050
+Bob và Charles.
+
+28
+00:01:02,050 --> 00:01:05,500
+Và hóa ra David và Edward
+cũng làm việc cùng nhau.
+
+29
+00:01:05,500 --> 00:01:08,090
+Vì thế ta sẽ tạo một nhóm Operations.
+
+30
+00:01:08,090 --> 00:01:10,950
+Bây giờ ta có hai nhóm trong IAM.
+
+31
+00:01:10,950 --> 00:01:14,610
+Các nhóm chỉ có thể chứa users,
+không chứa nhóm khác.
+
+32
+00:01:14,610 --> 00:01:16,620
+Đây là điều rất quan trọng
+cần nắm rõ.
+
+33
+00:01:16,620 --> 00:01:18,720
+Nhóm chỉ chứa người dùng.
+
+34
+00:01:18,720 --> 00:01:21,750
+Một số người dùng không nhất thiết
+phải thuộc nhóm nào.
+
+35
+00:01:21,750 --> 00:01:24,110
+Ví dụ, Fred ở đây đứng một mình,
+
+36
+00:01:24,110 --> 00:01:26,280
+không thuộc nhóm nào.
+
+37
+00:01:26,280 --> 00:01:27,460
+Đó không phải là thực hành tốt.
+
+38
+00:01:27,460 --> 00:01:30,350
+Nhưng đó là điều bạn có thể làm trong AWS.
+
+39
+00:01:30,350 --> 00:01:34,080
+Và một user cũng có thể
+thuộc nhiều nhóm.
+
+40
+00:01:34,080 --> 00:01:36,130
+Điều đó có nghĩa là, ví dụ nếu bạn biết Charles
+
+41
+00:01:36,130 --> 00:01:37,420
+và David làm việc cùng nhau,
+
+42
+00:01:37,420 --> 00:01:39,440
+và họ là một phần của nhóm kiểm toán,
+
+43
+00:01:39,440 --> 00:01:42,710
+bạn có thể tạo nhóm thứ ba
+gồm Charles và David.
+
+44
+00:01:42,710 --> 00:01:44,710
+Như bạn thấy, trong ví dụ này,
+
+45
+00:01:44,710 --> 00:01:47,770
+Charles và David thuộc
+hai nhóm khác nhau.
+
+46
+00:01:47,770 --> 00:01:51,270
+Đây là các cấu hình khả dĩ cho IAM.
+
+47
+00:01:51,270 --> 00:01:54,730
+Vậy tại sao ta tạo users
+và tại sao tạo groups?
+
+48
+00:01:54,730 --> 00:01:58,160
+Bởi vì ta muốn cho phép họ dùng
+tài khoản AWS của chúng ta,
+
+49
+00:01:58,160 --> 00:01:59,940
+và để cho phép điều đó,
+
+50
+00:01:59,940 --> 00:02:01,960
+ta phải cấp quyền (permissions).
+
+51
+00:02:01,960 --> 00:02:04,490
+Vì vậy, người dùng hoặc nhóm có thể được gán
+
+52
+00:02:04,490 --> 00:02:05,900
+một tài liệu JSON,
+
+53
+00:02:05,900 --> 00:02:08,770
+mà tôi sẽ cho bạn thấy ngay,
+gọi là policy,
+
+54
+00:02:08,770 --> 00:02:10,090
+chính sách IAM (IAM policy).
+
+55
+00:02:10,090 --> 00:02:11,820
+Nó trông như thế này.
+
+56
+00:02:11,820 --> 00:02:13,170
+Bạn không cần là lập trình viên.
+
+57
+00:02:13,170 --> 00:02:14,130
+Đây không phải lập trình.
+
+58
+00:02:14,130 --> 00:02:17,560
+Đây chỉ là mô tả,
+theo tôi là bằng tiếng Anh đơn giản,
+
+59
+00:02:17,560 --> 00:02:20,640
+rằng một user được phép làm gì,
+hoặc một nhóm
+
+60
+00:02:20,640 --> 00:02:24,120
+và tất cả user trong nhóm đó
+được phép làm gì.
+
+61
+00:02:24,120 --> 00:02:27,030
+Trong ví dụ này, ta có thể thấy
+rằng ta cho phép mọi người
+
+62
+00:02:27,030 --> 00:02:30,030
+sử dụng dịch vụ EC2 và thực hiện
+hành động Describe trên đó,
+
+63
+00:02:30,030 --> 00:02:31,630
+sử dụng dịch vụ Elastic Load Balancing
+
+64
+00:02:31,630 --> 00:02:34,260
+và Describe trên đó,
+và dùng CloudWatch.
+
+65
+00:02:34,260 --> 00:02:36,800
+Bây giờ ta sẽ xem EC2,
+Elastic Load Balancing
+
+66
+00:02:36,800 --> 00:02:40,210
+và CloudWatch là gì, nhưng
+thông qua tài liệu JSON này
+
+67
+00:02:40,210 --> 00:02:41,490
+trông như thế này.
+
+68
+00:02:41,490 --> 00:02:45,800
+Ta đang cho phép người dùng
+truy cập một số dịch vụ trong AWS.
+
+69
+00:02:45,800 --> 00:02:48,240
+Những policy này sẽ giúp
+ta xác định quyền
+
+70
+00:02:48,240 --> 00:02:49,830
+cho người dùng.
+
+71
+00:02:49,830 --> 00:02:53,380
+Trong AWS, bạn không cho phép
+ai cũng làm mọi thứ,
+
+72
+00:02:53,380 --> 00:02:54,720
+điều đó sẽ rất tệ,
+
+73
+00:02:54,720 --> 00:02:58,320
+vì một user mới có thể khởi chạy
+rất nhiều dịch vụ
+
+74
+00:02:58,320 --> 00:02:59,840
+và sẽ tốn rất nhiều tiền
+
+75
+00:02:59,840 --> 00:03:01,500
+hoặc không an toàn về bảo mật.
+
+76
+00:03:01,500 --> 00:03:04,660
+Vì vậy trong AWS, bạn áp dụng
+một nguyên tắc gọi là
+
+77
+00:03:04,660 --> 00:03:06,600
+least privilege (đặc quyền tối thiểu).
+
+78
+00:03:06,600 --> 00:03:10,210
+Bạn không cấp nhiều quyền
+hơn mức người dùng cần.
+
+79
+00:03:10,210 --> 00:03:13,240
+Ví dụ, nếu một user chỉ cần
+truy cập ba dịch vụ,
+
+80
+00:03:13,240 --> 00:03:15,830
+hãy chỉ tạo đúng các quyền đó
+cho user.
+
+81
+00:03:15,830 --> 00:03:18,460
+Như vậy chúng ta đã xem tổng quan về IAM.
+
+82
+00:03:18,460 --> 00:03:19,830
+Hãy sang bài tiếp theo
+
+83
+00:03:19,830 --> 00:03:22,510
+để thực hành tạo users và groups.
+

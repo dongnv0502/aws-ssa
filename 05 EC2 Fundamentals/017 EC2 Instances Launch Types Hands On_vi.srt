@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:03,000
+Thực hành (tiếp): so sánh hành vi giữa các Launch Types.
+
+2
+00:00:03,000 --> 00:00:08,000
+- On-Demand: khởi chạy chắc chắn, giá cao hơn.
+
+3
+00:00:08,000 --> 00:00:13,000
+- Spot: có thể bị từ chối/thu hồi; dùng nhiều pools để ổn định.
+
+4
+00:00:13,000 --> 00:00:18,000
+- Kết hợp trong ASG Mixed Instances Policy, bật Capacity Rebalancing.
+
+5
+00:00:18,000 --> 00:00:23,000
+- Theo dõi sự kiện Interruption notice và xử lý tắt máy an toàn.
+

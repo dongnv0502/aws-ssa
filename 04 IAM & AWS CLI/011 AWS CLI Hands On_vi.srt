@@ -1,0 +1,204 @@
+1
+00:00:00,330 --> 00:00:02,880
+Tôi sẽ hướng dẫn tạo Access keys.
+
+2
+00:00:02,880 --> 00:00:05,460
+Bấm vào username của tôi, Stephane,
+
+3
+00:00:05,460 --> 00:00:08,010
+vào Security credentials.
+
+4
+00:00:08,010 --> 00:00:11,760
+Cuộn xuống và tạo một Access key.
+
+5
+00:00:11,760 --> 00:00:12,870
+Bạn sẽ cần chọn mục đích,
+
+6
+00:00:12,870 --> 00:00:15,180
+và dựa trên lựa chọn (ví dụ dùng cho CLI),
+
+7
+00:00:15,180 --> 00:00:16,950
+AWS sẽ gợi ý phương án thay thế.
+
+8
+00:00:16,950 --> 00:00:21,840
+Ví dụ, với CLI, nên dùng CloudShell (tôi sẽ giới thiệu ngay sau),
+
+9
+00:00:21,840 --> 00:00:23,310
+hoặc dùng CLI v2 xác thực qua
+
+10
+00:00:23,310 --> 00:00:24,960
+IAM Identity Center (phức tạp hơn, tôi không demo).
+
+11
+00:00:24,960 --> 00:00:27,720
+Tùy bạn chạy code local hay trong AWS
+
+12
+00:00:27,720 --> 00:00:30,810
+sẽ có khuyến nghị tương ứng.
+
+13
+00:00:30,810 --> 00:00:32,610
+Hiện tại, ta chọn CLI
+
+14
+00:00:32,610 --> 00:00:33,480
+và dùng Access keys.
+
+15
+00:00:33,480 --> 00:00:35,550
+Tick "I understand the above recommendation"
+
+16
+00:00:35,550 --> 00:00:37,080
+và vẫn tạo Access key
+
+17
+00:00:37,080 --> 00:00:39,810
+để bạn hiểu cách hoạt động và sử dụng.
+
+18
+00:00:39,810 --> 00:00:41,550
+Tạo Access key.
+
+19
+00:01:01,200 --> 00:01:02,820
+Đây là lần duy nhất bạn thấy
+
+20
+00:01:02,820 --> 00:01:05,519
+Access key ID và Secret access key.
+
+21
+00:01:05,519 --> 00:01:07,230
+Giờ tôi quay lại giao diện cũ của bài giảng —
+
+22
+00:01:07,230 --> 00:01:08,910
+không có gì thay đổi từ đây.
+
+23
+00:01:08,910 --> 00:01:11,130
+Bước đầu, cấu hình AWS CLI:
+
+24
+00:01:11,130 --> 00:01:12,480
+gõ: `aws configure`.
+
+25
+00:01:12,480 --> 00:01:15,120
+Nhập Access key ID,
+
+26
+00:01:15,120 --> 00:01:18,690
+nhập Secret access key.
+
+27
+00:01:18,690 --> 00:01:21,150
+Default region name: chọn region gần bạn.
+
+28
+00:01:21,150 --> 00:01:24,390
+Tôi dùng `eu-west-1` cho các demo; bạn chọn region của bạn.
+
+29
+00:01:24,390 --> 00:01:27,990
+Tên region và mã có ở menu chọn region trên Console.
+
+30
+00:01:27,990 --> 00:01:30,900
+Default output format: nhấn Enter (để mặc định).
+
+31
+00:01:30,900 --> 00:01:34,320
+AWS CLI đã được cấu hình; hãy thử lệnh:
+
+32
+00:01:34,320 --> 00:01:36,450
+`aws iam list-users`.
+
+33
+00:01:36,450 --> 00:01:39,570
+Lệnh này liệt kê các users trong account.
+
+34
+00:01:39,570 --> 00:01:42,530
+Bạn sẽ thấy user Stephane, UserId, ARN,
+
+35
+00:01:42,530 --> 00:01:44,010
+thời điểm tạo và lần dùng password gần nhất.
+
+36
+00:01:44,010 --> 00:01:47,580
+Tương tự như khi xem trên UI.
+
+37
+00:01:47,580 --> 00:01:50,510
+Tiếp theo, nếu ta gỡ permissions khỏi user thì sao?
+
+38
+00:01:50,510 --> 00:01:53,040
+Vào nhóm admins và bỏ Stephane khỏi group.
+
+39
+00:01:53,040 --> 00:01:55,560
+Quay lại user Stephane, giờ không còn permissions.
+
+40
+00:01:55,560 --> 00:01:59,700
+Tôi làm thao tác này bằng root account.
+
+41
+00:01:59,700 --> 00:02:02,010
+Trên UI, refresh sẽ báo lỗi không đủ quyền.
+
+42
+00:02:02,010 --> 00:02:04,050
+Thử lại với CLI:
+
+43
+00:02:04,050 --> 00:02:08,010
+gọi `iam list-users` — ta không nhận được kết quả
+
+44
+00:02:08,010 --> 00:02:12,090
+vì bị từ chối. Permissions của CLI giống hệt
+
+45
+00:02:12,090 --> 00:02:14,190
+permissions trong IAM console.
+
+46
+00:02:14,190 --> 00:02:19,290
+Tóm lại: bạn có thể truy cập AWS bằng Console
+
+47
+00:02:19,290 --> 00:02:24,480
+hoặc bằng Access key/Secret access key cấu hình cho CLI.
+
+48
+00:02:24,480 --> 00:02:27,450
+Đừng quên thêm user của bạn lại vào group,
+
+49
+00:02:27,450 --> 00:02:30,570
+nếu không sẽ rất phiền. Vào Groups > admins,
+
+50
+00:02:30,570 --> 00:02:33,090
+thêm lại Stephane và bạn là administrator trở lại.
+
+51
+00:02:33,090 --> 00:02:34,980
+Hẹn gặp lại ở bài sau.
+

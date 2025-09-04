@@ -1,0 +1,84 @@
+1
+00:00:00,090 --> 00:00:01,740
+Giờ ta nói về thành phần cuối của IAM:
+
+2
+00:00:01,740 --> 00:00:03,660
+IAM Roles.
+
+3
+00:00:03,660 --> 00:00:05,400
+Một số dịch vụ AWS mà ta sẽ khởi chạy
+
+4
+00:00:05,400 --> 00:00:07,850
+trong khóa học cần thực hiện hành động
+
+5
+00:00:07,850 --> 00:00:10,500
+thay mặt chúng ta trên tài khoản AWS.
+
+6
+00:00:10,500 --> 00:00:13,950
+Để làm vậy, giống như users, chúng cần permissions.
+
+7
+00:00:13,950 --> 00:00:16,543
+Ta cần gán quyền cho các dịch vụ AWS,
+
+8
+00:00:16,543 --> 00:00:18,620
+và để làm vậy, ta tạo IAM Role.
+
+9
+00:00:18,620 --> 00:00:21,710
+IAM Role giống như user,
+
+10
+00:00:21,710 --> 00:00:25,030
+nhưng dành cho dịch vụ AWS dùng (không phải con người).
+
+11
+00:00:25,030 --> 00:00:28,360
+Ví dụ: ta sẽ tạo một EC2 Instance (máy chủ ảo)
+
+12
+00:00:28,360 --> 00:00:32,310
+trong phần sau. EC2 instance có thể cần gọi AWS APIs.
+
+13
+00:00:32,310 --> 00:00:35,720
+Ta sẽ tạo một IAM Role và gán cho EC2 instance.
+
+14
+00:00:35,720 --> 00:00:36,553
+Khi EC2 gọi AWS,
+
+15
+00:00:36,553 --> 00:00:37,620
+nó sẽ dùng IAM Role;
+
+16
+00:00:37,620 --> 00:00:38,720
+nếu policy đúng,
+
+17
+00:00:38,720 --> 00:00:40,950
+cuộc gọi sẽ được phép.
+
+18
+00:00:40,950 --> 00:00:45,640
+Các role thường gặp: EC2 Instance Role, Lambda Function Role,
+
+19
+00:00:45,640 --> 00:00:48,080
+CloudFormation Role, v.v.
+
+20
+00:00:48,080 --> 00:00:50,480
+Tiếp theo, ta sẽ tạo một role (chưa dùng ngay
+
+21
+00:00:50,480 --> 00:00:53,870
+cho đến phần sau). Hẹn gặp lại ở bài tiếp theo.
+

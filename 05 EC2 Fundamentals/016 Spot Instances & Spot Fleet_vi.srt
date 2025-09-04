@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:03,000
+Spot Instances & Spot Fleet (tiếp):
+
+2
+00:00:03,000 --> 00:00:08,000
+- Đặt giá thầu gián tiếp (giá Spot do AWS xác định); tập trung vào chiến lược phân bổ ổn định.
+
+3
+00:00:08,000 --> 00:00:13,000
+- Dùng nhiều nhóm instance types/AZ để giảm xác suất bị thu hồi đồng thời.
+
+4
+00:00:13,000 --> 00:00:18,000
+- Kết hợp On-Demand để giữ baseline, Spot cho phần mở rộng.
+
+5
+00:00:18,000 --> 00:00:23,000
+- Dùng Auto Scaling Groups với Mixed Instances Policy + Capacity Rebalancing.
+

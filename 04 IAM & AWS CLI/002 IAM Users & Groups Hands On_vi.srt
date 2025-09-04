@@ -1,0 +1,600 @@
+1
+00:00:00,120 --> 00:00:01,110
+Vậy hãy bắt đầu
+
+2
+00:00:01,110 --> 00:00:05,670
+thực hành dùng dịch vụ IAM để tạo users trong AWS.
+
+3
+00:00:05,670 --> 00:00:06,503
+Trong ô tìm kiếm,
+
+4
+00:00:06,503 --> 00:00:09,937
+tôi gõ IAM và vào console của IAM.
+
+5
+00:00:09,937 --> 00:00:12,510
+Khi đến trang IAM Dashboard,
+
+6
+00:00:12,510 --> 00:00:14,070
+ta thấy vài khuyến nghị bảo mật
+
+7
+00:00:14,070 --> 00:00:16,710
+mà hiện giờ ta có thể chưa cần quan tâm.
+
+8
+00:00:16,710 --> 00:00:18,330
+Điều tôi muốn bạn chú ý là
+
+9
+00:00:18,330 --> 00:00:21,238
+ở bên trái, chúng ta vào mục Users.
+
+10
+00:00:21,238 --> 00:00:24,900
+Đây là nơi chúng ta tạo users cho IAM,
+
+11
+00:00:24,900 --> 00:00:26,643
+nhưng trước hết, hãy để ý điều này.
+
+12
+00:00:26,643 --> 00:00:29,790
+Nếu bạn lên góc phải và bấm vào Global,
+
+13
+00:00:29,790 --> 00:00:32,814
+bạn sẽ thấy lựa chọn region không hoạt động.
+
+14
+00:00:32,814 --> 00:00:36,734
+Điều đó nghĩa là toàn bộ dịch vụ IAM là dịch vụ global
+
+15
+00:00:36,734 --> 00:00:39,661
+vì vậy không có region để chọn.
+
+16
+00:00:39,661 --> 00:00:42,000
+Khi bạn tạo user trong IAM,
+
+17
+00:00:42,000 --> 00:00:43,950
+nó sẽ khả dụng ở mọi nơi,
+
+18
+00:00:43,950 --> 00:00:46,380
+nhưng một số console khác trong khóa học này
+
+19
+00:00:46,380 --> 00:00:47,843
+sẽ phụ thuộc theo region.
+
+20
+00:00:47,843 --> 00:00:49,581
+Chỉ là điều cần ghi nhớ.
+
+21
+00:00:49,581 --> 00:00:53,101
+Được rồi, giờ ta có Users, và vì sao ta tạo users?
+
+22
+00:00:53,101 --> 00:00:54,540
+Ta tạo users
+
+23
+00:00:54,540 --> 00:00:57,360
+vì hiện tại chúng ta đang dùng cái gọi là root user.
+
+24
+00:00:57,360 --> 00:00:58,590
+Nếu bạn bấm vào đây,
+
+25
+00:00:58,590 --> 00:01:01,470
+bạn sẽ thấy chỉ có Account ID hiển thị cho bạn.
+
+26
+00:01:01,470 --> 00:01:02,640
+Khi thấy như vậy,
+
+27
+00:01:02,640 --> 00:01:03,870
+nghĩa là bạn đang dùng root account,
+
+28
+00:01:03,870 --> 00:01:06,896
+và không phải best practice để dùng root account.
+
+29
+00:01:06,896 --> 00:01:10,358
+Vì thế, ta muốn tạo các user như admin user
+
+30
+00:01:10,358 --> 00:01:13,680
+để dùng tài khoản một cách an toàn hơn.
+
+31
+00:01:13,680 --> 00:01:16,332
+Vì vậy, hãy tạo một user,
+
+32
+00:01:16,332 --> 00:01:20,096
+và tôi sẽ nhập username, ví dụ: Stephane.
+
+33
+00:01:20,096 --> 00:01:22,620
+Tất nhiên tôi muốn cấp quyền cho chính mình
+
+34
+00:01:22,620 --> 00:01:23,910
+truy cập Management Console,
+
+35
+00:01:23,910 --> 00:01:25,230
+nên tôi bật tùy chọn này,
+
+36
+00:01:25,230 --> 00:01:27,480
+và chúng ta có tùy chọn dùng Identity Center
+
+37
+00:01:27,480 --> 00:01:29,155
+(được khuyến nghị),
+
+38
+00:01:29,155 --> 00:01:30,120
+hoặc tạo IAM user.
+
+39
+00:01:30,120 --> 00:01:32,655
+Tôi sẽ chọn phương án thứ hai vì đơn giản hơn,
+
+40
+00:01:32,655 --> 00:01:34,920
+và về mặt kỳ thi,
+
+41
+00:01:34,920 --> 00:01:36,510
+đây là nội dung bạn cần biết.
+
+42
+00:01:36,510 --> 00:01:37,343
+Đừng lo,
+
+43
+00:01:37,343 --> 00:01:39,798
+điều này không ảnh hưởng đến tiến trình khóa học.
+
+44
+00:01:39,798 --> 00:01:41,579
+Rồi, ta tạo một IAM user,
+
+45
+00:01:41,579 --> 00:01:43,680
+và giờ ta cần đặt mật khẩu.
+
+46
+00:01:43,680 --> 00:01:46,440
+Nếu đây không phải là tôi,
+
+47
+00:01:46,440 --> 00:01:48,750
+tôi sẽ để Auto-generated password,
+
+48
+00:01:48,750 --> 00:01:50,280
+và giữ nguyên tùy chọn
+
+49
+00:01:50,280 --> 00:01:52,350
+buộc user phải đổi mật khẩu
+
+50
+00:01:52,350 --> 00:01:53,610
+lần đăng nhập tiếp theo,
+
+51
+00:01:53,610 --> 00:01:54,840
+nhưng vì đây là tôi,
+
+52
+00:01:54,840 --> 00:01:56,896
+tôi sẽ nhập Custom password
+
+53
+00:01:56,896 --> 00:01:59,280
+và bỏ chọn tùy chọn kia
+
+54
+00:01:59,280 --> 00:02:00,630
+vì tôi không cần đổi mật khẩu
+
+55
+00:02:00,630 --> 00:02:02,130
+ở lần đăng nhập tới.
+
+56
+00:02:02,130 --> 00:02:03,318
+Nhấn Next.
+
+57
+00:02:03,318 --> 00:02:06,278
+Tiếp theo, ta phải thêm permissions cho user này,
+
+58
+00:02:06,278 --> 00:02:09,240
+ta có thể cấp trực tiếp hoặc bắt đầu bằng groups.
+
+59
+00:02:09,240 --> 00:02:12,330
+Hãy tạo một group, chúng ta sẽ tạo group
+
+60
+00:02:12,330 --> 00:02:14,176
+có tên là admin
+
+61
+00:02:14,176 --> 00:02:17,360
+và gán policy tên AdministratorAccess.
+
+62
+00:02:17,360 --> 00:02:19,680
+Xong rồi,
+
+63
+00:02:19,680 --> 00:02:22,539
+chúng ta có thể thêm user vào admin group.
+
+64
+00:02:22,539 --> 00:02:23,898
+Nhấn Next,
+
+65
+00:02:23,898 --> 00:02:26,100
+và bây giờ ta có thể xem lại mọi thứ.
+
+66
+00:02:26,100 --> 00:02:28,950
+Có username, permissions thông qua group,
+
+67
+00:02:28,950 --> 00:02:31,980
+và có Tags; tags xuất hiện khắp nơi trong AWS.
+
+68
+00:02:31,980 --> 00:02:34,736
+Chúng là tùy chọn, nhưng cho phép bạn gắn metadata
+
+69
+00:02:34,736 --> 00:02:36,576
+cho nhiều tài nguyên.
+
+70
+00:02:36,576 --> 00:02:37,950
+Ví dụ, tôi có thể nói
+
+71
+00:02:37,950 --> 00:02:40,770
+department của Stephane là engineering.
+
+72
+00:02:40,770 --> 00:02:42,210
+Tôi sẽ không làm điều này ở khắp nơi
+
+73
+00:02:42,210 --> 00:02:43,478
+trong khóa học,
+
+74
+00:02:43,478 --> 00:02:44,735
+nhưng tôi muốn cho bạn thấy một lần
+
+75
+00:02:44,735 --> 00:02:46,253
+cách thêm tags cho tài nguyên trong AWS.
+
+76
+00:02:47,311 --> 00:02:50,219
+Được rồi, user đã được tạo thành công.
+
+77
+00:02:50,219 --> 00:02:53,730
+Giờ ta có thể email hướng dẫn đăng nhập hoặc tải
+
+78
+00:02:53,730 --> 00:02:56,460
+file CSV, rồi đăng nhập bằng user này.
+
+79
+00:02:56,460 --> 00:02:58,582
+Nhưng trước hết, quay lại danh sách users
+
+80
+00:02:58,582 --> 00:03:00,577
+để xem qua mọi thứ.
+
+81
+00:03:00,577 --> 00:03:03,877
+Đây là danh sách users, đây là tôi
+
+82
+00:03:03,877 --> 00:03:05,850
+và chúng ta cũng có Groups.
+
+83
+00:03:05,850 --> 00:03:07,500
+Nếu tôi vào User groups bên trái,
+
+84
+00:03:07,500 --> 00:03:08,670
+ta có nhóm admins.
+
+85
+00:03:08,670 --> 00:03:10,260
+Hãy xem nhóm admins.
+
+86
+00:03:10,260 --> 00:03:13,140
+Nhóm admins có một user tên Stephane.
+
+87
+00:03:13,140 --> 00:03:14,970
+Và nếu xem permissions của admins
+
+88
+00:03:14,970 --> 00:03:17,280
+bạn sẽ thấy có AdministratorAccess được gán
+
+89
+00:03:17,280 --> 00:03:18,698
+cho admin group.
+
+90
+00:03:18,698 --> 00:03:21,382
+Giờ nếu tôi vào user Stephane,
+
+91
+00:03:21,382 --> 00:03:23,640
+ta có thể xem Permission policies
+
+92
+00:03:23,640 --> 00:03:25,904
+và thấy nó cũng có AdministrativeAccess
+
+93
+00:03:25,904 --> 00:03:28,000
+thông qua việc thuộc admin group.
+
+94
+00:03:28,000 --> 00:03:31,200
+Bạn cũng có thể gán policy trực tiếp cho user nếu muốn.
+
+95
+00:03:31,200 --> 00:03:33,360
+Nhưng best practice là gán qua group,
+
+96
+00:03:33,360 --> 00:03:35,280
+để dễ quản lý quyền cho nhiều người dùng.
+
+97
+00:03:35,280 --> 00:03:37,680
+Được rồi, vậy là xong phần tạo user và group.
+
+98
+00:03:37,680 --> 00:03:40,784
+Giờ hãy quay lại Dashboard
+
+99
+00:03:40,784 --> 00:03:43,280
+và chúng ta sẽ đăng nhập bằng user Stephane.
+
+100
+00:03:43,280 --> 00:03:47,184
+Trước hết, ta xem phần AWS accounts của mình
+
+101
+00:03:47,184 --> 00:03:50,704
+có Account ID và Sign-in URL.
+
+102
+00:03:50,704 --> 00:03:54,177
+Bạn có thể tùy biến Sign-in URL rất dễ
+
+103
+00:03:54,177 --> 00:03:59,403
+bằng cách tạo Account alias, ví dụ: aws-stephane-v3, rồi Create alias.
+
+104
+00:03:59,403 --> 00:04:04,403
+Miễn là alias chưa bị ai dùng, nó phải duy nhất.
+
+105
+00:04:04,542 --> 00:04:07,830
+Ví dụ, v5 là khả dụng.
+
+106
+00:04:07,830 --> 00:04:08,910
+Nhờ alias này,
+
+107
+00:04:08,910 --> 00:04:11,100
+Sign-in URL của tôi trở nên đơn giản hơn.
+
+108
+00:04:11,100 --> 00:04:16,100
+Bây giờ để đăng nhập bằng tài khoản Stephane
+
+109
+00:04:16,200 --> 00:04:18,390
+ta có thể dùng cùng trình duyệt
+
+110
+00:04:18,390 --> 00:04:19,980
+hoặc mở cửa sổ riêng tư (private).
+
+111
+00:04:19,980 --> 00:04:23,254
+Lợi ích là ta có thể đặt hai cửa sổ cạnh nhau dùng AWS.
+
+112
+00:04:23,254 --> 00:04:24,990
+Nếu bạn không làm vậy cũng được, nhưng nếu bạn đăng nhập
+
+113
+00:04:24,990 --> 00:04:28,859
+bằng tài khoản Stephane ở cửa sổ bên phải,
+
+114
+00:04:28,859 --> 00:04:31,980
+bạn sẽ bị đăng xuất ở cửa sổ bên trái,
+
+115
+00:04:31,980 --> 00:04:34,680
+đó là điểm khác biệt duy nhất.
+
+116
+00:04:34,680 --> 00:04:36,450
+Để dùng hai tài khoản cùng lúc,
+
+117
+00:04:36,450 --> 00:04:39,360
+root bên trái và tài khoản của tôi bên phải,
+
+118
+00:04:39,360 --> 00:04:42,030
+tôi dùng mẹo là mở cửa sổ Private của trình duyệt.
+
+119
+00:04:42,030 --> 00:04:44,779
+Chrome, Firefox, Safari đều có tính năng này.
+
+120
+00:04:44,779 --> 00:04:47,899
+Dán Sign-in URL vào, bạn sẽ thấy trang đăng nhập
+
+121
+00:04:47,899 --> 00:04:51,240
+với tư cách IAM user.
+
+122
+00:04:51,240 --> 00:04:53,616
+Để quay lại trang này, ta trở về màn hình trước.
+
+123
+00:04:53,616 --> 00:04:56,267
+Khi đăng nhập AWS, bạn sẽ thấy chọn Root user
+
+124
+00:04:56,267 --> 00:04:59,713
+hoặc IAM user.
+
+125
+00:04:59,713 --> 00:05:02,730
+Để vào mục này, chọn IAM user,
+
+126
+00:05:02,730 --> 00:05:06,360
+nhập Account ID hoặc Account alias
+
+127
+00:05:06,360 --> 00:05:08,730
+(tôi có thể copy vào đây), rồi đến trang đăng nhập.
+
+128
+00:05:08,730 --> 00:05:12,690
+Tên IAM user sẽ là Stephane,
+
+129
+00:05:12,690 --> 00:05:16,794
+mật khẩu là thứ bạn đã đặt từ trước, rồi Sign in.
+
+130
+00:05:16,794 --> 00:05:19,260
+Điều hay là nếu tôi nhìn
+
+131
+00:05:19,260 --> 00:05:22,774
+góc trên bên phải, tôi đã đăng nhập bằng IAM user.
+
+132
+00:05:22,774 --> 00:05:25,574
+Nó hiển thị Account ID và IAM user.
+
+133
+00:05:25,574 --> 00:05:28,920
+Nhưng ở cửa sổ bên trái, chỉ thấy Account ID
+
+134
+00:05:28,920 --> 00:05:32,160
+cho biết đó là root account.
+
+135
+00:05:32,160 --> 00:05:35,130
+Vậy là xong: root account ở cửa sổ thường bên trái
+
+136
+00:05:35,130 --> 00:05:36,630
+và IAM user ở cửa sổ Private bên phải.
+
+137
+00:05:36,630 --> 00:05:38,010
+Xin hãy nhớ không làm mất thông tin đăng nhập
+
+138
+00:05:38,010 --> 00:05:39,900
+của root và admin.
+
+139
+00:05:39,900 --> 00:05:41,970
+Nếu không, bạn sẽ gặp rắc rối lớn
+
+140
+00:05:41,970 --> 00:05:44,040
+và phải liên hệ AWS Support.
+
+141
+00:05:44,040 --> 00:05:47,250
+Hiện tại tôi không thể giúp bạn việc này.
+
+142
+00:05:47,250 --> 00:05:49,050
+Về góc độ khóa học,
+
+143
+00:05:49,050 --> 00:05:51,660
+tôi khuyên bạn dùng IAM user, không dùng root user,
+
+144
+00:05:51,660 --> 00:05:53,070
+nhưng đó chỉ là khuyến nghị.
+
+145
+00:05:53,070 --> 00:05:55,320
+Đôi khi bạn sẽ thấy tôi dùng root,
+
+146
+00:05:55,320 --> 00:05:58,140
+đôi khi dùng IAM user.
+
+147
+00:05:58,140 --> 00:06:00,230
+Khi cần dùng root hay IAM user tôi sẽ nói rõ
+
+148
+00:06:00,230 --> 00:06:02,160
+trong khóa học. Đừng lo.
+
+149
+00:06:02,160 --> 00:06:05,820
+Cho phần còn lại của chương này, hãy giữ hai cửa sổ mở
+
+150
+00:06:05,820 --> 00:06:07,380
+và hẹn gặp bạn ở bài sau.
+

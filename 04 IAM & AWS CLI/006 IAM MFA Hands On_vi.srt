@@ -1,0 +1,272 @@
+1
+00:00:00,080 --> 00:00:01,350
+Đầu tiên, chúng ta sẽ
+
+2
+00:00:01,350 --> 00:00:03,270
+thiết lập Password policy.
+
+3
+00:00:03,270 --> 00:00:05,730
+Ở bên trái, bấm Account settings.
+
+4
+00:00:05,730 --> 00:00:08,240
+Bạn sẽ thấy Password policy và có thể Edit.
+
+5
+00:00:08,240 --> 00:00:10,920
+Ở đây, ta có thể dùng IAM default password policy
+
+6
+00:00:10,920 --> 00:00:13,789
+với các yêu cầu có sẵn,
+
+7
+00:00:13,789 --> 00:00:16,389
+hoặc tùy biến và ép độ dài tối thiểu.
+
+8
+00:00:16,389 --> 00:00:19,170
+Ta cũng có thể yêu cầu chữ hoa, chữ thường,
+
+9
+00:00:19,170 --> 00:00:21,668
+chữ số, ký tự đặc biệt.
+
+10
+00:00:21,668 --> 00:00:25,380
+Có thể bật password expiration, ví dụ hết hạn sau 90 ngày,
+
+11
+00:00:25,380 --> 00:00:27,840
+và chọn việc hết hạn yêu cầu admin reset,
+
+12
+00:00:27,840 --> 00:00:29,680
+hoặc cho phép user tự đổi mật khẩu,
+
+13
+00:00:29,680 --> 00:00:32,159
+hoặc chặn tái sử dụng mật khẩu.
+
+14
+00:00:32,159 --> 00:00:35,610
+Bạn có thể chỉnh trực tiếp trong IAM console —
+
+15
+00:00:35,610 --> 00:00:36,690
+đây là lớp bảo mật đầu tiên.
+
+16
+00:00:36,690 --> 00:00:39,300
+Lớp thứ hai là bật Multi-Factor Authentication
+
+17
+00:00:39,300 --> 00:00:41,430
+cho root account.
+
+18
+00:00:41,430 --> 00:00:44,050
+Bấm vào tên account, chọn Security credentials;
+
+19
+00:00:44,050 --> 00:00:45,030
+nếu đăng nhập bằng root user,
+
+20
+00:00:45,030 --> 00:00:47,298
+bạn sẽ thấy My security credentials (root user).
+
+21
+00:00:47,298 --> 00:00:50,228
+Có cách để bảo vệ root user —
+
+22
+00:00:50,228 --> 00:00:51,858
+tài khoản quan trọng nhất —
+
+23
+00:00:51,858 --> 00:00:55,936
+bằng cách bật MFA.
+
+24
+00:00:55,936 --> 00:00:57,930
+Tôi sẽ làm và demo cho bạn,
+
+25
+00:00:57,930 --> 00:01:01,350
+nhưng đã có học viên tự khóa tài khoản
+
+26
+00:01:01,350 --> 00:01:02,655
+vì mất quyền truy cập vào MFA device.
+
+27
+00:01:02,655 --> 00:01:05,010
+Nếu bạn sợ rủi ro mất điện thoại, đừng làm theo.
+
+28
+00:01:05,010 --> 00:01:09,258
+Giữ điện thoại cẩn thận, chỉ xem video; hoặc nếu thực hành,
+
+29
+00:01:09,258 --> 00:01:12,868
+bạn có thể xóa MFA device sau khi kích hoạt.
+
+30
+00:01:12,868 --> 00:01:15,330
+Bây giờ, hãy gán một MFA device.
+
+31
+00:01:15,330 --> 00:01:17,028
+Tôi đặt tên là "my iPhone",
+
+32
+00:01:17,028 --> 00:01:19,740
+nhưng bạn có thể đặt gì cũng được.
+
+33
+00:01:19,740 --> 00:01:22,230
+Chọn loại MFA device:
+
+34
+00:01:22,230 --> 00:01:23,640
+Authenticator app (tôi sẽ dùng),
+
+35
+00:01:23,640 --> 00:01:25,710
+Security key, hoặc Hardware TOTP token.
+
+36
+00:01:25,710 --> 00:01:27,690
+Tôi dùng Authenticator app (ảo).
+
+37
+00:01:27,690 --> 00:01:30,271
+Bắt đầu setup ứng dụng.
+
+38
+00:01:30,271 --> 00:01:34,421
+Danh sách ứng dụng tương thích có ở đây — cho Android và iOS —
+
+39
+00:01:34,421 --> 00:01:38,130
+đã biết là hoạt động tốt với AWS.
+
+40
+00:01:38,130 --> 00:01:39,450
+Tôi sẽ dùng Twilio Authenticator (Authy).
+
+41
+00:01:39,450 --> 00:01:41,460
+Mở app trên điện thoại,
+
+42
+00:01:41,460 --> 00:01:43,380
+chọn Show QR code trên AWS.
+
+43
+00:01:43,380 --> 00:01:48,380
+Quét QR code này bằng điện thoại.
+
+44
+00:01:48,380 --> 00:01:51,510
+Thêm tài khoản, quét mã, tài khoản sẽ được thêm
+
+45
+00:01:51,510 --> 00:01:55,080
+và đặt tên — lưu lại.
+
+46
+00:01:55,080 --> 00:01:56,880
+Giờ ta nhận được MFA code.
+
+47
+00:01:56,880 --> 00:01:59,640
+Mã thứ nhất (ví dụ) là 301935.
+
+48
+00:01:59,640 --> 00:03:01,692
+Đây là mã do iPhone tạo theo thời gian thực
+
+49
+00:03:01,692 --> 00:03:04,754
+và sẽ thay đổi theo thời gian.
+
+50
+00:03:04,754 --> 00:03:08,640
+AWS yêu cầu hai mã để đảm bảo thiết bị thiết lập đúng
+
+51
+00:03:08,640 --> 00:03:11,970
+và các mã là chính xác.
+
+52
+00:03:11,970 --> 00:03:14,936
+Mã thứ hai (ví dụ) là 792843.
+
+53
+00:03:14,936 --> 00:03:17,010
+Thiết bị của bạn sẽ có mã khác.
+
+54
+00:03:17,010 --> 00:03:20,160
+Nhập hai mã và bấm Add MFA.
+
+55
+00:03:20,160 --> 00:03:21,570
+Bạn có thể gán tối đa 8 MFA devices,
+
+56
+00:03:21,570 --> 00:03:24,810
+và thấy danh sách ngay bên dưới.
+
+57
+00:03:24,810 --> 00:03:26,940
+Ví dụ, MFA có tên "my iPhone" vừa tạo.
+
+58
+00:03:26,940 --> 00:03:30,090
+Bạn có thể Remove nếu muốn.
+
+59
+00:03:30,090 --> 00:03:31,680
+Sử dụng MFA thế nào?
+
+60
+00:03:31,680 --> 00:03:34,113
+Đăng xuất khỏi AWS và đăng nhập lại,
+
+61
+00:03:34,113 --> 00:03:36,450
+dùng root account và mật khẩu.
+
+62
+00:03:36,450 --> 00:03:39,063
+Sau khi đăng nhập thành công,
+
+63
+00:03:40,740 --> 00:03:42,390
+sẽ có bước nhập MFA code.
+
+64
+00:03:42,390 --> 00:03:44,460
+Mở app, nhập mã đang hiển thị và Submit.
+
+65
+00:03:44,460 --> 00:03:49,980
+Như vậy ta đăng nhập bằng IAM với MFA —
+
+66
+00:03:49,980 --> 00:03:52,350
+thêm một lớp bảo mật cho tài khoản.
+
+67
+00:03:52,350 --> 00:03:54,660
+Vậy là xong bài này.
+
+68
+00:03:54,660 --> 00:04:00,963
+Hẹn gặp bạn ở bài tiếp theo.
+

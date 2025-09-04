@@ -1,0 +1,56 @@
+1
+00:00:00,000 --> 00:00:01,440
+Chúng ta sẽ thiết lập Budget và Alarm
+
+2
+00:00:01,440 --> 00:00:04,110
+để tránh chi tiêu vượt mức trong khóa học.
+
+3
+00:00:04,110 --> 00:00:08,220
+Mở Billing & Cost Management từ góc phải trên Console.
+
+4
+00:00:08,220 --> 00:00:12,870
+Nếu IAM user bị AccessDenied với Billing, đăng nhập Root,
+
+5
+00:00:12,870 --> 00:00:18,000
+vào Account settings và bật “IAM user and role access to billing”.
+
+6
+00:00:18,000 --> 00:00:22,110
+Quay lại bằng IAM user, vào Budgets > Create budget.
+
+7
+00:00:22,110 --> 00:00:27,360
+Chọn Budget type: Cost budget, thời gian Monthly.
+
+8
+00:00:27,360 --> 00:00:32,729
+Đặt Amount (ví dụ: 5 USD) và Scope theo nhu cầu.
+
+9
+00:00:32,729 --> 00:00:36,750
+Thêm Alerts: chọn ngưỡng (ví dụ 80% hoặc 4 USD),
+
+10
+00:00:36,750 --> 00:00:41,910
+và thêm Email recipients để nhận thông báo.
+
+11
+00:00:41,910 --> 00:00:47,040
+Kiểm tra lại và Create budget. Bạn sẽ thấy budget mới tạo.
+
+12
+00:00:47,040 --> 00:00:51,330
+Bạn có thể tạo thêm budget cho Actual/Forecasted cost.
+
+13
+00:00:51,330 --> 00:00:56,310
+Khi chi phí vượt ngưỡng, AWS gửi email cảnh báo cho bạn.
+
+14
+00:00:56,310 --> 00:01:02,040
+Mẹo: dùng Free Tier và nhớ xóa tài nguyên sau khi thực hành.
+

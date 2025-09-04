@@ -1,0 +1,80 @@
+1
+00:00:00,320 --> 00:00:02,920
+Đây là phần tóm tắt về IAM.
+
+2
+00:00:02,920 --> 00:00:05,340
+Chúng ta đã nói về IAM Users: mỗi user nên ánh xạ
+
+3
+00:00:05,340 --> 00:00:08,119
+với một người dùng thực trong công ty của bạn.
+
+4
+00:00:08,119 --> 00:00:11,630
+User sẽ có password để đăng nhập AWS Console.
+
+5
+00:00:11,630 --> 00:00:14,220
+Ta có thể gom users vào Groups (chỉ chứa users),
+
+6
+00:00:14,220 --> 00:00:16,120
+và gắn Policies (tài liệu JSON mô tả quyền)
+
+7
+00:00:16,120 --> 00:00:17,250
+cho Users hoặc Groups.
+
+8
+00:00:17,250 --> 00:00:19,480
+Ta cũng có thể tạo Roles — đây là các danh tính dùng cho
+
+9
+00:00:19,480 --> 00:00:21,640
+EC2 instances hoặc dịch vụ AWS khác.
+
+10
+00:00:21,640 --> 00:00:23,520
+Về bảo mật: bật Multi-Factor Authentication (MFA)
+
+11
+00:00:23,520 --> 00:00:25,930
+và đặt Password policy cho users.
+
+12
+00:00:25,930 --> 00:00:30,340
+Bạn có thể dùng CLI (Command Line) để quản lý dịch vụ AWS
+
+13
+00:00:30,340 --> 00:00:31,890
+bằng dòng lệnh, hoặc SDK để quản lý
+
+14
+00:00:31,890 --> 00:00:34,400
+theo lập trình bằng ngôn ngữ bạn chọn.
+
+15
+00:00:34,400 --> 00:00:37,610
+Cuối cùng, tạo Access keys để truy cập AWS bằng CLI/SDK.
+
+16
+00:00:37,610 --> 00:00:40,570
+Bạn có thể audit việc sử dụng IAM
+
+17
+00:00:40,570 --> 00:00:42,030
+bằng IAM Credentials Report
+
+18
+00:00:42,030 --> 00:00:44,750
+và IAM Access Advisor.
+
+19
+00:00:44,750 --> 00:00:46,700
+Vậy là xong bài này. Hy vọng bạn thích.
+
+20
+00:00:46,700 --> 00:00:49,550
+Hẹn gặp lại bạn ở bài tiếp theo.
+

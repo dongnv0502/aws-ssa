@@ -1,0 +1,112 @@
+1
+00:00:01,650 --> 00:00:03,320
+Chúng ta sẽ cài đặt
+
+2
+00:00:03,320 --> 00:00:04,860
+AWS Command Line trên Windows.
+
+3
+00:00:04,860 --> 00:00:08,890
+Tìm "aws cli install windows" trên Google.
+
+4
+00:00:08,890 --> 00:00:10,510
+Mở link hướng dẫn
+
+5
+00:00:10,510 --> 00:00:13,870
+và cài aws-cli version 2 trên Windows.
+
+6
+00:00:13,870 --> 00:00:16,780
+Đây là bản mới nhất và được cập nhật.
+
+7
+00:00:16,780 --> 00:00:18,960
+Không khác nhiều so với version 1,
+
+8
+00:00:18,960 --> 00:00:22,860
+nhưng hiệu năng/tính năng được cải thiện; API giống nhau,
+
+9
+00:00:22,860 --> 00:00:23,726
+và trình cài đặt tốt hơn.
+
+10
+00:00:23,726 --> 00:00:26,770
+Kéo xuống phần Install on Windows,
+
+11
+00:00:26,770 --> 00:00:28,360
+cài bằng MSI installer.
+
+12
+00:00:28,360 --> 00:00:30,800
+Bấm link để tải MSI installer.
+
+13
+00:00:30,800 --> 00:00:32,229
+Chạy installer
+
+14
+00:00:33,421 --> 00:00:35,790
+— rất đơn giản.
+
+15
+00:00:35,790 --> 00:00:40,150
+Khi installer chạy, bấm Next,
+
+16
+00:00:40,150 --> 00:00:42,110
+chấp nhận License, Next,
+
+17
+00:00:42,110 --> 00:00:44,430
+Install và chờ hoàn tất.
+
+18
+00:00:44,430 --> 00:00:46,270
+Cho phép nếu Windows hỏi quyền.
+
+19
+00:00:46,270 --> 00:00:47,370
+Hoàn tất, bấm Finish.
+
+20
+00:01:01,290 --> 00:01:04,030
+Mở Command Prompt trên Windows
+
+21
+00:01:04,030 --> 00:01:05,990
+và gõ: `aws --version`
+
+22
+00:01:05,990 --> 00:01:08,730
+Nhấn Enter; nếu thấy kết quả như:
+
+23
+00:01:08,730 --> 00:01:10,630
+aws-cli (phiên bản bắt đầu bằng 2), Python, Windows
+
+24
+00:01:10,630 --> 00:01:12,273
+thì aws-cli đã cài đúng trên Windows.
+
+25
+00:01:22,070 --> 00:01:23,900
+Nâng cấp aws-cli: chỉ cần tải lại MSI
+
+26
+00:01:23,900 --> 00:01:25,700
+và chạy cài đặt — sẽ tự nâng cấp.
+
+27
+00:01:25,700 --> 00:01:27,080
+Khi có output ở trên, bạn sẵn sàng
+
+28
+00:01:27,080 --> 00:01:31,310
+để theo dõi bài tiếp theo. Hẹn gặp lại.
+

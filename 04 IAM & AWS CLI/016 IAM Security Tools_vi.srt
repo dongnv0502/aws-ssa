@@ -1,0 +1,72 @@
+1
+00:00:00,000 --> 00:00:02,060
+Chúng ta sắp kết thúc chương này,
+
+2
+00:00:02,060 --> 00:00:04,650
+nhưng trước tiên hãy nói về các công cụ bảo mật
+
+3
+00:00:04,650 --> 00:00:06,100
+trong IAM.
+
+4
+00:00:06,100 --> 00:00:08,570
+Ta có thể tạo IAM Credentials Report
+
+5
+00:00:08,570 --> 00:00:10,740
+ở cấp tài khoản (account-level).
+
+6
+00:00:10,740 --> 00:00:13,670
+Báo cáo này chứa tất cả users trong tài khoản
+
+7
+00:00:13,670 --> 00:00:16,219
+và trạng thái các loại thông tin xác thực của họ.
+
+8
+00:00:16,219 --> 00:00:18,460
+Chúng ta sẽ tạo ngay và xem thử.
+
+9
+00:00:18,460 --> 00:00:20,260
+Công cụ thứ hai là IAM Access Advisor
+
+10
+00:00:20,260 --> 00:00:22,710
+ở cấp user (user-level).
+
+11
+00:00:22,710 --> 00:00:24,600
+Access Advisor hiển thị các service permissions
+
+12
+00:00:24,600 --> 00:00:26,690
+được cấp cho user và thời điểm
+
+13
+00:00:26,690 --> 00:00:28,910
+các dịch vụ đó được truy cập lần cuối.
+
+14
+00:00:28,910 --> 00:00:31,100
+Điều này rất hữu ích vì ta đã nói về
+
+15
+00:00:31,100 --> 00:00:35,150
+nguyên tắc Least Privilege; dùng công cụ này, ta thấy
+
+16
+00:00:35,150 --> 00:00:37,850
+quyền nào không được dùng để giảm quyền
+
+17
+00:00:37,850 --> 00:00:40,320
+phù hợp nguyên tắc Least Privilege.
+
+18
+00:00:40,320 --> 00:00:44,170
+Sang bài tiếp theo, tôi sẽ demo cách dùng các công cụ này.
+

@@ -1,0 +1,380 @@
+1
+00:00:00,000 --> 00:00:02,280
+Bây giờ chúng ta đã tạo Users và Groups,
+
+2
+00:00:02,280 --> 00:00:04,320
+đã đến lúc bảo vệ các user và group này
+
+3
+00:00:04,320 --> 00:00:06,450
+khỏi việc bị xâm phạm.
+
+4
+00:00:06,450 --> 00:00:09,570
+Để làm vậy, có hai cơ chế phòng thủ.
+
+5
+00:00:09,570 --> 00:00:10,860
+Đầu tiên là thiết lập
+
+6
+00:00:10,860 --> 00:00:12,810
+Password policy (chính sách mật khẩu).
+
+7
+00:00:12,810 --> 00:00:13,643
+Tại sao?
+
+8
+00:00:13,643 --> 00:00:15,420
+Vì mật khẩu càng mạnh,
+
+9
+00:00:15,420 --> 00:00:17,580
+tài khoản càng an toàn.
+
+10
+00:00:17,580 --> 00:00:20,048
+Trong AWS, bạn có thể đặt password policy
+
+11
+00:00:20,048 --> 00:00:22,200
+với nhiều tùy chọn.
+
+12
+00:00:22,200 --> 00:00:24,300
+Bạn có thể đặt độ dài tối thiểu
+
+13
+00:00:24,300 --> 00:00:25,890
+của mật khẩu và
+
+14
+00:00:25,890 --> 00:00:28,200
+yêu cầu các loại ký tự cụ thể.
+
+15
+00:00:28,200 --> 00:00:29,190
+Ví dụ, bạn có thể yêu cầu
+
+16
+00:00:29,190 --> 00:00:32,100
+chữ hoa, chữ thường, số, ký tự đặc biệt
+
+17
+00:00:32,100 --> 00:00:34,620
+(ví dụ dấu chấm hỏi), v.v.
+
+18
+00:00:34,620 --> 00:00:37,230
+Bạn có thể cho phép hoặc không cho phép IAM users
+
+19
+00:00:39,300 --> 00:00:41,340
+đổi mật khẩu của chính họ,
+
+20
+00:00:41,340 --> 00:00:43,320
+hoặc yêu cầu người dùng đổi mật khẩu
+
+21
+00:00:43,320 --> 00:00:45,570
+sau một thời gian (mật khẩu hết hạn),
+
+22
+00:00:45,570 --> 00:00:47,880
+ví dụ cứ 90 ngày phải đổi.
+
+23
+00:00:47,880 --> 00:00:50,010
+Cuối cùng, bạn có thể chặn việc tái sử dụng mật khẩu
+
+24
+00:00:50,010 --> 00:00:52,860
+để người dùng khi đổi mật khẩu không đổi
+
+25
+00:00:52,860 --> 00:00:54,750
+về mật khẩu đang dùng hoặc mật khẩu cũ.
+
+26
+00:00:54,750 --> 00:00:55,923
+Rất hữu ích.
+
+27
+00:00:55,923 --> 00:00:57,600
+Password policy giúp chống
+
+28
+00:00:57,600 --> 00:00:59,430
+brute-force vào tài khoản.
+
+29
+00:00:59,430 --> 00:01:00,263
+Ngoài ra, còn cơ chế thứ hai
+
+30
+00:01:00,263 --> 00:01:02,610
+bạn cần biết khi đi thi.
+
+31
+00:01:02,610 --> 00:01:05,250
+Đó là Multi-Factor Authentication (MFA).
+
+32
+00:01:05,250 --> 00:01:07,500
+Có thể bạn đã dùng trên các website khác,
+
+33
+00:01:07,500 --> 00:01:09,900
+nhưng với AWS thì gần như bắt buộc
+
+34
+00:01:09,900 --> 00:01:13,560
+và rất nên bật.
+
+35
+00:01:13,560 --> 00:01:15,881
+Users có quyền truy cập tài khoản của bạn
+
+36
+00:01:15,881 --> 00:01:18,300
+và có thể làm nhiều thứ,
+
+37
+00:01:18,300 --> 00:01:20,460
+đặc biệt nếu họ là administrators.
+
+38
+00:01:20,460 --> 00:01:23,760
+Họ có thể đổi cấu hình, xóa tài nguyên, v.v.
+
+39
+00:01:23,760 --> 00:01:25,770
+Vì vậy bạn tuyệt đối muốn bảo vệ
+
+40
+00:01:25,770 --> 00:01:27,870
+ít nhất là root account, và tốt nhất là
+
+41
+00:01:27,870 --> 00:01:29,670
+tất cả IAM users.
+
+42
+00:01:29,670 --> 00:01:32,190
+Vậy bảo vệ thêm ngoài mật khẩu bằng cách nào?
+
+43
+00:01:32,190 --> 00:01:34,710
+Bạn dùng MFA device.
+
+44
+00:01:34,710 --> 00:01:35,390
+MFA là gì?
+
+45
+00:01:35,390 --> 00:01:39,410
+MFA là kết hợp giữa mật khẩu bạn biết
+
+46
+00:01:39,410 --> 00:01:53,790
+và một thiết bị bảo mật bạn sở hữu.
+
+47
+00:01:53,790 --> 00:01:55,620
+Hai yếu tố này kết hợp
+
+48
+00:01:55,620 --> 00:01:57,210
+mang lại bảo mật cao hơn nhiều
+
+49
+00:01:57,210 --> 00:01:58,470
+so với chỉ mật khẩu.
+
+50
+00:01:58,470 --> 00:02:00,390
+Ví dụ với Alice:
+
+51
+00:02:00,390 --> 00:02:02,400
+Alice biết mật khẩu của mình,
+
+52
+00:02:02,400 --> 00:02:05,850
+và cô ấy cũng có token tạo mã MFA.
+
+53
+00:02:05,850 --> 00:02:07,950
+Khi đăng nhập, dùng cả hai thứ này
+
+54
+00:02:07,950 --> 00:02:09,780
+giúp cô ấy đăng nhập thành công
+
+55
+00:02:09,780 --> 00:02:12,600
+với MFA.
+
+56
+00:02:12,600 --> 00:02:15,780
+Lợi ích là: ngay cả khi Alice
+
+57
+00:02:15,780 --> 00:02:17,670
+bị lộ mật khẩu (bị đánh cắp/hack),
+
+58
+00:02:17,670 --> 00:02:19,350
+tài khoản vẫn không bị xâm phạm
+
+59
+00:02:19,350 --> 00:02:21,210
+vì kẻ tấn công còn cần thiết bị vật lý
+
+60
+00:02:21,210 --> 00:02:23,940
+của Alice (ví dụ điện thoại) để đăng nhập —
+
+61
+00:02:23,940 --> 00:02:25,890
+điều này ít khả năng xảy ra hơn nhiều.
+
+62
+00:02:28,980 --> 00:02:31,830
+Các tùy chọn MFA device trong AWS là gì?
+
+63
+00:02:31,830 --> 00:02:35,370
+Bạn cần biết khi đi thi — khá đơn giản.
+
+64
+00:02:35,370 --> 00:02:37,290
+Đầu tiên là Virtual MFA device.
+
+65
+00:02:37,290 --> 00:02:39,510
+Đây là thứ ta sẽ dùng trong phần thực hành.
+
+66
+00:02:39,510 --> 00:02:41,730
+Bạn có thể dùng Google Authenticator
+
+67
+00:02:41,730 --> 00:02:48,600
+(chỉ hoạt động trên một điện thoại tại một thời điểm),
+
+68
+00:02:50,010 --> 00:02:52,560
+hoặc dùng Authy,
+
+69
+00:02:52,560 --> 00:02:55,500
+hỗ trợ nhiều tokens trên một thiết bị.
+
+70
+00:02:55,500 --> 00:02:58,080
+Với Virtual MFA device, bạn có thể thêm
+
+71
+00:02:58,080 --> 00:02:59,700
+root account, IAM user,
+
+72
+00:02:59,700 --> 00:03:02,730
+tài khoản khác, IAM user khác — tùy bạn.
+
+73
+00:03:02,730 --> 00:03:04,133
+Bạn có thể thêm bao nhiêu user/account
+
+74
+00:03:04,133 --> 00:03:07,050
+vào Virtual MFA device cũng được — rất tiện dùng.
+
+75
+00:03:07,050 --> 00:03:10,410
+Tiếp theo là Universal 2nd Factor (U2F)
+
+76
+00:03:10,410 --> 00:03:11,243
+Security Key —
+
+77
+00:03:11,243 --> 00:03:13,410
+thiết bị phần cứng (physical device),
+
+78
+00:03:13,410 --> 00:03:15,600
+ví dụ YubiKey của Yubico
+
+79
+00:03:15,600 --> 00:03:17,280
+(bên thứ ba, không phải AWS cung cấp).
+
+80
+00:03:17,280 --> 00:03:19,410
+Dùng physical device rất tiện — bạn có thể
+
+81
+00:03:19,410 --> 00:03:21,990
+gắn vào chùm chìa khóa và dùng ngay.
+
+82
+00:03:21,990 --> 00:03:23,640
+YubiKey hỗ trợ nhiều root
+
+83
+00:03:23,640 --> 00:03:36,540
+và IAM users dùng chung một security key.
+
+84
+00:03:36,540 --> 00:03:38,250
+Bạn không cần mỗi user một key —
+
+85
+00:03:38,250 --> 00:03:40,350
+nếu không sẽ rất rối.
+
+86
+00:03:40,350 --> 00:03:41,820
+Ngoài ra còn có:
+
+87
+00:03:41,820 --> 00:03:44,130
+Hardware key fob MFA device,
+
+88
+00:03:44,130 --> 00:03:45,960
+ví dụ thiết bị của Gemalto
+
+89
+00:03:45,960 --> 00:03:49,170
+(bên thứ ba).
+
+90
+00:03:49,170 --> 00:03:52,260
+Và nếu bạn dùng AWS GovCloud (US),
+
+91
+00:03:52,260 --> 00:03:56,280
+thì có key fob đặc biệt do SurePassID cung cấp
+
+92
+00:03:56,280 --> 00:03:58,080
+(cũng là bên thứ ba).
+
+93
+00:03:58,080 --> 00:04:03,413
+Vậy là xong phần lý thuyết bảo vệ tài khoản.
+
+94
+00:04:03,413 --> 00:04:05,670
+Sang bài tiếp theo để triển khai.
+
+95
+00:04:05,670 --> 00:04:06,840
+Hẹn gặp bạn ở đó.
+

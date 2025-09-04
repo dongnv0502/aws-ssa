@@ -1,0 +1,76 @@
+1
+00:00:00,070 --> 00:00:01,110
+Hãy cài AWS CLI trên Linux.
+
+2
+00:00:01,110 --> 00:00:03,800
+Tìm "Installing the AWS CLI version 2 on Linux".
+
+3
+00:00:03,800 --> 00:00:07,290
+Chọn hướng dẫn cho Version 2 (mới nhất), cuộn xuống.
+
+4
+00:00:07,290 --> 00:00:09,600
+Để cài CLI, chạy 3 lệnh sau:
+
+5
+00:00:09,600 --> 00:00:11,210
+1) Tải file ZIP installer.
+
+6
+00:00:11,210 --> 00:00:12,670
+Copy lệnh, mở terminal và dán.
+
+7
+00:00:12,670 --> 00:00:15,430
+Installer sẽ được tải xuống.
+
+8
+00:00:15,430 --> 00:00:17,560
+2) Giải nén bằng `unzip` (copy và dán lệnh).
+
+9
+00:00:17,560 --> 00:00:20,170
+3) Chạy installer với quyền root: `sudo ./install`.
+
+10
+00:00:20,170 --> 00:00:23,370
+Nhập mật khẩu khi được hỏi; quá trình cài đặt bắt đầu.
+
+11
+00:00:23,370 --> 00:00:26,290
+Sau đó, bạn có thể chạy `aws --version`
+
+12
+00:00:26,290 --> 00:00:27,410
+(hoặc `/usr/local/bin/aws --version`)
+
+13
+00:00:27,410 --> 00:00:31,760
+nếu `/usr/local/bin` đã trong `PATH`.
+
+14
+00:00:31,760 --> 00:00:34,330
+AWS CLI đã được cài: bạn sẽ thấy `aws-cli/2.x`,
+
+15
+00:00:34,330 --> 00:00:36,920
+Python, Linux, Botocore — đã sẵn sàng.
+
+16
+00:00:36,920 --> 00:00:40,110
+Khi lệnh này chạy, bạn có thể dùng bất kỳ lệnh AWS CLI nào
+
+17
+00:00:40,110 --> 00:00:43,290
+và tiếp tục theo dõi các bài tiếp theo.
+
+18
+00:00:43,290 --> 00:00:47,640
+Nếu gặp vấn đề, xem lại hướng dẫn để tìm nguyên nhân.
+
+19
+00:00:47,640 --> 00:00:50,182
+Hẹn gặp bạn ở bài sau.
+

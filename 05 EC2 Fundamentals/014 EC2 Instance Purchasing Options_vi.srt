@@ -1,0 +1,36 @@
+1
+00:00:00,000 --> 00:00:03,000
+Tùy chọn mua EC2 (chi phí & cam kết):
+
+2
+00:00:03,000 --> 00:00:08,000
+- On-Demand: trả theo giờ/giây, không cam kết — linh hoạt, giá cao nhất.
+
+3
+00:00:08,000 --> 00:00:13,000
+- Savings Plans: cam kết chi tiêu USD/giờ (1 hoặc 3 năm), giảm giá rộng (Compute/EC2 SP).
+
+4
+00:00:13,000 --> 00:00:18,000
+- Reserved Instances (RI): cam kết 1/3 năm, tùy chọn Standard/Convertible, All/Partial/No Upfront.
+
+5
+00:00:18,000 --> 00:00:23,000
+- Spot Instances: dùng công suất dư, giảm giá lớn nhưng có thể bị thu hồi (interruption).
+
+6
+00:00:23,000 --> 00:00:28,000
+- Dedicated Hosts/Instances: phần cứng dành riêng (tuân thủ/giấy phép), giá cao.
+
+7
+00:00:28,000 --> 00:00:33,000
+Khi nào dùng:
+- On-Demand: workload biến động, thử nghiệm/POC.
+- Savings Plans/RI: workload ổn định, chạy dài hạn.
+- Spot: tác vụ chịu được gián đoạn (batch, stateless, container, CI/CD).
+- Dedicated: tuân thủ/giấy phép đặc thù.
+
+8
+00:00:33,000 --> 00:00:38,000
+Có thể kết hợp: ví dụ ASG dùng On-Demand base + Spot cho capacity bùng nổ.
+

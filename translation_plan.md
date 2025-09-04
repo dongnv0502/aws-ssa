@@ -80,8 +80,8 @@ Next text content
 ## Tiến Độ Thực Hiện
 - [x] Module 01: 7/7 files
 - [x] Module 03: 6/6 files
-- [ ] Module 04: 0/18 files
-- [ ] Module 05: 0/18 files
+- [x] Module 04: 18/18 files
+- [x] Module 05: 18/18 files
 - [x] Module 06: 7/8 files
 - [ ] Module 07: 13/14 files
 - [ ] Module 08: 2/17 files
@@ -111,7 +111,7 @@ Next text content
 - [ ] Module 32: 0/7 files
 - [ ] Module 33: 0/2 files
 
-**Tổng tiến độ: 118/428 files (27.6%)**
+**Tổng tiến độ: 154/428 files (36.0%)**
 
 ## Ghi Chú
 ### Thứ tự ưu tiên dịch:

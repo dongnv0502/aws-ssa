@@ -1,0 +1,100 @@
+1
+00:00:00,270 --> 00:00:02,520
+Đây là một số hướng dẫn và best practices
+
+2
+00:00:02,520 --> 00:00:05,520
+về IAM, để bạn tránh sai sót khi dùng AWS.
+
+3
+00:00:05,520 --> 00:00:08,430
+Đừng dùng root account trừ khi thiết lập tài khoản AWS.
+
+4
+00:00:08,430 --> 00:00:09,870
+Đến giờ bạn nên có 2 tài khoản:
+
+5
+00:00:09,870 --> 00:00:12,750
+root account và tài khoản cá nhân của bạn.
+
+6
+00:00:12,750 --> 00:00:16,865
+Nhớ rằng: một AWS user tương ứng một người dùng thực.
+
+7
+00:00:16,865 --> 00:00:21,420
+Nếu bạn của bạn muốn dùng AWS, đừng đưa thông tin của bạn;
+
+8
+00:00:21,420 --> 00:00:23,905
+hãy tạo user mới cho họ.
+
+9
+00:00:23,905 --> 00:00:26,250
+Hãy gán users vào groups và gán quyền cho groups
+
+10
+00:00:26,250 --> 00:00:28,830
+để quản trị bảo mật ở cấp group;
+
+11
+00:00:28,830 --> 00:00:34,781
+đồng thời đặt Password policy mạnh.
+
+12
+00:00:34,781 --> 00:00:37,560
+Hãy bật và bắt buộc dùng Multi-Factor Authentication (MFA)
+
+13
+00:00:37,560 --> 00:00:40,710
+để tài khoản an toàn hơn trước hacker.
+
+14
+00:00:40,710 --> 00:00:44,010
+Luôn tạo và dùng Roles khi cấp quyền cho dịch vụ AWS,
+
+15
+00:00:44,010 --> 00:00:47,880
+bao gồm cả EC2 instances (máy chủ ảo).
+
+16
+00:00:47,880 --> 00:01:00,540
+Nếu bạn dùng AWS theo lập trình hoặc bằng CLI/SDK,
+
+17
+00:01:00,540 --> 00:01:04,890
+bạn phải tạo Access keys — bí mật như mật khẩu.
+
+18
+00:01:04,890 --> 00:01:07,260
+Giữ kín, không chia sẻ.
+
+19
+00:01:07,260 --> 00:01:08,130
+Để rà soát quyền,
+
+20
+00:01:08,130 --> 00:01:09,960
+dùng IAM Credentials Report
+
+21
+00:01:09,960 --> 00:01:11,850
+hoặc IAM Access Advisor.
+
+22
+00:01:11,850 --> 00:01:20,100
+Cuối cùng: không bao giờ chia sẻ IAM users
+
+23
+00:01:20,100 --> 00:01:22,920
+hoặc Access keys của bạn — rất nghiêm túc.
+
+24
+00:01:22,920 --> 00:01:25,560
+Chúng ta sắp kết thúc phần này; bạn đã nắm IAM.
+
+25
+00:01:25,560 --> 00:01:27,270
+Hẹn gặp bạn ở bài tiếp theo.
+

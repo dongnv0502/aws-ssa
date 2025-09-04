@@ -1,0 +1,44 @@
+1
+00:00:00,500 --> 00:00:02,210
+Ta đã khởi chạy EC2 instance;
+
+2
+00:00:02,210 --> 00:00:05,270
+giờ cùng xem Security Groups chi tiết.
+
+3
+00:00:05,270 --> 00:00:09,290
+Vào Security của instance để xem inbound/outbound rules,
+
+4
+00:00:09,290 --> 00:00:13,780
+rồi mở trang Security Groups ở menu Networking & Security.
+
+5
+00:00:13,780 --> 00:00:20,330
+Bạn sẽ thấy SG default và SG do Launch Wizard tạo khi tạo EC2.
+
+6
+00:00:20,330 --> 00:00:27,000
+Mở Inbound rules: ví dụ có SSH (22) từ Anywhere và HTTP (80).
+
+7
+00:00:27,000 --> 00:00:35,080
+Rule HTTP (80) là lý do bạn truy cập được web trên EC2 bằng IPv4.
+
+8
+00:00:35,080 --> 00:00:43,083
+Thử xóa rule HTTP(80), Save; refresh trang web — sẽ bị treo (timeout).
+
+9
+00:00:43,083 --> 00:00:52,260
+Kinh nghiệm: gặp timeout khi SSH/HTTP tới EC2 thường là do SG chặn.
+
+10
+00:00:52,260 --> 00:01:01,290
+Nếu nhận "connection refused" thì SG cho qua nhưng app không chạy/không lắng nghe.
+
+11
+00:01:01,290 --> 00:01:09,740
+Thêm lại rule HTTP (80) từ Anywhere và Save — web truy cập lại bình thường.
+

@@ -1,0 +1,28 @@
+1
+00:00:00,000 --> 00:00:03,000
+Spot Instances & Spot Fleet (giảm chi phí lớn, có thể bị thu hồi):
+
+2
+00:00:03,000 --> 00:00:08,000
+- Spot Instance: dùng công suất EC2 dư thừa với giá thấp hơn nhiều so với On-Demand.
+
+3
+00:00:08,000 --> 00:00:13,000
+- Rủi ro: AWS có thể thu hồi sau khi gửi thông báo ngắn (2 phút) khi cần công suất.
+
+4
+00:00:13,000 --> 00:00:18,000
+- Trường hợp phù hợp: batch job, container stateless, big data, CI/CD, test.
+
+5
+00:00:18,000 --> 00:00:23,000
+Spot Fleet/EC2 Fleet: quản lý tập hợp Spot + On-Demand theo mục tiêu dung lượng/chi phí.
+
+6
+00:00:23,000 --> 00:00:28,000
+Chiến lược phân bổ: diversified, lowest-price, capacity-optimized, v.v.
+
+7
+00:00:28,000 --> 00:00:33,000
+Thực hành tốt: thiết kế chịu gián đoạn, checkpoint, lưu trạng thái ra S3/RDS/ElastiCache.
+

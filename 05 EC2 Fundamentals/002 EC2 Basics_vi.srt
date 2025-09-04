@@ -1,0 +1,40 @@
+1
+00:00:00,000 --> 00:00:03,000
+Tổng quan EC2: dịch vụ máy ảo có thể cấu hình linh hoạt.
+
+2
+00:00:03,000 --> 00:00:08,000
+Khi tạo một EC2 instance, bạn chọn: AMI (HĐH), vCPU, RAM, Storage, Network, Security Group.
+
+3
+00:00:08,000 --> 00:00:12,000
+Hệ điều hành: Linux, Windows, thậm chí macOS (Mac instances).
+
+4
+00:00:12,000 --> 00:00:16,000
+Tài nguyên tính toán: số vCPU/loại CPU và dung lượng RAM.
+
+5
+00:00:16,000 --> 00:00:21,000
+Lưu trữ: EBS/EFS (qua mạng) hoặc Instance Store (gắn phần cứng — ephemeral).
+
+6
+00:00:21,000 --> 00:00:25,000
+Mạng: gắn vào VPC/Subnet, cấu hình IP, băng thông NIC.
+
+7
+00:00:25,000 --> 00:00:29,000
+Bảo mật mạng: Security Group (firewall) cho inbound/outbound.
+
+8
+00:00:29,000 --> 00:00:33,000
+Khởi tạo: EC2 User Data (bootstrap script) chạy lần đầu khởi động.
+
+9
+00:00:33,000 --> 00:00:37,000
+Kết nối quản trị: SSH (Linux) hoặc RDP (Windows), hoặc EC2 Instance Connect.
+
+10
+00:00:37,000 --> 00:00:41,000
+EC2 hoạt động theo khu vực (Region/AZ) và có nhiều tùy chọn mua (xem phần sau).
+

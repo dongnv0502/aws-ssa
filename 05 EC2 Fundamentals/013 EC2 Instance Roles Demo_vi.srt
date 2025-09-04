@@ -1,0 +1,112 @@
+1
+00:00:00,340 --> 00:00:02,640
+Ta sẽ thực hành dùng IAM Roles
+
+2
+00:00:02,640 --> 00:00:04,070
+cho EC2 instance.
+
+3
+00:00:04,070 --> 00:00:06,840
+Trước hết, kết nối vào EC2 instance
+
+4
+00:00:06,840 --> 00:00:09,700
+bằng SSH hoặc EC2 Instance Connect (tôi dùng cách này).
+
+5
+00:00:09,700 --> 00:00:12,270
+Mở EC2 Instance Connect — chạy trong trình duyệt.
+
+6
+00:00:12,270 --> 00:00:16,059
+Khi vào máy, prompt hiển thị `ec2-user@<private-ip>`.
+
+7
+00:00:16,059 --> 00:00:20,040
+Bạn có thể chạy các lệnh Linux (ping, v.v.), rồi Ctrl+C.
+
+8
+00:00:20,040 --> 00:00:22,770
+Gõ `clear` để dọn màn hình.
+
+9
+00:00:22,770 --> 00:00:25,570
+Amazon Linux 2 đã có sẵn AWS CLI.
+
+10
+00:00:25,570 --> 00:00:31,040
+Thử `aws iam list-users` — sẽ báo thiếu credentials
+
+11
+00:00:31,040 --> 00:00:35,140
+và gợi ý `aws configure` để nhập Access key/Secret key.
+
+12
+00:00:35,140 --> 00:00:40,660
+Đừng làm vậy — cực kỳ không an toàn. Nếu nhập khóa cá nhân
+
+13
+00:00:40,660 --> 00:00:45,230
+trên EC2, người khác trong account có thể truy cập máy
+
+14
+00:00:45,230 --> 00:00:47,877
+và lấy trộm khóa của bạn.
+
+15
+00:00:47,877 --> 00:00:54,370
+Quy tắc: không bao giờ nạp Access key/Secret key cá nhân
+
+16
+00:00:54,370 --> 00:00:57,800
+vào EC2 instance.
+
+17
+00:00:57,800 --> 00:01:02,970
+Thay vào đó, dùng IAM Role. Trong IAM, ta đã tạo role
+
+18
+00:01:02,970 --> 00:01:06,060
+`DemoRoleForEC2` gắn policy `IAMReadOnlyAccess`.
+
+19
+00:01:06,060 --> 00:01:09,660
+Gắn role này vào instance: Actions > Security > Modify IAM role,
+
+20
+00:01:09,660 --> 00:01:12,920
+chọn `DemoRoleForEC2`, Save.
+
+21
+00:01:12,920 --> 00:01:16,220
+Giờ thử lại `aws iam list-users` — đã có kết quả.
+
+22
+00:01:16,220 --> 00:01:19,760
+Ta không hề chạy `aws configure`; chỉ gắn IAM Role.
+
+23
+00:01:19,760 --> 00:01:23,680
+Nếu tạm gỡ policy khỏi role rồi chạy lại — sẽ AccessDenied.
+
+24
+00:01:23,680 --> 00:01:27,680
+Gắn lại `IAMReadOnlyAccess`, đợi vài giây cho IAM propagate,
+
+25
+00:01:27,680 --> 00:01:32,100
+chạy lại sẽ OK.
+
+26
+00:01:32,100 --> 00:01:38,380
+Kết luận: cung cấp AWS credentials cho EC2 bằng IAM Roles,
+
+27
+00:01:38,380 --> 00:01:42,490
+không dùng access keys trên máy.
+
+28
+00:01:42,490 --> 00:01:46,200
+Hẹn gặp lại ở bài tiếp theo.
+
