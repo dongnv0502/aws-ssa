@@ -1,0 +1,263 @@
+1
+00:00:00,510 --> 00:00:02,730
+Giờ hãy nói về Amazon Neptune.
+
+2
+00:00:02,730 --> 00:00:05,850
+Neptune là graph database được quản lý toàn phần.
+
+3
+00:00:05,850 --> 00:00:08,970
+Ví dụ về graph dataset
+
+4
+00:00:08,970 --> 00:00:10,950
+là thứ mà chúng ta đều biết,
+
+5
+00:00:10,950 --> 00:00:12,540
+chính là mạng xã hội.
+
+6
+00:00:12,540 --> 00:00:14,880
+Trong mạng xã hội, mọi người là bạn,
+
+7
+00:00:14,880 --> 00:00:17,100
+họ like, kết nối, đọc, bình luận, v.v.
+
+8
+00:00:17,100 --> 00:00:19,680
+Người dùng có bạn bè, bài viết có bình luận,
+
+9
+00:00:19,680 --> 00:00:22,470
+bình luận được người dùng like, người dùng chia sẻ và like bài viết.
+
+10
+00:00:22,470 --> 00:00:24,840
+Tất cả những thứ đó liên kết với nhau
+
+11
+00:00:24,840 --> 00:00:26,580
+tạo thành một graph.
+
+12
+00:00:26,580 --> 00:00:30,450
+Vì vậy Neptune là lựa chọn tuyệt vời
+
+13
+00:00:30,450 --> 00:00:32,820
+cho các graph dataset.
+
+14
+00:00:32,820 --> 00:00:35,910
+Neptune nhân bản dữ liệu trên 3 AZ
+
+15
+00:00:35,910 --> 00:00:37,620
+với tối đa 15 read replica.
+
+16
+00:00:37,620 --> 00:00:40,830
+Neptune dùng để xây dựng và chạy ứng dụng
+
+17
+00:00:40,830 --> 00:00:43,740
+với dữ liệu liên kết cao, như mạng xã hội,
+
+18
+00:00:43,740 --> 00:00:46,830
+và vì Neptune tối ưu cho truy vấn
+
+19
+00:00:46,830 --> 00:00:49,950
+phức tạp trên các graph dataset này.
+
+20
+00:00:49,950 --> 00:00:53,850
+Bạn có thể lưu hàng tỷ quan hệ trong cơ sở dữ liệu
+
+21
+00:00:53,850 --> 00:00:56,580
+và truy vấn với độ trễ mili giây.
+
+22
+00:00:56,580 --> 00:00:58,050
+Neptune có tính sẵn sàng cao
+
+23
+00:00:58,050 --> 00:01:00,120
+trên nhiều availability zone,
+
+24
+00:01:00,120 --> 00:01:02,520
+và cũng rất tốt để lưu knowledge graph.
+
+25
+00:01:02,520 --> 00:01:05,730
+Ví dụ, cơ sở dữ liệu Wikipedia là một knowledge graph
+
+26
+00:01:05,730 --> 00:01:08,130
+vì các bài viết Wikipedia liên kết với nhau
+
+27
+00:01:08,130 --> 00:01:09,120
+.
+
+28
+00:01:09,120 --> 00:01:11,730
+Các trường hợp sử dụng: phát hiện gian lận, hệ thống gợi ý,
+
+29
+00:01:11,730 --> 00:01:13,620
+và mạng xã hội.
+
+30
+00:01:13,620 --> 00:01:15,510
+Từ góc độ kỳ thi,
+
+31
+00:01:15,510 --> 00:01:18,090
+hễ thấy nội dung liên quan graph database
+
+32
+00:01:18,090 --> 00:01:19,950
+hãy nghĩ ngay đến Neptune.
+
+33
+00:01:19,950 --> 00:01:22,020
+Amazon Neptune còn có tính năng
+
+34
+00:01:22,020 --> 00:01:23,880
+gọi là Neptune Streams.
+
+35
+00:01:23,880 --> 00:01:25,920
+Streams trong Amazon Neptune sẽ
+
+36
+00:01:25,920 --> 00:01:30,600
+là chuỗi dữ liệu theo thứ tự thời gian cho mọi thay đổi
+
+37
+00:01:30,600 --> 00:01:32,460
+diễn ra trong graph data
+
+38
+00:01:32,460 --> 00:01:34,170
+trong cơ sở dữ liệu Neptune.
+
+39
+00:01:34,170 --> 00:01:37,050
+Điều đó nghĩa là bất cứ khi nào ứng dụng ghi
+
+40
+00:01:37,050 --> 00:01:38,430
+vào Amazon Neptune,
+
+41
+00:01:38,430 --> 00:01:41,040
+thì các thay đổi sẽ xuất hiện ngay lập tức
+
+42
+00:01:41,040 --> 00:01:44,130
+sau khi ghi vào Neptune stream.
+
+43
+00:01:44,130 --> 00:01:46,710
+Trong stream đó không có bản ghi trùng
+
+44
+00:01:46,710 --> 00:01:49,110
+và thứ tự thay đổi được bảo đảm
+
+45
+00:01:49,110 --> 00:01:51,000
+trong Neptune cluster.
+
+46
+00:01:51,000 --> 00:01:53,370
+Trong graph, chúng ta có các ghi,
+
+47
+00:01:53,370 --> 00:01:55,530
+và những ghi này được ghi
+
+48
+00:01:55,530 --> 00:01:59,580
+vào Neptune cluster và cả Neptune stream.
+
+49
+00:01:59,580 --> 00:02:03,630
+Dữ liệu stream có thể truy cập qua HTTP REST API.
+
+50
+00:02:03,630 --> 00:02:06,480
+Điều đó nghĩa là ứng dụng của bạn
+
+51
+00:02:06,480 --> 00:02:08,610
+nếu muốn đọc Neptune stream
+
+52
+00:02:08,610 --> 00:02:13,320
+có thể dùng API này để lấy mọi thay đổi theo thời gian thực.
+
+53
+00:02:13,320 --> 00:02:16,620
+Các trường hợp sử dụng Neptune streams gồm
+
+54
+00:02:16,620 --> 00:02:18,990
+gửi thông báo
+
+55
+00:02:18,990 --> 00:02:23,310
+khi có thay đổi trong graph data,
+
+56
+00:02:23,310 --> 00:02:25,620
+hoặc đồng bộ dữ liệu
+
+57
+00:02:25,620 --> 00:02:26,940
+sang một data store khác.
+
+58
+00:02:26,940 --> 00:02:29,940
+Ví dụ bạn muốn sao chép các thay đổi
+
+59
+00:02:29,940 --> 00:02:34,440
+trong Neptune cluster sang Amazon S3 hoặc OpenSearch
+
+60
+00:02:34,440 --> 00:02:36,390
+hoặc ElastiCache hay các dịch vụ khác.
+
+61
+00:02:36,390 --> 00:02:40,260
+Hoặc nếu muốn sao chép dữ liệu giữa nhiều region
+
+62
+00:02:40,260 --> 00:02:44,100
+cho Neptune cluster bằng cách xem mọi thay đổi
+
+63
+00:02:44,100 --> 00:02:46,290
+trong stream và ghi lại
+
+64
+00:02:46,290 --> 00:02:49,170
+vào Neptune cluster đích.
+
+65
+00:02:49,170 --> 00:02:50,730
+Được rồi, bài học đến đây.
+
+66
+00:02:50,730 --> 00:02:53,913
+Hy vọng bạn thích và hẹn gặp lại ở bài giảng tiếp theo.

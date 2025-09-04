@@ -1,0 +1,251 @@
+1
+00:00:00,000 --> 00:00:02,250
+Vậy làm sao chúng ta kết nối CloudFront
+
+2
+00:00:02,250 --> 00:00:03,960
+với một application load balancer
+
+3
+00:00:03,960 --> 00:00:06,540
+hoặc một EC2 instance làm origin?
+
+4
+00:00:06,540 --> 00:00:08,580
+Chúng ta có hai cách, và đây là cách tốt hơn
+
+5
+00:00:08,580 --> 00:00:09,870
+và cũng là cách mới hơn.
+
+6
+00:00:09,870 --> 00:00:12,120
+Nó được gọi là sử dụng VPC origins.
+
+7
+00:00:12,120 --> 00:00:15,270
+Điều này cho phép bạn phân phối nội dung trực tiếp từ
+
+8
+00:00:15,270 --> 00:00:16,710
+các ứng dụng được lưu trữ
+
+9
+00:00:16,710 --> 00:00:19,440
+trong các private subnet thuộc VPC của bạn.
+
+10
+00:00:19,440 --> 00:00:21,120
+Và mọi thứ vẫn có thể giữ ở chế độ private.
+
+11
+00:00:21,120 --> 00:00:23,580
+Bạn không cần phải công khai bất cứ thứ gì ra internet.
+
+12
+00:00:23,580 --> 00:00:25,650
+Điều đó nghĩa là chúng ta có thể chuyển lưu lượng
+
+13
+00:00:25,650 --> 00:00:27,690
+đến các application balancer ở chế độ private,
+
+14
+00:00:27,690 --> 00:00:31,080
+network load balancer và các EC2 instance.
+
+15
+00:00:31,080 --> 00:00:32,340
+Vậy nó hoạt động thế nào?
+
+16
+00:00:32,340 --> 00:00:35,100
+Chúng ta sẽ tạo một CloudFront distribution,
+
+17
+00:00:35,100 --> 00:00:37,770
+có nhiều edge location, và người dùng sẽ
+
+18
+00:00:37,770 --> 00:00:39,780
+truy cập CloudFront theo cách này.
+
+19
+00:00:39,780 --> 00:00:43,457
+Sau đó từ CloudFront, chúng ta sẽ tạo một VPC origin
+
+20
+00:00:43,457 --> 00:00:47,520
+và kết nối VPC origin này tới backend.
+
+21
+00:00:47,520 --> 00:00:52,410
+Backend có thể là ALB, NLB hoặc một EC2 instance.
+
+22
+00:00:52,410 --> 00:00:55,620
+CloudFront sẽ liên kết qua VPC origin
+
+23
+00:00:55,620 --> 00:01:00,120
+để chuyển hướng lưu lượng tới các private subnet và ứng dụng.
+
+24
+00:01:00,120 --> 00:01:02,730
+Xét về mạng, đây là một
+
+25
+00:01:02,730 --> 00:01:05,670
+trong những cách thiết lập an toàn nhất
+
+26
+00:01:05,670 --> 00:01:08,340
+vì các ứng dụng của bạn vẫn được lưu trữ riêng tư,
+
+27
+00:01:08,340 --> 00:01:10,588
+bên trong, và bạn chọn phần nào cần lộ ra
+
+28
+00:01:10,588 --> 00:01:13,380
+thông qua CloudFront, điều này rất tiện lợi.
+
+29
+00:01:13,380 --> 00:01:15,240
+Nếu bạn muốn dùng mạng public,
+
+30
+00:01:15,240 --> 00:01:16,380
+thì đây là phương pháp trước đây
+
+31
+00:01:16,380 --> 00:01:19,110
+trước khi tính năng VPC origin ra đời.
+
+32
+00:01:19,110 --> 00:01:20,130
+Và tôi vẫn muốn cho bạn thấy
+
+33
+00:01:20,130 --> 00:01:23,100
+vì hiểu những gì đã làm trước đây cũng rất hữu ích.
+
+34
+00:01:23,100 --> 00:01:25,946
+Bạn phải có một EC2 instance công khai.
+
+35
+00:01:25,946 --> 00:01:30,765
+Do đó bạn cần một danh sách các edge location
+
+36
+00:01:30,765 --> 00:01:32,880
+cùng các địa chỉ IP public của chúng.
+
+37
+00:01:32,880 --> 00:01:34,920
+Bạn dùng đường link này để tìm danh sách
+
+38
+00:01:34,920 --> 00:01:36,630
+ tất cả các IP của CloudFront
+
+39
+00:01:36,630 --> 00:01:38,874
+và bạn phải chỉnh security group
+
+40
+00:01:38,874 --> 00:01:41,684
+để cho phép toàn bộ các IP public đó
+
+41
+00:01:41,684 --> 00:01:45,000
+của edge location truy cập vào EC2 instance của bạn.
+
+42
+00:01:45,000 --> 00:01:45,930
+Vì vậy instance sẽ là public,
+
+43
+00:01:45,930 --> 00:01:48,510
+nhưng chỉ giới hạn cho các edge location.
+
+44
+00:01:48,510 --> 00:01:49,920
+Điều tương tự áp dụng cho
+
+45
+00:01:49,920 --> 00:01:51,480
+trường hợp bạn có một application load balancer,
+
+46
+00:01:51,480 --> 00:01:53,340
+nó cũng phải là public,
+
+47
+00:01:53,340 --> 00:01:55,830
+nhưng các EC2 instance của bạn vẫn có thể private.
+
+48
+00:01:55,830 --> 00:01:58,140
+Sau đó chỉ cần mạng riêng giữa ALB
+
+49
+00:01:58,140 --> 00:02:01,170
+và các EC2 instance thông qua security group.
+
+50
+00:02:01,170 --> 00:02:03,084
+Và một lần nữa, bạn phải bảo đảm rằng
+
+51
+00:02:03,084 --> 00:02:05,673
+ALB có security group
+
+52
+00:02:05,673 --> 00:02:10,020
+cho phép tất cả IP public đến từ CloudFront.
+
+53
+00:02:10,020 --> 00:02:11,154
+Vì vậy cách này khá rườm rà
+
+54
+00:02:11,154 --> 00:02:14,190
+vì trước hết bạn phải tìm các IP public đó
+
+55
+00:02:14,190 --> 00:02:15,810
+và chỉnh sửa security group.
+
+56
+00:02:15,810 --> 00:02:17,640
+Ngoài ra còn có rủi ro
+
+57
+00:02:17,640 --> 00:02:21,150
+nếu ai đó thay đổi security group của ALB
+
+58
+00:02:21,150 --> 00:02:23,940
+hoặc EC2 instance, thì instance của bạn sẽ public
+
+59
+00:02:23,940 --> 00:02:26,610
+cho nhiều thứ khác ngoài CloudFront distribution.
+
+60
+00:02:26,610 --> 00:02:27,900
+Nhưng đó là cách cũ.
+
+61
+00:02:27,900 --> 00:02:31,800
+Cách mới tốt hơn là sử dụng VPC origins.
+
+62
+00:02:31,800 --> 00:02:33,060
+Được rồi, bài giảng đến đây.
+
+63
+00:02:33,060 --> 00:02:36,033
+Hy vọng bạn thích và hẹn gặp lại ở bài giảng tiếp theo.

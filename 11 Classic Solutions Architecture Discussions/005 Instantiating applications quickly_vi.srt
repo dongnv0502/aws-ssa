@@ -1,0 +1,251 @@
+1
+00:00:00,210 --> 00:00:02,460
+Một bài giảng rất nhanh về
+
+2
+00:00:02,460 --> 00:00:04,300
+khởi tạo ứng dụng nhanh.
+
+3
+00:00:04,300 --> 00:00:07,890
+Trong các cuộc thảo luận kiến trúc trước đây
+
+4
+00:00:07,890 --> 00:00:11,310
+chúng ta chưa từng nói cách cài đặt
+
+5
+00:00:11,310 --> 00:00:14,770
+và triển khai ứng dụng lên các EC2 instance
+
+6
+00:00:14,770 --> 00:00:17,500
+để chạy website, nên khi bạn khởi chạy
+
+7
+00:00:17,500 --> 00:00:19,550
+full stack của mình, việc này có thể mất nhiều thời gian
+
+8
+00:00:19,550 --> 00:00:23,010
+để cài ứng dụng, chèn hoặc khôi phục dữ liệu
+
+9
+00:00:23,010 --> 00:00:26,500
+cấu hình mọi thứ rồi mới khởi chạy ứng dụng.
+
+10
+00:00:26,500 --> 00:00:29,360
+Vậy làm sao tăng tốc? Ta có thể tận dụng
+
+11
+00:00:29,360 --> 00:00:30,960
+lợi thế của cloud để tăng tốc.
+
+12
+00:00:30,960 --> 00:00:33,210
+Hãy xem với EC2 instances
+
+13
+00:00:33,210 --> 00:00:35,873
+chúng ta có thể dùng cái gọi là golden AMI.
+
+14
+00:00:35,873 --> 00:00:39,570
+Golden AMI nghĩa là bạn cài ứng dụng,
+
+15
+00:00:39,570 --> 00:00:43,510
+OS dependencies, v.v. từ trước,
+
+16
+00:00:43,510 --> 00:00:46,150
+rồi tạo một AMI từ đó
+
+17
+00:00:46,150 --> 00:00:48,490
+và cho các EC2 instance tương lai
+
+18
+00:00:48,490 --> 00:00:51,980
+bạn chỉ cần khởi chạy trực tiếp từ golden AMI đó
+
+19
+00:00:51,980 --> 00:00:53,130
+và lý do là
+
+20
+00:00:53,130 --> 00:00:55,380
+ta không phải cài lại ứng dụng
+
+21
+00:00:55,380 --> 00:00:58,780
+hay các dependency. Ta chỉ khởi chạy với mọi thứ
+
+22
+00:00:58,780 --> 00:01:01,220
+đã cài sẵn và sẵn sàng,
+
+23
+00:01:01,220 --> 00:01:05,090
+và đó là cách nhanh nhất để khởi động EC2 instance.
+
+24
+00:01:05,090 --> 00:01:09,300
+Golden AMI là mẫu phổ biến trên Cloud,
+
+25
+00:01:09,300 --> 00:01:12,700
+và chúng ta cũng thấy cách dùng user data,
+
+26
+00:01:12,700 --> 00:01:15,550
+cho phép bootstrap instance.
+
+27
+00:01:15,550 --> 00:01:18,900
+Bootstrap tức là cấu hình instance
+
+28
+00:01:18,900 --> 00:01:22,350
+khi nó khởi động. Việc này cũng có thể cài ứng dụng,
+
+29
+00:01:22,350 --> 00:01:24,800
+các OS dependency, v.v.
+
+30
+00:01:24,800 --> 00:01:26,660
+Nhưng điều này sẽ rất chậm và chúng ta
+
+31
+00:01:26,660 --> 00:01:29,720
+không muốn mỗi ứng dụng phải tự làm mọi thứ trên từng EC2 instance
+
+32
+00:01:29,720 --> 00:01:31,650
+đúng như instance trước đã làm
+
+33
+00:01:31,650 --> 00:01:32,940
+nếu điều đó có thể lặp lại.
+
+34
+00:01:32,940 --> 00:01:36,413
+Nhưng với cấu hình động, ví dụ lấy
+
+35
+00:01:36,413 --> 00:01:40,740
+URL của database và mật khẩu, v.v.
+
+36
+00:01:40,740 --> 00:01:43,970
+chúng ta có thể bootstrap bằng EC2 user data
+
+37
+00:01:43,970 --> 00:01:47,768
+và có thể dùng kiểu lai giữa golden AMI
+
+38
+00:01:47,768 --> 00:01:51,500
+và user data để hoạt động, và đây là điều
+
+39
+00:01:51,500 --> 00:01:53,940
+chúng ta sẽ thấy ngay với Elastic Beanstalk.
+
+40
+00:01:53,940 --> 00:01:57,180
+Elastic Beanstalk dùng cùng nguyên tắc lai,
+
+41
+00:01:57,180 --> 00:01:58,610
+nơi ta có thể cấu hình lại AMI
+
+42
+00:01:58,610 --> 00:02:01,300
+rồi thêm user data.
+
+43
+00:02:01,300 --> 00:02:04,470
+Đối với RDS database ta có thể restore từ
+
+44
+00:02:04,470 --> 00:02:06,870
+snapshot, và database sẽ có schema
+
+45
+00:02:06,870 --> 00:02:08,740
+và dữ liệu sẵn sàng. Điều này tốt hơn
+
+46
+00:02:08,740 --> 00:02:11,270
+việc chạy các câu lệnh insert lớn
+
+47
+00:02:11,270 --> 00:02:14,320
+có thể mất rất lâu để khởi động RDS.
+
+48
+00:02:14,320 --> 00:02:16,390
+Đó là cách nhanh hơn
+
+49
+00:02:16,390 --> 00:02:18,330
+khi bạn muốn lấy dữ liệu.
+
+50
+00:02:18,330 --> 00:02:20,820
+Với EBS volume ta có thể restore từ Snapshot
+
+51
+00:02:20,820 --> 00:02:23,500
+nên không phải có đĩa trống chưa format,
+
+52
+00:02:23,500 --> 00:02:25,340
+ta có thể khôi phục từ snapshot
+
+53
+00:02:25,340 --> 00:02:28,300
+và snapshot đã được format đúng
+
+54
+00:02:28,300 --> 00:02:29,810
+và có dữ liệu cần thiết.
+
+55
+00:02:29,810 --> 00:02:32,040
+Đó là những điều bạn cần hiểu với tư cách
+
+56
+00:02:32,040 --> 00:02:35,163
+là solutions architect khi đi thi.
+
+57
+00:02:35,163 --> 00:02:38,320
+Bạn nói, OK chúng ta tăng tốc khởi động EC2 instances.
+
+58
+00:02:38,320 --> 00:02:40,504
+cách tăng tốc RDS databases hoặc EBS volumes
+
+59
+00:02:40,504 --> 00:02:43,630
+và định dạng các thứ khác.
+
+60
+00:02:43,630 --> 00:02:47,390
+Đây là những gì bạn muốn làm bằng golden AMI, user data,
+
+61
+00:02:47,390 --> 00:02:49,820
+restore database snapshots và EBS snapshots.
+
+62
+00:02:49,820 --> 00:02:51,960
+Hy vọng điều này hữu ích và có ý nghĩa
+
+63
+00:02:51,960 --> 00:02:53,910
+và hẹn gặp bạn ở bài học tiếp theo.

@@ -1,0 +1,268 @@
+1
+00:00:00,540 --> 00:00:01,830
+Hãy cùng tổng kết về
+
+2
+00:00:01,830 --> 00:00:04,590
+những gì chúng ta đã học trong phần Amazon RDS.
+
+3
+00:00:04,590 --> 00:00:07,020
+Nếu bạn cần xem lại bất kỳ điểm nào,
+
+4
+00:00:07,020 --> 00:00:08,970
+tôi khuyên bạn nên quay lại các bài giảng trước.
+
+5
+00:00:08,970 --> 00:00:11,370
+Đây là phần tóm tắt những gì bạn cần nắm
+
+6
+00:00:11,370 --> 00:00:12,930
+về Amazon RDS.
+
+7
+00:00:12,930 --> 00:00:16,050
+Đây là dịch vụ quản lý cho PostgreSQL, MySQL
+
+8
+00:00:16,050 --> 00:00:19,386
+hoặc Oracle, SQL Server, DB2, MariaDB,
+
+9
+00:00:19,386 --> 00:00:23,400
+hoặc bạn có thể dùng phiên bản RDS tùy chỉnh.
+
+10
+00:00:23,400 --> 00:00:24,233
+Với Amazon RDS,
+
+11
+00:00:24,233 --> 00:00:27,090
+bạn cần cấu hình kích thước instance RDS
+
+12
+00:00:27,090 --> 00:00:29,550
+cũng như loại và dung lượng EBS.
+
+13
+00:00:29,550 --> 00:00:31,290
+Nên mọi thứ đều được cấp sẵn,
+
+14
+00:00:31,290 --> 00:00:33,930
+dù bạn có khả năng tự động mở rộng
+
+15
+00:00:33,930 --> 00:00:36,450
+ở tầng lưu trữ.
+
+16
+00:00:36,450 --> 00:00:38,580
+Amazon RDS hỗ trợ read replica
+
+17
+00:00:38,580 --> 00:00:40,440
+để mở rộng khả năng đọc.
+
+18
+00:00:40,440 --> 00:00:43,800
+Vì vậy nếu ứng dụng của bạn cần chạy phân tích
+
+19
+00:00:43,800 --> 00:00:45,990
+trên cơ sở dữ liệu production, tốt nhất là
+
+20
+00:00:45,990 --> 00:00:47,610
+tạo một read replica.
+
+21
+00:00:47,610 --> 00:00:49,410
+Và để đạt tính sẵn sàng cao,
+
+22
+00:00:49,410 --> 00:00:53,040
+bạn có thể dùng Multi-AZ để có một database dự phòng,
+
+23
+00:00:53,040 --> 00:00:55,498
+dù database đó chỉ dùng
+
+24
+00:00:55,498 --> 00:00:57,150
+khi xảy ra thảm họa.
+
+25
+00:00:57,150 --> 00:00:58,350
+Bạn không thể dùng nó
+
+26
+00:00:58,350 --> 00:01:00,630
+để thực hiện truy vấn.
+
+27
+00:01:00,630 --> 00:01:04,500
+Bảo mật cho RDS được thực hiện qua IAM,
+
+28
+00:01:04,500 --> 00:01:05,790
+ví dụ bạn có thể dùng
+
+29
+00:01:05,790 --> 00:01:07,650
+tên người dùng và mật khẩu để kết nối,
+
+30
+00:01:07,650 --> 00:01:09,780
+nhưng cũng có thể dùng xác thực IAM
+
+31
+00:01:09,780 --> 00:01:11,070
+cho một số engine.
+
+32
+00:01:11,070 --> 00:01:14,040
+Bạn có thể mã hóa database bằng KMS.
+
+33
+00:01:14,040 --> 00:01:16,800
+Bạn cũng có thể bảo vệ mạng
+
+34
+00:01:16,800 --> 00:01:20,010
+bằng cách đặt instance RDS trong private subnet.
+
+35
+00:01:20,010 --> 00:01:22,590
+Trong Amazon RDS, backup được hỗ trợ,
+
+36
+00:01:22,590 --> 00:01:23,550
+và theo mặc định
+
+37
+00:01:23,550 --> 00:01:25,860
+bạn có tùy chọn backup tự động
+
+38
+00:01:25,860 --> 00:01:28,830
+tối đa 35 ngày, và nếu dùng,
+
+39
+00:01:28,830 --> 00:01:31,440
+bạn có thể khôi phục về bất kỳ thời điểm nào
+
+40
+00:01:31,440 --> 00:01:33,360
+trong 35 ngày đó,
+
+41
+00:01:33,360 --> 00:01:35,670
+và điều này sẽ tạo một database mới,
+
+42
+00:01:35,670 --> 00:01:39,120
+hoặc nếu muốn giữ backup lâu dài hơn,
+
+43
+00:01:39,120 --> 00:01:42,810
+bạn sẽ dùng snapshot thủ công.
+
+44
+00:01:42,810 --> 00:01:44,640
+Có việc bảo trì
+
+45
+00:01:44,640 --> 00:01:45,900
+được quản lý và lên lịch,
+
+46
+00:01:45,900 --> 00:01:47,970
+điều này sẽ gây downtime cho database.
+
+47
+00:01:47,970 --> 00:01:50,820
+Đó là vì bạn phải cấp phát
+
+48
+00:01:50,820 --> 00:01:52,260
+và cập nhật nó.
+
+49
+00:01:52,260 --> 00:01:55,890
+Ý tôi là AWS phải cập nhật engine
+
+50
+00:01:55,890 --> 00:01:58,440
+hoặc instance EC2 bên dưới
+
+51
+00:01:58,440 --> 00:02:00,693
+để vá bảo mật và những thứ khác.
+
+52
+00:02:01,800 --> 00:02:04,980
+RDS hỗ trợ xác thực IAM,
+
+53
+00:02:04,980 --> 00:02:08,250
+và bạn có thể buộc dùng nó qua RDS Proxy,
+
+54
+00:02:08,250 --> 00:02:10,650
+có tích hợp với Secrets Manager
+
+55
+00:02:10,650 --> 00:02:12,780
+để quản lý thông tin đăng nhập.
+
+56
+00:02:12,780 --> 00:02:16,770
+Nếu bạn muốn truy cập vào instance bên dưới
+
+57
+00:02:16,770 --> 00:02:20,790
+và tùy biến, bạn có thể dùng tùy chọn RDS Custom
+
+58
+00:02:20,790 --> 00:02:23,190
+áp dụng cho Oracle
+
+59
+00:02:23,190 --> 00:02:26,580
+và SQL Server.
+
+60
+00:02:26,580 --> 00:02:29,070
+Vậy các trường hợp sử dụng RDS là
+
+61
+00:02:29,070 --> 00:02:31,590
+lưu trữ cơ sở dữ liệu quan hệ.
+
+62
+00:02:31,590 --> 00:02:33,810
+Ví dụ dùng hệ quản trị RDBMS
+
+63
+00:02:33,810 --> 00:02:37,500
+hoặc cơ sở dữ liệu xử lý giao dịch trực tuyến, OLTP.
+
+64
+00:02:37,500 --> 00:02:40,710
+Nếu bạn muốn chạy truy vấn SQL trên đó
+
+65
+00:02:40,710 --> 00:02:42,330
+và thực hiện giao dịch.
+
+66
+00:02:42,330 --> 00:02:44,680
+Hy vọng không có gì quá mới với bạn.
+
+67
+00:02:45,990 --> 00:02:48,940
+Mong bạn thấy hữu ích và hẹn gặp ở bài tiếp theo.
+

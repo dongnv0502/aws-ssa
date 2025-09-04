@@ -1,0 +1,256 @@
+1
+00:00:00,170 --> 00:00:02,810
+Chúng ta cùng thực hành S3 access logs.
+
+2
+00:00:02,810 --> 00:00:07,910
+Vì vậy tôi sẽ tạo một bucket S3 access logs, đặt tên là v3.
+
+3
+00:00:07,970 --> 00:00:12,020
+Sau đó tôi sẽ tạo bucket đó.
+
+4
+00:00:12,140 --> 00:00:14,810
+Bucket đó sẽ là bucket ghi log của chúng ta.
+
+5
+00:00:14,810 --> 00:00:16,850
+Tôi sẽ giữ tab này mở.
+
+6
+00:00:16,850 --> 00:00:21,920
+Ở tab khác tôi sẽ chọn một bucket mình đã tạo.
+
+7
+00:00:21,920 --> 00:00:26,060
+Sau đó tôi sẽ bật tính năng logging.
+
+8
+00:00:26,060 --> 00:00:27,380
+Tôi vừa chọn một bucket.
+
+9
+00:00:27,380 --> 00:00:34,160
+Nhưng với bất kỳ bucket nào bạn muốn, tôi sẽ vào phần Properties và cuộn xuống
+
+10
+00:00:34,160 --> 00:00:37,070
+tìm mục server access logging.
+
+11
+00:00:37,070 --> 00:00:38,480
+Chúng ta chỉnh sửa mục này.
+
+12
+00:00:38,480 --> 00:00:40,400
+Hãy bật nó lên.
+
+13
+00:00:40,400 --> 00:00:46,910
+Như bạn thấy, bucket policy sẽ được cập nhật cho bucket đích nơi ta ghi dữ liệu.
+
+14
+00:00:46,910 --> 00:00:49,700
+Trước tiên ta phải chỉ định đích đến.
+
+15
+00:00:49,700 --> 00:00:50,690
+Ồ, nhầm chút.
+
+16
+00:00:50,690 --> 00:00:53,660
+Tôi sẽ vào bucket của mình và gõ chữ access.
+
+17
+00:00:53,660 --> 00:00:55,940
+Ở đây là stefan access log v3.
+
+18
+00:00:55,940 --> 00:00:56,840
+Đây là bucket tôi cần.
+
+19
+00:00:56,840 --> 00:00:59,330
+Tôi sẽ chọn nó làm đích đến.
+
+20
+00:00:59,510 --> 00:01:01,550
+Tiếp theo là vùng đích.
+
+21
+00:01:01,550 --> 00:01:03,560
+Vùng này là EU West 1.
+
+22
+00:01:03,560 --> 00:01:05,930
+Chúng ta có prefix tên bucket đích.
+
+23
+00:01:05,930 --> 00:01:11,690
+Nếu muốn chọn một prefix tùy chọn trong bucket, ví dụ thêm /logs, nhưng chúng ta
+
+24
+00:01:11,690 --> 00:01:12,800
+sẽ không làm vậy.
+
+25
+00:01:12,920 --> 00:01:15,830
+Tiếp theo là định dạng key của log object.
+
+26
+00:01:15,830 --> 00:01:17,900
+Đây là định dạng sẵn có.
+
+27
+00:01:17,900 --> 00:01:22,490
+Có ví dụ minh họa cho log key.
+
+28
+00:01:22,490 --> 00:01:30,050
+Hoặc nếu dùng tùy chọn thứ hai, tôi có thể ghi nhận thời gian S3 event hoặc thời gian log được gửi.
+
+29
+00:01:30,050 --> 00:01:34,730
+Điều này sẽ làm thay đổi định dạng key cuối cùng.
+
+30
+00:01:34,730 --> 00:01:36,230
+Hiện tại chúng ta giữ mặc định.
+
+31
+00:01:36,230 --> 00:01:38,330
+Vì vậy chúng ta dùng tùy chọn đầu tiên.
+
+32
+00:01:38,330 --> 00:01:39,710
+Như vậy là đủ cho nhu cầu của chúng ta.
+
+33
+00:01:39,710 --> 00:01:41,990
+Sau đó nhấn Save changes.
+
+34
+00:01:42,540 --> 00:01:44,610
+Và bây giờ S3 của tôi
+
+35
+00:01:45,470 --> 00:01:48,230
+đã bật server access logging.
+
+36
+00:01:48,230 --> 00:01:54,710
+Giờ tôi có thể vào mục Objects, chọn một đối tượng, có thể mở nó,
+
+37
+00:01:54,710 --> 00:01:58,190
+quay lại bucket, truy cập vào và tải lên một file.
+
+38
+00:01:58,190 --> 00:02:01,400
+Tôi sẽ thêm một file, ví dụ như ảnh JPEG.
+
+39
+00:02:01,400 --> 00:02:04,250
+Bạn có thể làm nhiều thao tác trong bucket.
+
+40
+00:02:04,250 --> 00:02:07,400
+Những thao tác này sẽ tạo ra hoạt động.
+
+41
+00:02:07,400 --> 00:02:12,080
+Các hoạt động đó sẽ được ghi vào bucket log.
+
+42
+00:02:12,110 --> 00:02:15,170
+Giờ nếu tôi refresh, bạn thấy vẫn chưa có gì.
+
+43
+00:02:15,170 --> 00:02:21,620
+Bởi vì access logs cần chút thời gian để xuất hiện trong bucket log.
+
+44
+00:02:21,620 --> 00:02:25,100
+Trong lúc chờ, chúng ta có thể xem lại phần permissions.
+
+45
+00:02:25,100 --> 00:02:29,690
+Vì khi chúng ta bật server access logging,
+
+46
+00:02:29,690 --> 00:02:32,150
+ở ngay phần server access logging này,
+
+47
+00:02:32,150 --> 00:02:36,650
+nó thông báo bucket policy sẽ được cập nhật.
+
+48
+00:02:36,650 --> 00:02:39,050
+Hãy kiểm tra bằng cách cuộn xuống.
+
+49
+00:02:39,050 --> 00:02:41,210
+Và ở đây chúng ta thấy bucket policy.
+
+50
+00:02:41,210 --> 00:02:49,970
+Đúng vậy, policy đã cho phép dịch vụ logging của Amazon S3 ghi object
+
+51
+00:02:49,970 --> 00:02:52,130
+vào bucket này.
+
+52
+00:02:52,610 --> 00:02:53,600
+Như vậy là ổn.
+
+53
+00:02:53,600 --> 00:02:59,330
+Vì thế, việc cần làm là quay lại bucket và đợi log đầu tiên
+
+54
+00:02:59,330 --> 00:02:59,900
+được gửi.
+
+55
+00:02:59,900 --> 00:03:02,330
+Mất vài giờ nhưng tôi vừa refresh lại.
+
+56
+00:03:02,330 --> 00:03:09,230
+Trong bucket, tôi thấy nhiều file mới được tạo trực tiếp cho access log.
+
+57
+00:03:09,230 --> 00:03:09,470
+log.
+
+
+58
+00:03:09,470 --> 00:03:12,920
+Tôi có thể nhấp vào một file và mở nó.
+
+59
+00:03:12,920 --> 00:03:15,680
+Tại đó tôi có thể xem chuyện gì đã diễn ra.
+
+60
+00:03:15,680 --> 00:03:18,200
+Dù hơi khó đọc một chút.
+
+61
+00:03:18,200 --> 00:03:24,350
+Nhưng nó cung cấp API call, tỷ lệ thành công, ai truy cập, bucket nào, thời điểm nào
+
+62
+00:03:24,350 --> 00:03:26,150
+và rất nhiều thông tin khác.
+
+63
+00:03:26,150 --> 00:03:29,630
+Vậy là xong phần S3 access logs.
+
+64
+00:03:29,630 --> 00:03:32,630
+Hy vọng bạn thích và hẹn gặp ở bài giảng tiếp theo.

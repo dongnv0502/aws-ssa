@@ -1,0 +1,263 @@
+1
+00:00:00,450 --> 00:00:01,283
+Giờ hãy nói về
+
+2
+00:00:01,283 --> 00:00:02,790
+một vài kiến trúc giải pháp
+
+3
+00:00:02,790 --> 00:00:05,490
+bạn có thể gặp với Amazon ECS.
+
+4
+00:00:05,490 --> 00:00:09,330
+Đầu tiên là ECS task được gọi bởi Event Bridge.
+
+5
+00:00:09,330 --> 00:00:11,208
+Ví dụ, chúng ta có một Amazon ECS cluster
+
+6
+00:00:11,208 --> 00:00:14,970
+chạy trên Fargate và có các S3 bucket.
+
+7
+00:00:14,970 --> 00:00:18,870
+Người dùng sẽ tải đối tượng lên S3 bucket,
+
+8
+00:00:18,870 --> 00:00:21,270
+và các S3 bucket này có thể, ví dụ,
+
+9
+00:00:21,270 --> 00:00:23,370
+tích hợp với Amazon Event Bridge
+
+10
+00:00:23,370 --> 00:00:25,500
+để gửi tất cả sự kiện tới đó.
+
+11
+00:00:25,500 --> 00:00:28,230
+Amazon Event Bridge có thể có rule
+
+12
+00:00:28,230 --> 00:00:30,900
+để chạy ECS task khi cần.
+
+13
+00:00:30,900 --> 00:00:33,120
+Khi các ECS task được tạo,
+
+14
+00:00:33,120 --> 00:00:36,030
+chúng sẽ có ECS task role đi kèm,
+
+15
+00:00:36,030 --> 00:00:37,320
+và từ chính task
+
+16
+00:00:37,320 --> 00:00:41,430
+nó có thể lấy object, xử lý
+
+17
+00:00:41,430 --> 00:00:45,090
+và gửi kết quả vào Amazon DynamoDB.
+
+18
+00:00:45,090 --> 00:00:46,410
+Đó là nhờ vào việc
+
+19
+00:00:46,410 --> 00:00:49,260
+chúng ta gán ECS task role.
+
+20
+00:00:49,260 --> 00:00:51,090
+Như vậy, chúng ta đã
+
+21
+00:00:51,090 --> 00:00:54,330
+tạo ra một kiến trúc serverless
+
+22
+00:00:54,330 --> 00:00:57,990
+để xử lý hình ảnh hay các object
+
+23
+00:00:57,990 --> 00:01:01,440
+từ S3 bucket bằng Docker container.
+
+24
+00:01:01,440 --> 00:01:04,697
+Điều này dùng Amazon Event Bridge ECS
+
+25
+00:01:04,697 --> 00:01:07,680
+ở chế độ Fargate và ECS task role
+
+26
+00:01:07,680 --> 00:01:12,060
+để tương tác với Amazon S3 và Amazon DynamoDB.
+
+27
+00:01:12,060 --> 00:01:14,820
+Một kiến trúc khác cũng dùng Event Bridge
+
+28
+00:01:14,820 --> 00:01:16,830
+là dùng lịch của Event Bridge.
+
+29
+00:01:16,830 --> 00:01:18,510
+Chúng ta có một Amazon ECS cluster
+
+30
+00:01:18,510 --> 00:01:21,180
+chạy Fargate và Event Bridge,
+
+31
+00:01:21,180 --> 00:01:25,020
+và chúng ta đặt lịch để rule kích hoạt mỗi giờ.
+
+32
+00:01:25,020 --> 00:01:29,040
+Rule này sẽ chạy ECS task trên Fargate,
+
+33
+00:01:29,040 --> 00:01:31,140
+nghĩa là mỗi giờ
+
+34
+00:01:31,140 --> 00:01:33,900
+một task mới sẽ được tạo trong Fargate cluster
+
+35
+00:01:33,900 --> 00:01:35,700
+và task có thể thực hiện bất cứ việc gì.
+
+36
+00:01:35,700 --> 00:01:38,370
+Ví dụ, chúng ta tạo một ECS task role
+
+37
+00:01:38,370 --> 00:01:42,480
+có quyền truy cập Amazon S3, do đó task của chúng ta
+
+38
+00:01:42,480 --> 00:01:45,630
+container Docker, chương trình của chúng ta có thể
+
+39
+00:01:45,630 --> 00:01:48,450
+mỗi giờ chạy xử lý hàng loạt
+
+40
+00:01:48,450 --> 00:01:50,790
+đối với các file trong Amazon S3.
+
+41
+00:01:50,790 --> 00:01:55,110
+Tất cả kiến trúc này hoàn toàn serverless.
+
+42
+00:01:55,110 --> 00:01:58,470
+Ví dụ cuối cùng là dùng ECS với SQS queue,
+
+43
+00:01:58,470 --> 00:02:02,970
+chúng ta có một service ECS với hai ECS task,
+
+44
+00:02:02,970 --> 00:02:05,640
+và các message được gửi vào SQS queue,
+
+45
+00:02:05,640 --> 00:02:09,060
+service sẽ pull message
+
+46
+00:02:09,060 --> 00:02:11,580
+từ SQS queue và xử lý.
+
+47
+00:02:11,580 --> 00:02:14,010
+Chúng ta có thể bật ECS Service Auto Scaling
+
+48
+00:02:14,010 --> 00:02:15,480
+cho service này.
+
+49
+00:02:15,480 --> 00:02:18,210
+Điều đó nghĩa là càng nhiều message
+
+50
+00:02:18,210 --> 00:02:21,060
+trong SQS queue, càng nhiều task
+
+51
+00:02:21,060 --> 00:02:25,080
+trong ECS service nhờ auto-scaling.
+
+52
+00:02:25,080 --> 00:02:28,140
+Một tích hợp khác là khi bạn muốn dùng Event Bridge
+
+53
+00:02:28,140 --> 00:02:33,140
+để bắt các sự kiện bên trong ECS cluster.
+
+54
+00:02:33,330 --> 00:02:35,220
+Ví dụ bạn muốn phản ứng
+
+55
+00:02:35,220 --> 00:02:37,500
+khi task kết thúc.
+
+56
+00:02:37,500 --> 00:02:40,110
+Khi đó, bất kỳ task nào thoát hoặc khởi chạy
+
+57
+00:02:40,110 --> 00:02:42,930
+trong ECS cluster đều có thể phát sự kiện
+
+58
+00:02:42,930 --> 00:02:45,210
+đến Event Bridge và trông như thế này.
+
+59
+00:02:45,210 --> 00:02:49,440
+Ví dụ, sự kiện ECS task state change cho trạng thái "stopped"
+
+60
+00:02:49,440 --> 00:02:50,910
+kèm lý do dừng.
+
+61
+00:02:50,910 --> 00:02:54,088
+Từ đó chúng ta có thể gửi cảnh báo lên SNS topic
+
+62
+00:02:54,088 --> 00:02:57,480
+và gửi email cho quản trị viên.
+
+63
+00:02:57,480 --> 00:03:00,570
+Tóm lại, Event Bridge giúp bạn hiểu
+
+64
+00:03:00,570 --> 00:03:04,380
+vòng đời container trong ECS cluster.
+
+65
+00:03:04,380 --> 00:03:06,300
+Được rồi, bài học đến đây.
+
+66
+00:03:06,300 --> 00:03:09,423
+Hy vọng bạn thích và hẹn gặp lại ở bài giảng tiếp theo.
