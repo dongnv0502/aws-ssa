@@ -73,7 +73,7 @@ Next text content
 - [ ] Module 08: 0/30 files
 - [ ] Module 09: 0/23 files
 - [ ] Module 11: 0/16 files
-- [ ] Module 12: 2/16 files ✅ 005 S3 Website Overview, 010 S3 Replication Notes
+- [ ] Module 12: 3/16 files ✅ 005 S3 Website Overview, 007 S3 Versioning, 010 S3 Replication Notes
 - [ ] Module 13: 0/24 files
 - [ ] Module 14: 1/31 files ✅ 004 S3 Default Encryption
 - [ ] Module 15: 0/20 files
@@ -88,7 +88,7 @@ Next text content
 - [ ] Module 29: 0/12 files
 - [ ] Module 30: 2/20 files ✅ 001 Section Intro, 010 AWS Cost Anomaly Detection
 
-**Tổng tiến độ: 21/229 files (9.2%)**
+**Tổng tiến độ: 22/229 files (9.6%)**
 
 ## Ghi Chú
 - Ưu tiên dịch các module cơ bản trước (01, 03, 06)
