@@ -1,62 +1,62 @@
 1
 00:00:00,130 --> 00:00:02,440
-Okay, yet another solution architecting
+Được rồi, lại một bài thiết kế giải pháp nữa
 
 2
 00:00:02,440 --> 00:00:03,340
-we are going to see right here.
+chúng ta sẽ xem tại đây.
 
 3
 00:00:03,340 --> 00:00:05,770
-So, let's talk about software updates offloading.
+Hãy nói về việc offload cập nhật phần mềm.
 
 4
 00:00:05,770 --> 00:00:08,750
-So, we have an application is running on EC2
+Chúng ta có một ứng dụng chạy trên EC2
 
 5
 00:00:08,750 --> 00:00:11,140
-and it distributes software updates once in a while.
+và thỉnh thoảng phân phối các bản cập nhật phần mềm.
 
 6
 00:00:11,140 --> 00:00:12,770
-So, think about the computers
+Hãy nghĩ về những máy tính
 
 7
 00:00:12,770 --> 00:00:14,360
-that need to download the patch
+cần tải bản vá
 
 8
 00:00:14,360 --> 00:00:18,160
-and then you download from us and this patch sits on EC2.
+và bạn tải từ chúng tôi và bản vá nằm trên EC2.
 
 9
 00:00:18,160 --> 00:00:20,070
-So, when a new software update is out,
+Vậy khi có bản cập nhật mới,
 
 10
 00:00:20,070 --> 00:00:21,530
-we are going to get a lot of request
+chúng ta sẽ nhận rất nhiều yêu cầu
 
 11
 00:00:21,530 --> 00:00:23,200
-because a lot of people want to update.
+vì rất nhiều người muốn cập nhật.
 
 12
 00:00:23,200 --> 00:00:24,870
-And so the content is distributed
+Vì vậy nội dung được phân phối
 
 13
 00:00:24,870 --> 00:00:26,190
-in mass over the networking.
+rộng rãi qua mạng.
 
 14
 00:00:26,190 --> 00:00:28,460
-It cost us so much money.
+Điều này tốn rất nhiều tiền.
 
 15
 00:00:28,460 --> 00:00:30,880
-Additionally, we really don't want to change
+Thêm vào đó, chúng ta thật sự không muốn thay đổi
 
 16
 00:00:30,880 --> 00:00:32,520

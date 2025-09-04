@@ -1,0 +1,488 @@
+1
+00:00:00,030 --> 00:00:01,290
+Được rồi, hãy cùng thảo luận
+
+2
+00:00:01,290 --> 00:00:02,730
+về kiến trúc serverless nhé,
+
+3
+00:00:02,730 --> 00:00:03,840
+và chúng ta sẽ tạo
+
+4
+00:00:03,840 --> 00:00:06,540
+một ứng dụng di động tên là MyTodoList.
+
+5
+00:00:06,540 --> 00:00:08,760
+Chúng ta có các yêu cầu sau.
+
+6
+00:00:08,760 --> 00:00:13,760
+Chúng ta muốn công khai một REST API với các endpoint HTTPS.
+
+7
+00:00:13,890 --> 00:00:15,780
+Chúng ta muốn kiến trúc phải serverless,
+
+8
+00:00:15,780 --> 00:00:18,720
+và chúng ta muốn người dùng có thể tương tác trực tiếp
+
+9
+00:00:18,720 --> 00:00:20,670
+với thư mục riêng của họ trong S3
+
+10
+00:00:20,670 --> 00:00:22,530
+để quản lý dữ liệu của họ nếu muốn.
+
+11
+00:00:22,530 --> 00:00:24,810
+Và người dùng cũng cần có thể xác thực
+
+12
+00:00:24,810 --> 00:00:27,720
+thông qua một dịch vụ serverless được quản lý.
+
+13
+00:00:27,720 --> 00:00:30,870
+Cuối cùng, người dùng có thể ghi và đọc các to-do,
+
+14
+00:00:30,870 --> 00:00:32,130
+nhưng chủ yếu là đọc.
+
+15
+00:00:32,130 --> 00:00:34,590
+Vậy nên có lẽ ta phải làm gì đó về hiệu năng.
+
+16
+00:00:34,590 --> 00:00:36,240
+Lớp cơ sở dữ liệu cần có khả năng mở rộng
+
+17
+00:00:36,240 --> 00:00:39,540
+và phải có thông lượng đọc rất cao.
+
+18
+00:00:39,540 --> 00:00:40,890
+Đó là một bộ yêu cầu khá ổn.
+
+19
+00:00:40,890 --> 00:00:42,840
+Giờ hãy xem chúng ta thực hiện thế nào.
+
+20
+00:00:42,840 --> 00:00:46,230
+Đầu tiên, chúng ta có các client di động,
+
+21
+00:00:46,230 --> 00:00:49,710
+và chúng ta đã nói về việc dùng REST qua HTTPS.
+
+22
+00:00:49,710 --> 00:00:52,050
+Vậy nên hãy dùng Amazon API Gateway cho việc này.
+
+23
+00:00:52,050 --> 00:00:53,670
+Đây là cách rất tốt để làm.
+
+24
+00:00:53,670 --> 00:00:57,000
+Với mô hình API serverless truyền thống,
+
+25
+00:00:57,000 --> 00:00:59,460
+API Gateway sẽ gọi một hàm Lambda,
+
+26
+00:00:59,460 --> 00:01:00,990
+cho phép chúng ta mở rộng
+
+27
+00:01:00,990 --> 00:01:03,630
+và sử dụng hạ tầng serverless.
+
+28
+00:01:03,630 --> 00:01:06,030
+Được rồi, Lambda cần có khả năng lưu trữ
+
+29
+00:01:06,030 --> 00:01:08,640
+và đọc to-do từ một cơ sở dữ liệu.
+
+30
+00:01:08,640 --> 00:01:10,380
+Một cơ sở dữ liệu có khả năng mở rộng rất tốt
+
+31
+00:01:10,380 --> 00:01:13,050
+và có thể có thông lượng đọc cao
+
+32
+00:01:13,050 --> 00:01:15,180
+để cho phép mọi người
+
+33
+00:01:15,180 --> 00:01:17,070
+đọc to-do của họ rất nhanh.
+
+34
+00:01:17,070 --> 00:01:19,440
+Vậy có lẽ chúng ta nên dùng một cache,
+
+35
+00:01:19,440 --> 00:01:20,820
+có thể cũng không.
+
+36
+00:01:20,820 --> 00:01:23,370
+Một cách dễ để lưu trữ to-do trên AWS
+
+37
+00:01:23,370 --> 00:01:25,200
+là sử dụng DynamoDB.
+
+38
+00:01:25,200 --> 00:01:26,850
+Vì sao? Vì nó serverless và có thể mở rộng
+
+39
+00:01:26,850 --> 00:01:29,220
+với thông lượng đọc rất tốt
+
+40
+00:01:29,220 --> 00:01:30,930
+và bạn trả theo mức sử dụng.
+
+41
+00:01:30,930 --> 00:01:32,580
+Vậy nên đây là trường hợp dùng DynamoDB hoàn hảo.
+
+42
+00:01:32,580 --> 00:01:34,320
+Giờ API Gateway sẽ gọi một hàm Lambda,
+
+43
+00:01:34,320 --> 00:01:36,240
+Lambda sẽ thao tác với DynamoDB,
+
+44
+00:01:36,240 --> 00:01:37,890
+và DynamoDB sẽ tự mở rộng.
+
+45
+00:01:37,890 --> 00:01:39,840
+Tuy nhiên chúng ta vẫn có yêu cầu rằng người dùng
+
+46
+00:01:39,840 --> 00:01:42,870
+phải có thể truy cập trực tiếp dữ liệu của họ trong S3,
+
+47
+00:01:42,870 --> 00:01:44,850
+và có lẽ ta muốn họ
+
+48
+00:01:44,850 --> 00:01:46,470
+tương tác với một bucket S3.
+
+49
+00:01:46,470 --> 00:01:48,780
+Vậy trong trường hợp này, chúng ta cần người dùng xác thực.
+
+50
+00:01:48,780 --> 00:01:50,820
+Để làm điều này, chúng ta có thể dùng Amazon Cognito.
+
+51
+00:01:50,820 --> 00:01:52,710
+Cognito cho phép người dùng xác thực
+
+52
+00:01:52,710 --> 00:01:55,350
+và quản lý người dùng cho chúng ta.
+
+53
+00:01:55,350 --> 00:01:57,360
+Sau đó Cognito sẽ có thể cấp
+
+54
+00:01:57,360 --> 00:01:58,980
+các credential tạm thời
+
+55
+00:01:58,980 --> 00:02:01,410
+để Lambda có thể dùng tương tác với S3,
+
+56
+00:02:01,410 --> 00:02:03,480
+hoặc trực tiếp để ứng dụng di động của chúng ta tương tác với S3
+
+57
+00:02:03,480 --> 00:02:05,340
+nếu chính sách cho phép.
+
+58
+00:02:05,340 --> 00:02:07,590
+Để làm vậy, chúng ta phải có một bucket policy
+
+59
+00:02:07,590 --> 00:02:09,030
+trong bucket S3 của mình, chỉ ra rằng,
+
+60
+00:02:09,030 --> 00:02:12,060
+được rồi, dùng các IAM credential tạm thời này
+
+61
+00:02:12,060 --> 00:02:14,550
+từ Cognito, bạn có thể tương tác với thư mục riêng của mình.
+
+62
+00:02:14,550 --> 00:02:15,960
+Thật tuyệt.
+
+63
+00:02:15,960 --> 00:02:18,240
+Khi một người dùng được Cognito xác thực,
+
+64
+00:02:18,240 --> 00:02:20,040
+họ nhận được credential tạm thời.
+
+65
+00:02:20,040 --> 00:02:21,900
+Họ có thể dùng AWS SDK
+
+66
+00:02:21,900 --> 00:02:24,000
+để tương tác trực tiếp với S3 bằng những credential đó,
+
+67
+00:02:24,000 --> 00:02:26,010
+hoặc họ có thể dùng các credential đó
+
+68
+00:02:26,010 --> 00:02:27,960
+để tương tác với API của chúng ta.
+
+69
+00:02:27,960 --> 00:02:30,330
+Rồi API này sẽ dùng Lambda để nói chuyện với DynamoDB
+
+70
+00:02:30,330 --> 00:02:32,130
+và lưu các to-do cho người dùng.
+
+71
+00:02:32,130 --> 00:02:34,110
+Đó là cách kiến trúc serverless
+
+72
+00:02:34,110 --> 00:02:36,000
+hoạt động đối với một ứng dụng di động.
+
+73
+00:02:36,000 --> 00:02:38,160
+Giờ hãy bàn thêm một chút
+
+74
+00:02:38,160 --> 00:02:39,840
+về lớp cơ sở dữ liệu trong DynamoDB.
+
+75
+00:02:39,840 --> 00:02:42,060
+Có thể chúng ta có rất nhiều lượt đọc
+
+76
+00:02:42,060 --> 00:02:43,590
+và muốn tối ưu điều đó.
+
+77
+00:02:43,590 --> 00:02:46,020
+Chúng ta có thể dùng DynamoDB DAX như một cache
+
+78
+00:02:46,020 --> 00:02:47,520
+để tăng thông lượng đọc
+
+79
+00:02:47,520 --> 00:02:49,170
+và giảm thời gian phản hồi.
+
+80
+00:02:49,170 --> 00:02:51,270
+Nếu triển khai DAX, kiến trúc sẽ như sau.
+
+81
+00:02:51,270 --> 00:02:53,250
+API Gateway gọi Lambda,
+
+82
+00:02:53,250 --> 00:02:54,990
+Lambda tương tác với DAX,
+
+83
+00:02:54,990 --> 00:02:56,700
+DAX tương tác với DynamoDB.
+
+84
+00:02:56,700 --> 00:02:58,410
+Đây là cách tuyệt vời để có caching.
+
+85
+00:02:58,410 --> 00:03:00,510
+Cuối cùng, ta có thể nghĩ tới
+
+86
+00:03:00,510 --> 00:03:02,910
+API Gateway có tính năng caching,
+
+87
+00:03:02,910 --> 00:03:05,010
+vì vậy chúng ta có thể cache các phản hồi REST API
+
+88
+00:03:05,010 --> 00:03:06,990
+nếu một số trong chúng là tĩnh.
+
+89
+00:03:06,990 --> 00:03:09,270
+Trong kiến trúc này, API Gateway có thể
+
+90
+00:03:09,270 --> 00:03:10,950
+cache trực tiếp các phản hồi
+
+91
+00:03:10,950 --> 00:03:13,020
+và tránh gọi Lambda cũng như phần còn lại của stack.
+
+92
+00:03:13,020 --> 00:03:15,510
+Điều này sẽ rất hữu ích để giảm chi phí.
+
+93
+00:03:15,510 --> 00:03:18,550
+Và trong kiến trúc này, chúng ta không phải quản lý gì cả.
+
+94
+00:03:18,550 --> 00:03:20,230
+Chúng ta trả tiền theo mức sử dụng,
+
+95
+00:03:20,230 --> 00:03:22,700
+và không phải lo việc quản trị cơ sở dữ liệu.
+
+96
+00:03:22,700 --> 00:03:24,070
+Tất cả đều do AWS lo.
+
+97
+00:03:24,070 --> 00:03:26,020
+Vì vậy, trong bài giảng này,
+
+98
+00:03:26,020 --> 00:03:28,110
+chúng ta đã thấy kiến trúc REST API serverless kinh điển,
+
+99
+00:03:28,110 --> 00:03:29,940
+chủ yếu tận dụng HTTPS, API Gateway,
+
+100
+00:03:29,940 --> 00:03:31,680
+Lambda và DynamoDB.
+
+101
+00:03:31,680 --> 00:03:34,190
+Sau đó, chúng ta dùng Cognito
+
+102
+00:03:34,190 --> 00:03:36,600
+để tạo credential tạm thời giúp ta truy cập
+
+103
+00:03:36,600 --> 00:03:38,430
+vào một bucket S3 với policy giới hạn.
+
+104
+00:03:38,430 --> 00:03:41,100
+Chúng ta cũng có thể dùng cùng mẫu ứng dụng này với Cognito.
+
+105
+00:03:41,100 --> 00:03:43,200
+Ứng dụng của chúng ta có thể truy cập DynamoDB,
+
+106
+00:03:43,200 --> 00:03:44,880
+hoặc trực tiếp Lambda hay bất kỳ dịch vụ nào.
+
+107
+00:03:44,880 --> 00:03:46,530
+Đây là mẫu rất phổ biến.
+
+108
+00:03:46,530 --> 00:03:49,350
+Việc cache các lượt đọc trên DynamoDB có thể thực hiện bằng DAX.
+
+109
+00:03:49,350 --> 00:03:51,180
+Đây là cách bật rất dễ,
+
+110
+00:03:51,180 --> 00:03:53,700
+và bạn không chỉ cải thiện hiệu năng,
+
+111
+00:03:53,700 --> 00:03:55,680
+mà còn giảm chi phí, và cache các request REST
+
+112
+00:03:55,680 --> 00:03:57,660
+có thể thực hiện ở cấp API Gateway
+
+113
+00:03:57,660 --> 00:04:00,330
+nếu chúng ta có các phản hồi rất tĩnh.
+
+114
+00:04:00,330 --> 00:04:02,550
+Cuối cùng về bảo mật, toàn bộ có thể được thực hiện
+
+115
+00:04:02,550 --> 00:04:04,770
+bằng Cognito và Cognito tích hợp trực tiếp
+
+116
+00:04:04,770 --> 00:04:06,450
+với API Gateway.
+
+117
+00:04:06,450 --> 00:04:08,250
+Đây là một ví dụ rất cơ bản,
+
+118
+00:04:08,250 --> 00:04:09,960
+nhưng giúp chúng ta bắt đầu
+
+119
+00:04:09,960 --> 00:04:11,700
+với các kiến trúc serverless
+
+120
+00:04:11,700 --> 00:04:12,900
+và cho thấy tất cả các thành phần khác nhau đã học
+
+121
+00:04:12,900 --> 00:04:13,770
+ở phần trước.
+
+122
+00:04:13,770 --> 00:04:15,720
+Hy vọng điều này hữu ích, và hẹn gặp bạn ở bài giảng tiếp theo.
+
