@@ -1,0 +1,752 @@
+1
+00:00:00,380 --> 00:00:02,820
+So now let's talk about Amazon FSx.
+
+2
+00:00:02,820 --> 00:00:04,560
+So Amazon FSx allows you
+
+3
+00:00:04,560 --> 00:00:07,440
+to launch third-party high-performance file systems
+
+4
+00:00:07,440 --> 00:00:11,730
+on AWS as a fully managed service.
+
+5
+00:00:11,730 --> 00:00:15,450
+So the idea is that you want, for example, for RDS,
+
+6
+00:00:15,450 --> 00:00:19,440
+you wanted to launch MySQL or PostgreSQL on AWS.
+
+7
+00:00:19,440 --> 00:00:23,280
+Well, for FSx, it is the same as RDS, but for file systems.
+
+8
+00:00:23,280 --> 00:00:27,240
+So for example, you can launch Lustre on FSx
+
+9
+00:00:27,240 --> 00:00:30,960
+or you can launch a Windows File Server on FSx
+
+10
+00:00:30,960 --> 00:00:34,050
+or you can launch NetApp ONTAP on FSx
+
+11
+00:00:34,050 --> 00:00:36,990
+or OpenZFS on FSx.
+
+12
+00:00:36,990 --> 00:00:38,640
+And there may be more
+
+13
+00:00:38,640 --> 00:00:40,830
+at the time of you seeing this lecture,
+
+14
+00:00:40,830 --> 00:00:43,740
+and I will update this lecture only if I find
+
+15
+00:00:43,740 --> 00:00:45,870
+that some significant file systems
+
+16
+00:00:45,870 --> 00:00:48,990
+are making their appearance at the exam, okay?
+
+17
+00:00:48,990 --> 00:00:52,290
+But you need to know the four you have in front of you.
+
+18
+00:00:52,290 --> 00:00:54,810
+So let's have a look at them one by one.
+
+19
+00:00:54,810 --> 00:00:57,630
+So first, let's have a look at Amazon FSx
+
+20
+00:00:57,630 --> 00:00:59,670
+for Windows File Server.
+
+21
+00:00:59,670 --> 00:01:04,140
+So it's a fully managed Windows File Server share drive.
+
+22
+00:01:04,140 --> 00:01:08,070
+And because it's Windows, it supports the SMB protocol,
+
+23
+00:01:08,070 --> 00:01:10,560
+as well as Windows NTFS.
+
+24
+00:01:10,560 --> 00:01:13,650
+Also, because it's Windows, it supports integration
+
+25
+00:01:13,650 --> 00:01:17,970
+with Microsoft Active Directory to get security
+
+26
+00:01:17,970 --> 00:01:19,290
+for your users.
+
+27
+00:01:19,290 --> 00:01:23,190
+It use also ACLs, access control list, and user quotas.
+
+28
+00:01:23,190 --> 00:01:27,000
+And there is a specificity, though, of Amazon FSx
+
+29
+00:01:27,000 --> 00:01:27,960
+for Windows File Server,
+
+30
+00:01:27,960 --> 00:01:30,720
+is that even though it seems like it's dedicated
+
+31
+00:01:30,720 --> 00:01:35,720
+for Windows, you can also mount them on Linux EC2 instances.
+
+32
+00:01:35,730 --> 00:01:37,740
+And it's something you have to remember.
+
+33
+00:01:37,740 --> 00:01:40,770
+And if you have an existing Windows File Server somewhere,
+
+34
+00:01:40,770 --> 00:01:42,750
+for example, on premises,
+
+35
+00:01:42,750 --> 00:01:45,810
+then you can use the Microsoft Distributed File System,
+
+36
+00:01:45,810 --> 00:01:49,650
+DFS feature, to group your file systems together
+
+37
+00:01:49,650 --> 00:01:53,310
+and therefore join your FSx for Windows File Server
+
+38
+00:01:53,310 --> 00:01:56,760
+to your on-premises Windows File Server.
+
+39
+00:01:56,760 --> 00:01:58,560
+Okay, now, in terms of performance,
+
+40
+00:01:58,560 --> 00:02:01,770
+this scales up to tens of gigabytes per second,
+
+41
+00:02:01,770 --> 00:02:05,730
+millions of IOPS, and hundreds of petabytes of data.
+
+42
+00:02:05,730 --> 00:02:09,840
+The storage option for FSx for Windows File Server are SSD
+
+43
+00:02:09,840 --> 00:02:13,320
+to get very low latency sensitive workloads,
+
+44
+00:02:13,320 --> 00:02:16,710
+for example, databases, media processing, data analytics.
+
+45
+00:02:16,710 --> 00:02:20,040
+Or if you wanted to have a broad spectrum of workloads,
+
+46
+00:02:20,040 --> 00:02:21,840
+you can use HDD is cheaper,
+
+47
+00:02:21,840 --> 00:02:25,050
+for example, home directory or CMS.
+
+48
+00:02:25,050 --> 00:02:28,860
+Now you can access your FSx for Windows File Server
+
+49
+00:02:28,860 --> 00:02:30,750
+from your on-premises infrastructure
+
+50
+00:02:30,750 --> 00:02:32,340
+with a private connection,
+
+51
+00:02:32,340 --> 00:02:35,010
+and you can also configure your FSx for Windows File Server
+
+52
+00:02:35,010 --> 00:02:37,590
+to be Multi-AZ for high availability.
+
+53
+00:02:37,590 --> 00:02:41,640
+Finally, all your data is backed-up daily to Amazon S3
+
+54
+00:02:41,640 --> 00:02:43,473
+for disaster recovery purposes.
+
+55
+00:02:44,310 --> 00:02:47,910
+Now let's talk about the second kind of Amazon FSx,
+
+56
+00:02:47,910 --> 00:02:49,740
+which is Amazon FSx for Lustre.
+
+57
+00:02:49,740 --> 00:02:54,180
+And Lustre is used to do a distributed file system
+
+58
+00:02:54,180 --> 00:02:56,970
+that is going to be used for large-scale computing.
+
+59
+00:02:56,970 --> 00:02:58,683
+So once I explained you the word Lustre,
+
+60
+00:02:58,683 --> 00:03:00,120
+it's going to make sense.
+
+61
+00:03:00,120 --> 00:03:03,450
+So Lustre is derived from Linux and cluster.
+
+62
+00:03:03,450 --> 00:03:05,130
+It is used for machine learning
+
+63
+00:03:05,130 --> 00:03:07,080
+and high-performance computing, or HPC.
+
+64
+00:03:07,080 --> 00:03:08,940
+And this is a keyword you need to look for
+
+65
+00:03:08,940 --> 00:03:11,550
+to know that you need FSx for Lustre.
+
+66
+00:03:11,550 --> 00:03:14,730
+So you can have applications such as video processing,
+
+67
+00:03:14,730 --> 00:03:17,580
+financial modeling, electronic design automation.
+
+68
+00:03:17,580 --> 00:03:18,510
+You have massive scale,
+
+69
+00:03:18,510 --> 00:03:20,340
+so you can scale up to hundreds of gigabytes
+
+70
+00:03:20,340 --> 00:03:22,410
+of data per second, millions of IOPS,
+
+71
+00:03:22,410 --> 00:03:24,480
+and sub-milliseconds latency.
+
+72
+00:03:24,480 --> 00:03:26,280
+And for storage, two options,
+
+73
+00:03:26,280 --> 00:03:28,980
+either you want an SSD for very low latency,
+
+74
+00:03:28,980 --> 00:03:30,540
+IOPS intensive workload,
+
+75
+00:03:30,540 --> 00:03:32,910
+as well as small and random file operations,
+
+76
+00:03:32,910 --> 00:03:36,030
+or HDD if you want throughput-intensive workload
+
+77
+00:03:36,030 --> 00:03:38,730
+for large and sequential file operations.
+
+78
+00:03:38,730 --> 00:03:41,760
+And SSD is going to be more expensive than HDD.
+
+79
+00:03:41,760 --> 00:03:44,460
+You have seamless integration with Amazon S3.
+
+80
+00:03:44,460 --> 00:03:46,590
+That means that you can read S3
+
+81
+00:03:46,590 --> 00:03:48,810
+as a file system through FSx,
+
+82
+00:03:48,810 --> 00:03:52,410
+and you can write the output of the computations from FSx
+
+83
+00:03:52,410 --> 00:03:54,270
+back to Amazon S3.
+
+84
+00:03:54,270 --> 00:03:57,090
+And that is something that the exam may ask you about.
+
+85
+00:03:57,090 --> 00:03:59,940
+Finally, Amazon FSx for Lustre can be used
+
+86
+00:03:59,940 --> 00:04:03,933
+from on-premises servers through VPN or direct connect.
+
+87
+00:04:05,100 --> 00:04:06,960
+For FSx, you also need to know
+
+88
+00:04:06,960 --> 00:04:08,580
+the file system deployment options.
+
+89
+00:04:08,580 --> 00:04:10,410
+And there's two you need to know.
+
+90
+00:04:10,410 --> 00:04:14,970
+There is scratch file system and persistent file system.
+
+91
+00:04:14,970 --> 00:04:18,209
+So scratch file system is going to be temporary storage,
+
+92
+00:04:18,209 --> 00:04:20,610
+and the data will not be replicated.
+
+93
+00:04:20,610 --> 00:04:22,620
+That means that you have a file,
+
+94
+00:04:22,620 --> 00:04:25,680
+and you will lose it if the underlying server fails.
+
+95
+00:04:25,680 --> 00:04:28,650
+But thanks to this optimization, we get really high bursts.
+
+96
+00:04:28,650 --> 00:04:30,440
+So we get six times the performance
+
+97
+00:04:30,440 --> 00:04:32,010
+of a persistent file system,
+
+98
+00:04:32,010 --> 00:04:36,420
+and you get, for example, 200 megabytes per second
+
+99
+00:04:36,420 --> 00:04:37,980
+per terabytes of throughput.
+
+100
+00:04:37,980 --> 00:04:39,690
+So it's actually really, really big.
+
+101
+00:04:39,690 --> 00:04:42,330
+So the use case of a scratch file system is going
+
+102
+00:04:42,330 --> 00:04:44,490
+to do short-term processing of data,
+
+103
+00:04:44,490 --> 00:04:46,140
+and you want to optimize your cost
+
+104
+00:04:46,140 --> 00:04:48,000
+by not having data being replicated.
+
+105
+00:04:48,000 --> 00:04:50,400
+So that means that you have FSx,
+
+106
+00:04:50,400 --> 00:04:54,150
+your compute instances are going to connect on AZ1 and AZ2,
+
+107
+00:04:54,150 --> 00:04:57,660
+and then the FSx for Lustre scratch file system
+
+108
+00:04:57,660 --> 00:04:59,260
+only has one copy of your data
+
+109
+00:04:59,260 --> 00:05:01,890
+as it is shown on this diagram right here.
+
+110
+00:05:01,890 --> 00:05:03,720
+Just one copy, okay?
+
+111
+00:05:03,720 --> 00:05:07,530
+Finally, you can also have optional S3 buckets underlying
+
+112
+00:05:07,530 --> 00:05:09,360
+for the data repository.
+
+113
+00:05:09,360 --> 00:05:10,680
+For persistent file system,
+
+114
+00:05:10,680 --> 00:05:12,390
+it's going to be for long-term storage.
+
+115
+00:05:12,390 --> 00:05:13,740
+The data is going to be replicated
+
+116
+00:05:13,740 --> 00:05:15,600
+within the same availability zone, okay,
+
+117
+00:05:15,600 --> 00:05:18,180
+so not across AZ but within the same AZ.
+
+118
+00:05:18,180 --> 00:05:20,220
+But that means that if you have a failure
+
+119
+00:05:20,220 --> 00:05:22,380
+of a underlying server,
+
+120
+00:05:22,380 --> 00:05:24,360
+then the files will be replaced
+
+121
+00:05:24,360 --> 00:05:26,700
+transparently within minutes.
+
+122
+00:05:26,700 --> 00:05:29,370
+So the use case for a persistent file system is,
+
+123
+00:05:29,370 --> 00:05:31,830
+as its name indicates, long-term processing
+
+124
+00:05:31,830 --> 00:05:34,320
+and storage of sensitive data.
+
+125
+00:05:34,320 --> 00:05:35,640
+So the idea is exactly the same
+
+126
+00:05:35,640 --> 00:05:36,750
+in terms of the architecture.
+
+127
+00:05:36,750 --> 00:05:39,420
+Remember, FSx only lives for Lustre
+
+128
+00:05:39,420 --> 00:05:41,910
+only within one single AZ.
+
+129
+00:05:41,910 --> 00:05:44,310
+And the FSx for Lustre file system
+
+130
+00:05:44,310 --> 00:05:46,410
+in persistent mode will have two copies of the data,
+
+131
+00:05:46,410 --> 00:05:48,480
+so you can see there is some replication right now
+
+132
+00:05:48,480 --> 00:05:51,660
+from one data volume to the next data volume.
+
+133
+00:05:51,660 --> 00:05:54,960
+Next, we have Amazon FSx for NetApp ONTAP.
+
+134
+00:05:54,960 --> 00:05:58,770
+So it's a managed NetApp ONTAP file system on AWS.
+
+135
+00:05:58,770 --> 00:06:00,480
+And this file system is compatible
+
+136
+00:06:00,480 --> 00:06:05,480
+with the NFS, SMB, and iSCSI protocol.
+
+137
+00:06:05,520 --> 00:06:08,425
+So the idea is that you would use the FSx
+
+138
+00:06:08,425 --> 00:06:10,980
+for NetApp ONTAP file system to move workloads
+
+139
+00:06:10,980 --> 00:06:12,750
+that are already running on ONTAP
+
+140
+00:06:12,750 --> 00:06:17,750
+or running on a NAS on your on-premises system into AWS.
+
+141
+00:06:17,880 --> 00:06:20,310
+So it has broad compatibility
+
+142
+00:06:20,310 --> 00:06:21,930
+with different operating systems.
+
+143
+00:06:21,930 --> 00:06:25,290
+So it work with Linux, Windows, and macOS,
+
+144
+00:06:25,290 --> 00:06:28,230
+as well as VMware Cloud on AWS,
+
+145
+00:06:28,230 --> 00:06:31,320
+WorkSpaces, AppStream, EC2, ECS, and EKS,
+
+146
+00:06:31,320 --> 00:06:33,900
+which are services you may have not seen yet
+
+147
+00:06:33,900 --> 00:06:35,370
+in this course, okay?
+
+148
+00:06:35,370 --> 00:06:36,930
+But the idea is that it has
+
+149
+00:06:36,930 --> 00:06:39,630
+very, very, very broad compatibility.
+
+150
+00:06:39,630 --> 00:06:40,590
+On top of it,
+
+151
+00:06:40,590 --> 00:06:43,350
+these storage will automatically shrink or grow.
+
+152
+00:06:43,350 --> 00:06:45,690
+So there's auto-scaling for this, which is cool.
+
+153
+00:06:45,690 --> 00:06:48,810
+Then you have replication, you have snapshots,
+
+154
+00:06:48,810 --> 00:06:50,280
+replication features available.
+
+155
+00:06:50,280 --> 00:06:53,340
+It's low cost, you can do data compression.
+
+156
+00:06:53,340 --> 00:06:56,790
+And also, you can do data de-duplication.
+
+157
+00:06:56,790 --> 00:07:00,480
+So you can find duplicates of files on NetApp ONTAP.
+
+158
+00:07:00,480 --> 00:07:02,520
+And finally, very helpful,
+
+159
+00:07:02,520 --> 00:07:05,670
+you can do point-in-time instantaneous cloning,
+
+160
+00:07:05,670 --> 00:07:07,650
+which is very helpful for testing new workloads
+
+161
+00:07:07,650 --> 00:07:08,970
+and in ones you want to test.
+
+162
+00:07:08,970 --> 00:07:10,470
+You wanna take your file system,
+
+163
+00:07:10,470 --> 00:07:11,850
+you clone it very quickly,
+
+164
+00:07:11,850 --> 00:07:14,520
+and then you have a staging file system, for example.
+
+165
+00:07:14,520 --> 00:07:17,370
+So these are some of the benefits you need to look out for
+
+166
+00:07:17,370 --> 00:07:19,530
+in the exam when it's hinted at you
+
+167
+00:07:19,530 --> 00:07:22,350
+that you should be using NetApp ONTAP.
+
+168
+00:07:22,350 --> 00:07:25,143
+Finally, we have Amazon FSx for OpenZFS.
+
+169
+00:07:26,460 --> 00:07:29,253
+So it's a managed OpenZFS file system on AWS,
+
+170
+00:07:30,150 --> 00:07:32,970
+which is compatible only with the NFS protocol
+
+171
+00:07:32,970 --> 00:07:34,650
+on multiple versions.
+
+172
+00:07:34,650 --> 00:07:38,010
+And the main use case is to move workloads
+
+173
+00:07:38,010 --> 00:07:42,780
+that are already running on ZFS internally to AWS.
+
+174
+00:07:42,780 --> 00:07:45,900
+It has also has broad compatibility
+
+175
+00:07:45,900 --> 00:07:48,750
+with Linux, Mac, Windows, and so on.
+
+176
+00:07:48,750 --> 00:07:50,280
+And this one is really good performance.
+
+177
+00:07:50,280 --> 00:07:52,560
+You can scale up to 1 million IOPS
+
+178
+00:07:52,560 --> 00:07:55,950
+with less than 0.5 millisecond latency,
+
+179
+00:07:55,950 --> 00:07:58,350
+support snapshots, compression, and low cost,
+
+180
+00:07:58,350 --> 00:08:01,530
+but not data de-duplication.
+
+181
+00:08:01,530 --> 00:08:03,750
+And just like NetApp ONTAP,
+
+182
+00:08:03,750 --> 00:08:06,630
+it has support for point-in-time instantaneous cloning,
+
+183
+00:08:06,630 --> 00:08:10,320
+which is very helpful again to test new workloads.
+
+184
+00:08:10,320 --> 00:08:12,000
+So all this information should be enough
+
+185
+00:08:12,000 --> 00:08:15,240
+for you to answer the question at the exam,
+
+186
+00:08:15,240 --> 00:08:18,360
+to pick the right file system for the right use case.
+
+187
+00:08:18,360 --> 00:08:19,230
+Okay, that's it.
+
+188
+00:08:19,230 --> 00:08:22,383
+I hope you liked it, and I will see you in the next lecture.
+

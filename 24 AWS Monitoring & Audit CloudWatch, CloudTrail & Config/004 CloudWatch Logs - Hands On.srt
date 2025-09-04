@@ -1,0 +1,548 @@
+1
+00:00:00,500 --> 00:00:02,330
+Okay, So I am in CloudWatch logs
+
+2
+00:00:02,330 --> 00:00:04,620
+and we can see all the log groups we have right now.
+
+3
+00:00:04,620 --> 00:00:05,453
+So as you can see,
+
+4
+00:00:05,453 --> 00:00:07,150
+we have eight of them and they were created
+
+5
+00:00:07,150 --> 00:00:08,210
+by some services.
+
+6
+00:00:08,210 --> 00:00:10,150
+For example, this one was created by Lambda.
+
+7
+00:00:10,150 --> 00:00:10,983
+This one was created by datasync.
+
+8
+00:00:10,983 --> 00:00:13,280
+This one was created by glue
+
+9
+00:00:13,280 --> 00:00:14,570
+and this one was created by us
+
+10
+00:00:14,570 --> 00:00:17,390
+when we did do an SSM runCommand
+
+11
+00:00:17,390 --> 00:00:20,350
+and we wanted the output to be populated in this log group.
+
+12
+00:00:20,350 --> 00:00:22,610
+So, if we take a look at this example, for example,
+
+13
+00:00:22,610 --> 00:00:24,560
+we have six log streams
+
+14
+00:00:24,560 --> 00:00:27,350
+and so each of them represents a different instance
+
+15
+00:00:27,350 --> 00:00:29,640
+that we did run a specific run command on.
+
+16
+00:00:29,640 --> 00:00:32,170
+So, this is the same runcommond ID across the six.
+
+17
+00:00:32,170 --> 00:00:35,300
+Here, we have a different instance ID for each of the six,
+
+18
+00:00:35,300 --> 00:00:37,540
+so two and two and then we have,
+
+19
+00:00:37,540 --> 00:00:39,420
+stdout and stderr.
+
+20
+00:00:39,420 --> 00:00:41,030
+So if you look at stdout,
+
+21
+00:00:41,030 --> 00:00:43,940
+we can look at all the logs that was generated
+
+22
+00:00:43,940 --> 00:00:44,773
+by this command
+
+23
+00:00:44,773 --> 00:00:47,140
+and we can have a look at all the log lines and so on.
+
+24
+00:00:47,140 --> 00:00:48,400
+So this is quite (indistinct).
+
+25
+00:00:48,400 --> 00:00:49,233
+And the idea is that,
+
+26
+00:00:49,233 --> 00:00:50,320
+from the log for example,
+
+27
+00:00:50,320 --> 00:00:52,480
+you can look through the keyword http
+
+28
+00:00:52,480 --> 00:00:54,770
+and it would show you all the log lines
+
+29
+00:00:54,770 --> 00:00:56,450
+that contain the word htp.
+
+30
+00:00:56,450 --> 00:00:58,930
+If you just look for the word installing, for example,
+
+31
+00:00:58,930 --> 00:01:01,340
+it will show you just maybe two or three log lines
+
+32
+00:01:01,340 --> 00:01:03,170
+that contain the word installing.
+
+33
+00:01:03,170 --> 00:01:04,459
+So that's certainly (indistinct).
+
+34
+00:01:04,459 --> 00:01:07,290
+And so we have, for stdout, stderr,
+
+35
+00:01:07,290 --> 00:01:11,310
+so we can see really the idea behind different log streams.
+
+36
+00:01:11,310 --> 00:01:13,940
+Now, we can create metric filters in here,
+
+37
+00:01:13,940 --> 00:01:14,800
+and these metric filters
+
+38
+00:01:14,800 --> 00:01:16,810
+is a way for us to find a filter pattern.
+
+39
+00:01:16,810 --> 00:01:18,210
+For example, installing.
+
+40
+00:01:18,210 --> 00:01:19,090
+Okay,
+
+41
+00:01:19,090 --> 00:01:20,570
+And then we need to select for example,
+
+42
+00:01:20,570 --> 00:01:22,800
+a custom data, for example, this log stream
+
+43
+00:01:22,800 --> 00:01:25,160
+and then we test a pattern and it's going to give us
+
+44
+00:01:25,160 --> 00:01:28,300
+three matches out of five in the simple logs.
+
+45
+00:01:28,300 --> 00:01:31,520
+Now, if you went ahead with entering this filter name,
+
+46
+00:01:31,520 --> 00:01:32,353
+as we can see,
+
+47
+00:01:32,353 --> 00:01:33,651
+it could call it DemoFilter
+
+48
+00:01:33,651 --> 00:01:35,401
+and DemometricFilter.
+
+49
+00:01:37,818 --> 00:01:39,666
+And this is a new namespace, okay.
+
+50
+00:01:39,666 --> 00:01:42,176
+And here is DemoMetric.
+
+51
+00:01:42,176 --> 00:01:46,235
+So this is DemoMetric filter namespace,
+
+52
+00:01:46,235 --> 00:01:48,818
+and this is a DemometricFilter.
+
+53
+00:01:50,090 --> 00:01:52,060
+And then, the metric value, okay.
+
+54
+00:01:52,060 --> 00:01:54,550
+When there is a filter pattern or matching occur
+
+55
+00:01:54,550 --> 00:01:56,651
+and so, you can say one for example,
+
+56
+00:01:56,651 --> 00:01:59,210
+to add one and to count how many times
+
+57
+00:01:59,210 --> 00:02:01,910
+this installing lines have been filmed.
+
+58
+00:02:01,910 --> 00:02:04,810
+And the default value and the unit if you want it to,
+
+59
+00:02:04,810 --> 00:02:06,450
+then click on next, create
+
+60
+00:02:06,450 --> 00:02:08,530
+and this will give you a new metrics
+
+61
+00:02:08,530 --> 00:02:11,570
+so, if you went into CloudWatch metric right here
+
+62
+00:02:14,970 --> 00:02:16,540
+and we're going to clear this graph
+
+63
+00:02:16,540 --> 00:02:19,500
+and we're going to find a new metrics.
+
+64
+00:02:19,500 --> 00:02:24,140
+So let's refresh this page.
+
+65
+00:02:24,140 --> 00:02:25,690
+Maybe this is going to help us.
+
+66
+00:02:26,780 --> 00:02:28,970
+Okay, so if we go to all new spaces,
+
+67
+00:02:28,970 --> 00:02:32,420
+as soon as this metric filter would appear,
+
+68
+00:02:32,420 --> 00:02:34,140
+it would appear right here and we could visualize it.
+
+69
+00:02:34,140 --> 00:02:36,330
+But currently, because we don't send any log output,
+
+70
+00:02:36,330 --> 00:02:37,400
+then we don't see it.
+
+71
+00:02:37,400 --> 00:02:38,233
+But the idea is that,
+
+72
+00:02:38,233 --> 00:02:40,950
+we could create an alarm on top of this metric filter
+
+73
+00:02:40,950 --> 00:02:43,200
+So we can click on create alarm.
+
+74
+00:02:43,200 --> 00:02:45,661
+and this would allow us to create
+
+75
+00:02:45,661 --> 00:02:46,494
+an alarm in case,
+
+76
+00:02:46,494 --> 00:02:49,000
+for example, a metric went over a specific value
+
+77
+00:02:49,000 --> 00:02:52,350
+and again, this metric is calculated based on the filter
+
+78
+00:02:52,350 --> 00:02:54,530
+from the log streams.
+
+79
+00:02:54,530 --> 00:02:56,250
+We could also create subscription filters.
+
+80
+00:02:56,250 --> 00:02:57,320
+So as you can see here,
+
+81
+00:02:57,320 --> 00:03:00,590
+we can create a filter for different outcomes.
+
+82
+00:03:00,590 --> 00:03:04,570
+So Elasticsearch, Kinesis, datastreams,
+
+83
+00:03:04,570 --> 00:03:07,540
+Kinesis Firehose or a Lambda subscription filter
+
+84
+00:03:07,540 --> 00:03:10,820
+if you want to send data into custom lambda functions.
+
+85
+00:03:10,820 --> 00:03:13,420
+And, we can create up to two subscription filters
+
+86
+00:03:13,420 --> 00:03:16,090
+per log group according to this, okay.
+
+87
+00:03:16,090 --> 00:03:19,040
+Now, we can also edit the retention settings.
+
+88
+00:03:19,040 --> 00:03:21,960
+So, we can see that the logs can never expire
+
+89
+00:03:21,960 --> 00:03:25,510
+all the way up to 120 months.
+
+90
+00:03:25,510 --> 00:03:27,540
+Okay, so 10 years.
+
+91
+00:03:27,540 --> 00:03:30,327
+And then, we can also export the data into Amazon S3.
+
+92
+00:03:30,327 --> 00:03:31,940
+So you can click on export data
+
+93
+00:03:31,940 --> 00:03:34,440
+You can choose a range of data to export
+
+94
+00:03:34,440 --> 00:03:35,830
+and then, the stream prefix,
+
+95
+00:03:35,830 --> 00:03:37,940
+if you wanted to just get specific log streams,
+
+96
+00:03:37,940 --> 00:03:40,440
+and then the S3 buckets and the bucket prefix,
+
+97
+00:03:40,440 --> 00:03:42,000
+and you'd be good to go.
+
+98
+00:03:42,000 --> 00:03:42,910
+And the finally,
+
+99
+00:03:42,910 --> 00:03:45,463
+in here, you can create a log group
+
+100
+00:03:45,463 --> 00:03:50,100
+(indistinct) demo-log-group.
+
+101
+00:03:50,100 --> 00:03:52,380
+Okay, you can set up the retention settings.
+
+102
+00:03:52,380 --> 00:03:55,200
+KMS key, if you wanted to encrypt that log group
+
+103
+00:03:55,200 --> 00:03:56,750
+and then click on create.
+
+104
+00:03:56,750 --> 00:04:00,540
+And so, the encryption setting would appear then here,
+
+105
+00:04:00,540 --> 00:04:02,900
+if a KMS key ID was specified.
+
+106
+00:04:02,900 --> 00:04:04,900
+Okay and then finally,
+
+107
+00:04:04,900 --> 00:04:06,450
+CloudWatch Logs Insights,
+
+108
+00:04:06,450 --> 00:04:09,280
+is allowing you to use a nice query language
+
+109
+00:04:09,280 --> 00:04:11,200
+to query some specific log groups.
+
+110
+00:04:11,200 --> 00:04:13,520
+So for example, we can create this one
+
+111
+00:04:13,520 --> 00:04:15,400
+and run the query.
+
+112
+00:04:15,400 --> 00:04:17,930
+And then, this is not going to give us any data
+
+113
+00:04:17,930 --> 00:04:19,690
+because we're looking for data from the past hour.
+
+114
+00:04:19,690 --> 00:04:23,870
+But if we look at data from the past 60 days
+
+115
+00:04:23,870 --> 00:04:26,240
+and run this query, maybe we'll find something.
+
+116
+00:04:26,240 --> 00:04:27,490
+So you can see, we found
+
+117
+00:04:28,430 --> 00:04:30,170
+18 records from this query.
+
+118
+00:04:30,170 --> 00:04:32,090
+And so, this gives us a nice query language
+
+119
+00:04:32,090 --> 00:04:34,700
+to start gaining some insights on top of our logs.
+
+120
+00:04:34,700 --> 00:04:35,800
+And on top of it,
+
+121
+00:04:35,800 --> 00:04:38,450
+you can export the results if you want it to.
+
+122
+00:04:38,450 --> 00:04:39,430
+And on the right hand side,
+
+123
+00:04:39,430 --> 00:04:41,620
+you can see that you can save your queries. Okay?
+
+124
+00:04:41,620 --> 00:04:43,680
+So you can query and save them here.
+
+125
+00:04:43,680 --> 00:04:45,350
+Or, you can look at some simple queries
+
+126
+00:04:45,350 --> 00:04:48,970
+and view the use cases of losing log insights for example,
+
+127
+00:04:48,970 --> 00:04:50,200
+view the latency statistics
+
+128
+00:04:50,200 --> 00:04:52,450
+for a five minute interval on Lambda,
+
+129
+00:04:52,450 --> 00:04:54,340
+or get the top 10 by transfers
+
+130
+00:04:54,340 --> 00:04:58,080
+by source and destination IP addresses for VPC flow logs.
+
+131
+00:04:58,080 --> 00:04:58,930
+So it gives you,
+
+132
+00:04:58,930 --> 00:05:00,520
+for example, if you should click on these,
+
+133
+00:05:00,520 --> 00:05:03,410
+some nice insights to how the query language works
+
+134
+00:05:03,410 --> 00:05:05,570
+for CloudWatch logs insights.
+
+135
+00:05:05,570 --> 00:05:06,580
+So this is CloudWatch logs.
+
+136
+00:05:06,580 --> 00:05:07,660
+I hope you liked it
+
+137
+00:05:07,660 --> 00:05:09,610
+and I will see you in the next lecture.
+

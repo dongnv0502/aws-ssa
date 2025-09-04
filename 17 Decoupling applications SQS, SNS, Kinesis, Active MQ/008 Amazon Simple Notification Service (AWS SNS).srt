@@ -1,0 +1,432 @@
+1
+00:00:00,069 --> 00:00:03,000
+Now let's talk about Amazon SNS.
+
+2
+00:00:03,000 --> 00:00:05,560
+So what if this time you want to send one message
+
+3
+00:00:05,560 --> 00:00:07,860
+and have many, many different receivers?
+
+4
+00:00:07,860 --> 00:00:11,190
+So you could have a direct integration where for example
+
+5
+00:00:11,190 --> 00:00:14,230
+a buying service application could send an email
+
+6
+00:00:14,230 --> 00:00:16,910
+notification, then send a message to a fraud service
+
+7
+00:00:16,910 --> 00:00:18,770
+send a message to a shipping service and maybe
+
+8
+00:00:18,770 --> 00:00:21,850
+even send a message into an SQS Queue.
+
+9
+00:00:21,850 --> 00:00:24,010
+This is cumbersome because every time
+
+10
+00:00:24,010 --> 00:00:26,190
+you have to add a new receiving service.
+
+11
+00:00:26,190 --> 00:00:29,630
+You need to create and write that integration.
+
+12
+00:00:29,630 --> 00:00:31,570
+Instead, what you may want to do
+
+13
+00:00:31,570 --> 00:00:34,280
+is called a Pub/Sub or Publish-subscribe.
+
+14
+00:00:34,280 --> 00:00:36,230
+The idea is that the buying service
+
+15
+00:00:36,230 --> 00:00:38,700
+will send a message into an SNS topic
+
+16
+00:00:38,700 --> 00:00:41,680
+which is publishing a message into a topic.
+
+17
+00:00:41,680 --> 00:00:44,950
+And that topic will have many subscribers.
+
+18
+00:00:44,950 --> 00:00:47,560
+And each of the subscriber will be able to
+
+19
+00:00:47,560 --> 00:00:50,067
+receive that message from the SNS topic
+
+20
+00:00:50,067 --> 00:00:51,970
+and have it for their own.
+
+21
+00:00:51,970 --> 00:00:54,280
+And so this is another type of pattern
+
+22
+00:00:54,280 --> 00:00:56,740
+called the Pub/Sub pattern.
+
+23
+00:00:56,740 --> 00:00:57,573
+So in Amazon SNS,
+
+24
+00:00:57,573 --> 00:01:00,880
+the event producer only sends messages
+
+25
+00:01:00,880 --> 00:01:03,430
+to one specific SNS topic.
+
+26
+00:01:03,430 --> 00:01:06,560
+And the event receivers or the subscriptions,
+
+27
+00:01:06,560 --> 00:01:10,010
+they want to listen to the SNS topic notifications.
+
+28
+00:01:10,010 --> 00:01:12,875
+And so therefore each subscriber in your SNS topic
+
+29
+00:01:12,875 --> 00:01:15,940
+will get all the messages sent to the topic
+
+30
+00:01:15,940 --> 00:01:17,624
+except if you're using a feature to
+
+31
+00:01:17,624 --> 00:01:20,770
+filter messages and it is possible as well.
+
+32
+00:01:20,770 --> 00:01:22,920
+So how many subscribers can you get per topic?
+
+33
+00:01:22,920 --> 00:01:26,050
+Well you can have up to 12,000,000 plus subscriptions
+
+34
+00:01:26,050 --> 00:01:27,640
+per topic, so quite a lot.
+
+35
+00:01:27,640 --> 00:01:28,930
+And the number can change over time.
+
+36
+00:01:28,930 --> 00:01:30,020
+It will not update this slide.
+
+37
+00:01:30,020 --> 00:01:32,460
+It's just to give you a overview
+
+38
+00:01:32,460 --> 00:01:34,300
+of how many subscribers you can get.
+
+39
+00:01:34,300 --> 00:01:38,380
+And in your account, you can get up to 100,000 topics
+
+40
+00:01:38,380 --> 00:01:39,890
+and you can increase that limit as well.
+
+41
+00:01:39,890 --> 00:01:41,750
+And this can change, but again,
+
+42
+00:01:41,750 --> 00:01:44,170
+just to give you an idea of what the limit may be,
+
+43
+00:01:44,170 --> 00:01:47,510
+but you're never tested on limits themselves for SNS.
+
+44
+00:01:47,510 --> 00:01:50,270
+So for SNS, you're going to publish your subscribers
+
+45
+00:01:50,270 --> 00:01:51,430
+and what can they be?
+
+46
+00:01:51,430 --> 00:01:54,260
+Well you can directly send emails from SNS.
+
+47
+00:01:54,260 --> 00:01:57,210
+You can send SMS and mobile notifications.
+
+48
+00:01:57,210 --> 00:02:00,860
+You can also send data directly into specified HTTP
+
+49
+00:02:00,860 --> 00:02:02,860
+or HTTP(S) endpoints,
+
+50
+00:02:02,860 --> 00:02:06,990
+but SNS also has integrations with specific AWS services,
+
+51
+00:02:06,990 --> 00:02:07,990
+such as SQS,
+
+52
+00:02:07,990 --> 00:02:11,570
+to send your message directly into a Queue, to Lambda,
+
+53
+00:02:11,570 --> 00:02:13,960
+to have a function do some code
+
+54
+00:02:13,960 --> 00:02:15,640
+after the message is received,
+
+55
+00:02:15,640 --> 00:02:18,123
+or to Kinesis Data Firehose to send data into,
+
+56
+00:02:18,123 --> 00:02:22,310
+for example, as Amazons free or Redshift.
+
+57
+00:02:22,310 --> 00:02:24,780
+On top of it, SNS receives data
+
+58
+00:02:24,780 --> 00:02:27,110
+from a lot of AWS services.
+
+59
+00:02:27,110 --> 00:02:29,490
+So they directly send it into SNS,
+
+60
+00:02:29,490 --> 00:02:31,070
+so it could be CloudWatch Alarms,
+
+61
+00:02:31,070 --> 00:02:32,440
+Auto Scaling Group notifications,
+
+62
+00:02:32,440 --> 00:02:34,840
+CloudFormation state changes, Budgets
+
+63
+00:02:34,840 --> 00:02:37,220
+S3 buckets, DMS, Lambda, DynamoDB,
+
+64
+00:02:37,220 --> 00:02:38,720
+RDS events, and so on.
+
+65
+00:02:38,720 --> 00:02:40,160
+So you don't have to remember them.
+
+66
+00:02:40,160 --> 00:02:41,630
+But as soon as there is some sort
+
+67
+00:02:41,630 --> 00:02:44,160
+of notification that happens within AWS,
+
+68
+00:02:44,160 --> 00:02:46,009
+services will send a notification
+
+69
+00:02:46,009 --> 00:02:48,843
+into a specified SNS topic.
+
+70
+00:02:49,910 --> 00:02:51,440
+Now, SNS, how does that work?
+
+71
+00:02:51,440 --> 00:02:53,130
+to publish a message into SNS,
+
+72
+00:02:53,130 --> 00:02:55,850
+you use the topic, publish SDK.
+
+73
+00:02:55,850 --> 00:02:57,410
+And so you create a topic.
+
+74
+00:02:57,410 --> 00:02:59,180
+Then you create subscriptions or many
+
+75
+00:02:59,180 --> 00:03:01,370
+one or many subscriptions you publish
+
+76
+00:03:01,370 --> 00:03:03,910
+to the SNS topic and that's it.
+
+77
+00:03:03,910 --> 00:03:05,350
+All the subscribers will automatically
+
+78
+00:03:05,350 --> 00:03:07,310
+retrieve that message.
+
+79
+00:03:07,310 --> 00:03:09,070
+Or there is something called direct publish
+
+80
+00:03:09,070 --> 00:03:11,040
+for mobile apps, SDK,
+
+81
+00:03:11,040 --> 00:03:13,219
+and you need to create a platform application,
+
+82
+00:03:13,219 --> 00:03:14,570
+a platform endpoint
+
+83
+00:03:14,570 --> 00:03:17,200
+and you publish into the platform endpoint,
+
+84
+00:03:17,200 --> 00:03:22,050
+and it works in terms of subscribers for Google GCM,
+
+85
+00:03:22,050 --> 00:03:25,700
+Apple APNS, or Amazon ADM, which are different ways
+
+86
+00:03:25,700 --> 00:03:29,280
+for your mobile application to receive notifications.
+
+87
+00:03:29,280 --> 00:03:30,780
+In terms of security,
+
+88
+00:03:30,780 --> 00:03:34,130
+Amazon SNS has the same kind of security as SQS,
+
+89
+00:03:34,130 --> 00:03:36,429
+so it has In-flight encryption by defaults
+
+90
+00:03:36,429 --> 00:03:39,157
+At-rest encryption using KMS keys,
+
+91
+00:03:39,157 --> 00:03:40,890
+and Client-side encryption
+
+92
+00:03:40,890 --> 00:03:43,500
+if your client wants to send some encrypted message
+
+93
+00:03:43,500 --> 00:03:44,800
+into SNS, but again,
+
+94
+00:03:44,800 --> 00:03:47,740
+it's up to your client responsibility to do the encryption
+
+95
+00:03:47,740 --> 00:03:49,390
+and the decryption.
+
+96
+00:03:49,390 --> 00:03:51,110
+In terms of of access controls,
+
+97
+00:03:51,110 --> 00:03:53,580
+IAM policies are going to be at the center
+
+98
+00:03:53,580 --> 00:03:56,920
+of security because all the SNS APIs will be regulated
+
+99
+00:03:56,920 --> 00:03:58,280
+by IAM policies.
+
+100
+00:03:58,280 --> 00:04:01,180
+And you can define SNS access policies
+
+101
+00:04:01,180 --> 00:04:03,870
+which are very similar to S3 bucket policies,
+
+102
+00:04:03,870 --> 00:04:05,630
+and they're very helpful when you want to have
+
+103
+00:04:05,630 --> 00:04:07,970
+cross account access to SNS topics
+
+104
+00:04:07,970 --> 00:04:09,800
+or to allow other services
+
+105
+00:04:09,800 --> 00:04:11,057
+such as your S3 events
+
+106
+00:04:11,057 --> 00:04:14,380
+to write into your SNS topics.
+
+107
+00:04:14,380 --> 00:04:16,190
+So that's it, I hope you liked it
+
+108
+00:04:16,190 --> 00:04:18,140
+and I will see you in the next lecture.
+

@@ -1,0 +1,220 @@
+1
+00:00:00,090 --> 00:00:02,250
+So now let's talk about VPC Peering.
+
+2
+00:00:02,250 --> 00:00:03,930
+So the idea is that we can create VPCs
+
+3
+00:00:03,930 --> 00:00:05,700
+and in different regions, different accounts
+
+4
+00:00:05,700 --> 00:00:09,960
+and we want to connect them together using the AWS network.
+
+5
+00:00:09,960 --> 00:00:10,793
+Why we do this?
+
+6
+00:00:10,793 --> 00:00:12,240
+Well, we wanna make them behave
+
+7
+00:00:12,240 --> 00:00:13,860
+as if they were in the same network, okay?
+
+8
+00:00:13,860 --> 00:00:15,120
+So it could be very specific.
+
+9
+00:00:15,120 --> 00:00:17,010
+Maybe you could have VPC in other regions
+
+10
+00:00:17,010 --> 00:00:19,170
+in other accounts, or even within your same accounts
+
+11
+00:00:19,170 --> 00:00:20,100
+and you want to connect them.
+
+12
+00:00:20,100 --> 00:00:22,620
+So in order for them not to connect, remember, I said,
+
+13
+00:00:22,620 --> 00:00:25,260
+the VPC network CIDRs must be distant from each other
+
+14
+00:00:25,260 --> 00:00:27,300
+because when we connect them together,
+
+15
+00:00:27,300 --> 00:00:28,620
+if they have overlapping CIDRs,
+
+16
+00:00:28,620 --> 00:00:30,900
+they will not be able to communicate.
+
+17
+00:00:30,900 --> 00:00:34,260
+So, VPC peerings can happen between two VPCs
+
+18
+00:00:34,260 --> 00:00:35,880
+and they're not transitive.
+
+19
+00:00:35,880 --> 00:00:37,500
+That means that each VPC
+
+20
+00:00:37,500 --> 00:00:39,480
+that wants to communicate with one another
+
+21
+00:00:39,480 --> 00:00:41,340
+must have VPC peering enabled.
+
+22
+00:00:41,340 --> 00:00:44,520
+So if you have a look at three VPCs right now, A, B, and C,
+
+23
+00:00:44,520 --> 00:00:47,280
+then we can create a peering connection between A and B.
+
+24
+00:00:47,280 --> 00:00:50,970
+And this is allowing you to connect them together.
+
+25
+00:00:50,970 --> 00:00:52,680
+And we can create another peering connection
+
+26
+00:00:52,680 --> 00:00:54,450
+between VPC B and C,
+
+27
+00:00:54,450 --> 00:00:57,000
+and again, they can communicate together.
+
+28
+00:00:57,000 --> 00:01:01,350
+But even though A and B, and B and C, are connected,
+
+29
+00:01:01,350 --> 00:01:04,440
+you still need to enable a VPC peering connection
+
+30
+00:01:04,440 --> 00:01:06,990
+between A and C, to have them communicate.
+
+31
+00:01:06,990 --> 00:01:09,300
+This is very, very, very, very important.
+
+32
+00:01:09,300 --> 00:01:13,020
+Finally, even though your VPC are peered with each other,
+
+33
+00:01:13,020 --> 00:01:15,930
+you must also make sure that you update all the route tables
+
+34
+00:01:15,930 --> 00:01:19,470
+in each VPC's subnets, to ensure that these two instances
+
+35
+00:01:19,470 --> 00:01:23,250
+in different VPC, can communicate with each other.
+
+36
+00:01:23,250 --> 00:01:25,470
+And we'll see this in the hands-on.
+
+37
+00:01:25,470 --> 00:01:27,720
+So some good things to know about VPC peering.
+
+38
+00:01:27,720 --> 00:01:29,760
+They can happen within your own accounts,
+
+39
+00:01:29,760 --> 00:01:31,830
+but they can happen across accounts.
+
+40
+00:01:31,830 --> 00:01:34,920
+So if you want to connect a VPC from one account A,
+
+41
+00:01:34,920 --> 00:01:37,260
+to account B, you could, and also across regions.
+
+42
+00:01:37,260 --> 00:01:39,150
+So this is very, very powerful.
+
+43
+00:01:39,150 --> 00:01:41,040
+And you remember, in security groups,
+
+44
+00:01:41,040 --> 00:01:43,590
+we can reference other security groups in it.
+
+45
+00:01:43,590 --> 00:01:45,990
+While it's possible to also reference a security group
+
+46
+00:01:45,990 --> 00:01:49,890
+from a peered VPC across accounts in the same region.
+
+47
+00:01:49,890 --> 00:01:50,723
+And this is very powerful
+
+48
+00:01:50,723 --> 00:01:52,350
+because we don't need to have the source
+
+49
+00:01:52,350 --> 00:01:55,470
+as a CIDR on IP, we can also reference a security group.
+
+50
+00:01:55,470 --> 00:01:56,940
+Extremely powerful.
+
+51
+00:01:56,940 --> 00:01:58,860
+So back into our networking diagram.
+
+52
+00:01:58,860 --> 00:02:00,510
+We're here and now we're going to add
+
+53
+00:02:00,510 --> 00:02:02,010
+a VPC peering connection
+
+54
+00:02:02,010 --> 00:02:04,110
+to connect our VPC to other VPCs.
+
+55
+00:02:04,110 --> 00:02:06,560
+So that's it. I will see you in the next lecture.
+

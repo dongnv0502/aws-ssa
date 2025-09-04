@@ -1,0 +1,992 @@
+1
+00:00:00,030 --> 00:00:01,980
+Okay, so let's do a deep dive
+
+2
+00:00:01,980 --> 00:00:04,290
+on EC2 spot instances.
+
+3
+00:00:04,290 --> 00:00:06,540
+So, we know that with a spot instance,
+
+4
+00:00:06,540 --> 00:00:10,800
+you can get a discount up to 90% compared to On-Demand,
+
+5
+00:00:10,800 --> 00:00:12,720
+so that's huge cost saving.
+
+6
+00:00:12,720 --> 00:00:13,890
+And so how does that work?
+
+7
+00:00:13,890 --> 00:00:15,454
+We define a max spot price
+
+8
+00:00:15,454 --> 00:00:18,360
+that we're willing to pay for that spot instance.
+
+9
+00:00:18,360 --> 00:00:23,040
+And then as long as the instance is having a spot price
+
+10
+00:00:23,040 --> 00:00:25,860
+that is less than the max price we're willing to pay,
+
+11
+00:00:25,860 --> 00:00:27,750
+then we keep that instance.
+
+12
+00:00:27,750 --> 00:00:28,860
+So, that max spot price,
+
+13
+00:00:28,860 --> 00:00:30,480
+I will show it to you in the next slide,
+
+14
+00:00:30,480 --> 00:00:31,882
+but the hourly spot will vary
+
+15
+00:00:31,882 --> 00:00:33,840
+based on offer and capacity,
+
+16
+00:00:33,840 --> 00:00:35,730
+and so it will go up and it will go down.
+
+17
+00:00:35,730 --> 00:00:38,460
+And if somehow the current spot price
+
+18
+00:00:38,460 --> 00:00:40,890
+goes over the max price you have defined,
+
+19
+00:00:40,890 --> 00:00:42,450
+then you have two options.
+
+20
+00:00:42,450 --> 00:00:43,860
+And for these two options,
+
+21
+00:00:43,860 --> 00:00:46,050
+you have a two minutes grace period.
+
+22
+00:00:46,050 --> 00:00:48,150
+So, that gives you a little bit of time to do these things.
+
+23
+00:00:48,150 --> 00:00:51,510
+And the options can be either you're stopping your instance,
+
+24
+00:00:51,510 --> 00:00:53,970
+that means that you shut down everything you are doing
+
+25
+00:00:53,970 --> 00:00:55,380
+then you stop your instance.
+
+26
+00:00:55,380 --> 00:00:58,263
+And so, if one day the spot price goes below your max price,
+
+27
+00:00:58,263 --> 00:01:00,180
+then you can restart your instance
+
+28
+00:01:00,180 --> 00:01:02,610
+and continue where you left it off
+
+29
+00:01:02,610 --> 00:01:05,670
+or if you don't need the state on your EC2 instance,
+
+30
+00:01:05,670 --> 00:01:08,340
+you can just choose to terminate your instance
+
+31
+00:01:08,340 --> 00:01:09,180
+and let it go.
+
+32
+00:01:09,180 --> 00:01:10,410
+And then that would assume
+
+33
+00:01:10,410 --> 00:01:12,150
+that anytime you would restart your work,
+
+34
+00:01:12,150 --> 00:01:14,940
+you can start with a fresh new EC2 instance.
+
+35
+00:01:14,940 --> 00:01:17,610
+So, two strategies based on the type of workload you have
+
+36
+00:01:17,610 --> 00:01:20,490
+but you have a two minutes grade period to do so.
+
+37
+00:01:20,490 --> 00:01:21,660
+The other strategy,
+
+38
+00:01:21,660 --> 00:01:25,200
+if you don't want your spot instance to be reclaimed by AWS,
+
+39
+00:01:25,200 --> 00:01:26,670
+is to use a spot block.
+
+40
+00:01:26,670 --> 00:01:30,360
+And the spot block is when you block a spot instance
+
+41
+00:01:30,360 --> 00:01:32,250
+for a specified timeframe.
+
+42
+00:01:32,250 --> 00:01:34,950
+And this can be between one to six hours,
+
+43
+00:01:34,950 --> 00:01:38,340
+and you get that block without any interruption,
+
+44
+00:01:38,340 --> 00:01:40,920
+at least on paper because in the documentation--
+
+45
+00:01:40,920 --> 00:01:42,150
+but it's really rare.
+
+46
+00:01:42,150 --> 00:01:45,360
+In rare situations, the instance may be reclaimed
+
+47
+00:01:45,360 --> 00:01:48,120
+but overall, when you consider a spot block thing
+
+48
+00:01:48,120 --> 00:01:49,830
+that the instance will not be reclaimed,
+
+49
+00:01:49,830 --> 00:01:52,230
+that's the whole purpose of the spot block.
+
+50
+00:01:52,230 --> 00:01:54,480
+So, when do we use spot instances?
+
+51
+00:01:54,480 --> 00:01:56,460
+They're for batch jobs, data analysis,
+
+52
+00:01:56,460 --> 00:01:58,140
+workloads are resilient to failures.
+
+53
+00:01:58,140 --> 00:01:58,973
+And as I said,
+
+54
+00:01:58,973 --> 00:02:02,370
+they're not great for critical jobs or databases.
+
+55
+00:02:02,370 --> 00:02:05,550
+Now let's have a look at the spot instance pricing.
+
+56
+00:02:05,550 --> 00:02:06,840
+So this is a graph that I obtained
+
+57
+00:02:06,840 --> 00:02:09,090
+directly from the AWS console.
+
+58
+00:02:09,090 --> 00:02:11,730
+And as we can see here, this gives us the price
+
+59
+00:02:11,730 --> 00:02:16,590
+for a m4 large instance over three months in the spot zone.
+
+60
+00:02:16,590 --> 00:02:17,700
+So, as you can see,
+
+61
+00:02:17,700 --> 00:02:20,730
+you have six lines for us-east-1a.
+
+62
+00:02:20,730 --> 00:02:22,050
+Sorry, the region.
+
+63
+00:02:22,050 --> 00:02:23,310
+And you have six availability zones.
+
+64
+00:02:23,310 --> 00:02:24,210
+So, six prices.
+
+65
+00:02:24,210 --> 00:02:25,200
+So, as you can see,
+
+66
+00:02:25,200 --> 00:02:29,490
+the spot price does vary based on the AZ you're considering.
+
+67
+00:02:29,490 --> 00:02:30,840
+And so as we can see,
+
+68
+00:02:30,840 --> 00:02:33,600
+over three months it has varied quite a bit.
+
+69
+00:02:33,600 --> 00:02:35,400
+For example, if you look at that yellow line,
+
+70
+00:02:35,400 --> 00:02:38,850
+it has varied between 0.4 to 0.45,
+
+71
+00:02:38,850 --> 00:02:43,170
+all the way down to almost 0.35 let's say, and so on.
+
+72
+00:02:43,170 --> 00:02:46,020
+And so, let's assume that we are defining
+
+73
+00:02:46,020 --> 00:02:47,253
+a user defined max price
+
+74
+00:02:47,253 --> 00:02:51,630
+to be this black horizontal bar/dotted line, okay?
+
+75
+00:02:51,630 --> 00:02:54,990
+And so, what we'd see is that if the yellow line
+
+76
+00:02:54,990 --> 00:02:57,330
+is above the dotted line,
+
+77
+00:02:57,330 --> 00:02:59,130
+then the current spot price
+
+78
+00:02:59,130 --> 00:03:01,590
+is going to be more than the max price we have defined.
+
+79
+00:03:01,590 --> 00:03:03,720
+And so, in this instance right here,
+
+80
+00:03:03,720 --> 00:03:05,580
+we're going to lose our spot instance,
+
+81
+00:03:05,580 --> 00:03:07,740
+so we have to terminate it or stop it
+
+82
+00:03:07,740 --> 00:03:09,450
+but if the price goes down,
+
+83
+00:03:09,450 --> 00:03:13,020
+so if the yellow line goes down our dotted line,
+
+84
+00:03:13,020 --> 00:03:15,264
+that means that we are willing to pay that price.
+
+85
+00:03:15,264 --> 00:03:18,570
+And so, we are gaining that spot instance in this meantime.
+
+86
+00:03:18,570 --> 00:03:20,700
+So, this is how we can optimize the cost
+
+87
+00:03:20,700 --> 00:03:22,920
+of our workload very easily.
+
+88
+00:03:22,920 --> 00:03:23,970
+And so as you can see,
+
+89
+00:03:23,970 --> 00:03:28,110
+the On-Demand price is $0.10 per hour.
+
+90
+00:03:28,110 --> 00:03:29,460
+So that's really, really cheap.
+
+91
+00:03:29,460 --> 00:03:32,550
+And then the spot instance price is even cheaper.
+
+92
+00:03:32,550 --> 00:03:35,130
+It's around $0.4 I would say.
+
+93
+00:03:35,130 --> 00:03:38,460
+So, it's a 60% saving in that instance
+
+94
+00:03:38,460 --> 00:03:39,990
+for the spot instance pricing.
+
+95
+00:03:39,990 --> 00:03:41,010
+So, lots of savings.
+
+96
+00:03:41,010 --> 00:03:42,930
+And obviously if you were to define
+
+97
+00:03:42,930 --> 00:03:44,490
+your user defined max price
+
+98
+00:03:44,490 --> 00:03:48,510
+to be something like $0.05 per hour,
+
+99
+00:03:48,510 --> 00:03:51,060
+then no spot instances will be reclaimed
+
+100
+00:03:51,060 --> 00:03:52,830
+because you're always willing to pay more
+
+101
+00:03:52,830 --> 00:03:54,870
+than the actual spot instance price.
+
+102
+00:03:54,870 --> 00:03:57,720
+So, no one can predict how the price goes over time
+
+103
+00:03:57,720 --> 00:03:59,730
+but as you can see, it can be rather stable,
+
+104
+00:03:59,730 --> 00:04:00,960
+it can fluctuate a little bit
+
+105
+00:04:00,960 --> 00:04:04,140
+but overall, it still provides you huge savings
+
+106
+00:04:04,140 --> 00:04:06,420
+compared to On-Demand, okay?
+
+107
+00:04:06,420 --> 00:04:07,380
+Okay, next.
+
+108
+00:04:07,380 --> 00:04:09,720
+How do you terminate a spot instance?
+
+109
+00:04:09,720 --> 00:04:12,840
+So, we have to first understand how a spot request works.
+
+110
+00:04:12,840 --> 00:04:15,330
+And so for this, let's consider a spot request.
+
+111
+00:04:15,330 --> 00:04:16,539
+So, with the spot request,
+
+112
+00:04:16,539 --> 00:04:19,890
+you are defining how many instances you want,
+
+113
+00:04:19,890 --> 00:04:21,990
+your maximum price you're going to pay,
+
+114
+00:04:21,990 --> 00:04:23,070
+the launch specification,
+
+115
+00:04:23,070 --> 00:04:24,570
+so the AMI and so on,
+
+116
+00:04:24,570 --> 00:04:27,240
+and when your request is valid from and until
+
+117
+00:04:27,240 --> 00:04:28,560
+but it can be infinite.
+
+118
+00:04:28,560 --> 00:04:29,791
+And then the request type.
+
+119
+00:04:29,791 --> 00:04:31,200
+And it's very important to understand
+
+120
+00:04:31,200 --> 00:04:32,880
+there's two types of requests.
+
+121
+00:04:32,880 --> 00:04:35,760
+You can do a one-time request for spot instances
+
+122
+00:04:35,760 --> 00:04:38,760
+or a persistent request for spot instances.
+
+123
+00:04:38,760 --> 00:04:40,800
+So, let's have a look at the difference.
+
+124
+00:04:40,800 --> 00:04:42,630
+So, if it's a one-time request,
+
+125
+00:04:42,630 --> 00:04:45,510
+as soon as your spot request is fulfilled,
+
+126
+00:04:45,510 --> 00:04:47,275
+your instances are going to be launched
+
+127
+00:04:47,275 --> 00:04:50,460
+and then your spot request will go away
+
+128
+00:04:50,460 --> 00:04:52,500
+because it was a one-time request type.
+
+129
+00:04:52,500 --> 00:04:53,333
+So in this case,
+
+130
+00:04:53,333 --> 00:04:56,460
+your spot request is going to go away and you're fine.
+
+131
+00:04:56,460 --> 00:04:58,385
+But if it's a persistent request type,
+
+132
+00:04:58,385 --> 00:05:01,860
+that means that we want this number of instances
+
+133
+00:05:01,860 --> 00:05:04,050
+to be valid as long as the spot request
+
+134
+00:05:04,050 --> 00:05:06,270
+is valid from to valid until.
+
+135
+00:05:06,270 --> 00:05:09,180
+And so, that means that if somehow your instances
+
+136
+00:05:09,180 --> 00:05:12,930
+do get stopped or interrupted based on the spot price,
+
+137
+00:05:12,930 --> 00:05:15,930
+then your spot request will go back into action.
+
+138
+00:05:15,930 --> 00:05:18,300
+And when things can be validated,
+
+139
+00:05:18,300 --> 00:05:21,150
+we'll restart spot instances for you.
+
+140
+00:05:21,150 --> 00:05:25,140
+So if somehow you stop a spot instance in persistent mode
+
+141
+00:05:25,140 --> 00:05:27,360
+and your spot request is still active,
+
+142
+00:05:27,360 --> 00:05:30,060
+your spot request automatically will be smart enough
+
+143
+00:05:30,060 --> 00:05:32,580
+to restart a launch and instance for you.
+
+144
+00:05:32,580 --> 00:05:35,130
+And this is something you can also see in this diagram
+
+145
+00:05:35,130 --> 00:05:36,870
+but I won't spend too much time on it.
+
+146
+00:05:36,870 --> 00:05:37,855
+So, what you understand out of it
+
+147
+00:05:37,855 --> 00:05:42,540
+is that if you want to cancel a spot request,
+
+148
+00:05:42,540 --> 00:05:45,690
+it needs to be in the open state, the active state,
+
+149
+00:05:45,690 --> 00:05:46,560
+or the disabled state.
+
+150
+00:05:46,560 --> 00:05:48,060
+That means that basically it's not failed,
+
+151
+00:05:48,060 --> 00:05:50,610
+it's not canceled, or it's not closed, okay?
+
+152
+00:05:50,610 --> 00:05:53,803
+And when you want to cancel a spot request,
+
+153
+00:05:53,803 --> 00:05:55,644
+so if you take the spot request on the left-hand side
+
+154
+00:05:55,644 --> 00:06:00,420
+and you cancel it, it's not going to terminate any instances
+
+155
+00:06:00,420 --> 00:06:01,860
+that you have launched from before.
+
+156
+00:06:01,860 --> 00:06:04,170
+So, it is still your responsibility
+
+157
+00:06:04,170 --> 00:06:05,940
+to terminate these instances
+
+158
+00:06:05,940 --> 00:06:09,000
+and not the responsibility of AWS.
+
+159
+00:06:09,000 --> 00:06:12,660
+So as such, if you want to terminate spot instances for good
+
+160
+00:06:12,660 --> 00:06:14,340
+and not have them relaunch,
+
+161
+00:06:14,340 --> 00:06:17,460
+you need to first cancel the spot request
+
+162
+00:06:17,460 --> 00:06:21,360
+and then you terminate the associated spot instances.
+
+163
+00:06:21,360 --> 00:06:25,170
+Because if you were to terminate the spot instances first,
+
+164
+00:06:25,170 --> 00:06:27,240
+remember it goes back into the spot request
+
+165
+00:06:27,240 --> 00:06:28,237
+and the spot request says,
+
+166
+00:06:28,237 --> 00:06:29,797
+"Okay, you wanted six instances
+
+167
+00:06:29,797 --> 00:06:31,447
+"but I can see you have zero right now.
+
+168
+00:06:31,447 --> 00:06:33,900
+"I'm going to launch six instances for you."
+
+169
+00:06:33,900 --> 00:06:36,000
+So again, the right order to cancel
+
+170
+00:06:36,000 --> 00:06:37,980
+and to terminate spot instances
+
+171
+00:06:37,980 --> 00:06:39,779
+is to first cancel the spot request
+
+172
+00:06:39,779 --> 00:06:43,470
+to make sure that no new instances will be launched by AWS
+
+173
+00:06:43,470 --> 00:06:46,950
+and then you terminate the associated spot instances.
+
+174
+00:06:46,950 --> 00:06:48,180
+And I'm spending a bit of time on this
+
+175
+00:06:48,180 --> 00:06:51,240
+because this is something that can come up in the exam.
+
+176
+00:06:51,240 --> 00:06:53,130
+Okay, next: spot fleets.
+
+177
+00:06:53,130 --> 00:06:55,740
+So, this is the ultimate way to save money.
+
+178
+00:06:55,740 --> 00:06:58,380
+So, spot fleets is going to be a way to define
+
+179
+00:06:58,380 --> 00:07:01,470
+for you to get a set of spot instances
+
+180
+00:07:01,470 --> 00:07:04,350
+and optionally On-Demand instances,
+
+181
+00:07:04,350 --> 00:07:05,610
+that's why it's called a fleet.
+
+182
+00:07:05,610 --> 00:07:08,004
+And the spot fleet will try its best
+
+183
+00:07:08,004 --> 00:07:09,900
+to meet the target capacity
+
+184
+00:07:09,900 --> 00:07:12,030
+with the price constraints you defined.
+
+185
+00:07:12,030 --> 00:07:15,270
+So, it will launch from possible launch pools.
+
+186
+00:07:15,270 --> 00:07:17,280
+So, it can have different instance types,
+
+187
+00:07:17,280 --> 00:07:19,860
+different OS, and availability zones.
+
+188
+00:07:19,860 --> 00:07:21,980
+And so, you're going to define multiple launch pools,
+
+189
+00:07:21,980 --> 00:07:24,480
+so multiple instance types, multiple everything.
+
+190
+00:07:24,480 --> 00:07:27,660
+And then the fleet will choose the best
+
+191
+00:07:27,660 --> 00:07:30,870
+and most appropriate launch pool for you.
+
+192
+00:07:30,870 --> 00:07:34,470
+And when your spot fleet either reaches your budget
+
+193
+00:07:34,470 --> 00:07:36,420
+or reaches the capacity you wanted,
+
+194
+00:07:36,420 --> 00:07:39,090
+then it will stop launching instances.
+
+195
+00:07:39,090 --> 00:07:43,050
+And so, you define a strategy to allocate spot instances
+
+196
+00:07:43,050 --> 00:07:45,300
+in your spot fleet, and that's something to remember.
+
+197
+00:07:45,300 --> 00:07:47,430
+The first one is lowest price,
+
+198
+00:07:47,430 --> 00:07:49,320
+and that's going to the most popular one
+
+199
+00:07:49,320 --> 00:07:50,520
+going into the exam,
+
+200
+00:07:50,520 --> 00:07:54,390
+which is that the spot fleet will launch instances
+
+201
+00:07:54,390 --> 00:07:57,270
+from the pool that has the lowest price
+
+202
+00:07:57,270 --> 00:07:59,670
+and that gives you a lot of cost optimization.
+
+203
+00:07:59,670 --> 00:08:01,020
+And this is a great option
+
+204
+00:08:01,020 --> 00:08:03,210
+if you have a very short workload.
+
+205
+00:08:03,210 --> 00:08:05,430
+You can also have a diversified way
+
+206
+00:08:05,430 --> 00:08:07,200
+to launch your spot instances,
+
+207
+00:08:07,200 --> 00:08:10,830
+in which case the launch in the spot instances
+
+208
+00:08:10,830 --> 00:08:13,110
+will be distributed across all the pools
+
+209
+00:08:13,110 --> 00:08:14,700
+that you have defined from before,
+
+210
+00:08:14,700 --> 00:08:17,100
+which is great for availability and long workloads
+
+211
+00:08:17,100 --> 00:08:18,559
+because if one pool goes away,
+
+212
+00:08:18,559 --> 00:08:20,970
+then your other pools are still active.
+
+213
+00:08:20,970 --> 00:08:22,470
+Then you have capacity optimized.
+
+214
+00:08:22,470 --> 00:08:24,750
+So, you have a pool with the optimal capacity
+
+215
+00:08:24,750 --> 00:08:26,910
+for the number of instances you want.
+
+216
+00:08:26,910 --> 00:08:29,040
+And then you have price capacity optimized,
+
+217
+00:08:29,040 --> 00:08:30,360
+which is first choosing the pool
+
+218
+00:08:30,360 --> 00:08:32,490
+with the highest capacity available
+
+219
+00:08:32,490 --> 00:08:34,049
+and then select within that
+
+220
+00:08:34,049 --> 00:08:35,549
+the one that has the lowest price,
+
+221
+00:08:35,549 --> 00:08:38,580
+which is the best choice for most workloads.
+
+222
+00:08:38,580 --> 00:08:41,309
+So, the idea is that spot fleets can be complicated
+
+223
+00:08:41,309 --> 00:08:44,310
+but what you have to remember is that using the spot fleet,
+
+224
+00:08:44,310 --> 00:08:46,290
+you're able to define multiple launch pools
+
+225
+00:08:46,290 --> 00:08:47,280
+and multiple instance types
+
+226
+00:08:47,280 --> 00:08:49,140
+until you're just interesting in raw power.
+
+227
+00:08:49,140 --> 00:08:52,320
+And then if you use the lowest price discounts
+
+228
+00:08:52,320 --> 00:08:54,900
+or the lowest price strategy for spot fleets,
+
+229
+00:08:54,900 --> 00:08:56,100
+then the spot fleets
+
+230
+00:08:56,100 --> 00:08:58,950
+will automatically request the spot instances
+
+231
+00:08:58,950 --> 00:09:00,630
+with the lowest price for us.
+
+232
+00:09:00,630 --> 00:09:03,503
+And so, spot fleets gives us an extra saving
+
+233
+00:09:03,503 --> 00:09:06,390
+based on spot instances because it's smart enough
+
+234
+00:09:06,390 --> 00:09:08,730
+to choose the right spot instance pool
+
+235
+00:09:08,730 --> 00:09:11,460
+to allow us to get the maximum amount of savings.
+
+236
+00:09:11,460 --> 00:09:14,190
+And this is the benefits of spot fleets.
+
+237
+00:09:14,190 --> 00:09:16,140
+And again, you need to understand the difference here
+
+238
+00:09:16,140 --> 00:09:19,500
+of doing a very simple spot instance request
+
+239
+00:09:19,500 --> 00:09:21,247
+where you know exactly the type of instance you want
+
+240
+00:09:21,247 --> 00:09:24,427
+and the AZ you want to using a spot fleet and saying,
+
+241
+00:09:24,427 --> 00:09:26,137
+"Okay, you can choose all these instance types
+
+242
+00:09:26,137 --> 00:09:27,307
+"and all these AZ,
+
+243
+00:09:27,307 --> 00:09:28,627
+"and what I need from you
+
+244
+00:09:28,627 --> 00:09:31,830
+"is to give me the lowest price, for example, okay?"
+
+245
+00:09:31,830 --> 00:09:34,560
+So, that hopefully is giving you a lot of insights
+
+246
+00:09:34,560 --> 00:09:37,320
+into how spot fleets and spot instances are different.
+
+247
+00:09:37,320 --> 00:09:38,280
+I hope you liked this lecture
+
+248
+00:09:38,280 --> 00:09:40,230
+and I will see you in the next lecture.
+

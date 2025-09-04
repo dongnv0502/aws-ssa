@@ -1,0 +1,348 @@
+1
+00:00:00,360 --> 00:00:03,780
+So there are lots of storage options on the AWS,
+
+2
+00:00:03,780 --> 00:00:05,250
+all with their different use cases.
+
+3
+00:00:05,250 --> 00:00:06,990
+And I wanted to give you a short lecture
+
+4
+00:00:06,990 --> 00:00:09,300
+to just summarize what we've seen
+
+5
+00:00:09,300 --> 00:00:10,920
+and then understand what are the differences.
+
+6
+00:00:10,920 --> 00:00:12,900
+So we've seen Amazon S3.
+
+7
+00:00:12,900 --> 00:00:14,940
+It is for Object Storage
+
+8
+00:00:14,940 --> 00:00:18,210
+And we've seen it's a very specific API, okay?
+
+9
+00:00:18,210 --> 00:00:21,960
+But it's great for anything related to AWS.
+
+10
+00:00:21,960 --> 00:00:24,540
+And then should we want to archive these objects,
+
+11
+00:00:24,540 --> 00:00:27,293
+we can use the S3 Glacier service.
+
+12
+00:00:27,293 --> 00:00:32,293
+Now, if we want to attach storage to one EC2 instance
+
+13
+00:00:33,208 --> 00:00:34,770
+at a time, we could use EBS volumes.
+
+14
+00:00:34,770 --> 00:00:37,500
+And we saw EBS volumes have a little feature
+
+15
+00:00:37,500 --> 00:00:41,190
+called multitask for the IO1 and IO2 volumes.
+
+16
+00:00:41,190 --> 00:00:42,023
+And within EBS,
+
+17
+00:00:42,023 --> 00:00:44,070
+we saw that they were different kinds of volumes.
+
+18
+00:00:44,070 --> 00:00:45,690
+We had the GP3 volumes,
+
+19
+00:00:45,690 --> 00:00:46,860
+we had the IO2 volumes,
+
+20
+00:00:46,860 --> 00:00:48,060
+and so on.
+
+21
+00:00:48,060 --> 00:00:50,760
+If we wanted to get super high performance,
+
+22
+00:00:50,760 --> 00:00:54,204
+physical storage for your EC2 instance with very high IOPS.
+
+23
+00:00:54,204 --> 00:00:56,054
+But if this is not a network storage,
+
+24
+00:00:56,054 --> 00:00:57,330
+if this is the physical storage,
+
+25
+00:00:57,330 --> 00:01:00,810
+then we need to use the EC2 Instance Storage.
+
+26
+00:01:00,810 --> 00:01:03,270
+Now, if we wanted to get a Network File System
+
+27
+00:01:03,270 --> 00:01:04,650
+for Linux instances,
+
+28
+00:01:04,650 --> 00:01:08,160
+that could be mounted across multiple availability zones
+
+29
+00:01:08,160 --> 00:01:09,690
+with the POSIX filesystem,
+
+30
+00:01:09,690 --> 00:01:13,590
+then we should use the Amazon EFS service.
+
+31
+00:01:13,590 --> 00:01:18,590
+Now, if you wanted to have a Windows server file system
+
+32
+00:01:18,750 --> 00:01:22,830
+we need to use the Amazon FSx for Windows service.
+
+33
+00:01:22,830 --> 00:01:23,663
+If you wanted to get
+
+34
+00:01:23,663 --> 00:01:26,220
+very High Performance Computing Linux file system
+
+35
+00:01:26,220 --> 00:01:28,410
+that's compatible with a Lustre client,
+
+36
+00:01:28,410 --> 00:01:30,990
+then we need to use FSx for Lustre.
+
+37
+00:01:30,990 --> 00:01:31,860
+If you wanted to get
+
+38
+00:01:31,860 --> 00:01:34,230
+super High Operating System Compatibility
+
+39
+00:01:34,230 --> 00:01:36,360
+for a network file system,
+
+40
+00:01:36,360 --> 00:01:40,620
+we could use the FSx NetApp ONTAP file system.
+
+41
+00:01:40,620 --> 00:01:44,280
+And you want to get a managed ZFS file system,
+
+42
+00:01:44,280 --> 00:01:46,740
+we could use FSx for OpenZFS.
+
+43
+00:01:46,740 --> 00:01:48,600
+So we've seen all the flavors.
+
+44
+00:01:48,600 --> 00:01:51,900
+Now we have other ways to bridge storage
+
+45
+00:01:51,900 --> 00:01:54,420
+between on premises and AWS,
+
+46
+00:01:54,420 --> 00:01:55,860
+we have the Storage Gateway.
+
+47
+00:01:55,860 --> 00:01:58,170
+So we sell the different types of storage gateway.
+
+48
+00:01:58,170 --> 00:02:01,230
+We have the S3 and the FSx File Gateway
+
+49
+00:02:01,230 --> 00:02:03,690
+to synchronize files between on premises
+
+50
+00:02:03,690 --> 00:02:06,570
+and Amazon S3 or Amazon FSx.
+
+51
+00:02:06,570 --> 00:02:09,449
+We have the Volume Gateway to mount volumes
+
+52
+00:02:09,449 --> 00:02:11,640
+onto your on premises servers
+
+53
+00:02:11,640 --> 00:02:13,530
+but have them backed up in the cloud.
+
+54
+00:02:13,530 --> 00:02:16,350
+And we have the Tape Gateway to just do backups
+
+55
+00:02:16,350 --> 00:02:17,940
+in the tape form.
+
+56
+00:02:17,940 --> 00:02:22,320
+If you wanted to have a FTP, FTPS, or SFTP interface
+
+57
+00:02:22,320 --> 00:02:25,170
+on top of Amazon S3 or Amazon EFS,
+
+58
+00:02:25,170 --> 00:02:29,100
+then you would use the AWS Transfer Family.
+
+59
+00:02:29,100 --> 00:02:32,460
+And if you wanted to synchronize data on the schedule
+
+60
+00:02:32,460 --> 00:02:36,030
+from on premises to AWS, or AWS to AWS,
+
+61
+00:02:36,030 --> 00:02:38,790
+you would use the DataSync service.
+
+62
+00:02:38,790 --> 00:02:39,810
+And finally,
+
+63
+00:02:39,810 --> 00:02:43,290
+if you don't have the network capacity to move data,
+
+64
+00:02:43,290 --> 00:02:46,320
+but you want to move large amount of data physically,
+
+65
+00:02:46,320 --> 00:02:49,622
+then you would order a Snowcone, a Snowball,
+
+66
+00:02:49,622 --> 00:02:51,180
+or a Snowmobile type of device
+
+67
+00:02:51,180 --> 00:02:54,060
+into on premises and then move it to the cloud.
+
+68
+00:02:54,060 --> 00:02:56,305
+With the particularity that Snowcone comes
+
+69
+00:02:56,305 --> 00:03:00,150
+with a data sync agent bundled in it already.
+
+70
+00:03:00,150 --> 00:03:02,430
+And also I would not pass Databases
+
+71
+00:03:02,430 --> 00:03:04,530
+so you can store it on Databases
+
+72
+00:03:04,530 --> 00:03:06,870
+but there are sort of very specific workloads
+
+73
+00:03:06,870 --> 00:03:08,880
+usually need indexing and querying
+
+74
+00:03:08,880 --> 00:03:11,160
+and we'll have a whole section dedicated
+
+75
+00:03:11,160 --> 00:03:13,200
+to understanding the right Database.
+
+76
+00:03:13,200 --> 00:03:15,540
+So hopefully when you see these storage,
+
+77
+00:03:15,540 --> 00:03:17,190
+you understand their differences
+
+78
+00:03:17,190 --> 00:03:18,330
+and you'll be able to understand
+
+79
+00:03:18,330 --> 00:03:20,340
+which one is the right one at the exam.
+
+80
+00:03:20,340 --> 00:03:21,330
+I know this is a lot,
+
+81
+00:03:21,330 --> 00:03:22,920
+but this is part of your role
+
+82
+00:03:22,920 --> 00:03:25,170
+as a Solutions Architect on AWS
+
+83
+00:03:25,170 --> 00:03:27,810
+to understand the differences between all the storage
+
+84
+00:03:27,810 --> 00:03:30,540
+and choose the right one for the right architecture.
+
+85
+00:03:30,540 --> 00:03:31,373
+Okay. That's it.
+
+86
+00:03:31,373 --> 00:03:32,206
+I hope you liked it.
+
+87
+00:03:32,206 --> 00:03:34,140
+And I will see you in the next lecture.
+

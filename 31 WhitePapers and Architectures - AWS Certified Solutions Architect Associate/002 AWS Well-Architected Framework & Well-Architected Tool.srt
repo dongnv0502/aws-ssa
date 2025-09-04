@@ -1,0 +1,596 @@
+1
+00:00:00,290 --> 00:00:01,123
+So there is a framework
+
+2
+00:00:01,123 --> 00:00:04,200
+called the AWS Well-Architected Framework.
+
+3
+00:00:04,200 --> 00:00:05,880
+And I'm going to describe it to you.
+
+4
+00:00:05,880 --> 00:00:08,600
+This is a tool as well as a framework
+
+5
+00:00:08,600 --> 00:00:12,480
+that allows you to do good applications on AWS.
+
+6
+00:00:12,480 --> 00:00:14,440
+So it's quite a long read
+
+7
+00:00:14,440 --> 00:00:17,690
+and so I try to summarize it for you in a few slides.
+
+8
+00:00:17,690 --> 00:00:20,960
+So the idea is that with the well-architected framework
+
+9
+00:00:20,960 --> 00:00:23,140
+once you implement the best practices,
+
+10
+00:00:23,140 --> 00:00:24,730
+then you go to outcomes,
+
+11
+00:00:24,730 --> 00:00:27,430
+and I'll give you the main guidelines of it.
+
+12
+00:00:27,430 --> 00:00:30,480
+The first one is that to stop guessing your capacity need
+
+13
+00:00:30,480 --> 00:00:33,930
+instead use auto scaling groups and so on.
+
+14
+00:00:33,930 --> 00:00:36,140
+Test systems at production scale.
+
+15
+00:00:36,140 --> 00:00:40,010
+So with AWS, you can very quickly perform big test
+
+16
+00:00:40,010 --> 00:00:42,920
+big infrastructure, and then shut them down an hour later.
+
+17
+00:00:42,920 --> 00:00:44,900
+So there's no reason for you not to test
+
+18
+00:00:44,900 --> 00:00:46,520
+at production scale.
+
+19
+00:00:46,520 --> 00:00:48,990
+Also automate that allows you to make
+
+20
+00:00:48,990 --> 00:00:51,620
+architectural experimentation easier.
+
+21
+00:00:51,620 --> 00:00:53,200
+If you have a Cloud formation template
+
+22
+00:00:53,200 --> 00:00:54,240
+you can easily deploy it
+
+23
+00:00:54,240 --> 00:00:57,350
+in multiple environments to experiments.
+
+24
+00:00:57,350 --> 00:01:00,130
+You can also allow for evolutionary architectures.
+
+25
+00:01:00,130 --> 00:01:02,490
+So your architecture can show over time it can start with
+
+26
+00:01:02,490 --> 00:01:05,540
+for example, EC2 instances and a load bouncer
+
+27
+00:01:05,540 --> 00:01:08,540
+and evolve towards a more serverless architecture such as
+
+28
+00:01:08,540 --> 00:01:10,440
+API Gateway and Lambda.
+
+29
+00:01:10,440 --> 00:01:14,210
+So design based on these changing requirements and so on.
+
+30
+00:01:14,210 --> 00:01:16,040
+Also drive architecture using data.
+
+31
+00:01:16,040 --> 00:01:17,360
+So data is very important.
+
+32
+00:01:17,360 --> 00:01:20,230
+You have to move it around storage and so on.
+
+33
+00:01:20,230 --> 00:01:23,020
+And finally, improve through game days.
+
+34
+00:01:23,020 --> 00:01:25,650
+The idea is that you must try out your architecture
+
+35
+00:01:25,650 --> 00:01:29,640
+good production, give it a go and see how you can improve.
+
+36
+00:01:29,640 --> 00:01:31,722
+So you need to submit your application, for example
+
+37
+00:01:31,722 --> 00:01:35,750
+for flash sale days that put a lot of pressure
+
+38
+00:01:35,750 --> 00:01:37,780
+on your architecture.
+
+39
+00:01:37,780 --> 00:01:41,120
+So the architecture framework is six pillars.
+
+40
+00:01:41,120 --> 00:01:43,400
+The first one is operational excellence.
+
+41
+00:01:43,400 --> 00:01:45,070
+The second one is security.
+
+42
+00:01:45,070 --> 00:01:46,980
+The third one is reliability.
+
+43
+00:01:46,980 --> 00:01:48,990
+Fourth one, performance efficiency.
+
+44
+00:01:48,990 --> 00:01:51,110
+Fifth one, cost optimization.
+
+45
+00:01:51,110 --> 00:01:53,390
+And six one, sustainability.
+
+46
+00:01:53,390 --> 00:01:55,400
+So you have to know them all,
+
+47
+00:01:55,400 --> 00:01:56,870
+I mean, just the names, okay?
+
+48
+00:01:56,870 --> 00:01:58,190
+Not what they represent,
+
+49
+00:01:58,190 --> 00:01:59,640
+but the names are pretty explicit
+
+50
+00:01:59,640 --> 00:02:02,050
+and you can go on the website to learn more about them
+
+51
+00:02:02,050 --> 00:02:04,130
+but this is not the focus of this course.
+
+52
+00:02:04,130 --> 00:02:06,530
+And so these pillars are not something to balance
+
+53
+00:02:06,530 --> 00:02:08,620
+or trade off, they're actually a synergy.
+
+54
+00:02:08,620 --> 00:02:11,580
+For example, if you improve your operational excellence
+
+55
+00:02:11,580 --> 00:02:15,380
+you most likely will improve as well your cost optimization.
+
+56
+00:02:15,380 --> 00:02:17,830
+And if you are or more sustainable,
+
+57
+00:02:17,830 --> 00:02:19,760
+most likely you'll also be having
+
+58
+00:02:19,760 --> 00:02:22,693
+a higher performance efficiency and so on.
+
+59
+00:02:23,710 --> 00:02:26,530
+So to help you guide you through this framework
+
+60
+00:02:26,530 --> 00:02:29,890
+there is something called the AWS Well-Architected tool.
+
+61
+00:02:29,890 --> 00:02:33,550
+And it's a framework tool to review your architectures
+
+62
+00:02:33,550 --> 00:02:35,810
+against the six pillars I just defined.
+
+63
+00:02:35,810 --> 00:02:38,930
+And then you adapt architectural best practices.
+
+64
+00:02:38,930 --> 00:02:40,030
+So this is whether your looks like
+
+65
+00:02:40,030 --> 00:02:41,360
+and we'll see this in a second.
+
+66
+00:02:41,360 --> 00:02:42,330
+So how does it work?
+
+67
+00:02:42,330 --> 00:02:43,330
+Well, you select your workload
+
+68
+00:02:43,330 --> 00:02:44,750
+and then you answer questions.
+
+69
+00:02:44,750 --> 00:02:45,750
+You review your answers
+
+70
+00:02:45,750 --> 00:02:47,620
+against the six pillars that I just defined.
+
+71
+00:02:47,620 --> 00:02:48,610
+And then you obtain advice.
+
+72
+00:02:48,610 --> 00:02:50,410
+You get videos, documentation reports
+
+73
+00:02:50,410 --> 00:02:52,170
+and you see results in a dashboard.
+
+74
+00:02:52,170 --> 00:02:54,930
+So let's have a look to see how this tool works.
+
+75
+00:02:54,930 --> 00:02:57,660
+So here I am in the well-architected tool UI
+
+76
+00:02:57,660 --> 00:02:59,810
+and I'm going to define a workload.
+
+77
+00:02:59,810 --> 00:03:02,580
+So you can, for example, define a demo workload
+
+78
+00:03:02,580 --> 00:03:04,717
+and say this is your production application.
+
+79
+00:03:04,717 --> 00:03:08,460
+You can say, this is my prod application.
+
+80
+00:03:08,460 --> 00:03:12,510
+Okay, the review owner will be John@example.com.
+
+81
+00:03:12,510 --> 00:03:15,520
+We are in production and we are functioning
+
+82
+00:03:15,520 --> 00:03:18,600
+in two either of this regions that I will choose.
+
+83
+00:03:18,600 --> 00:03:23,320
+So this one and then US-West-2, perfect.
+
+84
+00:03:23,320 --> 00:03:26,220
+We can specify non-AWS regions, account IDs and so on.
+
+85
+00:03:26,220 --> 00:03:28,120
+And you can just specify a lot of information
+
+86
+00:03:28,120 --> 00:03:31,660
+around your infrastructure and architecture.
+
+87
+00:03:31,660 --> 00:03:34,350
+So next I'm going to apply lenses.
+
+88
+00:03:34,350 --> 00:03:36,700
+And these lenses are the kind of questions you apply
+
+89
+00:03:36,700 --> 00:03:37,640
+to your architecture.
+
+90
+00:03:37,640 --> 00:03:40,070
+So we'll apply the well-architected framework lens.
+
+91
+00:03:40,070 --> 00:03:43,150
+But you have the FTR lens, the serverless lens,
+
+92
+00:03:43,150 --> 00:03:46,060
+the SaaS lens and you can even create your custom lenses
+
+93
+00:03:46,060 --> 00:03:47,060
+if you wanted to.
+
+94
+00:03:47,060 --> 00:03:48,400
+But for now, we'll keep it simple
+
+95
+00:03:48,400 --> 00:03:50,320
+and just answer questions regarding
+
+96
+00:03:50,320 --> 00:03:52,043
+the well-architected framework.
+
+97
+00:03:53,370 --> 00:03:55,083
+So let's define the workload.
+
+98
+00:03:57,760 --> 00:04:00,570
+And once you have that, you need to start reviewing.
+
+99
+00:04:00,570 --> 00:04:03,380
+So we'll start reviewing and then we'll review
+
+100
+00:04:03,380 --> 00:04:06,863
+for the lens of the AWS Well-Architected Framework.
+
+101
+00:04:08,780 --> 00:04:11,070
+So in here I get some resources on the right hand side
+
+102
+00:04:11,070 --> 00:04:12,250
+that I can close.
+
+103
+00:04:12,250 --> 00:04:13,550
+And the idea is that
+
+104
+00:04:13,550 --> 00:04:16,560
+you're going to have a lot of questions on the six pillars,
+
+105
+00:04:16,560 --> 00:04:20,019
+for example, 11 questions on operational excellence
+
+106
+00:04:20,019 --> 00:04:23,980
+and then 10 questions on security, six on sustainability
+
+107
+00:04:23,980 --> 00:04:26,170
+and things can change over time, of course
+
+108
+00:04:26,170 --> 00:04:27,600
+but the idea is that you answer questions
+
+109
+00:04:27,600 --> 00:04:29,570
+and then you're gonna get recommendations.
+
+110
+00:04:29,570 --> 00:04:31,740
+So for example, how do you determine that
+
+111
+00:04:31,740 --> 00:04:33,250
+what your priorities are?
+
+112
+00:04:33,250 --> 00:04:35,980
+And we'll say, okay, we evaluate governance requirements
+
+113
+00:04:35,980 --> 00:04:38,610
+external customer needs and trade offs.
+
+114
+00:04:38,610 --> 00:04:41,630
+And then next, so answer one question.
+
+115
+00:04:41,630 --> 00:04:43,400
+And then how do you structure your organization?
+
+116
+00:04:43,400 --> 00:04:47,250
+Maybe I just have this answer and then next.
+
+117
+00:04:47,250 --> 00:04:49,710
+And so you can answer questions in the various pillars
+
+118
+00:04:49,710 --> 00:04:51,840
+and you should answer them all for all pillars,
+
+119
+00:04:51,840 --> 00:04:53,710
+but let's answer one as well
+
+120
+00:04:53,710 --> 00:04:58,230
+in performance efficiency, randomly and next.
+
+121
+00:04:58,230 --> 00:05:00,800
+So once you answer maybe three questions of course
+
+122
+00:05:00,800 --> 00:05:03,733
+they're a lot more, then you save and continue.
+
+123
+00:05:04,730 --> 00:05:08,270
+And then here, as you can see, we have three high risks.
+
+124
+00:05:08,270 --> 00:05:10,500
+So you can click on this lens right here
+
+125
+00:05:11,340 --> 00:05:14,220
+and then you're going to get the overview of this lens
+
+126
+00:05:14,220 --> 00:05:15,900
+as well as the risks.
+
+127
+00:05:15,900 --> 00:05:18,810
+So you can click on the risk itself
+
+128
+00:05:18,810 --> 00:05:20,690
+by going to improvement plan.
+
+129
+00:05:20,690 --> 00:05:23,360
+We see we have three high risk and zero medium risk
+
+130
+00:05:23,360 --> 00:05:25,270
+and so this one was a high risk
+
+131
+00:05:25,270 --> 00:05:28,290
+and here are the recommendations regarding this risk.
+
+132
+00:05:28,290 --> 00:05:31,090
+So I need to evaluate internal customer needs
+
+133
+00:05:31,090 --> 00:05:32,790
+evaluate threat landscape and so on.
+
+134
+00:05:32,790 --> 00:05:35,970
+And then if I click on it, I get the section
+
+135
+00:05:35,970 --> 00:05:39,630
+in the framework itself that tells me exactly
+
+136
+00:05:39,630 --> 00:05:40,700
+what I need to do.
+
+137
+00:05:40,700 --> 00:05:41,720
+So it's very important.
+
+138
+00:05:41,720 --> 00:05:44,300
+And then I will go back to answering more questions
+
+139
+00:05:44,300 --> 00:05:46,100
+and making sure that this is addressed.
+
+140
+00:05:46,100 --> 00:05:47,470
+And so this tool just gives you feedback.
+
+141
+00:05:47,470 --> 00:05:50,160
+And over time you can define milestones.
+
+142
+00:05:50,160 --> 00:05:52,530
+You can look at your improvement plans and so on.
+
+143
+00:05:52,530 --> 00:05:55,320
+And the idea is that once you are very confident
+
+144
+00:05:55,320 --> 00:05:56,880
+that this framework works for you
+
+145
+00:05:56,880 --> 00:05:58,850
+then your application is production ready
+
+146
+00:05:58,850 --> 00:06:02,950
+and your workload is compliant and well architected, okay?
+
+147
+00:06:02,950 --> 00:06:04,240
+So that's it for this tool.
+
+148
+00:06:04,240 --> 00:06:05,200
+I hope you liked it
+
+149
+00:06:05,200 --> 00:06:07,150
+and I will see you in the next lecture.
+

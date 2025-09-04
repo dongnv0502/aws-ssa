@@ -1,0 +1,244 @@
+1
+00:00:00,350 --> 00:00:01,960
+So we need to make the distinction
+
+2
+00:00:01,960 --> 00:00:05,370
+between a domain registrar and a DNS service.
+
+3
+00:00:05,370 --> 00:00:07,680
+So actually you can buy your domain name
+
+4
+00:00:07,680 --> 00:00:10,060
+with any kind of domain registrar you want,
+
+5
+00:00:10,060 --> 00:00:11,930
+and you're going to pay annual charges.
+
+6
+00:00:11,930 --> 00:00:13,510
+So the way we did it so far in this course
+
+7
+00:00:13,510 --> 00:00:15,490
+was to use the Amazon Registrar,
+
+8
+00:00:15,490 --> 00:00:17,190
+through the Route 53 console,
+
+9
+00:00:17,190 --> 00:00:20,990
+but it's possible for you to use any domain name registrar.
+
+10
+00:00:20,990 --> 00:00:22,470
+So for example, you can use GoDaddy,
+
+11
+00:00:22,470 --> 00:00:24,530
+you can just Google Domains, and so on.
+
+12
+00:00:24,530 --> 00:00:27,010
+And usually whenever you register a domain
+
+13
+00:00:27,010 --> 00:00:28,300
+with a domain registrar,
+
+14
+00:00:28,300 --> 00:00:30,500
+they will provide you as well with a DNS service
+
+15
+00:00:30,500 --> 00:00:32,350
+to manage your DNS records.
+
+16
+00:00:32,350 --> 00:00:34,570
+So when we created a,
+
+17
+00:00:34,570 --> 00:00:39,420
+when registered a DNS name with a host name with Amazon,
+
+18
+00:00:39,420 --> 00:00:43,590
+we had a Route 53 hosted zone to manage our DNS records.
+
+19
+00:00:43,590 --> 00:00:47,210
+But it's possible for you to choose not to use, for example,
+
+20
+00:00:47,210 --> 00:00:49,370
+AWS Route 53 as your DNS records,
+
+21
+00:00:49,370 --> 00:00:52,140
+when you have registered your domain with Amazon Registrar.
+
+22
+00:00:52,140 --> 00:00:53,910
+Or vice versa, you can, for example,
+
+23
+00:00:53,910 --> 00:00:55,740
+register your domain with GoDaddy.
+
+24
+00:00:55,740 --> 00:00:57,710
+So you're going to purchase example.com,
+
+25
+00:00:57,710 --> 00:01:00,190
+yet you're going to use Amazon Route 53
+
+26
+00:01:00,190 --> 00:01:01,620
+to manage your DNS records.
+
+27
+00:01:01,620 --> 00:01:05,000
+It's a perfectly acceptable combination.
+
+28
+00:01:05,000 --> 00:01:06,070
+So how do we do this?
+
+29
+00:01:06,070 --> 00:01:08,270
+Well, on GoDaddy you're going to register your domain,
+
+30
+00:01:08,270 --> 00:01:11,200
+and then you're going to have the name servers option,
+
+31
+00:01:11,200 --> 00:01:14,220
+and you can specify custom name servers.
+
+32
+00:01:14,220 --> 00:01:15,550
+So what do we put in there?
+
+33
+00:01:15,550 --> 00:01:18,100
+Well, first we're going to go to Amazon Route 53,
+
+34
+00:01:18,100 --> 00:01:20,910
+and we're going to create a public hosted zone,
+
+35
+00:01:20,910 --> 00:01:22,380
+for any domain we want.
+
+36
+00:01:22,380 --> 00:01:24,130
+And then in the hosted zone details,
+
+37
+00:01:24,130 --> 00:01:26,820
+we're going to find name servers on the right-hand side.
+
+38
+00:01:26,820 --> 00:01:29,170
+So these four name servers are the ones
+
+39
+00:01:29,170 --> 00:01:31,640
+we're are going to have to change on the GoDaddy websites.
+
+40
+00:01:31,640 --> 00:01:34,187
+So that's when GoDaddy answers a query,
+
+41
+00:01:34,187 --> 00:01:36,210
+"Hey, which name server should I use?"
+
+42
+00:01:36,210 --> 00:01:38,690
+the name servers are going to be pointing to
+
+43
+00:01:38,690 --> 00:01:40,600
+Amazon Route 53 name servers,
+
+44
+00:01:40,600 --> 00:01:43,260
+and therefore we can use Amazon Route 53
+
+45
+00:01:43,260 --> 00:01:46,100
+to manage all the EDNS records
+
+46
+00:01:46,100 --> 00:01:48,400
+that are cleaved from that console.
+
+47
+00:01:48,400 --> 00:01:49,410
+So to summarize,
+
+48
+00:01:49,410 --> 00:01:51,740
+if you buy your domain on a third-party registrar,
+
+49
+00:01:51,740 --> 00:01:55,560
+you can still use Route 53 as your DNS service provider.
+
+50
+00:01:55,560 --> 00:01:59,320
+For this, you will create a public hosted zone in Route 53,
+
+51
+00:01:59,320 --> 00:02:02,740
+and then you will update the NS, or name server's records,
+
+52
+00:02:02,740 --> 00:02:05,350
+on the third-party website, where you bought your domain.
+
+53
+00:02:05,350 --> 00:02:06,750
+And then you're going to point them
+
+54
+00:02:06,750 --> 00:02:08,990
+to the Routes 53 name servers.
+
+55
+00:02:08,990 --> 00:02:12,010
+So, just so you know, a domain registrar looks like,
+
+56
+00:02:12,010 --> 00:02:15,700
+but is different from a DNS service,
+
+57
+00:02:15,700 --> 00:02:17,480
+even though every domain registrar
+
+58
+00:02:17,480 --> 00:02:20,120
+usually comes with some DNS features.
+
+59
+00:02:20,120 --> 00:02:21,100
+So that's it for this lecture.
+
+60
+00:02:21,100 --> 00:02:21,933
+I hope you liked it.
+
+61
+00:02:21,933 --> 00:02:23,830
+And I will see you in the next lecture.
+

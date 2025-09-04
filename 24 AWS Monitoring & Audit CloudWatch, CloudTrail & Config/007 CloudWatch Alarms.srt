@@ -1,0 +1,420 @@
+1
+00:00:00,210 --> 00:00:01,800
+Now let's discuss CloudWatch Alarms.
+
+2
+00:00:01,800 --> 00:00:03,360
+So alarms, as we know, they're used
+
+3
+00:00:03,360 --> 00:00:06,000
+to trigger notifications from any metric.
+
+4
+00:00:06,000 --> 00:00:07,920
+And you can define complex alarms
+
+5
+00:00:07,920 --> 00:00:11,160
+and on various options such as sampling or doing percentage
+
+6
+00:00:11,160 --> 00:00:13,110
+or maximum, and so on.
+
+7
+00:00:13,110 --> 00:00:14,430
+Alarm has three states,
+
+8
+00:00:14,430 --> 00:00:16,350
+OK, it means that it's not triggered,
+
+9
+00:00:16,350 --> 00:00:18,180
+INSUFFICIENT_DATA means that there's not enough data
+
+10
+00:00:18,180 --> 00:00:20,250
+for the alarm to determine a state
+
+11
+00:00:20,250 --> 00:00:23,580
+and ALARM, which is that your threshold has been breached
+
+12
+00:00:23,580 --> 00:00:26,130
+and therefore a notification will be sent.
+
+13
+00:00:26,130 --> 00:00:27,930
+The period is how long you want the alarm
+
+14
+00:00:27,930 --> 00:00:29,730
+to evaluate for on the metric.
+
+15
+00:00:29,730 --> 00:00:32,700
+And so it could be very, very short, very, very long.
+
+16
+00:00:32,700 --> 00:00:35,730
+And it can apply also to high resolution customer metrics.
+
+17
+00:00:35,730 --> 00:00:37,170
+For example, 10 seconds, 30 seconds,
+
+18
+00:00:37,170 --> 00:00:39,810
+or multiple of 60 seconds.
+
+19
+00:00:39,810 --> 00:00:42,330
+Now, alarms have three main targets.
+
+20
+00:00:42,330 --> 00:00:45,180
+The first one is actions on EC2 instances
+
+21
+00:00:45,180 --> 00:00:48,060
+such as stopping it, terminating it, rebooting it,
+
+22
+00:00:48,060 --> 00:00:49,980
+or recovering any instance.
+
+23
+00:00:49,980 --> 00:00:52,410
+The second one is to trigger an auto-scaling action.
+
+24
+00:00:52,410 --> 00:00:55,320
+For example, a scale out or a scale in.
+
+25
+00:00:55,320 --> 00:00:57,300
+And the last one is to send a notification
+
+26
+00:00:57,300 --> 00:00:59,670
+to the SNS service, for example,
+
+27
+00:00:59,670 --> 00:01:02,010
+and from the SNS service, we can hook it
+
+28
+00:01:02,010 --> 00:01:03,570
+to a Lambda function
+
+29
+00:01:03,570 --> 00:01:06,090
+and have the Lambda function do pretty much anything we want
+
+30
+00:01:06,090 --> 00:01:08,340
+based on an alarm being breached.
+
+31
+00:01:08,340 --> 00:01:10,710
+So now let's talk about Composite Alarms,
+
+32
+00:01:10,710 --> 00:01:12,060
+because we know that CloudWatch Alarms
+
+33
+00:01:12,060 --> 00:01:14,010
+are on a single metric,
+
+34
+00:01:14,010 --> 00:01:16,170
+but then if you wanted to have multiple metrics,
+
+35
+00:01:16,170 --> 00:01:18,570
+you would need to use Composite Alarms.
+
+36
+00:01:18,570 --> 00:01:20,670
+So because composite alarms are actually monitoring
+
+37
+00:01:20,670 --> 00:01:23,040
+the states of multiple other alarms,
+
+38
+00:01:23,040 --> 00:01:25,230
+and these alarms can be each relying
+
+39
+00:01:25,230 --> 00:01:27,270
+on one different metric.
+
+40
+00:01:27,270 --> 00:01:29,160
+So the Composite Alarm is the action
+
+41
+00:01:29,160 --> 00:01:32,340
+of combining all these other alarms together,
+
+42
+00:01:32,340 --> 00:01:35,370
+and you can use AND or OR conditions
+
+43
+00:01:35,370 --> 00:01:38,430
+to be able to be very flexible in terms
+
+44
+00:01:38,430 --> 00:01:40,410
+of the condition you're checking for.
+
+45
+00:01:40,410 --> 00:01:42,540
+So it's very helpful to reduce alarm noise
+
+46
+00:01:42,540 --> 00:01:45,180
+because you can create complex Composite Alarms
+
+47
+00:01:45,180 --> 00:01:47,970
+and saying, for example, if the CPU is high
+
+48
+00:01:47,970 --> 00:01:50,760
+and the network is high, then don't alert me
+
+49
+00:01:50,760 --> 00:01:53,370
+because I only wanna know when the CPU is high
+
+50
+00:01:53,370 --> 00:01:55,800
+and the network is a low, these kind of things.
+
+51
+00:01:55,800 --> 00:01:58,410
+So let's take an example, we have an EC2 instance,
+
+52
+00:01:58,410 --> 00:02:01,500
+and we're going to create a composite alarm on top of it.
+
+53
+00:02:01,500 --> 00:02:03,870
+So therefore we create a first
+
+54
+00:02:03,870 --> 00:02:06,660
+underlying alarm called the Alarm A,
+
+55
+00:02:06,660 --> 00:02:09,960
+which is going to monitor the CPU of the EC2 instance.
+
+56
+00:02:09,960 --> 00:02:13,560
+Then you create Alarm B, which is going to monitor the IOPS
+
+57
+00:02:13,560 --> 00:02:15,420
+of the EC2 instance,
+
+58
+00:02:15,420 --> 00:02:19,170
+and then the composite alarm is defined as the junction
+
+59
+00:02:19,170 --> 00:02:21,570
+of Alarm A and Alarm B.
+
+60
+00:02:21,570 --> 00:02:24,450
+And therefore, if Alarm A is in alarm
+
+61
+00:02:24,450 --> 00:02:25,860
+and Alarm B is in alarm,
+
+62
+00:02:25,860 --> 00:02:28,680
+and this is something we have to define ourselves,
+
+63
+00:02:28,680 --> 00:02:31,530
+then the Composite Alarm itself will be an alarm
+
+64
+00:02:31,530 --> 00:02:34,650
+and can trigger, for example, an SNS notification.
+
+65
+00:02:34,650 --> 00:02:36,780
+So as you can see, you can get quite creative
+
+66
+00:02:36,780 --> 00:02:38,523
+with the Composite Alarms.
+
+67
+00:02:39,510 --> 00:02:41,730
+So let's talk about EC2 instance recovery.
+
+68
+00:02:41,730 --> 00:02:43,500
+So we have the status checks
+
+69
+00:02:43,500 --> 00:02:45,180
+and we have the instance status check,
+
+70
+00:02:45,180 --> 00:02:47,730
+which is going to check the EC2 virtual machine.
+
+71
+00:02:47,730 --> 00:02:49,320
+And we have the system status check,
+
+72
+00:02:49,320 --> 00:02:51,990
+which is going to check the underlying layer hardware
+
+73
+00:02:51,990 --> 00:02:53,550
+of our EC2 instance.
+
+74
+00:02:53,550 --> 00:02:55,890
+And finally, the attached EBS status check,
+
+75
+00:02:55,890 --> 00:02:59,400
+which is going to check any attached EBS volumes health.
+
+76
+00:02:59,400 --> 00:03:02,250
+And you can define a CloudWatch Alarm on these checks, okay?
+
+77
+00:03:02,250 --> 00:03:05,490
+So you'll monitor a specific EC2 instance,
+
+78
+00:03:05,490 --> 00:03:07,800
+and in case the alarm is being breach,
+
+79
+00:03:07,800 --> 00:03:10,650
+then you can start an EC2 instance recovery
+
+80
+00:03:10,650 --> 00:03:12,480
+to make sure, for example, that you move
+
+81
+00:03:12,480 --> 00:03:14,700
+your EC2 instance from one host to another.
+
+82
+00:03:14,700 --> 00:03:17,400
+When you do a recovery, you get the same private,
+
+83
+00:03:17,400 --> 00:03:19,590
+public, and elastic IP, the same metadata
+
+84
+00:03:19,590 --> 00:03:21,690
+and the same placement group for your instance.
+
+85
+00:03:21,690 --> 00:03:25,140
+And you can also send an alert to your SNS topic
+
+86
+00:03:25,140 --> 00:03:28,803
+to get alerted that the EC2 instance was being recovered.
+
+87
+00:03:29,760 --> 00:03:31,200
+Now, the cloud alarm has some good stuff.
+
+88
+00:03:31,200 --> 00:03:33,120
+To know that, first of all is that as we've seen,
+
+89
+00:03:33,120 --> 00:03:34,620
+we can create an alarm on top
+
+90
+00:03:34,620 --> 00:03:36,120
+of a CloudWatch logs metric filter.
+
+91
+00:03:36,120 --> 00:03:39,690
+So remember, the CloudWatch logs are having a metric filter,
+
+92
+00:03:39,690 --> 00:03:41,310
+which is hooked to CloudWatch Alarm.
+
+93
+00:03:41,310 --> 00:03:43,680
+And then when we receive too many instances
+
+94
+00:03:43,680 --> 00:03:46,200
+of a specific word, for example, the word error,
+
+95
+00:03:46,200 --> 00:03:50,520
+then do an alert and send a message into Amazon SNS.
+
+96
+00:03:50,520 --> 00:03:52,020
+And so if you wanted to test alarm
+
+97
+00:03:52,020 --> 00:03:54,390
+and notifications, you can use a CLI call
+
+98
+00:03:54,390 --> 00:03:56,130
+called set alarm states.
+
+99
+00:03:56,130 --> 00:03:58,440
+And this is helpful when you want to trigger an alarm,
+
+100
+00:03:58,440 --> 00:04:01,800
+even though it didn't reach a specific threshold
+
+101
+00:04:01,800 --> 00:04:03,390
+because you wanted to see whether
+
+102
+00:04:03,390 --> 00:04:06,240
+or not the alarm being triggered results in the correct
+
+103
+00:04:06,240 --> 00:04:09,000
+action for your infrastructure.
+
+104
+00:04:09,000 --> 00:04:10,440
+So that's it for alarms, I hope you liked it,
+
+105
+00:04:10,440 --> 00:04:13,133
+and I will see you in the next lecture for some practice.
+

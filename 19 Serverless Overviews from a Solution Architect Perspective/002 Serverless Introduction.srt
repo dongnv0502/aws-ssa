@@ -1,0 +1,276 @@
+1
+00:00:00,240 --> 00:00:02,040
+Okay, so let's discuss now
+
+2
+00:00:02,040 --> 00:00:03,690
+what is serverless.
+
+3
+00:00:03,690 --> 00:00:05,770
+So serverless is something new.
+
+4
+00:00:05,770 --> 00:00:08,720
+And the developers when you use serverless services,
+
+5
+00:00:08,720 --> 00:00:11,360
+you don't have to manage servers anymore.
+
+6
+00:00:11,360 --> 00:00:13,650
+So it's not that you don't have servers anymore,
+
+7
+00:00:13,650 --> 00:00:15,120
+it's just that you don't manage them.
+
+8
+00:00:15,120 --> 00:00:16,315
+You just deploy code
+
+9
+00:00:16,315 --> 00:00:18,884
+and originally, you just deploy it functions.
+
+10
+00:00:18,884 --> 00:00:22,570
+So initially serverless meant Function as a Service,
+
+11
+00:00:22,570 --> 00:00:24,210
+or FaaS.
+
+12
+00:00:24,210 --> 00:00:27,200
+But now serverless means a lot more.
+
+13
+00:00:27,200 --> 00:00:28,850
+So in the beginning,
+
+14
+00:00:28,850 --> 00:00:31,050
+serverless was pioneered by AWS Lambda
+
+15
+00:00:31,050 --> 00:00:32,097
+that we'll see in the section,
+
+16
+00:00:32,097 --> 00:00:36,440
+but now also includes anything that is remotely managed.
+
+17
+00:00:36,440 --> 00:00:39,040
+So databases, messaging, storage,
+
+18
+00:00:39,040 --> 00:00:42,040
+as long as you don't provision servers.
+
+19
+00:00:42,040 --> 00:00:43,790
+So serverless doesn't mean there are no servers,
+
+20
+00:00:43,790 --> 00:00:45,020
+it just means you don't see them
+
+21
+00:00:45,020 --> 00:00:47,050
+or you don't provision them.
+
+22
+00:00:47,050 --> 00:00:49,430
+So if we drill down into what serverless means,
+
+23
+00:00:49,430 --> 00:00:51,970
+in AWS, we have our users
+
+24
+00:00:51,970 --> 00:00:53,440
+and they would get for example,
+
+25
+00:00:53,440 --> 00:00:56,860
+static content for from our S3 buckets
+
+26
+00:00:56,860 --> 00:00:58,410
+delivered as a website's
+
+27
+00:00:58,410 --> 00:01:00,660
+or CloudFront plus S3.
+
+28
+00:01:00,660 --> 00:01:03,320
+Then we would login with cognito,
+
+29
+00:01:03,320 --> 00:01:06,160
+this is where our users would have their identity stored.
+
+30
+00:01:06,160 --> 00:01:08,660
+And they would invoke your REST API
+
+31
+00:01:08,660 --> 00:01:10,220
+through the API gateway,
+
+32
+00:01:10,220 --> 00:01:12,400
+the API gateway would invoke Lambda functions,
+
+33
+00:01:12,400 --> 00:01:14,680
+and Lambda functions would store
+
+34
+00:01:14,680 --> 00:01:17,010
+and retrieve data from DynamoDB.
+
+35
+00:01:17,010 --> 00:01:18,120
+So this is just an example.
+
+36
+00:01:18,120 --> 00:01:19,710
+This section is going to be dedicated to
+
+37
+00:01:19,710 --> 00:01:21,873
+learning a lot of things around Lambda DynamoDB,
+
+38
+00:01:21,873 --> 00:01:24,690
+API Gateway, Cognito, and so on.
+
+39
+00:01:24,690 --> 00:01:26,900
+But so it's just to give you an a reference architecture
+
+40
+00:01:26,900 --> 00:01:28,960
+for serverless applications.
+
+41
+00:01:28,960 --> 00:01:33,960
+So in AWS, it's Lambda DynamoDB, Cognito, API Gateway,
+
+42
+00:01:34,099 --> 00:01:35,570
+Amazon S3,
+
+43
+00:01:35,570 --> 00:01:37,220
+but also things we've already seen such as
+
+44
+00:01:37,220 --> 00:01:38,510
+SNS and SQS,
+
+45
+00:01:38,510 --> 00:01:39,343
+yes indeed,
+
+46
+00:01:39,343 --> 00:01:41,380
+we did not manage any servers for SQS and SNS
+
+47
+00:01:41,380 --> 00:01:42,520
+and it was scaling on its own.
+
+48
+00:01:42,520 --> 00:01:45,060
+So that fits the serverless use case
+
+49
+00:01:45,060 --> 00:01:46,630
+Kinesis Data Firehose, because again
+
+50
+00:01:46,630 --> 00:01:47,520
+it scales
+
+51
+00:01:47,520 --> 00:01:48,650
+based on the throughput you have
+
+52
+00:01:48,650 --> 00:01:49,640
+you just pay for what you use
+
+53
+00:01:49,640 --> 00:01:51,520
+and you don't provision servers,
+
+54
+00:01:51,520 --> 00:01:52,720
+Aurora Serverless,
+
+55
+00:01:52,720 --> 00:01:54,100
+when your Aurora database
+
+56
+00:01:54,100 --> 00:01:55,010
+scales on demand
+
+57
+00:01:55,010 --> 00:01:56,550
+without you managing servers,
+
+58
+00:01:56,550 --> 00:01:58,470
+step functions and fargate
+
+59
+00:01:58,470 --> 00:02:00,970
+because fargate was a serverless function of ECS,
+
+60
+00:02:00,970 --> 00:02:03,380
+where we didn't provision the infrastructure
+
+61
+00:02:03,380 --> 00:02:05,410
+to run our Docker containers.
+
+62
+00:02:05,410 --> 00:02:06,630
+So hopefully this is short
+
+63
+00:02:06,630 --> 00:02:09,080
+and sweet introduction to serverless.
+
+64
+00:02:09,080 --> 00:02:11,550
+Next lecture, we'll be starting with AWS lambda.
+
+65
+00:02:11,550 --> 00:02:13,630
+And it will be a lot of content to learn,
+
+66
+00:02:13,630 --> 00:02:15,940
+but the exam does test you heavily
+
+67
+00:02:15,940 --> 00:02:17,480
+on your serverless knowledge.
+
+68
+00:02:17,480 --> 00:02:18,313
+So let's get started.
+
+69
+00:02:18,313 --> 00:02:19,146
+(keys tapping)
+

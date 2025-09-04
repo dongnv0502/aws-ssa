@@ -1,0 +1,812 @@
+1
+00:00:00,210 --> 00:00:02,100
+So let's talk about the advanced features
+
+2
+00:00:02,100 --> 00:00:04,440
+that can come up at the exam for DynamoDB.
+
+3
+00:00:04,440 --> 00:00:07,890
+And the first one is DynamoDB Accelerator or DAX.
+
+4
+00:00:07,890 --> 00:00:10,080
+So this is a fully-managed, highly available,
+
+5
+00:00:10,080 --> 00:00:14,310
+and seamless in-memory cache for DynamoDB.
+
+6
+00:00:14,310 --> 00:00:16,200
+The idea is that if you have a lot of reads
+
+7
+00:00:16,200 --> 00:00:17,640
+on your DynamoDB table,
+
+8
+00:00:17,640 --> 00:00:20,250
+then you can create a DAX cluster
+
+9
+00:00:20,250 --> 00:00:23,730
+to solve read congestion by caching the data.
+
+10
+00:00:23,730 --> 00:00:25,800
+And with DynamoDB DAX,
+
+11
+00:00:25,800 --> 00:00:28,650
+you get microseconds latency for cached data.
+
+12
+00:00:28,650 --> 00:00:30,540
+So this is something you have to look out for
+
+13
+00:00:30,540 --> 00:00:32,549
+in terms of keywords at the exam.
+
+14
+00:00:32,549 --> 00:00:33,630
+It doesn't require for you
+
+15
+00:00:33,630 --> 00:00:36,300
+to change any of your application logic
+
+16
+00:00:36,300 --> 00:00:38,790
+because the DAX cluster is compatible
+
+17
+00:00:38,790 --> 00:00:41,400
+with the existing DynamoDB APIs.
+
+18
+00:00:41,400 --> 00:00:44,130
+So you have your DynamoDB tables and your application,
+
+19
+00:00:44,130 --> 00:00:46,500
+and you will just create a DAX cluster
+
+20
+00:00:46,500 --> 00:00:49,680
+made of few cache nodes, connect to this DAX cluster.
+
+21
+00:00:49,680 --> 00:00:51,090
+And then behind the scenes,
+
+22
+00:00:51,090 --> 00:00:55,230
+the DAX cluster is connected to your Amazon DynamoDB table.
+
+23
+00:00:55,230 --> 00:00:58,110
+The cache has a default TTL of five minutes,
+
+24
+00:00:58,110 --> 00:00:59,790
+but you can change this.
+
+25
+00:00:59,790 --> 00:01:00,623
+So you may ask me,
+
+26
+00:01:00,623 --> 00:01:03,420
+why should I use DAX and not elastic cache?
+
+27
+00:01:03,420 --> 00:01:05,910
+Well, DAX is in front of DynamoDB
+
+28
+00:01:05,910 --> 00:01:07,200
+and it's going to be very helpful
+
+29
+00:01:07,200 --> 00:01:09,900
+for individual objects cache or queries,
+
+30
+00:01:09,900 --> 00:01:11,673
+and scanned queries' cache.
+
+31
+00:01:12,510 --> 00:01:16,020
+But if you want to store, say, aggregation results,
+
+32
+00:01:16,020 --> 00:01:18,720
+then Amazon ElastiCache is a great way to do it.
+
+33
+00:01:18,720 --> 00:01:21,720
+So if you want to store a very big computation
+
+34
+00:01:21,720 --> 00:01:24,390
+that you've done on top of Amazon DynamoDB.
+
+35
+00:01:24,390 --> 00:01:26,910
+So they're not drop-in replacements for one another,
+
+36
+00:01:26,910 --> 00:01:28,650
+they're actually complementary.
+
+37
+00:01:28,650 --> 00:01:29,640
+But most of the time,
+
+38
+00:01:29,640 --> 00:01:32,430
+for caching solution on top of Amazon DynamoDB,
+
+39
+00:01:32,430 --> 00:01:36,900
+it's just going to be using DynamoDB Accelerator DAX.
+
+40
+00:01:36,900 --> 00:01:40,080
+You can also do stream processing on top of DynamoDB.
+
+41
+00:01:40,080 --> 00:01:42,360
+The idea is that you want to have a stream
+
+42
+00:01:42,360 --> 00:01:45,030
+of all the modifications that happen on your table.
+
+43
+00:01:45,030 --> 00:01:47,610
+Would it be create, update, and delete.
+
+44
+00:01:47,610 --> 00:01:49,380
+And the use cases for that will be, for example,
+
+45
+00:01:49,380 --> 00:01:53,280
+to react to changes on your DynamoDB table in real time.
+
+46
+00:01:53,280 --> 00:01:55,560
+For example, to send a welcome email
+
+47
+00:01:55,560 --> 00:01:58,410
+whenever you have a new user in your user's table.
+
+48
+00:01:58,410 --> 00:02:01,740
+Or if so, you may wanna do real-time usage analytics,
+
+49
+00:02:01,740 --> 00:02:05,310
+or maybe you want to insert data into a derivative table,
+
+50
+00:02:05,310 --> 00:02:08,039
+or you want to implement cross region replication,
+
+51
+00:02:08,039 --> 00:02:11,340
+or you want to invoke Lambda on any changes made
+
+52
+00:02:11,340 --> 00:02:13,350
+on your DynamoDB table.
+
+53
+00:02:13,350 --> 00:02:16,170
+So two kind of stream processing on DynamoDB.
+
+54
+00:02:16,170 --> 00:02:19,890
+You have DynamoDB Streams, with 24 hours retention,
+
+55
+00:02:19,890 --> 00:02:21,870
+a limited number of consumers,
+
+56
+00:02:21,870 --> 00:02:24,840
+and is going to be greatly used with Lambda triggers.
+
+57
+00:02:24,840 --> 00:02:26,370
+Or if you wanted to read it yourself,
+
+58
+00:02:26,370 --> 00:02:27,203
+there is something
+
+59
+00:02:27,203 --> 00:02:30,900
+called the DynamoDB Stream Kinesis Adapter.
+
+60
+00:02:30,900 --> 00:02:33,360
+Or you can also choose to send all your changes
+
+61
+00:02:33,360 --> 00:02:35,880
+directly into a Kinesis Data Streams.
+
+62
+00:02:35,880 --> 00:02:38,760
+And here you can have up to one year of retention,
+
+63
+00:02:38,760 --> 00:02:41,520
+you can have a much higher number of consumers,
+
+64
+00:02:41,520 --> 00:02:43,050
+and you have a much higher number
+
+65
+00:02:43,050 --> 00:02:44,850
+of ways to process the data,
+
+66
+00:02:44,850 --> 00:02:48,150
+whether we blend the functions, Kinesis Data Analytics,
+
+67
+00:02:48,150 --> 00:02:51,963
+Kinesis Data Firehose, Glue Streaming ETLs, and so on.
+
+68
+00:02:53,010 --> 00:02:55,290
+So let's have a look at an architectural diagram
+
+69
+00:02:55,290 --> 00:02:56,850
+to understand DynamoDB Streams better.
+
+70
+00:02:56,850 --> 00:02:58,920
+So your application does create updates
+
+71
+00:02:58,920 --> 00:03:02,100
+and delete operations on top of your DynamoDB table,
+
+72
+00:03:02,100 --> 00:03:05,010
+which is going to be either a DynamoDB Streams
+
+73
+00:03:05,010 --> 00:03:07,260
+or a Kinesis Data Streams.
+
+74
+00:03:07,260 --> 00:03:09,690
+If you choose to use Kinesis Data Streams,
+
+75
+00:03:09,690 --> 00:03:11,760
+then you can use Kinesis Data Firehose.
+
+76
+00:03:11,760 --> 00:03:14,700
+And from this, you can send your data into Amazon Redshift
+
+77
+00:03:14,700 --> 00:03:16,500
+for analytics purposes,
+
+78
+00:03:16,500 --> 00:03:19,500
+or Amazon S3 if you want to archive some of the data,
+
+79
+00:03:19,500 --> 00:03:22,200
+or Amazon OpenSearch to do some indexing
+
+80
+00:03:22,200 --> 00:03:24,330
+and some searches on top of it.
+
+81
+00:03:24,330 --> 00:03:26,880
+Or if you are using DynamoDB Streams,
+
+82
+00:03:26,880 --> 00:03:28,260
+you can have a processing layer
+
+83
+00:03:28,260 --> 00:03:30,780
+and you can use either the DynamoDB KCL Adapter
+
+84
+00:03:30,780 --> 00:03:31,830
+to run your applications
+
+85
+00:03:31,830 --> 00:03:34,980
+on top of EC2 instances or Lambda functions.
+
+86
+00:03:34,980 --> 00:03:38,190
+And from there, do some notifications on top of SNS
+
+87
+00:03:38,190 --> 00:03:40,590
+or do some filtering and transformations
+
+88
+00:03:40,590 --> 00:03:43,020
+into another DynamoDB table.
+
+89
+00:03:43,020 --> 00:03:45,420
+Or use the processing layer to do whatever you want,
+
+90
+00:03:45,420 --> 00:03:49,200
+such as, again, send the data to Amazon OpenSearch.
+
+91
+00:03:49,200 --> 00:03:51,450
+So I didn't represent all the possibilities
+
+92
+00:03:51,450 --> 00:03:52,410
+or our architectures.
+
+93
+00:03:52,410 --> 00:03:54,570
+Of course, you can have EC22 instances
+
+94
+00:03:54,570 --> 00:03:56,280
+reading from Kinesis Data Streams.
+
+95
+00:03:56,280 --> 00:03:58,080
+You can have Kinesis Data Analytics and so on
+
+96
+00:03:58,080 --> 00:04:00,930
+on top of Kinesis Data Streams, many, many transformations.
+
+97
+00:04:00,930 --> 00:04:02,850
+But again, you know enough now
+
+98
+00:04:02,850 --> 00:04:05,700
+to figure out what is going to be the right architecture
+
+99
+00:04:05,700 --> 00:04:06,873
+at the right time.
+
+100
+00:04:07,920 --> 00:04:10,890
+DynamoDB also has a concept of global table.
+
+101
+00:04:10,890 --> 00:04:13,170
+So a global table is a table, of course,
+
+102
+00:04:13,170 --> 00:04:16,140
+that is going to be replicated across multiple regions.
+
+103
+00:04:16,140 --> 00:04:18,600
+So you can have a table in US-East-1
+
+104
+00:04:18,600 --> 00:04:21,329
+and a table in AP-Southeast-2.
+
+105
+00:04:21,329 --> 00:04:24,030
+And there is a two-way replication between the tables.
+
+106
+00:04:24,030 --> 00:04:26,010
+That means that you can write to a table
+
+107
+00:04:26,010 --> 00:04:29,190
+either in US-East-1 and AP-Southeast-2.
+
+108
+00:04:29,190 --> 00:04:31,710
+So here, the idea with global tables
+
+109
+00:04:31,710 --> 00:04:34,080
+is to make DynamoDB accessible
+
+110
+00:04:34,080 --> 00:04:36,900
+with low latency in multiple regions.
+
+111
+00:04:36,900 --> 00:04:39,330
+And it is an Active-Active replication.
+
+112
+00:04:39,330 --> 00:04:41,850
+That means that your applications can read and write
+
+113
+00:04:41,850 --> 00:04:44,730
+to the table in any specific region.
+
+114
+00:04:44,730 --> 00:04:46,620
+And to enable global tables,
+
+115
+00:04:46,620 --> 00:04:48,750
+you must first enable DynamoDB Streams
+
+116
+00:04:48,750 --> 00:04:51,540
+because this is the underlying infrastructure
+
+117
+00:04:51,540 --> 00:04:53,853
+to replicate the table across regions.
+
+118
+00:04:55,830 --> 00:04:59,760
+DynamoDB also has a feature named Time To Live, or TTL.
+
+119
+00:04:59,760 --> 00:05:02,880
+The idea is that you want to automatically delete items
+
+120
+00:05:02,880 --> 00:05:04,710
+after an expiry timestamp.
+
+121
+00:05:04,710 --> 00:05:07,560
+So you have your table, SessionData,
+
+122
+00:05:07,560 --> 00:05:10,050
+and then you will have one last attribute
+
+123
+00:05:10,050 --> 00:05:12,510
+called ExpTime, which is your TTL,
+
+124
+00:05:12,510 --> 00:05:14,730
+and it has a timestamp in it.
+
+125
+00:05:14,730 --> 00:05:17,940
+And the idea is that you're going to define a TTL.
+
+126
+00:05:17,940 --> 00:05:21,720
+And as soon as the current time in the Epoch timestamp
+
+127
+00:05:21,720 --> 00:05:24,540
+is going to be over your ExpTime column,
+
+128
+00:05:24,540 --> 00:05:27,630
+then automatically it's going to expire items
+
+129
+00:05:27,630 --> 00:05:31,920
+and then eventually delete them through a deletion process.
+
+130
+00:05:31,920 --> 00:05:35,430
+So the idea is that the items in your data table
+
+131
+00:05:35,430 --> 00:05:37,440
+are going to be deleted after a while.
+
+132
+00:05:37,440 --> 00:05:40,020
+So the use cases for this will be to only store data
+
+133
+00:05:40,020 --> 00:05:42,540
+by keeping only the most current items
+
+134
+00:05:42,540 --> 00:05:44,758
+or to adhere to regulatory obligations by,
+
+135
+00:05:44,758 --> 00:05:48,090
+for example, deleting data after two years.
+
+136
+00:05:48,090 --> 00:05:50,820
+Or another use case that is very common at the exam
+
+137
+00:05:50,820 --> 00:05:52,650
+is the web session handling.
+
+138
+00:05:52,650 --> 00:05:54,810
+So a user would log into your website,
+
+139
+00:05:54,810 --> 00:05:56,190
+and then would've a session.
+
+140
+00:05:56,190 --> 00:05:58,230
+And you would keep the session in a central place,
+
+141
+00:05:58,230 --> 00:06:00,720
+such as DynamoDB for two hours.
+
+142
+00:06:00,720 --> 00:06:02,700
+And you would set the session data there
+
+143
+00:06:02,700 --> 00:06:05,160
+and any kind of applications can access it.
+
+144
+00:06:05,160 --> 00:06:06,630
+And at some point, after two hours,
+
+145
+00:06:06,630 --> 00:06:07,890
+if it hasn't been renewed,
+
+146
+00:06:07,890 --> 00:06:11,283
+then it will expire and move away from this table.
+
+147
+00:06:12,750 --> 00:06:15,540
+You can also use DynamoDB for disaster recovery.
+
+148
+00:06:15,540 --> 00:06:17,520
+So what are your backups options?
+
+149
+00:06:17,520 --> 00:06:19,200
+Well, you can have continuous backups
+
+150
+00:06:19,200 --> 00:06:21,840
+with point-in-time recovery, PITR.
+
+151
+00:06:21,840 --> 00:06:23,340
+So it's optionally enabled,
+
+152
+00:06:23,340 --> 00:06:25,830
+but you can have it for the last 35 days.
+
+153
+00:06:25,830 --> 00:06:26,820
+And then if you enable it,
+
+154
+00:06:26,820 --> 00:06:28,950
+you can do a point-in-time recovery
+
+155
+00:06:28,950 --> 00:06:32,010
+to any time within the backup window.
+
+156
+00:06:32,010 --> 00:06:34,080
+And if you do happen to do a recovery,
+
+157
+00:06:34,080 --> 00:06:36,720
+then it will create a new table.
+
+158
+00:06:36,720 --> 00:06:38,640
+If you wanted to have longer term backups,
+
+159
+00:06:38,640 --> 00:06:40,350
+then you can use on-demand backups,
+
+160
+00:06:40,350 --> 00:06:44,880
+and they will be retained until you delete them explicitly.
+
+161
+00:06:44,880 --> 00:06:46,200
+And doing these kind of backups
+
+162
+00:06:46,200 --> 00:06:47,850
+do not affect the performance
+
+163
+00:06:47,850 --> 00:06:50,640
+or the latency of your DynamoDB table.
+
+164
+00:06:50,640 --> 00:06:52,080
+And if you wanted to have
+
+165
+00:06:52,080 --> 00:06:53,760
+a better management of your backups,
+
+166
+00:06:53,760 --> 00:06:56,940
+you can use the AWS Backup Service,
+
+167
+00:06:56,940 --> 00:07:00,180
+and this will enable you to have lifecycle policies
+
+168
+00:07:00,180 --> 00:07:01,050
+for your backups and so on.
+
+169
+00:07:01,050 --> 00:07:03,780
+And also copy your backups across regions
+
+170
+00:07:03,780 --> 00:07:05,970
+for disaster recovery purposes.
+
+171
+00:07:05,970 --> 00:07:09,390
+And again, if you were to do a recovery
+
+172
+00:07:09,390 --> 00:07:11,990
+of one of these backups, it will create a new table.
+
+173
+00:07:12,840 --> 00:07:14,730
+Now, let's talk about the integrations
+
+174
+00:07:14,730 --> 00:07:17,400
+between DynamoDB and Amazon S3.
+
+175
+00:07:17,400 --> 00:07:21,450
+So you can export a table into S3, just like this.
+
+176
+00:07:21,450 --> 00:07:25,080
+And to do so, you must enable point-in-time recovery
+
+177
+00:07:25,080 --> 00:07:27,570
+and you would export DynamoDB table into S3.
+
+178
+00:07:27,570 --> 00:07:30,120
+For example, if you wanted to do some queries,
+
+179
+00:07:30,120 --> 00:07:33,210
+for example, using the Amazon Athena engine.
+
+180
+00:07:33,210 --> 00:07:35,370
+So you can export at any point in time
+
+181
+00:07:35,370 --> 00:07:36,780
+during the last 35 days
+
+182
+00:07:36,780 --> 00:07:39,390
+because you've enabled continuous backups.
+
+183
+00:07:39,390 --> 00:07:40,830
+And when you do an export,
+
+184
+00:07:40,830 --> 00:07:43,950
+this does not affect the read capacity of your table
+
+185
+00:07:43,950 --> 00:07:45,060
+or your performance.
+
+186
+00:07:45,060 --> 00:07:46,170
+So with this, you can perform,
+
+187
+00:07:46,170 --> 00:07:48,780
+for example, data analysis on top of DynamoDB
+
+188
+00:07:48,780 --> 00:07:51,540
+through exporting through Amazon S3 first.
+
+189
+00:07:51,540 --> 00:07:54,840
+You can also use this to retain snapshots for auditing,
+
+190
+00:07:54,840 --> 00:07:57,000
+or to do any kind of big transformation,
+
+191
+00:07:57,000 --> 00:08:00,450
+maybe any ETL of the data before importing it back
+
+192
+00:08:00,450 --> 00:08:03,480
+into a new DynamoDB table, for example.
+
+193
+00:08:03,480 --> 00:08:07,050
+The format of the export can be in DynamoDB JSON
+
+194
+00:08:07,050 --> 00:08:09,090
+or the ION format.
+
+195
+00:08:09,090 --> 00:08:11,820
+And similarly, you can import to Amazon S3.
+
+196
+00:08:11,820 --> 00:08:16,740
+So you can export from S3 into the CSV, JSON, or ION format
+
+197
+00:08:16,740 --> 00:08:19,530
+back into a new DynamoDB table.
+
+198
+00:08:19,530 --> 00:08:22,500
+And this does not consume any write capacity
+
+199
+00:08:22,500 --> 00:08:24,390
+and it will create a new table.
+
+200
+00:08:24,390 --> 00:08:26,490
+If there are any import errors,
+
+201
+00:08:26,490 --> 00:08:29,370
+they will be logged in CloudWatch Logs.
+
+202
+00:08:29,370 --> 00:08:31,830
+So that's it for DynamoDB. I hope you liked it.
+
+203
+00:08:31,830 --> 00:08:33,783
+And I will see you in the next lecture.
+

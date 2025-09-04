@@ -1,0 +1,132 @@
+1
+00:00:00,180 --> 00:00:02,969
+so let's talk about Lambda SnapStart,
+
+2
+00:00:02,969 --> 00:00:03,870
+so it's a feature
+
+3
+00:00:03,870 --> 00:00:07,530
+that improves your Lambda function performance up to 10x
+
+4
+00:00:07,530 --> 00:00:08,700
+at no extra cost
+
+5
+00:00:08,700 --> 00:00:11,820
+for Java, Python, and .NET,
+
+6
+00:00:11,820 --> 00:00:13,680
+so the idea is that we want our Lambda functions
+
+7
+00:00:13,680 --> 00:00:14,580
+to run very quickly,
+
+8
+00:00:14,580 --> 00:00:17,940
+so what happens when SnapStart is disabled?
+
+9
+00:00:17,940 --> 00:00:20,940
+Well, your Lambda function is going to be invoked,
+
+10
+00:00:20,940 --> 00:00:24,300
+and then it goes into three life cycle phases,
+
+11
+00:00:24,300 --> 00:00:26,280
+so we have the initialize phase.
+
+12
+00:00:26,280 --> 00:00:28,110
+This is where your function's gonna be initialized.
+
+13
+00:00:28,110 --> 00:00:31,530
+Then it's going to be invoked, and finally, shut down,
+
+14
+00:00:31,530 --> 00:00:32,363
+and so what happens
+
+15
+00:00:32,363 --> 00:00:35,430
+is that this initialize phase can take a lot of time
+
+16
+00:00:35,430 --> 00:00:38,130
+because, well, it can take some time, for example,
+
+17
+00:00:38,130 --> 00:00:41,430
+for a Java function to initialize its whole environment,
+
+18
+00:00:41,430 --> 00:00:43,770
+and so when you use SnapStart,
+
+19
+00:00:43,770 --> 00:00:45,780
+there's going to be an optimization done
+
+20
+00:00:45,780 --> 00:00:48,840
+that is that the function is going to be preinitialized,
+
+21
+00:00:48,840 --> 00:00:51,210
+and so the idea is that once the function is preinitialized,
+
+22
+00:00:51,210 --> 00:00:53,670
+it can directly go into the invoke stage
+
+23
+00:00:53,670 --> 00:00:56,070
+and then get to the shutdown stage,
+
+24
+00:00:56,070 --> 00:00:57,690
+so the magic is that when you publish
+
+25
+00:00:57,690 --> 00:01:00,150
+a new version of your Lambda function,
+
+26
+00:01:00,150 --> 00:01:01,620
+then Lambda is going to be
+
+27
+00:01:01,620 --> 00:01:03,750
+automatically initializing your function,
+
+28
+00:01:03,750 --> 00:01:07,200
+and then a snapshot of the memory and the disk state
+
+29
+00:01:07,200 --> 00:01:08,790
+is going to be done,
+
+30
+00:01:08,790 --> 00:01:11,340
+and then, that snapshot is what's going to be used
+
+31
+00:01:11,340 --> 00:01:15,660
+for low latency access to go directly into the invoke stage,
+
+32
+00:01:15,660 --> 00:01:18,660
+so that's it for this optimization called Lambda SnapStart.
+
+33
+00:01:18,660 --> 00:01:21,660
+I hope you liked it, and I will see you in the next lecture.
+

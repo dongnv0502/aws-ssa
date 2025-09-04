@@ -1,0 +1,500 @@
+1
+00:00:00,210 --> 00:00:01,359
+So now let's talk about
+
+2
+00:00:01,359 --> 00:00:03,280
+the weighted routing policy.
+
+3
+00:00:03,280 --> 00:00:05,810
+The idea is that you can have a percentage of requests
+
+4
+00:00:05,810 --> 00:00:07,980
+you can control to go to a specific resource
+
+5
+00:00:07,980 --> 00:00:09,040
+thanks to weights.
+
+6
+00:00:09,040 --> 00:00:10,280
+So, put it simply in the diagram,
+
+7
+00:00:10,280 --> 00:00:11,827
+we have Amazon route 53,
+
+8
+00:00:11,827 --> 00:00:14,060
+and then we have three EC2 instance
+
+9
+00:00:14,060 --> 00:00:15,510
+that have been assigned different weights,
+
+10
+00:00:15,510 --> 00:00:17,480
+so 70, 20, and 10.
+
+11
+00:00:17,480 --> 00:00:20,020
+In my example, these weights sum up to 100,
+
+12
+00:00:20,020 --> 00:00:22,300
+but you don't have to in the real life, okay?
+
+13
+00:00:22,300 --> 00:00:23,710
+But what this means that 70%
+
+14
+00:00:23,710 --> 00:00:27,170
+of the DNS responses from Amazon as on route 53
+
+15
+00:00:27,170 --> 00:00:30,250
+are going to be redirecting to the first EC2 instance,
+
+16
+00:00:30,250 --> 00:00:33,700
+then 20% to the second and 10% to the third.
+
+17
+00:00:33,700 --> 00:00:36,950
+So what we have to do in our weight is to assign each record
+
+18
+00:00:36,950 --> 00:00:38,250
+a relative weights.
+
+19
+00:00:38,250 --> 00:00:40,360
+And then the traffic percentage is going to be sent
+
+20
+00:00:40,360 --> 00:00:43,900
+to each record, as just the weight of the record
+
+21
+00:00:43,900 --> 00:00:45,870
+divided by the sum of all the weights of all the records
+
+22
+00:00:45,870 --> 00:00:49,140
+which is like a percentage of all the weights, okay?
+
+23
+00:00:49,140 --> 00:00:50,530
+The weights don't need to sum up to 100,
+
+24
+00:00:50,530 --> 00:00:52,630
+they're just indicative of how much
+
+25
+00:00:52,630 --> 00:00:54,470
+we want to send to this instance,
+
+26
+00:00:54,470 --> 00:00:58,640
+compared to all the other records in your DNS name.
+
+27
+00:00:58,640 --> 00:00:59,750
+So to make this work,
+
+28
+00:00:59,750 --> 00:01:02,720
+the DNS records must have the same name and type,
+
+29
+00:01:02,720 --> 00:01:04,640
+and you can associate them with health checks,
+
+30
+00:01:04,640 --> 00:01:06,980
+although we haven't seen with health checks are again yet,
+
+31
+00:01:06,980 --> 00:01:08,970
+but we'll have a look at them very, very soon.
+
+32
+00:01:08,970 --> 00:01:11,040
+Now the use cases for a weighted routing policy
+
+33
+00:01:11,040 --> 00:01:13,640
+is pretty obvious, is to do for example, load balancing,
+
+34
+00:01:13,640 --> 00:01:16,590
+maybe across different regions, or to test a new application
+
+35
+00:01:16,590 --> 00:01:19,190
+version by sending a small amount of traffic to it,
+
+36
+00:01:19,190 --> 00:01:20,023
+and so on.
+
+37
+00:01:20,023 --> 00:01:22,120
+And then if you're sending to sort of a weight of zero,
+
+38
+00:01:22,120 --> 00:01:23,610
+then you're going to stop sending traffic
+
+39
+00:01:23,610 --> 00:01:26,850
+to a specific resource, so you can shift weight over time.
+
+40
+00:01:26,850 --> 00:01:29,840
+And if all the resource records will have a weight of zero,
+
+41
+00:01:29,840 --> 00:01:33,000
+then all the records will be returned with equal weights.
+
+42
+00:01:33,000 --> 00:01:34,560
+So let's have a look in the console
+
+43
+00:01:34,560 --> 00:01:36,130
+to see how that works.
+
+44
+00:01:36,130 --> 00:01:37,970
+So let's create a new record,
+
+45
+00:01:37,970 --> 00:01:39,310
+and this one is going to be called
+
+46
+00:01:39,310 --> 00:01:41,790
+weighted.stephanethetaccher.com.
+
+47
+00:01:41,790 --> 00:01:44,510
+It's an A record, and the routing policy
+
+48
+00:01:44,510 --> 00:01:46,250
+is going to be weighted.
+
+49
+00:01:46,250 --> 00:01:48,480
+So first for the first value, let's enter the one
+
+50
+00:01:48,480 --> 00:01:51,450
+from the ap-southeast-1,
+
+51
+00:01:51,450 --> 00:01:53,390
+and the weights I'm going to assign to it
+
+52
+00:01:53,390 --> 00:01:55,330
+this time is going to be 10, okay?
+
+53
+00:01:55,330 --> 00:01:57,360
+So it's very, very small weights.
+
+54
+00:01:57,360 --> 00:02:00,160
+For the TTL, I'm going to set it to something really low,
+
+55
+00:02:00,160 --> 00:02:02,530
+three seconds to just show you the impact of weighted.
+
+56
+00:02:02,530 --> 00:02:03,880
+But obviously, this is not a TTL
+
+57
+00:02:03,880 --> 00:02:05,250
+you would use in real life.
+
+58
+00:02:05,250 --> 00:02:06,083
+So as we can see,
+
+59
+00:02:06,083 --> 00:02:07,190
+we can associate a health check with it,
+
+60
+00:02:07,190 --> 00:02:08,440
+but for now we won't.
+
+61
+00:02:08,440 --> 00:02:10,889
+And we have a record ID that we can set.
+
+62
+00:02:10,889 --> 00:02:13,340
+And this is to identify this specific record
+
+63
+00:02:13,340 --> 00:02:15,030
+within the weighted record sets.
+
+64
+00:02:15,030 --> 00:02:18,120
+So for this one, I got this instance from the southeast,
+
+65
+00:02:18,120 --> 00:02:20,363
+I'm just going to write southeast.
+
+66
+00:02:21,690 --> 00:02:25,230
+Okay, and then we can add another record.
+
+67
+00:02:25,230 --> 00:02:26,750
+And again, we're going to use the same
+
+68
+00:02:26,750 --> 00:02:29,380
+weighted.stephanetheteache.com, okay?
+
+69
+00:02:29,380 --> 00:02:32,420
+And the routing policy is going to be weighted.
+
+70
+00:02:32,420 --> 00:02:33,930
+And the value of which is going to be
+
+71
+00:02:33,930 --> 00:02:35,640
+the one from us-east-1.
+
+72
+00:02:35,640 --> 00:02:38,020
+So I'm going to copy this IP and paste it here.
+
+73
+00:02:38,020 --> 00:02:41,360
+The weight is going to be on this time 70.
+
+74
+00:02:41,360 --> 00:02:44,220
+So we're going to send 70% of the traffic to us-east-1,
+
+75
+00:02:44,220 --> 00:02:48,050
+and then the record ID is US East.
+
+76
+00:02:48,050 --> 00:02:50,790
+Great, and the TTL again, three seconds.
+
+77
+00:02:50,790 --> 00:02:54,190
+And one last record we're going to add, so again, weighted,
+
+78
+00:02:54,190 --> 00:02:55,950
+and then the value of which is going to be
+
+79
+00:02:55,950 --> 00:02:59,343
+eu-central-1, in here.
+
+80
+00:03:01,330 --> 00:03:03,317
+And I'm going to send it as a weighted record.
+
+81
+00:03:03,317 --> 00:03:06,910
+I'm going to send 20 as weights, and the record ID
+
+82
+00:03:06,910 --> 00:03:10,630
+is going to be EU okay.
+
+83
+00:03:10,630 --> 00:03:12,810
+And the TTL three seconds.
+
+84
+00:03:12,810 --> 00:03:15,160
+So now let's go ahead and create these records.
+
+85
+00:03:16,340 --> 00:03:19,130
+And as we can see, we now have three records
+
+86
+00:03:19,130 --> 00:03:20,530
+in this table, okay?
+
+87
+00:03:20,530 --> 00:03:22,670
+So this is why it's different from, for example,
+
+88
+00:03:22,670 --> 00:03:24,380
+a simple record has two values,
+
+89
+00:03:24,380 --> 00:03:26,460
+here, we have three records and each record
+
+90
+00:03:26,460 --> 00:03:27,850
+has one value as an answer,
+
+91
+00:03:27,850 --> 00:03:31,130
+but we have a weight of 10, 20 and 70.
+
+92
+00:03:31,130 --> 00:03:33,560
+So if I go to the URL now,
+
+93
+00:03:33,560 --> 00:03:38,423
+if I go to weighted.stephanetheteacher.com and press Enter,
+
+94
+00:03:42,700 --> 00:03:45,360
+I'm getting a first response from the us-east-1a
+
+95
+00:03:45,360 --> 00:03:46,780
+which makes sense because, well,
+
+96
+00:03:46,780 --> 00:03:49,490
+this is where 70% of the traffic is supposed to be going
+
+97
+00:03:49,490 --> 00:03:52,000
+okay, to this region.
+
+98
+00:03:52,000 --> 00:03:54,470
+But if I refresh and I need to refresh
+
+99
+00:03:54,470 --> 00:03:57,120
+maybe every three seconds, at some points,
+
+100
+00:03:57,120 --> 00:04:00,000
+I should be getting a response from another region.
+
+101
+00:04:00,000 --> 00:04:01,040
+And this is just based on weight,
+
+102
+00:04:01,040 --> 00:04:03,690
+so this is the (indistinct) behind the weighted resources.
+
+103
+00:04:03,690 --> 00:04:05,680
+So as you can see, this one is not changing a lot,
+
+104
+00:04:05,680 --> 00:04:08,250
+so let's do a dig command just to show you
+
+105
+00:04:08,250 --> 00:04:09,110
+the output of what it is,
+
+106
+00:04:09,110 --> 00:04:14,110
+so dig weighted.stephanetheteacher.com.
+
+107
+00:04:14,470 --> 00:04:17,630
+and here we get a TTL of three and the answer is,
+
+108
+00:04:17,630 --> 00:04:20,100
+I think still the one from the us-east-1,
+
+109
+00:04:20,100 --> 00:04:22,690
+But so let's try to issue one more,
+
+110
+00:04:22,690 --> 00:04:24,913
+and see if we get any luckier.
+
+111
+00:04:25,750 --> 00:04:28,550
+So the weight of 70 definitely is a big weight.
+
+112
+00:04:28,550 --> 00:04:31,070
+Okay, but here as we can see, we just got an answer,
+
+113
+00:04:31,070 --> 00:04:34,360
+and this one is a different IP, 3.70.14,
+
+114
+00:04:34,360 --> 00:04:37,170
+which is corresponding to the weight of 20.
+
+115
+00:04:37,170 --> 00:04:39,070
+So as we can see, weighted does exactly
+
+116
+00:04:39,070 --> 00:04:40,580
+what it's supposed to do, it's redirecting
+
+117
+00:04:40,580 --> 00:04:44,990
+most of the queries into the one that has the most weight,
+
+118
+00:04:44,990 --> 00:04:48,200
+but from time to time, you will get other answers, okay?
+
+119
+00:04:48,200 --> 00:04:49,033
+And so on.
+
+120
+00:04:49,033 --> 00:04:51,080
+So this is something you can practice in your web browser
+
+121
+00:04:51,080 --> 00:04:52,410
+as well as we can see, cool.
+
+122
+00:04:52,410 --> 00:04:55,960
+I just get redacted into eu-central-1c.
+
+123
+00:04:55,960 --> 00:04:57,340
+So that's it for this lecture,
+
+124
+00:04:57,340 --> 00:04:59,740
+and hopefully it shows you the power of weighted records.
+
+125
+00:04:59,740 --> 00:05:02,740
+I hope you liked it, and I will see you in the next lecture.
+

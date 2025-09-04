@@ -1,0 +1,468 @@
+1
+00:00:00,640 --> 00:00:03,660
+Okay, let's have a look at AWS Config.
+
+2
+00:00:03,660 --> 00:00:06,700
+So Config is a service that allows you to get auditing
+
+3
+00:00:06,700 --> 00:00:10,560
+and record compliance of your resources in AWS,
+
+4
+00:00:10,560 --> 00:00:12,990
+based on some rules that you're going to set,
+
+5
+00:00:12,990 --> 00:00:14,830
+you can also record Configuration
+
+6
+00:00:14,830 --> 00:00:16,660
+and their changes over time
+
+7
+00:00:16,660 --> 00:00:18,450
+to quickly be able to roll back and to figure out
+
+8
+00:00:18,450 --> 00:00:21,610
+what happened in your infrastructure if you need to.
+
+9
+00:00:21,610 --> 00:00:24,460
+So some questions that can be solved by Config are,
+
+10
+00:00:24,460 --> 00:00:28,160
+is there an unrestricted SSH access to my security groups?
+
+11
+00:00:28,160 --> 00:00:30,800
+Or do my buckets have anybody public access?
+
+12
+00:00:30,800 --> 00:00:34,910
+Or is there an ALB configuration that has changed over time?
+
+13
+00:00:34,910 --> 00:00:38,030
+Then based on these rules being compliant or not,
+
+14
+00:00:38,030 --> 00:00:42,240
+you can receive alerts or SNS notifications for any changes.
+
+15
+00:00:42,240 --> 00:00:43,822
+Config is a per region service,
+
+16
+00:00:43,822 --> 00:00:45,690
+so you need to configure it for all the regions
+
+17
+00:00:45,690 --> 00:00:46,830
+if you need to,
+
+18
+00:00:46,830 --> 00:00:49,530
+and you can aggregate the data across regions and accounts
+
+19
+00:00:49,530 --> 00:00:52,180
+to centralize it into one place,
+
+20
+00:00:52,180 --> 00:00:54,710
+you can also can store the configuration
+
+21
+00:00:54,710 --> 00:00:57,030
+of all your resources into Amazon history
+
+22
+00:00:57,030 --> 00:00:58,070
+to be later analyzed,
+
+23
+00:00:58,070 --> 00:01:01,950
+for example, by serverless query engine, such as Athena.
+
+24
+00:01:01,950 --> 00:01:04,319
+So what types of rules go into Config?
+
+25
+00:01:04,319 --> 00:01:07,160
+Well, you can have AWS managed config rules,
+
+26
+00:01:07,160 --> 00:01:09,440
+and there are over 75 rules that you can use,
+
+27
+00:01:09,440 --> 00:01:11,510
+or you can create your own config rules.
+
+28
+00:01:11,510 --> 00:01:13,950
+In this case, you need to define that rule yourself.
+
+29
+00:01:13,950 --> 00:01:15,870
+We're using a Lambda function.
+
+30
+00:01:15,870 --> 00:01:19,190
+For example, you can evaluate if each EBS disk
+
+31
+00:01:19,190 --> 00:01:21,370
+is going to be of type gp2
+
+32
+00:01:21,370 --> 00:01:24,600
+or if each two instance in your development accounts
+
+33
+00:01:24,600 --> 00:01:26,500
+is of type t2.micro.
+
+34
+00:01:26,500 --> 00:01:28,520
+Some rules can be evaluated or triggered
+
+35
+00:01:28,520 --> 00:01:30,530
+whenever a configuration is going to change.
+
+36
+00:01:30,530 --> 00:01:32,160
+So whenever, for example,
+
+37
+00:01:32,160 --> 00:01:35,040
+you have a new configuration of your EBS disc,
+
+38
+00:01:35,040 --> 00:01:38,140
+please evaluate the type of your EBS disk,
+
+39
+00:01:38,140 --> 00:01:40,840
+or you can also have the rule to be evaluated
+
+40
+00:01:40,840 --> 00:01:42,210
+at regular time intervals.
+
+41
+00:01:42,210 --> 00:01:43,720
+For example, every two hours,
+
+42
+00:01:43,720 --> 00:01:48,220
+please make sure that all my EBS discs are of type gp2.
+
+43
+00:01:48,220 --> 00:01:50,500
+Now, Config Rules are just for compliance.
+
+44
+00:01:50,500 --> 00:01:52,730
+They do not prevent actions from happening.
+
+45
+00:01:52,730 --> 00:01:55,130
+This is not a denied action on anything.
+
+46
+00:01:55,130 --> 00:01:58,410
+It doesn't replace security mechanisms such as IAM.
+
+47
+00:01:58,410 --> 00:02:02,410
+Okay, but what it does give you is a overview of your
+
+48
+00:02:02,410 --> 00:02:06,000
+configuration and the compliance of your resources.
+
+49
+00:02:06,000 --> 00:02:07,440
+Now there's no future for config.
+
+50
+00:02:07,440 --> 00:02:09,199
+It can be quite expensive very quickly.
+
+51
+00:02:09,199 --> 00:02:11,300
+You're going to pay 0.003 cents per configuration,
+
+52
+00:02:11,300 --> 00:02:15,010
+item recorded per region and 0.001 cents per config rule
+
+53
+00:02:15,010 --> 00:02:17,250
+evaluation per region.
+
+54
+00:02:17,250 --> 00:02:18,660
+Now for the company resource,
+
+55
+00:02:18,660 --> 00:02:20,320
+you're going to be able to view the compliance
+
+56
+00:02:20,320 --> 00:02:21,800
+of a resource over time.
+
+57
+00:02:21,800 --> 00:02:25,000
+For example, the security group has been non-compliance.
+
+58
+00:02:25,000 --> 00:02:27,830
+Then you can view the config resource configuration
+
+59
+00:02:27,830 --> 00:02:28,760
+over time, okay?
+
+60
+00:02:28,760 --> 00:02:31,620
+You can see when the change and who changed it and so on,
+
+61
+00:02:31,620 --> 00:02:35,290
+and you can link it to CloudTrail to view the API calls
+
+62
+00:02:35,290 --> 00:02:36,860
+made for that resource.
+
+63
+00:02:36,860 --> 00:02:38,380
+So you can get a full picture
+
+64
+00:02:38,380 --> 00:02:40,690
+of everything that's happening.
+
+65
+00:02:40,690 --> 00:02:44,180
+Now, although you cannot deny any action from happening
+
+66
+00:02:44,180 --> 00:02:45,530
+from within the config,
+
+67
+00:02:45,530 --> 00:02:49,140
+you can do remediations of your non-compliant resources
+
+68
+00:02:49,140 --> 00:02:51,750
+using an SSM Automation Documents.
+
+69
+00:02:51,750 --> 00:02:53,030
+So the idea is, for example,
+
+70
+00:02:53,030 --> 00:02:54,730
+you are monitoring whether or not
+
+71
+00:02:54,730 --> 00:02:56,950
+your IAM access keys have expired.
+
+72
+00:02:56,950 --> 00:02:59,900
+For example, they are older than 90 days.
+
+73
+00:02:59,900 --> 00:03:03,300
+In which case you want to mark them as non-compliant.
+
+74
+00:03:03,300 --> 00:03:07,000
+So this will not prevent them from not being compliant,
+
+75
+00:03:07,000 --> 00:03:10,157
+but you can trigger whenever a resource is not compliant,
+
+76
+00:03:10,157 --> 00:03:12,340
+a remediation action.
+
+77
+00:03:12,340 --> 00:03:14,128
+For example, there's an SSM document
+
+78
+00:03:14,128 --> 00:03:18,190
+named RevokeUnusedIAMUserCredentials, okay.
+
+79
+00:03:18,190 --> 00:03:21,020
+Maybe you want to use this one
+
+80
+00:03:21,020 --> 00:03:22,447
+and then is going to be applied
+
+81
+00:03:22,447 --> 00:03:24,580
+to whatever resource you have, okay?
+
+82
+00:03:24,580 --> 00:03:25,440
+And in this instance,
+
+83
+00:03:25,440 --> 00:03:28,870
+it's going to deactivate your IAM access keys.
+
+84
+00:03:28,870 --> 00:03:31,610
+So the idea is that's either using either using
+
+85
+00:03:31,610 --> 00:03:32,670
+AWS-Managed Documents
+
+86
+00:03:32,670 --> 00:03:34,880
+or creating your own automation documents,
+
+87
+00:03:34,880 --> 00:03:37,080
+you can have remediations
+
+88
+00:03:37,080 --> 00:03:39,490
+of your non-compliant resources, okay?
+
+89
+00:03:39,490 --> 00:03:41,780
+And if you want it to and go all the way through
+
+90
+00:03:41,780 --> 00:03:42,670
+with the scripting,
+
+91
+00:03:42,670 --> 00:03:43,950
+you could create a document
+
+92
+00:03:43,950 --> 00:03:45,710
+that will invoke a Lambda function
+
+93
+00:03:45,710 --> 00:03:47,441
+and you're free to do whatever you want there.
+
+94
+00:03:47,441 --> 00:03:50,730
+Finally, your remediation may have retries.
+
+95
+00:03:50,730 --> 00:03:52,900
+So in case the resource is still non-compliance
+
+96
+00:03:52,900 --> 00:03:55,580
+after an auto remediation, it may retry for example,
+
+97
+00:03:55,580 --> 00:03:56,633
+up to five times.
+
+98
+00:03:57,480 --> 00:04:00,760
+So lastly, what about notifications?
+
+99
+00:04:00,760 --> 00:04:03,160
+Well, we can use if EventBridge to trigger notifications,
+
+100
+00:04:03,160 --> 00:04:05,760
+whenever our resources are not compliant.
+
+101
+00:04:05,760 --> 00:04:06,593
+So, for example,
+
+102
+00:04:06,593 --> 00:04:09,290
+we monitor our security group, it becomes not compliance.
+
+103
+00:04:09,290 --> 00:04:11,730
+Then we can trigger an event in EventBridge,
+
+104
+00:04:11,730 --> 00:04:14,270
+and then pass it on to whatever resource you wants.
+
+105
+00:04:14,270 --> 00:04:16,969
+Or you can also pass on all the changes
+
+106
+00:04:16,969 --> 00:04:19,459
+and all the compliance that notifications
+
+107
+00:04:19,459 --> 00:04:22,500
+of your resources to SNS from Config.
+
+108
+00:04:22,500 --> 00:04:24,610
+So one configuration item,
+
+109
+00:04:24,610 --> 00:04:26,480
+and then if you want it to just filter
+
+110
+00:04:26,480 --> 00:04:27,770
+for only for some events,
+
+111
+00:04:27,770 --> 00:04:31,860
+you could use an SNS filtering to have a filtered SNS topic,
+
+112
+00:04:31,860 --> 00:04:34,870
+and then you can send it these notifications, for example,
+
+113
+00:04:34,870 --> 00:04:37,800
+to an admin email or to a slack channel and so on
+
+114
+00:04:37,800 --> 00:04:40,170
+to get all these notifications in one place.
+
+115
+00:04:40,170 --> 00:04:41,510
+So that's it for a Config.
+
+116
+00:04:41,510 --> 00:04:42,343
+I hope you liked it,
+
+117
+00:04:42,343 --> 00:04:44,783
+and it will see you in the next lecture for some hands-on.
+

@@ -1,0 +1,716 @@
+1
+00:00:00,170 --> 00:00:01,002
+Okay.
+
+2
+00:00:01,002 --> 00:00:03,120
+So, let's have a look at our network ACL's.
+
+3
+00:00:03,120 --> 00:00:05,170
+To do so, I will go on the left hand side
+
+4
+00:00:05,170 --> 00:00:06,291
+and there's network ACL's.
+
+5
+00:00:06,291 --> 00:00:08,450
+And for our sub for VPC,
+
+6
+00:00:08,450 --> 00:00:09,630
+we have a network ACL here.
+
+7
+00:00:09,630 --> 00:00:11,918
+This is the default, NACL.
+
+8
+00:00:11,918 --> 00:00:13,631
+So, it's very important to notice this.
+
+9
+00:00:13,631 --> 00:00:15,330
+And currently it's default.
+
+10
+00:00:15,330 --> 00:00:17,380
+So, it's associated with four subnets.
+
+11
+00:00:17,380 --> 00:00:19,941
+So, we have inbound rules and outbound rules.
+
+12
+00:00:19,941 --> 00:00:21,871
+And then if we look at the inbound rules,
+
+13
+00:00:21,871 --> 00:00:24,930
+we allow all traffic on all parts everywhere.
+
+14
+00:00:24,930 --> 00:00:26,640
+And then there's the last row which was denied,
+
+15
+00:00:26,640 --> 00:00:28,040
+but it doesn't ever get to effect
+
+16
+00:00:28,040 --> 00:00:30,040
+because this one goes into effect before.
+
+17
+00:00:30,040 --> 00:00:32,360
+And then for the outbound rules the same.
+
+18
+00:00:32,360 --> 00:00:34,376
+So, remember the default, NACL,
+
+19
+00:00:34,376 --> 00:00:36,410
+always has all traffic,
+
+20
+00:00:36,410 --> 00:00:38,259
+inbound and outbound authorized,
+
+21
+00:00:38,259 --> 00:00:40,380
+and the default is going to be associated
+
+22
+00:00:40,380 --> 00:00:42,130
+with any subnets you're going to create,
+
+23
+00:00:42,130 --> 00:00:44,259
+hence the name default NACL.
+
+24
+00:00:44,259 --> 00:00:45,840
+So, now let's go ahead
+
+25
+00:00:45,840 --> 00:00:47,050
+and have a place or to do so,
+
+26
+00:00:47,050 --> 00:00:49,651
+I'm going to go into my EC2 instances,
+
+27
+00:00:49,651 --> 00:00:51,029
+my NAT instance.
+
+28
+00:00:51,029 --> 00:00:52,690
+Sorry, my Bastion host.
+
+29
+00:00:52,690 --> 00:00:56,990
+And I'm going to start a HTTP server on it to connect to it.
+
+30
+00:00:56,990 --> 00:00:59,018
+So, to do so let's connect into our instance,
+
+31
+00:00:59,018 --> 00:01:00,513
+let's connect,
+
+32
+00:01:02,350 --> 00:01:04,870
+and I'm going to install HTTPD.
+
+33
+00:01:04,870 --> 00:01:09,008
+So sudo, yum, install, minus Y, HTTPD.
+
+34
+00:01:09,008 --> 00:01:12,020
+Then we're going to start the web server.
+
+35
+00:01:12,020 --> 00:01:13,163
+So I will do,
+
+36
+00:01:14,410 --> 00:01:15,333
+system,
+
+37
+00:01:16,930 --> 00:01:17,793
+CTL,
+
+38
+00:01:18,680 --> 00:01:19,513
+sudo,
+
+39
+00:01:21,670 --> 00:01:23,750
+system CTL,
+
+40
+00:01:23,750 --> 00:01:26,170
+enable HTTPD,
+
+41
+00:01:26,170 --> 00:01:30,567
+and then sudo, system CTL, start HTTPD.
+
+42
+00:01:30,567 --> 00:01:31,890
+Let's clear the screen.
+
+43
+00:01:31,890 --> 00:01:36,230
+And then we're going to echo "hello world" into our
+
+44
+00:01:36,230 --> 00:01:41,230
+var/www/html/index.html
+
+45
+00:01:44,210 --> 00:01:46,570
+and we'll have sudo for this command.
+
+46
+00:01:46,570 --> 00:01:48,450
+So let's do sudo,
+
+47
+00:01:48,450 --> 00:01:50,040
+su,
+
+48
+00:01:50,040 --> 00:01:51,590
+echo,
+
+49
+00:01:51,590 --> 00:01:53,880
+hello world into again, this file.
+
+50
+00:01:53,880 --> 00:01:56,083
+So, this should work right now, so let's try it.
+
+51
+00:01:59,010 --> 00:01:59,843
+Okay.
+
+52
+00:01:59,843 --> 00:02:01,758
+So, now the other thing we have to do
+
+53
+00:02:01,758 --> 00:02:04,388
+is we need to make sure that the Bastion host
+
+54
+00:02:04,388 --> 00:02:07,684
+has this public instance has HTTP enabled
+
+55
+00:02:07,684 --> 00:02:09,039
+for the security group.
+
+56
+00:02:09,039 --> 00:02:11,003
+So, right now we only have 4 22.
+
+57
+00:02:11,003 --> 00:02:12,990
+So, therefore in the security group rules,
+
+58
+00:02:12,990 --> 00:02:14,828
+I'm going to edit the inbound rules
+
+59
+00:02:14,828 --> 00:02:17,850
+and I'm going to add a rule for HTTP
+
+60
+00:02:20,130 --> 00:02:22,040
+and then from anywhere,
+
+61
+00:02:22,040 --> 00:02:22,880
+save this rule.
+
+62
+00:02:22,880 --> 00:02:24,210
+Perfect.
+
+63
+00:02:24,210 --> 00:02:27,766
+So back into our instance, this is our bastion host,
+
+64
+00:02:27,766 --> 00:02:31,860
+and I can just click on this IP address right here.
+
+65
+00:02:31,860 --> 00:02:33,760
+Copy it, open it in a new tab
+
+66
+00:02:33,760 --> 00:02:34,960
+and I get, "hello world."
+
+67
+00:02:34,960 --> 00:02:35,870
+So, this is good.
+
+68
+00:02:35,870 --> 00:02:38,360
+We are able to connect into our server
+
+69
+00:02:38,360 --> 00:02:40,550
+and it replies "hello world" to us.
+
+70
+00:02:40,550 --> 00:02:43,150
+So, let's have a look at network ACL's now.
+
+71
+00:02:43,150 --> 00:02:45,347
+So, if I look into this default NACL,
+
+72
+00:02:45,347 --> 00:02:46,960
+and look at the inbound rules,
+
+73
+00:02:46,960 --> 00:02:49,760
+what I'm going to do is I'm going to edit these rules.
+
+74
+00:02:49,760 --> 00:02:53,075
+And currently we allow all traffic from anywhere, okay,
+
+75
+00:02:53,075 --> 00:02:54,900
+but we're going to add a new rule.
+
+76
+00:02:54,900 --> 00:02:57,310
+And the rule number is going to be rule 80
+
+77
+00:02:57,310 --> 00:02:59,063
+and the type is going to be HTTP,
+
+78
+00:03:00,030 --> 00:03:01,620
+and it's going to come from anywhere
+
+79
+00:03:01,620 --> 00:03:03,640
+and we are going to deny it.
+
+80
+00:03:03,640 --> 00:03:04,770
+So, let's save these changes
+
+81
+00:03:04,770 --> 00:03:06,360
+and we can sort them by rule number.
+
+82
+00:03:06,360 --> 00:03:07,760
+So, as you can see,
+
+83
+00:03:07,760 --> 00:03:09,722
+this rule has precedence over that rule.
+
+84
+00:03:09,722 --> 00:03:11,455
+So, what do you think is going to happen?
+
+85
+00:03:11,455 --> 00:03:14,330
+Well, now that we have enabled this inbound rule,
+
+86
+00:03:14,330 --> 00:03:15,682
+that blocks HTTP traffic.
+
+87
+00:03:15,682 --> 00:03:19,400
+If I go back to my EC2 instance and refresh this page,
+
+88
+00:03:19,400 --> 00:03:21,590
+I'm getting, you see, an infinite loading.
+
+89
+00:03:21,590 --> 00:03:22,530
+So, that means that yes,
+
+90
+00:03:22,530 --> 00:03:23,363
+there's a timeout
+
+91
+00:03:23,363 --> 00:03:25,130
+and the NACL acted as a firewall
+
+92
+00:03:25,130 --> 00:03:26,476
+and blocked my request.
+
+93
+00:03:26,476 --> 00:03:28,183
+But if I edit my inbound rules
+
+94
+00:03:28,183 --> 00:03:30,337
+and now the rule number is 140.
+
+95
+00:03:30,337 --> 00:03:32,883
+Okay, and save this again.
+
+96
+00:03:33,850 --> 00:03:35,060
+And look again at the inbound rules,
+
+97
+00:03:35,060 --> 00:03:35,893
+as you can see now,
+
+98
+00:03:35,893 --> 00:03:39,700
+rule 140 happens after rule 100
+
+99
+00:03:39,700 --> 00:03:40,533
+and there's a denial.
+
+100
+00:03:40,533 --> 00:03:41,370
+So, what do think is going to happen?
+
+101
+00:03:41,370 --> 00:03:43,090
+Well, if I go back and refresh,
+
+102
+00:03:43,090 --> 00:03:44,920
+I'm accessing my EC2 instance.
+
+103
+00:03:44,920 --> 00:03:46,130
+So, what's happening is that even though
+
+104
+00:03:46,130 --> 00:03:47,630
+there was an explicit deny rule,
+
+105
+00:03:47,630 --> 00:03:48,580
+happening here,
+
+106
+00:03:48,580 --> 00:03:50,855
+because the rule number 100 had higher precedence
+
+107
+00:03:50,855 --> 00:03:53,146
+and allowed that specific traffic in,
+
+108
+00:03:53,146 --> 00:03:54,980
+then it works.
+
+109
+00:03:54,980 --> 00:03:55,830
+Okay. So, as we can see,
+
+110
+00:03:55,830 --> 00:03:57,900
+this shows the very important aspects
+
+111
+00:03:57,900 --> 00:04:00,020
+around the rule numbers. Okay.
+
+112
+00:04:00,020 --> 00:04:01,610
+And similarly,
+
+113
+00:04:01,610 --> 00:04:05,740
+I want to show the statelessness of the NACL.
+
+114
+00:04:06,750 --> 00:04:08,602
+So, if I go into outbound rules
+
+115
+00:04:08,602 --> 00:04:10,109
+and there's this rule right here,
+
+116
+00:04:10,109 --> 00:04:12,072
+that allows everything right now,
+
+117
+00:04:12,072 --> 00:04:15,030
+if I edit it and instead do deny,
+
+118
+00:04:15,030 --> 00:04:16,562
+well, what is going to happen?
+
+119
+00:04:16,562 --> 00:04:18,839
+The inbound rule is going to allow my traffic,
+
+120
+00:04:18,839 --> 00:04:20,480
+but the outbound rule shouldn't.
+
+121
+00:04:20,480 --> 00:04:23,064
+So, let's go back into my instance, refresh this,
+
+122
+00:04:23,064 --> 00:04:26,230
+and you can see I'm getting this infinite loading,
+
+123
+00:04:26,230 --> 00:04:28,743
+because well, my NACL does not allow return traffic,
+
+124
+00:04:28,743 --> 00:04:31,920
+because it was not explicitly specified in my NACL,
+
+125
+00:04:31,920 --> 00:04:33,540
+that return traffic was allowed.
+
+126
+00:04:33,540 --> 00:04:36,192
+So, what's really important to notice is that this is true,
+
+127
+00:04:36,192 --> 00:04:40,562
+regardless of if the security group of my EC2 instance
+
+128
+00:04:40,562 --> 00:04:42,903
+did, in fact, allow port 80 in, okay.
+
+129
+00:04:42,903 --> 00:04:46,063
+So, NACL's and security groups work hand-in-hand together.
+
+130
+00:04:46,063 --> 00:04:48,202
+And if the security group rules look fine,
+
+131
+00:04:48,202 --> 00:04:50,920
+that doesn't mean that the network ACL's are fine.
+
+132
+00:04:50,920 --> 00:04:52,380
+So, this is something else to check
+
+133
+00:04:52,380 --> 00:04:53,902
+in case of network issues.
+
+134
+00:04:53,902 --> 00:04:55,703
+So, let me revert this to allow
+
+135
+00:04:55,703 --> 00:04:58,310
+and do another demo.
+
+136
+00:04:58,310 --> 00:04:59,840
+Okay, so I'm back into my instance.
+
+137
+00:04:59,840 --> 00:05:01,380
+This is working now.
+
+138
+00:05:01,380 --> 00:05:04,960
+And so if we look at the security group rules here,
+
+139
+00:05:04,960 --> 00:05:07,633
+as we can see, port 80 is allowed on everywhere.
+
+140
+00:05:07,633 --> 00:05:09,400
+And for outbound rules,
+
+141
+00:05:09,400 --> 00:05:11,083
+it says allow from everywhere as well,
+
+142
+00:05:11,083 --> 00:05:13,444
+but let's edit this security group.
+
+143
+00:05:13,444 --> 00:05:15,920
+So, for the inbound rules, I will not change them.
+
+144
+00:05:15,920 --> 00:05:17,524
+So, I will keep HTTP on,
+
+145
+00:05:17,524 --> 00:05:18,890
+but for the outbound rules,
+
+146
+00:05:18,890 --> 00:05:21,019
+I'm going to edit this rule
+
+147
+00:05:21,019 --> 00:05:23,737
+and I'm going to just remove it.
+
+148
+00:05:23,737 --> 00:05:25,470
+And as you can see, now,
+
+149
+00:05:25,470 --> 00:05:28,810
+we don't allow any outbound from the security group,
+
+150
+00:05:28,810 --> 00:05:31,160
+but the security group is stateful.
+
+151
+00:05:31,160 --> 00:05:34,380
+That means that if the traffic is initiated from the outside
+
+152
+00:05:34,380 --> 00:05:36,171
+and is allowed inbound,
+
+153
+00:05:36,171 --> 00:05:39,211
+then the return traffic will be authorized as well.
+
+154
+00:05:39,211 --> 00:05:40,730
+So, let's prove it,
+
+155
+00:05:40,730 --> 00:05:42,050
+even though there is no outbound rule.
+
+156
+00:05:42,050 --> 00:05:43,100
+If I refresh this page,
+
+157
+00:05:43,100 --> 00:05:44,610
+as you can see, this is working,
+
+158
+00:05:44,610 --> 00:05:46,619
+I can access my EC2 instance.
+
+159
+00:05:46,619 --> 00:05:48,240
+But if my EC2 instance
+
+160
+00:05:48,240 --> 00:05:50,750
+was trying to initiate a connection,
+
+161
+00:05:50,750 --> 00:05:52,160
+for example, not here.
+
+162
+00:05:52,160 --> 00:05:55,809
+If my EC2 instance was trying to initiate
+
+163
+00:05:55,809 --> 00:05:58,940
+a connection to Google account, for example,
+
+164
+00:05:58,940 --> 00:05:59,890
+it would be denied because,
+
+165
+00:05:59,890 --> 00:06:03,350
+well, there's no outbound rule that specifically allows it.
+
+166
+00:06:03,350 --> 00:06:05,880
+But if it did allow it,
+
+167
+00:06:05,880 --> 00:06:08,160
+then the return traffic would be allowed because again,
+
+168
+00:06:08,160 --> 00:06:09,539
+security groups are stateful,
+
+169
+00:06:09,539 --> 00:06:11,290
+whereas NACL's are stateless.
+
+170
+00:06:11,290 --> 00:06:13,950
+So, to make things, everything work again.
+
+171
+00:06:13,950 --> 00:06:17,940
+And once you have all HTTP from anywhere allowed,
+
+172
+00:06:17,940 --> 00:06:19,116
+and this is going to restore
+
+173
+00:06:19,116 --> 00:06:21,990
+these outbound rules on my EC2 instance, okay.
+
+174
+00:06:21,990 --> 00:06:23,180
+So, it's very important for you to notice
+
+175
+00:06:23,180 --> 00:06:26,760
+the difference between EC2 security groups
+
+176
+00:06:26,760 --> 00:06:28,330
+and network ACL's.
+
+177
+00:06:28,330 --> 00:06:29,305
+But hopefully this was a good demo.
+
+178
+00:06:29,305 --> 00:06:30,590
+I hope you liked it.
+
+179
+00:06:30,590 --> 00:06:32,540
+And I will see you in the next lecture.
+

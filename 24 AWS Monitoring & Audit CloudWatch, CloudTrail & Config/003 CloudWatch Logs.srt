@@ -1,0 +1,556 @@
+1
+00:00:00,180 --> 00:00:02,460
+So, now let's talk about CloudWatch Logs.
+
+2
+00:00:02,460 --> 00:00:04,320
+So CloudWatch Logs is the perfect place
+
+3
+00:00:04,320 --> 00:00:06,393
+to store your application logs in AWS.
+
+4
+00:00:07,440 --> 00:00:10,320
+And to do so, you must first define log groups.
+
+5
+00:00:10,320 --> 00:00:11,520
+They're whatever names you want,
+
+6
+00:00:11,520 --> 00:00:14,880
+but usually they are representing one of your applications.
+
+7
+00:00:14,880 --> 00:00:18,150
+Then within a log group, you will have multiple log streams,
+
+8
+00:00:18,150 --> 00:00:21,360
+and they represent log instances within an application
+
+9
+00:00:21,360 --> 00:00:25,350
+or specific log files or specific containers that you have
+
+10
+00:00:25,350 --> 00:00:27,510
+as part of a cluster.
+
+11
+00:00:27,510 --> 00:00:29,940
+Then you define your log expiration policy.
+
+12
+00:00:29,940 --> 00:00:33,390
+So you can have the logs re being retained indefinitely
+
+13
+00:00:33,390 --> 00:00:36,210
+to never expire, or you can choose to expire them
+
+14
+00:00:36,210 --> 00:00:39,480
+from anywhere between one day to 10 years.
+
+15
+00:00:39,480 --> 00:00:41,430
+It's also possible to send your CloudWatch Logs
+
+16
+00:00:41,430 --> 00:00:42,750
+into various destinations.
+
+17
+00:00:42,750 --> 00:00:45,960
+For example, to export them in batch into Amazon S3
+
+18
+00:00:45,960 --> 00:00:48,570
+or to stream them into Kinesis Data Streams,
+
+19
+00:00:48,570 --> 00:00:52,353
+Kinesis Data Firehose, AWS Lambda, Amazon OpenSearch.
+
+20
+00:00:53,220 --> 00:00:55,530
+All the logs are encrypted by default,
+
+21
+00:00:55,530 --> 00:00:57,780
+and you can set up your own KMS-based encryption
+
+22
+00:00:57,780 --> 00:00:59,970
+with your own keys if you wanted to.
+
+23
+00:00:59,970 --> 00:01:03,720
+So, now what kind of logs data goes into CloudWatch Logs?
+
+24
+00:01:03,720 --> 00:01:06,660
+Now, what types of logs can go into CloudWatch Logs?
+
+25
+00:01:06,660 --> 00:01:09,450
+Well, we can send the logs using the SDK
+
+26
+00:01:09,450 --> 00:01:10,950
+or the CloudWatch Logs Agent
+
+27
+00:01:10,950 --> 00:01:12,990
+or the CloudWatch Unified Agent.
+
+28
+00:01:12,990 --> 00:01:15,013
+Now, the CloudWatch Unified Agents send logs to CloudWatch
+
+29
+00:01:15,013 --> 00:01:18,810
+and so the CloudWatch Log Agent is now sort of deprecated.
+
+30
+00:01:18,810 --> 00:01:21,030
+You have Elastic Beanstalk, which is used to collect logs
+
+31
+00:01:21,030 --> 00:01:23,160
+from the application directly into CloudWatch.
+
+32
+00:01:23,160 --> 00:01:25,200
+ECS will send the logs directly from the containers
+
+33
+00:01:25,200 --> 00:01:26,550
+into CloudWatch.
+
+34
+00:01:26,550 --> 00:01:30,060
+Lambda will send logs from the functions themselves.
+
+35
+00:01:30,060 --> 00:01:32,100
+VPC Flow Logs will send logs specific
+
+36
+00:01:32,100 --> 00:01:35,010
+to your VPC metadata network traffic.
+
+37
+00:01:35,010 --> 00:01:37,290
+API Gateway will send all the requests made
+
+38
+00:01:37,290 --> 00:01:39,270
+to the API Gateway into CloudWatch Logs.
+
+39
+00:01:39,270 --> 00:01:40,770
+CloudTrail, you can send the logs directly
+
+40
+00:01:40,770 --> 00:01:42,120
+based on the filter.
+
+41
+00:01:42,120 --> 00:01:44,460
+And Route53 will log all the DNS queries made
+
+42
+00:01:44,460 --> 00:01:46,260
+to its service.
+
+43
+00:01:46,260 --> 00:01:49,470
+So, what if you wanted to query the logs in CloudWatch Logs?
+
+44
+00:01:49,470 --> 00:01:52,290
+For this, you can use CloudWatch Logs Insights.
+
+45
+00:01:52,290 --> 00:01:55,380
+So, it's a querying capability within CloudWatch Logs
+
+46
+00:01:55,380 --> 00:01:57,330
+which allows you to write your query.
+
+47
+00:01:57,330 --> 00:02:01,530
+You specify the timeframe you want to apply your query to
+
+48
+00:02:01,530 --> 00:02:04,440
+and then automatically you're going to get a result
+
+49
+00:02:04,440 --> 00:02:06,180
+as a visualization.
+
+50
+00:02:06,180 --> 00:02:09,210
+And also, you can view the specific log lines
+
+51
+00:02:09,210 --> 00:02:11,790
+that's made this visualization.
+
+52
+00:02:11,790 --> 00:02:14,880
+This visualization can also be exported either
+
+53
+00:02:14,880 --> 00:02:18,000
+as a result or added to a dashboard
+
+54
+00:02:18,000 --> 00:02:21,030
+for being able to rerun it whenever you want.
+
+55
+00:02:21,030 --> 00:02:22,770
+So this is very handy,
+
+56
+00:02:22,770 --> 00:02:25,920
+and this will allow you to search and analyze log data
+
+57
+00:02:25,920 --> 00:02:27,600
+within CloudWatch Logs.
+
+58
+00:02:27,600 --> 00:02:29,910
+So there are lots of simple queries provided
+
+59
+00:02:29,910 --> 00:02:33,450
+as part of the console for CloudWatch Logs Insights.
+
+60
+00:02:33,450 --> 00:02:37,380
+For example, you can find the most 25 most recent events,
+
+61
+00:02:37,380 --> 00:02:38,213
+or you can have a look
+
+62
+00:02:38,213 --> 00:02:41,940
+at how many events had exceptions or errors in your logs,
+
+63
+00:02:41,940 --> 00:02:45,510
+or you can look for a specific IP and so on.
+
+64
+00:02:45,510 --> 00:02:48,570
+So, it provides a purpose-built query language.
+
+65
+00:02:48,570 --> 00:02:51,747
+All the fields to allow you to build your queries
+
+66
+00:02:51,747 --> 00:02:55,320
+are automatically detected from CloudWatch Logs,
+
+67
+00:02:55,320 --> 00:02:57,510
+and then you can filter based on conditions.
+
+68
+00:02:57,510 --> 00:02:59,318
+You can calculate aggregate statistics,
+
+69
+00:02:59,318 --> 00:03:03,060
+you can sort events, limit the number of events, and so on.
+
+70
+00:03:03,060 --> 00:03:05,160
+So as I said, you can save the queries
+
+71
+00:03:05,160 --> 00:03:07,590
+and also add them to CloudWatch Dashboards.
+
+72
+00:03:07,590 --> 00:03:10,530
+And you have the capability to query multiple log groups
+
+73
+00:03:10,530 --> 00:03:13,770
+at a time, even if they are in different accounts.
+
+74
+00:03:13,770 --> 00:03:16,890
+So remember, CloudWatch Logs Insights is a query engine,
+
+75
+00:03:16,890 --> 00:03:18,240
+not a real-time engine.
+
+76
+00:03:18,240 --> 00:03:19,170
+And so as such,
+
+77
+00:03:19,170 --> 00:03:23,460
+it will only query historical data when you run the query.
+
+78
+00:03:23,460 --> 00:03:24,390
+So as mentioned,
+
+79
+00:03:24,390 --> 00:03:27,270
+CloudWatch Logs can be exported into several destinations.
+
+80
+00:03:27,270 --> 00:03:29,250
+The first one is Amazon S3.
+
+81
+00:03:29,250 --> 00:03:31,770
+So this is for a batch export to send all your logs
+
+82
+00:03:31,770 --> 00:03:33,270
+into Amazon S3,
+
+83
+00:03:33,270 --> 00:03:37,410
+and this export can take up to 12 hours to be completed.
+
+84
+00:03:37,410 --> 00:03:40,159
+The API call to initiate this export is called
+
+85
+00:03:40,159 --> 00:03:41,373
+CreateExportTask.
+
+86
+00:03:42,210 --> 00:03:44,130
+So because this is a batch export,
+
+87
+00:03:44,130 --> 00:03:46,230
+this is not real-time or near real-time.
+
+88
+00:03:46,230 --> 00:03:49,680
+Instead, you must use the CloudWatch Logs subscription.
+
+89
+00:03:49,680 --> 00:03:52,290
+So these allow you to get a real-time stream
+
+90
+00:03:52,290 --> 00:03:55,710
+of these log events, and you can do processing and analysis.
+
+91
+00:03:55,710 --> 00:03:59,040
+So, you can send this data into multiple places
+
+92
+00:03:59,040 --> 00:04:02,040
+such as Kinesis Data Streams, Kinesis Data Firehose,
+
+93
+00:04:02,040 --> 00:04:03,210
+or Lambda.
+
+94
+00:04:03,210 --> 00:04:06,960
+And you can specify a subscription filter to say which kind
+
+95
+00:04:06,960 --> 00:04:10,860
+of log events you want to be delivered to your destination.
+
+96
+00:04:10,860 --> 00:04:12,843
+So, the subscription filter can send data
+
+97
+00:04:12,843 --> 00:04:14,400
+into Kinesis Data Streams.
+
+98
+00:04:14,400 --> 00:04:15,390
+This would be a great choice
+
+99
+00:04:15,390 --> 00:04:16,620
+if you wanted to use, for example,
+
+100
+00:04:16,620 --> 00:04:19,740
+the integration with Kinesis Data Firehose,
+
+101
+00:04:19,740 --> 00:04:23,550
+Kinesis Data Analytics, or Amazon EC2, or Lambda.
+
+102
+00:04:23,550 --> 00:04:27,030
+You can also directly send it into Kinesis Data Firehose.
+
+103
+00:04:27,030 --> 00:04:29,850
+From there, you can send it in near real-time fashion
+
+104
+00:04:29,850 --> 00:04:32,040
+into Amazon S3, or for example,
+
+105
+00:04:32,040 --> 00:04:34,890
+the OpenSearch Service, or you have Lambda.
+
+106
+00:04:34,890 --> 00:04:37,650
+So you can write your own custom Lambda function,
+
+107
+00:04:37,650 --> 00:04:40,980
+or you can use a managed Lambda function that is
+
+108
+00:04:40,980 --> 00:04:44,970
+sending data in real-time into the OpenSearch Service.
+
+109
+00:04:44,970 --> 00:04:47,700
+On top of it, thanks to these subscription filters,
+
+110
+00:04:47,700 --> 00:04:50,340
+it is possible for you to aggregate data
+
+111
+00:04:50,340 --> 00:04:53,250
+from different CloudWatch Logs into different accounts
+
+112
+00:04:53,250 --> 00:04:56,631
+and different regions into a common destination
+
+113
+00:04:56,631 --> 00:05:00,240
+such as the Kinesis Data Stream in one specific accounts.
+
+114
+00:05:00,240 --> 00:05:01,830
+And then Kinesis Data Firehose.
+
+115
+00:05:01,830 --> 00:05:04,710
+And then in near real-time into Amazon S3.
+
+116
+00:05:04,710 --> 00:05:05,700
+So that is very possible,
+
+117
+00:05:05,700 --> 00:05:09,180
+and that is a way for you to perform log aggregation.
+
+118
+00:05:09,180 --> 00:05:11,220
+So the nitty gritty of how this works is
+
+119
+00:05:11,220 --> 00:05:13,710
+that you must use what's called destinations.
+
+120
+00:05:13,710 --> 00:05:15,390
+So, let's say you have a sender account
+
+121
+00:05:15,390 --> 00:05:16,674
+and the recipient accounts.
+
+122
+00:05:16,674 --> 00:05:20,010
+So you create a CloudWatch Log subscription filter,
+
+123
+00:05:20,010 --> 00:05:23,280
+and then this gets sent into a subscription destination,
+
+124
+00:05:23,280 --> 00:05:25,560
+which is a virtual representant
+
+125
+00:05:25,560 --> 00:05:29,040
+of the Kinesis Data Stream in the recipient accounts.
+
+126
+00:05:29,040 --> 00:05:31,950
+Then you attach a destination access policy
+
+127
+00:05:31,950 --> 00:05:34,980
+to allow the first account to actually send data
+
+128
+00:05:34,980 --> 00:05:37,170
+into this destination.
+
+129
+00:05:37,170 --> 00:05:40,170
+Then you create an IAM role in the recipient account,
+
+130
+00:05:40,170 --> 00:05:42,330
+which has the permission to send records
+
+131
+00:05:42,330 --> 00:05:44,220
+into your Kinesis Data Stream,
+
+132
+00:05:44,220 --> 00:05:47,010
+and you make sure that this role can be assumed
+
+133
+00:05:47,010 --> 00:05:48,420
+by the first account.
+
+134
+00:05:48,420 --> 00:05:50,190
+And when you have all these things in place,
+
+135
+00:05:50,190 --> 00:05:51,023
+then it is possible
+
+136
+00:05:51,023 --> 00:05:53,280
+for you to send data from CloudWatch Logs
+
+137
+00:05:53,280 --> 00:05:57,330
+in one account into a destination in another account.
+
+138
+00:05:57,330 --> 00:05:58,620
+So that's it for this lecture.
+
+139
+00:05:58,620 --> 00:06:01,803
+I hope you liked it, and I will see you in the next lecture.
+

@@ -1,0 +1,184 @@
+1
+00:00:00,230 --> 00:00:02,520
+So you need to know a few Lambda Limits
+
+2
+00:00:02,520 --> 00:00:03,660
+before going into the exam,
+
+3
+00:00:03,660 --> 00:00:06,840
+because the exam likes to see if you know these limits
+
+4
+00:00:06,840 --> 00:00:09,200
+and these limits are per region.
+
+5
+00:00:09,200 --> 00:00:10,930
+So we have some execution limits
+
+6
+00:00:10,930 --> 00:00:12,780
+and then we'll have some deployment limits.
+
+7
+00:00:12,780 --> 00:00:15,180
+So execution is that the memory allocation
+
+8
+00:00:15,180 --> 00:00:19,010
+is between 128 megabytes to 10 gigabytes.
+
+9
+00:00:19,010 --> 00:00:21,890
+And this is in 64 megabytes increments.
+
+10
+00:00:21,890 --> 00:00:23,830
+And when we increase the memory,
+
+11
+00:00:23,830 --> 00:00:26,670
+then we have more vCPU, you understand this now.
+
+12
+00:00:26,670 --> 00:00:29,670
+The maximum execution time is 900 seconds
+
+13
+00:00:29,670 --> 00:00:30,860
+which is 15 minutes.
+
+14
+00:00:30,860 --> 00:00:34,300
+So anything above that is not a good use case for Lambda.
+
+15
+00:00:34,300 --> 00:00:35,470
+Environment variables,
+
+16
+00:00:35,470 --> 00:00:37,160
+we can only have up to four kilobytes
+
+17
+00:00:37,160 --> 00:00:37,993
+of environment variable,
+
+18
+00:00:37,993 --> 00:00:39,760
+so a little bit amount of space.
+
+19
+00:00:39,760 --> 00:00:42,230
+But there is a temp space
+
+20
+00:00:42,230 --> 00:00:44,510
+if you want to pull in some big files
+
+21
+00:00:44,510 --> 00:00:46,430
+while we create another function.
+
+22
+00:00:46,430 --> 00:00:49,840
+And so this is this capacity in the /tmp folder
+
+23
+00:00:49,840 --> 00:00:52,670
+and we have up to 10 gigabytes there.
+
+24
+00:00:52,670 --> 00:00:55,320
+We can have up to 1000 concurrent executions
+
+25
+00:00:55,320 --> 00:00:56,430
+over Lambda functions.
+
+26
+00:00:56,430 --> 00:00:59,610
+This can be increased as well if we do a request.
+
+27
+00:00:59,610 --> 00:01:03,260
+But it's good to use reserved concurrency early on.
+
+28
+00:01:03,260 --> 00:01:04,629
+Finally, for deployments,
+
+29
+00:01:04,629 --> 00:01:07,600
+the max size for your compressed zip is 50,
+
+30
+00:01:07,600 --> 00:01:10,600
+uncompressed, it is 250 megabytes.
+
+31
+00:01:10,600 --> 00:01:13,160
+So anything above that, for example, big files,
+
+32
+00:01:13,160 --> 00:01:15,800
+you should use a /tmp space instead.
+
+33
+00:01:15,800 --> 00:01:16,633
+So as I said,
+
+34
+00:01:16,633 --> 00:01:19,450
+in case you need to have a big file (mumbles),
+
+35
+00:01:19,450 --> 00:01:21,360
+please use that directory.
+
+36
+00:01:21,360 --> 00:01:22,193
+And finally,
+
+37
+00:01:22,193 --> 00:01:24,990
+again, the environment variables is four kilobytes.
+
+38
+00:01:24,990 --> 00:01:26,810
+So once you know all these limits,
+
+39
+00:01:26,810 --> 00:01:29,040
+when the exam will ask you a few questions
+
+40
+00:01:29,040 --> 00:01:31,420
+such as we need 30 gigabytes of RAM,
+
+41
+00:01:31,420 --> 00:01:33,620
+or we need 30 minutes of execution time,
+
+42
+00:01:33,620 --> 00:01:36,050
+or we need a big file of three gigabytes,
+
+43
+00:01:36,050 --> 00:01:38,980
+then you will know that Lambda is not the right way
+
+44
+00:01:38,980 --> 00:01:40,560
+to run this workload.
+
+45
+00:01:40,560 --> 00:01:41,900
+I hope that was helpful,
+
+46
+00:01:41,900 --> 00:01:43,850
+and I will see you in the next lecture.
+

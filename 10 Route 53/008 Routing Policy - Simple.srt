@@ -1,0 +1,412 @@
+1
+00:00:00,120 --> 00:00:01,990
+So now let's talk about routing policies
+
+2
+00:00:01,990 --> 00:00:03,410
+for Route 53.
+
+3
+00:00:03,410 --> 00:00:05,960
+So a routing policy is helping Route 53
+
+4
+00:00:05,960 --> 00:00:07,939
+respond to DNS queries,
+
+5
+00:00:07,939 --> 00:00:11,000
+and we shouldn't be confused about the word routing.
+
+6
+00:00:11,000 --> 00:00:13,720
+This is not like when you have a load balancer and the
+
+7
+00:00:13,720 --> 00:00:15,500
+actual load balancer will route traffic
+
+8
+00:00:15,500 --> 00:00:17,580
+to the backend EC2 instances.
+
+9
+00:00:17,580 --> 00:00:18,413
+No, no, no.
+
+10
+00:00:18,413 --> 00:00:21,230
+This routing is from a DNS perspective.
+
+11
+00:00:21,230 --> 00:00:24,300
+So the DNS does not respond, does not route any traffic.
+
+12
+00:00:24,300 --> 00:00:26,330
+So the traffic doesn't go through the DNS.
+
+13
+00:00:26,330 --> 00:00:28,890
+The DNS only will respond to the DNS queries
+
+14
+00:00:28,890 --> 00:00:31,890
+and then the clients will know to which way
+
+15
+00:00:31,890 --> 00:00:35,700
+they should be doing these HTTP queries, for example.
+
+16
+00:00:35,700 --> 00:00:37,790
+So the DNS just helps translate host names
+
+17
+00:00:37,790 --> 00:00:40,850
+into actual endpoints that the clients can use.
+
+18
+00:00:40,850 --> 00:00:44,440
+So Route 53 will support the following routing policy.
+
+19
+00:00:44,440 --> 00:00:47,740
+There's simple, weighted, failover, latency based,
+
+20
+00:00:47,740 --> 00:00:51,350
+geolocation, multi-value answer, and geoproximity.
+
+21
+00:00:51,350 --> 00:00:53,360
+And we're going to have a look at all of them
+
+22
+00:00:53,360 --> 00:00:55,010
+in this section.
+
+23
+00:00:55,010 --> 00:00:58,430
+So the first one is going to be the simple routing policy.
+
+24
+00:00:58,430 --> 00:01:00,840
+And the idea is that with this,
+
+25
+00:01:00,840 --> 00:01:02,310
+that we've actually been using before,
+
+26
+00:01:02,310 --> 00:01:05,340
+we're going to route traffic to a single resource typically.
+
+27
+00:01:05,340 --> 00:01:06,173
+So here's an example.
+
+28
+00:01:06,173 --> 00:01:07,130
+The clients that will say, hey,
+
+29
+00:01:07,130 --> 00:01:09,900
+I want to go to foo.example.com,
+
+30
+00:01:09,900 --> 00:01:11,750
+and Routes 53 will say, hey,
+
+31
+00:01:11,750 --> 00:01:13,190
+go to this IP address.
+
+32
+00:01:13,190 --> 00:01:14,640
+And this is an A record.
+
+33
+00:01:14,640 --> 00:01:17,520
+So it is possible for us to specify multiple values
+
+34
+00:01:17,520 --> 00:01:19,130
+in the same record.
+
+35
+00:01:19,130 --> 00:01:22,950
+And if so, if multiple values are returned by the DNS,
+
+36
+00:01:22,950 --> 00:01:25,560
+then a random one will be chosen by the clients
+
+37
+00:01:25,560 --> 00:01:26,610
+or client side.
+
+38
+00:01:26,610 --> 00:01:27,810
+So in this example,
+
+39
+00:01:27,810 --> 00:01:30,960
+we have the client's asking again for foo.example.com,
+
+40
+00:01:30,960 --> 00:01:34,480
+and Amazon Route 53 will just reply with three IP addresses
+
+41
+00:01:34,480 --> 00:01:37,400
+that occur embedded into the A record.
+
+42
+00:01:37,400 --> 00:01:40,200
+And then the clients will pick one of them randomly
+
+43
+00:01:40,200 --> 00:01:42,690
+and apply it for the routing.
+
+44
+00:01:42,690 --> 00:01:45,910
+So if you have enabled an alias record alongside
+
+45
+00:01:45,910 --> 00:01:47,240
+the simple policy,
+
+46
+00:01:47,240 --> 00:01:51,030
+then you can only specify on AWS resource as a target.
+
+47
+00:01:51,030 --> 00:01:52,900
+And finally, it's called simple because it's very simple.
+
+48
+00:01:52,900 --> 00:01:55,210
+And therefore you can not associate this with health checks
+
+49
+00:01:55,210 --> 00:01:57,160
+and we'll see health checks later on in this section
+
+50
+00:01:57,160 --> 00:01:57,993
+and how they work.
+
+51
+00:01:57,993 --> 00:02:00,910
+So let's go in the console to see how a routing policy
+
+52
+00:02:00,910 --> 00:02:03,160
+of step simple can be created.
+
+53
+00:02:03,160 --> 00:02:05,930
+So let's create a record, and the record name is going to be
+
+54
+00:02:05,930 --> 00:02:08,490
+simple.stephanetheteacher.com.
+
+55
+00:02:08,490 --> 00:02:11,720
+It's an A record, and the value of which is going to be,
+
+56
+00:02:11,720 --> 00:02:15,250
+for example, my instance in ap-southeast-1.
+
+57
+00:02:15,250 --> 00:02:16,760
+Now for TTL, it will say something very low,
+
+58
+00:02:16,760 --> 00:02:17,970
+like 20 seconds.
+
+59
+00:02:17,970 --> 00:02:19,890
+And the routing policy is going to be here.
+
+60
+00:02:19,890 --> 00:02:22,220
+So as you can see, we have different possibilities,
+
+61
+00:02:22,220 --> 00:02:24,790
+six of them, and then one other that is
+
+62
+00:02:24,790 --> 00:02:26,485
+somewhere else in the UI.
+
+63
+00:02:26,485 --> 00:02:29,380
+So we have a TTL 20 seconds as simple writing policy,
+
+64
+00:02:29,380 --> 00:02:31,510
+and let's just create this record.
+
+65
+00:02:31,510 --> 00:02:33,100
+So we've been doing this before.
+
+66
+00:02:33,100 --> 00:02:34,744
+We know how this works.
+
+67
+00:02:34,744 --> 00:02:37,693
+So now if we go to simple.stephanetheteacher.com.
+
+68
+00:02:39,020 --> 00:02:40,540
+And go to this URL, we get
+
+69
+00:02:40,540 --> 00:02:43,400
+Hello World from my instance in ap-southeast-1b,
+
+70
+00:02:43,400 --> 00:02:44,350
+which is awesome.
+
+71
+00:02:44,350 --> 00:02:47,720
+And if we do a dig command and have a look,
+
+72
+00:02:47,720 --> 00:02:49,283
+so we need to reinstall dig.
+
+73
+00:02:50,147 --> 00:02:52,250
+So sudo yum install bind-utils.
+
+74
+00:02:52,250 --> 00:02:54,903
+So this is because I restarted my machine here.
+
+75
+00:02:56,520 --> 00:02:59,710
+Okay, we're going to redo the dig command.
+
+76
+00:02:59,710 --> 00:03:01,060
+So we do the dig command on this.
+
+77
+00:03:01,060 --> 00:03:04,320
+As we can see, we have an A record of a TTL of 20 seconds
+
+78
+00:03:04,320 --> 00:03:05,900
+pointing to this IP.
+
+79
+00:03:05,900 --> 00:03:07,650
+But we can change this record now.
+
+80
+00:03:07,650 --> 00:03:09,383
+We're going to edit the record.
+
+81
+00:03:10,235 --> 00:03:12,900
+So I will just simply click on it and edit the record.
+
+82
+00:03:12,900 --> 00:03:15,200
+And for the value, now, I can enter multiple IPs.
+
+83
+00:03:15,200 --> 00:03:17,190
+So I can insert my one in ap-southeast-1
+
+84
+00:03:17,190 --> 00:03:20,530
+or one in us-east-1, for example.
+
+85
+00:03:20,530 --> 00:03:23,080
+So when I do so and save this,
+
+86
+00:03:23,080 --> 00:03:26,380
+what's going to happen is that once the TTL expires
+
+87
+00:03:26,380 --> 00:03:28,720
+from before, we're going to get two records back.
+
+88
+00:03:28,720 --> 00:03:31,330
+So let's use CloudShell to verify this.
+
+89
+00:03:31,330 --> 00:03:33,070
+So I'm going to do a dig command.
+
+90
+00:03:33,070 --> 00:03:34,020
+And as you can see,
+
+91
+00:03:34,936 --> 00:03:37,020
+now we have in the intersection, we have two responses.
+
+92
+00:03:37,020 --> 00:03:40,740
+We have one in this IP and one in this IP.
+
+93
+00:03:40,740 --> 00:03:42,390
+So it's a client side choice.
+
+94
+00:03:42,390 --> 00:03:44,410
+So that means that if I go to this website and refresh,
+
+95
+00:03:44,410 --> 00:03:46,910
+I have one chance out of two to go into us-east-1.
+
+96
+00:03:46,910 --> 00:03:48,260
+And I didn't.
+
+97
+00:03:48,260 --> 00:03:50,340
+So I was back into ap-southeast-1b,
+
+98
+00:03:50,340 --> 00:03:53,570
+but let me pause for 20 seconds and I'll get back to you.
+
+99
+00:03:53,570 --> 00:03:55,370
+And I'm refreshing.
+
+100
+00:03:55,370 --> 00:03:58,430
+And I get back the Hello World from us-east-1a.
+
+101
+00:03:58,430 --> 00:03:59,340
+So this worked.
+
+102
+00:03:59,340 --> 00:04:03,210
+This absolutely shows how simple records work.
+
+103
+00:04:03,210 --> 00:04:06,003
+I hope you liked it, and I will see you in the next lecture.
+

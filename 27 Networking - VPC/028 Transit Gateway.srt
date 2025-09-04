@@ -1,0 +1,496 @@
+1
+00:00:00,720 --> 00:00:02,300
+Okay, so if we look at
+
+2
+00:00:02,300 --> 00:00:04,750
+common network topologies in AWS
+
+3
+00:00:04,750 --> 00:00:06,610
+it can become quite complicated.
+
+4
+00:00:06,610 --> 00:00:08,440
+For example, you have many VPC
+
+5
+00:00:08,440 --> 00:00:10,340
+and you want to peer them together,
+
+6
+00:00:10,340 --> 00:00:12,650
+then you want to establish some VPN connections
+
+7
+00:00:12,650 --> 00:00:13,540
+and direct connect,
+
+8
+00:00:13,540 --> 00:00:15,980
+and then you have a direct connect gateway to connect
+
+9
+00:00:15,980 --> 00:00:18,480
+to multiple VPC at a time, and this can become
+
+10
+00:00:18,480 --> 00:00:21,740
+very, very complicated in terms of network topology.
+
+11
+00:00:21,740 --> 00:00:24,500
+So, AWS came up with the transit gateway
+
+12
+00:00:24,500 --> 00:00:26,740
+to solve that problem, and you're going to have
+
+13
+00:00:26,740 --> 00:00:30,290
+a transitive peering connection between thousands of VPC,
+
+14
+00:00:30,290 --> 00:00:33,130
+your on-premises data center, your site-to-site VPN,
+
+15
+00:00:33,130 --> 00:00:35,780
+direct connects in a hub-and-spoke star connection.
+
+16
+00:00:35,780 --> 00:00:37,150
+So let's have a diagram.
+
+17
+00:00:37,150 --> 00:00:39,180
+We have transit gateway in the center
+
+18
+00:00:39,180 --> 00:00:42,430
+and you can connect multiple VPCs through
+
+19
+00:00:42,430 --> 00:00:43,570
+the transit gateway.
+
+20
+00:00:43,570 --> 00:00:47,080
+So in this example, we don't need to peer the VPCs together,
+
+21
+00:00:47,080 --> 00:00:50,870
+they are connected transitively through the transit gateway.
+
+22
+00:00:50,870 --> 00:00:54,470
+So in this example, all the VPCs can talk to each other.
+
+23
+00:00:54,470 --> 00:00:57,360
+But also, you can connect a direct connect gateway
+
+24
+00:00:57,360 --> 00:00:58,430
+to the transit gateway,
+
+25
+00:00:58,430 --> 00:01:00,560
+so it shows you have a direct connect connection
+
+26
+00:01:00,560 --> 00:01:02,880
+directly in to many different VPC.
+
+27
+00:01:02,880 --> 00:01:05,650
+Or if you are preferring site-to-site VPN
+
+28
+00:01:05,650 --> 00:01:08,820
+and VPN connections, you can connect your customer gateway
+
+29
+00:01:08,820 --> 00:01:11,290
+and your VPN connection into your transit gateway.
+
+30
+00:01:11,290 --> 00:01:15,010
+Again, one more time, giving you access to all these VPC
+
+31
+00:01:15,010 --> 00:01:17,040
+as part of the transit gateway.
+
+32
+00:01:17,040 --> 00:01:19,600
+So this really solves some network problems.
+
+33
+00:01:19,600 --> 00:01:22,780
+It's a regional resource and it can work cross-region,
+
+34
+00:01:22,780 --> 00:01:25,050
+and you can share your transit gateway across accounts
+
+35
+00:01:25,050 --> 00:01:27,410
+by using the resource access manager.
+
+36
+00:01:27,410 --> 00:01:30,210
+You can also peer transit gateways across region.
+
+37
+00:01:30,210 --> 00:01:33,070
+So, how do you define who can talk to what?
+
+38
+00:01:33,070 --> 00:01:34,850
+Well, you need to create route tables
+
+39
+00:01:34,850 --> 00:01:37,730
+for your transit gateway to limit which VPC
+
+40
+00:01:37,730 --> 00:01:39,960
+can talk to another, which connection have access
+
+41
+00:01:39,960 --> 00:01:40,910
+to each other and so on.
+
+42
+00:01:40,910 --> 00:01:44,900
+So, you get full control over the routing of all the traffic
+
+43
+00:01:44,900 --> 00:01:48,010
+within the transit gateway to give you network security.
+
+44
+00:01:48,010 --> 00:01:50,300
+So, as I said, it works with direct connect gateway
+
+45
+00:01:50,300 --> 00:01:54,130
+and VPN connections, and it is the only service in AWS
+
+46
+00:01:54,130 --> 00:01:57,530
+that supports IP multicast, so if you see IP multicast
+
+47
+00:01:57,530 --> 00:01:59,840
+at the exam, just know that it is transit gateway
+
+48
+00:01:59,840 --> 00:02:01,130
+you have to use.
+
+49
+00:02:01,130 --> 00:02:04,650
+So, another use case for transit gateway is to increase
+
+50
+00:02:04,650 --> 00:02:07,430
+the bandwidth of your site-to-site VPN connection
+
+51
+00:02:07,430 --> 00:02:09,210
+using ECMP.
+
+52
+00:02:09,210 --> 00:02:11,160
+So, it's quite technical but the question can come up
+
+53
+00:02:11,160 --> 00:02:12,040
+in the exam.
+
+54
+00:02:12,040 --> 00:02:16,350
+So, ECMP means equal-cost multi-path routing.
+
+55
+00:02:16,350 --> 00:02:19,110
+It's a routing strategy to allow to forward a packet
+
+56
+00:02:19,110 --> 00:02:21,160
+over multiple best path.
+
+57
+00:02:21,160 --> 00:02:23,450
+And the use case, as I said, is to create
+
+58
+00:02:23,450 --> 00:02:25,520
+multiple site-to-site VPN connections
+
+59
+00:02:25,520 --> 00:02:27,860
+to increase the bandwidth of your connection
+
+60
+00:02:27,860 --> 00:02:30,760
+to AWS using a site-to-site VPN.
+
+61
+00:02:30,760 --> 00:02:33,190
+So, let's take this example where we have a transit gateway
+
+62
+00:02:33,190 --> 00:02:36,030
+and we have four VPCs attached to our transit gateway,
+
+63
+00:02:36,030 --> 00:02:38,300
+and we have a corporate data center that is connected
+
+64
+00:02:38,300 --> 00:02:41,720
+using site-to-site VPN to a transit gateway.
+
+65
+00:02:41,720 --> 00:02:44,770
+So when you establish a site-to-site VPN connection
+
+66
+00:02:44,770 --> 00:02:47,470
+there are actually two tunnels, one going forward
+
+67
+00:02:47,470 --> 00:02:48,710
+and one going back.
+
+68
+00:02:48,710 --> 00:02:52,350
+When you are connecting such a VPN into a VPC directly,
+
+69
+00:02:52,350 --> 00:02:55,020
+both of these tunnels are used as part of one connections,
+
+70
+00:02:55,020 --> 00:02:57,040
+but when using the transit gateway
+
+71
+00:02:57,040 --> 00:02:58,600
+two tunnels can be used at a time,
+
+72
+00:02:58,600 --> 00:03:01,000
+so this is why you see two lines in this diagram.
+
+73
+00:03:01,000 --> 00:03:02,340
+But with transit gateway,
+
+74
+00:03:02,340 --> 00:03:04,420
+you can have multiple site-to-site VPN
+
+75
+00:03:04,420 --> 00:03:07,430
+so you can create a second site-to-site VPN attachment
+
+76
+00:03:07,430 --> 00:03:08,950
+and into your transit gateway,
+
+77
+00:03:08,950 --> 00:03:10,750
+so this creates four tunnels.
+
+78
+00:03:10,750 --> 00:03:13,320
+And so, when you have four tunnels of site-to-site VPN,
+
+79
+00:03:13,320 --> 00:03:16,000
+you are increasing the throughput of your connection
+
+80
+00:03:16,000 --> 00:03:18,260
+which is something you cannot do if you were to connect
+
+81
+00:03:18,260 --> 00:03:21,760
+your corporate data center directly into a VPC.
+
+82
+00:03:21,760 --> 00:03:24,570
+So, if you do a VPN to a virtual private gateway,
+
+83
+00:03:24,570 --> 00:03:28,100
+you get one tunnel, in fact one connection into one VPC,
+
+84
+00:03:28,100 --> 00:03:30,357
+and this connection gives you 1.5 Gbps
+
+85
+00:03:32,030 --> 00:03:35,390
+as the maximum throughput, and you are limited.
+
+86
+00:03:35,390 --> 00:03:38,760
+And in this case, a VPN connection is made of two tunnels.
+
+87
+00:03:38,760 --> 00:03:42,210
+But if you are using a VPN into a transit gateway,
+
+88
+00:03:42,210 --> 00:03:45,990
+you get one site-to-site VPN into many VPC
+
+89
+00:03:45,990 --> 00:03:48,320
+because they're all connected transitively
+
+90
+00:03:48,320 --> 00:03:50,890
+to the same transit gateway.
+
+91
+00:03:50,890 --> 00:03:54,210
+And also, one site-to-site VPN connection
+
+92
+00:03:54,210 --> 00:03:57,750
+gives you 2.5 Gbps thanks to ECMP,
+
+93
+00:03:57,750 --> 00:03:59,950
+because the two tunnels are going to be used
+
+94
+00:03:59,950 --> 00:04:01,500
+through that strategy.
+
+95
+00:04:01,500 --> 00:04:04,670
+But also, you can add more site-to-site VPN connections
+
+96
+00:04:04,670 --> 00:04:07,540
+into transit gateway, for example two or three,
+
+97
+00:04:07,540 --> 00:04:10,609
+to double or triple your throughputs
+
+98
+00:04:10,609 --> 00:04:11,930
+through ECMP.
+
+99
+00:04:11,930 --> 00:04:13,850
+So this is an exam question you need to know.
+
+100
+00:04:13,850 --> 00:04:14,830
+Obviously when you do the setup,
+
+101
+00:04:14,830 --> 00:04:17,680
+you're going to have to pay for each GB of data
+
+102
+00:04:17,680 --> 00:04:19,220
+going through the transit gateway,
+
+103
+00:04:19,220 --> 00:04:23,090
+so there's an added cost to this performance optimization.
+
+104
+00:04:23,090 --> 00:04:25,740
+Finally, you can share your direct connect connection
+
+105
+00:04:25,740 --> 00:04:28,370
+between multiple accounts, again, using the transit gateway.
+
+106
+00:04:28,370 --> 00:04:29,540
+How do we do this?
+
+107
+00:04:29,540 --> 00:04:32,560
+Well, we're going to establish a direct connect connection
+
+108
+00:04:32,560 --> 00:04:34,350
+between your corporate data center
+
+109
+00:04:34,350 --> 00:04:36,330
+and a direct connect location,
+
+110
+00:04:36,330 --> 00:04:38,790
+and then we're going to set up a transit gateway
+
+111
+00:04:38,790 --> 00:04:41,640
+into both VPCs in two different accounts, okay?
+
+112
+00:04:41,640 --> 00:04:44,050
+So this is something we can do with the transit gateway.
+
+113
+00:04:44,050 --> 00:04:46,950
+And then, we connect the direct connect location
+
+114
+00:04:46,950 --> 00:04:50,010
+into direct connect gateway and connect that gateway
+
+115
+00:04:50,010 --> 00:04:51,430
+into the transit gateway.
+
+116
+00:04:51,430 --> 00:04:53,490
+And what this just allowed us to do is to share
+
+117
+00:04:53,490 --> 00:04:56,160
+a direct connect connection between multiple accounts
+
+118
+00:04:56,160 --> 00:04:58,790
+and multiple VPC, which is very handy
+
+119
+00:04:58,790 --> 00:05:00,350
+thanks to the transit gateway.
+
+120
+00:05:00,350 --> 00:05:01,183
+Okay?
+
+121
+00:05:01,183 --> 00:05:03,950
+So all these sort of architectures can come up in the exam
+
+122
+00:05:03,950 --> 00:05:05,830
+so make sure you're familiar with understanding
+
+123
+00:05:05,830 --> 00:05:07,960
+how they work, and that's it for me,
+
+124
+00:05:07,960 --> 00:05:09,710
+I will see you in the next lecture.
+

@@ -1,0 +1,716 @@
+1
+00:00:00,150 --> 00:00:02,340
+So, so far in our serverless journey,
+
+2
+00:00:02,340 --> 00:00:04,380
+we've seen how to create Lambda functions
+
+3
+00:00:04,380 --> 00:00:06,180
+and we've seen how to use DynamoDB.
+
+4
+00:00:06,180 --> 00:00:08,310
+And so the functions can use DynamoDB
+
+5
+00:00:08,310 --> 00:00:11,850
+as a database for our API, and we can do create, read,
+
+6
+00:00:11,850 --> 00:00:14,220
+update, delete on our tables,
+
+7
+00:00:14,220 --> 00:00:17,340
+but we'd like our clients to be able to invoke
+
+8
+00:00:17,340 --> 00:00:19,980
+this Lambda function in some way.
+
+9
+00:00:19,980 --> 00:00:21,180
+So there are multiple of doing it.
+
+10
+00:00:21,180 --> 00:00:23,940
+We can have the client directly invoke the Lambda function,
+
+11
+00:00:23,940 --> 00:00:26,610
+but that means that the client would need IAM permissions,
+
+12
+00:00:26,610 --> 00:00:28,710
+or we've seen we can use an application load balancer
+
+13
+00:00:28,710 --> 00:00:31,110
+to have it in between the client and the Lambda function
+
+14
+00:00:31,110 --> 00:00:33,060
+and that would expose our Lambda function
+
+15
+00:00:33,060 --> 00:00:34,620
+as an HTTP endpoint.
+
+16
+00:00:34,620 --> 00:00:35,940
+There's one last thing we can use.
+
+17
+00:00:35,940 --> 00:00:37,320
+It's called the API Gateway.
+
+18
+00:00:37,320 --> 00:00:39,930
+And this is a serverless offering from AWS
+
+19
+00:00:39,930 --> 00:00:42,510
+which allows us to create REST APIs
+
+20
+00:00:42,510 --> 00:00:45,480
+that are going to be public and accessible for our clients.
+
+21
+00:00:45,480 --> 00:00:47,550
+So the client will talk to the API Gateway
+
+22
+00:00:47,550 --> 00:00:49,470
+and the beautiful things that the API Gateway
+
+23
+00:00:49,470 --> 00:00:52,740
+will then proxy the request to our Lambda functions.
+
+24
+00:00:52,740 --> 00:00:54,120
+So it would use an API Gateway
+
+25
+00:00:54,120 --> 00:00:57,030
+because it provides us more than just an HTTP endpoint.
+
+26
+00:00:57,030 --> 00:00:58,200
+It will provide us a lot of features
+
+27
+00:00:58,200 --> 00:00:59,550
+as we'll see in this section,
+
+28
+00:00:59,550 --> 00:01:02,490
+such as authentication, such as usage plans,
+
+29
+00:01:02,490 --> 00:01:04,530
+development stages and all that kind of things.
+
+30
+00:01:04,530 --> 00:01:07,050
+So the API Gateway has a lot of features
+
+31
+00:01:07,050 --> 00:01:08,580
+and this is just an overview,
+
+32
+00:01:08,580 --> 00:01:11,130
+but we can integrate the API Gateway and Lambda
+
+33
+00:01:11,130 --> 00:01:13,380
+and that gives us a full serverless application.
+
+34
+00:01:13,380 --> 00:01:15,390
+So no infrastructure to manage.
+
+35
+00:01:15,390 --> 00:01:17,220
+We have support for the WebSocket Protocol
+
+36
+00:01:17,220 --> 00:01:18,840
+so we can do real-time streaming
+
+37
+00:01:18,840 --> 00:01:21,690
+through the API Gateway in two different ways.
+
+38
+00:01:21,690 --> 00:01:23,280
+The API Gateway handle API versioning.
+
+39
+00:01:23,280 --> 00:01:25,230
+So we can go from version one to version two
+
+40
+00:01:25,230 --> 00:01:27,630
+and version three and not break our clients.
+
+41
+00:01:27,630 --> 00:01:29,520
+We can handle multiple environments
+
+42
+00:01:29,520 --> 00:01:32,520
+that includes a dev, a test and the prod environment.
+
+43
+00:01:32,520 --> 00:01:35,310
+There is a whole thing about API Gateway and security.
+
+44
+00:01:35,310 --> 00:01:37,680
+So there's a tons of way to enable security
+
+45
+00:01:37,680 --> 00:01:38,880
+on your API Gateway
+
+46
+00:01:38,880 --> 00:01:41,670
+for both authentication and authorization.
+
+47
+00:01:41,670 --> 00:01:44,160
+We have the ability to create API keys,
+
+48
+00:01:44,160 --> 00:01:46,260
+do request throttling in case some clients
+
+49
+00:01:46,260 --> 00:01:49,050
+are doing too many requests on our API Gateway,
+
+50
+00:01:49,050 --> 00:01:51,510
+and we can also use some common standards
+
+51
+00:01:51,510 --> 00:01:53,880
+such as Swagger or Open API 3.0
+
+52
+00:01:53,880 --> 00:01:57,120
+to import quickly defined APIs,
+
+53
+00:01:57,120 --> 00:02:00,360
+and also we can export them as Swagger and Open API.
+
+54
+00:02:00,360 --> 00:02:02,670
+We can transform and validate request and response
+
+55
+00:02:02,670 --> 00:02:03,960
+in the API Gateway level
+
+56
+00:02:03,960 --> 00:02:06,240
+to ensure that the invocation are correct,
+
+57
+00:02:06,240 --> 00:02:09,060
+and we can generate SDK and API specifications
+
+58
+00:02:09,060 --> 00:02:11,190
+and cache API responses.
+
+59
+00:02:11,190 --> 00:02:13,653
+So lots of features that come with the API Gateway
+
+60
+00:02:13,653 --> 00:02:15,360
+that are not necessarily included
+
+61
+00:02:15,360 --> 00:02:16,770
+when you use something as simple
+
+62
+00:02:16,770 --> 00:02:18,840
+as an application load balancer.
+
+63
+00:02:18,840 --> 00:02:21,060
+So what is the API Gateway integrate with?
+
+64
+00:02:21,060 --> 00:02:22,680
+Well, there is a Lambda function
+
+65
+00:02:22,680 --> 00:02:24,720
+and we've seen this from the previous diagram,
+
+66
+00:02:24,720 --> 00:02:26,490
+so it can invoke a Lambda function.
+
+67
+00:02:26,490 --> 00:02:29,370
+And with this integration, it is the most common way
+
+68
+00:02:29,370 --> 00:02:32,220
+and a very easy way to expose REST a API
+
+69
+00:02:32,220 --> 00:02:33,720
+backed by a Lambda function
+
+70
+00:02:33,720 --> 00:02:36,330
+to do a full serverless application.
+
+71
+00:02:36,330 --> 00:02:37,830
+But also HTTP.
+
+72
+00:02:37,830 --> 00:02:40,710
+So we can expose any HTTP endpoints in the backend.
+
+73
+00:02:40,710 --> 00:02:42,090
+So it could be, for example,
+
+74
+00:02:42,090 --> 00:02:44,220
+an HTTP API you have on premises,
+
+75
+00:02:44,220 --> 00:02:45,750
+or it could be an application load balancer
+
+76
+00:02:45,750 --> 00:02:47,640
+you have on your cloud environment.
+
+77
+00:02:47,640 --> 00:02:48,660
+And why would you do this?
+
+78
+00:02:48,660 --> 00:02:50,400
+Well, you would use an API Gateway
+
+79
+00:02:50,400 --> 00:02:53,340
+to leverage the rate limiting features, the caching,
+
+80
+00:02:53,340 --> 00:02:55,200
+the user authentication, the API keys, et cetera.
+
+81
+00:02:55,200 --> 00:02:57,668
+So it's definitely used full to have a layer
+
+82
+00:02:57,668 --> 00:03:01,230
+of API Gateway on top of your HTTP endpoint.
+
+83
+00:03:01,230 --> 00:03:04,140
+And finally, we can use an evidence service
+
+84
+00:03:04,140 --> 00:03:08,070
+so we can expose any AWS API through the API Gateway.
+
+85
+00:03:08,070 --> 00:03:09,390
+So which ones, for example,
+
+86
+00:03:09,390 --> 00:03:11,520
+where we can start a Step Function workflow,
+
+87
+00:03:11,520 --> 00:03:13,830
+we can post a message to SQS
+
+88
+00:03:13,830 --> 00:03:17,460
+directly from an API Gateway API.
+
+89
+00:03:17,460 --> 00:03:18,300
+Why would you do this?
+
+90
+00:03:18,300 --> 00:03:20,370
+Well, because maybe you want to add authentication,
+
+91
+00:03:20,370 --> 00:03:22,140
+deploy some APIs publicly
+
+92
+00:03:22,140 --> 00:03:25,770
+or do some rate control on some AWS services.
+
+93
+00:03:25,770 --> 00:03:28,620
+So here is an example of the API Gateway
+
+94
+00:03:28,620 --> 00:03:30,870
+used with an AWS service.
+
+95
+00:03:30,870 --> 00:03:33,000
+So example, Kinesis Data Streams.
+
+96
+00:03:33,000 --> 00:03:35,220
+So we want to have people send data
+
+97
+00:03:35,220 --> 00:03:36,900
+into a Kinesis Data Streams
+
+98
+00:03:36,900 --> 00:03:38,010
+but in a secure way,
+
+99
+00:03:38,010 --> 00:03:41,520
+without giving them access to AWS credentials.
+
+100
+00:03:41,520 --> 00:03:44,340
+So what we do is that's in between our clients
+
+101
+00:03:44,340 --> 00:03:45,870
+and our Kinesis Data Streams,
+
+102
+00:03:45,870 --> 00:03:48,270
+we're going to have the API Gateway.
+
+103
+00:03:48,270 --> 00:03:50,640
+And the clients will send HTTP request
+
+104
+00:03:50,640 --> 00:03:52,230
+into the API Gateway.
+
+105
+00:03:52,230 --> 00:03:55,140
+And it's been configured to then send the messages
+
+106
+00:03:55,140 --> 00:03:57,000
+into a Kinesis Data Streams.
+
+107
+00:03:57,000 --> 00:04:00,450
+And as you see in this setting, we don't manage any servers.
+
+108
+00:04:00,450 --> 00:04:01,800
+Then Kinesis Data Stream from there,
+
+109
+00:04:01,800 --> 00:04:03,360
+we can, for example, send the records
+
+110
+00:04:03,360 --> 00:04:05,160
+into a Kinesis Data Firehose
+
+111
+00:04:05,160 --> 00:04:08,777
+and eventually put them into an Amazon S3 bucket
+
+112
+00:04:08,777 --> 00:04:10,680
+in the JSON format.
+
+113
+00:04:10,680 --> 00:04:12,990
+So you start to see the power of API Gateway.
+
+114
+00:04:12,990 --> 00:04:16,050
+You can actually expose any AWS service
+
+115
+00:04:16,050 --> 00:04:18,933
+to the outside through an API Gateway.
+
+116
+00:04:19,769 --> 00:04:22,560
+There are three ways to deploy your API Gateway.
+
+117
+00:04:22,560 --> 00:04:24,030
+This is called endpoint types.
+
+118
+00:04:24,030 --> 00:04:25,830
+So the first type, which is the default one
+
+119
+00:04:25,830 --> 00:04:27,300
+is called Edge-Optimized.
+
+120
+00:04:27,300 --> 00:04:28,950
+This is for your global clients.
+
+121
+00:04:28,950 --> 00:04:30,330
+So that means that your API Gateway
+
+122
+00:04:30,330 --> 00:04:32,610
+is going to be accessible from anywhere in the world.
+
+123
+00:04:32,610 --> 00:04:34,020
+And to be efficient,
+
+124
+00:04:34,020 --> 00:04:35,670
+the request are going to be routed
+
+125
+00:04:35,670 --> 00:04:37,740
+through all the CloudFront Edge locations,
+
+126
+00:04:37,740 --> 00:04:39,540
+which will improve the latency.
+
+127
+00:04:39,540 --> 00:04:41,880
+Your API Gateway is still only in one region
+
+128
+00:04:41,880 --> 00:04:45,060
+where you created it, but it's accessible efficiently
+
+129
+00:04:45,060 --> 00:04:47,970
+from every CloudFormation Edge location.
+
+130
+00:04:47,970 --> 00:04:49,110
+Then there's a regional deployment.
+
+131
+00:04:49,110 --> 00:04:50,850
+So this is when we don't want to use
+
+132
+00:04:50,850 --> 00:04:52,290
+CloudFront Edge locations.
+
+133
+00:04:52,290 --> 00:04:54,630
+So it's when we expect all our users
+
+134
+00:04:54,630 --> 00:04:55,770
+to be within the same region
+
+135
+00:04:55,770 --> 00:04:57,810
+where we created our API Gateway.
+
+136
+00:04:57,810 --> 00:04:58,950
+And if you wanted to,
+
+137
+00:04:58,950 --> 00:05:01,860
+you could create your own platform distribution,
+
+138
+00:05:01,860 --> 00:05:03,330
+and this will give you the same result
+
+139
+00:05:03,330 --> 00:05:05,310
+as an Edge-Optimized distribution,
+
+140
+00:05:05,310 --> 00:05:08,070
+but this time you have more control over location strategies
+
+141
+00:05:08,070 --> 00:05:10,050
+and the platform settings themselves.
+
+142
+00:05:10,050 --> 00:05:12,840
+And then finally, the last kind of API Gateway you can do
+
+143
+00:05:12,840 --> 00:05:14,070
+is a private API Gateway.
+
+144
+00:05:14,070 --> 00:05:15,720
+So this time it's not public.
+
+145
+00:05:15,720 --> 00:05:18,180
+So a private API Gateway can only be accessed
+
+146
+00:05:18,180 --> 00:05:19,770
+from within your VPC.
+
+147
+00:05:19,770 --> 00:05:23,160
+And it will use interface VPC endpoints for your ENIs.
+
+148
+00:05:23,160 --> 00:05:25,500
+And to define access to your API Gateway,
+
+149
+00:05:25,500 --> 00:05:27,630
+you can use a resource policy.
+
+150
+00:05:27,630 --> 00:05:29,490
+Now, a few comments about the security
+
+151
+00:05:29,490 --> 00:05:31,500
+on top of the API Gateway.
+
+152
+00:05:31,500 --> 00:05:33,900
+So you can identify users on the API Gateway
+
+153
+00:05:33,900 --> 00:05:35,160
+in multiple ways.
+
+154
+00:05:35,160 --> 00:05:37,110
+The first way is through IAM roles.
+
+155
+00:05:37,110 --> 00:05:39,570
+So this is very helpful if you have internal applications,
+
+156
+00:05:39,570 --> 00:05:41,700
+for example, running on EC2 instances,
+
+157
+00:05:41,700 --> 00:05:44,220
+and they want to access an API on API Gateway,
+
+158
+00:05:44,220 --> 00:05:46,320
+they can just use IAM roles.
+
+159
+00:05:46,320 --> 00:05:48,060
+If you wanted to have external users,
+
+160
+00:05:48,060 --> 00:05:51,510
+for example, for mobile applications or web applications,
+
+161
+00:05:51,510 --> 00:05:54,360
+then you would use something called Amazon Cognito.
+
+162
+00:05:54,360 --> 00:05:56,550
+Or if you wanted to implement your own logic,
+
+163
+00:05:56,550 --> 00:05:59,100
+you could do do so with a custom authorizer.
+
+164
+00:05:59,100 --> 00:06:01,470
+This is a Lambda function.
+
+165
+00:06:01,470 --> 00:06:04,320
+Also, you can have HTTPS security
+
+166
+00:06:04,320 --> 00:06:06,540
+through your own custom domain name
+
+167
+00:06:06,540 --> 00:06:08,340
+by integration with a service called
+
+168
+00:06:08,340 --> 00:06:11,490
+the AWS Certificate Manager or ACM.
+
+169
+00:06:11,490 --> 00:06:13,260
+And so that certificate, if you're using
+
+170
+00:06:13,260 --> 00:06:16,800
+an Edge-Optimized endpoint must be in us-east-1
+
+171
+00:06:16,800 --> 00:06:19,050
+but if you're using a regional endpoint
+
+172
+00:06:19,050 --> 00:06:21,330
+then that certificate may be in the same region
+
+173
+00:06:21,330 --> 00:06:23,640
+as the API Gateway stage.
+
+174
+00:06:23,640 --> 00:06:26,040
+Finally, you must set up, of course, a CNAME
+
+175
+00:06:26,040 --> 00:06:28,590
+or an A-alias record in Route 53
+
+176
+00:06:28,590 --> 00:06:32,043
+to point to your domain and API Gateway.
+
+177
+00:06:33,120 --> 00:06:34,650
+So that's it for this lecture.
+
+178
+00:06:34,650 --> 00:06:35,550
+I hope you liked it.
+
+179
+00:06:35,550 --> 00:06:37,500
+And I will see you in the next lecture.
+

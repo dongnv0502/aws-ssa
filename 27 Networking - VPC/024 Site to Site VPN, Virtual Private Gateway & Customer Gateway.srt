@@ -1,0 +1,420 @@
+1
+00:00:00,310 --> 00:00:01,143
+Okay, so now let's talk
+
+2
+00:00:01,143 --> 00:00:03,100
+about site-to-site VPN.
+
+3
+00:00:03,100 --> 00:00:04,880
+So the idea is that, now we have a VPC
+
+4
+00:00:04,880 --> 00:00:07,150
+but we may have also a structure
+
+5
+00:00:07,150 --> 00:00:08,710
+within the corporate data center,
+
+6
+00:00:08,710 --> 00:00:11,790
+and we wanna connect AWS to our corporate data center
+
+7
+00:00:11,790 --> 00:00:13,722
+using a private connection.
+
+8
+00:00:13,722 --> 00:00:15,237
+So for this, we'll have a customer gateway
+
+9
+00:00:15,237 --> 00:00:17,590
+on the corporation side,
+
+10
+00:00:17,590 --> 00:00:20,340
+and a VPN gateway on the VPC side.
+
+11
+00:00:20,340 --> 00:00:21,410
+And we're going to establish,
+
+12
+00:00:21,410 --> 00:00:23,538
+through the public internet,
+
+13
+00:00:23,538 --> 00:00:27,180
+a private site-to-site VPN connection.
+
+14
+00:00:27,180 --> 00:00:29,010
+So it's a VPN connection, so it's encrypted.
+
+15
+00:00:29,010 --> 00:00:31,000
+It goes over the public internet, though.
+
+16
+00:00:31,000 --> 00:00:33,130
+And using this, we have linked effectively
+
+17
+00:00:33,130 --> 00:00:34,910
+the network of our VBC
+
+18
+00:00:34,910 --> 00:00:37,470
+to the network of our corporate data center.
+
+19
+00:00:37,470 --> 00:00:39,880
+So, as such, the VPNs need two things.
+
+20
+00:00:39,880 --> 00:00:42,980
+First, they need a virtual private gateway, VGW.
+
+21
+00:00:42,980 --> 00:00:45,560
+It's a VPN concentrator on the AWS side
+
+22
+00:00:45,560 --> 00:00:47,050
+of the VPN connection,
+
+23
+00:00:47,050 --> 00:00:49,840
+and the VGW is created and attached to the VPC
+
+24
+00:00:49,840 --> 00:00:50,860
+from which you want to create
+
+25
+00:00:50,860 --> 00:00:52,710
+the site-to-site VPN connection.
+
+26
+00:00:52,710 --> 00:00:54,810
+It's possible for you to customize the ASN number,
+
+27
+00:00:54,810 --> 00:00:56,280
+if you know what that means.
+
+28
+00:00:56,280 --> 00:00:59,530
+The customer gateway is a CGW,
+
+29
+00:00:59,530 --> 00:01:01,300
+and it's an actual software
+
+30
+00:01:01,300 --> 00:01:03,080
+or a physical device on your side,
+
+31
+00:01:03,080 --> 00:01:06,350
+so on the data center side of the VPN connection,
+
+32
+00:01:06,350 --> 00:01:07,494
+And there's a bunch of these
+
+33
+00:01:07,494 --> 00:01:09,480
+that will have been tested by AWS,
+
+34
+00:01:09,480 --> 00:01:11,600
+so we can have a look at the list here.
+
+35
+00:01:11,600 --> 00:01:14,240
+So, to do a connection, it's very simple.
+
+36
+00:01:14,240 --> 00:01:16,850
+We have a corporate data center with a customer gateway,
+
+37
+00:01:16,850 --> 00:01:19,810
+and then we have our VPC with our virtual private gateway.
+
+38
+00:01:19,810 --> 00:01:22,280
+So, how do we set up the customer gateway device
+
+39
+00:01:22,280 --> 00:01:23,570
+that is on premises?
+
+40
+00:01:23,570 --> 00:01:25,670
+Which IP address should we use?
+
+41
+00:01:25,670 --> 00:01:29,000
+Well, if your customer gateway is public,
+
+42
+00:01:29,000 --> 00:01:31,310
+there is a public internet-routable IP address
+
+43
+00:01:31,310 --> 00:01:32,670
+for your customer gateway device.
+
+44
+00:01:32,670 --> 00:01:34,380
+Then you would use this one,
+
+45
+00:01:34,380 --> 00:01:36,080
+and you would establish the connectivity
+
+46
+00:01:36,080 --> 00:01:38,490
+between your VGW and your CGW
+
+47
+00:01:38,490 --> 00:01:40,960
+using the public IP of the customer gateway.
+
+48
+00:01:40,960 --> 00:01:42,640
+But it's possible for your customer gateway
+
+49
+00:01:42,640 --> 00:01:44,970
+to also be private and have a private IP.
+
+50
+00:01:44,970 --> 00:01:47,060
+In which case, then it is very common for it
+
+51
+00:01:47,060 --> 00:01:51,200
+to be behind a NAT device that has NAT-T enabled.
+
+52
+00:01:51,200 --> 00:01:54,520
+And then, that NAT device has a public IP, in which case,
+
+53
+00:01:54,520 --> 00:01:57,410
+the IP address you should use for the CGW
+
+54
+00:01:57,410 --> 00:02:00,730
+is the public IP of the NAT device.
+
+55
+00:02:00,730 --> 00:02:02,710
+And then, the site-to-site VPN connection
+
+56
+00:02:02,710 --> 00:02:03,730
+can be established.
+
+57
+00:02:03,730 --> 00:02:05,970
+I'm saying this because this can come into the exam.
+
+58
+00:02:05,970 --> 00:02:07,670
+And then, the second question that can come up
+
+59
+00:02:07,670 --> 00:02:08,502
+to the exam is that,
+
+60
+00:02:08,502 --> 00:02:09,960
+even though this is set up,
+
+61
+00:02:09,960 --> 00:02:13,320
+this site-to-site VPN connection will not work
+
+62
+00:02:13,320 --> 00:02:17,200
+until you enable route propagation in your VPC
+
+63
+00:02:17,200 --> 00:02:18,160
+within your subnets.
+
+64
+00:02:18,160 --> 00:02:19,470
+And then, when this is done,
+
+65
+00:02:19,470 --> 00:02:21,410
+then the connectivity will work.
+
+66
+00:02:21,410 --> 00:02:23,170
+Finally, another exam question that can come up
+
+67
+00:02:23,170 --> 00:02:24,890
+regarding site-to-site VPN.
+
+68
+00:02:24,890 --> 00:02:27,600
+If you need to ping your EC2 instances
+
+69
+00:02:27,600 --> 00:02:30,460
+from on-premises to AWS,
+
+70
+00:02:30,460 --> 00:02:34,840
+then make sure that the ICMP protocol on the inbound
+
+71
+00:02:34,840 --> 00:02:36,210
+of the security group is enabled.
+
+72
+00:02:36,210 --> 00:02:38,800
+Otherwise, I would say the connection will not work.
+
+73
+00:02:38,800 --> 00:02:41,170
+This is just a security group question, obviously.
+
+74
+00:02:41,170 --> 00:02:43,640
+But they mix it up with the site-to-site VPN
+
+75
+00:02:43,640 --> 00:02:46,690
+and that can be confusing, so here is some help.
+
+76
+00:02:46,690 --> 00:02:47,980
+Now, there's one last thing to know
+
+77
+00:02:47,980 --> 00:02:49,230
+about a site-to-site VPN.
+
+78
+00:02:49,230 --> 00:02:51,700
+It's called AWS VPN CloudHub.
+
+79
+00:02:51,700 --> 00:02:55,440
+So the idea is that you have your VPC with your VGW
+
+80
+00:02:55,440 --> 00:02:57,080
+and you have multiple customer networks,
+
+81
+00:02:57,080 --> 00:03:00,540
+multiple data centers, each with their own customer gateway.
+
+82
+00:03:00,540 --> 00:03:02,740
+So CloudHub is to provide secure communication
+
+83
+00:03:02,740 --> 00:03:06,770
+in between all these sites, using multiple VPN connections.
+
+84
+00:03:06,770 --> 00:03:08,910
+It's a low-cost hub-and-spoke model
+
+85
+00:03:08,910 --> 00:03:11,040
+for primary or secondary network connectivity
+
+86
+00:03:11,040 --> 00:03:12,180
+between different locations,
+
+87
+00:03:12,180 --> 00:03:14,290
+but only using the VPN.
+
+88
+00:03:14,290 --> 00:03:16,420
+So you would establish a site-to-site VPN
+
+89
+00:03:16,420 --> 00:03:21,420
+between the CGW and the one single VGW within your VPC.
+
+90
+00:03:22,080 --> 00:03:24,180
+And then, thanks to this connection,
+
+91
+00:03:24,180 --> 00:03:27,250
+then your customer networks can now communicate
+
+92
+00:03:27,250 --> 00:03:31,340
+with one another through that VPN connection.
+
+93
+00:03:31,340 --> 00:03:33,280
+Now, because it's a VPN connection,
+
+94
+00:03:33,280 --> 00:03:35,360
+all the traffic goes over the public internet.
+
+95
+00:03:35,360 --> 00:03:37,683
+So they're not connected through a private network.
+
+96
+00:03:37,683 --> 00:03:39,050
+They're connected through public network
+
+97
+00:03:39,050 --> 00:03:41,700
+but the VPN connection is encrypted, obviously.
+
+98
+00:03:41,700 --> 00:03:43,590
+And to set it up, super simple,
+
+99
+00:03:43,590 --> 00:03:46,330
+you set up multiple site-to-site VPN connection
+
+100
+00:03:46,330 --> 00:03:48,510
+on the same virtual private gateway,
+
+101
+00:03:48,510 --> 00:03:50,110
+and then you enable dynamic routing
+
+102
+00:03:50,110 --> 00:03:52,750
+and you configure your route tables, and you're good to go.
+
+103
+00:03:52,750 --> 00:03:53,608
+So that's it.
+
+104
+00:03:53,608 --> 00:03:55,380
+That's all you need to know for site-to-site VPN.
+
+105
+00:03:55,380 --> 00:03:58,253
+I hope you liked it, and I will see you in the next lecture.
+

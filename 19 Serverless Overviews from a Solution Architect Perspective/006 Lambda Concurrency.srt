@@ -1,0 +1,644 @@
+1
+00:00:00,580 --> 00:00:01,413
+So now let's talk
+
+2
+00:00:01,413 --> 00:00:03,610
+about Lambda concurrency and throttling.
+
+3
+00:00:03,610 --> 00:00:06,130
+So the more we invoke our Lambda functions,
+
+4
+00:00:06,130 --> 00:00:08,130
+the more we will have concurrent executions
+
+5
+00:00:08,130 --> 00:00:08,963
+of our Lambda functions.
+
+6
+00:00:08,963 --> 00:00:10,920
+We know this because Lambda can scale
+
+7
+00:00:10,920 --> 00:00:13,000
+very, very easily and fast.
+
+8
+00:00:13,000 --> 00:00:15,500
+So that means that's if we invoke our Lambda function
+
+9
+00:00:15,500 --> 00:00:18,110
+at a low scale, we may have two concurrent executions
+
+10
+00:00:18,110 --> 00:00:19,320
+of our Lambda functions.
+
+11
+00:00:19,320 --> 00:00:21,840
+But if we have a very high scale of events happening,
+
+12
+00:00:21,840 --> 00:00:25,490
+we may have up to 1000 concurrence of Lambda functions
+
+13
+00:00:25,490 --> 00:00:28,450
+working together to process whatever comes through.
+
+14
+00:00:28,450 --> 00:00:31,550
+So something can do though is to limit the number
+
+15
+00:00:31,550 --> 00:00:34,030
+of concurrent execution a Lambda function can do,
+
+16
+00:00:34,030 --> 00:00:35,290
+and that is recommended.
+
+17
+00:00:35,290 --> 00:00:38,410
+So for this, we can set what's called a reserved concurrency
+
+18
+00:00:38,410 --> 00:00:40,480
+and that is set at the function level.
+
+19
+00:00:40,480 --> 00:00:42,217
+So this is a limit, and we're saying,
+
+20
+00:00:42,217 --> 00:00:44,387
+"Okay, this Lambda function can only have
+
+21
+00:00:44,387 --> 00:00:47,320
+"up to 50 concurrent executions."
+
+22
+00:00:47,320 --> 00:00:50,880
+So each invocation over the concurrency limits
+
+23
+00:00:50,880 --> 00:00:53,240
+will trigger what's called a throttle.
+
+24
+00:00:53,240 --> 00:00:55,010
+And there are different behaviors with a throttle
+
+25
+00:00:55,010 --> 00:00:56,640
+if it's a synchronous invocation.
+
+26
+00:00:56,640 --> 00:00:58,900
+So we invoke our Lambda functions directly
+
+27
+00:00:58,900 --> 00:01:00,310
+and we're being throttled,
+
+28
+00:01:00,310 --> 00:01:03,930
+it will return a throttle error, 429.
+
+29
+00:01:03,930 --> 00:01:06,190
+And if it's an asynchronous invocation,
+
+30
+00:01:06,190 --> 00:01:09,790
+it will retry automatically and then go to the DLQ.
+
+31
+00:01:09,790 --> 00:01:11,820
+So in case you need a higher
+
+32
+00:01:11,820 --> 00:01:14,270
+than 1000 concurrent executions at a time,
+
+33
+00:01:14,270 --> 00:01:16,650
+you can just open a support ticket
+
+34
+00:01:16,650 --> 00:01:18,930
+to request a higher limits.
+
+35
+00:01:18,930 --> 00:01:21,390
+So now that we know about the concept of currency,
+
+36
+00:01:21,390 --> 00:01:23,890
+here is something that can happen
+
+37
+00:01:23,890 --> 00:01:26,810
+if we don't set the concurrently very carefully.
+
+38
+00:01:26,810 --> 00:01:29,340
+So if you don't set any reserve concurrency,
+
+39
+00:01:29,340 --> 00:01:31,640
+so any limit on your function concurrency,
+
+40
+00:01:31,640 --> 00:01:33,430
+then this could happen.
+
+41
+00:01:33,430 --> 00:01:34,880
+So we have our application balancer,
+
+42
+00:01:34,880 --> 00:01:37,000
+for example, connected to a Lambda function.
+
+43
+00:01:37,000 --> 00:01:40,220
+We have another application where we have few users
+
+44
+00:01:40,220 --> 00:01:41,540
+that connect to an API gateway,
+
+45
+00:01:41,540 --> 00:01:43,500
+connected to another Lambda function,
+
+46
+00:01:43,500 --> 00:01:46,730
+and one last application may be using the SDK and the CLI
+
+47
+00:01:46,730 --> 00:01:48,510
+to invoke a Lambda function.
+
+48
+00:01:48,510 --> 00:01:50,740
+So when everything is pretty low-level,
+
+49
+00:01:50,740 --> 00:01:53,350
+like low throughput of invocation,
+
+50
+00:01:53,350 --> 00:01:54,750
+everything is fine.
+
+51
+00:01:54,750 --> 00:01:57,710
+But let's say that we are running a huge promotion
+
+52
+00:01:57,710 --> 00:02:01,050
+and somehow we get many, many users hammering
+
+53
+00:02:01,050 --> 00:02:04,120
+our application load balancers, we're very successful.
+
+54
+00:02:04,120 --> 00:02:05,750
+So what happens is that our load balancer
+
+55
+00:02:05,750 --> 00:02:08,360
+will be invoking many, many Lambda functions
+
+56
+00:02:08,360 --> 00:02:10,350
+and Lambda functions can scale automatically.
+
+57
+00:02:10,350 --> 00:02:13,310
+So we'll get up to 1000 concurrent executions.
+
+58
+00:02:13,310 --> 00:02:14,143
+So this looks good, right?
+
+59
+00:02:14,143 --> 00:02:15,240
+Lambda has scaled.
+
+60
+00:02:15,240 --> 00:02:16,900
+But here is the problem.
+
+61
+00:02:16,900 --> 00:02:18,610
+All of the concurrent executions
+
+62
+00:02:18,610 --> 00:02:20,580
+went to the first application.
+
+63
+00:02:20,580 --> 00:02:22,150
+So that means that the application users
+
+64
+00:02:22,150 --> 00:02:24,450
+of our API gateway will be throttled.
+
+65
+00:02:24,450 --> 00:02:28,760
+And that means that the CLI and SDK will also be throttled.
+
+66
+00:02:28,760 --> 00:02:30,430
+So what you get to remember out of this slide
+
+67
+00:02:30,430 --> 00:02:32,980
+is that the concurrency limit applies
+
+68
+00:02:32,980 --> 00:02:34,770
+to all the functions in your accounts,
+
+69
+00:02:34,770 --> 00:02:36,350
+and so you have to be careful because
+
+70
+00:02:36,350 --> 00:02:38,180
+if one function goes over the limit,
+
+71
+00:02:38,180 --> 00:02:40,780
+it's possible that your other functions get throttled.
+
+72
+00:02:40,780 --> 00:02:42,340
+So that's very, very important.
+
+73
+00:02:42,340 --> 00:02:44,350
+Next, let's talk about concurrency
+
+74
+00:02:44,350 --> 00:02:46,530
+and your asynchronous invocations.
+
+75
+00:02:46,530 --> 00:02:49,580
+So let's take the example of S3 event notifications.
+
+76
+00:02:49,580 --> 00:02:51,760
+So we are uploading files into our S3 buckets,
+
+77
+00:02:51,760 --> 00:02:53,020
+and this creates a new file event
+
+78
+00:02:53,020 --> 00:02:54,750
+that will invoke our Lambda functions,
+
+79
+00:02:54,750 --> 00:02:57,540
+and say we are putting many, many files at the same time.
+
+80
+00:02:57,540 --> 00:02:59,710
+So we get many, many different Lambda
+
+81
+00:02:59,710 --> 00:03:01,630
+concurrent executions happening.
+
+82
+00:03:01,630 --> 00:03:04,160
+And if the function doesn't have enough
+
+83
+00:03:04,160 --> 00:03:04,993
+concurrency available.
+
+84
+00:03:04,993 --> 00:03:07,670
+So if it cannot scale up because we have reached the limits,
+
+85
+00:03:07,670 --> 00:03:10,530
+then the additional requests are throttled.
+
+86
+00:03:10,530 --> 00:03:12,860
+But this is an asynchronous request.
+
+87
+00:03:12,860 --> 00:03:15,180
+So for any throttling errors and system error,
+
+88
+00:03:15,180 --> 00:03:17,850
+so 429 and 500-series,
+
+89
+00:03:17,850 --> 00:03:20,670
+Lambda will return the event to the event queue.
+
+90
+00:03:20,670 --> 00:03:22,690
+So remember in the asynchronous mode
+
+91
+00:03:22,690 --> 00:03:24,260
+there is an internal event queue,
+
+92
+00:03:24,260 --> 00:03:27,320
+and Lambda will attempt to run the function again
+
+93
+00:03:27,320 --> 00:03:29,070
+for up to six hours.
+
+94
+00:03:29,070 --> 00:03:30,400
+So there's a lot of retries that happens
+
+95
+00:03:30,400 --> 00:03:32,860
+due to the throttling and so on.
+
+96
+00:03:32,860 --> 00:03:35,430
+Then this retry interval will increase
+
+97
+00:03:35,430 --> 00:03:37,400
+in an exponential bucket fashion.
+
+98
+00:03:37,400 --> 00:03:41,870
+So from one second to our maximum of every five minutes.
+
+99
+00:03:41,870 --> 00:03:44,360
+So this allows your Lambda functions to keep on retrying
+
+100
+00:03:44,360 --> 00:03:47,670
+and hopefully one day find the concurrency
+
+101
+00:03:47,670 --> 00:03:51,280
+and capacity available to run correctly.
+
+102
+00:03:51,280 --> 00:03:52,850
+Okay, so next let's talk
+
+103
+00:03:52,850 --> 00:03:55,370
+about cold starts and provisioned concurrency.
+
+104
+00:03:55,370 --> 00:03:57,300
+So you may have heard the term before, if you use Lambda.
+
+105
+00:03:57,300 --> 00:03:59,430
+So cold start, it means that when you create
+
+106
+00:03:59,430 --> 00:04:01,250
+a new Lambda function instance,
+
+107
+00:04:01,250 --> 00:04:04,210
+your code has to be loaded and your code outside
+
+108
+00:04:04,210 --> 00:04:05,740
+of the handler has to be run.
+
+109
+00:04:05,740 --> 00:04:08,030
+So this corresponds to all your initialization.
+
+110
+00:04:08,030 --> 00:04:09,020
+So in it.
+
+111
+00:04:09,020 --> 00:04:11,290
+And if your initialization is large,
+
+112
+00:04:11,290 --> 00:04:13,580
+because you have a lot of code, a lot of dependencies,
+
+113
+00:04:13,580 --> 00:04:16,420
+you're connecting to many databases and creating many SDK,
+
+114
+00:04:16,420 --> 00:04:18,519
+this process can take a lot of time.
+
+115
+00:04:18,519 --> 00:04:20,300
+So that means that the first request
+
+116
+00:04:20,300 --> 00:04:23,170
+served by new instances has a higher latency
+
+117
+00:04:23,170 --> 00:04:25,920
+than the rest and that may impact your users.
+
+118
+00:04:25,920 --> 00:04:28,610
+So if your user is maybe waiting three seconds
+
+119
+00:04:28,610 --> 00:04:30,750
+to get a request response,
+
+120
+00:04:30,750 --> 00:04:32,600
+that may be very, very slow for them
+
+121
+00:04:32,600 --> 00:04:34,000
+and they may experience a cold start
+
+122
+00:04:34,000 --> 00:04:36,480
+and may be unhappy with your product.
+
+123
+00:04:36,480 --> 00:04:38,040
+So what can you do?
+
+124
+00:04:38,040 --> 00:04:39,010
+Well, you can use something
+
+125
+00:04:39,010 --> 00:04:41,140
+called a provisioned concurrency.
+
+126
+00:04:41,140 --> 00:04:43,300
+That means that you allocate concurrency
+
+127
+00:04:43,300 --> 00:04:45,500
+before the function is even invoked.
+
+128
+00:04:45,500 --> 00:04:47,900
+So you allocate this concurrency in advance.
+
+129
+00:04:47,900 --> 00:04:50,140
+This way, the cold start never happens,
+
+130
+00:04:50,140 --> 00:04:53,370
+and all the invocations will have a lower latency.
+
+131
+00:04:53,370 --> 00:04:55,750
+And to manage this concurrency, you can...
+
+132
+00:04:55,750 --> 00:04:57,060
+This provisioned concurrency,
+
+133
+00:04:57,060 --> 00:04:59,100
+you can use Application Auto Scaling.
+
+134
+00:04:59,100 --> 00:05:01,630
+For example, for a schedule or target position
+
+135
+00:05:01,630 --> 00:05:04,630
+to make sure that you have enough reserved Lambda functions
+
+136
+00:05:04,630 --> 00:05:08,720
+to be ready to be used and minimize this cold start problem.
+
+137
+00:05:08,720 --> 00:05:11,610
+So please note that whenever before you used
+
+138
+00:05:11,610 --> 00:05:14,240
+to launch a Lambda function in a VPC
+
+139
+00:05:14,240 --> 00:05:15,630
+that used to take forever.
+
+140
+00:05:15,630 --> 00:05:19,150
+So now there was a blog in October and November, 2019
+
+141
+00:05:19,150 --> 00:05:20,540
+that has been released by AWS.
+
+142
+00:05:20,540 --> 00:05:21,640
+Here is the link.
+
+143
+00:05:21,640 --> 00:05:24,610
+And this blog show the improvements they have done
+
+144
+00:05:24,610 --> 00:05:27,690
+to dramatically reduce the cold starts in your VPC.
+
+145
+00:05:27,690 --> 00:05:30,210
+So the good news is if you were using Lambda before
+
+146
+00:05:30,210 --> 00:05:33,990
+the cold starts, really have a minimal impact on your VPC.
+
+147
+00:05:33,990 --> 00:05:36,470
+Okay, finally, there's two diagrams you can look
+
+148
+00:05:36,470 --> 00:05:38,760
+in your own time to look at the concept
+
+149
+00:05:38,760 --> 00:05:41,850
+of reserved concurrency and provisioned concurrency.
+
+150
+00:05:41,850 --> 00:05:43,410
+And this graphs, I like them.
+
+151
+00:05:43,410 --> 00:05:45,110
+So here's the link in the slides.
+
+152
+00:05:45,110 --> 00:05:46,090
+Have a look at them.
+
+153
+00:05:46,090 --> 00:05:47,200
+They explain to you how they work.
+
+154
+00:05:47,200 --> 00:05:49,270
+I think they're quite complicated to describe
+
+155
+00:05:49,270 --> 00:05:51,250
+as is with a slide.
+
+156
+00:05:51,250 --> 00:05:53,410
+But have a look at them in your own time,
+
+157
+00:05:53,410 --> 00:05:55,190
+and hopefully they will help you understand
+
+158
+00:05:55,190 --> 00:05:56,550
+this concept a little bit better
+
+159
+00:05:56,550 --> 00:05:58,400
+if I didn't help you right now.
+
+160
+00:05:58,400 --> 00:05:59,740
+Okay, so now let's go into the hands-on
+
+161
+00:05:59,740 --> 00:06:01,363
+and see how concurrency works.
+

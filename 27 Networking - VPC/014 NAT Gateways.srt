@@ -1,0 +1,440 @@
+1
+00:00:00,000 --> 00:00:02,310
+So now that we've talked about NAT instances,
+
+2
+00:00:02,310 --> 00:00:03,330
+let's look at NAT Gateways.
+
+3
+00:00:03,330 --> 00:00:04,720
+So NAT Gateways are much better.
+
+4
+00:00:04,720 --> 00:00:07,980
+There either is managed in that instances of asleep and they
+
+5
+00:00:07,980 --> 00:00:09,200
+have a higher bandwidth.
+
+6
+00:00:09,200 --> 00:00:10,830
+There is high availability you can do into it,
+
+7
+00:00:10,830 --> 00:00:12,680
+and there is no administration.
+
+8
+00:00:12,680 --> 00:00:15,680
+So you're going to pay per hour of usage and bandwidth for
+
+9
+00:00:15,680 --> 00:00:17,630
+the night gateway and the nugget weight.
+
+10
+00:00:17,630 --> 00:00:21,150
+It will be created in a specific AZ and it will inherit
+
+11
+00:00:21,150 --> 00:00:23,140
+an Elastic IP.
+
+12
+00:00:23,140 --> 00:00:25,750
+Now it cannot be used with an Institute instance within the
+
+13
+00:00:25,750 --> 00:00:26,583
+same sub-net okay.
+
+14
+00:00:26,583 --> 00:00:29,980
+So the nugget weight can only be helpful if accessed from
+
+15
+00:00:29,980 --> 00:00:30,813
+another sub-net.
+
+16
+00:00:30,813 --> 00:00:33,530
+So we're going to create a nugget way in a public subnets
+
+17
+00:00:33,530 --> 00:00:36,500
+and connect it to instances in the private subnets.
+
+18
+00:00:36,500 --> 00:00:37,333
+Now, the routes,
+
+19
+00:00:37,333 --> 00:00:39,684
+how it works is that it goes from the private subnets to the
+
+20
+00:00:39,684 --> 00:00:42,048
+nugget way to the internet gateway. Okay.
+
+21
+00:00:42,048 --> 00:00:44,680
+So net gateway can not work without an internet gateway.
+
+22
+00:00:44,680 --> 00:00:47,380
+Now the bandwidth is five gigabits per second,
+
+23
+00:00:47,380 --> 00:00:50,570
+automatically scaling up to 100 gigabits per second,
+
+24
+00:00:50,570 --> 00:00:52,580
+and you don't need to manage any security groups
+
+25
+00:00:52,580 --> 00:00:53,610
+it's not required.
+
+26
+00:00:53,610 --> 00:00:55,970
+So that means that we don't need to think about which
+
+27
+00:00:55,970 --> 00:00:58,670
+ports you enable to make the connectivity work.
+
+28
+00:00:58,670 --> 00:01:01,260
+So the way it works that right now we have this setup, okay.
+
+29
+00:01:01,260 --> 00:01:03,090
+We have a private instance and a private subnets,
+
+30
+00:01:03,090 --> 00:01:04,830
+and it can not access the internet.
+
+31
+00:01:04,830 --> 00:01:07,430
+So we're going to create the next gateway in the public
+
+32
+00:01:07,430 --> 00:01:09,950
+subnets and the nugget weight, because it is,
+
+33
+00:01:09,950 --> 00:01:12,700
+will be deployed into public subnets.
+
+34
+00:01:12,700 --> 00:01:15,250
+And the public center is already connected to the internet
+
+35
+00:01:15,250 --> 00:01:16,180
+gateway. Then,
+
+36
+00:01:16,180 --> 00:01:18,370
+then that gateway will have internet connectivity.
+
+37
+00:01:18,370 --> 00:01:19,203
+And then we can,
+
+38
+00:01:19,203 --> 00:01:22,330
+we're going to edit the roots of the private subnets.
+
+39
+00:01:22,330 --> 00:01:23,400
+And by editing them,
+
+40
+00:01:23,400 --> 00:01:25,140
+we are going to be able to connect our
+
+41
+00:01:25,140 --> 00:01:28,317
+Institute instance into our nuts gateway.
+
+42
+00:01:28,317 --> 00:01:30,610
+So now let's talk about high availability
+
+43
+00:01:30,610 --> 00:01:31,860
+and not gateways.
+
+44
+00:01:31,860 --> 00:01:33,880
+So the nugget weight is resilience only
+
+45
+00:01:33,880 --> 00:01:35,850
+within a single availability zone.
+
+46
+00:01:35,850 --> 00:01:38,770
+So it's going to be redundant within a single AZ,
+
+47
+00:01:38,770 --> 00:01:40,120
+but in case an AZ go down,
+
+48
+00:01:40,120 --> 00:01:42,010
+you need to have multiple net gateways
+
+49
+00:01:42,010 --> 00:01:44,350
+in multiple AZ to have fault tolerance.
+
+50
+00:01:44,350 --> 00:01:46,390
+So the way it works is like this.
+
+51
+00:01:46,390 --> 00:01:48,760
+So currently we have one gateway
+
+52
+00:01:48,760 --> 00:01:50,810
+and it's in one specific AZ,
+
+53
+00:01:50,810 --> 00:01:52,260
+we're going to create a second
+
+54
+00:01:52,260 --> 00:01:55,110
+net gateway in the second AZ so this was,
+
+55
+00:01:55,110 --> 00:01:59,130
+you can see each network traffic is confined into an AZ.
+
+56
+00:01:59,130 --> 00:02:01,460
+And so that if there is an AZ that goes down, okay,
+
+57
+00:02:01,460 --> 00:02:03,920
+this whole AZ happens to be going down.
+
+58
+00:02:03,920 --> 00:02:06,000
+Then we'll still have the ACB working
+
+59
+00:02:06,000 --> 00:02:09,870
+because a NAT gateway in ACB or X as well exists.
+
+60
+00:02:09,870 --> 00:02:13,270
+And there's no need to connect the atheist together through
+
+61
+00:02:13,270 --> 00:02:14,570
+the route tables, because well,
+
+62
+00:02:14,570 --> 00:02:16,830
+if an AZ goes down, then all the Eastern instances
+
+63
+00:02:16,830 --> 00:02:19,283
+in that are also currently unassailable.
+
+64
+00:02:20,240 --> 00:02:22,010
+So now let's just talk about the difference
+
+65
+00:02:22,010 --> 00:02:23,420
+between net gateway and other instances,
+
+66
+00:02:23,420 --> 00:02:26,070
+but there should be quite obvious.
+
+67
+00:02:26,070 --> 00:02:29,890
+So the net gateway is highly available within a specific AZ.
+
+68
+00:02:29,890 --> 00:02:32,270
+And if you want to get high voltage across AZ,
+
+69
+00:02:32,270 --> 00:02:34,880
+you need to create another one in another AZ resonant
+
+70
+00:02:34,880 --> 00:02:35,713
+instance, You wouldn't,
+
+71
+00:02:35,713 --> 00:02:38,510
+have a script to manage fail-over between that instances
+
+72
+00:02:38,510 --> 00:02:40,530
+and manage them overall.
+
+73
+00:02:40,530 --> 00:02:42,600
+The bandwidth is up to 100 gigabits per second,
+
+74
+00:02:42,600 --> 00:02:43,930
+per not gateway.
+
+75
+00:02:43,930 --> 00:02:45,090
+And that for in that instance, well,
+
+76
+00:02:45,090 --> 00:02:47,160
+it depends on the instance type that you have,
+
+77
+00:02:47,160 --> 00:02:48,590
+but the higher instance type,
+
+78
+00:02:48,590 --> 00:02:50,240
+the more throughput you're going to have,
+
+79
+00:02:50,240 --> 00:02:51,850
+the maintenance is obviously a managed
+
+80
+00:02:51,850 --> 00:02:52,700
+service when they get way.
+
+81
+00:02:52,700 --> 00:02:53,820
+Whereas it's measured by you.
+
+82
+00:02:53,820 --> 00:02:54,653
+For instance,
+
+83
+00:02:54,653 --> 00:02:55,810
+we need to make sure you have the software
+
+84
+00:02:55,810 --> 00:02:57,380
+or the U S patches and so on.
+
+85
+00:02:57,380 --> 00:03:00,100
+The cost is a per hour cost plus amount of data transfer for
+
+86
+00:03:00,100 --> 00:03:01,738
+the night gateway. Whereas for instance,
+
+87
+00:03:01,738 --> 00:03:03,910
+it's per hour for these two incidents,
+
+88
+00:03:03,910 --> 00:03:05,320
+which is going to be a dependent,
+
+89
+00:03:05,320 --> 00:03:07,640
+obviously on the easy two instance type and size.
+
+90
+00:03:07,640 --> 00:03:10,270
+And also you're going to pay for network dollar that goes
+
+91
+00:03:10,270 --> 00:03:12,700
+through the ECC instance out to the internet.
+
+92
+00:03:12,700 --> 00:03:13,533
+Okay.
+
+93
+00:03:13,533 --> 00:03:14,900
+Now the negative way has a public IP
+
+94
+00:03:14,900 --> 00:03:17,240
+for enterprise IP for us so this is good.
+
+95
+00:03:17,240 --> 00:03:18,690
+The same, for instance,
+
+96
+00:03:18,690 --> 00:03:20,620
+now security groups are not used for net gateway,
+
+97
+00:03:20,620 --> 00:03:22,680
+which seriously a good thing because, well, you don't,
+
+98
+00:03:22,680 --> 00:03:24,680
+you manage one more thing. Whereas from that instance,
+
+99
+00:03:24,680 --> 00:03:26,000
+you need to set up your secrets, your groups,
+
+100
+00:03:26,000 --> 00:03:28,660
+and make sure they're tight and working for the right ports.
+
+101
+00:03:28,660 --> 00:03:30,740
+And the nugget way can not be used as a bastion host.
+
+102
+00:03:30,740 --> 00:03:33,380
+Whereas in that instance could be used as a bastion host if
+
+103
+00:03:33,380 --> 00:03:34,360
+we want it to,
+
+104
+00:03:34,360 --> 00:03:36,860
+there's a lot more differences between these two things.
+
+105
+00:03:36,860 --> 00:03:38,210
+And there's a link right here,
+
+106
+00:03:38,210 --> 00:03:39,360
+but from an exempt perspective,
+
+107
+00:03:39,360 --> 00:03:41,800
+there should be enough to insert any questions into choosing
+
+108
+00:03:41,800 --> 00:03:44,260
+a NAT gateway versus in that instance.
+
+109
+00:03:44,260 --> 00:03:46,170
+So that's it for this lecture I hope you liked it.
+
+110
+00:03:46,170 --> 00:03:48,120
+And I will see you in the next lecture.
+

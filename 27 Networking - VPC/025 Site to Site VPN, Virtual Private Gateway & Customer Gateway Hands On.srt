@@ -1,0 +1,200 @@
+1
+00:00:00,200 --> 00:00:01,320
+So let's have a look at how you can
+
+2
+00:00:01,320 --> 00:00:04,920
+create a site to site VPN connection in AWS.
+
+3
+00:00:04,920 --> 00:00:06,840
+So scroll down and under VPN,
+
+4
+00:00:06,840 --> 00:00:09,030
+you go and click on "Customer Gateways."
+
+5
+00:00:09,030 --> 00:00:11,800
+So the first step to having a site-to-site VPN connection
+
+6
+00:00:11,800 --> 00:00:14,950
+is to have a customer gateway that you host on-premises.
+
+7
+00:00:14,950 --> 00:00:17,010
+So you create it on-premises.
+
+8
+00:00:17,010 --> 00:00:19,100
+You can name this AWS. Okay?
+
+9
+00:00:19,100 --> 00:00:22,220
+And then you can specify a BGP ASN
+
+10
+00:00:22,220 --> 00:00:23,290
+for your gateway device.
+
+11
+00:00:23,290 --> 00:00:25,000
+This is advanced. You don't need to know it. Okay?
+
+12
+00:00:25,000 --> 00:00:26,940
+You need to specify the IP address
+
+13
+00:00:26,940 --> 00:00:29,240
+of your customer gateway device external interface.
+
+14
+00:00:29,240 --> 00:00:31,880
+So how it can be reached from AWS
+
+15
+00:00:31,880 --> 00:00:34,490
+into your on-premises infrastructure.
+
+16
+00:00:34,490 --> 00:00:36,800
+And then you would specify a Certificate ARN
+
+17
+00:00:36,800 --> 00:00:40,690
+which allows AWS to connect into your VPN device
+
+18
+00:00:40,690 --> 00:00:43,680
+on-premises and establish a secure connection.
+
+19
+00:00:43,680 --> 00:00:45,520
+So this is to create a customer gateway
+
+20
+00:00:45,520 --> 00:00:47,048
+but I won't do this because I don't have
+
+21
+00:00:47,048 --> 00:00:49,880
+an on-premises infrastructure to show you.
+
+22
+00:00:49,880 --> 00:00:51,500
+Next, we have a Virtual Private Gateway.
+
+23
+00:00:51,500 --> 00:00:53,996
+So you would create a Virtual Private Gateway.
+
+24
+00:00:53,996 --> 00:00:57,418
+And then you would use a ASN number
+
+25
+00:00:57,418 --> 00:01:00,790
+and it will be created on the side of AWS.
+
+26
+00:01:00,790 --> 00:01:04,470
+Okay? So this is now the site of AWS.
+
+27
+00:01:04,470 --> 00:01:06,980
+And then we need to connect these two things
+
+28
+00:01:06,980 --> 00:01:08,310
+and therefore we need to create
+
+29
+00:01:08,310 --> 00:01:10,740
+a site-to-site VPN connection.
+
+30
+00:01:10,740 --> 00:01:13,270
+To do so we click on "Create VPN Connection."
+
+31
+00:01:13,270 --> 00:01:16,780
+It is of type "Virtual private gateway."
+
+32
+00:01:16,780 --> 00:01:19,080
+Then you specify the virtual private gateway
+
+33
+00:01:19,080 --> 00:01:20,830
+that you would have created from before.
+
+34
+00:01:20,830 --> 00:01:22,610
+You specify the customer gateway
+
+35
+00:01:22,610 --> 00:01:24,550
+you would have created from before.
+
+36
+00:01:24,550 --> 00:01:26,170
+Then you specify a lot of options
+
+37
+00:01:26,170 --> 00:01:27,917
+that you don't need to know about
+
+38
+00:01:27,917 --> 00:01:29,280
+regarding routing, regarding IPV4,
+
+39
+00:01:29,280 --> 00:01:31,000
+regarding tunneling and so on.
+
+40
+00:01:31,000 --> 00:01:33,240
+And then you would create that VPN connection.
+
+41
+00:01:33,240 --> 00:01:35,150
+All this is out of scope in terms of hands-on.
+
+42
+00:01:35,150 --> 00:01:36,859
+For the exam, all you need to know is that
+
+43
+00:01:36,859 --> 00:01:39,800
+to establish a site-to-site VPN connection
+
+44
+00:01:39,800 --> 00:01:43,080
+between on-premises and AWS, you need to first
+
+45
+00:01:43,080 --> 00:01:44,500
+create a customer gateway,
+
+46
+00:01:44,500 --> 00:01:46,700
+then a virtual private gateway on AWS,
+
+47
+00:01:46,700 --> 00:01:48,300
+and then connect the two using
+
+48
+00:01:48,300 --> 00:01:49,900
+a site-to-site VPN connection.
+
+49
+00:01:49,900 --> 00:01:52,140
+Okay? So that's it. I hope you liked it.
+
+50
+00:01:52,140 --> 00:01:54,090
+And I will see you in the next lecture.
+

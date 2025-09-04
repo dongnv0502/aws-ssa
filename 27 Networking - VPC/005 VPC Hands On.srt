@@ -1,0 +1,220 @@
+1
+00:00:00,130 --> 00:00:02,520
+So let's go ahead and create our first VPC.
+
+2
+00:00:02,520 --> 00:00:03,840
+Now we could launch the VPC Wizard,
+
+3
+00:00:03,840 --> 00:00:05,400
+but that would defeat the point of learning.
+
+4
+00:00:05,400 --> 00:00:08,900
+So what we'll have to do is create everything one-by-one.
+
+5
+00:00:08,900 --> 00:00:10,130
+So let's go into VPC.
+
+6
+00:00:10,130 --> 00:00:11,170
+I have one VPC available,
+
+7
+00:00:11,170 --> 00:00:13,500
+but I'm going to create a new VPC.
+
+8
+00:00:13,500 --> 00:00:16,079
+And the name tag is going to be DemoVPC.
+
+9
+00:00:16,079 --> 00:00:18,250
+Here we need to choose an iPv4 CIDR block.
+
+10
+00:00:18,250 --> 00:00:23,150
+So I will choose 10.0.0.0/16, which is allowed.
+
+11
+00:00:23,150 --> 00:00:25,860
+So, if we look at the CIDR here and calculate it,
+
+12
+00:00:25,860 --> 00:00:28,090
+that means that my First IP is this one,
+
+13
+00:00:28,090 --> 00:00:29,670
+and my Last IP is this one.
+
+14
+00:00:29,670 --> 00:00:32,619
+We have 65,000, or so, IPs in this range.
+
+15
+00:00:32,619 --> 00:00:34,810
+So, if I did /15, this would not work
+
+16
+00:00:34,810 --> 00:00:37,448
+because this would be a too big of a network, okay?
+
+17
+00:00:37,448 --> 00:00:40,430
+/16 is the limit for your CIDR site.
+
+18
+00:00:40,430 --> 00:00:43,350
+So for now we are not going to assign any iPv6 CIDR block.
+
+19
+00:00:43,350 --> 00:00:45,220
+We'll see this later on in the section.
+
+20
+00:00:45,220 --> 00:00:46,120
+In terms of tenancy,
+
+21
+00:00:46,120 --> 00:00:47,510
+we have Default or Dedicated.
+
+22
+00:00:47,510 --> 00:00:49,900
+And this is to define how EC2 instances launch
+
+23
+00:00:49,900 --> 00:00:51,550
+within this VPC.
+
+24
+00:00:51,550 --> 00:00:55,430
+We'll have either dedicated hardware or shared hardware.
+
+25
+00:00:55,430 --> 00:00:56,940
+Now, dedicated hardware is very expensive.
+
+26
+00:00:56,940 --> 00:00:59,280
+So we are going to have shared hardware by default.
+
+27
+00:00:59,280 --> 00:01:01,570
+So tenancy is Default.
+
+28
+00:01:01,570 --> 00:01:04,050
+So Tags is named DemoVPC. This is good.
+
+29
+00:01:04,050 --> 00:01:05,560
+Now we'll create this VPC.
+
+30
+00:01:05,560 --> 00:01:07,970
+And my VPC is created.
+
+31
+00:01:07,970 --> 00:01:09,170
+So if we look at this VPC,
+
+32
+00:01:09,170 --> 00:01:14,170
+as we can see we have one iPv4 CIDR, zero iPv6 CIDR, okay?
+
+33
+00:01:14,370 --> 00:01:16,190
+We have already a main route table
+
+34
+00:01:16,190 --> 00:01:17,900
+and a main network ACL associated with it.
+
+35
+00:01:17,900 --> 00:01:20,350
+So some stuff was created behind the scenes,
+
+36
+00:01:20,350 --> 00:01:21,940
+when we created the VPC.
+
+37
+00:01:21,940 --> 00:01:22,910
+And something we should notice is
+
+38
+00:01:22,910 --> 00:01:25,680
+that we are able to add other iPv4 CIDRs.
+
+39
+00:01:25,680 --> 00:01:29,930
+So in the creates dialogue, we could only specify one,
+
+40
+00:01:29,930 --> 00:01:33,210
+But if I do Action and then Edit CIDRs,
+
+41
+00:01:33,210 --> 00:01:35,480
+and then here, I could add a new IPv4 CIDR.
+
+42
+00:01:35,480 --> 00:01:40,480
+So I could have 10.0.0, sorry, .1.0/, excuse me,
+
+43
+00:01:40,850 --> 00:01:44,720
+10.1.0.0/16, which is the next CIDR after this one.
+
+44
+00:01:44,720 --> 00:01:45,553
+And then click on Save.
+
+45
+00:01:45,553 --> 00:01:47,840
+So we could have two different CIDRs in here.
+
+46
+00:01:47,840 --> 00:01:50,580
+And you could also add different IPv6 CIDRs.
+
+47
+00:01:50,580 --> 00:01:51,710
+Now to keep it very simple,
+
+48
+00:01:51,710 --> 00:01:54,343
+I'm not going to have two IPv4 CIDRs.
+
+49
+00:01:54,343 --> 00:01:55,200
+I'm just going to have one.
+
+50
+00:01:55,200 --> 00:01:56,720
+But I'm going to show you that you can have
+
+51
+00:01:56,720 --> 00:02:01,720
+up to five IPv4 CIDRs within your VPC, which is quite handy.
+
+52
+00:02:02,010 --> 00:02:04,160
+Okay, so we have this DemoVPC being created.
+
+53
+00:02:04,160 --> 00:02:05,610
+This is our first step to our demo.
+
+54
+00:02:05,610 --> 00:02:06,443
+I hope you liked it.
+
+55
+00:02:06,443 --> 00:02:08,250
+And I will see you in the next lecture.
+

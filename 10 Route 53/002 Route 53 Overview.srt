@@ -1,0 +1,588 @@
+1
+00:00:00,540 --> 00:00:02,850
+So now that we know what is a DNS,
+
+2
+00:00:02,850 --> 00:00:05,350
+let's have a look at Amazon Route 53.
+
+3
+00:00:05,350 --> 00:00:07,300
+So this is a highly available, scalable,
+
+4
+00:00:07,300 --> 00:00:10,940
+and fully managed and authoritative DNS.
+
+5
+00:00:10,940 --> 00:00:12,440
+What does authoritative means?
+
+6
+00:00:12,440 --> 00:00:15,390
+That means that the customer you can update the DNS records,
+
+7
+00:00:15,390 --> 00:00:18,050
+so you have full control over this DNS.
+
+8
+00:00:18,050 --> 00:00:19,910
+So the idea is that you have your clients
+
+9
+00:00:19,910 --> 00:00:23,390
+and they want to access your EC2 Instance @example.com
+
+10
+00:00:23,390 --> 00:00:27,020
+but right now your EC2 Instance only has a public IP.
+
+11
+00:00:27,020 --> 00:00:28,170
+Therefore what's going to happen
+
+12
+00:00:28,170 --> 00:00:30,900
+is that we're going to write some DNS records
+
+13
+00:00:30,900 --> 00:00:33,750
+into Amazon Route 53, into a hosted zone,
+
+14
+00:00:33,750 --> 00:00:36,260
+and when the client is asking for example.com,
+
+15
+00:00:36,260 --> 00:00:38,527
+then the Route 53 service will be able to say,
+
+16
+00:00:38,527 --> 00:00:43,110
+"Hey, you're looking for this IP 54.22.33.44,"
+
+17
+00:00:43,110 --> 00:00:45,530
+and then the clients will be able to connect directly
+
+18
+00:00:45,530 --> 00:00:47,580
+into our EC2 Instance.
+
+19
+00:00:47,580 --> 00:00:49,850
+So Route 53 is also a domain registrar,
+
+20
+00:00:49,850 --> 00:00:52,360
+so it will be able to register our own domain names there
+
+21
+00:00:52,360 --> 00:00:54,770
+such as example.com, and we'll be doing this
+
+22
+00:00:54,770 --> 00:00:56,860
+in the hands-on to allow us to get started
+
+23
+00:00:56,860 --> 00:00:58,390
+with this service.
+
+24
+00:00:58,390 --> 00:01:00,590
+So we have the ability to check also the health
+
+25
+00:01:00,590 --> 00:01:02,090
+of the resources within Route 53,
+
+26
+00:01:02,090 --> 00:01:03,590
+we'll see this in the section.
+
+27
+00:01:03,590 --> 00:01:05,022
+And this is the only service in AWS
+
+28
+00:01:05,022 --> 00:01:08,910
+that will provide 100% availability SLA.
+
+29
+00:01:08,910 --> 00:01:11,540
+Finally, why is it called Route 53?
+
+30
+00:01:11,540 --> 00:01:14,990
+Well, 53 is a reference to the traditional DNS port
+
+31
+00:01:14,990 --> 00:01:17,830
+used by DNS services, hence the name.
+
+32
+00:01:17,830 --> 00:01:21,400
+So in Route 53 you're going to define a bunch of DNS records
+
+33
+00:01:21,400 --> 00:01:25,300
+and the records define how you want to route traffic
+
+34
+00:01:25,300 --> 00:01:27,190
+to a specific domain.
+
+35
+00:01:27,190 --> 00:01:29,530
+So each record is going to contain a lot of information
+
+36
+00:01:29,530 --> 00:01:31,940
+such as the domain or the subdomain names
+
+37
+00:01:31,940 --> 00:01:33,860
+such as example.com.
+
+38
+00:01:33,860 --> 00:01:36,150
+The record type, and we'll see what types of record
+
+39
+00:01:36,150 --> 00:01:39,490
+we have available to us, for example it could be A or AAAA.
+
+40
+00:01:40,560 --> 00:01:42,830
+Then the value, so the value of the record,
+
+41
+00:01:42,830 --> 00:01:46,620
+for example, 12.34.56.78
+
+42
+00:01:46,620 --> 00:01:47,790
+The routing policy,
+
+43
+00:01:47,790 --> 00:01:51,830
+which is how a Route 53 will respond to queries.
+
+44
+00:01:51,830 --> 00:01:53,530
+The TTL, which is the amount of time
+
+45
+00:01:53,530 --> 00:01:56,680
+the record is going to be cached at the DNS resolvers,
+
+46
+00:01:56,680 --> 00:01:58,310
+also called time to live.
+
+47
+00:01:58,310 --> 00:02:01,960
+And then we have a lot of different supported
+
+48
+00:02:01,960 --> 00:02:04,450
+DNS report types in Route 53.
+
+49
+00:02:04,450 --> 00:02:08,020
+So we have, the ones you must know is A, quadruple A,
+
+50
+00:02:08,020 --> 00:02:10,360
+CNAME, and NS, so we'll have a look at those
+
+51
+00:02:10,360 --> 00:02:11,620
+in the hands-on.
+
+52
+00:02:11,620 --> 00:02:13,330
+And the advanced records that you can set,
+
+53
+00:02:13,330 --> 00:02:15,580
+but we don't need to know from an exam perspective,
+
+54
+00:02:15,580 --> 00:02:17,630
+are all the ones I just wrote right here.
+
+55
+00:02:18,961 --> 00:02:21,340
+So let's learn about the important record types
+
+56
+00:02:21,340 --> 00:02:23,660
+we need to know from an exam perspective.
+
+57
+00:02:23,660 --> 00:02:25,430
+So the A record is very simple,
+
+58
+00:02:25,430 --> 00:02:27,903
+it's to map a host name into an IPv4 IP.
+
+59
+00:02:29,640 --> 00:02:31,360
+So this is when you have, for example, example.com
+
+60
+00:02:31,360 --> 00:02:33,863
+that will be directed into 1.2.3.4.
+
+61
+00:02:35,710 --> 00:02:36,840
+Okay, great.
+
+62
+00:02:36,840 --> 00:02:38,450
+Then we have quadruple A.
+
+63
+00:02:38,450 --> 00:02:39,740
+So this is the same idea as A,
+
+64
+00:02:39,740 --> 00:02:41,770
+but this time we're going to match our host name
+
+65
+00:02:41,770 --> 00:02:44,230
+into an IPv6 address.
+
+66
+00:02:44,230 --> 00:02:46,990
+Then we have a CNAME, which is used to map a host name
+
+67
+00:02:46,990 --> 00:02:49,140
+into another host name.
+
+68
+00:02:49,140 --> 00:02:52,720
+And then the target host name of course may be an A
+
+69
+00:02:52,720 --> 00:02:54,880
+or a quadruple A record.
+
+70
+00:02:54,880 --> 00:02:57,400
+You can not create CNAMES in Route 53
+
+71
+00:02:57,400 --> 00:03:00,540
+for the top nodes of a DNS namespace or the Zone Apex,
+
+72
+00:03:00,540 --> 00:03:03,510
+and we'll see this in a future lecture as well
+
+73
+00:03:03,510 --> 00:03:04,900
+to understand how that works.
+
+74
+00:03:04,900 --> 00:03:08,440
+For example, you can not create a CNAME for example.com,
+
+75
+00:03:08,440 --> 00:03:12,620
+but you can create a CNAME record for www.example.com.
+
+76
+00:03:12,620 --> 00:03:16,230
+So we'll see how we can deal with this in a future lecture.
+
+77
+00:03:16,230 --> 00:03:19,520
+And then finally, NS is for name servers of the hosted zone.
+
+78
+00:03:19,520 --> 00:03:23,370
+They are the DNS names or IP addresses of the servers
+
+79
+00:03:23,370 --> 00:03:27,523
+that can respond to the DNS queries for your hosted zone,
+
+80
+00:03:28,360 --> 00:03:31,280
+and this will control how traffic is routed to a domain.
+
+81
+00:03:31,280 --> 00:03:34,950
+So let's have a look at what are hosted zones.
+
+82
+00:03:34,950 --> 00:03:37,330
+So hosted zones are a container of records,
+
+83
+00:03:37,330 --> 00:03:38,800
+and they will define how to route traffic
+
+84
+00:03:38,800 --> 00:03:40,390
+to a domain and its subdomain.
+
+85
+00:03:40,390 --> 00:03:41,830
+So we have two types of hosted zone,
+
+86
+00:03:41,830 --> 00:03:45,360
+we have the public of zones and the private hosted zones.
+
+87
+00:03:45,360 --> 00:03:47,470
+So whenever you buy a public domain name,
+
+88
+00:03:47,470 --> 00:03:50,900
+for example mypublicdomain.com, this is a public domain name
+
+89
+00:03:50,900 --> 00:03:53,960
+and therefore we can create a public hosted zone
+
+90
+00:03:53,960 --> 00:03:56,687
+and these public zone can answer the query,
+
+91
+00:03:56,687 --> 00:04:01,610
+"Hey, what's is the IP, underlying IP of the domain name
+
+92
+00:04:01,610 --> 00:04:04,870
+application1.mypublicdomainname.com?"
+
+93
+00:04:04,870 --> 00:04:06,750
+But we also have private hosted zones.
+
+94
+00:04:06,750 --> 00:04:08,750
+And these are for domain names that you,
+
+95
+00:04:08,750 --> 00:04:11,010
+they are not publicly available, they're privates,
+
+96
+00:04:11,010 --> 00:04:15,150
+and only you within your own virtual private cloud or VPC
+
+97
+00:04:15,150 --> 00:04:16,410
+can resolve this URL.
+
+98
+00:04:16,410 --> 00:04:19,829
+For example, application1.company.internal.
+
+99
+00:04:19,829 --> 00:04:21,089
+You may have seen this if you're working
+
+100
+00:04:21,089 --> 00:04:23,560
+for a private company, they sometimes have URLs
+
+101
+00:04:23,560 --> 00:04:26,500
+that you can only access from within your corporate network,
+
+102
+00:04:26,500 --> 00:04:29,290
+that's because this is a private URL, this is a private
+
+103
+00:04:29,290 --> 00:04:32,360
+and behind the scenes there is a private DNS record.
+
+104
+00:04:32,360 --> 00:04:35,840
+So for any hosted zones you're going to create an AWS
+
+105
+00:04:35,840 --> 00:04:38,000
+you're going to pay 50 cents per month,
+
+106
+00:04:38,000 --> 00:04:40,560
+so this is not free to use Route 53.
+
+107
+00:04:40,560 --> 00:04:42,900
+And if you are to register a domain name,
+
+108
+00:04:42,900 --> 00:04:44,630
+just like I will in the hands-on,
+
+109
+00:04:44,630 --> 00:04:47,620
+this will cost you a minimum of a $12 per year.
+
+110
+00:04:47,620 --> 00:04:49,920
+So just so you know, this section is not free.
+
+111
+00:04:51,400 --> 00:04:54,490
+So public versus private hosted zones, just to understand.
+
+112
+00:04:54,490 --> 00:04:57,050
+So public hosted zone can be answered,
+
+113
+00:04:57,050 --> 00:04:59,110
+can answer queries from public clients.
+
+114
+00:04:59,110 --> 00:05:00,477
+So when you web browser, for example, and say,
+
+115
+00:05:00,477 --> 00:05:04,070
+"Hey, give me example.com," and then it returns an IP.
+
+116
+00:05:04,070 --> 00:05:07,110
+And on the other end we have the private hosted zone.
+
+117
+00:05:07,110 --> 00:05:09,630
+So this is from within your VPC they live.
+
+118
+00:05:09,630 --> 00:05:12,340
+And so they allow you to identify private resources
+
+119
+00:05:12,340 --> 00:05:14,640
+with private domain names.
+
+120
+00:05:14,640 --> 00:05:16,970
+So for example, we have one EC2 Instance
+
+121
+00:05:16,970 --> 00:05:20,110
+that we want to identify with webapp.example.internal,
+
+122
+00:05:20,110 --> 00:05:22,330
+we have another EC2 Instance that we want to identify
+
+123
+00:05:22,330 --> 00:05:25,430
+with api.example.internal, and then we have a database
+
+124
+00:05:25,430 --> 00:05:29,120
+we want to identify with database.example.internal.
+
+125
+00:05:29,120 --> 00:05:32,030
+In which case we're going to register a private hosted zone,
+
+126
+00:05:32,030 --> 00:05:34,170
+and then in case the first EC2 Instance
+
+127
+00:05:34,170 --> 00:05:37,140
+is requesting for api.example.internal,
+
+128
+00:05:37,140 --> 00:05:39,660
+then the private hosted zone has an answer for it,
+
+129
+00:05:39,660 --> 00:05:42,770
+which is the private IP 10.0.0.10.
+
+130
+00:05:42,770 --> 00:05:43,900
+Then the EC2 Instance will connect
+
+131
+00:05:43,900 --> 00:05:45,220
+to the second EC2 Instance,
+
+132
+00:05:45,220 --> 00:05:46,530
+which may need to connect to database.
+
+133
+00:05:46,530 --> 00:05:49,800
+So it will say, "Hey, what's database.example.internal?"
+
+134
+00:05:49,800 --> 00:05:51,087
+And the private hosted zone will say,
+
+135
+00:05:51,087 --> 00:05:52,970
+"Well, this is this private IP."
+
+136
+00:05:52,970 --> 00:05:54,920
+And then the EC2 Instance can connect directly
+
+137
+00:05:54,920 --> 00:05:56,280
+into the database.
+
+138
+00:05:56,280 --> 00:05:58,220
+So the public hosted zone and the private hosted zone
+
+139
+00:05:58,220 --> 00:06:00,780
+work the exact same way, but just the public hosted zone
+
+140
+00:06:00,780 --> 00:06:03,300
+allows anyone from the internet to query your records,
+
+141
+00:06:03,300 --> 00:06:05,080
+so this is for your public records,
+
+142
+00:06:05,080 --> 00:06:07,700
+whereas a private hosted zone is only queried
+
+143
+00:06:07,700 --> 00:06:11,350
+from within your private resources, for example your VPC.
+
+144
+00:06:11,350 --> 00:06:12,610
+So that's it for the theory,
+
+145
+00:06:12,610 --> 00:06:15,010
+now let's go into the next lecture to register a domain
+
+146
+00:06:15,010 --> 00:06:16,430
+and then create some records.
+
+147
+00:06:16,430 --> 00:06:18,330
+So I will see you in the next lecture.
+

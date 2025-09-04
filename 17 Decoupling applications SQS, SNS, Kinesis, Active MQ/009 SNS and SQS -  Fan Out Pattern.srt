@@ -1,0 +1,572 @@
+1
+00:00:00,330 --> 00:00:01,560
+Now let's talk about
+
+2
+00:00:01,560 --> 00:00:05,280
+the SNS plus SQS fan-out pattern.
+
+3
+00:00:05,280 --> 00:00:06,840
+The idea is that you want a message
+
+4
+00:00:06,840 --> 00:00:09,660
+to be sent to multiple SQS queues,
+
+5
+00:00:09,660 --> 00:00:13,230
+but if you send them individually to every SQS queue,
+
+6
+00:00:13,230 --> 00:00:14,910
+there can be problems associated with it.
+
+7
+00:00:14,910 --> 00:00:17,310
+For example, if your application crashes in between,
+
+8
+00:00:17,310 --> 00:00:18,590
+if there are delivery failures,
+
+9
+00:00:18,590 --> 00:00:21,900
+or if you add more SQS queues down the road.
+
+10
+00:00:21,900 --> 00:00:23,880
+Therefore we want to use the fan-out pattern.
+
+11
+00:00:23,880 --> 00:00:27,150
+The idea is that you're going to push once an SNS topic
+
+12
+00:00:27,150 --> 00:00:29,670
+and then you're going to subscribe as many SQS queues
+
+13
+00:00:29,670 --> 00:00:31,920
+as you want to the SNS topic.
+
+14
+00:00:31,920 --> 00:00:33,360
+These queues are subscribers
+
+15
+00:00:33,360 --> 00:00:36,870
+and they will all receive the messages sent into SNS.
+
+16
+00:00:36,870 --> 00:00:38,850
+So for example, we have a buying service
+
+17
+00:00:38,850 --> 00:00:41,730
+that wants to send messages to two SQS queues.
+
+18
+00:00:41,730 --> 00:00:42,630
+What it will do instead,
+
+19
+00:00:42,630 --> 00:00:45,090
+it will send one message into an SNS topic,
+
+20
+00:00:45,090 --> 00:00:47,471
+and the queues are subscribers of that SNS topic
+
+21
+00:00:47,471 --> 00:00:49,809
+so that the fraud service and the shipping service
+
+22
+00:00:49,809 --> 00:00:53,730
+can read all messages from their own SQS queues.
+
+23
+00:00:53,730 --> 00:00:54,720
+The idea with this as well
+
+24
+00:00:54,720 --> 00:00:56,544
+is that it's a fully decoupled model
+
+25
+00:00:56,544 --> 00:00:58,950
+and there is no data loss.
+
+26
+00:00:58,950 --> 00:01:02,160
+SQS will give you data persistence, delayed processing,
+
+27
+00:01:02,160 --> 00:01:03,840
+as well as retries of work.
+
+28
+00:01:03,840 --> 00:01:06,628
+And with this pattern, we can add more SQS queues
+
+29
+00:01:06,628 --> 00:01:10,260
+as a subscriber of the SNS topic over time.
+
+30
+00:01:10,260 --> 00:01:11,850
+For this, we need to make sure
+
+31
+00:01:11,850 --> 00:01:14,040
+that your SQS queue access policy,
+
+32
+00:01:14,040 --> 00:01:14,949
+as we've seen from before,
+
+33
+00:01:14,949 --> 00:01:19,949
+allows your SNS topic to write to your SQS queue.
+
+34
+00:01:20,070 --> 00:01:22,202
+So again, yet another use case
+
+35
+00:01:22,202 --> 00:01:25,980
+for using queue access policies,
+
+36
+00:01:25,980 --> 00:01:27,960
+and we have cross-region delivery.
+
+37
+00:01:27,960 --> 00:01:30,510
+So it's definitely possible for an SNS topic
+
+38
+00:01:30,510 --> 00:01:32,476
+in one region to send messages
+
+39
+00:01:32,476 --> 00:01:37,476
+to SQS queues in other regions if the security allows it.
+
+40
+00:01:38,880 --> 00:01:41,910
+Next, so how do we use this pattern for other purposes?
+
+41
+00:01:41,910 --> 00:01:44,910
+For example, S3 events into multiple queues.
+
+42
+00:01:44,910 --> 00:01:46,972
+So there is a limitation of S3 event rules
+
+43
+00:01:46,972 --> 00:01:49,896
+is that for a combination of event type, for example,
+
+44
+00:01:49,896 --> 00:01:51,486
+an object is being created
+
+45
+00:01:51,486 --> 00:01:53,004
+and a prefix, for example,
+
+46
+00:01:53,004 --> 00:01:57,540
+images/, you can only have one S3 event rule.
+
+47
+00:01:57,540 --> 00:02:01,151
+But what if you want to send the same S3 event notification
+
+48
+00:02:01,151 --> 00:02:03,660
+to multiple SQS queues?
+
+49
+00:02:03,660 --> 00:02:05,610
+In that case, you would use the fan-out pattern.
+
+50
+00:02:05,610 --> 00:02:08,280
+So for example, we have S3 object created
+
+51
+00:02:08,280 --> 00:02:10,410
+as an event appearing in your S3 bucket,
+
+52
+00:02:10,410 --> 00:02:13,495
+and we will send this event into an SNS topic,
+
+53
+00:02:13,495 --> 00:02:16,171
+and we will subscribe many SQS queues
+
+54
+00:02:16,171 --> 00:02:18,660
+to the SNS topic as a final pattern.
+
+55
+00:02:18,660 --> 00:02:22,170
+But we could also subscribe other type of application,
+
+56
+00:02:22,170 --> 00:02:24,510
+email, Lambda functions, et cetera, et cetera.
+
+57
+00:02:24,510 --> 00:02:26,463
+And then what we get from this is that the message
+
+58
+00:02:26,463 --> 00:02:29,640
+of the event happening in Amazon S3
+
+59
+00:02:29,640 --> 00:02:31,916
+is going to go to many different destinations
+
+60
+00:02:31,916 --> 00:02:34,083
+thanks to this fan-out pattern.
+
+61
+00:02:34,920 --> 00:02:37,035
+Another architecture is that you can send data
+
+62
+00:02:37,035 --> 00:02:39,810
+directly from SNS to Amazon S3
+
+63
+00:02:39,810 --> 00:02:41,730
+through Kinesis Data Firehose.
+
+64
+00:02:41,730 --> 00:02:45,150
+So because SNS has a direct integration with KDF,
+
+65
+00:02:45,150 --> 00:02:48,420
+then your buying service can send data into an SNS topic.
+
+66
+00:02:48,420 --> 00:02:50,760
+Then Kinesis Data Firehose, KDF,
+
+67
+00:02:50,760 --> 00:02:52,665
+will receive that information.
+
+68
+00:02:52,665 --> 00:02:54,420
+And then from Kinesis Data Firehose,
+
+69
+00:02:54,420 --> 00:02:56,720
+you can send it into your Amazon S3 bucket,
+
+70
+00:02:56,720 --> 00:02:58,035
+or for that matter,
+
+71
+00:02:58,035 --> 00:03:01,920
+any supported KDF specific destination,
+
+72
+00:03:01,920 --> 00:03:04,410
+which allows you to be really extensible in the way
+
+73
+00:03:04,410 --> 00:03:08,610
+you want to maybe persist your messages from your SNS topic.
+
+74
+00:03:08,610 --> 00:03:11,610
+So we can apply the fan-out pattern to FIFO topics as well.
+
+75
+00:03:11,610 --> 00:03:16,050
+So Amazon SNS has a FIFO or FIFO capability,
+
+76
+00:03:16,050 --> 00:03:17,310
+which is first in first out,
+
+77
+00:03:17,310 --> 00:03:19,680
+which gives ordering of messages in the topic.
+
+78
+00:03:19,680 --> 00:03:21,300
+So the producer send the messages.
+
+79
+00:03:21,300 --> 00:03:22,950
+One, two, three, four.
+
+80
+00:03:22,950 --> 00:03:26,880
+And the subscribers can only be an SQS FIFO queue for now,
+
+81
+00:03:26,880 --> 00:03:27,713
+which is receiving messages,
+
+82
+00:03:27,713 --> 00:03:30,210
+one, two, three, four, in order.
+
+83
+00:03:30,210 --> 00:03:31,788
+So the idea is that with SNS FIFO,
+
+84
+00:03:31,788 --> 00:03:34,230
+we get the same features as SQS FIFO,
+
+85
+00:03:34,230 --> 00:03:36,780
+we get ordering by message group ID.
+
+86
+00:03:36,780 --> 00:03:39,810
+We get deduplication using a deduplication ID
+
+87
+00:03:39,810 --> 00:03:41,445
+or content-based deduplication.
+
+88
+00:03:41,445 --> 00:03:46,170
+And both SQS standard and FIFO queues can be subscribers.
+
+89
+00:03:46,170 --> 00:03:47,311
+In terms of throughput, you're limited.
+
+90
+00:03:47,311 --> 00:03:50,850
+You get the same throughput as the SQS FIFO queue.
+
+91
+00:03:50,850 --> 00:03:52,290
+So why do we need this?
+
+92
+00:03:52,290 --> 00:03:55,170
+Well, in case you wanna do a fan out using SQS FIFO.
+
+93
+00:03:55,170 --> 00:03:57,454
+So you need fan out, ordering and deduplication.
+
+94
+00:03:57,454 --> 00:03:59,610
+So the buying service will send the data
+
+95
+00:03:59,610 --> 00:04:01,260
+into an SNS FIFO topic,
+
+96
+00:04:01,260 --> 00:04:04,357
+and then it will fan out to two SQS FIFO queue,
+
+97
+00:04:04,357 --> 00:04:05,790
+which can have the fraud service
+
+98
+00:04:05,790 --> 00:04:09,210
+and the shipping service read from FIFO queues as well.
+
+99
+00:04:09,210 --> 00:04:11,742
+One last feature of SNS that can be really handy
+
+100
+00:04:11,742 --> 00:04:13,950
+regarding the fan-out pattern
+
+101
+00:04:13,950 --> 00:04:16,980
+is that you can do message filtering in SNS.
+
+102
+00:04:16,980 --> 00:04:18,870
+So what is message filtering?
+
+103
+00:04:18,870 --> 00:04:20,940
+Well, it's a JSON policy that is used
+
+104
+00:04:20,940 --> 00:04:25,170
+to filter messages sent to the SNS topics subscription.
+
+105
+00:04:25,170 --> 00:04:27,083
+So if a subscription doesn't have a filter policy,
+
+106
+00:04:27,083 --> 00:04:28,740
+it will receive every message,
+
+107
+00:04:28,740 --> 00:04:30,180
+and that's a default behavior.
+
+108
+00:04:30,180 --> 00:04:31,740
+But let's take an example of what happens
+
+109
+00:04:31,740 --> 00:04:34,620
+when we set up a message filtering policy.
+
+110
+00:04:34,620 --> 00:04:35,564
+So we have a buying service
+
+111
+00:04:35,564 --> 00:04:38,477
+and it sends transactions into an SNS topic.
+
+112
+00:04:38,477 --> 00:04:40,156
+For example, the transaction looked like
+
+113
+00:04:40,156 --> 00:04:41,820
+there's an order number,
+
+114
+00:04:41,820 --> 00:04:43,530
+there's a product, for example, a pencil,
+
+115
+00:04:43,530 --> 00:04:47,580
+the quantity for, and the state which is placed.
+
+116
+00:04:47,580 --> 00:04:51,660
+Now we want to create an SQS queue just for placed orders,
+
+117
+00:04:51,660 --> 00:04:53,417
+not all the orders, but just for placed orders.
+
+118
+00:04:53,417 --> 00:04:56,280
+So for this, we will subscribe the SQS queue
+
+119
+00:04:56,280 --> 00:05:00,390
+into the SNS topic, and we'll apply a filter policy in JSON,
+
+120
+00:05:00,390 --> 00:05:02,040
+and we will specify in a policy
+
+121
+00:05:02,040 --> 00:05:04,710
+that we want to have State equals Placed.
+
+122
+00:05:04,710 --> 00:05:06,362
+And so only the messages matching the policy
+
+123
+00:05:06,362 --> 00:05:08,940
+will go into the SQS queue,
+
+124
+00:05:08,940 --> 00:05:11,516
+but then we could have an SQS queue for canceled orders.
+
+125
+00:05:11,516 --> 00:05:14,910
+And so we can create our own filter policy for canceled
+
+126
+00:05:14,910 --> 00:05:17,880
+orders and have those coming from the same SNS topic
+
+127
+00:05:17,880 --> 00:05:19,230
+into the SQS queue.
+
+128
+00:05:19,230 --> 00:05:20,310
+And so the placed orders
+
+129
+00:05:20,310 --> 00:05:21,930
+and the canceled orders SQS queue
+
+130
+00:05:21,930 --> 00:05:23,850
+will not have the same messages.
+
+131
+00:05:23,850 --> 00:05:26,222
+We can also use the same filter policy, the canceled one,
+
+132
+00:05:26,222 --> 00:05:29,916
+to create an email subscription for canceled orders.
+
+133
+00:05:29,916 --> 00:05:33,180
+We could have a filter policy for declined orders,
+
+134
+00:05:33,180 --> 00:05:35,360
+for example, and as another SQS queue,
+
+135
+00:05:35,360 --> 00:05:38,810
+or we can create an SQS queue without a filter policy
+
+136
+00:05:38,810 --> 00:05:42,120
+to have all messages from that SNS topic.
+
+137
+00:05:42,120 --> 00:05:45,546
+So using all these fan-out patterns and message filtering,
+
+138
+00:05:45,546 --> 00:05:47,550
+FIFO queues and FIFO topics,
+
+139
+00:05:47,550 --> 00:05:48,787
+we get lots of different possibilities
+
+140
+00:05:48,787 --> 00:05:52,200
+and the exam will try to test you on all of those.
+
+141
+00:05:52,200 --> 00:05:53,370
+So that's it for this lecture.
+
+142
+00:05:53,370 --> 00:05:54,203
+I hope you liked it,
+
+143
+00:05:54,203 --> 00:05:55,980
+and I will see you in the next lecture.
+

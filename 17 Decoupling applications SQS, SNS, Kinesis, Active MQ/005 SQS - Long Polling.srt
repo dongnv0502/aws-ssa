@@ -1,0 +1,144 @@
+1
+00:00:00,360 --> 00:00:01,193
+So let's go ahead
+
+2
+00:00:01,193 --> 00:00:04,290
+and discuss long polling in Amazon SQS.
+
+3
+00:00:04,290 --> 00:00:05,910
+So the idea that your consumer,
+
+4
+00:00:05,910 --> 00:00:08,220
+that is requesting messages from the queue,
+
+5
+00:00:08,220 --> 00:00:10,980
+and it can wait for the messages to arrive,
+
+6
+00:00:10,980 --> 00:00:12,690
+if, when you do a request,
+
+7
+00:00:12,690 --> 00:00:15,270
+there are no messages for now in the queue.
+
+8
+00:00:15,270 --> 00:00:16,140
+This is called long polling.
+
+9
+00:00:16,140 --> 00:00:17,520
+So you have a queue
+
+10
+00:00:17,520 --> 00:00:20,280
+and then your consumer is going to poll the queue,
+
+11
+00:00:20,280 --> 00:00:23,280
+but the consumer can wait for a message to arrive.
+
+12
+00:00:23,280 --> 00:00:24,780
+So a message is going to arrive.
+
+13
+00:00:24,780 --> 00:00:27,180
+And then when, as soon as the message arrives,
+
+14
+00:00:27,180 --> 00:00:30,120
+it's going to be sent to the consumer.
+
+15
+00:00:30,120 --> 00:00:32,189
+So the idea is that with the long polling,
+
+16
+00:00:32,189 --> 00:00:35,250
+your consumer is going to decrease the number of API calls,
+
+17
+00:00:35,250 --> 00:00:36,870
+because they are long API calls.
+
+18
+00:00:36,870 --> 00:00:39,270
+Your consumer is asking SQS Queue maybe
+
+19
+00:00:39,270 --> 00:00:41,760
+for 10 seconds for a message.
+
+20
+00:00:41,760 --> 00:00:44,700
+And also, while you have less API calls,
+
+21
+00:00:44,700 --> 00:00:47,670
+you're going to also reduce the latency of your application.
+
+22
+00:00:47,670 --> 00:00:48,503
+Why?
+
+23
+00:00:48,503 --> 00:00:51,780
+Well, because as soon as a message is received by SQS,
+
+24
+00:00:51,780 --> 00:00:54,000
+it is going to be sent to the consumer.
+
+25
+00:00:54,000 --> 00:00:56,730
+And so therefore your consumer will receive your messages
+
+26
+00:00:56,730 --> 00:00:59,550
+with the least amount of lag.
+
+27
+00:00:59,550 --> 00:01:02,910
+So the long polling can be set anywhere between one second
+
+28
+00:01:02,910 --> 00:01:06,540
+to 20 seconds, and obviously, the longer you wait,
+
+29
+00:01:06,540 --> 00:01:08,130
+the more efficient you're going to do
+
+30
+00:01:08,130 --> 00:01:11,250
+and the less API calls you're going to do to SQS.
+
+31
+00:01:11,250 --> 00:01:14,460
+So, a wait time of 20 seconds may be preferable.
+
+32
+00:01:14,460 --> 00:01:18,120
+So overall you should prefer long polling to short polling,
+
+33
+00:01:18,120 --> 00:01:20,640
+and you can enable this at the queue level
+
+34
+00:01:20,640 --> 00:01:24,600
+or at the API level using the WaitTimeSeconds parameters.
+
+35
+00:01:24,600 --> 00:01:27,120
+Okay, so that's it for this lecture, I hope you liked it.
+
+36
+00:01:27,120 --> 00:01:29,103
+And I will see you in the next lecture.
+

@@ -1,0 +1,584 @@
+1
+00:00:00,170 --> 00:00:01,730
+So, now let's do a quick walkthrough
+
+2
+00:00:01,730 --> 00:00:03,930
+of the VPC that is created with your account
+
+3
+00:00:03,930 --> 00:00:05,220
+called the default VPC.
+
+4
+00:00:05,220 --> 00:00:08,109
+So, now all new AWS accounts will have a default VPC
+
+5
+00:00:08,109 --> 00:00:10,130
+and this is so that you can start,
+
+6
+00:00:10,130 --> 00:00:11,660
+you know, using it this right away.
+
+7
+00:00:11,660 --> 00:00:13,750
+So, new EC2 instances that are launched
+
+8
+00:00:13,750 --> 00:00:16,900
+into the default VPC if you don't specify any subnets.
+
+9
+00:00:16,900 --> 00:00:18,210
+And obviously when you start in your accounts,
+
+10
+00:00:18,210 --> 00:00:20,150
+you only have one VPC anyway.
+
+11
+00:00:20,150 --> 00:00:21,331
+So, the default VPC
+
+12
+00:00:21,331 --> 00:00:24,030
+will by default have internet connectivity,
+
+13
+00:00:24,030 --> 00:00:24,947
+so this is why our instance are being able
+
+14
+00:00:24,947 --> 00:00:28,690
+to access the internet and each EC2 instance within it
+
+15
+00:00:28,690 --> 00:00:30,370
+will get a public IPv4 address
+
+16
+00:00:30,370 --> 00:00:32,090
+and this is why we've been able to connect
+
+17
+00:00:32,090 --> 00:00:34,960
+to our EC2 instances right away when we created them.
+
+18
+00:00:34,960 --> 00:00:37,990
+We will also get a public and a private IPv4 DNS name
+
+19
+00:00:37,990 --> 00:00:39,790
+for our EC2 instances.
+
+20
+00:00:39,790 --> 00:00:40,640
+So, let's go in to the console
+
+21
+00:00:40,640 --> 00:00:43,070
+to have a look at this default VPC.
+
+22
+00:00:43,070 --> 00:00:45,090
+So, I'm in the console and we're going to have a look
+
+23
+00:00:45,090 --> 00:00:46,900
+at the VPC service.
+
+24
+00:00:46,900 --> 00:00:48,600
+So, the reason why we have a default VPC
+
+25
+00:00:48,600 --> 00:00:50,020
+is that if we didn't have one,
+
+26
+00:00:50,020 --> 00:00:52,560
+it will be very, very complicated for newcomers in the cloud
+
+27
+00:00:52,560 --> 00:00:54,140
+to start using AWS, okay?
+
+28
+00:00:54,140 --> 00:00:55,870
+But it is best practice if you know a bit
+
+29
+00:00:55,870 --> 00:00:58,300
+it was a networking that you create your own VPCs
+
+30
+00:00:58,300 --> 00:00:59,310
+in your production accounts
+
+31
+00:00:59,310 --> 00:01:01,190
+instead of using the default VPC.
+
+32
+00:01:01,190 --> 00:01:03,890
+So, this is the dashboard and on the left hand side,
+
+33
+00:01:03,890 --> 00:01:05,700
+there is your VPCs.
+
+34
+00:01:05,700 --> 00:01:08,060
+Now, as we can see one VPC is created,
+
+35
+00:01:08,060 --> 00:01:10,120
+there is no name, but it's called the default VPC,
+
+36
+00:01:10,120 --> 00:01:12,130
+because it's created by default, okay?
+
+37
+00:01:12,130 --> 00:01:15,330
+And as you can see there's an IPv4 CIDR block here
+
+38
+00:01:15,330 --> 00:01:16,310
+that is defined.
+
+39
+00:01:16,310 --> 00:01:18,750
+And what I can do is go to my website
+
+40
+00:01:18,750 --> 00:01:20,310
+and then calculate this range.
+
+41
+00:01:20,310 --> 00:01:22,670
+And as we can see, we can see where the first IP
+
+42
+00:01:22,670 --> 00:01:23,780
+of my range is.
+
+43
+00:01:23,780 --> 00:01:25,603
+Where is the last IP sets a /16 that means
+
+44
+00:01:25,603 --> 00:01:29,150
+that the last two octets of my IP can change.
+
+45
+00:01:29,150 --> 00:01:33,300
+So, the last two can change so all the way to .255.255
+
+46
+00:01:33,300 --> 00:01:38,120
+and we have 65,536 IPs possible in that range.
+
+47
+00:01:38,120 --> 00:01:39,520
+Okay, very handy.
+
+48
+00:01:39,520 --> 00:01:41,790
+And if we have a look at CIDRs, so again,
+
+49
+00:01:41,790 --> 00:01:44,200
+only one IP for CIDR has been created
+
+50
+00:01:44,200 --> 00:01:45,710
+and associated with that VPC.
+
+51
+00:01:45,710 --> 00:01:48,660
+No IPv6 CIDRs, flow logs are not enabled
+
+52
+00:01:48,660 --> 00:01:50,250
+and there are no tags, okay?
+
+53
+00:01:50,250 --> 00:01:51,300
+So, this is pretty good.
+
+54
+00:01:51,300 --> 00:01:52,980
+Now, if you look at all the options,
+
+55
+00:01:52,980 --> 00:01:55,380
+we have a look at main route table,
+
+56
+00:01:55,380 --> 00:01:56,610
+main network ACLs and so on,
+
+57
+00:01:56,610 --> 00:01:58,420
+so we'll have a look in the course
+
+58
+00:01:58,420 --> 00:02:00,290
+into what these are at one at the time, okay.
+
+59
+00:02:00,290 --> 00:02:02,710
+But let's just explore the menu for now.
+
+60
+00:02:02,710 --> 00:02:04,890
+So, we have three subnets already
+
+61
+00:02:04,890 --> 00:02:06,650
+and these subnets are linked to the VPC
+
+62
+00:02:06,650 --> 00:02:08,240
+that is the default VPC.
+
+63
+00:02:08,240 --> 00:02:10,340
+Now, each of these subnets by default
+
+64
+00:02:10,340 --> 00:02:12,840
+has its own IPv4 CIDR, okay.
+
+65
+00:02:12,840 --> 00:02:15,670
+And so if you have a look at on the right hand side
+
+66
+00:02:15,670 --> 00:02:17,570
+the availability zones as we can see
+
+67
+00:02:17,570 --> 00:02:19,370
+each subnet is in a different AZ.
+
+68
+00:02:19,370 --> 00:02:20,959
+And the reason is well, by default
+
+69
+00:02:20,959 --> 00:02:22,603
+we got three subnets across three AZ
+
+70
+00:02:22,603 --> 00:02:27,310
+to have a highly available architecture if we needed to.
+
+71
+00:02:27,310 --> 00:02:30,790
+So, these subnets turns out have these IPv4 CIDRs.
+
+72
+00:02:30,790 --> 00:02:34,150
+So, let's have a look at one of these for example, this one
+
+73
+00:02:34,150 --> 00:02:37,033
+and then I will calculate this new CIDR.
+
+74
+00:02:37,884 --> 00:02:41,060
+And so here's the first IP and here is the last IP.
+
+75
+00:02:41,060 --> 00:02:44,640
+And the total number of hosts is 4,096,
+
+76
+00:02:44,640 --> 00:02:45,920
+but it turns out that if you go back
+
+77
+00:02:45,920 --> 00:02:48,010
+into the subnets console,
+
+78
+00:02:48,010 --> 00:02:52,240
+the number of available IPv4 addresses is 4,091.
+
+79
+00:02:52,240 --> 00:02:54,440
+So, we'll have a look at why this is the case
+
+80
+00:02:54,440 --> 00:02:55,950
+and obviously it would be a lesser number
+
+81
+00:02:55,950 --> 00:02:58,940
+if you are already using this subnets, okay?
+
+82
+00:02:58,940 --> 00:03:00,880
+So, we'll try to understand why this is the case,
+
+83
+00:03:00,880 --> 00:03:02,950
+but there are five IPs are missing and we'll learn about it
+
+84
+00:03:02,950 --> 00:03:04,070
+in this course.
+
+85
+00:03:04,070 --> 00:03:05,930
+So, looking all the way to the right,
+
+86
+00:03:05,930 --> 00:03:09,020
+each subnet has a route table and a network ACL.
+
+87
+00:03:09,020 --> 00:03:11,590
+And as you can see there is a default subnet
+
+88
+00:03:11,590 --> 00:03:14,530
+and we have the setting auto-assign public IPv4 enable
+
+89
+00:03:14,530 --> 00:03:16,770
+that means that any EC2 instance created
+
+90
+00:03:16,770 --> 00:03:20,770
+into these default subnets will have a public IPv4, okay?
+
+91
+00:03:20,770 --> 00:03:24,040
+So, let's have a look at now the settings,
+
+92
+00:03:24,040 --> 00:03:26,700
+so the flow logs are not enabled for the subnets.
+
+93
+00:03:26,700 --> 00:03:28,440
+The route table is available,
+
+94
+00:03:28,440 --> 00:03:30,280
+so there is this route table that exists
+
+95
+00:03:30,280 --> 00:03:32,300
+and we'll have a look at it in the second.
+
+96
+00:03:32,300 --> 00:03:35,490
+And then there is network ACL and this is again,
+
+97
+00:03:35,490 --> 00:03:37,740
+we'll see in details where this is in this section, okay.
+
+98
+00:03:37,740 --> 00:03:40,930
+But it turns out that's all traffic on all protocols
+
+99
+00:03:40,930 --> 00:03:44,990
+from everywhere is allowed for inbound and for outbound.
+
+100
+00:03:44,990 --> 00:03:46,280
+So, that means that anything launched
+
+101
+00:03:46,280 --> 00:03:48,260
+into these subnets, okay.
+
+102
+00:03:48,260 --> 00:03:51,530
+Will be having network connectivity, which is good.
+
+103
+00:03:51,530 --> 00:03:52,610
+Now, for CIDR reservations,
+
+104
+00:03:52,610 --> 00:03:54,090
+there are none of them sharing,
+
+105
+00:03:54,090 --> 00:03:57,490
+so this subnet is not shared and there are no tags.
+
+106
+00:03:57,490 --> 00:03:58,860
+So, let's have a look at the route table.
+
+107
+00:03:58,860 --> 00:04:02,650
+So, the route table is helping your traffic
+
+108
+00:04:02,650 --> 00:04:04,640
+being routed through your VPC.
+
+109
+00:04:04,640 --> 00:04:07,330
+So, this is called a default route table,
+
+110
+00:04:07,330 --> 00:04:08,840
+a main route table and it turns out
+
+111
+00:04:08,840 --> 00:04:10,230
+that there are two rules,
+
+112
+00:04:10,230 --> 00:04:12,380
+will have a look at what this means later on.
+
+113
+00:04:12,380 --> 00:04:13,790
+But this one right here,
+
+114
+00:04:13,790 --> 00:04:17,360
+this one is pointing to all traffic, okay.
+
+115
+00:04:17,360 --> 00:04:19,839
+Outside of this CIDR, all traffic goes to
+
+116
+00:04:19,839 --> 00:04:21,470
+this internet gateway.
+
+117
+00:04:21,470 --> 00:04:23,890
+So, if we click on this internet gateway
+
+118
+00:04:23,890 --> 00:04:25,690
+and go here, so it's on the left hand side.
+
+119
+00:04:25,690 --> 00:04:28,760
+This internet gateway is attached to my VPC
+
+120
+00:04:28,760 --> 00:04:30,920
+and whether it does that it gives internet access
+
+121
+00:04:30,920 --> 00:04:33,120
+to my EC2 instances within my VPC.
+
+122
+00:04:33,120 --> 00:04:35,870
+So again, this is why are our EC2 instances
+
+123
+00:04:35,870 --> 00:04:37,560
+did gets internet access.
+
+124
+00:04:37,560 --> 00:04:39,110
+Now, we'll have a look at it again
+
+125
+00:04:39,110 --> 00:04:40,980
+in the later stage in details.
+
+126
+00:04:40,980 --> 00:04:43,040
+And if you look at the subnet association,
+
+127
+00:04:43,040 --> 00:04:45,590
+this route table is not explicitly associated
+
+128
+00:04:45,590 --> 00:04:48,330
+with any subnets, but it is implicitly associated,
+
+129
+00:04:48,330 --> 00:04:50,870
+because these subnets do not have a route table
+
+130
+00:04:50,870 --> 00:04:51,703
+assigned to it.
+
+131
+00:04:51,703 --> 00:04:54,430
+So, the main route table is by default going to be assigned
+
+132
+00:04:54,430 --> 00:04:56,513
+to them implicitly, okay?
+
+133
+00:04:57,500 --> 00:04:59,190
+And then we're good to go.
+
+134
+00:04:59,190 --> 00:05:02,530
+So, we've seen VPCs subnets, route tables, internet gateway
+
+135
+00:05:02,530 --> 00:05:04,160
+at a very high level, but hopefully
+
+136
+00:05:04,160 --> 00:05:05,270
+it gives you a little bit on understanding
+
+137
+00:05:05,270 --> 00:05:07,970
+as to why we were able to launch EC2 instances,
+
+138
+00:05:07,970 --> 00:05:10,420
+why they were getting specific kind of IPs and so on.
+
+139
+00:05:10,420 --> 00:05:11,380
+Now in this section,
+
+140
+00:05:11,380 --> 00:05:13,210
+we're gonna spend a lot of time having a look at
+
+141
+00:05:13,210 --> 00:05:15,420
+all these options and recreate our own VPC.
+
+142
+00:05:15,420 --> 00:05:17,610
+So, we'll understand exactly what VPC, subnet,
+
+143
+00:05:17,610 --> 00:05:18,580
+route table, internet gateway
+
+144
+00:05:18,580 --> 00:05:21,000
+and everything else here actually are made of.
+
+145
+00:05:21,000 --> 00:05:22,090
+So, I hope you're excited
+
+146
+00:05:22,090 --> 00:05:24,040
+and I will see you in the next lecture.
+

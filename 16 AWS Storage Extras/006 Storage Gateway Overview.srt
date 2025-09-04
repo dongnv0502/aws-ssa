@@ -1,0 +1,888 @@
+1
+00:00:00,270 --> 00:00:03,990
+So AWS is starting to push for hybrid cloud.
+
+2
+00:00:03,990 --> 00:00:05,280
+And what is hybrid cloud?
+
+3
+00:00:05,280 --> 00:00:07,020
+That means that part of your infrastructure
+
+4
+00:00:07,020 --> 00:00:09,630
+is going to be on the cloud of AWS.
+
+5
+00:00:09,630 --> 00:00:11,370
+And part of your infrastructure
+
+6
+00:00:11,370 --> 00:00:13,680
+is going to stay on-premises.
+
+7
+00:00:13,680 --> 00:00:15,360
+And this can be due to multiple reasons.
+
+8
+00:00:15,360 --> 00:00:17,970
+Maybe you have a long cloud migration,
+
+9
+00:00:17,970 --> 00:00:20,580
+maybe you have security requirements or past requirements,
+
+10
+00:00:20,580 --> 00:00:22,950
+maybe it's part of your strategy to only leverage a cloud
+
+11
+00:00:22,950 --> 00:00:24,480
+for elastic workloads,
+
+12
+00:00:24,480 --> 00:00:26,940
+but to keep a lot of stuff on-premises.
+
+13
+00:00:26,940 --> 00:00:29,890
+So we have some services that we really like in AWS,
+
+14
+00:00:29,890 --> 00:00:31,980
+which has Amazon S3,
+
+15
+00:00:31,980 --> 00:00:34,650
+which is a proprietary storage technology,
+
+16
+00:00:34,650 --> 00:00:39,240
+which is unlike EFS, which is an NFS compliance file system.
+
+17
+00:00:39,240 --> 00:00:41,010
+So how would you expose, for example,
+
+18
+00:00:41,010 --> 00:00:46,010
+the S3 data on-premises and the bridge between this S3
+
+19
+00:00:46,320 --> 00:00:48,720
+and your on-premises infrastructure
+
+20
+00:00:48,720 --> 00:00:51,840
+is going to be AWS Storage Gateway.
+
+21
+00:00:51,840 --> 00:00:55,620
+So if we look at the storage cloud native options on AWS,
+
+22
+00:00:55,620 --> 00:00:58,410
+we have block storage, which is Amazon EBS
+
+23
+00:00:58,410 --> 00:01:00,930
+or the EC2 Instance Store.
+
+24
+00:01:00,930 --> 00:01:05,190
+We have file systems such as Amazon EFS or Amazon FSx,
+
+25
+00:01:05,190 --> 00:01:08,970
+and we have object-level storage such as Amazon S3
+
+26
+00:01:08,970 --> 00:01:11,040
+or Amazon Glacier.
+
+27
+00:01:11,040 --> 00:01:14,700
+So now let's talk about the AWS Storage Gateway.
+
+28
+00:01:14,700 --> 00:01:19,350
+So very simply, it is a bridge between your on-premises data
+
+29
+00:01:19,350 --> 00:01:21,300
+and your cloud data.
+
+30
+00:01:21,300 --> 00:01:24,570
+So you have data on-premises and you're going to bridge it
+
+31
+00:01:24,570 --> 00:01:27,180
+using a storage gateway to the cloud.
+
+32
+00:01:27,180 --> 00:01:28,080
+Now that looks simple
+
+33
+00:01:28,080 --> 00:01:30,660
+but we have different use cases for this.
+
+34
+00:01:30,660 --> 00:01:32,580
+The first one is to do disaster recovery,
+
+35
+00:01:32,580 --> 00:01:36,810
+so to back up your on-premise data into the cloud.
+
+36
+00:01:36,810 --> 00:01:38,910
+Or you can also do backup and restore,
+
+37
+00:01:38,910 --> 00:01:40,560
+so to do a cloud migration
+
+38
+00:01:40,560 --> 00:01:45,510
+or to extend your storage from on-premises to the cloud.
+
+39
+00:01:45,510 --> 00:01:48,300
+And for example, your cloud has colder data
+
+40
+00:01:48,300 --> 00:01:51,000
+and your on-premises data has more warmer,
+
+41
+00:01:51,000 --> 00:01:53,190
+more frequently used data.
+
+42
+00:01:53,190 --> 00:01:55,020
+Also, you can, for example,
+
+43
+00:01:55,020 --> 00:01:58,470
+instead prefer to have the majority of your data
+
+44
+00:01:58,470 --> 00:02:02,760
+stored on AWS and use the storage gateway
+
+45
+00:02:02,760 --> 00:02:06,780
+as an on-premises cache for low-latency file access.
+
+46
+00:02:06,780 --> 00:02:09,240
+So there are different kind of use cases
+
+47
+00:02:09,240 --> 00:02:12,930
+and therefore there are different kinds of Storage Gateway
+
+48
+00:02:12,930 --> 00:02:14,160
+and there are a few of them.
+
+49
+00:02:14,160 --> 00:02:17,670
+So the first one is the S3 File Gateway,
+
+50
+00:02:17,670 --> 00:02:20,700
+then we have the FSx File Gateway,
+
+51
+00:02:20,700 --> 00:02:23,550
+the Volume Gateway, and the Tape Gateway.
+
+52
+00:02:23,550 --> 00:02:27,600
+I will be explaining all of those in this lecture.
+
+53
+00:02:27,600 --> 00:02:31,440
+So first we have the Amazon S3 File Gateway.
+
+54
+00:02:31,440 --> 00:02:33,270
+So we have an S3 bucket
+
+55
+00:02:33,270 --> 00:02:35,310
+and we can use whatever storage class we want.
+
+56
+00:02:35,310 --> 00:02:38,068
+For example, S3 Standard, S3 Standard-IA,
+
+57
+00:02:38,068 --> 00:02:41,010
+S3 One Zone-IA, S3 Intelligent-Tiering,
+
+58
+00:02:41,010 --> 00:02:42,840
+but not Glacier.
+
+59
+00:02:42,840 --> 00:02:45,750
+And we want to connect this S3 bucket
+
+60
+00:02:45,750 --> 00:02:48,990
+to an on-premises application server
+
+61
+00:02:48,990 --> 00:02:52,170
+but we want to use a standard network file system.
+
+62
+00:02:52,170 --> 00:02:55,260
+So for this we're going to create an S3 File Gateway
+
+63
+00:02:55,260 --> 00:02:57,750
+which is going to allow our application server
+
+64
+00:02:57,750 --> 00:03:01,050
+to use the NFS or the SMB protocol.
+
+65
+00:03:01,050 --> 00:03:03,450
+And by using this protocols,
+
+66
+00:03:03,450 --> 00:03:05,700
+behind the scene the S3 File Gateway
+
+67
+00:03:05,700 --> 00:03:07,740
+is going to translate those requests
+
+68
+00:03:07,740 --> 00:03:11,970
+into HTTPS requests for your Amazon S3 buckets.
+
+69
+00:03:11,970 --> 00:03:14,310
+So from an application server perspective,
+
+70
+00:03:14,310 --> 00:03:17,250
+it looks like it's accessing a normal file share.
+
+71
+00:03:17,250 --> 00:03:18,990
+But in fact, behind the scenes
+
+72
+00:03:18,990 --> 00:03:21,450
+it is using an Amazon S3 bucket.
+
+73
+00:03:21,450 --> 00:03:24,150
+And this is how you expose S3 objects
+
+74
+00:03:24,150 --> 00:03:28,530
+on two on-premises application servers.
+
+75
+00:03:28,530 --> 00:03:31,830
+Then if you wanted to archive some of these objects,
+
+76
+00:03:31,830 --> 00:03:35,100
+you could create a lifecycle policy for your S3 bucket
+
+77
+00:03:35,100 --> 00:03:38,370
+to transition objects after a while to S3 Glacier
+
+78
+00:03:38,370 --> 00:03:40,860
+in order to have them archived.
+
+79
+00:03:40,860 --> 00:03:44,220
+So whatever buckets you configure with your S3 File Gateway
+
+80
+00:03:44,220 --> 00:03:48,030
+are going to be accessible using the NFS and SMB protocol.
+
+81
+00:03:48,030 --> 00:03:51,270
+And on top of it, the most recently used data
+
+82
+00:03:51,270 --> 00:03:54,900
+is cached in the file gateway for rapid access.
+
+83
+00:03:54,900 --> 00:03:57,780
+So not your entire S3 bucket is on the file gateway
+
+84
+00:03:57,780 --> 00:04:00,390
+but your most recently files
+
+85
+00:04:00,390 --> 00:04:02,640
+that are most recently used files.
+
+86
+00:04:02,640 --> 00:04:04,800
+Okay, so as I said, it supports different storage classes
+
+87
+00:04:04,800 --> 00:04:08,310
+for your S3 buckets, and you can transition to S3 Glacier
+
+88
+00:04:08,310 --> 00:04:10,680
+using a lifecycle policy.
+
+89
+00:04:10,680 --> 00:04:12,270
+Now to access your bucket,
+
+90
+00:04:12,270 --> 00:04:16,140
+you need to create IAM roles for each file gateway.
+
+91
+00:04:16,140 --> 00:04:19,200
+And then if you were to use the SMB protocol
+
+92
+00:04:19,200 --> 00:04:21,990
+because it is more native for Windows file systems,
+
+93
+00:04:21,990 --> 00:04:25,200
+you have integration with active directory
+
+94
+00:04:25,200 --> 00:04:26,790
+for user authentication.
+
+95
+00:04:26,790 --> 00:04:29,820
+So that means that your users can be authentified
+
+96
+00:04:29,820 --> 00:04:32,010
+with your S3 File Gateway before accessing it
+
+97
+00:04:32,010 --> 00:04:35,250
+and then therefore accessing your S3 buckets.
+
+98
+00:04:35,250 --> 00:04:37,590
+So that's the Amazon S3 File Gateway.
+
+99
+00:04:37,590 --> 00:04:41,070
+Now, similarly, we have the Amazon FSx File Gateway
+
+100
+00:04:41,070 --> 00:04:44,700
+which provide again native access to Amazon FSx
+
+101
+00:04:44,700 --> 00:04:46,500
+for Windows File Server.
+
+102
+00:04:46,500 --> 00:04:48,960
+So we have a Windows File Server FSx
+
+103
+00:04:48,960 --> 00:04:51,540
+deployed on Amazon FSx File System.
+
+104
+00:04:51,540 --> 00:04:53,940
+And we want to access from SMB clients
+
+105
+00:04:53,940 --> 00:04:56,460
+on your corporate data center.
+
+106
+00:04:56,460 --> 00:04:58,800
+So, you know that, actually,
+
+107
+00:04:58,800 --> 00:05:01,890
+if you are using Amazon FSx for Windows File Server,
+
+108
+00:05:01,890 --> 00:05:03,180
+you don't need anything special.
+
+109
+00:05:03,180 --> 00:05:07,350
+This is already accessible for your on-premises system.
+
+110
+00:05:07,350 --> 00:05:09,300
+So why would you go ahead
+
+111
+00:05:09,300 --> 00:05:13,380
+with the trouble of creating an Amazon FSx File Gateway?
+
+112
+00:05:13,380 --> 00:05:16,650
+Well, the idea is that if you do create the gateway,
+
+113
+00:05:16,650 --> 00:05:18,690
+you're going to get a local cache
+
+114
+00:05:18,690 --> 00:05:20,940
+for the frequently access data.
+
+115
+00:05:20,940 --> 00:05:24,090
+So that means that some very important files
+
+116
+00:05:24,090 --> 00:05:26,760
+will be cached locally on your corporate data center
+
+117
+00:05:26,760 --> 00:05:29,940
+and you're going to have low latency access to them.
+
+118
+00:05:29,940 --> 00:05:31,440
+So this will be the main reason
+
+119
+00:05:31,440 --> 00:05:34,140
+for you to use the Amazon FSx file gateway
+
+120
+00:05:34,140 --> 00:05:38,820
+on top of using the Amazon FSx Windows File Server option.
+
+121
+00:05:38,820 --> 00:05:41,220
+You also have Windows and native compatibility
+
+122
+00:05:41,220 --> 00:05:42,090
+for your file gateway.
+
+123
+00:05:42,090 --> 00:05:45,330
+So SMB and TFS and active directory.
+
+124
+00:05:45,330 --> 00:05:47,310
+And so it's very useful for group file shares
+
+125
+00:05:47,310 --> 00:05:50,913
+and home directories that you want to expose on-premises.
+
+126
+00:05:51,810 --> 00:05:54,330
+Next, we have the Volume Gateway.
+
+127
+00:05:54,330 --> 00:05:56,010
+And this is block storage
+
+128
+00:05:56,010 --> 00:06:00,240
+using the iSCSI protocol backed by Amazon S3.
+
+129
+00:06:00,240 --> 00:06:02,790
+And the idea is that you will have your volumes
+
+130
+00:06:02,790 --> 00:06:06,120
+being backed up by EBS snapshots,
+
+131
+00:06:06,120 --> 00:06:09,360
+which can in turn helps you restore on-premises volumes
+
+132
+00:06:09,360 --> 00:06:10,710
+in case you need to.
+
+133
+00:06:10,710 --> 00:06:12,660
+So you have two types of Volume Gateway.
+
+134
+00:06:12,660 --> 00:06:15,330
+You have the Cached volumes to get low latency access
+
+135
+00:06:15,330 --> 00:06:17,250
+to the most recent data
+
+136
+00:06:17,250 --> 00:06:21,390
+or stored volume where the entire data set is on-premises
+
+137
+00:06:21,390 --> 00:06:25,140
+and there is a scheduled backup to Amazon S3.
+
+138
+00:06:25,140 --> 00:06:27,840
+So here our application server needs to be backed up.
+
+139
+00:06:27,840 --> 00:06:29,790
+And so using this protocol,
+
+140
+00:06:29,790 --> 00:06:31,560
+we are going to get a Volume Gateway
+
+141
+00:06:31,560 --> 00:06:35,010
+and the Volume Gateway will create Amazon EBS snapshots
+
+142
+00:06:35,010 --> 00:06:36,540
+backed by Amazon S3.
+
+143
+00:06:36,540 --> 00:06:38,010
+So the same logic here,
+
+144
+00:06:38,010 --> 00:06:40,560
+but here the goal of the Volume Gateway really
+
+145
+00:06:40,560 --> 00:06:45,560
+is to back up your volumes of your on-premises servers.
+
+146
+00:06:46,110 --> 00:06:49,350
+Tape Gateway is that if you have some companies
+
+147
+00:06:49,350 --> 00:06:52,020
+that have like, for example, a tape backup system
+
+148
+00:06:52,020 --> 00:06:53,310
+using physical tapes,
+
+149
+00:06:53,310 --> 00:06:55,650
+then with the Tape Gateway, you do the same process
+
+150
+00:06:55,650 --> 00:06:58,140
+but the tapes are going to be backed up in the cloud.
+
+151
+00:06:58,140 --> 00:07:00,870
+And so this virtual tape library or VTL
+
+152
+00:07:00,870 --> 00:07:04,290
+is going to be backed by Amazon S3 and Glacier.
+
+153
+00:07:04,290 --> 00:07:06,090
+You're going to back up existing data
+
+154
+00:07:06,090 --> 00:07:09,690
+using tape-based process and using the iSCSI interface.
+
+155
+00:07:09,690 --> 00:07:10,740
+And then this is going to work
+
+156
+00:07:10,740 --> 00:07:12,240
+with leading backup software vendors.
+
+157
+00:07:12,240 --> 00:07:14,280
+So diagram you can expect.
+
+158
+00:07:14,280 --> 00:07:16,050
+The corporate data center has a backup server,
+
+159
+00:07:16,050 --> 00:07:17,160
+which is tape-based.
+
+160
+00:07:17,160 --> 00:07:20,790
+The Tape Gateway will do the interface into the cloud
+
+161
+00:07:20,790 --> 00:07:25,790
+by storing the tapes into Amazon S3 or in Amazon Glacier.
+
+162
+00:07:25,980 --> 00:07:30,390
+Finally, as you can see in all these diagrams from before,
+
+163
+00:07:30,390 --> 00:07:32,970
+the gateway has to be installed
+
+164
+00:07:32,970 --> 00:07:34,320
+on your corporate data center,
+
+165
+00:07:34,320 --> 00:07:36,810
+it has to run within your corporate data center.
+
+166
+00:07:36,810 --> 00:07:40,290
+But sometimes you do not have virtual servers
+
+167
+00:07:40,290 --> 00:07:42,720
+to run this additional gateway.
+
+168
+00:07:42,720 --> 00:07:46,560
+So an option for you is to leverage hardware from AWS.
+
+169
+00:07:46,560 --> 00:07:49,200
+So it's called Storage Gateway Hardware Appliance.
+
+170
+00:07:49,200 --> 00:07:51,810
+So if you don't have virtualization on-premises,
+
+171
+00:07:51,810 --> 00:07:54,060
+you can use a Storage Gateway Hardware Appliance
+
+172
+00:07:54,060 --> 00:07:58,170
+and you can order it literally on amazon.com.
+
+173
+00:07:58,170 --> 00:08:00,237
+And then once you install this hardware appliance
+
+174
+00:08:00,237 --> 00:08:03,960
+for this mini server into your infrastructure,
+
+175
+00:08:03,960 --> 00:08:06,570
+then you can set it up as a File Gateway,
+
+176
+00:08:06,570 --> 00:08:09,120
+a Volume Gateway or a Tape Gateway.
+
+177
+00:08:09,120 --> 00:08:11,730
+And this is really something physical you have to install
+
+178
+00:08:11,730 --> 00:08:15,180
+and will have the enough CPU, memory, network
+
+179
+00:08:15,180 --> 00:08:19,200
+and SSD cache resources to function correctly.
+
+180
+00:08:19,200 --> 00:08:20,790
+So this is very helpful, for example,
+
+181
+00:08:20,790 --> 00:08:23,700
+for daily NFS backups in small data centers
+
+182
+00:08:23,700 --> 00:08:26,700
+where you don't have virtualization available.
+
+183
+00:08:26,700 --> 00:08:29,970
+So let's try to summarize the Storage Gateway service.
+
+184
+00:08:29,970 --> 00:08:33,960
+So we have on-premises where we deploy a storage gateway VM
+
+185
+00:08:33,960 --> 00:08:36,299
+or a hardware appliance,
+
+186
+00:08:36,299 --> 00:08:37,799
+then we have the Storage Gateway service,
+
+187
+00:08:37,799 --> 00:08:39,960
+and then we have the cloud of AWS.
+
+188
+00:08:39,960 --> 00:08:43,679
+So if we want to have a file gateway with a local cache,
+
+189
+00:08:43,679 --> 00:08:46,440
+this is the use case where we have a user group file share
+
+190
+00:08:46,440 --> 00:08:50,370
+and we want to access it over the NFS or the SMB protocol.
+
+191
+00:08:50,370 --> 00:08:51,690
+Option number one,
+
+192
+00:08:51,690 --> 00:08:55,440
+we connect this into directly an S3 file gateway.
+
+193
+00:08:55,440 --> 00:08:58,500
+So therefore your data is going to be backed by Amazon S3.
+
+194
+00:08:58,500 --> 00:09:02,070
+And that includes many storage tiers except Glacier
+
+195
+00:09:02,070 --> 00:09:03,960
+and Glacier Deep Archive.
+
+196
+00:09:03,960 --> 00:09:06,240
+But we can create a lifecycle policy
+
+197
+00:09:06,240 --> 00:09:10,500
+to send this into any storage class Amazon S3,
+
+198
+00:09:10,500 --> 00:09:13,170
+including S3 Glacier.
+
+199
+00:09:13,170 --> 00:09:16,860
+If we were to instead use an FSx file gateway
+
+200
+00:09:16,860 --> 00:09:19,440
+then we would send the data into Amazon FSx
+
+201
+00:09:19,440 --> 00:09:21,150
+for Windows File Server,
+
+202
+00:09:21,150 --> 00:09:22,890
+which is automatically backed up
+
+203
+00:09:22,890 --> 00:09:25,290
+to Amazon S3 once in a while.
+
+204
+00:09:25,290 --> 00:09:28,440
+Now the other use case for a volume gateway
+
+205
+00:09:28,440 --> 00:09:31,230
+is to have application servers mount volumes
+
+206
+00:09:31,230 --> 00:09:33,570
+over the iSCSI protocol.
+
+207
+00:09:33,570 --> 00:09:35,430
+So what we do is that this volume gateway
+
+208
+00:09:35,430 --> 00:09:38,600
+is going to be linked through Storage Gateway to Amazon S3.
+
+209
+00:09:38,600 --> 00:09:42,450
+So this is where the data of your volume is going to be.
+
+210
+00:09:42,450 --> 00:09:46,513
+And then Amazon S3, this data can be transformed
+
+211
+00:09:46,513 --> 00:09:51,513
+into AWS EBS volumes for really being restored on AWS.
+
+212
+00:09:53,400 --> 00:09:55,590
+Next, we have your backup applications
+
+213
+00:09:55,590 --> 00:10:00,240
+connecting over the iSCSI VTL protocol to a tape gateway.
+
+214
+00:10:00,240 --> 00:10:03,330
+And the Tape gateway is connected to Amazon S3
+
+215
+00:10:03,330 --> 00:10:04,890
+as a tape library.
+
+216
+00:10:04,890 --> 00:10:07,740
+And then we can transition these tapes
+
+217
+00:10:07,740 --> 00:10:11,880
+into the Glacier and Glacier Deep Archive tier
+
+218
+00:10:11,880 --> 00:10:14,220
+to create an archive of your tapes.
+
+219
+00:10:14,220 --> 00:10:16,140
+So hopefully that summarizes everything
+
+220
+00:10:16,140 --> 00:10:17,610
+we've seen in this lecture
+
+221
+00:10:17,610 --> 00:10:18,990
+and you understand it.
+
+222
+00:10:18,990 --> 00:10:21,990
+I hope you liked it, and I will see you in the next lecture.
+

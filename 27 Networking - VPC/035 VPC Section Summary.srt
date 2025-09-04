@@ -1,0 +1,540 @@
+1
+00:00:00,000 --> 00:00:01,770
+So this has been quite a long
+
+2
+00:00:01,770 --> 00:00:03,030
+and interesting section, I hope,
+
+3
+00:00:03,030 --> 00:00:04,680
+and hopefully, you understand it.
+
+4
+00:00:04,680 --> 00:00:07,770
+If you need to revise some content, watch it twice.
+
+5
+00:00:07,770 --> 00:00:10,140
+Maybe it makes more sense after a week of watching again.
+
+6
+00:00:10,140 --> 00:00:12,990
+I know VPC was so difficult for me to learn.
+
+7
+00:00:12,990 --> 00:00:16,230
+It's networking, it's new, lots of new acronyms,
+
+8
+00:00:16,230 --> 00:00:17,063
+lots of new concepts
+
+9
+00:00:17,063 --> 00:00:18,900
+so take your time and don't be afraid
+
+10
+00:00:18,900 --> 00:00:21,570
+if you didn't understand all of it, just get back to it.
+
+11
+00:00:21,570 --> 00:00:22,740
+But let's summarize what we learned.
+
+12
+00:00:22,740 --> 00:00:24,840
+So a CIDR is an IP range.
+
+13
+00:00:24,840 --> 00:00:26,820
+A VPC is a Virtual Private Cloud,
+
+14
+00:00:26,820 --> 00:00:30,060
+which is working for IPv4 and IPv6.
+
+15
+00:00:30,060 --> 00:00:32,070
+Subnets are tied to an AZ in which we define CIDRs
+
+16
+00:00:32,070 --> 00:00:34,290
+and we have public and private subnets.
+
+17
+00:00:34,290 --> 00:00:35,430
+So how do we have a public subnets?
+
+18
+00:00:35,430 --> 00:00:37,440
+Well, we attach an internet gateway
+
+19
+00:00:37,440 --> 00:00:38,340
+and then we create a route
+
+20
+00:00:38,340 --> 00:00:40,110
+from the public subnet to the Internet Gateway.
+
+21
+00:00:40,110 --> 00:00:44,790
+And this provides IPv4 and IPv6 internet access if enabled.
+
+22
+00:00:44,790 --> 00:00:46,170
+Now, route tables, they would be edited
+
+23
+00:00:46,170 --> 00:00:48,600
+to have route to the Internet Gateway,
+
+24
+00:00:48,600 --> 00:00:51,270
+the VPC peering connections, the VPC endpoints and so on.
+
+25
+00:00:51,270 --> 00:00:52,920
+And they're key to make sure
+
+26
+00:00:52,920 --> 00:00:56,250
+that the network flows within our VPC.
+
+27
+00:00:56,250 --> 00:00:58,350
+The bastion host was a public EC2 instance
+
+28
+00:00:58,350 --> 00:01:00,120
+that we were able to SSH into.
+
+29
+00:01:00,120 --> 00:01:02,850
+And then this instance had SSH connectivity
+
+30
+00:01:02,850 --> 00:01:05,550
+to other EC2 instances in private subnets.
+
+31
+00:01:05,550 --> 00:01:07,140
+That's what it's called the bastion host.
+
+32
+00:01:07,140 --> 00:01:09,700
+NAT instances was an EC2 instance deployed
+
+33
+00:01:11,556 --> 00:01:13,320
+in a public subnets to give internet access
+
+34
+00:01:13,320 --> 00:01:15,690
+to EC2 instances in private subnets.
+
+35
+00:01:15,690 --> 00:01:18,450
+It is old, it is getting deprecated
+
+36
+00:01:18,450 --> 00:01:21,240
+and you need to disable the source destination check flag
+
+37
+00:01:21,240 --> 00:01:24,450
+for it to work and also edit your security group rules.
+
+38
+00:01:24,450 --> 00:01:26,910
+So we have the NAT Gateway instead, which is much better.
+
+39
+00:01:26,910 --> 00:01:28,410
+It's managed by AWS.
+
+40
+00:01:28,410 --> 00:01:30,390
+It provides scalable internet access
+
+41
+00:01:30,390 --> 00:01:32,040
+to private EC2 instances
+
+42
+00:01:32,040 --> 00:01:36,270
+when the target of your request is an IPv4 address.
+
+43
+00:01:36,270 --> 00:01:37,140
+Next, NACL.
+
+44
+00:01:37,140 --> 00:01:38,850
+So they were network SELs
+
+45
+00:01:38,850 --> 00:01:40,230
+and they were firewall rules
+
+46
+00:01:40,230 --> 00:01:43,800
+to define inbound and outbound access at the subnet level.
+
+47
+00:01:43,800 --> 00:01:46,560
+And don't forget about ephemeral ports in its...
+
+48
+00:01:46,560 --> 00:01:47,430
+NACL are stateless,
+
+49
+00:01:47,430 --> 00:01:49,950
+so inbound and outbound rules are always evaluated.
+
+50
+00:01:49,950 --> 00:01:52,290
+Whereas security group rules are stateful.
+
+51
+00:01:52,290 --> 00:01:54,000
+That means that if the inbound is allowed,
+
+52
+00:01:54,000 --> 00:01:56,940
+the outbound is automatically allowed and vice versa.
+
+53
+00:01:56,940 --> 00:01:59,010
+And security group rules are applied
+
+54
+00:01:59,010 --> 00:02:00,840
+at the EC2 instance level.
+
+55
+00:02:00,840 --> 00:02:04,170
+VPC peering was very helpful to connect two VPCs together
+
+56
+00:02:04,170 --> 00:02:06,930
+and only if they have non-overlapping CIDRs.
+
+57
+00:02:06,930 --> 00:02:08,850
+And VPC peering connections are non-transitive
+
+58
+00:02:08,850 --> 00:02:11,340
+so if you need to connect three VPCs together,
+
+59
+00:02:11,340 --> 00:02:14,100
+you need to have three VPC peering connections.
+
+60
+00:02:14,100 --> 00:02:16,800
+VPC endpoints are allowing us to get private access
+
+61
+00:02:16,800 --> 00:02:20,528
+to AWS services such as Amazon S3, DynamoDB,
+
+62
+00:02:20,528 --> 00:02:23,220
+CloudFormation, SSM, whatever you want within the VPC.
+
+63
+00:02:23,220 --> 00:02:24,930
+We saw they were gateway endpoints
+
+64
+00:02:24,930 --> 00:02:26,790
+for Amazon S3 and DynamoDB,
+
+65
+00:02:26,790 --> 00:02:29,520
+and all the rest was interface endpoints.
+
+66
+00:02:29,520 --> 00:02:32,610
+VPC Flow Logs was the way for us to get some log level
+
+67
+00:02:32,610 --> 00:02:35,580
+of metadata around all the packets within our VPC,
+
+68
+00:02:35,580 --> 00:02:36,960
+and we had some information
+
+69
+00:02:36,960 --> 00:02:39,420
+around the accept and the reject traffic.
+
+70
+00:02:39,420 --> 00:02:43,110
+Now, VPC Flow Logs can be created at the VPC subnet
+
+71
+00:02:43,110 --> 00:02:44,400
+or ENI level,
+
+72
+00:02:44,400 --> 00:02:47,280
+and they can be analyzed and sent to Amazon S3
+
+73
+00:02:47,280 --> 00:02:48,990
+and then analyze using Athena,
+
+74
+00:02:48,990 --> 00:02:50,610
+or they can be sent to CloudWatch logs
+
+75
+00:02:50,610 --> 00:02:53,970
+and then analyze using CloudWatch Log Insights, for example.
+
+76
+00:02:53,970 --> 00:02:56,670
+Now, to connect your VPC to your data center,
+
+77
+00:02:56,670 --> 00:02:57,503
+you have two options.
+
+78
+00:02:57,503 --> 00:02:59,970
+The first one is a site-to-site VPN.
+
+79
+00:02:59,970 --> 00:03:02,250
+And so to do a site-to-site VPN is a VPN connection
+
+80
+00:03:02,250 --> 00:03:03,720
+over the public internet
+
+81
+00:03:03,720 --> 00:03:07,350
+in which we have to create a virtual private gateway on AWS
+
+82
+00:03:07,350 --> 00:03:09,840
+and a customer gateway on your data center.
+
+83
+00:03:09,840 --> 00:03:12,330
+And then you establish the VPN connection.
+
+84
+00:03:12,330 --> 00:03:13,163
+And then we saw that
+
+85
+00:03:13,163 --> 00:03:14,910
+if we establish multiple VPN connections
+
+86
+00:03:14,910 --> 00:03:17,100
+using the same virtual private gateway,
+
+87
+00:03:17,100 --> 00:03:18,900
+then we could use VPN CloudHub
+
+88
+00:03:18,900 --> 00:03:22,620
+to have a hub and spoke VPN model to connect our sites.
+
+89
+00:03:22,620 --> 00:03:23,730
+The second way to connect
+
+90
+00:03:23,730 --> 00:03:25,800
+to our data center was to use Direct Connect.
+
+91
+00:03:25,800 --> 00:03:28,230
+So this time the connection is completely private,
+
+92
+00:03:28,230 --> 00:03:30,210
+it does not go over the public internet,
+
+93
+00:03:30,210 --> 00:03:32,670
+but it's takes time to establish.
+
+94
+00:03:32,670 --> 00:03:35,160
+You need to hook your own data center
+
+95
+00:03:35,160 --> 00:03:37,320
+to a Direct Connect location for it to work.
+
+96
+00:03:37,320 --> 00:03:39,600
+So it's more involved, but it's more secure
+
+97
+00:03:39,600 --> 00:03:43,440
+and has a more stability onto the connection.
+
+98
+00:03:43,440 --> 00:03:45,990
+Now, Direct Connect Gateway was to set up a Direct Connect
+
+99
+00:03:45,990 --> 00:03:49,560
+to many VPCs in different AWS regions.
+
+100
+00:03:49,560 --> 00:03:50,600
+We saw PrivateLink
+
+101
+00:03:50,600 --> 00:03:54,330
+or VPC endpoint services, which is to connect privately
+
+102
+00:03:54,330 --> 00:03:57,510
+to services within your VPC that you have created yourselves
+
+103
+00:03:57,510 --> 00:03:58,860
+to customer VPC.
+
+104
+00:03:58,860 --> 00:03:59,880
+And the cool thing about it
+
+105
+00:03:59,880 --> 00:04:01,680
+is that it doesn't require VPC peering,
+
+106
+00:04:01,680 --> 00:04:04,710
+or the public internet, or NAT Gateway or round tables.
+
+107
+00:04:04,710 --> 00:04:06,510
+It's only used or mostly used
+
+108
+00:04:06,510 --> 00:04:09,240
+with a Network Load Balancer and an ENI.
+
+109
+00:04:09,240 --> 00:04:11,370
+And this allows us to expose a service
+
+110
+00:04:11,370 --> 00:04:15,840
+within our VPC to hundreds or thousands of customer VPCs
+
+111
+00:04:15,840 --> 00:04:17,790
+without exposing your network.
+
+112
+00:04:17,790 --> 00:04:20,610
+ClassicLink is to connect EC2-Classic instances privately
+
+113
+00:04:20,610 --> 00:04:23,370
+to your VPC, but it's going to be deprecated very soon too.
+
+114
+00:04:23,370 --> 00:04:26,310
+Transit Gateway is a transitive peering connection
+
+115
+00:04:26,310 --> 00:04:29,220
+for your VPC, VPN and Direct Connect,
+
+116
+00:04:29,220 --> 00:04:32,100
+and it has this fact that everything can flow through it,
+
+117
+00:04:32,100 --> 00:04:33,270
+which is quite nice.
+
+118
+00:04:33,270 --> 00:04:35,640
+Traffic Mirroring is to copy network traffic
+
+119
+00:04:35,640 --> 00:04:38,940
+from your ENIs elsewhere for further analysis.
+
+120
+00:04:38,940 --> 00:04:41,550
+And then we looked at IPv6 in your VPC.
+
+121
+00:04:41,550 --> 00:04:42,540
+We saw how to enable it,
+
+122
+00:04:42,540 --> 00:04:44,370
+and we saw that there was the existence
+
+123
+00:04:44,370 --> 00:04:46,290
+of the egress-only Internet Gateway,
+
+124
+00:04:46,290 --> 00:04:47,850
+which is just like a NAT Gateway,
+
+125
+00:04:47,850 --> 00:04:51,360
+but for IPv6 traffic out to the internets.
+
+126
+00:04:51,360 --> 00:04:52,590
+So that's it.
+
+127
+00:04:52,590 --> 00:04:54,540
+It was a very long summary lecture of course,
+
+128
+00:04:54,540 --> 00:04:55,650
+but hopefully you learned a lot.
+
+129
+00:04:55,650 --> 00:04:58,140
+And hopefully all the things I've said make sense
+
+130
+00:04:58,140 --> 00:04:58,973
+or ring a bell.
+
+131
+00:04:58,973 --> 00:05:01,230
+If they don't, watch again this section
+
+132
+00:05:01,230 --> 00:05:02,490
+and you'll be good to go.
+
+133
+00:05:02,490 --> 00:05:03,323
+So that's it from me.
+
+134
+00:05:03,323 --> 00:05:04,200
+I hope you liked it,
+
+135
+00:05:04,200 --> 00:05:06,150
+and I will see you in the next lecture.
+

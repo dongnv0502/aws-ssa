@@ -1,0 +1,424 @@
+1
+00:00:00,150 --> 00:00:02,040
+So now, let's talk about Amazon CloudWatch.
+
+2
+00:00:02,040 --> 00:00:04,110
+And the first service I wanna talk about
+
+3
+00:00:04,110 --> 00:00:06,630
+within CloudWatch is CloudWatch Metrics.
+
+4
+00:00:06,630 --> 00:00:08,160
+So CloudWatch provides metrics
+
+5
+00:00:08,160 --> 00:00:11,550
+for every services out there in AWS,
+
+6
+00:00:11,550 --> 00:00:13,980
+and so, therefore, you can monitor everything
+
+7
+00:00:13,980 --> 00:00:15,600
+that's happening in your accounts.
+
+8
+00:00:15,600 --> 00:00:18,360
+And a metric is just a variable you wanna monitor.
+
+9
+00:00:18,360 --> 00:00:20,100
+For example, for an EC2 instance,
+
+10
+00:00:20,100 --> 00:00:23,940
+it could be the CPUUtilization, the NetworkIn, and so on.
+
+11
+00:00:23,940 --> 00:00:27,270
+For Amazon S3, it could be your bucket size and so on.
+
+12
+00:00:27,270 --> 00:00:30,000
+So metrics belong to namespaces, and, therefore,
+
+13
+00:00:30,000 --> 00:00:32,729
+they are bucketed in two different namespaces.
+
+14
+00:00:32,729 --> 00:00:35,910
+You have one namespace per service, basically.
+
+15
+00:00:35,910 --> 00:00:37,260
+So you have dimensions,
+
+16
+00:00:37,260 --> 00:00:39,300
+and they are attributes of a metric.
+
+17
+00:00:39,300 --> 00:00:42,420
+For example, a metric about CPUUtilization
+
+18
+00:00:42,420 --> 00:00:45,600
+can be related to a specific instance id,
+
+19
+00:00:45,600 --> 00:00:47,910
+or a specific environment, and so on.
+
+20
+00:00:47,910 --> 00:00:51,090
+And you have up to 30 dimensions per metric.
+
+21
+00:00:51,090 --> 00:00:53,580
+So the metrics are time-based,
+
+22
+00:00:53,580 --> 00:00:56,100
+so, therefore, they must have a timestamp.
+
+23
+00:00:56,100 --> 00:00:58,620
+And then once you have a lot of metrics,
+
+24
+00:00:58,620 --> 00:01:01,890
+you can create a CloudWatch dashboard of metrics
+
+25
+00:01:01,890 --> 00:01:05,730
+so that you can see them all at once in a specific manner.
+
+26
+00:01:05,730 --> 00:01:07,890
+Also, you can create CloudWatch Custom Metrics.
+
+27
+00:01:07,890 --> 00:01:10,050
+So instead of relying on the metrics
+
+28
+00:01:10,050 --> 00:01:12,930
+that are provided by every services in AWS,
+
+29
+00:01:12,930 --> 00:01:14,880
+you can create your own custom metric.
+
+30
+00:01:14,880 --> 00:01:17,730
+For example, to extract the memory usage
+
+31
+00:01:17,730 --> 00:01:19,530
+out of an EC2 instance.
+
+32
+00:01:19,530 --> 00:01:21,210
+That is a classic use case
+
+33
+00:01:21,210 --> 00:01:23,820
+of using a CloudWatch Custom Metric.
+
+34
+00:01:23,820 --> 00:01:26,070
+The other thing you can do with your CloudWatch Metrics
+
+35
+00:01:26,070 --> 00:01:29,130
+is to stream them outside of CloudWatch.
+
+36
+00:01:29,130 --> 00:01:31,530
+So the idea is that you want to continuously stream
+
+37
+00:01:31,530 --> 00:01:34,110
+CloudWatch Metrics to a destination of your choice.
+
+38
+00:01:34,110 --> 00:01:37,980
+You're gonna get near real-time delivery and low latency.
+
+39
+00:01:37,980 --> 00:01:41,760
+And that destination is Amazon Kinesis Data Firehose,
+
+40
+00:01:41,760 --> 00:01:44,190
+and from there, you can send it to anywhere you want.
+
+41
+00:01:44,190 --> 00:01:46,290
+Or you can also send your CloudWatch Metrics
+
+42
+00:01:46,290 --> 00:01:48,690
+directly into a third-party service provider,
+
+43
+00:01:48,690 --> 00:01:50,580
+such as Datadog, Dynatrace, New Relic,
+
+44
+00:01:50,580 --> 00:01:52,830
+Splunk, Sumo Logic, and so on.
+
+45
+00:01:52,830 --> 00:01:53,910
+So how does that work?
+
+46
+00:01:53,910 --> 00:01:57,000
+Well, your CloudWatch Metrics are going to be streamed
+
+47
+00:01:57,000 --> 00:01:59,340
+near real-time into Kinesis Data Firehose,
+
+48
+00:01:59,340 --> 00:02:02,040
+and you obviously have to set that up for it to work.
+
+49
+00:02:02,040 --> 00:02:04,860
+And from Kinesis Data Firehose you can, for example,
+
+50
+00:02:04,860 --> 00:02:08,220
+send them into an Amazon S3 bucket from which you can use
+
+51
+00:02:08,220 --> 00:02:12,360
+Amazon Athena to analyze your data in Amazon S3,
+
+52
+00:02:12,360 --> 00:02:14,310
+or you can use Amazon Redshift
+
+53
+00:02:14,310 --> 00:02:17,040
+to have a data warehousing for your metrics,
+
+54
+00:02:17,040 --> 00:02:19,830
+or Amazon OpenSearch to build dashboards
+
+55
+00:02:19,830 --> 00:02:22,830
+from Amazon OpenSearch, or do analytics there.
+
+56
+00:02:22,830 --> 00:02:24,630
+And you can have the choice to stream
+
+57
+00:02:24,630 --> 00:02:27,450
+all your metrics for all your namespaces
+
+58
+00:02:27,450 --> 00:02:31,140
+or to only filter a few namespaces in
+
+59
+00:02:31,140 --> 00:02:33,150
+so that you only have a subset of your metrics
+
+60
+00:02:33,150 --> 00:02:36,690
+filtered and sent to Kinesis Data Firehose.
+
+61
+00:02:36,690 --> 00:02:39,300
+Now let's go have a look in the console.
+
+62
+00:02:39,300 --> 00:02:41,760
+So when you are in the CloudWatch dashboard
+
+63
+00:02:41,760 --> 00:02:43,110
+on the left-hand side, there is Metrics,
+
+64
+00:02:43,110 --> 00:02:45,000
+and you can find all the metrics.
+
+65
+00:02:45,000 --> 00:02:47,070
+Now, as you can see, we see all the namespaces
+
+66
+00:02:47,070 --> 00:02:48,330
+in here for our metrics.
+
+67
+00:02:48,330 --> 00:02:50,850
+If you have a look, we have, based on services, for example,
+
+68
+00:02:50,850 --> 00:02:54,060
+ELB, Auto Scaling, EBS, EC2, EFS, and so on.
+
+69
+00:02:54,060 --> 00:02:58,170
+So a lot of information given to you here.
+
+70
+00:02:58,170 --> 00:02:59,760
+So we can click on EC2,
+
+71
+00:02:59,760 --> 00:03:01,590
+and we can have a per instance metric
+
+72
+00:03:01,590 --> 00:03:03,180
+just to see one metric.
+
+73
+00:03:03,180 --> 00:03:04,500
+And I'm going to type credit
+
+74
+00:03:04,500 --> 00:03:07,500
+to see the CPUCreditBalance, for example.
+
+75
+00:03:07,500 --> 00:03:08,520
+I will take this instance,
+
+76
+00:03:08,520 --> 00:03:10,650
+which was created a long time ago,
+
+77
+00:03:10,650 --> 00:03:11,700
+and then what I'm going to do
+
+78
+00:03:11,700 --> 00:03:14,160
+is I'm going to choose a custom range,
+
+79
+00:03:14,160 --> 00:03:18,480
+which is going to be one month, to find some data in here.
+
+80
+00:03:18,480 --> 00:03:19,860
+Okay, so we have the data here.
+
+81
+00:03:19,860 --> 00:03:21,360
+And so, the cool thing with CloudWatch Metrics
+
+82
+00:03:21,360 --> 00:03:23,220
+is that you can just click
+
+83
+00:03:23,220 --> 00:03:25,410
+and select the time span you want.
+
+84
+00:03:25,410 --> 00:03:27,660
+And here we go, we're getting some information
+
+85
+00:03:27,660 --> 00:03:28,493
+around our metrics.
+
+86
+00:03:28,493 --> 00:03:31,380
+So, as you can see, we get metrics every five minutes here.
+
+87
+00:03:31,380 --> 00:03:33,390
+So every data point is every five minutes
+
+88
+00:03:33,390 --> 00:03:35,670
+because detailed monitoring was not enabled
+
+89
+00:03:35,670 --> 00:03:36,750
+for this instance, okay,
+
+90
+00:03:36,750 --> 00:03:38,250
+but if I did enable detail monitoring,
+
+91
+00:03:38,250 --> 00:03:40,170
+I would get data every one minute.
+
+92
+00:03:40,170 --> 00:03:42,270
+So this is just the basics of CloudWatch Metrics.
+
+93
+00:03:42,270 --> 00:03:43,860
+Nothing too, too fancy,
+
+94
+00:03:43,860 --> 00:03:45,780
+but we can definitely filter by time.
+
+95
+00:03:45,780 --> 00:03:47,580
+We can view it as a different line,
+
+96
+00:03:47,580 --> 00:03:51,330
+so Stacked area, or Line, or Number, or Pie chart.
+
+97
+00:03:51,330 --> 00:03:52,590
+You can add it to a dashboard.
+
+98
+00:03:52,590 --> 00:03:54,510
+You can download it to a .csv. You can share it, okay.
+
+99
+00:03:54,510 --> 00:03:56,580
+So CloudWatch Metric is very very handy,
+
+100
+00:03:56,580 --> 00:03:59,190
+and you can have a look at all the metrics, you know,
+
+101
+00:03:59,190 --> 00:04:00,690
+based on the region you want,
+
+102
+00:04:00,690 --> 00:04:03,390
+based on the dimension you want, the resource id you want,
+
+103
+00:04:03,390 --> 00:04:04,920
+so you can filter everything.
+
+104
+00:04:04,920 --> 00:04:06,030
+So that's it for CloudWatch Metrics.
+
+105
+00:04:06,030 --> 00:04:06,863
+I hope you liked it,
+
+106
+00:04:06,863 --> 00:04:08,700
+and I will see you in the next lecture.
+

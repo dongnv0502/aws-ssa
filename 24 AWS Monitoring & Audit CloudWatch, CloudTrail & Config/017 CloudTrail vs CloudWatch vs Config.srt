@@ -1,0 +1,280 @@
+1
+00:00:00,100 --> 00:00:02,070
+So one very popular exam question
+
+2
+00:00:02,070 --> 00:00:03,110
+is to make the distinction
+
+3
+00:00:03,110 --> 00:00:05,720
+between CloudWatch, CloudTrail, and Config.
+
+4
+00:00:05,720 --> 00:00:07,680
+Now thankfully, thanks to the hands-on,
+
+5
+00:00:07,680 --> 00:00:10,300
+hopefully you know exactly what are the differences are.
+
+6
+00:00:10,300 --> 00:00:11,650
+It's pretty obvious in my opinion,
+
+7
+00:00:11,650 --> 00:00:12,930
+but it's never too bad
+
+8
+00:00:12,930 --> 00:00:14,860
+to go through an example and see them.
+
+9
+00:00:14,860 --> 00:00:17,070
+So CloudWatch is for performance metrics,
+
+10
+00:00:17,070 --> 00:00:20,250
+metrics, CPU, network, and to create dashboards.
+
+11
+00:00:20,250 --> 00:00:22,120
+You can also get events and alerts,
+
+12
+00:00:22,120 --> 00:00:25,410
+and finally, we have a log aggregation and analysis tool
+
+13
+00:00:25,410 --> 00:00:26,420
+if we wanted to.
+
+14
+00:00:26,420 --> 00:00:28,550
+So CloudWatch, I think we're all pretty familiar with it,
+
+15
+00:00:28,550 --> 00:00:29,910
+this already.
+
+16
+00:00:29,910 --> 00:00:31,410
+Now, CloudTrail could be new to you,
+
+17
+00:00:31,410 --> 00:00:34,230
+but basically it's to record API calls
+
+18
+00:00:34,230 --> 00:00:37,740
+made within your account by everyone and everything,
+
+19
+00:00:37,740 --> 00:00:40,670
+and you can define some trails for specific resources,
+
+20
+00:00:40,670 --> 00:00:43,150
+so you can get more information on EC2 only,
+
+21
+00:00:43,150 --> 00:00:45,170
+and it's a global service.
+
+22
+00:00:45,170 --> 00:00:48,740
+Now finally, Config is to record configuration changes
+
+23
+00:00:48,740 --> 00:00:50,670
+and to evaluate resources configuration
+
+24
+00:00:50,670 --> 00:00:52,410
+against compliance rules.
+
+25
+00:00:52,410 --> 00:00:54,340
+Finally, you're going to get a timeline
+
+26
+00:00:54,340 --> 00:00:57,050
+of changes and compliance with its nice UI.
+
+27
+00:00:57,050 --> 00:00:59,400
+So, I think they're a very distinctive service
+
+28
+00:00:59,400 --> 00:01:00,880
+I don't think there's any confusion,
+
+29
+00:01:00,880 --> 00:01:03,370
+but let's go through an Elastic Load Balancer
+
+30
+00:01:03,370 --> 00:01:04,989
+to see how each of these service
+
+31
+00:01:04,989 --> 00:01:08,420
+can help you understand what is happening to your ELB.
+
+32
+00:01:08,420 --> 00:01:10,000
+So CloudWatch can monitor
+
+33
+00:01:10,000 --> 00:01:11,860
+the number of incoming connections,
+
+34
+00:01:11,860 --> 00:01:13,570
+can visualize number of error codes
+
+35
+00:01:13,570 --> 00:01:14,890
+as a percentage over time,
+
+36
+00:01:14,890 --> 00:01:16,720
+and maybe we can have a dashboard
+
+37
+00:01:16,720 --> 00:01:19,040
+to get an idea of the load balancer performance,
+
+38
+00:01:19,040 --> 00:01:19,920
+maybe we can have a,
+
+39
+00:01:19,920 --> 00:01:21,620
+even make it a global dashboard
+
+40
+00:01:21,620 --> 00:01:23,090
+if you have multiple load balancers
+
+41
+00:01:23,090 --> 00:01:25,130
+for a global application.
+
+42
+00:01:25,130 --> 00:01:27,510
+Now, Config, why would we use Config on the ELB?
+
+43
+00:01:27,510 --> 00:01:28,630
+Well, maybe you wanna track
+
+44
+00:01:28,630 --> 00:01:30,610
+the security group rules for the load balancer,
+
+45
+00:01:30,610 --> 00:01:34,290
+making sure no-one does anything fishy or changes anything,
+
+46
+00:01:34,290 --> 00:01:36,330
+maybe you want to change also a track
+
+47
+00:01:36,330 --> 00:01:38,820
+that configuration changes for the load balancer itself,
+
+48
+00:01:38,820 --> 00:01:42,310
+to see if anyone modifies the SSL certificate,
+
+49
+00:01:42,310 --> 00:01:43,880
+or et cetera, et cetera.
+
+50
+00:01:43,880 --> 00:01:45,740
+We also maybe have a rule to say,
+
+51
+00:01:45,740 --> 00:01:48,690
+oh there's always should be an SSL certificate
+
+52
+00:01:48,690 --> 00:01:50,170
+assigned to the load balancer,
+
+53
+00:01:50,170 --> 00:01:52,100
+and maybe we should never allow
+
+54
+00:01:52,100 --> 00:01:54,610
+non-encrypted traffic into the load balancer,
+
+55
+00:01:54,610 --> 00:01:56,330
+that could be two different compliance rules
+
+56
+00:01:56,330 --> 00:01:57,970
+that you put into Config.
+
+57
+00:01:57,970 --> 00:02:01,540
+Finally, CloudTrail will be to track who made any changes
+
+58
+00:02:01,540 --> 00:02:03,820
+to the load balancer with API calls.
+
+59
+00:02:03,820 --> 00:02:06,940
+So, in case someone changes the security group rules
+
+60
+00:02:06,940 --> 00:02:08,820
+or someone changes the SSL certificate,
+
+61
+00:02:08,820 --> 00:02:10,330
+or removes it, or whatever,
+
+62
+00:02:10,330 --> 00:02:14,370
+then CloudTrail will be how we know who made these changes.
+
+63
+00:02:14,370 --> 00:02:17,530
+So all these tools are complementary when you think about it
+
+64
+00:02:17,530 --> 00:02:19,370
+and when you understand that,
+
+65
+00:02:19,370 --> 00:02:20,910
+how they're used for a load balancer,
+
+66
+00:02:20,910 --> 00:02:22,620
+which I think is a great example,
+
+67
+00:02:22,620 --> 00:02:25,110
+then you are going to rock any questions
+
+68
+00:02:25,110 --> 00:02:26,220
+asked for you at the exam.
+
+69
+00:02:26,220 --> 00:02:27,320
+So I hope that makes sense,
+
+70
+00:02:27,320 --> 00:02:29,270
+and I will see you in the next lecture.
+

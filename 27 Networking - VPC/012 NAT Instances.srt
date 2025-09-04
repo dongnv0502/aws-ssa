@@ -1,0 +1,380 @@
+1
+00:00:00,090 --> 00:00:02,050
+So now let's talk about NAT instances,
+
+2
+00:00:02,050 --> 00:00:03,390
+which are definitely outdated.
+
+3
+00:00:03,390 --> 00:00:05,180
+There is a better solution called NAT gateway
+
+4
+00:00:05,180 --> 00:00:07,860
+in the next lecture, but they still can appear at the exam.
+
+5
+00:00:07,860 --> 00:00:09,390
+So let's go and have a look at them.
+
+6
+00:00:09,390 --> 00:00:12,550
+So NAT means Network Address Translation,
+
+7
+00:00:12,550 --> 00:00:15,420
+and these NAT instances allow EC2 instances
+
+8
+00:00:15,420 --> 00:00:18,200
+in private subnets to connect to the internet.
+
+9
+00:00:18,200 --> 00:00:20,290
+To do so, the NAT instance must be launched
+
+10
+00:00:20,290 --> 00:00:23,060
+in a public subnet and then will connect the public subnet
+
+11
+00:00:23,060 --> 00:00:24,550
+and the private subnets.
+
+12
+00:00:24,550 --> 00:00:26,180
+There's also a setting we'll have to disable,
+
+13
+00:00:26,180 --> 00:00:27,570
+and we'll see this in the hands-on,
+
+14
+00:00:27,570 --> 00:00:29,310
+called the source/destination check,
+
+15
+00:00:29,310 --> 00:00:31,180
+and I'll show you this right now why.
+
+16
+00:00:31,180 --> 00:00:32,680
+Also, your NAT instance must
+
+17
+00:00:32,680 --> 00:00:34,640
+have a fixed Elastic IP attached to it.
+
+18
+00:00:34,640 --> 00:00:36,060
+So let's have a look.
+
+19
+00:00:36,060 --> 00:00:37,140
+So we have a server,
+
+20
+00:00:37,140 --> 00:00:41,410
+and it's a public server with a public IP, 50.60.4.10,
+
+21
+00:00:41,410 --> 00:00:44,940
+and we want to access it from our private subnets, okay.
+
+22
+00:00:44,940 --> 00:00:47,410
+So how do we establish connectivity from the private subnets
+
+23
+00:00:47,410 --> 00:00:48,410
+to the server?
+
+24
+00:00:48,410 --> 00:00:51,020
+Well, to do so, we're going to launch a NAT instance
+
+25
+00:00:51,020 --> 00:00:53,872
+with its own security group in a public subnet,
+
+26
+00:00:53,872 --> 00:00:56,780
+then what we're going to do is attach an Elastic IP
+
+27
+00:00:56,780 --> 00:00:58,350
+to this NAT instance,
+
+28
+00:00:58,350 --> 00:01:00,730
+and then we're going to edit the route tables
+
+29
+00:01:00,730 --> 00:01:03,420
+from the private subnet to the public subnet
+
+30
+00:01:03,420 --> 00:01:06,460
+to be allowed to send traffic from the EC2 instances
+
+31
+00:01:06,460 --> 00:01:08,830
+between the two subnets to the NAT instance.
+
+32
+00:01:08,830 --> 00:01:13,460
+So then the IP at the instance wants to access the server,
+
+33
+00:01:13,460 --> 00:01:14,570
+the public server,
+
+34
+00:01:14,570 --> 00:01:16,670
+but it has to go through the NAT instance.
+
+35
+00:01:16,670 --> 00:01:20,530
+So the request is seeing that the source IP is 10.0.0.20,
+
+36
+00:01:20,530 --> 00:01:22,970
+which is true, which is a private IP,
+
+37
+00:01:22,970 --> 00:01:27,470
+and the destination is 50.60.4.10 which the NAT instance
+
+38
+00:01:27,470 --> 00:01:29,280
+is smart enough to say, hey, I know you're trying
+
+39
+00:01:29,280 --> 00:01:30,690
+to send traffic to something else,
+
+40
+00:01:30,690 --> 00:01:34,110
+so let me send the traffic over to that server.
+
+41
+00:01:34,110 --> 00:01:36,600
+But that server has something different.
+
+42
+00:01:36,600 --> 00:01:38,960
+So the destination is still this IP,
+
+43
+00:01:38,960 --> 00:01:43,730
+but now the source IP is 12.34.56.78,
+
+44
+00:01:43,730 --> 00:01:46,000
+which is corresponding to the public IP of the NAT instance.
+
+45
+00:01:46,000 --> 00:01:49,190
+So as you can see, this network packet gets rewritten
+
+46
+00:01:49,190 --> 00:01:51,080
+by the NAT instance, this is what NATs do,
+
+47
+00:01:51,080 --> 00:01:52,550
+they rewrite network packets,
+
+48
+00:01:52,550 --> 00:01:54,920
+and the source IP has changed.
+
+49
+00:01:54,920 --> 00:01:57,040
+The server now says, hey, I know how to reply to you
+
+50
+00:01:57,040 --> 00:01:58,850
+because the source is me and the destination
+
+51
+00:01:58,850 --> 00:02:01,670
+is the public IP of your NAT instance,
+
+52
+00:02:01,670 --> 00:02:04,270
+and then the NAT instance will reply back the traffic
+
+53
+00:02:04,270 --> 00:02:06,680
+to the EC2 instance, it's smart enough to know which one
+
+54
+00:02:06,680 --> 00:02:09,610
+to go to, and say, hey, the source is the public server
+
+55
+00:02:09,610 --> 00:02:11,900
+and the destination is your private IP.
+
+56
+00:02:11,900 --> 00:02:13,040
+And this is why,
+
+57
+00:02:13,040 --> 00:02:15,710
+because there's some IPs are being rewritten,
+
+58
+00:02:15,710 --> 00:02:19,670
+this is why the source and destination check
+
+59
+00:02:19,670 --> 00:02:23,900
+must be disabled on the EC2 instance for your NAT instance.
+
+60
+00:02:23,900 --> 00:02:26,330
+So this is how NAT instances work at a high level.
+
+61
+00:02:26,330 --> 00:02:28,920
+So again, we're going to create a NAT instance
+
+62
+00:02:28,920 --> 00:02:31,810
+within a public subnet, and next I attach an Elastic IP
+
+63
+00:02:31,810 --> 00:02:35,330
+to it, and then we're going to have a route table
+
+64
+00:02:35,330 --> 00:02:36,990
+which allows the private instances to talk
+
+65
+00:02:36,990 --> 00:02:38,290
+to the NAT instance all the way
+
+66
+00:02:38,290 --> 00:02:40,660
+to the internet gateway and so on.
+
+67
+00:02:40,660 --> 00:02:42,220
+So some comment about NAT instances.
+
+68
+00:02:42,220 --> 00:02:45,370
+So we have a pre-configured Amazon Linux AMI available
+
+69
+00:02:45,370 --> 00:02:48,940
+to us, and although it's available there,
+
+70
+00:02:48,940 --> 00:02:50,630
+it reached its end of standard support
+
+71
+00:02:50,630 --> 00:02:52,070
+on December 31st, 2020.
+
+72
+00:02:52,070 --> 00:02:54,110
+So NAT gateways are now recommended,
+
+73
+00:02:54,110 --> 00:02:56,920
+and NAT instances are not highly available.
+
+74
+00:02:56,920 --> 00:02:59,130
+They're not resilient with out of the box setup,
+
+75
+00:02:59,130 --> 00:03:02,010
+so we need to create multiple ones and multiple AZs,
+
+76
+00:03:02,010 --> 00:03:04,950
+and maybe have an ASG, have a resilient user-data script.
+
+77
+00:03:04,950 --> 00:03:06,120
+It's quite complicated.
+
+78
+00:03:06,120 --> 00:03:08,303
+And then if you select a small instances,
+
+79
+00:03:08,303 --> 00:03:09,620
+then you're going to get less bandwidth
+
+80
+00:03:09,620 --> 00:03:11,440
+than a bigger instance.
+
+81
+00:03:11,440 --> 00:03:13,410
+You also must manage Security Groups and rules
+
+82
+00:03:13,410 --> 00:03:14,243
+on your instance.
+
+83
+00:03:14,243 --> 00:03:17,530
+So inbound, you must allow whatever HTTP HTTPS traffic
+
+84
+00:03:17,530 --> 00:03:18,800
+from the private subnets,
+
+85
+00:03:18,800 --> 00:03:21,220
+allow maybe SSH from your home network,
+
+86
+00:03:21,220 --> 00:03:24,330
+and outbound, you need to also allow some traffic outbound.
+
+87
+00:03:24,330 --> 00:03:26,180
+So NAT instances, they work.
+
+88
+00:03:26,180 --> 00:03:28,760
+This is good to see how NATs work at a high level,
+
+89
+00:03:28,760 --> 00:03:30,030
+and this is what this lecture is about.
+
+90
+00:03:30,030 --> 00:03:32,210
+We're going to set up a NAT instance in the next lecture,
+
+91
+00:03:32,210 --> 00:03:34,820
+but remember, they're going away and the exam will ask you
+
+92
+00:03:34,820 --> 00:03:35,860
+to choose between NAT instance
+
+93
+00:03:35,860 --> 00:03:37,740
+that we've just seen right now and NAT gateways
+
+94
+00:03:37,740 --> 00:03:39,120
+that we'll see in the next lecture.
+
+95
+00:03:39,120 --> 00:03:41,020
+So I will see you in the next lecture.
+

@@ -1,0 +1,688 @@
+1
+00:00:00,160 --> 00:00:01,700
+So let's have a lecture about
+
+2
+00:00:01,700 --> 00:00:06,240
+how data is being ordered for Kinesis and SQS FIFO.
+
+3
+00:00:06,240 --> 00:00:08,960
+Because even though these technologies look similar
+
+4
+00:00:08,960 --> 00:00:11,440
+and have some similar capabilities, they're actually very,
+
+5
+00:00:11,440 --> 00:00:12,690
+very, very different.
+
+6
+00:00:12,690 --> 00:00:15,720
+So let's have a little case study.
+
+7
+00:00:15,720 --> 00:00:18,720
+Imagine you have 100 trucks on the road,
+
+8
+00:00:18,720 --> 00:00:21,680
+and each truck will have a truck ID.
+
+9
+00:00:21,680 --> 00:00:24,690
+So truck one, truck two up to truck 100
+
+10
+00:00:24,690 --> 00:00:26,070
+and they're on the road and they're going
+
+11
+00:00:26,070 --> 00:00:30,690
+to send their GPS positions very regularly into AWS.
+
+12
+00:00:30,690 --> 00:00:34,110
+So we want to consume that data in order for each truck so
+
+13
+00:00:34,110 --> 00:00:35,970
+that we can track their movement accurately,
+
+14
+00:00:35,970 --> 00:00:39,560
+we wanna know where there've been in order obviously, right?
+
+15
+00:00:39,560 --> 00:00:42,253
+So how should we send that data into Kinesis?
+
+16
+00:00:43,260 --> 00:00:46,680
+Now the answer is you should use a partition key.
+
+17
+00:00:46,680 --> 00:00:50,560
+And the value of that partition key is the truck ID.
+
+18
+00:00:50,560 --> 00:00:53,436
+So the truck one will send it for the batching key truck one
+
+19
+00:00:53,436 --> 00:00:54,269
+and then truck two will send
+
+20
+00:00:54,269 --> 00:00:56,460
+for partition key truck two et cetera, et cetera.
+
+21
+00:00:56,460 --> 00:00:57,293
+Why?
+
+22
+00:00:57,293 --> 00:01:00,620
+Because if we specify the same partition key
+
+23
+00:01:00,620 --> 00:01:03,730
+then the same key will always go to the same shard.
+
+24
+00:01:03,730 --> 00:01:05,410
+Now let's have a look at a diagram
+
+25
+00:01:05,410 --> 00:01:07,030
+to better understand this.
+
+26
+00:01:07,030 --> 00:01:10,280
+So we have our Kinesis Data Stream and it has three shards
+
+27
+00:01:10,280 --> 00:01:11,680
+one, two, and three.
+
+28
+00:01:11,680 --> 00:01:13,230
+And to simplify things, I'm not going
+
+29
+00:01:13,230 --> 00:01:16,050
+to show you 100 trucks, but five should be enough.
+
+30
+00:01:16,050 --> 00:01:18,870
+So we have five trucks, and they're on the road
+
+31
+00:01:18,870 --> 00:01:20,970
+and they're sending the data into Kinesis.
+
+32
+00:01:20,970 --> 00:01:24,860
+As I said, we choose the partition key to be truck ID.
+
+33
+00:01:24,860 --> 00:01:26,590
+So that means that my truck one,
+
+34
+00:01:26,590 --> 00:01:30,240
+when it's sending it's GPS data, it will send it to Kinesis
+
+35
+00:01:30,240 --> 00:01:33,450
+with the partition key, truck one and Kinesis will say,
+
+36
+00:01:33,450 --> 00:01:36,150
+okay, partition key truck one, I will hash it
+
+37
+00:01:36,150 --> 00:01:37,760
+I mean we'll do a computation.
+
+38
+00:01:37,760 --> 00:01:40,750
+And in this instance, it figures out that truck one
+
+39
+00:01:40,750 --> 00:01:43,160
+should go into shard number one.
+
+40
+00:01:43,160 --> 00:01:45,490
+So my data will go into shard number one.
+
+41
+00:01:45,490 --> 00:01:47,530
+Then the truck two will be sending its data as well
+
+42
+00:01:47,530 --> 00:01:50,250
+and will send a partition key of truck two.
+
+43
+00:01:50,250 --> 00:01:52,590
+And Kinesis will look at this partition key
+
+44
+00:01:52,590 --> 00:01:56,350
+and say I've hashed it and now it looks like you should go
+
+45
+00:01:56,350 --> 00:01:57,593
+into shard two.
+
+46
+00:01:59,408 --> 00:02:02,050
+Same for truck three so truck three will be on the road.
+
+47
+00:02:02,050 --> 00:02:04,560
+And it will send truck three as the partition key.
+
+48
+00:02:04,560 --> 00:02:08,009
+But this time, the Kinesis Data Stream service will hash
+
+49
+00:02:08,009 --> 00:02:11,130
+that truck three as the key and say you should go
+
+50
+00:02:11,130 --> 00:02:12,740
+to shard one and that's fine.
+
+51
+00:02:12,740 --> 00:02:15,470
+It just says it doesn't have to be shard three it just says,
+
+52
+00:02:15,470 --> 00:02:18,060
+this partition key should go to shard one.
+
+53
+00:02:18,060 --> 00:02:21,380
+Now for truck four, it will go to shard three
+
+54
+00:02:21,380 --> 00:02:24,350
+and for truck five, it will go to shard two.
+
+55
+00:02:24,350 --> 00:02:26,910
+So this is the idea now we have a repartition
+
+56
+00:02:26,910 --> 00:02:29,340
+and it's called partition hence the name partition key
+
+57
+00:02:29,340 --> 00:02:33,270
+of each truck on each shard based on the partition key.
+
+58
+00:02:33,270 --> 00:02:35,040
+And because truck one
+
+59
+00:02:35,040 --> 00:02:38,710
+keeps on sending the same partition key which is truck one,
+
+60
+00:02:38,710 --> 00:02:41,690
+then the data will always go to the same shard.
+
+61
+00:02:41,690 --> 00:02:45,840
+Hence so on the next data point for the truck one
+
+62
+00:02:45,840 --> 00:02:48,610
+will be in shard one and the next data point
+
+63
+00:02:48,610 --> 00:02:52,490
+for truck three will be in shard one as well and so on.
+
+64
+00:02:52,490 --> 00:02:56,050
+So anytime the truck one sends data, it will be in shard one
+
+65
+00:02:56,050 --> 00:02:57,780
+and anytime the blue truck,
+
+66
+00:02:57,780 --> 00:02:59,350
+the shard three sends data
+
+67
+00:02:59,350 --> 00:03:00,860
+then it will be in shard one as well,
+
+68
+00:03:00,860 --> 00:03:02,660
+because we are specifying
+
+69
+00:03:02,660 --> 00:03:05,250
+to use the same partition key over time.
+
+70
+00:03:05,250 --> 00:03:07,240
+So we see here is that truck one
+
+71
+00:03:07,240 --> 00:03:10,400
+and three will always have the data into shard one.
+
+72
+00:03:10,400 --> 00:03:13,130
+Now if we look at the shard two, then only truck two
+
+73
+00:03:13,130 --> 00:03:16,420
+and five will have the data into shard two.
+
+74
+00:03:16,420 --> 00:03:19,260
+And if you look at shard three, in this example,
+
+75
+00:03:19,260 --> 00:03:22,480
+we only have the truck four that will send its data
+
+76
+00:03:22,480 --> 00:03:24,000
+into shard three.
+
+77
+00:03:24,000 --> 00:03:27,590
+So now imagine you have 100 trucks and maybe five shards,
+
+78
+00:03:27,590 --> 00:03:31,490
+then each shard on average will have about 20 trucks.
+
+79
+00:03:31,490 --> 00:03:33,960
+But there is no linkage directly,
+
+80
+00:03:33,960 --> 00:03:37,116
+you can tell between the truck and each shard.
+
+81
+00:03:37,116 --> 00:03:38,940
+Kinesis will have to hash the partition key
+
+82
+00:03:38,940 --> 00:03:41,130
+to determine which shard to go to.
+
+83
+00:03:41,130 --> 00:03:42,200
+The idea is though that as soon
+
+84
+00:03:42,200 --> 00:03:44,390
+as we have a stable partition key,
+
+85
+00:03:44,390 --> 00:03:47,400
+then each truck will be sending this data to the same shard
+
+86
+00:03:47,400 --> 00:03:50,290
+and therefore we will have the data in order
+
+87
+00:03:50,290 --> 00:03:52,910
+for each truck at the shard level.
+
+88
+00:03:52,910 --> 00:03:54,020
+Make sense?
+
+89
+00:03:54,020 --> 00:03:56,290
+Next we are talking about SQS.
+
+90
+00:03:56,290 --> 00:03:58,880
+So for SQS standard as we know there's no ordering
+
+91
+00:03:58,880 --> 00:04:00,560
+and that's why we have SQL FIFO,
+
+92
+00:04:00,560 --> 00:04:02,160
+which is First-In-First-Out.
+
+93
+00:04:02,160 --> 00:04:05,960
+And so if we don't use a group ID in SQL FIFO,
+
+94
+00:04:05,960 --> 00:04:08,410
+then all the messages will be consumed in the order,
+
+95
+00:04:08,410 --> 00:04:12,010
+they were sent and we can only have one customer.
+
+96
+00:04:12,010 --> 00:04:14,770
+So in this example, we have a bunch of options,
+
+97
+00:04:14,770 --> 00:04:17,579
+and they're being sent into our SQS FIFO queue.
+
+98
+00:04:17,579 --> 00:04:20,260
+And so the order they're being sent in
+
+99
+00:04:20,260 --> 00:04:23,150
+will be the order a consumer will receive them.
+
+100
+00:04:23,150 --> 00:04:25,140
+And as we can see, we only have one consumer here,
+
+101
+00:04:25,140 --> 00:04:27,490
+it consumes two batches of messages,
+
+102
+00:04:27,490 --> 00:04:29,230
+the first one and then the second one.
+
+103
+00:04:29,230 --> 00:04:31,717
+And so as we can see, this is a First-In-First-Out
+
+104
+00:04:31,717 --> 00:04:33,250
+and it's very easy to reason about.
+
+105
+00:04:33,250 --> 00:04:36,290
+And so we can only have one consumer.
+
+106
+00:04:36,290 --> 00:04:37,880
+So if we had trucks,
+
+107
+00:04:37,880 --> 00:04:40,810
+then all the trucks would be sending data into a FIFO queue,
+
+108
+00:04:40,810 --> 00:04:42,830
+but they can only be one consumer.
+
+109
+00:04:42,830 --> 00:04:45,610
+So sometimes you may want to scale the number of consumers
+
+110
+00:04:45,610 --> 00:04:48,840
+and you want the message to be grouped when they are related
+
+111
+00:04:48,840 --> 00:04:49,673
+to each other.
+
+112
+00:04:49,673 --> 00:04:52,710
+So for this, we can use a group ID which is very similar
+
+113
+00:04:52,710 --> 00:04:55,680
+to the concept of a partition key in Kinesis.
+
+114
+00:04:55,680 --> 00:04:58,570
+So now using a group ID, our FIFO queue,
+
+115
+00:04:58,570 --> 00:05:00,740
+will have two groups of FIFO within.
+
+116
+00:05:00,740 --> 00:05:02,660
+And so for each group that you define,
+
+117
+00:05:02,660 --> 00:05:04,100
+you can have a different consumer.
+
+118
+00:05:04,100 --> 00:05:07,780
+So in this example, we have two groups, group A and group B.
+
+119
+00:05:07,780 --> 00:05:09,500
+And two consumers consumer one
+
+120
+00:05:09,500 --> 00:05:12,220
+and two can read independently, the group one
+
+121
+00:05:12,220 --> 00:05:13,807
+and the group two.
+
+122
+00:05:13,807 --> 00:05:16,780
+And so the idea here is that the more group IDs we have,
+
+123
+00:05:16,780 --> 00:05:18,490
+the more consumers we can have.
+
+124
+00:05:18,490 --> 00:05:20,670
+So this is a very different model from Kinesis.
+
+125
+00:05:20,670 --> 00:05:23,780
+Let's have a look, so if we have Kinesis versus SQS,
+
+126
+00:05:23,780 --> 00:05:26,510
+and we have 100 trucks, five Kinesis shards
+
+127
+00:05:26,510 --> 00:05:28,480
+and one SQS FIFO queue.
+
+128
+00:05:28,480 --> 00:05:31,630
+So if we have Kinesis Data Streams, then on average,
+
+129
+00:05:31,630 --> 00:05:33,660
+you'll have about 20 trucks per shard,
+
+130
+00:05:33,660 --> 00:05:35,640
+thanks to the hashing, so each truck
+
+131
+00:05:35,640 --> 00:05:36,667
+will be designated one shard
+
+132
+00:05:36,667 --> 00:05:39,030
+and will stay in that shard forever.
+
+133
+00:05:39,030 --> 00:05:41,200
+And the trucks will have their data ordered
+
+134
+00:05:41,200 --> 00:05:43,150
+within each shard.
+
+135
+00:05:43,150 --> 00:05:44,910
+But the maximum amount of consumers
+
+136
+00:05:44,910 --> 00:05:47,420
+we can have in parallel can be only five
+
+137
+00:05:47,420 --> 00:05:48,660
+because we have five shards
+
+138
+00:05:48,660 --> 00:05:51,320
+and we need one consumer per shard.
+
+139
+00:05:51,320 --> 00:05:54,210
+So the Kinesis Data Stream though because it has five shards
+
+140
+00:05:54,210 --> 00:05:57,170
+can receive up to five megabytes per second of data,
+
+141
+00:05:57,170 --> 00:05:59,530
+which is quite a high throughput.
+
+142
+00:05:59,530 --> 00:06:02,120
+Now in regards to SQS FIFO,
+
+143
+00:06:02,120 --> 00:06:05,540
+you can only have one SQS FIFO queue okay?
+
+144
+00:06:05,540 --> 00:06:07,510
+So you don't define shards or partitions
+
+145
+00:06:07,510 --> 00:06:10,320
+or anything like this, you just have one SQS FIFO queue.
+
+146
+00:06:10,320 --> 00:06:12,380
+And because we have 100 trucks,
+
+147
+00:06:12,380 --> 00:06:17,290
+then we can create 100 group ID, each equal to the truck ID.
+
+148
+00:06:17,290 --> 00:06:20,060
+And that means that because we have 100 group ID,
+
+149
+00:06:20,060 --> 00:06:22,750
+we can have up to 100 consumers, okay?
+
+150
+00:06:22,750 --> 00:06:26,610
+Each consumer will be hooked to one specific group ID.
+
+151
+00:06:26,610 --> 00:06:29,540
+And in terms of scale as SQS FIFO can have
+
+152
+00:06:29,540 --> 00:06:34,290
+up to 300 messages per second, or 3000,
+
+153
+00:06:34,290 --> 00:06:35,650
+if we use batching.
+
+154
+00:06:35,650 --> 00:06:38,000
+So these are different model of consumption,
+
+155
+00:06:38,000 --> 00:06:39,850
+of production, of ordering.
+
+156
+00:06:39,850 --> 00:06:41,260
+And so what you have to remember is
+
+157
+00:06:41,260 --> 00:06:43,430
+that based on the use case, sometimes is going
+
+158
+00:06:43,430 --> 00:06:45,100
+to be better to use SQS FIFO.
+
+159
+00:06:45,100 --> 00:06:47,760
+If you want to have a dynamic number of consumers
+
+160
+00:06:47,760 --> 00:06:49,220
+based on the number of group IDs,
+
+161
+00:06:49,220 --> 00:06:51,600
+and sometimes it could be better to use Kinesis Data Stream
+
+162
+00:06:51,600 --> 00:06:53,970
+if you have say 10,000 trucks and you need
+
+163
+00:06:53,970 --> 00:06:55,740
+to send it lot of data,
+
+164
+00:06:55,740 --> 00:06:57,770
+and also have data ordering per shard
+
+165
+00:06:57,770 --> 00:07:00,253
+in your Kinesis Data Stream. So I hope that was helpful,
+
+166
+00:07:00,253 --> 00:07:01,390
+like I know it can be complicated
+
+167
+00:07:01,390 --> 00:07:03,570
+to understand these things and they're more low level
+
+168
+00:07:03,570 --> 00:07:05,980
+but the exam is starting to ask you questions about that
+
+169
+00:07:05,980 --> 00:07:06,930
+and so I wanted to make sure
+
+170
+00:07:06,930 --> 00:07:10,640
+that you understand very clearly what this would entail.
+
+171
+00:07:10,640 --> 00:07:11,520
+So I hope you liked it
+
+172
+00:07:11,520 --> 00:07:13,470
+and I will see you in the next lecture.
+

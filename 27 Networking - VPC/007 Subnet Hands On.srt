@@ -1,0 +1,364 @@
+1
+00:00:00,170 --> 00:00:02,260
+So let's go ahead and create our subnets.
+
+2
+00:00:02,260 --> 00:00:05,050
+So on the left hand side, I will go to Subnets,
+
+3
+00:00:05,050 --> 00:00:06,610
+and as we can see, there are three subnets
+
+4
+00:00:06,610 --> 00:00:08,960
+and they belong to the previous VPC.
+
+5
+00:00:08,960 --> 00:00:12,373
+So what I can do is I can filter my views by a specific VPC.
+
+6
+00:00:13,350 --> 00:00:15,600
+So I need to refresh this page first,
+
+7
+00:00:15,600 --> 00:00:18,180
+so it will click on Select a VPC,
+
+8
+00:00:18,180 --> 00:00:19,890
+and I will choose the DemoVPC
+
+9
+00:00:19,890 --> 00:00:22,590
+just to filter all my views by VPC
+
+10
+00:00:22,590 --> 00:00:23,910
+and not have any noise in my UI.
+
+11
+00:00:23,910 --> 00:00:25,100
+Okay, so now, as you can see,
+
+12
+00:00:25,100 --> 00:00:28,900
+we have zero subnets associated with that specific VPC.
+
+13
+00:00:28,900 --> 00:00:31,810
+So we'll create a subnet, and then we just select a VPC,
+
+14
+00:00:31,810 --> 00:00:33,780
+so this DemoVPC subnet.
+
+15
+00:00:33,780 --> 00:00:36,460
+And then, we need to specify the subnet settings.
+
+16
+00:00:36,460 --> 00:00:37,550
+So, the subnet name.
+
+17
+00:00:37,550 --> 00:00:39,710
+The first one is going to be PublicSubnetA,
+
+18
+00:00:41,200 --> 00:00:43,920
+and this is because we put a subnet in AZ A.
+
+19
+00:00:43,920 --> 00:00:45,920
+So, we'll specify a specific AZ,
+
+20
+00:00:45,920 --> 00:00:49,240
+so eu-central-1a, so AZ number A.
+
+21
+00:00:49,240 --> 00:00:52,450
+And then, we need to select an IPv4 CIDR block.
+
+22
+00:00:52,450 --> 00:00:56,910
+So to get started, let's go with 10.0.0.0/24.
+
+23
+00:00:56,910 --> 00:00:58,960
+This is because, in a public subnet,
+
+24
+00:00:58,960 --> 00:01:01,130
+you wanna choose not too many IP addresses.
+
+25
+00:01:01,130 --> 00:01:03,230
+Usually, this is reserved for your load balancers
+
+26
+00:01:03,230 --> 00:01:05,700
+or your front-facing infrastructure.
+
+27
+00:01:05,700 --> 00:01:07,870
+So, a smaller subnet size is good.
+
+28
+00:01:07,870 --> 00:01:09,700
+And again, if you wanna check what this is,
+
+29
+00:01:09,700 --> 00:01:12,120
+this is 256 addresses.
+
+30
+00:01:12,120 --> 00:01:13,550
+And because we have a slash 24,
+
+31
+00:01:13,550 --> 00:01:15,470
+only the last octet can change.
+
+32
+00:01:15,470 --> 00:01:19,640
+And so therefore, it goes from .0 all the way to .255.
+
+33
+00:01:19,640 --> 00:01:22,720
+Okay, so we have this name tag, PublicSubnetA.
+
+34
+00:01:22,720 --> 00:01:24,730
+And here, we can actually add a second subnet, okay?
+
+35
+00:01:24,730 --> 00:01:26,730
+So it could be PublicSubnetB,
+
+36
+00:01:27,970 --> 00:01:31,210
+and this one is going to be an AZ eu-central-1b.
+
+37
+00:01:31,210 --> 00:01:33,180
+And, so we need to choose an IPv4 CIDR block.
+
+38
+00:01:33,180 --> 00:01:37,663
+Now, the last IP address that we had in here was .0.255,
+
+39
+00:01:38,580 --> 00:01:43,580
+so what I would choose is 10.0.1.0/24, okay?
+
+40
+00:01:45,270 --> 00:01:46,980
+And this is the next range
+
+41
+00:01:46,980 --> 00:01:50,310
+after the one we've defined right here, okay?
+
+42
+00:01:50,310 --> 00:01:53,750
+So again, you can check out what this range means
+
+43
+00:01:53,750 --> 00:01:55,090
+in this website.
+
+44
+00:01:55,090 --> 00:01:59,250
+And as you can see, the first IP is 10.0.0.1.0,
+
+45
+00:01:59,250 --> 00:02:02,860
+and the second is 10.0.1.255.
+
+46
+00:02:02,860 --> 00:02:06,000
+Perfect, so we have defined two public subnets
+
+47
+00:02:06,000 --> 00:02:08,169
+and now we're going to have some private subnets.
+
+48
+00:02:08,169 --> 00:02:09,353
+So PrivateSubnetA,
+
+49
+00:02:11,270 --> 00:02:13,660
+and we need to choose an IPv4 CIDR block.
+
+50
+00:02:13,660 --> 00:02:14,700
+Now, let's choose something
+
+51
+00:02:14,700 --> 00:02:16,923
+like 10.0.16.0/20,
+
+52
+00:02:21,860 --> 00:02:23,900
+and this is a bigger subnet size, okay?
+
+53
+00:02:23,900 --> 00:02:26,240
+And if you have a look at the range about what this is,
+
+54
+00:02:26,240 --> 00:02:29,720
+so we have 4,096 IP addresses in it.
+
+55
+00:02:29,720 --> 00:02:32,030
+So, it starts at 10.0.16.0,
+
+56
+00:02:32,030 --> 00:02:35,830
+and then it ends at 10.0.31.255.
+
+57
+00:02:35,830 --> 00:02:37,240
+Okay, so this is good.
+
+58
+00:02:37,240 --> 00:02:42,043
+And now, let's add one last subnet, so PrivateSubnetB,
+
+59
+00:02:42,920 --> 00:02:45,310
+and the AZ is going to be an eu-central-1b.
+
+60
+00:02:45,310 --> 00:02:46,530
+No, I didn't set up the AZ here,
+
+61
+00:02:46,530 --> 00:02:47,650
+so let's make sure we do.
+
+62
+00:02:47,650 --> 00:02:48,970
+Okay, perfect.
+
+63
+00:02:48,970 --> 00:02:50,840
+And, the IPv4 CIDR block
+
+64
+00:02:50,840 --> 00:02:52,830
+is going to be the next logical one,
+
+65
+00:02:52,830 --> 00:02:54,493
+so .32.0/20.
+
+66
+00:02:57,060 --> 00:02:59,470
+Okay, so we have four subnets being created.
+
+67
+00:02:59,470 --> 00:03:00,480
+I will create them four.
+
+68
+00:03:00,480 --> 00:03:02,930
+And because there's no overlapping IP addresses,
+
+69
+00:03:02,930 --> 00:03:06,430
+as we can see, the creation was successful.
+
+70
+00:03:06,430 --> 00:03:08,710
+So now, if we have a look on the right hand side,
+
+71
+00:03:08,710 --> 00:03:11,640
+we can see that there are different amount
+
+72
+00:03:11,640 --> 00:03:12,980
+of IP addresses available.
+
+73
+00:03:12,980 --> 00:03:16,920
+So, this one is 251, and this one is 4,091.
+
+74
+00:03:16,920 --> 00:03:20,220
+So again, there are five IP addresses, remember,
+
+75
+00:03:20,220 --> 00:03:22,020
+that were reserved by your subnets.
+
+76
+00:03:22,020 --> 00:03:23,490
+And this is something that you remember.
+
+77
+00:03:23,490 --> 00:03:24,500
+So what you're going to get
+
+78
+00:03:24,500 --> 00:03:27,140
+is the size of the CIDR minus five,
+
+79
+00:03:27,140 --> 00:03:29,900
+so this explains these numbers right here.
+
+80
+00:03:29,900 --> 00:03:32,750
+Also, we did define these segments across two AZ,
+
+81
+00:03:32,750 --> 00:03:35,110
+so eu-central-1a and 1b,
+
+82
+00:03:35,110 --> 00:03:36,636
+and the reason we do so is you get high availability
+
+83
+00:03:36,636 --> 00:03:38,960
+if we were to put resources in it.
+
+84
+00:03:38,960 --> 00:03:40,640
+But we haven't done anything yet
+
+85
+00:03:40,640 --> 00:03:43,320
+to define what makes subnets public,
+
+86
+00:03:43,320 --> 00:03:44,640
+or what makes a subnet private.
+
+87
+00:03:44,640 --> 00:03:46,240
+Right now, they all look the same,
+
+88
+00:03:46,240 --> 00:03:48,460
+so we'll see how to do this in the future lectures.
+
+89
+00:03:48,460 --> 00:03:50,210
+For now, we're good to go in this setup.
+
+90
+00:03:50,210 --> 00:03:51,190
+So I hope you liked this lecture,
+
+91
+00:03:51,190 --> 00:03:53,140
+and I will see you in the next lecture.
+

@@ -1,0 +1,392 @@
+1
+00:00:00,090 --> 00:00:01,839
+Let's talk about the last routing policy,
+
+2
+00:00:01,839 --> 00:00:02,900
+which is Multi-Value,
+
+3
+00:00:02,900 --> 00:00:04,770
+which is going to be used when you want to route traffic
+
+4
+00:00:04,770 --> 00:00:06,300
+to multiple resources.
+
+5
+00:00:06,300 --> 00:00:07,930
+And Route 53 will therefore
+
+6
+00:00:07,930 --> 00:00:10,390
+return multiple values or resources.
+
+7
+00:00:10,390 --> 00:00:12,960
+Now, you can associate them with Health Checks,
+
+8
+00:00:12,960 --> 00:00:15,520
+and so therefore the only resources returned
+
+9
+00:00:15,520 --> 00:00:18,070
+via the Multi-Value policy are going to be the ones
+
+10
+00:00:18,070 --> 00:00:20,070
+that are associated with a healthy Health Check.
+
+11
+00:00:20,070 --> 00:00:22,700
+So up to eight healthy records are going to be returned
+
+12
+00:00:22,700 --> 00:00:24,143
+for each Multi-Value query.
+
+13
+00:00:25,226 --> 00:00:26,190
+And although it looks like an ELB,
+
+14
+00:00:26,190 --> 00:00:28,310
+it's not a substitute for having an ELB.
+
+15
+00:00:28,310 --> 00:00:31,510
+The idea is that it's the client-side load balancing.
+
+16
+00:00:31,510 --> 00:00:33,201
+So let's look at an example.
+
+17
+00:00:33,201 --> 00:00:34,940
+We are going to set up multiple A Records
+
+18
+00:00:34,940 --> 00:00:36,920
+for our example.com,
+
+19
+00:00:36,920 --> 00:00:38,460
+and we associate them with Health Checks.
+
+20
+00:00:38,460 --> 00:00:41,550
+So when a Multi-Value query is done by our clients,
+
+21
+00:00:41,550 --> 00:00:43,650
+it's going to receive up to eight records back,
+
+22
+00:00:43,650 --> 00:00:45,440
+and then the clients will choose one of them.
+
+23
+00:00:45,440 --> 00:00:48,840
+But at least by combining this with Health Checks,
+
+24
+00:00:48,840 --> 00:00:52,840
+we know that one of the eight records being returned,
+
+25
+00:00:52,840 --> 00:00:54,560
+or up to eight, are going to be healthy.
+
+26
+00:00:54,560 --> 00:00:55,420
+And therefore the client
+
+27
+00:00:55,420 --> 00:00:58,573
+can have very safe queries into them.
+
+28
+00:00:59,990 --> 00:01:01,410
+This is going to be different, for example,
+
+29
+00:01:01,410 --> 00:01:05,370
+when you have a simple routing with multiple values in it,
+
+30
+00:01:05,370 --> 00:01:07,900
+because as you know, the simple routing policy
+
+31
+00:01:07,900 --> 00:01:09,120
+does not allow for Health Checks,
+
+32
+00:01:09,120 --> 00:01:10,140
+and therefore it's possible
+
+33
+00:01:10,140 --> 00:01:12,810
+that one of the resources returned in the query
+
+34
+00:01:12,810 --> 00:01:15,970
+of a simple routing policy will be unhealthy.
+
+35
+00:01:15,970 --> 00:01:18,830
+This is why Multi-Value are a little bit more powerful
+
+36
+00:01:18,830 --> 00:01:20,100
+as types of records.
+
+37
+00:01:20,100 --> 00:01:22,870
+So let's have a look in the UI at how we can test them.
+
+38
+00:01:22,870 --> 00:01:26,640
+So let's practice the Multi-Value record.
+
+39
+00:01:26,640 --> 00:01:29,000
+So let's go and create a multi-record,
+
+40
+00:01:29,000 --> 00:01:31,070
+so a multi dot blah blah blah.
+
+41
+00:01:31,070 --> 00:01:32,120
+And then the value of it
+
+42
+00:01:32,120 --> 00:01:34,220
+is going to be linked to us-east-1.
+
+43
+00:01:34,220 --> 00:01:36,580
+So I will add this value here,
+
+44
+00:01:36,580 --> 00:01:39,790
+and then the Routing policy is going to be Multivalue.
+
+45
+00:01:39,790 --> 00:01:41,690
+The Health check is going to be us-east-1.
+
+46
+00:01:41,690 --> 00:01:44,300
+And the Record is going to be US.
+
+47
+00:01:44,300 --> 00:01:46,710
+And TTL is going to be 60 seconds.
+
+48
+00:01:46,710 --> 00:01:47,710
+Let's add another Record.
+
+49
+00:01:47,710 --> 00:01:50,050
+So, multi, and again,
+
+50
+00:01:50,050 --> 00:01:51,720
+we're going to route to a different region,
+
+51
+00:01:51,720 --> 00:01:53,570
+so this one is ap-southeast-1.
+
+52
+00:01:53,570 --> 00:01:56,920
+So the answer is Multivalue answer.
+
+53
+00:01:56,920 --> 00:01:58,780
+The Health check is ap-southeast-1.
+
+54
+00:01:58,780 --> 00:02:02,630
+And the Record ID is going to be Asia.
+
+55
+00:02:02,630 --> 00:02:05,140
+And then the record TTL is one minute.
+
+56
+00:02:05,140 --> 00:02:07,190
+And then finally, the last one,
+
+57
+00:02:07,190 --> 00:02:09,729
+so again, one more Record name.
+
+58
+00:02:09,729 --> 00:02:14,730
+The Value is going to be linked to eu-central-1 right here.
+
+59
+00:02:14,830 --> 00:02:16,610
+The TTL is one minute.
+
+60
+00:02:16,610 --> 00:02:19,700
+And the Routing policy is Multivalue answer.
+
+61
+00:02:19,700 --> 00:02:20,700
+And for the Health checks,
+
+62
+00:02:20,700 --> 00:02:25,050
+we're going to use the one from eu-central-1.
+
+63
+00:02:25,050 --> 00:02:26,910
+And the Record ID is EU.
+
+64
+00:02:26,910 --> 00:02:29,750
+Okay, so let's create these records.
+
+65
+00:02:29,750 --> 00:02:31,740
+And the records are successfully created.
+
+66
+00:02:31,740 --> 00:02:33,040
+Now let's test it out.
+
+67
+00:02:33,040 --> 00:02:35,620
+So for this, we're going to use our CloudShell in here.
+
+68
+00:02:35,620 --> 00:02:37,840
+So let's reconnect to CloudShell.
+
+69
+00:02:37,840 --> 00:02:40,650
+And what I want to do is to test this record.
+
+70
+00:02:40,650 --> 00:02:43,310
+So I will copy the record in here,
+
+71
+00:02:43,310 --> 00:02:46,240
+and then I will clear my screen.
+
+72
+00:02:46,240 --> 00:02:49,280
+And so if I test a dig on this,
+
+73
+00:02:49,280 --> 00:02:50,550
+then I get three answers.
+
+74
+00:02:50,550 --> 00:02:52,750
+So the three IPs are returned,
+
+75
+00:02:52,750 --> 00:02:53,840
+and the reason is, well,
+
+76
+00:02:53,840 --> 00:02:57,400
+the three health checks are fully working.
+
+77
+00:02:57,400 --> 00:02:59,210
+So as you can see, they're all healthy.
+
+78
+00:02:59,210 --> 00:03:00,740
+But if I take one of them, for example,
+
+79
+00:03:00,740 --> 00:03:02,400
+I remove the eu-central-1,
+
+80
+00:03:02,400 --> 00:03:04,130
+so I'm gonna make this one unhealthy,
+
+81
+00:03:04,130 --> 00:03:05,390
+and I'm just going to trick it
+
+82
+00:03:05,390 --> 00:03:08,700
+by editing and do an Invert health status.
+
+83
+00:03:08,700 --> 00:03:10,350
+So this is going to make the healthy unhealthy,
+
+84
+00:03:10,350 --> 00:03:11,200
+and vice versa.
+
+85
+00:03:11,200 --> 00:03:12,170
+It's just a quick way for me
+
+86
+00:03:12,170 --> 00:03:15,240
+to create an unhealthy health check.
+
+87
+00:03:15,240 --> 00:03:16,830
+So let me pause right now.
+
+88
+00:03:16,830 --> 00:03:20,740
+Okay, so now my eu-central-1 health check is Unhealthy.
+
+89
+00:03:20,740 --> 00:03:24,200
+And so if I reissue a dig command right here,
+
+90
+00:03:24,200 --> 00:03:27,510
+I should expect to see only two values, yes, as a result.
+
+91
+00:03:27,510 --> 00:03:29,433
+So the Multivalue answer has worked,
+
+92
+00:03:29,433 --> 00:03:30,490
+and it worked really well.
+
+93
+00:03:30,490 --> 00:03:32,890
+So just to revert this, edit this health check,
+
+94
+00:03:32,890 --> 00:03:36,300
+and let's untick this Invert health check status,
+
+95
+00:03:36,300 --> 00:03:37,730
+and we're good to go.
+
+96
+00:03:37,730 --> 00:03:39,210
+Okay, so that's it for this lecture.
+
+97
+00:03:39,210 --> 00:03:40,220
+I hope you liked it.
+
+98
+00:03:40,220 --> 00:03:42,170
+And I will see you in the next lecture.
+

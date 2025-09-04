@@ -1,0 +1,264 @@
+1
+00:00:00,810 --> 00:00:05,460
+Is there a tight integration from RDS, Aurora, and Lambda?
+
+2
+00:00:05,460 --> 00:00:07,890
+Well, we can actually invoke Lambda functions
+
+3
+00:00:07,890 --> 00:00:11,250
+from within your database instance in some cases.
+
+4
+00:00:11,250 --> 00:00:14,820
+And this would allow you to actually process data events
+
+5
+00:00:14,820 --> 00:00:17,700
+happening from within your database.
+
+6
+00:00:17,700 --> 00:00:19,170
+So this is supported, for example,
+
+7
+00:00:19,170 --> 00:00:22,740
+by RDS for PostgreSQL, and Aurora MySQL.
+
+8
+00:00:22,740 --> 00:00:24,300
+And the idea is that, for example,
+
+9
+00:00:24,300 --> 00:00:29,300
+a user is going to insert an event data into your table,
+
+10
+00:00:29,790 --> 00:00:31,320
+your registration table.
+
+11
+00:00:31,320 --> 00:00:33,360
+And RDS will be set up
+
+12
+00:00:33,360 --> 00:00:36,240
+to directly invoke your Lambda function.
+
+13
+00:00:36,240 --> 00:00:39,600
+Your Lambda function may send a welcome email to your user,
+
+14
+00:00:39,600 --> 00:00:42,210
+and then the user will receive it.
+
+15
+00:00:42,210 --> 00:00:44,190
+This is something that you have to set up
+
+16
+00:00:44,190 --> 00:00:47,130
+from within the database by connecting to it.
+
+17
+00:00:47,130 --> 00:00:51,780
+This is not something that you set up from the AWS console.
+
+18
+00:00:51,780 --> 00:00:53,460
+And when you do do that
+
+19
+00:00:53,460 --> 00:00:56,970
+the RDS instance is the one invoking your Lambda function.
+
+20
+00:00:56,970 --> 00:00:59,610
+And so therefore you must sure to have allowed
+
+21
+00:00:59,610 --> 00:01:03,060
+the inbound traffic from the RDS database instance
+
+22
+00:01:03,060 --> 00:01:05,519
+to the Lambda function through whatever way,
+
+23
+00:01:05,519 --> 00:01:07,860
+either because your Lambda is on the public interest.
+
+24
+00:01:07,860 --> 00:01:09,750
+So we can use the Invoke,
+
+25
+00:01:09,750 --> 00:01:12,030
+or the NAT gateway, or the VPC endpoints and so on.
+
+26
+00:01:12,030 --> 00:01:14,310
+But network connectivity is important.
+
+27
+00:01:14,310 --> 00:01:15,360
+On top of it, of course,
+
+28
+00:01:15,360 --> 00:01:17,550
+because your RDS database instance is going to
+
+29
+00:01:17,550 --> 00:01:18,430
+invoke your Lambda function,
+
+30
+00:01:18,430 --> 00:01:22,320
+then you must have the required permissions
+
+31
+00:01:22,320 --> 00:01:23,550
+to invoke the Lambda function.
+
+32
+00:01:23,550 --> 00:01:25,050
+And so you make sure that your database instance
+
+33
+00:01:25,050 --> 00:01:27,210
+has a proper IAM policy.
+
+34
+00:01:27,210 --> 00:01:28,560
+This is completely different
+
+35
+00:01:28,560 --> 00:01:31,290
+from using the RDS event notifications.
+
+36
+00:01:31,290 --> 00:01:35,070
+So these notifications are happening within AWS
+
+37
+00:01:35,070 --> 00:01:37,260
+and there are notifications that tell you information
+
+38
+00:01:37,260 --> 00:01:39,180
+about the database instance itself.
+
+39
+00:01:39,180 --> 00:01:41,040
+For example, when it was created,
+
+40
+00:01:41,040 --> 00:01:43,530
+when it was started, and so on.
+
+41
+00:01:43,530 --> 00:01:45,570
+And you don't have any information
+
+42
+00:01:45,570 --> 00:01:48,450
+of the data happening within your database.
+
+43
+00:01:48,450 --> 00:01:50,430
+So don't fall for this trap.
+
+44
+00:01:50,430 --> 00:01:51,600
+You can subscribe, for example,
+
+45
+00:01:51,600 --> 00:01:53,970
+to events about your database instance,
+
+46
+00:01:53,970 --> 00:01:56,070
+your database snapshots, your parameter group,
+
+47
+00:01:56,070 --> 00:01:58,230
+your security group, your proxy,
+
+48
+00:01:58,230 --> 00:02:00,000
+or the custom engine version.
+
+49
+00:02:00,000 --> 00:02:01,650
+But you're not gonna get information
+
+50
+00:02:01,650 --> 00:02:04,170
+about the data within your database.
+
+51
+00:02:04,170 --> 00:02:05,610
+You get near real time events,
+
+52
+00:02:05,610 --> 00:02:07,320
+so up to five minutes of delivery.
+
+53
+00:02:07,320 --> 00:02:09,810
+And then you can send these to SNS,
+
+54
+00:02:09,810 --> 00:02:12,810
+or you can also intercept them in EventBridge.
+
+55
+00:02:12,810 --> 00:02:14,640
+So from SNS, we can, for example,
+
+56
+00:02:14,640 --> 00:02:16,770
+send them to an SQS Queue, or a Lambda function.
+
+57
+00:02:16,770 --> 00:02:17,820
+And from Event Bridge
+
+58
+00:02:17,820 --> 00:02:19,440
+you can have so many different destinations,
+
+59
+00:02:19,440 --> 00:02:21,510
+including, for example, a Lambda function.
+
+60
+00:02:21,510 --> 00:02:23,820
+But remember, you do not get information
+
+61
+00:02:23,820 --> 00:02:26,070
+about the data events themselves.
+
+62
+00:02:26,070 --> 00:02:28,416
+You have to use the previous methodology
+
+63
+00:02:28,416 --> 00:02:30,570
+as I've shown you from before.
+
+64
+00:02:30,570 --> 00:02:32,070
+Okay, that's it for this lecture,
+
+65
+00:02:32,070 --> 00:02:33,150
+I hope you liked it.
+
+66
+00:02:33,150 --> 00:02:35,100
+And I will see you in the next lecture.
+

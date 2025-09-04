@@ -1,0 +1,580 @@
+1
+00:00:00,330 --> 00:00:02,910
+So now let's talk about Amazon Cognito.
+
+2
+00:00:02,910 --> 00:00:05,910
+And the goal of it is to give user an identity
+
+3
+00:00:05,910 --> 00:00:08,640
+to interact with a web and mobile application.
+
+4
+00:00:08,640 --> 00:00:13,080
+So these users usually sit outside of our AWS account,
+
+5
+00:00:13,080 --> 00:00:14,580
+hence the name Cognito,
+
+6
+00:00:14,580 --> 00:00:16,920
+because it gives an identity to users
+
+7
+00:00:16,920 --> 00:00:18,840
+that we don't know about yet.
+
+8
+00:00:18,840 --> 00:00:22,290
+So we have two kind of sub-services within Cognito.
+
+9
+00:00:22,290 --> 00:00:24,180
+We have the Cognito user pool,
+
+10
+00:00:24,180 --> 00:00:26,070
+and this provides a sign-in functionality
+
+11
+00:00:26,070 --> 00:00:29,070
+for app users and has really good integration
+
+12
+00:00:29,070 --> 00:00:32,580
+with API Gateway and the Application Load Balancer.
+
+13
+00:00:32,580 --> 00:00:35,880
+And we have the Cognito Identity Pool,
+
+14
+00:00:35,880 --> 00:00:38,280
+used to be called Federated Identity.
+
+15
+00:00:38,280 --> 00:00:42,900
+And this is to actually provide temporary AWS credentials
+
+16
+00:00:42,900 --> 00:00:45,870
+to users that are registered with their application
+
+17
+00:00:45,870 --> 00:00:50,010
+so that they can access some resources of AWS directly.
+
+18
+00:00:50,010 --> 00:00:51,180
+And there is a good integration
+
+19
+00:00:51,180 --> 00:00:53,670
+as we'll see with Cognito User Pools.
+
+20
+00:00:53,670 --> 00:00:55,927
+So if you are asking yourself,
+
+21
+00:00:55,927 --> 00:00:58,260
+"Don't we already have users in IAM?"
+
+22
+00:00:58,260 --> 00:00:59,760
+The answer is yes, you do,
+
+23
+00:00:59,760 --> 00:01:02,130
+but Cognito is gonna be for your web
+
+24
+00:01:02,130 --> 00:01:03,600
+and mobile application users,
+
+25
+00:01:03,600 --> 00:01:05,850
+which sits outside of AWS.
+
+26
+00:01:05,850 --> 00:01:07,620
+So look for the keyword,
+
+27
+00:01:07,620 --> 00:01:10,920
+such as hundreds of users, or mobile users,
+
+28
+00:01:10,920 --> 00:01:14,580
+or authentication with whatever mechanism
+
+29
+00:01:14,580 --> 00:01:16,023
+such as SAML and so on.
+
+30
+00:01:16,980 --> 00:01:19,953
+So let's do a deep dive into Cognito User Pool or CUP.
+
+31
+00:01:20,940 --> 00:01:24,240
+So it's a serverless database of users
+
+32
+00:01:24,240 --> 00:01:26,940
+for your web and mobile application.
+
+33
+00:01:26,940 --> 00:01:28,740
+And you can define a simple login,
+
+34
+00:01:28,740 --> 00:01:32,730
+such as username or email and a password as a combination.
+
+35
+00:01:32,730 --> 00:01:34,740
+You have password reset feature.
+
+36
+00:01:34,740 --> 00:01:38,250
+You can have email and phone number verification,
+
+37
+00:01:38,250 --> 00:01:40,890
+multi-factor authentication for users,
+
+38
+00:01:40,890 --> 00:01:44,340
+and you can also have integration with,
+
+39
+00:01:44,340 --> 00:01:46,380
+for example, Facebook for your login,
+
+40
+00:01:46,380 --> 00:01:49,050
+or Google for your login, and so on.
+
+41
+00:01:49,050 --> 00:01:51,840
+So this Cognito User Pools,
+
+42
+00:01:51,840 --> 00:01:54,150
+they integrate with the API Gateway
+
+43
+00:01:54,150 --> 00:01:56,580
+or the Application Load Balancer.
+
+44
+00:01:56,580 --> 00:01:59,910
+So if we take the example of the API Gateway,
+
+45
+00:01:59,910 --> 00:02:03,030
+the user is going to connect to your Cognito User Pool,
+
+46
+00:02:03,030 --> 00:02:06,360
+retrieve a token, pass this token to the API Gateway,
+
+47
+00:02:06,360 --> 00:02:09,150
+which is going to verify it, and then if it's good,
+
+48
+00:02:09,150 --> 00:02:12,720
+it's going to translate it into the user identity,
+
+49
+00:02:12,720 --> 00:02:15,960
+which will be passed to your lambda function as a backend.
+
+50
+00:02:15,960 --> 00:02:17,880
+And now your lambda function knows
+
+51
+00:02:17,880 --> 00:02:19,590
+the user it's dealing with,
+
+52
+00:02:19,590 --> 00:02:22,710
+and the fact that it has a very specific user
+
+53
+00:02:22,710 --> 00:02:24,963
+that's been really well authenticated.
+
+54
+00:02:26,070 --> 00:02:28,740
+Alternatively, you can also do the exact same thing
+
+55
+00:02:28,740 --> 00:02:30,810
+with your Cognito User Pool
+
+56
+00:02:30,810 --> 00:02:33,540
+on top of your Application Load Balancer.
+
+57
+00:02:33,540 --> 00:02:36,090
+So that means that your application
+
+58
+00:02:36,090 --> 00:02:38,940
+will connect again with your Cognito User Pool,
+
+59
+00:02:38,940 --> 00:02:42,060
+then pass it on to your Application Load Balancer,
+
+60
+00:02:42,060 --> 00:02:43,950
+and make sure that there is a true login.
+
+61
+00:02:43,950 --> 00:02:44,940
+And if it's true,
+
+62
+00:02:44,940 --> 00:02:47,670
+it will redirect the request to your backend,
+
+63
+00:02:47,670 --> 00:02:49,860
+and pass in some additional headers
+
+64
+00:02:49,860 --> 00:02:52,290
+with the identity of the user.
+
+65
+00:02:52,290 --> 00:02:53,280
+So this really allows you
+
+66
+00:02:53,280 --> 00:02:57,060
+to have in one place either your API Gateway or your ALB,
+
+67
+00:02:57,060 --> 00:02:59,970
+the certainty that you can verify the login of your user.
+
+68
+00:02:59,970 --> 00:03:02,280
+So it's a responsibility that you've moved
+
+69
+00:03:02,280 --> 00:03:05,310
+from your backend to the actual piece
+
+70
+00:03:05,310 --> 00:03:08,220
+that is going to balance the load for your backend.
+
+71
+00:03:08,220 --> 00:03:12,000
+So the API Gateway or the ALB.
+
+72
+00:03:12,000 --> 00:03:15,240
+Okay, the other sub-part of Cognito is
+
+73
+00:03:15,240 --> 00:03:18,900
+Cognito Identity Pools or Federated Identities.
+
+74
+00:03:18,900 --> 00:03:22,440
+And it's to get identities for users, but this time,
+
+75
+00:03:22,440 --> 00:03:24,660
+they don't access our application
+
+76
+00:03:24,660 --> 00:03:28,050
+through the API Gateway or the Application Load Balancer,
+
+77
+00:03:28,050 --> 00:03:30,990
+but instead, they're going to directly access
+
+78
+00:03:30,990 --> 00:03:35,880
+your AWS accounts using temporary AWS credentials.
+
+79
+00:03:35,880 --> 00:03:38,940
+So the users' source can be, for example,
+
+80
+00:03:38,940 --> 00:03:41,610
+users that are within Cognito User Pools,
+
+81
+00:03:41,610 --> 00:03:43,800
+or it can be third party logins,
+
+82
+00:03:43,800 --> 00:03:46,530
+and then they can access the services
+
+83
+00:03:46,530 --> 00:03:49,290
+of AWS directly or through the API Gateway.
+
+84
+00:03:49,290 --> 00:03:52,290
+So the IAM policies applied to the credentials are defined
+
+85
+00:03:52,290 --> 00:03:55,290
+within the Cognito Identity Pool service already.
+
+86
+00:03:55,290 --> 00:03:56,760
+And they can be customized
+
+87
+00:03:56,760 --> 00:03:59,850
+based on the user ID for fine grain control.
+
+88
+00:03:59,850 --> 00:04:04,850
+And in case you want to have a default IAM role, you can,
+
+89
+00:04:04,920 --> 00:04:07,680
+so that your guest users or authenticated users
+
+90
+00:04:07,680 --> 00:04:09,960
+that don't have specific roles defined to them
+
+91
+00:04:09,960 --> 00:04:12,540
+will inherit this defined IAM role.
+
+92
+00:04:12,540 --> 00:04:14,160
+So a diagram will surely help you
+
+93
+00:04:14,160 --> 00:04:16,079
+to understand what identity pools are.
+
+94
+00:04:16,079 --> 00:04:18,810
+So let's say your web and mobile applications
+
+95
+00:04:18,810 --> 00:04:20,490
+want to have direct access
+
+96
+00:04:20,490 --> 00:04:24,000
+into an S3 bucket or DynamoDB table.
+
+97
+00:04:24,000 --> 00:04:26,880
+So we're going to have Cognito Identity Pools for this.
+
+98
+00:04:26,880 --> 00:04:28,860
+So the web and mobile application is
+
+99
+00:04:28,860 --> 00:04:31,380
+going to log in and get a token out of it.
+
+100
+00:04:31,380 --> 00:04:34,350
+So it could be a login against Cognito User Pools,
+
+101
+00:04:34,350 --> 00:04:36,120
+or social identity provider,
+
+102
+00:04:36,120 --> 00:04:39,000
+or SAML, or open ID connect and so on.
+
+103
+00:04:39,000 --> 00:04:40,530
+And then it's going to take this token
+
+104
+00:04:40,530 --> 00:04:44,580
+and pass it on to the Cognito Identity Pool service
+
+105
+00:04:44,580 --> 00:04:49,200
+to exchange this token for temporary AWS credentials.
+
+106
+00:04:49,200 --> 00:04:50,033
+And to do so,
+
+107
+00:04:50,033 --> 00:04:52,920
+the Cognito Identity Pool is first going to evaluate
+
+108
+00:04:52,920 --> 00:04:55,590
+whether or not the token passed is being correct,
+
+109
+00:04:55,590 --> 00:04:57,510
+meaning the login is valid.
+
+110
+00:04:57,510 --> 00:04:59,580
+And the second thing it's going to do is
+
+111
+00:04:59,580 --> 00:05:04,410
+to craft this IAM policy that is specific to that user.
+
+112
+00:05:04,410 --> 00:05:06,900
+So these credentials now will,
+
+113
+00:05:06,900 --> 00:05:09,000
+thanks to this very temporary credentials
+
+114
+00:05:09,000 --> 00:05:11,760
+with associated IAM policy,
+
+115
+00:05:11,760 --> 00:05:15,150
+will be able to access AWS on your, for example,
+
+116
+00:05:15,150 --> 00:05:17,130
+your S3 bucket, or your DynamoDB table,
+
+117
+00:05:17,130 --> 00:05:19,020
+without going through an API Gateway
+
+118
+00:05:19,020 --> 00:05:21,810
+or an Application Load Balancer.
+
+119
+00:05:21,810 --> 00:05:23,850
+And this enables for you a use case
+
+120
+00:05:23,850 --> 00:05:27,480
+where you can do row level security in DynamoDB.
+
+121
+00:05:27,480 --> 00:05:29,070
+So you would, for example,
+
+122
+00:05:29,070 --> 00:05:34,070
+have this policy coming out of the Cognito Identity Pools.
+
+123
+00:05:34,080 --> 00:05:37,410
+And the idea is that in it, you have a condition,
+
+124
+00:05:37,410 --> 00:05:38,580
+and this condition is saying
+
+125
+00:05:38,580 --> 00:05:41,340
+that the leading key for DynamoDB
+
+126
+00:05:41,340 --> 00:05:45,120
+must be equal to the Cognito identity user ID.
+
+127
+00:05:45,120 --> 00:05:46,440
+And therefore, what's going to happen is
+
+128
+00:05:46,440 --> 00:05:49,710
+that the user with this policy cannot read
+
+129
+00:05:49,710 --> 00:05:51,780
+and write all the items in your DynamoDB table,
+
+130
+00:05:51,780 --> 00:05:53,130
+that would be too much power,
+
+131
+00:05:53,130 --> 00:05:56,640
+but instead they can only deal with the items
+
+132
+00:05:56,640 --> 00:05:59,700
+that they have access to through this condition.
+
+133
+00:05:59,700 --> 00:06:04,440
+So I understand that Cognito is a very complicated service.
+
+134
+00:06:04,440 --> 00:06:05,760
+Thankfully, you just need to know
+
+135
+00:06:05,760 --> 00:06:07,530
+at a high level what it means.
+
+136
+00:06:07,530 --> 00:06:10,260
+So it means that you can create a user base
+
+137
+00:06:10,260 --> 00:06:12,510
+for your web and mobile application.
+
+138
+00:06:12,510 --> 00:06:15,930
+It means you can enable row level security in DynamoDB,
+
+139
+00:06:15,930 --> 00:06:18,840
+for example, to get fine grain access.
+
+140
+00:06:18,840 --> 00:06:20,970
+And finally, remember this integration
+
+141
+00:06:20,970 --> 00:06:23,550
+between Cognito User Pools
+
+142
+00:06:23,550 --> 00:06:28,200
+and your API Gateway or your Application Load Balancer.
+
+143
+00:06:28,200 --> 00:06:29,040
+Okay, that's it.
+
+144
+00:06:29,040 --> 00:06:30,210
+I hope you liked it.
+
+145
+00:06:30,210 --> 00:06:32,160
+And I will see you in the next lecture.
+

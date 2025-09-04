@@ -1,0 +1,976 @@
+1
+00:00:00,350 --> 00:00:02,880
+So let's go into the config service
+
+2
+00:00:02,880 --> 00:00:05,320
+and start to configure it.
+
+3
+00:00:05,320 --> 00:00:09,560
+So we are in it and I'm going to click on get started
+
+4
+00:00:09,560 --> 00:00:11,400
+to start recording some settings.
+
+5
+00:00:11,400 --> 00:00:13,290
+So we're going to record
+
+6
+00:00:13,290 --> 00:00:14,880
+all the resources supported in this region,
+
+7
+00:00:14,880 --> 00:00:16,079
+but if you wanted to,
+
+8
+00:00:16,079 --> 00:00:18,490
+you can record only specific resource types.
+
+9
+00:00:18,490 --> 00:00:21,000
+In which case you can find resource categories
+
+10
+00:00:21,000 --> 00:00:23,420
+and then resource types on the right hand side.
+
+11
+00:00:23,420 --> 00:00:24,630
+But because I want to show you
+
+12
+00:00:24,630 --> 00:00:26,340
+all the resources I can record,
+
+13
+00:00:26,340 --> 00:00:28,380
+I'm going to click on this.
+
+14
+00:00:28,380 --> 00:00:30,890
+And on top of it, you can include global resources,
+
+15
+00:00:30,890 --> 00:00:32,790
+such as IAM users, group roles
+
+16
+00:00:32,790 --> 00:00:34,490
+and customer managed policies.
+
+17
+00:00:34,490 --> 00:00:35,780
+Just be aware that again,
+
+18
+00:00:35,780 --> 00:00:37,980
+config is not a part of the feature here,
+
+19
+00:00:37,980 --> 00:00:39,720
+so the more resources you record,
+
+20
+00:00:39,720 --> 00:00:41,100
+the more money you going to pay.
+
+21
+00:00:41,100 --> 00:00:42,840
+And so I'm doing this to show you everything to you,
+
+22
+00:00:42,840 --> 00:00:45,090
+but if you don't want to pay any money from this course,
+
+23
+00:00:45,090 --> 00:00:47,790
+please do not follow on with this hands-on.
+
+24
+00:00:47,790 --> 00:00:49,460
+Okay, so we're going to record our resources.
+
+25
+00:00:49,460 --> 00:00:51,490
+We're going to include global resources
+
+26
+00:00:51,490 --> 00:00:53,820
+and then to record all the resource configuration,
+
+27
+00:00:53,820 --> 00:00:56,770
+we need to create a config service linked role.
+
+28
+00:00:56,770 --> 00:00:58,660
+So we're going to click on that.
+
+29
+00:00:58,660 --> 00:01:01,730
+Then all this information is going to be delivered
+
+30
+00:01:01,730 --> 00:01:02,900
+into an Amazon S3 bucket.
+
+31
+00:01:02,900 --> 00:01:05,069
+So once you create a bucket,
+
+32
+00:01:05,069 --> 00:01:06,860
+and the bucket name is already entered for me,
+
+33
+00:01:06,860 --> 00:01:07,920
+so that's perfect.
+
+34
+00:01:07,920 --> 00:01:09,850
+And then we can have a prefix if you wanted to.
+
+35
+00:01:09,850 --> 00:01:10,790
+And then finally,
+
+36
+00:01:10,790 --> 00:01:13,640
+this is where the data is going to be stored.
+
+37
+00:01:13,640 --> 00:01:14,920
+And in terms of notification,
+
+38
+00:01:14,920 --> 00:01:17,220
+we can stream all the configuration changes
+
+39
+00:01:17,220 --> 00:01:20,990
+and notifications into an Amazon SNS topic if we wanted to,
+
+40
+00:01:20,990 --> 00:01:24,030
+and again, remember this is for everything into one topic.
+
+41
+00:01:24,030 --> 00:01:27,220
+But I don't wanna do this, so I will leave this unticked.
+
+42
+00:01:27,220 --> 00:01:30,430
+I click on next and next we find some AWS Managed Rules.
+
+43
+00:01:30,430 --> 00:01:32,360
+So we have a lot, as you can see,
+
+44
+00:01:32,360 --> 00:01:33,610
+and I want to define them later,
+
+45
+00:01:33,610 --> 00:01:35,580
+so I'm going to skip that part,
+
+46
+00:01:35,580 --> 00:01:37,050
+but you can have a look at them if you wanted to.
+
+47
+00:01:37,050 --> 00:01:40,280
+So click on next, and we can review the configuration.
+
+48
+00:01:40,280 --> 00:01:42,640
+So yes, we want to record all resources,
+
+49
+00:01:42,640 --> 00:01:44,710
+including global resources.
+
+50
+00:01:44,710 --> 00:01:47,010
+And we're going to deliver this into an S3 bucket
+
+51
+00:01:47,010 --> 00:01:48,980
+and currently we haven't defined any role.
+
+52
+00:01:48,980 --> 00:01:50,590
+So let's click on confirm.
+
+53
+00:01:50,590 --> 00:01:53,580
+Now the role is being created, the bucket is created
+
+54
+00:01:53,580 --> 00:01:55,830
+and then config is going to be started.
+
+55
+00:01:55,830 --> 00:01:57,010
+Now it's going to take a bit of time
+
+56
+00:01:57,010 --> 00:02:00,270
+for config to have a look at everything within your account
+
+57
+00:02:00,270 --> 00:02:02,520
+and look at the configuration.
+
+58
+00:02:02,520 --> 00:02:05,020
+So I'm going to post the video until this is done.
+
+59
+00:02:06,300 --> 00:02:08,900
+Okay, so my resources are still being discovered,
+
+60
+00:02:08,900 --> 00:02:11,480
+but I can go on the left hand side to resources,
+
+61
+00:02:11,480 --> 00:02:12,460
+and actually we will see
+
+62
+00:02:12,460 --> 00:02:14,700
+that some resources have already been discovered
+
+63
+00:02:14,700 --> 00:02:16,410
+in my account as you can see.
+
+64
+00:02:16,410 --> 00:02:18,740
+Some route tables, sub-net, VPC and so on,
+
+65
+00:02:18,740 --> 00:02:20,180
+have been discovered.
+
+66
+00:02:20,180 --> 00:02:23,030
+So what I can do is that I can look at resource type
+
+67
+00:02:23,030 --> 00:02:26,040
+and I can look for example, for EC2 security groups
+
+68
+00:02:27,310 --> 00:02:29,890
+and find that yes, my security groups are here.
+
+69
+00:02:29,890 --> 00:02:31,840
+And currently, they do not have a compliance status
+
+70
+00:02:31,840 --> 00:02:35,390
+because we haven't defined any kind of rule on top of them.
+
+71
+00:02:35,390 --> 00:02:37,070
+So let's have a look for example,
+
+72
+00:02:37,070 --> 00:02:39,193
+at one of these EC2 security group.
+
+73
+00:02:42,640 --> 00:02:44,120
+And from within the group,
+
+74
+00:02:44,120 --> 00:02:46,730
+we can have a look at the rules applied, so currently none.
+
+75
+00:02:46,730 --> 00:02:48,580
+And we could look at the configuration
+
+76
+00:02:48,580 --> 00:02:50,950
+of the security group itself, okay?
+
+77
+00:02:50,950 --> 00:02:53,370
+We can also look at the resource timeline.
+
+78
+00:02:53,370 --> 00:02:54,510
+And the resource timeline will give you
+
+79
+00:02:54,510 --> 00:02:56,870
+all the events related to that resource.
+
+80
+00:02:56,870 --> 00:02:58,380
+So there's a configuration change,
+
+81
+00:02:58,380 --> 00:03:00,370
+which is the initial right here.
+
+82
+00:03:00,370 --> 00:03:02,450
+There's some CloudTrail events also
+
+83
+00:03:03,757 --> 00:03:05,400
+that were related to the security group.
+
+84
+00:03:05,400 --> 00:03:08,289
+For example, authorizeSecurityGroupingress rules,
+
+85
+00:03:08,289 --> 00:03:10,580
+CreateLaunchConfiguration and CreateSecurityGroup,
+
+86
+00:03:10,580 --> 00:03:11,413
+this kinda thing.
+
+87
+00:03:11,413 --> 00:03:14,110
+And we can go to CloudTrail to find these events.
+
+88
+00:03:14,110 --> 00:03:15,680
+So what I want to do is to figure out
+
+89
+00:03:15,680 --> 00:03:18,480
+whether or not my security groups are compliant or not.
+
+90
+00:03:18,480 --> 00:03:21,470
+And so for this, we're gonna go into rules.
+
+91
+00:03:21,470 --> 00:03:24,210
+And rules is going to be able to give us the option
+
+92
+00:03:24,210 --> 00:03:25,043
+to add a rule,
+
+93
+00:03:25,043 --> 00:03:27,720
+and we can either add an AWS managed rule
+
+94
+00:03:27,720 --> 00:03:30,890
+or create our own custom rule with a lambda function.
+
+95
+00:03:30,890 --> 00:03:34,460
+So to keep it simple, I'm going to add an AWS managed rule
+
+96
+00:03:34,460 --> 00:03:36,240
+and let's have a look at rules that are accessible to us.
+
+97
+00:03:36,240 --> 00:03:40,430
+So one that I like is for example, approved-amis-by-id.
+
+98
+00:03:40,430 --> 00:03:43,020
+So this is to check whether running instances
+
+99
+00:03:43,020 --> 00:03:45,043
+are in your account using the specified AMIs.
+
+100
+00:03:45,043 --> 00:03:46,990
+So if I click on it, for example,
+
+101
+00:03:46,990 --> 00:03:49,510
+and click on next, which is not related to security groups,
+
+102
+00:03:49,510 --> 00:03:50,910
+but I just wanna show you one rule.
+
+103
+00:03:50,910 --> 00:03:52,170
+So this one will check
+
+104
+00:03:52,170 --> 00:03:54,500
+whether or not your EC2 running instances,
+
+105
+00:03:54,500 --> 00:03:56,870
+will be using the specified AMIs.
+
+106
+00:03:56,870 --> 00:03:58,430
+And so you can trigger this
+
+107
+00:03:58,430 --> 00:04:01,360
+based on whenever a resource that's changed.
+
+108
+00:04:01,360 --> 00:04:05,250
+And then you can also specify all the EC2 instances in here,
+
+109
+00:04:05,250 --> 00:04:07,220
+and we have to specify a parameter for that rule,
+
+110
+00:04:07,220 --> 00:04:10,260
+which is the list of all the AMI IDs are approved
+
+111
+00:04:10,260 --> 00:04:12,770
+within their account and this is going to be used
+
+112
+00:04:12,770 --> 00:04:14,610
+by the rules and inputs to figure out
+
+113
+00:04:14,610 --> 00:04:17,550
+whether or not EC2 instance is compliant.
+
+114
+00:04:17,550 --> 00:04:20,820
+Because we do not have many EC2 instances yet,
+
+115
+00:04:20,820 --> 00:04:22,140
+we're not going to use that rule.
+
+116
+00:04:22,140 --> 00:04:24,390
+So instead we're going to use a managed rule,
+
+117
+00:04:24,390 --> 00:04:26,570
+but this time for SSH.
+
+118
+00:04:26,570 --> 00:04:29,830
+And this is going to be applied to our security groups.
+
+119
+00:04:29,830 --> 00:04:31,170
+So we want to make sure
+
+120
+00:04:31,170 --> 00:04:34,790
+that we're not allowing any incoming SSH traffic
+
+121
+00:04:34,790 --> 00:04:36,150
+from anywhere.
+
+122
+00:04:36,150 --> 00:04:39,150
+So we click on next, this is called the restricted SSH
+
+123
+00:04:39,150 --> 00:04:42,460
+and the trigger is going to be on our resource
+
+124
+00:04:42,460 --> 00:04:44,190
+whenever the configuration changes, okay?
+
+125
+00:04:44,190 --> 00:04:46,610
+But as we can see, if we define a different kind of rule,
+
+126
+00:04:46,610 --> 00:04:49,270
+we could have it to be run periodically as well.
+
+127
+00:04:49,270 --> 00:04:50,220
+So, okay, we're once.
+
+128
+00:04:50,220 --> 00:04:53,770
+Whenever our security group resource will change,
+
+129
+00:04:53,770 --> 00:04:55,090
+please evaluate that rule.
+
+130
+00:04:55,090 --> 00:04:58,400
+This is applying only to AWS EC2 security groups,
+
+131
+00:04:58,400 --> 00:05:00,900
+and we have no parameters for that row.
+
+132
+00:05:00,900 --> 00:05:03,820
+Click on next and click on add rule.
+
+133
+00:05:03,820 --> 00:05:06,220
+And now we have defined this first rule,
+
+134
+00:05:06,220 --> 00:05:07,390
+so let's have a look.
+
+135
+00:05:07,390 --> 00:05:10,590
+So currently it's not evaluated
+
+136
+00:05:10,590 --> 00:05:12,420
+and we don't have any remediation.
+
+137
+00:05:12,420 --> 00:05:14,720
+So let's wait a little bit until this is done.
+
+138
+00:05:15,990 --> 00:05:18,260
+So I just refreshed my page and as you can see,
+
+139
+00:05:18,260 --> 00:05:20,620
+an evaluation was done automatically.
+
+140
+00:05:20,620 --> 00:05:21,570
+And if we look at this rule,
+
+141
+00:05:21,570 --> 00:05:23,410
+we have seven security groups,
+
+142
+00:05:23,410 --> 00:05:25,110
+no six security groups right here,
+
+143
+00:05:25,110 --> 00:05:27,150
+which are not compliant.
+
+144
+00:05:27,150 --> 00:05:30,033
+So if we go into our resources on the left hand side,
+
+145
+00:05:31,350 --> 00:05:35,060
+and we're going to filter again by EC2 security group
+
+146
+00:05:36,170 --> 00:05:38,200
+and have a look at all our resources.
+
+147
+00:05:38,200 --> 00:05:40,420
+As we can see, some of them are compliant
+
+148
+00:05:40,420 --> 00:05:42,730
+and some of them are not compliant.
+
+149
+00:05:42,730 --> 00:05:44,677
+So if we look at the compliant and the non compliant one
+
+150
+00:05:44,677 --> 00:05:46,580
+let's see the difference.
+
+151
+00:05:46,580 --> 00:05:49,660
+So this one is compliant, okay?
+
+152
+00:05:49,660 --> 00:05:52,060
+And a rule was applied to it as we can see
+
+153
+00:05:52,060 --> 00:05:53,270
+it says compliant.
+
+154
+00:05:53,270 --> 00:05:55,870
+So if I go and manage a resource
+
+155
+00:05:57,060 --> 00:06:01,360
+and look at the inbound rules right here,
+
+156
+00:06:01,360 --> 00:06:03,528
+as we can see, we only have one inbound rule,
+
+157
+00:06:03,528 --> 00:06:06,120
+which doesn't have a port, so there's no port 22 in here.
+
+158
+00:06:06,120 --> 00:06:07,910
+So this is why this is working.
+
+159
+00:06:07,910 --> 00:06:09,620
+But if I look at a non-compliant resource,
+
+160
+00:06:09,620 --> 00:06:11,590
+for example, this launch-wizard-3
+
+161
+00:06:11,590 --> 00:06:13,787
+I believe it was not compliant, okay?
+
+162
+00:06:13,787 --> 00:06:15,210
+And you click on manage resource,
+
+163
+00:06:15,210 --> 00:06:16,640
+we are taken again straight
+
+164
+00:06:16,640 --> 00:06:18,770
+into the console for security groups.
+
+165
+00:06:18,770 --> 00:06:21,360
+And if you look at the inbound rule,
+
+166
+00:06:21,360 --> 00:06:26,360
+as we can see, port 22 on IPv4 from anywhere is being open.
+
+167
+00:06:26,840 --> 00:06:28,560
+So this is a big problem.
+
+168
+00:06:28,560 --> 00:06:33,560
+So what I can do instead is delete this rule right here.
+
+169
+00:06:34,220 --> 00:06:35,770
+And if I delete this rule,
+
+170
+00:06:35,770 --> 00:06:38,760
+this will retrigger an evaluation of my resource,
+
+171
+00:06:38,760 --> 00:06:40,050
+which should make it compliant again.
+
+172
+00:06:40,050 --> 00:06:43,850
+So let's delete it and save my rules.
+
+173
+00:06:43,850 --> 00:06:46,090
+So then security group has been modified,
+
+174
+00:06:46,090 --> 00:06:46,990
+and so let me close this.
+
+175
+00:06:46,990 --> 00:06:50,600
+So this is my non-compliant security group,
+
+176
+00:06:50,600 --> 00:06:53,150
+and I can go into resource timeline to have a look.
+
+177
+00:06:57,550 --> 00:06:58,760
+And so within the resource timeline,
+
+178
+00:06:58,760 --> 00:07:01,140
+as we can see the configuration change happens,
+
+179
+00:07:01,140 --> 00:07:04,170
+and then the rule was run and it was not compliant.
+
+180
+00:07:04,170 --> 00:07:06,710
+Now I did change yet again, the configuration,
+
+181
+00:07:06,710 --> 00:07:09,010
+so we're going to have to wait a little bit of time
+
+182
+00:07:09,010 --> 00:07:11,290
+for the configuration change to happen right here,
+
+183
+00:07:11,290 --> 00:07:13,990
+which should trigger a rule compliance
+
+184
+00:07:13,990 --> 00:07:16,110
+and then hopefully now a resource will be compliant.
+
+185
+00:07:16,110 --> 00:07:19,290
+So let me pause a little bit and get back to you.
+
+186
+00:07:19,290 --> 00:07:21,470
+So I have just refreshed my page,
+
+187
+00:07:21,470 --> 00:07:23,700
+and as we can see in here on July 12th,
+
+188
+00:07:23,700 --> 00:07:25,280
+we have after the rule compliance,
+
+189
+00:07:25,280 --> 00:07:26,800
+a CloudTrail event that happened
+
+190
+00:07:26,800 --> 00:07:29,830
+because I did revoke a security group ingress rule
+
+191
+00:07:29,830 --> 00:07:32,330
+because I deleted an ingress rule, that's true.
+
+192
+00:07:32,330 --> 00:07:34,830
+Then it recorded as well, a configuration change
+
+193
+00:07:34,830 --> 00:07:37,950
+saying hey, this rule that had the port 22 in it
+
+194
+00:07:37,950 --> 00:07:42,150
+got deleted so from and to is empty because it got deleted.
+
+195
+00:07:42,150 --> 00:07:45,260
+And then config, they run my rule again,
+
+196
+00:07:45,260 --> 00:07:46,800
+named restricted SSH.
+
+197
+00:07:46,800 --> 00:07:49,150
+And now my resource is compliant.
+
+198
+00:07:49,150 --> 00:07:50,540
+And so that means that yes,
+
+199
+00:07:50,540 --> 00:07:52,740
+I have fixed the compliance of my resource.
+
+200
+00:07:52,740 --> 00:07:54,610
+So I can go back into here
+
+201
+00:07:54,610 --> 00:07:56,490
+and we can have a look at another security group,
+
+202
+00:07:56,490 --> 00:07:58,030
+for example, this one.
+
+203
+00:07:58,030 --> 00:08:00,330
+And under the rule here,
+
+204
+00:08:00,330 --> 00:08:03,860
+you can do action and then manage remediation.
+
+205
+00:08:03,860 --> 00:08:07,190
+So this is to remediate this for this rule,
+
+206
+00:08:07,190 --> 00:08:08,080
+so if you look at this rule,
+
+207
+00:08:08,080 --> 00:08:09,580
+we have manage remediation
+
+208
+00:08:09,580 --> 00:08:13,420
+and we can have manual remediation or automatic remediation.
+
+209
+00:08:13,420 --> 00:08:16,050
+In which case, you can specify your number of retries
+
+210
+00:08:16,050 --> 00:08:19,720
+and a number of seconds for the retries to happen, okay?
+
+211
+00:08:19,720 --> 00:08:23,160
+So we can select a manual remediation for example,
+
+212
+00:08:23,160 --> 00:08:25,330
+and then you need to choose a remediation action.
+
+213
+00:08:25,330 --> 00:08:29,120
+So these are SSM automation documents that we can select.
+
+214
+00:08:29,120 --> 00:08:32,570
+So these are defined by AWS, but we can also create our own.
+
+215
+00:08:32,570 --> 00:08:36,360
+And for example, well, we could delete a snapshot
+
+216
+00:08:36,360 --> 00:08:38,230
+or delete an image if it's not compliant
+
+217
+00:08:38,230 --> 00:08:39,220
+to whatever we wanted.
+
+218
+00:08:39,220 --> 00:08:41,539
+So it's really up to you to define the action you want.
+
+219
+00:08:41,539 --> 00:08:44,940
+So for example, you could say, hey attach EBS volume
+
+220
+00:08:44,940 --> 00:08:46,690
+and here's the right limit
+
+221
+00:08:46,690 --> 00:08:49,080
+based on the non compliant resources.
+
+222
+00:08:49,080 --> 00:08:50,320
+The resource ID parameters,
+
+223
+00:08:50,320 --> 00:08:54,040
+if you need them to be given to the remediation and so on.
+
+224
+00:08:54,040 --> 00:08:55,250
+Now this doesn't make any sense,
+
+225
+00:08:55,250 --> 00:08:56,630
+this remediation action, right?
+
+226
+00:08:56,630 --> 00:08:58,060
+We need to define a remediation action
+
+227
+00:08:58,060 --> 00:08:59,210
+that makes sense for our rule,
+
+228
+00:08:59,210 --> 00:09:01,560
+but as you can see, we can set up automatic
+
+229
+00:09:01,560 --> 00:09:04,310
+or manual remediation and configure it and so on,
+
+230
+00:09:04,310 --> 00:09:08,293
+and also best in some parameters around the document itself.
+
+231
+00:09:09,190 --> 00:09:11,420
+So that's it for config, I hope you liked it.
+
+232
+00:09:11,420 --> 00:09:13,440
+And then aggregators is to integrate
+
+233
+00:09:13,440 --> 00:09:15,780
+across multiple accounts, okay?
+
+234
+00:09:15,780 --> 00:09:16,760
+And then under settings,
+
+235
+00:09:16,760 --> 00:09:19,680
+you can have a look at the settings we defined from before,
+
+236
+00:09:19,680 --> 00:09:22,070
+including, for example, sending all the data
+
+237
+00:09:22,070 --> 00:09:23,580
+into an SNS topic.
+
+238
+00:09:23,580 --> 00:09:25,730
+Or you can set up Amazon CloudWatch Event rules, okay?
+
+239
+00:09:25,730 --> 00:09:27,110
+From the CloudWatch consoles
+
+240
+00:09:27,110 --> 00:09:28,710
+or from the Events rules console
+
+241
+00:09:28,710 --> 00:09:31,840
+to intercept only specific non-compliant events
+
+242
+00:09:31,840 --> 00:09:33,520
+for some specific rules.
+
+243
+00:09:33,520 --> 00:09:35,510
+So that's it for this section, I hope you liked it,
+
+244
+00:09:35,510 --> 00:09:37,460
+And I will see you in the next lecture.
+

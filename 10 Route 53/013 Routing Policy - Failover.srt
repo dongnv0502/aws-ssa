@@ -1,0 +1,432 @@
+1
+00:00:00,260 --> 00:00:02,350
+Okay, so now let's talk about routing policies
+
+2
+00:00:02,350 --> 00:00:04,400
+and this one is going to be for the failover.
+
+3
+00:00:04,400 --> 00:00:07,370
+So the idea is that we have route 53 in the middle
+
+4
+00:00:07,370 --> 00:00:08,890
+and we have EC2 instances,
+
+5
+00:00:08,890 --> 00:00:11,040
+one is going to be our primary EC2 instance,
+
+6
+00:00:11,040 --> 00:00:13,100
+and the second one is going to be a secondary,
+
+7
+00:00:13,100 --> 00:00:15,500
+or disaster recovery, EC2 instance.
+
+8
+00:00:15,500 --> 00:00:17,060
+In this case, what's going to happen is that we're going
+
+9
+00:00:17,060 --> 00:00:19,740
+to associate our primary record with a health check,
+
+10
+00:00:19,740 --> 00:00:21,180
+and this is mandatory.
+
+11
+00:00:21,180 --> 00:00:23,460
+And if the health check it becomes unhealthy,
+
+12
+00:00:23,460 --> 00:00:26,740
+then route 53 is going to automatically failover
+
+13
+00:00:26,740 --> 00:00:28,700
+to the second EC2 instance,
+
+14
+00:00:28,700 --> 00:00:32,000
+and start sending that result back instead.
+
+15
+00:00:32,000 --> 00:00:34,512
+And of course the secondary EC2 can also be
+
+16
+00:00:34,512 --> 00:00:37,500
+associated with the health check as well, if we want it to.
+
+17
+00:00:37,500 --> 00:00:40,210
+But there can only be one primary and one secondary.
+
+18
+00:00:40,210 --> 00:00:42,520
+Now the client, when it makes DNS requests,
+
+19
+00:00:42,520 --> 00:00:45,040
+will automatically get the resource that is deemed healthy.
+
+20
+00:00:45,040 --> 00:00:47,220
+So if our primary is healthy,
+
+21
+00:00:47,220 --> 00:00:50,020
+then route 53 will answer with a primary record.
+
+22
+00:00:50,020 --> 00:00:52,110
+But if the health check is unhealthy, automatically,
+
+23
+00:00:52,110 --> 00:00:54,450
+we will get the response of the second record,
+
+24
+00:00:54,450 --> 00:00:57,520
+which really helps us do (indistinct) a failover.
+
+25
+00:00:57,520 --> 00:00:58,840
+So that's it, let's go in the hands-on
+
+26
+00:00:58,840 --> 00:01:00,870
+to see how we can practice this.
+
+27
+00:01:00,870 --> 00:01:02,880
+Okay, so now let's leverage these health checks
+
+28
+00:01:02,880 --> 00:01:05,810
+and create a failover record.
+
+29
+00:01:05,810 --> 00:01:09,830
+So in my hosted zone, I'm going to create a record,
+
+30
+00:01:09,830 --> 00:01:11,040
+and this one's going to be called
+
+31
+00:01:11,040 --> 00:01:13,440
+failover.stephanetheteacher.com,
+
+32
+00:01:13,440 --> 00:01:14,450
+and it's the A record,
+
+33
+00:01:14,450 --> 00:01:15,960
+and the first value is going to be
+
+34
+00:01:15,960 --> 00:01:19,550
+for my EU-central-1 instance, so the one close to me,
+
+35
+00:01:19,550 --> 00:01:22,910
+and the routing policy is going to be a failover.
+
+36
+00:01:22,910 --> 00:01:24,420
+So the TTL will set it something really low,
+
+37
+00:01:24,420 --> 00:01:25,930
+like 60 seconds.
+
+38
+00:01:25,930 --> 00:01:27,800
+And the failover record type has two options.
+
+39
+00:01:27,800 --> 00:01:30,700
+It could be either primary or secondary, just these two.
+
+40
+00:01:30,700 --> 00:01:33,710
+So this is my primary record, and I will associate it
+
+41
+00:01:33,710 --> 00:01:35,200
+with a health check, I have to.
+
+42
+00:01:35,200 --> 00:01:36,530
+So it will associate with my health check
+
+43
+00:01:36,530 --> 00:01:38,440
+named EU-central-1,
+
+44
+00:01:38,440 --> 00:01:40,750
+and the record ID is going to be E.
+
+45
+00:01:40,750 --> 00:01:42,620
+So what this is saying is that this record
+
+46
+00:01:42,620 --> 00:01:44,030
+should be my primary one,
+
+47
+00:01:44,030 --> 00:01:46,230
+but this is going to be associated with a health check,
+
+48
+00:01:46,230 --> 00:01:48,240
+which means that you can failover to a second record.
+
+49
+00:01:48,240 --> 00:01:50,820
+So let's add a new record, and I will keep the record name
+
+50
+00:01:50,820 --> 00:01:53,490
+as failover.stephanetheteacher.com,
+
+51
+00:01:53,490 --> 00:01:55,990
+and the value of which is going to be my instance
+
+52
+00:01:55,990 --> 00:01:58,110
+in US-east-1.
+
+53
+00:01:58,110 --> 00:02:00,840
+Okay, we're still going to have to do a failover,
+
+54
+00:02:00,840 --> 00:02:02,380
+the TTL is 60 seconds,
+
+55
+00:02:02,380 --> 00:02:05,230
+and the failover record type is going to be secondary.
+
+56
+00:02:05,230 --> 00:02:08,270
+Now we can optionally associate your health check with it,
+
+57
+00:02:08,270 --> 00:02:10,840
+okay, of US-East-1, but you don't have to.
+
+58
+00:02:10,840 --> 00:02:13,240
+And the record ID is going to be US.
+
+59
+00:02:13,240 --> 00:02:15,190
+Now let's create this record,
+
+60
+00:02:15,190 --> 00:02:17,370
+and notice it was successfully created.
+
+61
+00:02:17,370 --> 00:02:20,160
+And so let's go back into our health checks.
+
+62
+00:02:20,160 --> 00:02:21,390
+And currently these two health checks
+
+63
+00:02:21,390 --> 00:02:23,940
+I've associated with my records are healthy.
+
+64
+00:02:23,940 --> 00:02:26,160
+So if I go into the URL,
+
+65
+00:02:26,160 --> 00:02:29,373
+so if I go to failover.stephanetheteacher.com,
+
+66
+00:02:31,800 --> 00:02:35,160
+right now, I get an answer from EU-central-1c,
+
+67
+00:02:35,160 --> 00:02:36,240
+That's perfect.
+
+68
+00:02:36,240 --> 00:02:37,920
+But what I'm going to do is trigger a failure.
+
+69
+00:02:37,920 --> 00:02:41,363
+So let's go into the EU-central-1 region,
+
+70
+00:02:42,370 --> 00:02:44,930
+and I'm going to find my instances, here,
+
+71
+00:02:44,930 --> 00:02:46,870
+and I'm going to find the security group,
+
+72
+00:02:46,870 --> 00:02:49,940
+and I'm going to, again, stop some security group roles.
+
+73
+00:02:49,940 --> 00:02:53,200
+So let's refresh this page.
+
+74
+00:02:53,200 --> 00:02:54,870
+It does exist, that's perfect.
+
+75
+00:02:54,870 --> 00:02:57,510
+And for the inbound rule, I'm going to edit it,
+
+76
+00:02:57,510 --> 00:02:59,870
+and it will remove the rule on port A.
+
+77
+00:02:59,870 --> 00:03:02,550
+So that will make my instance completely unreachable
+
+78
+00:03:02,550 --> 00:03:04,270
+from the health checkers.
+
+79
+00:03:04,270 --> 00:03:06,750
+So what I have to do now is to wait for this health check
+
+80
+00:03:06,750 --> 00:03:07,670
+to become unhealthy,
+
+81
+00:03:07,670 --> 00:03:10,620
+and then we'll be able to test the failover.
+
+82
+00:03:10,620 --> 00:03:13,010
+So let's refresh, and as we can see now,
+
+83
+00:03:13,010 --> 00:03:16,070
+my EU-central-1 health check is deemed unhealthy,
+
+84
+00:03:16,070 --> 00:03:18,140
+and we can look into the monitoring tab and see
+
+85
+00:03:18,140 --> 00:03:20,280
+really when it got a unhealthy, so this is quite cool.
+
+86
+00:03:20,280 --> 00:03:21,770
+So the health checker was positive,
+
+87
+00:03:21,770 --> 00:03:23,130
+and then it went to zero,
+
+88
+00:03:23,130 --> 00:03:25,160
+and then we can see how many percentage
+
+89
+00:03:25,160 --> 00:03:26,700
+of the health checkers did report healthy,
+
+90
+00:03:26,700 --> 00:03:28,830
+and again, this went one down to zero.
+
+91
+00:03:28,830 --> 00:03:29,750
+So what this means,
+
+92
+00:03:29,750 --> 00:03:33,680
+is that now that this health check is unhealthy
+
+93
+00:03:33,680 --> 00:03:35,450
+because of the way we set up the failover
+
+94
+00:03:35,450 --> 00:03:37,750
+that was linked to this health check.
+
+95
+00:03:37,750 --> 00:03:39,800
+Then next time I refresh this,
+
+96
+00:03:39,800 --> 00:03:41,290
+I should not be in Eu-central-1c,
+
+97
+00:03:41,290 --> 00:03:43,300
+I should be in US-east-1.
+
+98
+00:03:43,300 --> 00:03:44,700
+So let's refresh this (indistinct) page,
+
+99
+00:03:44,700 --> 00:03:48,090
+and yes, the answer is that we are in US-east-1.
+
+100
+00:03:48,090 --> 00:03:51,500
+And so the failover did work seamlessly behind the scenes.
+
+101
+00:03:51,500 --> 00:03:53,490
+And while to fix it, you just go back
+
+102
+00:03:53,490 --> 00:03:56,520
+into your security group, you would edit the inbound rule,
+
+103
+00:03:56,520 --> 00:03:59,410
+and then you would add back the HTTP rule,
+
+104
+00:03:59,410 --> 00:04:01,920
+and then automatically the health check
+
+105
+00:04:01,920 --> 00:04:04,884
+is going to pass again, and therefore we are going to
+
+106
+00:04:04,884 --> 00:04:09,010
+failover back to our primary location, okay.
+
+107
+00:04:09,010 --> 00:04:10,630
+So that's it for this lecture, I hope you liked it,
+
+108
+00:04:10,630 --> 00:04:12,580
+and I will see you in the next lecture.
+

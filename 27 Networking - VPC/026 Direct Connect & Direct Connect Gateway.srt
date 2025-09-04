@@ -1,0 +1,680 @@
+1
+00:00:00,310 --> 00:00:02,330
+Now let's talk about Direct Connect,
+
+2
+00:00:02,330 --> 00:00:05,300
+and you may also see it as DX in the exam.
+
+3
+00:00:05,300 --> 00:00:07,190
+So it provides a dedicated
+
+4
+00:00:07,190 --> 00:00:11,960
+private connection from the remote network into your VPC.
+
+5
+00:00:11,960 --> 00:00:14,980
+So you need to set up that Direct Connect connection
+
+6
+00:00:14,980 --> 00:00:19,520
+and it is using an AWS Direct Connect location.
+
+7
+00:00:19,520 --> 00:00:20,550
+You also need to set up
+
+8
+00:00:20,550 --> 00:00:22,890
+a virtual private gateway on your VPC side
+
+9
+00:00:22,890 --> 00:00:24,090
+to make the connectivity
+
+10
+00:00:24,090 --> 00:00:27,610
+between your on-premise data center and AWS.
+
+11
+00:00:27,610 --> 00:00:29,600
+The idea is that on the same connection
+
+12
+00:00:29,600 --> 00:00:32,119
+you can access both public resources
+
+13
+00:00:32,119 --> 00:00:34,940
+such as Amazon history and private resources,
+
+14
+00:00:34,940 --> 00:00:39,130
+such as EC2 Instances using the the public VIF
+
+15
+00:00:39,130 --> 00:00:40,870
+and the private VIF.
+
+16
+00:00:40,870 --> 00:00:43,400
+So what are the use cases for Direct Connect?
+
+17
+00:00:43,400 --> 00:00:45,360
+Well, you get increased bandwidth throughputs,
+
+18
+00:00:45,360 --> 00:00:47,290
+that means that if you're working with large data sets,
+
+19
+00:00:47,290 --> 00:00:48,160
+is going to be faster
+
+20
+00:00:48,160 --> 00:00:50,410
+because it doesn't go over the public internet,
+
+21
+00:00:50,410 --> 00:00:51,890
+and also you're going to have lower cost
+
+22
+00:00:51,890 --> 00:00:54,150
+because you're using a private connection.
+
+23
+00:00:54,150 --> 00:00:57,010
+Also, if you have connectivity issues
+
+24
+00:00:57,010 --> 00:00:58,420
+using the public internet,
+
+25
+00:00:58,420 --> 00:00:59,390
+we'll using Direct Connect
+
+26
+00:00:59,390 --> 00:01:01,170
+you get a more consistent network experience,
+
+27
+00:01:01,170 --> 00:01:03,130
+again because it is private.
+
+28
+00:01:03,130 --> 00:01:04,530
+So this is especially helpful
+
+29
+00:01:04,530 --> 00:01:07,270
+if you have applications using real time data feeds.
+
+30
+00:01:07,270 --> 00:01:09,200
+Finally, it supports hybrid environments
+
+31
+00:01:09,200 --> 00:01:10,650
+because you have connectivity
+
+32
+00:01:10,650 --> 00:01:13,490
+between your own premises data center and the cloud.
+
+33
+00:01:13,490 --> 00:01:16,120
+It supports both IPv4 four and IPv6.
+
+34
+00:01:16,120 --> 00:01:18,350
+So let's look at a diagram of Direct Connect.
+
+35
+00:01:18,350 --> 00:01:19,540
+So we have a region
+
+36
+00:01:19,540 --> 00:01:22,530
+and we want to connect it into our corporate data center.
+
+37
+00:01:22,530 --> 00:01:24,950
+So for this, we're going to commission
+
+38
+00:01:24,950 --> 00:01:26,610
+an AWS Direct Connect location,
+
+39
+00:01:26,610 --> 00:01:28,840
+their physical locations that you have to find
+
+40
+00:01:28,840 --> 00:01:31,580
+but it's all obviously on the website of AWS,
+
+41
+00:01:31,580 --> 00:01:34,290
+and there's going to be a Direct Connect endpoints,
+
+42
+00:01:34,290 --> 00:01:36,720
+and there's going to be a customer or partner router
+
+43
+00:01:36,720 --> 00:01:40,450
+that you have to rent from a customer or partner cage.
+
+44
+00:01:40,450 --> 00:01:42,850
+So you have two cages in this Direct Connect location,
+
+45
+00:01:42,850 --> 00:01:44,540
+and then on your on-premise data center,
+
+46
+00:01:44,540 --> 00:01:47,900
+you're going to set up a customer router with a firewall.
+
+47
+00:01:47,900 --> 00:01:51,130
+Now you're going to set up a private virtual interface,
+
+48
+00:01:51,130 --> 00:01:55,080
+so private VIF first to access your private resources
+
+49
+00:01:55,080 --> 00:01:56,540
+into your VPC.
+
+50
+00:01:56,540 --> 00:01:58,360
+So to do so, you set up the private VIF
+
+51
+00:01:58,360 --> 00:02:00,240
+in between all these locations
+
+52
+00:02:00,240 --> 00:02:02,930
+into a virtual private gateway.
+
+53
+00:02:02,930 --> 00:02:04,340
+And this virtual private gateway
+
+54
+00:02:04,340 --> 00:02:06,180
+is attached to your VPC.
+
+55
+00:02:06,180 --> 00:02:08,100
+And through the private VIF,
+
+56
+00:02:08,100 --> 00:02:10,600
+you are able to access your private subnets
+
+57
+00:02:10,600 --> 00:02:12,720
+with your EC2 Instances.
+
+58
+00:02:12,720 --> 00:02:13,940
+And as you can see,
+
+59
+00:02:13,940 --> 00:02:15,770
+all these things happen privately,
+
+60
+00:02:15,770 --> 00:02:17,900
+so you need to set up that connection manually,
+
+61
+00:02:17,900 --> 00:02:19,320
+it can take a month to set up,
+
+62
+00:02:19,320 --> 00:02:21,930
+but none of this goes over the public internet,
+
+63
+00:02:21,930 --> 00:02:23,983
+it is all a private connectivity.
+
+64
+00:02:24,940 --> 00:02:28,300
+The alternative is to connect to public services within AWS
+
+65
+00:02:28,300 --> 00:02:31,410
+such as Amazon Glacier, Amazon S3.
+
+66
+00:02:31,410 --> 00:02:32,730
+And for this, you're going to set up
+
+67
+00:02:32,730 --> 00:02:35,580
+a public virtual interface or public VIF.
+
+68
+00:02:35,580 --> 00:02:37,480
+And so it goes through the same path
+
+69
+00:02:37,480 --> 00:02:40,100
+but it doesn't connect into a virtual private gateway,
+
+70
+00:02:40,100 --> 00:02:42,053
+it connects directly into AWS.
+
+71
+00:02:43,190 --> 00:02:45,070
+So what if you want to connect
+
+72
+00:02:45,070 --> 00:02:48,600
+to one or more VPCs in different regions?
+
+73
+00:02:48,600 --> 00:02:52,120
+For this, you must use a Direct Connect gateway.
+
+74
+00:02:52,120 --> 00:02:53,250
+So we have an example
+
+75
+00:02:53,250 --> 00:02:54,930
+where we have two regions,
+
+76
+00:02:54,930 --> 00:02:56,360
+and they have two different VPC,
+
+77
+00:02:56,360 --> 00:02:58,010
+we have two different CIDRs
+
+78
+00:02:58,010 --> 00:03:00,510
+and we want to connect our on-premise data center
+
+79
+00:03:00,510 --> 00:03:02,960
+into both VPC.
+
+80
+00:03:02,960 --> 00:03:06,010
+So we're going to establish a Direct Connect connection,
+
+81
+00:03:06,010 --> 00:03:07,090
+then using the private VIF,
+
+82
+00:03:07,090 --> 00:03:10,370
+you're going to connect it to Direct Connect gateway.
+
+83
+00:03:10,370 --> 00:03:13,210
+And this gateway will have a private virtual interface
+
+84
+00:03:13,210 --> 00:03:16,010
+into a virtual private gateway
+
+85
+00:03:16,010 --> 00:03:19,040
+in the first region and another one in the second region.
+
+86
+00:03:19,040 --> 00:03:22,100
+So using the setup, we can start connecting to multiple VPCs
+
+87
+00:03:22,100 --> 00:03:24,320
+and multiple regions.
+
+88
+00:03:24,320 --> 00:03:25,900
+Okay, now let's discuss the connection types
+
+89
+00:03:25,900 --> 00:03:27,340
+for Direct Connects.
+
+90
+00:03:27,340 --> 00:03:28,960
+We have a dedicated connection,
+
+91
+00:03:28,960 --> 00:03:28,961
+We have a dedicated connection,
+
+92
+00:03:28,961 --> 00:03:33,130
+it could be 1, 10 or 100 gigabits per second capacity,
+
+93
+00:03:33,130 --> 00:03:37,270
+and we get a physical ethernet port that is dedicated to us.
+
+94
+00:03:37,270 --> 00:03:40,000
+And first we need to make a request to AWS,
+
+95
+00:03:40,000 --> 00:03:41,080
+and then it will be completed
+
+96
+00:03:41,080 --> 00:03:43,860
+by an AWS Direct Connect partner.
+
+97
+00:03:43,860 --> 00:03:45,470
+Or we can get a hosted connection,
+
+98
+00:03:45,470 --> 00:03:46,660
+and they come in different flavors
+
+99
+00:03:46,660 --> 00:03:49,877
+such has 15 megabits per second, 500 megabits per second
+
+100
+00:03:49,877 --> 00:03:50,710
+up to 10 gigabits per second.
+
+101
+00:03:52,780 --> 00:03:54,810
+And again, we make connection requests
+
+102
+00:03:54,810 --> 00:03:57,860
+via via AWS Direct Connect Partners.
+
+103
+00:03:57,860 --> 00:04:00,390
+And then we can add capacity on demand,
+
+104
+00:04:00,390 --> 00:04:02,260
+so we can add or remove capacity on demand,
+
+105
+00:04:02,260 --> 00:04:05,090
+so it's a bit more flexible than a dedicated connection.
+
+106
+00:04:05,090 --> 00:04:08,210
+And so we can get one, two, five 10 gigabits available
+
+107
+00:04:08,210 --> 00:04:10,120
+at select locations.
+
+108
+00:04:10,120 --> 00:04:13,430
+And to set up either a dedicated or a hosted connection,
+
+109
+00:04:13,430 --> 00:04:15,080
+the lead times are often longer
+
+110
+00:04:15,080 --> 00:04:17,620
+than one month to establish a new connection.
+
+111
+00:04:17,620 --> 00:04:19,630
+So in the exam, they will ask you questions around,
+
+112
+00:04:19,630 --> 00:04:22,520
+hey we want you to transfer some data within a week
+
+113
+00:04:22,520 --> 00:04:23,780
+and we want it to be fast.
+
+114
+00:04:23,780 --> 00:04:26,190
+So an answer can not be Direct Connect
+
+115
+00:04:26,190 --> 00:04:27,570
+because Direct Connect takes
+
+116
+00:04:27,570 --> 00:04:29,670
+often more than one month to establish.
+
+117
+00:04:29,670 --> 00:04:31,580
+So you need to look into question
+
+118
+00:04:31,580 --> 00:04:34,070
+whether or not there's already a Direct Connect established,
+
+119
+00:04:34,070 --> 00:04:36,600
+and whether or not the time to transmit the data
+
+120
+00:04:36,600 --> 00:04:39,560
+is less or greater than one month.
+
+121
+00:04:39,560 --> 00:04:42,530
+Now, when you have a Direct Connect, there is no encryption.
+
+122
+00:04:42,530 --> 00:04:44,300
+So data is not encrypted
+
+123
+00:04:44,300 --> 00:04:46,770
+but it is private because it is a private connection.
+
+124
+00:04:46,770 --> 00:04:49,450
+And so if you want an encryption on top of it,
+
+125
+00:04:49,450 --> 00:04:52,870
+you can set up Direct Connect to be alongside a VPN
+
+126
+00:04:52,870 --> 00:04:55,710
+to provide IPsec encrypted private connection.
+
+127
+00:04:55,710 --> 00:04:58,070
+So it's good to get an extra level of security
+
+128
+00:04:58,070 --> 00:05:00,160
+but it's slightly more complex to put in place.
+
+129
+00:05:00,160 --> 00:05:03,570
+So to set up is to get the Direct Connect location,
+
+130
+00:05:03,570 --> 00:05:05,440
+but then on the connection,
+
+131
+00:05:05,440 --> 00:05:08,290
+you're going to set up a VPN connection on top of it,
+
+132
+00:05:08,290 --> 00:05:10,430
+to have encryption for your Direct Connect
+
+133
+00:05:10,430 --> 00:05:11,680
+and therefore all the traffic
+
+134
+00:05:11,680 --> 00:05:14,290
+between your corporate data sensor to AWS
+
+135
+00:05:14,290 --> 00:05:15,683
+is going to be encrypted.
+
+136
+00:05:16,740 --> 00:05:18,390
+Now, one last thing that can come up in the exam,
+
+137
+00:05:18,390 --> 00:05:21,130
+is around resiliency for Direct Connect.
+
+138
+00:05:21,130 --> 00:05:23,630
+So we have two modes of resiliency and architectures
+
+139
+00:05:23,630 --> 00:05:24,840
+and you need to know them both
+
+140
+00:05:24,840 --> 00:05:27,520
+because they will be coming up at the exam.
+
+141
+00:05:27,520 --> 00:05:30,340
+You have a high resiliency for critical workloads
+
+142
+00:05:30,340 --> 00:05:32,590
+where we set up multiple Direct Connects.
+
+143
+00:05:32,590 --> 00:05:34,660
+So we have two corporate data centers
+
+144
+00:05:34,660 --> 00:05:37,807
+and we have two different Direct Connect location,
+
+145
+00:05:37,807 --> 00:05:39,630
+and this gives us some redundancy.
+
+146
+00:05:39,630 --> 00:05:40,600
+So in the first case,
+
+147
+00:05:40,600 --> 00:05:43,450
+we have a private VIF here and we have a private VIF here.
+
+148
+00:05:43,450 --> 00:05:46,510
+And so here we get one connection and multiple locations,
+
+149
+00:05:46,510 --> 00:05:49,580
+and so if one of the Direct Connect location goes down,
+
+150
+00:05:49,580 --> 00:05:51,140
+then at least we have some backup
+
+151
+00:05:51,140 --> 00:05:53,110
+Direct Connect location somewhere else
+
+152
+00:05:53,110 --> 00:05:55,230
+and so this gives us high resiliency,
+
+153
+00:05:55,230 --> 00:05:57,840
+and this is good for critical workloads.
+
+154
+00:05:57,840 --> 00:06:00,780
+But if you want to get to maximum resiliency
+
+155
+00:06:00,780 --> 00:06:01,700
+for critical workloads
+
+156
+00:06:01,700 --> 00:06:04,090
+and I emphasize the word maximum
+
+157
+00:06:04,090 --> 00:06:05,770
+because it can come up in the exam,
+
+158
+00:06:05,770 --> 00:06:07,640
+then you're going to have to set up
+
+159
+00:06:07,640 --> 00:06:10,000
+again two Direct Connect locations,
+
+160
+00:06:10,000 --> 00:06:12,130
+but this time each Direct Connect location
+
+161
+00:06:12,130 --> 00:06:13,500
+will have two connections
+
+162
+00:06:13,500 --> 00:06:16,430
+independence to give you maximum resiliency.
+
+163
+00:06:16,430 --> 00:06:20,810
+So in this use case, we have four connections
+
+164
+00:06:20,810 --> 00:06:24,260
+across two locations, sorry, going into AWS.
+
+165
+00:06:24,260 --> 00:06:26,470
+And so a maximum resilience is achieved
+
+166
+00:06:26,470 --> 00:06:27,910
+by using separate connections,
+
+167
+00:06:27,910 --> 00:06:31,530
+terminating on separate devices in more than one location.
+
+168
+00:06:31,530 --> 00:06:33,020
+So that's it for Direct Connect.
+
+169
+00:06:33,020 --> 00:06:34,020
+I hope you liked this lecture,
+
+170
+00:06:34,020 --> 00:06:35,970
+and I will see you in the next lecture.
+

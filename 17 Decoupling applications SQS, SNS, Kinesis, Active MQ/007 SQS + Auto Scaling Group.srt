@@ -1,0 +1,436 @@
+1
+00:00:00,330 --> 00:00:03,030
+So I've told you that we can use the SQS Q
+
+2
+00:00:03,030 --> 00:00:04,140
+with the autoscaling groups.
+
+3
+00:00:04,140 --> 00:00:06,420
+But I want to show you how and the patterns
+
+4
+00:00:06,420 --> 00:00:07,890
+that it opens up.
+
+5
+00:00:07,890 --> 00:00:11,790
+So we have a SQS queue and an autoscaling group.
+
+6
+00:00:11,790 --> 00:00:14,790
+And the EC-2 instances within the ASG
+
+7
+00:00:14,790 --> 00:00:17,820
+are going to poll for messages from the SQS queue.
+
+8
+00:00:17,820 --> 00:00:19,740
+Now the idea is to scale the auto scaling groups
+
+9
+00:00:19,740 --> 00:00:22,110
+automatically based on the queue size.
+
+10
+00:00:22,110 --> 00:00:25,020
+And so therefore, we can look at the CloudWatch metric
+
+11
+00:00:25,020 --> 00:00:29,070
+called queue length, called approximate number of messages,
+
+12
+00:00:29,070 --> 00:00:31,020
+which basically represents how many messages
+
+13
+00:00:31,020 --> 00:00:32,220
+are left in the queue.
+
+14
+00:00:32,220 --> 00:00:36,090
+And you can set an alarm and say, well, if this metric
+
+15
+00:00:36,090 --> 00:00:38,700
+is over, say, for example, 1,000,
+
+16
+00:00:38,700 --> 00:00:40,650
+that means there are 1,000 messages in the queue
+
+17
+00:00:40,650 --> 00:00:43,500
+waiting to be processed, that means that we are lagging
+
+18
+00:00:43,500 --> 00:00:44,730
+on the processing.
+
+19
+00:00:44,730 --> 00:00:47,220
+And therefore, we're going create an alarm saying,
+
+20
+00:00:47,220 --> 00:00:49,440
+hey, over 1,000 is going to be an alarm.
+
+21
+00:00:49,440 --> 00:00:53,100
+And this alarm is going to trigger a scaling action
+
+22
+00:00:53,100 --> 00:00:54,720
+in your auto scaling group.
+
+23
+00:00:54,720 --> 00:00:57,270
+Because, well, we don't have enough EC2 instances.
+
+24
+00:00:57,270 --> 00:01:00,360
+And therefore, more EC2 instances are going to be added
+
+25
+00:01:00,360 --> 00:01:02,820
+into your auto scaling group, which will scale.
+
+26
+00:01:02,820 --> 00:01:05,550
+And therefore, the message will be processed faster.
+
+27
+00:01:05,550 --> 00:01:07,710
+The SQS queue size will decrease.
+
+28
+00:01:07,710 --> 00:01:09,600
+And you will have scaled for it.
+
+29
+00:01:09,600 --> 00:01:11,100
+And it works in both ways.
+
+30
+00:01:11,100 --> 00:01:13,050
+You can scale up or scale down.
+
+31
+00:01:13,050 --> 00:01:16,560
+And this is the main idea of using an auto scaling group
+
+32
+00:01:16,560 --> 00:01:18,360
+and an SQS queue.
+
+33
+00:01:18,360 --> 00:01:20,370
+Now, what patterns as it open up?
+
+34
+00:01:20,370 --> 00:01:23,880
+Well, say, for example, that you are running a very big sell
+
+35
+00:01:23,880 --> 00:01:26,040
+and this is the biggest marketing campaign you've done
+
+36
+00:01:26,040 --> 00:01:27,000
+in your life.
+
+37
+00:01:27,000 --> 00:01:30,450
+And all your customers are going to place orders.
+
+38
+00:01:30,450 --> 00:01:31,890
+And these orders can be stored
+
+39
+00:01:31,890 --> 00:01:33,270
+in different types of databases.
+
+40
+00:01:33,270 --> 00:01:36,330
+They could be stored in Amazon RDS or Amazon Aurora
+
+41
+00:01:36,330 --> 00:01:40,800
+if you wanted to have some OLTP type of databases
+
+42
+00:01:40,800 --> 00:01:42,720
+or Amazon DynamoDB, if you want to have
+
+43
+00:01:42,720 --> 00:01:44,760
+no SQL type of database.
+
+44
+00:01:44,760 --> 00:01:48,900
+And so these transactions may be written very, very fast
+
+45
+00:01:48,900 --> 00:01:51,510
+into RDS or very suddenly.
+
+46
+00:01:51,510 --> 00:01:53,550
+And so if your application handles them,
+
+47
+00:01:53,550 --> 00:01:54,570
+they can handle requests.
+
+48
+00:01:54,570 --> 00:01:57,060
+But then on uncertain transactions,
+
+49
+00:01:57,060 --> 00:02:00,000
+there may be some errors, if the databases are overloaded.
+
+50
+00:02:00,000 --> 00:02:02,280
+And you will lose some customer transactions,
+
+51
+00:02:02,280 --> 00:02:04,050
+which is bad for your business.
+
+52
+00:02:04,050 --> 00:02:05,670
+So how do we solve this?
+
+53
+00:02:05,670 --> 00:02:08,910
+Well, we can solve this by using SQS as a buffer
+
+54
+00:02:08,910 --> 00:02:09,930
+to the database writes.
+
+55
+00:02:09,930 --> 00:02:12,600
+And this is a very common exam pattern.
+
+56
+00:02:12,600 --> 00:02:14,340
+So the same databases are here.
+
+57
+00:02:14,340 --> 00:02:16,650
+And the same fronting application is here.
+
+58
+00:02:16,650 --> 00:02:19,410
+But instead of writing directly into the database,
+
+59
+00:02:19,410 --> 00:02:21,090
+the applications are going to write
+
+60
+00:02:21,090 --> 00:02:25,350
+the transaction request or transactions into your SQS queue.
+
+61
+00:02:25,350 --> 00:02:28,740
+Which, by definition, from AWS is infinitely scalable,
+
+62
+00:02:28,740 --> 00:02:32,040
+doesn't experience any kind of throughput issue.
+
+63
+00:02:32,040 --> 00:02:35,580
+So your request goes into your application,
+
+64
+00:02:35,580 --> 00:02:37,500
+which will enqueue messages.
+
+65
+00:02:37,500 --> 00:02:40,140
+That means that all the transactions, all the request
+
+66
+00:02:40,140 --> 00:02:43,740
+will be sent as a message into your SQS queue.
+
+67
+00:02:43,740 --> 00:02:45,630
+And so that means that we will not lose
+
+68
+00:02:45,630 --> 00:02:46,710
+any single one of them.
+
+69
+00:02:46,710 --> 00:02:50,490
+They will be durably stored into your SQS queue.
+
+70
+00:02:50,490 --> 00:02:53,430
+Now, we can create another auto scaling group.
+
+71
+00:02:53,430 --> 00:02:55,830
+This one to dequeue messages.
+
+72
+00:02:55,830 --> 00:02:58,500
+And the sole role of this auto scaling group
+
+73
+00:02:58,500 --> 00:03:01,980
+is to receive the messages and then insert them
+
+74
+00:03:01,980 --> 00:03:03,540
+into the databases.
+
+75
+00:03:03,540 --> 00:03:07,440
+And only when a message is known to be inserted
+
+76
+00:03:07,440 --> 00:03:11,010
+in a database, then we will delete the message
+
+77
+00:03:11,010 --> 00:03:13,230
+from the original SQS queue.
+
+78
+00:03:13,230 --> 00:03:15,900
+And therefore, we used SQS as a buffer.
+
+79
+00:03:15,900 --> 00:03:17,850
+And we guarantee that every single transaction
+
+80
+00:03:17,850 --> 00:03:21,000
+is going to be written into your database.
+
+81
+00:03:21,000 --> 00:03:24,450
+Now, this pattern works only if the client does not need
+
+82
+00:03:24,450 --> 00:03:28,260
+to have the confirmation that the write has been happening
+
+83
+00:03:28,260 --> 00:03:29,370
+into the database.
+
+84
+00:03:29,370 --> 00:03:32,370
+But this is fine because if the write has been done
+
+85
+00:03:32,370 --> 00:03:34,920
+into an SQS queue, we sort of have the guarantee
+
+86
+00:03:34,920 --> 00:03:37,860
+that it will be written eventually to the database.
+
+87
+00:03:37,860 --> 00:03:39,420
+So we're good.
+
+88
+00:03:39,420 --> 00:03:42,840
+So this works for decoupling between database writes,
+
+89
+00:03:42,840 --> 00:03:44,700
+but also between application tiers.
+
+90
+00:03:44,700 --> 00:03:48,000
+So imagine an application that is getting a request
+
+91
+00:03:48,000 --> 00:03:51,300
+performing some processing and then sending back a response.
+
+92
+00:03:51,300 --> 00:03:52,560
+Instead, we can decouple it.
+
+93
+00:03:52,560 --> 00:03:54,270
+So we can have all the requests come
+
+94
+00:03:54,270 --> 00:03:56,190
+into a front end web application.
+
+95
+00:03:56,190 --> 00:03:58,770
+Send the request into an SQS queue.
+
+96
+00:03:58,770 --> 00:04:01,170
+And then, the backend processing job
+
+97
+00:04:01,170 --> 00:04:04,350
+will just receive these messages and deal with them
+
+98
+00:04:04,350 --> 00:04:05,430
+in their own time.
+
+99
+00:04:05,430 --> 00:04:07,110
+And we can scale this accordingly.
+
+100
+00:04:07,110 --> 00:04:12,090
+So SQS is going to be a very, very common way of dealing
+
+101
+00:04:12,090 --> 00:04:14,610
+at questions at the exam.
+
+102
+00:04:14,610 --> 00:04:16,649
+It is more common than usual now.
+
+103
+00:04:16,649 --> 00:04:20,760
+And so anytime you see decoupling, or sudden spike load,
+
+104
+00:04:20,760 --> 00:04:23,580
+or timeouts, or whatever, and you need to just make sure
+
+105
+00:04:23,580 --> 00:04:27,150
+you can scale a lot very fast, you may want to look
+
+106
+00:04:27,150 --> 00:04:28,710
+into an SQS queue.
+
+107
+00:04:28,710 --> 00:04:30,150
+All right, that's it for this lecture.
+
+108
+00:04:30,150 --> 00:04:31,290
+I hope you liked it.
+
+109
+00:04:31,290 --> 00:04:33,240
+And I will see you in the next lecture.
+

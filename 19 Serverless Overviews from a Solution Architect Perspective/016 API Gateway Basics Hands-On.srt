@@ -1,0 +1,988 @@
+1
+00:00:00,150 --> 00:00:02,610
+So let's open API Gateway
+
+2
+00:00:02,610 --> 00:00:04,830
+and we are in the API Gateway console.
+
+3
+00:00:04,830 --> 00:00:06,150
+So as you can see in here,
+
+4
+00:00:06,150 --> 00:00:08,430
+I have option of choosing an API type.
+
+5
+00:00:08,430 --> 00:00:11,820
+So we have HTTP, APIs, we have WebSocket API,
+
+6
+00:00:11,820 --> 00:00:15,270
+REST API, which are public or private,
+
+7
+00:00:15,270 --> 00:00:18,900
+and so as such, we will only deal with a REST API for now.
+
+8
+00:00:18,900 --> 00:00:21,030
+So we can try out new console by clicking on this
+
+9
+00:00:21,030 --> 00:00:23,310
+and this is going to be the default very soon.
+
+10
+00:00:23,310 --> 00:00:24,690
+So please make sure to have that.
+
+11
+00:00:24,690 --> 00:00:29,040
+And then you choose REST API, and then you build it.
+
+12
+00:00:29,040 --> 00:00:32,009
+So when you build an API, a REST API
+
+13
+00:00:32,009 --> 00:00:33,240
+you have several options.
+
+14
+00:00:33,240 --> 00:00:35,460
+You can create a new API, you can import one
+
+15
+00:00:35,460 --> 00:00:37,380
+from an open API definition file.
+
+16
+00:00:37,380 --> 00:00:38,760
+So where it's says file and just import
+
+17
+00:00:38,760 --> 00:00:40,500
+and API's created for you.
+
+18
+00:00:40,500 --> 00:00:42,390
+You can clone an existing API
+
+19
+00:00:42,390 --> 00:00:44,910
+or you can start from the example API.
+
+20
+00:00:44,910 --> 00:00:48,750
+For us, we were going to start from a new API
+
+21
+00:00:48,750 --> 00:00:52,980
+and the name is going to be MyFirstAPI.
+
+22
+00:00:52,980 --> 00:00:55,080
+Now as you see for the API endpoint type,
+
+23
+00:00:55,080 --> 00:00:56,280
+we have three options.
+
+24
+00:00:56,280 --> 00:00:59,340
+We have Regional, Edge-optimized, or Private.
+
+25
+00:00:59,340 --> 00:01:02,070
+So Regional is going to be deployed in one region.
+
+26
+00:01:02,070 --> 00:01:03,840
+Edge-optimized is going to be deployed
+
+27
+00:01:03,840 --> 00:01:05,220
+in many different regions,
+
+28
+00:01:05,220 --> 00:01:07,050
+but it's at the edge that is going to be deployed.
+
+29
+00:01:07,050 --> 00:01:10,290
+And then one, the API will still live in one region.
+
+30
+00:01:10,290 --> 00:01:13,470
+Or private is just private not exposed to the web.
+
+31
+00:01:13,470 --> 00:01:14,490
+To keep things simple right now
+
+32
+00:01:14,490 --> 00:01:17,970
+I'm going to choose regional API type.
+
+33
+00:01:17,970 --> 00:01:19,410
+So let me create the API.
+
+34
+00:01:19,410 --> 00:01:20,670
+And here we are.
+
+35
+00:01:20,670 --> 00:01:21,810
+So now we are here,
+
+36
+00:01:21,810 --> 00:01:26,070
+we are going to create our first method in this API.
+
+37
+00:01:26,070 --> 00:01:29,700
+So for this, you click on create method here
+
+38
+00:01:29,700 --> 00:01:30,870
+and then we choose the method type.
+
+39
+00:01:30,870 --> 00:01:33,810
+So it could be any of these HTTP verbs
+
+40
+00:01:33,810 --> 00:01:36,810
+but we're going to do a GET just to get a page.
+
+41
+00:01:36,810 --> 00:01:38,477
+And then you have to choose the integration type.
+
+42
+00:01:38,477 --> 00:01:40,080
+So you can see we have five options.
+
+43
+00:01:40,080 --> 00:01:43,770
+We have Lambda function, HTTP, Mock, AWS service
+
+44
+00:01:43,770 --> 00:01:44,970
+and VPC link.
+
+45
+00:01:44,970 --> 00:01:47,850
+And the one we'll be testing is Lambda function.
+
+46
+00:01:47,850 --> 00:01:50,790
+But I want to show you that we can also integrate
+
+47
+00:01:50,790 --> 00:01:52,350
+with any service in any region.
+
+48
+00:01:52,350 --> 00:01:55,200
+So we choose a region and then we choose a service.
+
+49
+00:01:55,200 --> 00:01:56,700
+And what it does that you can expose
+
+50
+00:01:56,700 --> 00:01:58,980
+some of your AWS services
+
+51
+00:01:58,980 --> 00:02:00,903
+as an API through API Gateway.
+
+52
+00:02:01,800 --> 00:02:03,030
+So we're going to keep things simple
+
+53
+00:02:03,030 --> 00:02:05,820
+and use Lambda functions in this one.
+
+54
+00:02:05,820 --> 00:02:07,590
+And so we need to choose a Lambda function
+
+55
+00:02:07,590 --> 00:02:09,810
+but for this of course we need to create it.
+
+56
+00:02:09,810 --> 00:02:12,870
+So let's go in Lambda and create our function
+
+57
+00:02:12,870 --> 00:02:15,810
+that is going to react to this API gateway.
+
+58
+00:02:15,810 --> 00:02:17,640
+So create a function and I call this one
+
+59
+00:02:17,640 --> 00:02:21,243
+api-gateway-route-gets.
+
+60
+00:02:22,140 --> 00:02:24,060
+And this is perfect.
+
+61
+00:02:24,060 --> 00:02:27,390
+And then the framework I'll use at the runtime
+
+62
+00:02:27,390 --> 00:02:29,520
+is going to be Python 3.11
+
+63
+00:02:29,520 --> 00:02:32,640
+but whatever Python 3 or Python should work.
+
+64
+00:02:32,640 --> 00:02:33,990
+So this is perfect.
+
+65
+00:02:33,990 --> 00:02:36,543
+Let's go and create this function.
+
+66
+00:02:37,920 --> 00:02:39,090
+And while this is creating,
+
+67
+00:02:39,090 --> 00:02:40,890
+I wanna show you the code we're going to use.
+
+68
+00:02:40,890 --> 00:02:44,790
+So I am in my code, in my folder
+
+69
+00:02:44,790 --> 00:02:46,890
+and there's lambda-code.py.
+
+70
+00:02:46,890 --> 00:02:50,850
+And this is the entire code we're going to copy to Lambda.
+
+71
+00:02:50,850 --> 00:02:52,680
+And so the idea is that this is a very simple
+
+72
+00:02:52,680 --> 00:02:55,140
+in the function which responds to an event
+
+73
+00:02:55,140 --> 00:02:57,360
+with some context and says, "Hey,
+
+74
+00:02:57,360 --> 00:02:59,280
+the body's going to be hello from Lambda.
+
+75
+00:02:59,280 --> 00:03:01,620
+It's going to be returned as the body."
+
+76
+00:03:01,620 --> 00:03:04,290
+The status code is 200.
+
+77
+00:03:04,290 --> 00:03:07,440
+And then the headers is Content-Type application/json,
+
+78
+00:03:07,440 --> 00:03:08,610
+to let our web browser know
+
+79
+00:03:08,610 --> 00:03:10,920
+that we get back a JSON response.
+
+80
+00:03:10,920 --> 00:03:13,530
+So I'm going to copy this entire code.
+
+81
+00:03:13,530 --> 00:03:16,290
+Scroll down and paste it here.
+
+82
+00:03:16,290 --> 00:03:19,560
+So we're going to deploy this function.
+
+83
+00:03:19,560 --> 00:03:23,250
+So I'm going to click on Deploy to deploy this function,
+
+84
+00:03:23,250 --> 00:03:24,270
+and we can also test it.
+
+85
+00:03:24,270 --> 00:03:28,380
+So for example, I can create a test event called DemoTest.
+
+86
+00:03:28,380 --> 00:03:31,440
+And then we just send this event, we save it
+
+87
+00:03:31,440 --> 00:03:32,940
+and then we click on Test.
+
+88
+00:03:32,940 --> 00:03:35,310
+And as you can see, the result is hello from Lambda
+
+89
+00:03:35,310 --> 00:03:36,360
+with status code 200.
+
+90
+00:03:36,360 --> 00:03:40,740
+So everything is working fine right now and this is perfect.
+
+91
+00:03:40,740 --> 00:03:43,020
+And what I'm going to do now is to integrate,
+
+92
+00:03:43,020 --> 00:03:46,380
+this Lambda function to my API gateway.
+
+93
+00:03:46,380 --> 00:03:50,130
+So back in here, I'm going to copy the function ARN,
+
+94
+00:03:50,130 --> 00:03:55,110
+go to my API gateway, and then just click and paste the ARN.
+
+95
+00:03:55,110 --> 00:03:55,943
+Perfect.
+
+96
+00:03:55,943 --> 00:03:58,890
+So now we have the Lambda function integrated
+
+97
+00:03:58,890 --> 00:04:01,650
+and because we want to see the full requests being passed
+
+98
+00:04:01,650 --> 00:04:04,080
+to Lambda and being sent back from Lambda,
+
+99
+00:04:04,080 --> 00:04:07,440
+you're going to take Lambda proxy integration.
+
+100
+00:04:07,440 --> 00:04:09,180
+Now for timeout, as you can see,
+
+101
+00:04:09,180 --> 00:04:11,520
+even though a Lambda function can have a long timeout,
+
+102
+00:04:11,520 --> 00:04:14,070
+for example, five minutes or 15 minutes,
+
+103
+00:04:14,070 --> 00:04:16,079
+API Gateway has a limited timeout
+
+104
+00:04:16,079 --> 00:04:18,540
+and the default is 29 seconds.
+
+105
+00:04:18,540 --> 00:04:21,510
+You can customize it and have it less than 29 seconds
+
+106
+00:04:21,510 --> 00:04:23,940
+but the default timeout is 29 seconds regardless
+
+107
+00:04:23,940 --> 00:04:27,630
+of how long your Lambda function takes to execute.
+
+108
+00:04:27,630 --> 00:04:30,180
+So let's create this method
+
+109
+00:04:30,180 --> 00:04:33,480
+and this is going to automatically grant API gateway,
+
+110
+00:04:33,480 --> 00:04:36,090
+the right to invoke our Lambda function.
+
+111
+00:04:36,090 --> 00:04:39,090
+So if I go back here and refresh this page,
+
+112
+00:04:39,090 --> 00:04:41,100
+as you can see now our API gateway
+
+113
+00:04:41,100 --> 00:04:43,260
+can invoke our Lambda function
+
+114
+00:04:43,260 --> 00:04:46,590
+and we can verify this by going into the configuration
+
+115
+00:04:46,590 --> 00:04:48,330
+and then permissions.
+
+116
+00:04:48,330 --> 00:04:51,000
+And if we have a look at the resource-based
+
+117
+00:04:51,000 --> 00:04:55,320
+policy statement, this one, and we click on View policy,
+
+118
+00:04:55,320 --> 00:04:58,020
+it turns out that my API gateway
+
+119
+00:04:58,020 --> 00:05:01,020
+is allowed to invoke my Lambda function
+
+120
+00:05:01,020 --> 00:05:03,810
+if the source API is the one from my API gateway
+
+121
+00:05:03,810 --> 00:05:05,670
+being route GET.
+
+122
+00:05:05,670 --> 00:05:08,400
+So this is the stuff that happens behind the scenes on AWS
+
+123
+00:05:08,400 --> 00:05:11,850
+to allow the API gateway to invoke our Lambda function.
+
+124
+00:05:11,850 --> 00:05:13,230
+So we know that everything is done
+
+125
+00:05:13,230 --> 00:05:15,210
+from a security perspective.
+
+126
+00:05:15,210 --> 00:05:17,730
+So now we can have a look at our API gateway.
+
+127
+00:05:17,730 --> 00:05:22,050
+So the client for this one method sends a request
+
+128
+00:05:22,050 --> 00:05:24,030
+and we can have a look at the request itself here.
+
+129
+00:05:24,030 --> 00:05:27,420
+So all the settings are here, it's done integration
+
+130
+00:05:27,420 --> 00:05:30,180
+with Lambda, and so it's a Lambda type of integration
+
+131
+00:05:30,180 --> 00:05:31,890
+with proxy enabled.
+
+132
+00:05:31,890 --> 00:05:34,620
+Then the Lambda itself is this function.
+
+133
+00:05:34,620 --> 00:05:36,810
+We can click on it and get back to our function.
+
+134
+00:05:36,810 --> 00:05:39,060
+Then the response is proxy integration.
+
+135
+00:05:39,060 --> 00:05:41,910
+That means that it will, the API gateway will parse
+
+136
+00:05:41,910 --> 00:05:44,550
+what is being sent by the Lambda and interpret it.
+
+137
+00:05:44,550 --> 00:05:47,160
+And then the method response is what we have here.
+
+138
+00:05:47,160 --> 00:05:48,840
+We could modify it if you wanted to,
+
+139
+00:05:48,840 --> 00:05:50,970
+but we're looking for application/json.
+
+140
+00:05:50,970 --> 00:05:53,040
+So let's test out this API.
+
+141
+00:05:53,040 --> 00:05:55,920
+So for this on the bottom right there is a test
+
+142
+00:05:55,920 --> 00:05:58,830
+and you can specify some query strings or some headers
+
+143
+00:05:58,830 --> 00:06:00,510
+but we don't specify anything.
+
+144
+00:06:00,510 --> 00:06:01,770
+Just click on Test.
+
+145
+00:06:01,770 --> 00:06:03,120
+And the test is, hey,
+
+146
+00:06:03,120 --> 00:06:05,400
+the response body is hello from Lambda.
+
+147
+00:06:05,400 --> 00:06:08,430
+So you can see from the API gateway, the status is 200.
+
+148
+00:06:08,430 --> 00:06:11,520
+That comes right from our code right here
+
+149
+00:06:11,520 --> 00:06:13,233
+which says status is 200.
+
+150
+00:06:14,100 --> 00:06:17,010
+We also have the response body, hello from Lambda, again,
+
+151
+00:06:17,010 --> 00:06:19,710
+was defined in our code right here,
+
+152
+00:06:19,710 --> 00:06:21,690
+body equals json.dumps.
+
+153
+00:06:21,690 --> 00:06:23,850
+And then hello from Lambda.
+
+154
+00:06:23,850 --> 00:06:25,950
+And finally the content type is JSON,
+
+155
+00:06:25,950 --> 00:06:29,940
+and that is retrieved as part of the response headers
+
+156
+00:06:29,940 --> 00:06:32,220
+being content type JSON.
+
+157
+00:06:32,220 --> 00:06:33,540
+On top of it from the test,
+
+158
+00:06:33,540 --> 00:06:35,730
+we can have a look at the execution log
+
+159
+00:06:35,730 --> 00:06:37,530
+from the API gateway, which is really nice,
+
+160
+00:06:37,530 --> 00:06:40,230
+which is also when you wanna debug and see what's happening.
+
+161
+00:06:40,230 --> 00:06:42,450
+A very nice way of doing so.
+
+162
+00:06:42,450 --> 00:06:44,610
+So we have done our first execution
+
+163
+00:06:44,610 --> 00:06:47,550
+of an API gateway on top of a Lambda function.
+
+164
+00:06:47,550 --> 00:06:49,860
+So now let's actually debug this
+
+165
+00:06:49,860 --> 00:06:53,010
+and see what is being sent to our Lambda function.
+
+166
+00:06:53,010 --> 00:06:55,680
+So I'm going to do print event,
+
+167
+00:06:55,680 --> 00:06:57,663
+and then I'm going to deploy this,
+
+168
+00:06:59,280 --> 00:07:02,100
+and we are going to invoke now our Lambda function again
+
+169
+00:07:02,100 --> 00:07:02,933
+from our API gateway.
+
+170
+00:07:02,933 --> 00:07:04,800
+So we're going to run a new test,
+
+171
+00:07:04,800 --> 00:07:07,110
+which still says hello from Lambda, but this time
+
+172
+00:07:07,110 --> 00:07:08,520
+we are printing the events.
+
+173
+00:07:08,520 --> 00:07:10,260
+So if we go to the CloudWatch logs
+
+174
+00:07:10,260 --> 00:07:11,430
+we should be able to find it.
+
+175
+00:07:11,430 --> 00:07:12,780
+So let's go into monitoring
+
+176
+00:07:13,770 --> 00:07:15,420
+and then look at CloudWatch logs.
+
+177
+00:07:17,130 --> 00:07:20,883
+We're going to find the latest log stream, this one.
+
+178
+00:07:21,750 --> 00:07:23,250
+And here we have our log.
+
+179
+00:07:23,250 --> 00:07:25,890
+And we can see here that this was the printed event
+
+180
+00:07:25,890 --> 00:07:28,110
+that was received from API Gateway.
+
+181
+00:07:28,110 --> 00:07:29,940
+So some information you have in here, for example,
+
+182
+00:07:29,940 --> 00:07:32,460
+the resource which is slash, the path slash,
+
+183
+00:07:32,460 --> 00:07:35,760
+the method which is GET, and then you get headers
+
+184
+00:07:35,760 --> 00:07:37,740
+and then you get query string parameters and so on.
+
+185
+00:07:37,740 --> 00:07:40,380
+So a lot of information is passed on
+
+186
+00:07:40,380 --> 00:07:42,660
+by the API gateway to our Lambda function.
+
+187
+00:07:42,660 --> 00:07:45,030
+And our Lambda function can use this information
+
+188
+00:07:45,030 --> 00:07:49,053
+to forge a response and send it back to the API gateway.
+
+189
+00:07:50,130 --> 00:07:53,370
+So now we can go ahead and actually create a new resource.
+
+190
+00:07:53,370 --> 00:07:56,280
+So this time we're going to have the resource by doing this
+
+191
+00:07:56,280 --> 00:07:58,860
+and the resource name is going to be houses.
+
+192
+00:07:58,860 --> 00:07:59,970
+So let's create this resource.
+
+193
+00:07:59,970 --> 00:08:03,120
+And now we have the /houses path that I just opened.
+
+194
+00:08:03,120 --> 00:08:05,730
+And in /houses, I'm going to create a method.
+
+195
+00:08:05,730 --> 00:08:09,030
+It's going to be a GET again for Lambda function
+
+196
+00:08:09,030 --> 00:08:10,170
+of proxy integration.
+
+197
+00:08:10,170 --> 00:08:12,630
+And I need to create my Lambda function.
+
+198
+00:08:12,630 --> 00:08:15,000
+So let's do this quickly, I'm going to copy this
+
+199
+00:08:15,000 --> 00:08:16,770
+and then create a function.
+
+200
+00:08:16,770 --> 00:08:20,400
+And it's not root yet, it's houses yet now.
+
+201
+00:08:20,400 --> 00:08:23,040
+The runtime is still going to be Python.
+
+202
+00:08:23,040 --> 00:08:25,200
+And let's create this function.
+
+203
+00:08:25,200 --> 00:08:28,350
+Yet again, I'm going to just copy this code.
+
+204
+00:08:28,350 --> 00:08:29,820
+And so instead of hello from Lambda,
+
+205
+00:08:29,820 --> 00:08:32,700
+we're going to change the message to be hello from,
+
+206
+00:08:32,700 --> 00:08:34,250
+and then something with houses.
+
+207
+00:08:36,270 --> 00:08:38,280
+So my function is now created.
+
+208
+00:08:38,280 --> 00:08:39,720
+We're going to copy this
+
+209
+00:08:39,720 --> 00:08:44,280
+and it's going to be hello from my pretty house.
+
+210
+00:08:44,280 --> 00:08:46,800
+Okay, we're going to deploy this.
+
+211
+00:08:46,800 --> 00:08:48,990
+So now we have deployed the function.
+
+212
+00:08:48,990 --> 00:08:51,360
+I'm going to copy the function ARN
+
+213
+00:08:51,360 --> 00:08:53,280
+and paste it in here.
+
+214
+00:08:53,280 --> 00:08:54,603
+And create this method.
+
+215
+00:08:55,770 --> 00:08:59,010
+And so now we have /houses that has the GET method.
+
+216
+00:08:59,010 --> 00:09:00,180
+I can test this.
+
+217
+00:09:00,180 --> 00:09:03,720
+So let's test it and click on Test.
+
+218
+00:09:03,720 --> 00:09:06,750
+And as you can see, I get a 200 hello from my pretty house.
+
+219
+00:09:06,750 --> 00:09:07,950
+And so far it's pretty cool.
+
+220
+00:09:07,950 --> 00:09:11,396
+We have the root, GET and we have the houses, GET,
+
+221
+00:09:11,396 --> 00:09:14,400
+which invoke two different Lambda functions.
+
+222
+00:09:14,400 --> 00:09:17,190
+But we want to be able to access this from a web browser,
+
+223
+00:09:17,190 --> 00:09:21,120
+not just testing it from the API Gateway UI.
+
+224
+00:09:21,120 --> 00:09:24,300
+So let's click on Deploy API, and we need to select a stage.
+
+225
+00:09:24,300 --> 00:09:26,850
+So it's going to be a new stage, and the name is dev,
+
+226
+00:09:26,850 --> 00:09:28,470
+we'll have a look at it later.
+
+227
+00:09:28,470 --> 00:09:30,450
+Let's deploy this.
+
+228
+00:09:30,450 --> 00:09:34,560
+And now that we've deployed this API, there's an invoke URL.
+
+229
+00:09:34,560 --> 00:09:36,510
+So I'm going to copy this URL
+
+230
+00:09:36,510 --> 00:09:39,210
+and then I'm going to paste it in my web browser.
+
+231
+00:09:39,210 --> 00:09:40,980
+And as you can see when I go to /dev,
+
+232
+00:09:40,980 --> 00:09:43,410
+it says hello from Lambda.
+
+233
+00:09:43,410 --> 00:09:45,990
+So this is just Firefox doing a pretty print
+
+234
+00:09:45,990 --> 00:09:47,640
+but you get hello from Lambda.
+
+235
+00:09:47,640 --> 00:09:50,280
+And if I go to /houses
+
+236
+00:09:50,280 --> 00:09:52,410
+then I get hello from my pretty house.
+
+237
+00:09:52,410 --> 00:09:56,100
+So this API has two Lambda functions replying to me.
+
+238
+00:09:56,100 --> 00:09:58,950
+And if I do something wrong, if I do /wrong
+
+239
+00:09:58,950 --> 00:10:00,151
+then I'm getting error message
+
+240
+00:10:00,151 --> 00:10:04,050
+such as message missing authentication token.
+
+241
+00:10:04,050 --> 00:10:04,883
+So here we go.
+
+242
+00:10:04,883 --> 00:10:08,160
+We have deployed our API to API Gateway
+
+243
+00:10:08,160 --> 00:10:09,030
+and this is pretty cool
+
+244
+00:10:09,030 --> 00:10:10,980
+because, well, we have two Lambda functions
+
+245
+00:10:10,980 --> 00:10:12,510
+behind the scenes actually replying to it.
+
+246
+00:10:12,510 --> 00:10:16,440
+And that's it for our basics role on API Gateway.
+
+247
+00:10:16,440 --> 00:10:19,440
+I hope you liked it, and I will see you in the next lecture.
+

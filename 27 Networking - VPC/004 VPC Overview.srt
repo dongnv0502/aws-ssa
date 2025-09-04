@@ -1,0 +1,116 @@
+1
+00:00:00,140 --> 00:00:01,620
+So let's go ahead with creating
+
+2
+00:00:01,620 --> 00:00:03,020
+our first VPC in AWS.
+
+3
+00:00:03,020 --> 00:00:06,090
+So VPC stands for Virtual Private Cloud.
+
+4
+00:00:06,090 --> 00:00:09,010
+And you can have multiple VPC within a single AWS region.
+
+5
+00:00:09,010 --> 00:00:10,770
+You could have a maximum of five per region,
+
+6
+00:00:10,770 --> 00:00:13,350
+but this is a soft limit, so you can increase it.
+
+7
+00:00:13,350 --> 00:00:17,680
+And the number of CIDRs assigned per VPC is five.
+
+8
+00:00:17,680 --> 00:00:20,540
+Now for each CIDR, the minimum size is /28,
+
+9
+00:00:20,540 --> 00:00:23,320
+so that means at least 16 IP addresses.
+
+10
+00:00:23,320 --> 00:00:26,020
+The maximum size is /16, which is at max
+
+11
+00:00:27,242 --> 00:00:29,750
+65,536 IP addresses.
+
+12
+00:00:29,750 --> 00:00:32,860
+And because VPC is a private resource,
+
+13
+00:00:32,860 --> 00:00:35,000
+only Private IPv4 ranges are allowed.
+
+14
+00:00:35,000 --> 00:00:37,030
+So again, as a reminder, we have this range,
+
+15
+00:00:37,030 --> 00:00:39,370
+that range, and that range.
+
+16
+00:00:39,370 --> 00:00:41,970
+Now how do we choose the range for our VPC
+
+17
+00:00:41,970 --> 00:00:45,180
+in terms of what types of VP are we going to assign to it?
+
+18
+00:00:45,180 --> 00:00:46,740
+Well, the general rule is that you can assign
+
+19
+00:00:46,740 --> 00:00:48,710
+whatever you want, but you should make sure
+
+20
+00:00:48,710 --> 00:00:51,200
+that your VPC CIDR does not overlap
+
+21
+00:00:51,200 --> 00:00:54,220
+with your other VPCs or other networks
+
+22
+00:00:54,220 --> 00:00:56,130
+or corporate networks, and the reason we do so
+
+23
+00:00:56,130 --> 00:00:57,950
+is that if you want to connect them together,
+
+24
+00:00:57,950 --> 00:00:59,340
+we want to make sure the IP addresses
+
+25
+00:00:59,340 --> 00:01:02,060
+of one VPC or one CIDR do not overlap
+
+26
+00:01:02,060 --> 00:01:05,060
+with the range of IP addresses of other networks.
+
+27
+00:01:05,060 --> 00:01:06,370
+So at the end of this hands-on,
+
+28
+00:01:06,370 --> 00:01:09,360
+we're just going to have within a region a simple VPC.
+
+29
+00:01:09,360 --> 00:01:10,410
+So let's get started.
+

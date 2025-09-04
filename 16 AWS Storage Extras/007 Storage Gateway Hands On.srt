@@ -1,0 +1,240 @@
+1
+00:00:00,200 --> 00:00:01,960
+So here is a quick hands-on
+
+2
+00:00:01,960 --> 00:00:04,820
+on the Storage Gateway but you don't need to know
+
+3
+00:00:04,820 --> 00:00:06,950
+how to configure one for the exam,
+
+4
+00:00:06,950 --> 00:00:07,783
+just you need to know
+
+5
+00:00:07,783 --> 00:00:09,280
+the different kinds of offerings you have.
+
+6
+00:00:09,280 --> 00:00:12,110
+And so, that's what I'm going to show you in this console.
+
+7
+00:00:12,110 --> 00:00:13,370
+So, let's create a gateway.
+
+8
+00:00:13,370 --> 00:00:15,060
+As you can see, we have four different kinds of gateways,
+
+9
+00:00:15,060 --> 00:00:18,610
+we can have Amazon S3 File Gateway, FSx File Gateway,
+
+10
+00:00:18,610 --> 00:00:20,980
+Volume gateway, and Tape gateway.
+
+11
+00:00:20,980 --> 00:00:22,980
+So, the Amazon S3 File Gateway
+
+12
+00:00:22,980 --> 00:00:27,010
+is to have a local cache for Amazon S3 on-premises
+
+13
+00:00:27,010 --> 00:00:28,690
+with your most recently used data
+
+14
+00:00:28,690 --> 00:00:30,820
+so this is the whole purpose of a file gateway.
+
+15
+00:00:30,820 --> 00:00:31,890
+And if you click on Next,
+
+16
+00:00:31,890 --> 00:00:33,610
+you can look at the Platform options.
+
+17
+00:00:33,610 --> 00:00:35,290
+So, you can either host this
+
+18
+00:00:35,290 --> 00:00:38,700
+on some on-premises virtualization platforms,
+
+19
+00:00:38,700 --> 00:00:41,670
+such as VMware or Hyper-V, or Linux KVM,
+
+20
+00:00:41,670 --> 00:00:43,780
+or you can host it directly on Amazon EC2,
+
+21
+00:00:43,780 --> 00:00:45,480
+but it's going to remove someone as the benefits
+
+22
+00:00:45,480 --> 00:00:46,460
+for caching.
+
+23
+00:00:46,460 --> 00:00:49,200
+Or you can have your own hardware appliance
+
+24
+00:00:49,200 --> 00:00:51,180
+that you can order directly from here.
+
+25
+00:00:51,180 --> 00:00:53,520
+And then once you hook that hardware appliance
+
+26
+00:00:53,520 --> 00:00:54,710
+into your data center,
+
+27
+00:00:54,710 --> 00:00:56,720
+you'll be running a file gateway for you,
+
+28
+00:00:56,720 --> 00:00:57,890
+which is quite handy.
+
+29
+00:00:57,890 --> 00:01:01,380
+So once you do set up for example in EC2 instance,
+
+30
+00:01:01,380 --> 00:01:02,213
+then you click on Next
+
+31
+00:01:02,213 --> 00:01:05,030
+and you would configure the gateway, which is out of scope.
+
+32
+00:01:05,030 --> 00:01:06,910
+I just want to show you the main options.
+
+33
+00:01:06,910 --> 00:01:09,320
+So the Amazon FSx File Gateway is the same as free,
+
+34
+00:01:09,320 --> 00:01:10,900
+but this time you want to cache
+
+35
+00:01:10,900 --> 00:01:13,350
+the windows file server directly on-premises.
+
+36
+00:01:13,350 --> 00:01:15,610
+And again, we have different platform options,
+
+37
+00:01:15,610 --> 00:01:17,780
+including a hardware appliance, if we wanted to.
+
+38
+00:01:17,780 --> 00:01:21,790
+And then we would configure the FSx file gateway properly.
+
+39
+00:01:21,790 --> 00:01:23,060
+The Volume gateway is very interesting
+
+40
+00:01:23,060 --> 00:01:24,190
+because we have two options.
+
+41
+00:01:24,190 --> 00:01:25,910
+And that's what I want to show you in this hands-on.
+
+42
+00:01:25,910 --> 00:01:27,720
+So we have the cached volume,
+
+43
+00:01:27,720 --> 00:01:29,990
+which is going to give you low-latency access
+
+44
+00:01:29,990 --> 00:01:32,290
+to your most recently used data for your volumes
+
+45
+00:01:32,290 --> 00:01:35,040
+or storage volume, which is on-premise data
+
+46
+00:01:35,040 --> 00:01:36,650
+with scheduled upside backups.
+
+47
+00:01:36,650 --> 00:01:39,740
+So two very different use cases for Volume gateway,
+
+48
+00:01:39,740 --> 00:01:42,360
+and you need to know the differences going into the exam.
+
+49
+00:01:42,360 --> 00:01:44,230
+So the Volume gateway is going to use you block storage
+
+50
+00:01:44,230 --> 00:01:48,120
+in Amazon S3 and point-in-time backups as EBS snapshots,
+
+51
+00:01:48,120 --> 00:01:50,700
+so that they are actually volumes.
+
+52
+00:01:50,700 --> 00:01:52,620
+And finally, the tape gateway
+
+53
+00:01:52,620 --> 00:01:55,380
+is allowing you to backup your data into Amazon S3
+
+54
+00:01:55,380 --> 00:01:57,900
+and archive it into Glacier
+
+55
+00:01:57,900 --> 00:02:00,040
+using your existing tape based processes,
+
+56
+00:02:00,040 --> 00:02:02,870
+because it uses the same protocol that you're used to
+
+57
+00:02:02,870 --> 00:02:03,853
+with your VTL.
+
+58
+00:02:04,900 --> 00:02:09,009
+So that's it for your different storage gateways.
+
+59
+00:02:09,009 --> 00:02:10,600
+I hope you liked it, I hope it makes sense
+
+60
+00:02:10,600 --> 00:02:12,600
+and I will see you in the next session.
+

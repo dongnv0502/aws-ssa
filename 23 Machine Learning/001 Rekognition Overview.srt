@@ -1,0 +1,376 @@
+1
+00:00:00,600 --> 00:00:03,630
+So now let's talk about Amazon Rekognition.
+
+2
+00:00:03,630 --> 00:00:08,630
+And Rekognition is a service used to find objects, people,
+
+3
+00:00:08,640 --> 00:00:13,640
+texts, scenes in images and videos using machine learning.
+
+4
+00:00:14,070 --> 00:00:16,110
+So it can do facial analysis
+
+5
+00:00:16,110 --> 00:00:18,840
+and facial search to do user verification
+
+6
+00:00:18,840 --> 00:00:20,552
+and count how many people there are
+
+7
+00:00:20,552 --> 00:00:23,100
+in an image, for example.
+
+8
+00:00:23,100 --> 00:00:26,790
+Or you can create your own database of familiar faces
+
+9
+00:00:26,790 --> 00:00:28,680
+or you can compare against a database
+
+10
+00:00:28,680 --> 00:00:31,620
+of celebrities to find people in your images as well.
+
+11
+00:00:31,620 --> 00:00:35,250
+So the use cases for Rekognition is to take your image
+
+12
+00:00:35,250 --> 00:00:37,830
+and do labeling images and video
+
+13
+00:00:37,830 --> 00:00:41,490
+and to labeling, content moderation, text detection,
+
+14
+00:00:41,490 --> 00:00:43,050
+face detection and analysis,
+
+15
+00:00:43,050 --> 00:00:46,410
+for example, find the gender, the age range
+
+16
+00:00:46,410 --> 00:00:49,290
+and the emotions that are associated with these faces,
+
+17
+00:00:49,290 --> 00:00:51,960
+do a face search and verification,
+
+18
+00:00:51,960 --> 00:00:54,060
+do celebrity recognition,
+
+19
+00:00:54,060 --> 00:00:55,230
+as well as pathing.
+
+20
+00:00:55,230 --> 00:00:58,020
+So for example, if you're doing a sports game analysis
+
+21
+00:00:58,020 --> 00:01:00,900
+of a video, so that's a high level.
+
+22
+00:01:00,900 --> 00:01:03,690
+Remember Rekognition is about images and videos.
+
+23
+00:01:03,690 --> 00:01:05,129
+So on the Rekognition website
+
+24
+00:01:05,129 --> 00:01:07,680
+we can see we can automate our image and video analysis
+
+25
+00:01:07,680 --> 00:01:08,760
+with machine learning.
+
+26
+00:01:08,760 --> 00:01:09,720
+And I really like this website
+
+27
+00:01:09,720 --> 00:01:11,370
+because it shows you how it works.
+
+28
+00:01:11,370 --> 00:01:12,203
+So for example,
+
+29
+00:01:12,203 --> 00:01:14,850
+for this image we can identify the elements of this image.
+
+30
+00:01:14,850 --> 00:01:17,370
+For example, a person, a rock, a mountain bike,
+
+31
+00:01:17,370 --> 00:01:18,783
+a crest and outdoors.
+
+32
+00:01:19,903 --> 00:01:21,150
+We can label, for example, what we see in images,
+
+33
+00:01:21,150 --> 00:01:23,550
+for example, golden retrievers or dogs.
+
+34
+00:01:23,550 --> 00:01:25,950
+Then I can look at content moderation
+
+35
+00:01:25,950 --> 00:01:28,830
+to make sure that it's appropriate for all ages.
+
+36
+00:01:28,830 --> 00:01:31,140
+I can detect text, for example, for a run.
+
+37
+00:01:31,140 --> 00:01:34,260
+We want to see the numbers of each runner in the run.
+
+38
+00:01:34,260 --> 00:01:35,910
+We can do face detection analysis,
+
+39
+00:01:35,910 --> 00:01:37,590
+for example, this person looks happy.
+
+40
+00:01:37,590 --> 00:01:38,640
+She's smiling,
+
+41
+00:01:38,640 --> 00:01:40,650
+her eyes are open and she's a female.
+
+42
+00:01:40,650 --> 00:01:42,060
+Face search and verification,
+
+43
+00:01:42,060 --> 00:01:44,550
+maybe if you have a security application.
+
+44
+00:01:44,550 --> 00:01:46,560
+Finally, if you want to recognize a celebrity,
+
+45
+00:01:46,560 --> 00:01:48,060
+you can take a picture of them.
+
+46
+00:01:48,060 --> 00:01:50,910
+And this is the CTO of AWS.
+
+47
+00:01:50,910 --> 00:01:52,170
+And then finally, pathing,
+
+48
+00:01:52,170 --> 00:01:54,840
+for example, if you're monitoring a soccer game,
+
+49
+00:01:54,840 --> 00:01:56,880
+you could see where everyone is going to do
+
+50
+00:01:56,880 --> 00:01:58,920
+maybe some real time analytics.
+
+51
+00:01:58,920 --> 00:02:00,570
+And there's one feature you need to know about
+
+52
+00:02:00,570 --> 00:02:01,740
+going into the exam.
+
+53
+00:02:01,740 --> 00:02:03,690
+It's around content moderation.
+
+54
+00:02:03,690 --> 00:02:06,822
+So this is used to detect content that is inappropriate,
+
+55
+00:02:06,822 --> 00:02:10,830
+unwanted, or offensive in images and videos.
+
+56
+00:02:10,830 --> 00:02:12,390
+So this will be used, for example,
+
+57
+00:02:12,390 --> 00:02:15,600
+if you have a social network or if you broadcast media
+
+58
+00:02:15,600 --> 00:02:18,360
+or if you do advertising or if you're doing e-commerce
+
+59
+00:02:18,360 --> 00:02:21,240
+and you need to create a safe user experience
+
+60
+00:02:21,240 --> 00:02:22,920
+and make sure the image is displayed,
+
+61
+00:02:22,920 --> 00:02:26,010
+don't show any kind of content that would be
+
+62
+00:02:26,010 --> 00:02:28,020
+deemed offensive by some people.
+
+63
+00:02:28,020 --> 00:02:30,570
+For example, racist content
+
+64
+00:02:30,570 --> 00:02:34,260
+or pornography or other kind of things like this.
+
+65
+00:02:34,260 --> 00:02:35,520
+So how does that work?
+
+66
+00:02:35,520 --> 00:02:39,840
+Well, the image will be analyzed by Amazon Rekognition
+
+67
+00:02:39,840 --> 00:02:43,020
+and then you set a Minimum Confidence Threshold
+
+68
+00:02:43,020 --> 00:02:44,700
+for items that will be flagged.
+
+69
+00:02:44,700 --> 00:02:47,310
+So you set it to whatever percentage you want.
+
+70
+00:02:47,310 --> 00:02:50,310
+And obviously the lower you set this percentage
+
+71
+00:02:50,310 --> 00:02:52,680
+the more matches you're going to get.
+
+72
+00:02:52,680 --> 00:02:55,200
+And this confidence percentage represents how
+
+73
+00:02:55,200 --> 00:02:57,210
+confident Amazon Rekognition is
+
+74
+00:02:57,210 --> 00:02:59,730
+that this flagged image represents indeed
+
+75
+00:02:59,730 --> 00:03:03,030
+some inappropriate or offensive character.
+
+76
+00:03:03,030 --> 00:03:05,010
+And then once you have done this
+
+77
+00:03:05,010 --> 00:03:06,930
+and you flagged some images,
+
+78
+00:03:06,930 --> 00:03:10,770
+you may want to do a human manual review.
+
+79
+00:03:10,770 --> 00:03:11,970
+And so to do so,
+
+80
+00:03:11,970 --> 00:03:14,850
+you can use something called Amazon Augmented AI
+
+81
+00:03:14,850 --> 00:03:16,260
+called A2I
+
+82
+00:03:16,260 --> 00:03:18,390
+and you do optional manual review
+
+83
+00:03:18,390 --> 00:03:20,940
+directly in Amazon A2I.
+
+84
+00:03:20,940 --> 00:03:23,820
+And all of this process right here allows you to
+
+85
+00:03:23,820 --> 00:03:27,150
+automatically flag images that can be sensitive
+
+86
+00:03:27,150 --> 00:03:29,880
+and then use a final manual review
+
+87
+00:03:29,880 --> 00:03:33,540
+to know whether or not you want to keep them or delete them.
+
+88
+00:03:33,540 --> 00:03:35,220
+And this can help you with comply
+
+89
+00:03:35,220 --> 00:03:37,491
+with regulations in case you must detect
+
+90
+00:03:37,491 --> 00:03:38,820
+these kind of content
+
+91
+00:03:38,820 --> 00:03:42,030
+before they're posted to your applications.
+
+92
+00:03:42,030 --> 00:03:43,470
+So that's it for this lecture.
+
+93
+00:03:43,470 --> 00:03:44,520
+I hope you liked it
+
+94
+00:03:44,520 --> 00:03:46,470
+and I will see you in the next lecture.
+

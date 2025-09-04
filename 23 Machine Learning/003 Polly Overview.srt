@@ -1,0 +1,380 @@
+1
+00:00:00,000 --> 00:00:02,850
+[Narrator] - Polly is the opposite of Transcribe.
+
+2
+00:00:02,850 --> 00:00:06,030
+You turn text into speech using deep learning.
+
+3
+00:00:06,030 --> 00:00:08,910
+This allows you to create applications that will talk.
+
+4
+00:00:08,910 --> 00:00:09,787
+For example, it says,
+
+5
+00:00:09,787 --> 00:00:11,190
+"Hello, my name is Stephane
+
+6
+00:00:11,190 --> 00:00:13,380
+and this is a demo of Amazon Polly."
+
+7
+00:00:13,380 --> 00:00:15,600
+And then with Polly, it would generate an audio,
+
+8
+00:00:15,600 --> 00:00:17,280
+which I can play right here.
+
+9
+00:00:17,280 --> 00:00:18,270
+Hi.
+
+10
+00:00:18,270 --> 00:00:22,050
+My name is Stephane and this is a demo of Amazon Polly.
+
+11
+00:00:22,050 --> 00:00:23,790
+I think I'm better at speaking than that
+
+12
+00:00:23,790 --> 00:00:26,070
+but (chuckles) this gives you a good demo, right?
+
+13
+00:00:26,070 --> 00:00:29,010
+And you can play with it on the console.
+
+14
+00:00:29,010 --> 00:00:30,630
+So Amazon Polly can do more.
+
+15
+00:00:30,630 --> 00:00:32,820
+It can use Lexicon & SSML
+
+16
+00:00:32,820 --> 00:00:36,090
+so the first one is to customize the pronunciation
+
+17
+00:00:36,090 --> 00:00:39,270
+of words with Pronunciation lexicons.
+
+18
+00:00:39,270 --> 00:00:42,690
+For example, if there is a stylized word such as Stephane
+
+19
+00:00:42,690 --> 00:00:45,750
+but the E is a 3 and the A is a 4
+
+20
+00:00:45,750 --> 00:00:50,040
+the Amazon Polly image might say "S-T-3-P-H-4-N-E,"
+
+21
+00:00:50,040 --> 00:00:52,050
+which is not how it should be pronounced;
+
+22
+00:00:52,050 --> 00:00:53,370
+it should be pronounced Stephane.
+
+23
+00:00:53,370 --> 00:00:56,160
+And so, therefore, you can create a lexicon for this.
+
+24
+00:00:56,160 --> 00:00:58,830
+Or for example, for acronyms, for example, any time
+
+25
+00:00:58,830 --> 00:01:02,700
+it sees AWS, instead of saying "A-W-S"
+
+26
+00:01:02,700 --> 00:01:05,580
+it should say the full "Amazon Web Services."
+
+27
+00:01:05,580 --> 00:01:07,200
+So then you upload the lexicons
+
+28
+00:01:07,200 --> 00:01:10,830
+and you use them in the SynthesizeSpeech operation.
+
+29
+00:01:10,830 --> 00:01:12,300
+The second feature you need to know about
+
+30
+00:01:12,300 --> 00:01:14,520
+is the SSML feature,
+
+31
+00:01:14,520 --> 00:01:17,760
+which is called Speech Synthesis Markup Language.
+
+32
+00:01:17,760 --> 00:01:21,690
+And this enables more customization to how speech is made.
+
+33
+00:01:21,690 --> 00:01:23,010
+So you can, for example,
+
+34
+00:01:23,010 --> 00:01:26,730
+emphasize on specific words or phrases,
+
+35
+00:01:26,730 --> 00:01:29,130
+or you use phonetic pronunciation,
+
+36
+00:01:29,130 --> 00:01:31,800
+or you want to include breathing sounds or whispering,
+
+37
+00:01:31,800 --> 00:01:34,800
+or you want to use the Newscaster speaking style.
+
+38
+00:01:34,800 --> 00:01:37,620
+So all of it can be used using this Markup Language,
+
+39
+00:01:37,620 --> 00:01:41,010
+and so instead of generating the speech from plain text
+
+40
+00:01:41,010 --> 00:01:44,070
+you can include a whisper and it will start whispering,
+
+41
+00:01:44,070 --> 00:01:45,660
+and so on, okay?
+
+42
+00:01:45,660 --> 00:01:49,770
+So, remember, for pronunciation of stylized words
+
+43
+00:01:49,770 --> 00:01:52,710
+or acronyms, use Pronunciation lexicons.
+
+44
+00:01:52,710 --> 00:01:55,890
+And for more customization
+
+45
+00:01:55,890 --> 00:01:59,520
+on how words are being pronounced, for example,
+
+46
+00:01:59,520 --> 00:02:02,850
+whispering or phonetic pronunciation, and so on,
+
+47
+00:02:02,850 --> 00:02:05,463
+then use the SSML Markup Language.
+
+48
+00:02:06,510 --> 00:02:09,330
+So if I go into the Amazon Polly service,
+
+49
+00:02:09,330 --> 00:02:12,600
+this is where I can turn text into lifelike speech.
+
+50
+00:02:12,600 --> 00:02:13,890
+So we can try it.
+
+51
+00:02:13,890 --> 00:02:17,880
+So we can use, for example, the neural network, okay.
+
+52
+00:02:17,880 --> 00:02:20,490
+And this is the most natural and human-like speech possible
+
+53
+00:02:20,490 --> 00:02:22,200
+and we can choose the voice we want.
+
+54
+00:02:22,200 --> 00:02:23,610
+So, here's the text.
+
+55
+00:02:23,610 --> 00:02:25,990
+So I will say, "Hey, my name is Stephane
+
+56
+00:02:27,330 --> 00:02:29,880
+and I love AWS."
+
+57
+00:02:29,880 --> 00:02:30,990
+Let's see what happens.
+
+58
+00:02:30,990 --> 00:02:33,093
+So if we listen to this, it will say:
+
+59
+00:02:35,520 --> 00:02:40,020
+Hi, my name is Stephane and I love AWS.
+
+60
+00:02:40,020 --> 00:02:41,520
+So that's pretty cool, right?
+
+61
+00:02:41,520 --> 00:02:45,330
+And here with SSML, and so, for example, let's add a break,
+
+62
+00:02:45,330 --> 00:02:48,510
+so I will say, "Hey, my name is Joanna,"
+
+63
+00:02:48,510 --> 00:02:49,770
+and then I open a break.
+
+64
+00:02:49,770 --> 00:02:51,600
+I say, "Break time equals,"
+
+65
+00:02:51,600 --> 00:02:54,450
+and this is part of the SSML Language,
+
+66
+00:02:54,450 --> 00:02:55,540
+and then slash
+
+67
+00:02:56,670 --> 00:02:57,690
+and this.
+
+68
+00:02:57,690 --> 00:03:01,110
+So I say, "Hey, break this for three seconds."
+
+69
+00:03:01,110 --> 00:03:02,730
+So it would say:
+
+70
+00:03:02,730 --> 00:03:05,400
+Hi, my name is Joanna.
+
+71
+00:03:05,400 --> 00:03:06,500
+Now there's a break.
+
+72
+00:03:08,670 --> 00:03:11,010
+I will read any text you type here.
+
+73
+00:03:11,010 --> 00:03:14,130
+And this is how you control the speech itself
+
+74
+00:03:14,130 --> 00:03:16,173
+using the SSML Markup Language.
+
+75
+00:03:17,190 --> 00:03:20,782
+And lastly, if we want to say,
+
+76
+00:03:20,782 --> 00:03:22,090
+"Hey, I love
+
+77
+00:03:24,366 --> 00:03:26,700
+AWS" right here, so we say, "I love AWS,"
+
+78
+00:03:26,700 --> 00:03:29,220
+and we'll just have one second of break.
+
+79
+00:03:29,220 --> 00:03:30,090
+Let's listen to this.
+
+80
+00:03:30,090 --> 00:03:32,553
+Hi, my name is Joanna.
+
+81
+00:03:33,930 --> 00:03:35,520
+I love AWS.
+
+82
+00:03:35,520 --> 00:03:38,160
+Okay, what if you want to say, not AWS,
+
+83
+00:03:38,160 --> 00:03:41,670
+but Amazon Web Services, in which case you would need to go
+
+84
+00:03:41,670 --> 00:03:45,540
+into additional settings and then customize pronunciation.
+
+85
+00:03:45,540 --> 00:03:47,610
+And here you would need to apply lexicon
+
+86
+00:03:47,610 --> 00:03:52,610
+and upload lexicon to convert AWS into Amazon Web Services.
+
+87
+00:03:52,620 --> 00:03:55,740
+So, trust me, you just need to create a file,
+
+88
+00:03:55,740 --> 00:03:57,840
+and then upload it, create a lexicon,
+
+89
+00:03:57,840 --> 00:04:00,390
+and then automatically whatever you set as, for example,
+
+90
+00:04:00,390 --> 00:04:02,430
+whenever it will find AWS,
+
+91
+00:04:02,430 --> 00:04:05,160
+it will just say Amazon Web Services.
+
+92
+00:04:05,160 --> 00:04:06,960
+And that's it for Amazon Polly.
+
+93
+00:04:06,960 --> 00:04:08,910
+You should know everything there is to know for the exam.
+
+94
+00:04:08,910 --> 00:04:09,870
+I hope you liked it
+
+95
+00:04:09,870 --> 00:04:11,820
+and I will see you in the next lecture.
+

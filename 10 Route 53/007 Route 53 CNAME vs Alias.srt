@@ -1,0 +1,676 @@
+1
+00:00:00,170 --> 00:00:02,200
+So now let's have a look at the differences
+
+2
+00:00:02,200 --> 00:00:04,400
+between CNAME and Aliases.
+
+3
+00:00:04,400 --> 00:00:06,340
+So when you have an AWS Resource,
+
+4
+00:00:06,340 --> 00:00:08,280
+for example, a Load Balancer or CloudFront,
+
+5
+00:00:08,280 --> 00:00:09,980
+it will expose a hostname.
+
+6
+00:00:09,980 --> 00:00:12,840
+And what you want is to maybe map that hostname
+
+7
+00:00:12,840 --> 00:00:13,820
+to a domain you own.
+
+8
+00:00:13,820 --> 00:00:15,710
+For example, you want to map this Load Balancer
+
+9
+00:00:15,710 --> 00:00:17,980
+into myapp.mydomain.com.
+
+10
+00:00:17,980 --> 00:00:19,250
+So we have two options.
+
+11
+00:00:19,250 --> 00:00:20,710
+The first one is to use a CNAME record.
+
+12
+00:00:20,710 --> 00:00:21,610
+So we've seen A records,
+
+13
+00:00:21,610 --> 00:00:23,480
+but now let's look at CNAME records.
+
+14
+00:00:23,480 --> 00:00:26,400
+So CNAME allows you to point a hostname
+
+15
+00:00:26,400 --> 00:00:27,460
+to any other hostname.
+
+16
+00:00:27,460 --> 00:00:30,030
+For example, you can say app.mydomain.com
+
+17
+00:00:30,030 --> 00:00:32,750
+is pointing to blabla.anything.com.
+
+18
+00:00:32,750 --> 00:00:36,360
+And this only works if you have a non root domain name,
+
+19
+00:00:36,360 --> 00:00:38,700
+so if you have something.mydomain.com.
+
+20
+00:00:38,700 --> 00:00:40,700
+It does not work for just mydomain.com,
+
+21
+00:00:40,700 --> 00:00:42,400
+as we'll see in the hands-on.
+
+22
+00:00:42,400 --> 00:00:44,070
+On the other hand, you have alias records,
+
+23
+00:00:44,070 --> 00:00:47,060
+and these are specific to Route 53,
+
+24
+00:00:47,060 --> 00:00:49,050
+but they allow you to point a hostname
+
+25
+00:00:49,050 --> 00:00:51,390
+to a specific AWS Resource.
+
+26
+00:00:51,390 --> 00:00:56,080
+So app.mydomain.com is pointing to blabla.amazonaws.com.
+
+27
+00:00:56,080 --> 00:00:59,320
+And these resources we'll see in a second where they are.
+
+28
+00:00:59,320 --> 00:01:00,850
+But these alias records work
+
+29
+00:01:00,850 --> 00:01:03,540
+for both root domains and non root domains.
+
+30
+00:01:03,540 --> 00:01:06,010
+So you can have mydomain.com pointing
+
+31
+00:01:06,010 --> 00:01:09,080
+to, as an alias, to an alias resource
+
+32
+00:01:09,080 --> 00:01:10,820
+which is very, very good.
+
+33
+00:01:10,820 --> 00:01:13,050
+So this is something that the exam may test you on,
+
+34
+00:01:13,050 --> 00:01:14,400
+and we'll see this in the hands-on.
+
+35
+00:01:14,400 --> 00:01:15,870
+So on top of it, alias is very good
+
+36
+00:01:15,870 --> 00:01:17,600
+because they're free of charge,
+
+37
+00:01:17,600 --> 00:01:21,200
+and they have a native health check capability within them.
+
+38
+00:01:21,200 --> 00:01:23,970
+Okay, so if we look at these alias records in details,
+
+39
+00:01:23,970 --> 00:01:26,620
+they are only mapped to resources in AWS.
+
+40
+00:01:26,620 --> 00:01:28,890
+So you would say, "Okay, here is Route 53.
+
+41
+00:01:28,890 --> 00:01:32,660
+I want to have example.com as an alias record of type A,
+
+42
+00:01:32,660 --> 00:01:37,660
+and the value is the DNS name of the load balancer you have.
+
+43
+00:01:37,660 --> 00:01:40,110
+Now, this is an extension to DNS functionalities.
+
+44
+00:01:40,110 --> 00:01:41,680
+That's something that's across all DNS
+
+45
+00:01:41,680 --> 00:01:42,820
+that exist out there.
+
+46
+00:01:42,820 --> 00:01:46,900
+And in case the underlying ALB have IP changes,
+
+47
+00:01:46,900 --> 00:01:49,890
+then automatically the alias record will recognize them.
+
+48
+00:01:49,890 --> 00:01:54,580
+So it said unlike CNAME, alias records can be used for top,
+
+49
+00:01:54,580 --> 00:01:57,590
+for the top node of the DNS namespace called the Zone Apex,
+
+50
+00:01:57,590 --> 00:02:00,870
+so you can use a alias record for example.com.
+
+51
+00:02:00,870 --> 00:02:05,460
+Now, the alias record is always of type A or AAAA
+
+52
+00:02:05,460 --> 00:02:10,250
+which is for resources, so either IPv4 or IPv6.
+
+53
+00:02:10,250 --> 00:02:12,750
+When you have an alias record, you cannot set the TTL.
+
+54
+00:02:12,750 --> 00:02:15,840
+It is set automatically by Route 53.
+
+55
+00:02:15,840 --> 00:02:18,160
+So what are the targets for alias records?
+
+56
+00:02:18,160 --> 00:02:20,570
+Well, it could be Elastic Load Balancers.
+
+57
+00:02:20,570 --> 00:02:22,360
+It could be CloudFront Distributions.
+
+58
+00:02:22,360 --> 00:02:23,530
+And some of these you'll see,
+
+59
+00:02:23,530 --> 00:02:24,640
+you'll have seen in this course,
+
+60
+00:02:24,640 --> 00:02:26,600
+some of these you will not have seen in this course,
+
+61
+00:02:26,600 --> 00:02:27,433
+but this is fine.
+
+62
+00:02:27,433 --> 00:02:29,430
+It's just for you to get an idea of what they can be.
+
+63
+00:02:29,430 --> 00:02:33,160
+So ELBs, CloudFront Distributions, API Gateway,
+
+64
+00:02:33,160 --> 00:02:36,050
+Elastic Beanstalk environments, S3 Websites,
+
+65
+00:02:36,050 --> 00:02:37,940
+so not S3 Buckets but S3 Websites
+
+66
+00:02:37,940 --> 00:02:40,980
+when these buckets are enabled as websites,
+
+67
+00:02:40,980 --> 00:02:44,770
+VPC Interface Endpoints, Global Accelerator accelerator,
+
+68
+00:02:44,770 --> 00:02:47,820
+and Route 53 records in the same hosted zone.
+
+69
+00:02:47,820 --> 00:02:49,450
+One thing that is not there
+
+70
+00:02:49,450 --> 00:02:52,670
+is that you cannot set an alias for an EC2 DNS name.
+
+71
+00:02:52,670 --> 00:02:53,950
+This is something you need to remember.
+
+72
+00:02:53,950 --> 00:02:57,470
+So EC2 DNS names are not something you can have a target,
+
+73
+00:02:57,470 --> 00:03:00,090
+that can be the target of an alias record, okay?
+
+74
+00:03:00,090 --> 00:03:02,250
+Just, and also to let you to know.
+
+75
+00:03:02,250 --> 00:03:03,700
+So now let's have a look in the console
+
+76
+00:03:03,700 --> 00:03:06,960
+to see how CNAMEs and alias records work.
+
+77
+00:03:06,960 --> 00:03:08,990
+So let's go ahead and create a record,
+
+78
+00:03:08,990 --> 00:03:11,330
+and this one will be of type CNAME.
+
+79
+00:03:11,330 --> 00:03:15,170
+So I will call this one myapp.stephanetheteacher.com.
+
+80
+00:03:15,170 --> 00:03:19,590
+And the record type now is not A, it's not AAAA. It's CNAME.
+
+81
+00:03:19,590 --> 00:03:22,230
+And then the value must be a domain name.
+
+82
+00:03:22,230 --> 00:03:24,750
+And very easy, I already have a domain name available.
+
+83
+00:03:24,750 --> 00:03:26,110
+That's my ALB.
+
+84
+00:03:26,110 --> 00:03:26,943
+So what I'm going to do
+
+85
+00:03:26,943 --> 00:03:29,780
+is I'm going to copy those name of my ALB
+
+86
+00:03:29,780 --> 00:03:31,020
+and paste it in here.
+
+87
+00:03:31,020 --> 00:03:31,853
+The idea is that now
+
+88
+00:03:31,853 --> 00:03:34,580
+instead of accessing my ALB through this URL,
+
+89
+00:03:34,580 --> 00:03:36,512
+I want to be access the ALB
+
+90
+00:03:36,512 --> 00:03:38,940
+through myapp.stephanetheteacher.com.
+
+91
+00:03:38,940 --> 00:03:42,293
+Okay, so I will just create this record,
+
+92
+00:03:43,580 --> 00:03:47,570
+and now myapp.stephanetheteacher.com has been created.
+
+93
+00:03:47,570 --> 00:03:50,380
+And so if I go into my Chrome web browser
+
+94
+00:03:50,380 --> 00:03:53,233
+on the right-hand side and open this URL,
+
+95
+00:03:56,850 --> 00:03:58,600
+now you see that the answer is Hello World
+
+96
+00:03:58,600 --> 00:04:02,550
+from my IP blah, blah, blah in AZ eu-central-1c.
+
+97
+00:04:02,550 --> 00:04:07,520
+So this domain name is in fact covered by the ALB,
+
+98
+00:04:07,520 --> 00:04:10,440
+and the ALB is directing the traffic into one EC2 instance,
+
+99
+00:04:10,440 --> 00:04:13,430
+and so therefore I receive back this Hello World.
+
+100
+00:04:13,430 --> 00:04:16,250
+So this is good, but this is not AWS native, okay?
+
+101
+00:04:16,250 --> 00:04:18,370
+This is something that will work for many domain names,
+
+102
+00:04:18,370 --> 00:04:19,839
+but we can do something better.
+
+103
+00:04:19,839 --> 00:04:22,150
+Because we are redirecting into an ALB,
+
+104
+00:04:22,150 --> 00:04:24,610
+what we can do is create an alias record.
+
+105
+00:04:24,610 --> 00:04:26,250
+So I can create a record,
+
+106
+00:04:26,250 --> 00:04:27,504
+and this time it's going to be
+
+107
+00:04:27,504 --> 00:04:30,050
+myalias.stephanetheteacher.com,
+
+108
+00:04:30,050 --> 00:04:31,940
+and the record type is A
+
+109
+00:04:31,940 --> 00:04:36,350
+because my ALB is currently having only IPv4 traffic.
+
+110
+00:04:36,350 --> 00:04:37,210
+And the value of it,
+
+111
+00:04:37,210 --> 00:04:40,400
+so we have to say, we have to take the alias right here,
+
+112
+00:04:40,400 --> 00:04:42,680
+and we're going to route traffic to,
+
+113
+00:04:42,680 --> 00:04:45,040
+and then we have a list of options, okay?
+
+114
+00:04:45,040 --> 00:04:47,310
+So we can see a lot of different options,
+
+115
+00:04:47,310 --> 00:04:48,410
+but right now it's going to be
+
+116
+00:04:48,410 --> 00:04:51,400
+an Alias to an Application and Classic Load Balancer.
+
+117
+00:04:51,400 --> 00:04:55,940
+We need to choose a region, so it is in eu-central-1 for me.
+
+118
+00:04:55,940 --> 00:04:57,250
+And then we need to choose the load balancer,
+
+119
+00:04:57,250 --> 00:04:59,990
+so I will choose this load balancer right here.
+
+120
+00:04:59,990 --> 00:05:01,940
+Then automatically we can evaluate
+
+121
+00:05:01,940 --> 00:05:03,970
+the target health as well with a Yes
+
+122
+00:05:03,970 --> 00:05:05,630
+because this is an alias record.
+
+123
+00:05:05,630 --> 00:05:08,100
+So we'll click on Create this record,
+
+124
+00:05:08,100 --> 00:05:10,220
+and now I have a new record right here
+
+125
+00:05:10,220 --> 00:05:12,640
+called myalias.stephanetheteacher.com.
+
+126
+00:05:12,640 --> 00:05:14,050
+And the cool thing is that this record
+
+127
+00:05:14,050 --> 00:05:15,360
+is free to query, okay?
+
+128
+00:05:15,360 --> 00:05:16,490
+So I'm not going to pay any money
+
+129
+00:05:16,490 --> 00:05:18,160
+because this is an alias record.
+
+130
+00:05:18,160 --> 00:05:20,303
+So if I click on myalias.stephanetheteacher.com,
+
+131
+00:05:20,303 --> 00:05:22,430
+it's going to perform a few DNS queries,
+
+132
+00:05:22,430 --> 00:05:24,330
+and now, again, I get the same response.
+
+133
+00:05:24,330 --> 00:05:26,980
+Okay, nothing has changed, but it is working.
+
+134
+00:05:26,980 --> 00:05:28,400
+Okay, so that's perfect.
+
+135
+00:05:28,400 --> 00:05:31,100
+But now what if you consider the domain apex,
+
+136
+00:05:31,100 --> 00:05:33,670
+so if you want to have just stephanetheteacher.com
+
+137
+00:05:33,670 --> 00:05:36,020
+to redirect to this page?
+
+138
+00:05:36,020 --> 00:05:39,170
+So what we're going to do is create a record,
+
+139
+00:05:39,170 --> 00:05:40,003
+and let's go ahead.
+
+140
+00:05:40,003 --> 00:05:43,060
+So we're going to just have nothing in here, okay?
+
+141
+00:05:43,060 --> 00:05:44,840
+And we're going to have a CNAME record
+
+142
+00:05:44,840 --> 00:05:48,750
+pointing to the domain name of my ALB
+
+143
+00:05:48,750 --> 00:05:52,150
+which is copied from here and pasted in here.
+
+144
+00:05:52,150 --> 00:05:54,920
+Okay, so we want to say, "Hey, stephanetheteacher.com
+
+145
+00:05:54,920 --> 00:05:57,890
+is going to be a CNAME for this value."
+
+146
+00:05:57,890 --> 00:06:00,740
+Now, this is not going to work. Let's try it.
+
+147
+00:06:00,740 --> 00:06:02,390
+It's saying, "Hey, bad request.
+
+148
+00:06:02,390 --> 00:06:06,320
+The CNAME is not permitted at apex of this zone."
+
+149
+00:06:06,320 --> 00:06:08,490
+So this zone is stephanetheteacher.com,
+
+150
+00:06:08,490 --> 00:06:11,330
+and the apex of the zone is stephanetheteacher.com,
+
+151
+00:06:11,330 --> 00:06:14,640
+and therefore we cannot set up a CNAME at the apex.
+
+152
+00:06:14,640 --> 00:06:17,000
+So the only way we can deal with this issue
+
+153
+00:06:17,000 --> 00:06:19,700
+is instead to create an alias
+
+154
+00:06:19,700 --> 00:06:22,000
+and the record is going to be of type A,
+
+155
+00:06:22,000 --> 00:06:26,100
+and the alias is going to point again to an ALB or CLB
+
+156
+00:06:26,100 --> 00:06:28,630
+in the eu-central-1 region,
+
+157
+00:06:28,630 --> 00:06:31,010
+and the load balancer is going to be the one from before.
+
+158
+00:06:31,010 --> 00:06:32,370
+Now, this is going to be accepted
+
+159
+00:06:32,370 --> 00:06:33,570
+because this is an alias record,
+
+160
+00:06:33,570 --> 00:06:36,160
+and this is what the exam may test you on, okay?
+
+161
+00:06:36,160 --> 00:06:37,280
+And so now we can see
+
+162
+00:06:37,280 --> 00:06:40,150
+that stephanetheteacher.com is accessible.
+
+163
+00:06:40,150 --> 00:06:42,810
+And so if I go back into my web browser in here,
+
+164
+00:06:42,810 --> 00:06:44,890
+open a new tab and enter stephanetheteacher.com
+
+165
+00:06:45,750 --> 00:06:46,623
+and press Enter,
+
+166
+00:06:48,600 --> 00:06:52,540
+here I get back the Hello World from my load balancer,
+
+167
+00:06:52,540 --> 00:06:54,790
+so everything is working great, so that's it.
+
+168
+00:06:54,790 --> 00:06:57,930
+We've shown how CNAMEs and alias records work in AWS.
+
+169
+00:06:57,930 --> 00:07:00,930
+I hope you liked it, and I will see you in the next lecture.
+

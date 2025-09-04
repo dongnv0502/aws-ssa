@@ -1,0 +1,56 @@
+1
+00:00:00,290 --> 00:00:01,750
+So just a very short lecture
+
+2
+00:00:01,750 --> 00:00:04,460
+around a scenario that can come up in the exam.
+
+3
+00:00:04,460 --> 00:00:06,720
+And the idea is that you want to have Snowball
+
+4
+00:00:06,720 --> 00:00:09,140
+import data directly into Glacier,
+
+5
+00:00:09,140 --> 00:00:12,550
+but Snowball cannot import data directly into Glacier.
+
+6
+00:00:12,550 --> 00:00:16,460
+The solution for you is to use Amazon S3 first,
+
+7
+00:00:16,460 --> 00:00:20,290
+and then you would create a lifecycle policy
+
+8
+00:00:20,290 --> 00:00:23,360
+to transition these objects into Amazon Glacier.
+
+9
+00:00:23,360 --> 00:00:25,030
+So once you know, it is very simple.
+
+10
+00:00:25,030 --> 00:00:27,630
+Snowball imports the data into Amazon S3
+
+11
+00:00:27,630 --> 00:00:30,390
+and thanks to an S3 lifecycle policy,
+
+12
+00:00:30,390 --> 00:00:33,300
+the data is transitioned into Amazon Glacier.
+
+13
+00:00:33,300 --> 00:00:34,920
+That is something to remember for the exam.
+
+14
+00:00:34,920 --> 00:00:37,873
+I hope you liked it, and I will see you in the next lecture.
+

@@ -1,0 +1,488 @@
+1
+00:00:00,140 --> 00:00:01,750
+So let's talk about a routing policy
+
+2
+00:00:01,750 --> 00:00:03,140
+that's super easy to understand,
+
+3
+00:00:03,140 --> 00:00:05,730
+which is the latency-based routing policy.
+
+4
+00:00:05,730 --> 00:00:06,563
+Okay.
+
+5
+00:00:06,563 --> 00:00:08,980
+So now let's talk about latency-based routing policies.
+
+6
+00:00:08,980 --> 00:00:11,070
+And the idea is that you want to redirect the resource
+
+7
+00:00:11,070 --> 00:00:13,050
+that is going to have the lowest latency.
+
+8
+00:00:13,050 --> 00:00:14,330
+So the closest to us,
+
+9
+00:00:14,330 --> 00:00:16,780
+which is super helpful when latency is your main concern
+
+10
+00:00:16,780 --> 00:00:18,730
+for your websites or applications.
+
+11
+00:00:18,730 --> 00:00:20,320
+Now latency is going to be measured
+
+12
+00:00:20,320 --> 00:00:23,730
+based on how quick it is for users to connect
+
+13
+00:00:23,730 --> 00:00:28,470
+to the closest, identified AWS region for that record.
+
+14
+00:00:28,470 --> 00:00:29,303
+So for example,
+
+15
+00:00:29,303 --> 00:00:32,060
+if user in Germany and you have the lowest latency
+
+16
+00:00:32,060 --> 00:00:33,610
+to a resource in the US,
+
+17
+00:00:33,610 --> 00:00:35,750
+then this is where you will be redirected.
+
+18
+00:00:35,750 --> 00:00:38,110
+And this can be combined with health checks that we'll see
+
+19
+00:00:38,110 --> 00:00:39,370
+in the very next lecture.
+
+20
+00:00:39,370 --> 00:00:40,770
+So let's have a look at the map of the world
+
+21
+00:00:40,770 --> 00:00:41,603
+to understand it.
+
+22
+00:00:41,603 --> 00:00:42,920
+Say we deploy our applications
+
+23
+00:00:42,920 --> 00:00:44,470
+in two different parts of the world,
+
+24
+00:00:44,470 --> 00:00:47,810
+one in us-east-1 and one in ap-southeast-1.
+
+25
+00:00:47,810 --> 00:00:50,170
+Then the users are all around the world
+
+26
+00:00:50,170 --> 00:00:53,970
+and the latency is going to be evaluated by Route 53.
+
+27
+00:00:53,970 --> 00:00:57,070
+And so the users closest and with the lowest latency
+
+28
+00:00:57,070 --> 00:01:00,360
+to the ALB, us-east-1, will be redirected there.
+
+29
+00:01:00,360 --> 00:01:02,110
+Whereas, the other users will be redirected
+
+30
+00:01:02,110 --> 00:01:03,590
+to ap-southeast-1.
+
+31
+00:01:03,590 --> 00:01:06,780
+Now let's put this into practice in the console.
+
+32
+00:01:06,780 --> 00:01:09,030
+So let's create new records.
+
+33
+00:01:09,030 --> 00:01:10,570
+And the Record name is going to be,
+
+34
+00:01:10,570 --> 00:01:12,950
+latency.stephanetheteacher.com.
+
+35
+00:01:12,950 --> 00:01:15,050
+And the first Value is going to be the one
+
+36
+00:01:15,050 --> 00:01:16,480
+in ap-southeast-1.
+
+37
+00:01:16,480 --> 00:01:19,540
+So I'm good to paste the value in here.
+
+38
+00:01:19,540 --> 00:01:22,580
+And then the Routing policy is going to be Latency.
+
+39
+00:01:22,580 --> 00:01:24,210
+So when we do this thing,
+
+40
+00:01:24,210 --> 00:01:26,300
+because we just put an IP address in here,
+
+41
+00:01:26,300 --> 00:01:28,910
+we need to specify the region of our record.
+
+42
+00:01:28,910 --> 00:01:31,570
+So this one is going to be corresponding
+
+43
+00:01:31,570 --> 00:01:36,160
+to ap-southeast-1, which is at Singapore.
+
+44
+00:01:36,160 --> 00:01:36,993
+Okay.
+
+45
+00:01:36,993 --> 00:01:38,840
+And the reason is that Alias is not smart enough,
+
+46
+00:01:38,840 --> 00:01:40,100
+at least in this stage,
+
+47
+00:01:40,100 --> 00:01:43,240
+to take this IP and know that it comes from an EC2 instance
+
+48
+00:01:43,240 --> 00:01:44,500
+that I have in Singapore,
+
+49
+00:01:44,500 --> 00:01:46,580
+because this could be any IP in the world actually.
+
+50
+00:01:46,580 --> 00:01:47,960
+So it's for us to specify,
+
+51
+00:01:47,960 --> 00:01:52,150
+this IP corresponds to the region, Asia Pacific, Singapore.
+
+52
+00:01:52,150 --> 00:01:54,700
+And then we can associate a Health check and a Record ID.
+
+53
+00:01:54,700 --> 00:01:58,290
+So I'll call this one, ap-southeast-1.
+
+54
+00:01:58,290 --> 00:02:00,360
+And it's just a name that I give it.
+
+55
+00:02:00,360 --> 00:02:01,700
+Now we can add another record.
+
+56
+00:02:01,700 --> 00:02:04,440
+Again, the Record name is going to be Latency
+
+57
+00:02:04,440 --> 00:02:06,310
+and the value of which this one is going to be
+
+58
+00:02:06,310 --> 00:02:08,360
+for us-east-1.
+
+59
+00:02:08,360 --> 00:02:09,930
+So I'll have the Value here,
+
+60
+00:02:09,930 --> 00:02:11,730
+and it's going to be Weighted.
+
+61
+00:02:11,730 --> 00:02:14,030
+No, Latency. Excuse me, of course.
+
+62
+00:02:14,030 --> 00:02:16,080
+And then it's us-east-1.
+
+63
+00:02:16,080 --> 00:02:20,130
+And again, I will just have it as a us-east-1
+
+64
+00:02:20,130 --> 00:02:21,510
+for my Record ID.
+
+65
+00:02:21,510 --> 00:02:26,060
+And then one last record is going to be for eu-central-1.
+
+66
+00:02:26,060 --> 00:02:28,330
+So I will copy this IP.
+
+67
+00:02:28,330 --> 00:02:30,260
+And the Record name is this,
+
+68
+00:02:30,260 --> 00:02:31,900
+the Value is here,
+
+69
+00:02:31,900 --> 00:02:33,480
+the Routing policy is Latency
+
+70
+00:02:33,480 --> 00:02:38,480
+and the Region is eu-central-1, so will be the Name.
+
+71
+00:02:38,520 --> 00:02:39,353
+Okay.
+
+72
+00:02:39,353 --> 00:02:43,720
+So as we can see, we have three records being created,
+
+73
+00:02:43,720 --> 00:02:47,270
+successfully created, and this is it right here.
+
+74
+00:02:47,270 --> 00:02:48,810
+And so now let's try them out.
+
+75
+00:02:48,810 --> 00:02:50,130
+So right now I'm in Europe.
+
+76
+00:02:50,130 --> 00:02:51,480
+And so if I open this,
+
+77
+00:02:51,480 --> 00:02:54,800
+I'm expecting it to go to my instance in Europe.
+
+78
+00:02:54,800 --> 00:02:56,300
+So I go to this URL,
+
+79
+00:02:56,300 --> 00:02:58,050
+and I get a response, Hello World,
+
+80
+00:02:58,050 --> 00:03:01,270
+from this IP in eu-central-1c.
+
+81
+00:03:01,270 --> 00:03:03,910
+If I use CloudShell to try it out
+
+82
+00:03:03,910 --> 00:03:05,940
+and we do a dig command on this.
+
+83
+00:03:05,940 --> 00:03:08,520
+As we can see, we get an error code back of just one value.
+
+84
+00:03:08,520 --> 00:03:09,353
+Okay.
+
+85
+00:03:09,353 --> 00:03:13,280
+So just one value of the same IP address as this one.
+
+86
+00:03:13,280 --> 00:03:15,800
+So this is my instance in eu-central-1c.
+
+87
+00:03:15,800 --> 00:03:16,938
+And if I keep on refreshing,
+
+88
+00:03:16,938 --> 00:03:19,500
+because my latency hasn't changed to eu-central-1,
+
+89
+00:03:19,500 --> 00:03:22,290
+I'm going to get, always the same answer.
+
+90
+00:03:22,290 --> 00:03:23,123
+Okay.
+
+91
+00:03:23,123 --> 00:03:24,800
+But, so how do we test whether or not
+
+92
+00:03:24,800 --> 00:03:26,780
+that latency record is working?
+
+93
+00:03:26,780 --> 00:03:28,380
+Well, for this I can use a VPN.
+
+94
+00:03:28,380 --> 00:03:31,410
+And so let's go to Canada, for example.
+
+95
+00:03:31,410 --> 00:03:34,180
+And in Canada, it turns out that my latency
+
+96
+00:03:34,180 --> 00:03:37,350
+is going to be the closest to the U.S.
+
+97
+00:03:37,350 --> 00:03:38,913
+So if I refresh this page now,
+
+98
+00:03:40,360 --> 00:03:43,310
+I get the Hello World from the U.S.
+
+99
+00:03:43,310 --> 00:03:46,480
+and when I did change my location, thanks to the VPN,
+
+100
+00:03:46,480 --> 00:03:50,040
+it cleared all the TTL that I had for my DNS cache,
+
+101
+00:03:50,040 --> 00:03:50,873
+locally on my laptop.
+
+102
+00:03:50,873 --> 00:03:53,160
+And so this is why automatically by refreshing it,
+
+103
+00:03:53,160 --> 00:03:56,940
+I was able to get the newest value for us-east-1a.
+
+104
+00:03:56,940 --> 00:03:59,720
+But again, if I use dig because this hasn't changed, okay,
+
+105
+00:03:59,720 --> 00:04:02,030
+my CloudShell is still in Europe, okay.
+
+106
+00:04:02,030 --> 00:04:03,371
+If I use the dig command
+
+107
+00:04:03,371 --> 00:04:06,080
+and use the exact same command as here,
+
+108
+00:04:06,080 --> 00:04:08,620
+I'm still going to get the exact same value as before, okay,
+
+109
+00:04:08,620 --> 00:04:10,960
+because, this computer right here,
+
+110
+00:04:10,960 --> 00:04:12,857
+this CloudShell sits in eu-central-1.
+
+111
+00:04:12,857 --> 00:04:14,720
+And so this is still the closest location
+
+112
+00:04:14,720 --> 00:04:16,060
+to eu-central-1.
+
+113
+00:04:16,060 --> 00:04:18,670
+And how do we test the one for AP Southeast?
+
+114
+00:04:18,670 --> 00:04:19,973
+Let's go into Hong Kong.
+
+115
+00:04:25,360 --> 00:04:26,820
+Okay. So I'm close to Singapore now.
+
+116
+00:04:26,820 --> 00:04:28,650
+And I will refresh this.
+
+117
+00:04:28,650 --> 00:04:31,460
+And the answer is, Hello World, from ap-southeast-1b.
+
+118
+00:04:31,460 --> 00:04:33,210
+So the latencies record are working
+
+119
+00:04:33,210 --> 00:04:34,240
+and they're really, really good
+
+120
+00:04:34,240 --> 00:04:36,550
+and very common to use online.
+
+121
+00:04:36,550 --> 00:04:37,383
+I hope you liked it,
+
+122
+00:04:37,383 --> 00:04:39,310
+and I will see you in the next lecture.
+

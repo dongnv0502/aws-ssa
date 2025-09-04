@@ -1,0 +1,116 @@
+1
+00:00:00,500 --> 00:00:02,480
+So I am in my VPC
+
+2
+00:00:02,480 --> 00:00:05,010
+and on the left-hand side of Egress Only Internet Gateways.
+
+3
+00:00:05,010 --> 00:00:06,560
+Now I can create one,
+
+4
+00:00:06,560 --> 00:00:08,563
+and I'll call it DemoEIGW.
+
+5
+00:00:10,270 --> 00:00:11,740
+And then we need to attach it to your VPC.
+
+6
+00:00:11,740 --> 00:00:13,780
+So my DemoVPC.
+
+7
+00:00:13,780 --> 00:00:16,000
+And then create this egress only internet gateway.
+
+8
+00:00:16,000 --> 00:00:18,340
+So it's created and attached already.
+
+9
+00:00:18,340 --> 00:00:19,480
+So this is good.
+
+10
+00:00:19,480 --> 00:00:20,980
+But now just to make it work,
+
+11
+00:00:20,980 --> 00:00:23,450
+well, we need to go ahead and edit a route table.
+
+12
+00:00:23,450 --> 00:00:24,850
+So let's go in here.
+
+13
+00:00:24,850 --> 00:00:26,400
+It needs to be for the private sub-net, okay?
+
+14
+00:00:26,400 --> 00:00:27,830
+It doesn't make sense for the public subnets.
+
+15
+00:00:27,830 --> 00:00:29,490
+So for the private subnets.
+
+16
+00:00:29,490 --> 00:00:32,710
+Let's go and edit the route table for the private subnets,
+
+17
+00:00:32,710 --> 00:00:34,230
+and edit these routes.
+
+18
+00:00:34,230 --> 00:00:35,080
+And we're going to say that's..
+
+19
+00:00:35,080 --> 00:00:36,150
+Yeah, You know what?
+
+20
+00:00:36,150 --> 00:00:39,280
+Anything that is going to be ::/0.
+
+21
+00:00:39,280 --> 00:00:41,690
+So any IPv6,
+
+22
+00:00:41,690 --> 00:00:46,640
+please be redirected to the egress only internet gateway.
+
+23
+00:00:46,640 --> 00:00:47,940
+Save the changes.
+
+24
+00:00:47,940 --> 00:00:49,370
+And now, all good.
+
+25
+00:00:49,370 --> 00:00:53,100
+My easy two instances in my private subnets can access
+
+26
+00:00:53,100 --> 00:00:56,350
+the internet over IPv6 but are not reachable.
+
+27
+00:00:56,350 --> 00:00:57,500
+Super easy demo,
+
+28
+00:00:57,500 --> 00:00:58,480
+but I hope you liked it.
+
+29
+00:00:58,480 --> 00:01:00,430
+And I will see you in the next lecture.
+

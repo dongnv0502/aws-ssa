@@ -1,0 +1,320 @@
+1
+00:00:00,000 --> 00:00:00,833
+So we've talked a lot
+
+2
+00:00:00,833 --> 00:00:02,100
+about IPv4 in this course,
+
+3
+00:00:02,100 --> 00:00:03,960
+but now let's talk about IPv6.
+
+4
+00:00:03,960 --> 00:00:04,793
+So why?
+
+5
+00:00:04,793 --> 00:00:06,150
+Well, because IPv4 was designed
+
+6
+00:00:06,150 --> 00:00:10,140
+to provide 4.3 billion addresses at the time of creation.
+
+7
+00:00:10,140 --> 00:00:13,050
+And engineers who invented this protocol never thought
+
+8
+00:00:13,050 --> 00:00:15,060
+that they would be all used,
+
+9
+00:00:15,060 --> 00:00:16,950
+but it turns out that very, very soon,
+
+10
+00:00:16,950 --> 00:00:18,120
+they will all be exhausted.
+
+11
+00:00:18,120 --> 00:00:20,700
+And so therefore, there needs to be a new scheme of IPs,
+
+12
+00:00:20,700 --> 00:00:24,150
+and this is IPv6, which is a successor of IPv4.
+
+13
+00:00:24,150 --> 00:00:27,480
+So IPv6 is designed to provide, and wait for it,
+
+14
+00:00:27,480 --> 00:00:32,340
+3.4 times 10 at the power of 38 unique IP addresses.
+
+15
+00:00:32,340 --> 00:00:35,040
+So this is a lot of IP addresses.
+
+16
+00:00:35,040 --> 00:00:39,780
+And every IPv6 address in AWS is going to be public
+
+17
+00:00:39,780 --> 00:00:41,820
+and internet-routable.
+
+18
+00:00:41,820 --> 00:00:45,510
+So the format is x.x.x.x, eight times,
+
+19
+00:00:45,510 --> 00:00:47,220
+where x is hexadecimal,
+
+20
+00:00:47,220 --> 00:00:50,793
+where the range can be from 0000 to ffff.
+
+21
+00:00:51,930 --> 00:00:55,410
+So you don't need to know exactly how an IPv6 is formed,
+
+22
+00:00:55,410 --> 00:00:59,250
+okay, but these are some examples of IPv6.
+
+23
+00:00:59,250 --> 00:01:00,570
+I'm not going to linger on it.
+
+24
+00:01:00,570 --> 00:01:01,650
+Okay, you can have a look,
+
+25
+00:01:01,650 --> 00:01:03,510
+but what's important for you is to just see one
+
+26
+00:01:03,510 --> 00:01:05,940
+and say, "Oh, okay, this looks like an IPv6."
+
+27
+00:01:05,940 --> 00:01:09,270
+And IPv6 can take multiple forms.
+
+28
+00:01:09,270 --> 00:01:11,280
+Okay, so why am I talking about IPv6?
+
+29
+00:01:11,280 --> 00:01:14,460
+Well, because we can enable IPv6 support in our VPC.
+
+30
+00:01:14,460 --> 00:01:16,320
+So IPv4 can never be disabled
+
+31
+00:01:16,320 --> 00:01:18,120
+for your VPC and subnets, okay?
+
+32
+00:01:18,120 --> 00:01:20,580
+But you can enable IPv6 that are public IP addresses
+
+33
+00:01:20,580 --> 00:01:22,680
+to operate in dual-stack mode.
+
+34
+00:01:22,680 --> 00:01:24,450
+That means that your EC2 instances
+
+35
+00:01:24,450 --> 00:01:26,160
+when launched in your VPC will get
+
+36
+00:01:26,160 --> 00:01:30,000
+at least a private internal IPv4 and a public IPv6,
+
+37
+00:01:30,000 --> 00:01:33,390
+and they can communicate using either IPv4 or IPv6
+
+38
+00:01:33,390 --> 00:01:35,700
+to the internet through an internet gateway.
+
+39
+00:01:35,700 --> 00:01:36,660
+So let's take an example.
+
+40
+00:01:36,660 --> 00:01:40,980
+Our EC2 instance has a private IP as an IPv6,
+
+41
+00:01:40,980 --> 00:01:42,450
+which is by default public.
+
+42
+00:01:42,450 --> 00:01:44,220
+And then if he wants to access the internet,
+
+43
+00:01:44,220 --> 00:01:45,780
+it can do so through internet gateway.
+
+44
+00:01:45,780 --> 00:01:48,120
+So internet gateway do provide connectivities
+
+45
+00:01:48,120 --> 00:01:50,037
+for IPv4 and IPv6.
+
+46
+00:01:50,037 --> 00:01:53,460
+And then my EC2 instance will be publicly accessible
+
+47
+00:01:53,460 --> 00:01:57,900
+in this case because it has a public IPv6 address,
+
+48
+00:01:57,900 --> 00:01:59,010
+and the internet gateway
+
+49
+00:01:59,010 --> 00:02:00,780
+would provide internet connectivity.
+
+50
+00:02:00,780 --> 00:02:03,030
+So here is an exam scenario for you,
+
+51
+00:02:03,030 --> 00:02:05,160
+so around IPv6 troubleshooting.
+
+52
+00:02:05,160 --> 00:02:07,500
+So as you know, IPv4 cannot be disabled
+
+53
+00:02:07,500 --> 00:02:09,270
+for your VPC and subnets.
+
+54
+00:02:09,270 --> 00:02:12,270
+And so if you have an IPv6-enabled VPC,
+
+55
+00:02:12,270 --> 00:02:15,240
+and you cannot launch an EC2 instance in your subnets,
+
+56
+00:02:15,240 --> 00:02:17,880
+then it's not because the instance cannot acquire an IPv6
+
+57
+00:02:17,880 --> 00:02:19,620
+because the space is actually very, very large,
+
+58
+00:02:19,620 --> 00:02:22,950
+and there will be enough IPv6s for your EC2 instances.
+
+59
+00:02:22,950 --> 00:02:25,860
+It's because there are no available IPv4 left
+
+60
+00:02:25,860 --> 00:02:27,000
+in your subnets.
+
+61
+00:02:27,000 --> 00:02:30,300
+And the solution for this is to create an IPv4 CIDR
+
+62
+00:02:30,300 --> 00:02:31,133
+in your subnet.
+
+63
+00:02:31,133 --> 00:02:32,477
+So let's take collect this VPC,
+
+64
+00:02:32,477 --> 00:02:36,030
+It has an IPv4 space and so also an IPv6 space.
+
+65
+00:02:36,030 --> 00:02:37,950
+So we keep on launching EC2 instances
+
+66
+00:02:37,950 --> 00:02:40,953
+that will get private IPv4 and public IPv6.
+
+67
+00:02:42,150 --> 00:02:43,800
+So we launch them, we launch them, we launch them,
+
+68
+00:02:43,800 --> 00:02:48,000
+and then once we have exhausted the space of IPv4,
+
+69
+00:02:48,000 --> 00:02:50,730
+if a user tries to create a new EC2 instance,
+
+70
+00:02:50,730 --> 00:02:53,940
+it will get an error, not because the IPv6 ran out,
+
+71
+00:02:53,940 --> 00:02:56,410
+but because the IPv4 space within our subnets
+
+72
+00:02:56,410 --> 00:02:57,900
+or our VPC ran out,
+
+73
+00:02:57,900 --> 00:03:01,170
+in which case, well, what we do is that we add a new CIDR
+
+74
+00:03:01,170 --> 00:03:03,090
+within our VPC and our subnets,
+
+75
+00:03:03,090 --> 00:03:05,490
+and therefore, we can start launching new EC2 instances
+
+76
+00:03:05,490 --> 00:03:09,390
+that will get a different IPv4 address range for the IP.
+
+77
+00:03:09,390 --> 00:03:13,710
+But we'll keep to work around this issue like this, okay?
+
+78
+00:03:13,710 --> 00:03:16,453
+So that's it for the theory on IPv6 in AWS.
+
+79
+00:03:16,453 --> 00:03:17,730
+I will see you in the next lecture
+
+80
+00:03:17,730 --> 00:03:19,383
+for just a little practice.
+

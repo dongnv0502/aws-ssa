@@ -1,0 +1,104 @@
+1
+00:00:00,230 --> 00:00:01,380
+Okay, so this section
+
+2
+00:00:01,380 --> 00:00:03,520
+is about studying the white papers
+
+3
+00:00:03,520 --> 00:00:06,240
+and a few architecture documents that we can have,
+
+4
+00:00:06,240 --> 00:00:09,370
+and these are actually not strongly required for the exam,
+
+5
+00:00:09,370 --> 00:00:11,180
+but you absolutely need to know a little bit
+
+6
+00:00:11,180 --> 00:00:12,830
+about the Well-Architected Framework
+
+7
+00:00:12,830 --> 00:00:15,270
+and Disaster Recovery and a few other things.
+
+8
+00:00:15,270 --> 00:00:17,460
+So this section is going to cover just that.
+
+9
+00:00:17,460 --> 00:00:19,990
+So we'll see the Well-Architecture Framework whitepaper,
+
+10
+00:00:19,990 --> 00:00:21,570
+and I'll be honest, I'll try to make this
+
+11
+00:00:21,570 --> 00:00:23,010
+as less boring as I can,
+
+12
+00:00:23,010 --> 00:00:25,260
+but it's not very fascinating for some,
+
+13
+00:00:25,260 --> 00:00:27,724
+the Well-Architected Tool, which I think is awesome,
+
+14
+00:00:27,724 --> 00:00:28,828
+AWS Trusted Advisor,
+
+15
+00:00:28,828 --> 00:00:31,430
+some reference architecture resources,
+
+16
+00:00:31,430 --> 00:00:33,680
+and these are super-cool so don't miss that.
+
+17
+00:00:33,680 --> 00:00:34,770
+It's for the real world,
+
+18
+00:00:34,770 --> 00:00:37,170
+so these are to be links that we will need to use
+
+19
+00:00:37,170 --> 00:00:38,922
+as a real solutions architect,
+
+20
+00:00:38,922 --> 00:00:42,556
+and then finally, Disaster Recovery on AWS Whitepaper.
+
+21
+00:00:42,556 --> 00:00:44,450
+This one is a bit boring,
+
+22
+00:00:44,450 --> 00:00:47,010
+but it is super important going into the exam,
+
+23
+00:00:47,010 --> 00:00:48,380
+so we'll have to look at it,
+
+24
+00:00:48,380 --> 00:00:50,700
+and actually, you'll find this pretty interesting, I'm sure,
+
+25
+00:00:50,700 --> 00:00:51,670
+by the end of it.
+
+26
+00:00:51,670 --> 00:00:53,270
+All right, so let's get started.
+

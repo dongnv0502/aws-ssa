@@ -1,0 +1,396 @@
+1
+00:00:00,610 --> 00:00:02,440
+Okay, so we are in CloudWatch Alarms,
+
+2
+00:00:02,440 --> 00:00:04,540
+so let's go and create an alarm.
+
+3
+00:00:04,540 --> 00:00:06,870
+So first of all, I'm going to create an EC2 instance
+
+4
+00:00:06,870 --> 00:00:09,180
+very quickly, and we're going to create
+
+5
+00:00:09,180 --> 00:00:11,430
+an alarm on top of the CPU utilization.
+
+6
+00:00:11,430 --> 00:00:15,410
+So we're going ahead and create an EC2 instance of t2 micro.
+
+7
+00:00:15,410 --> 00:00:17,920
+I will go quickly to preview and launch and then say,
+
+8
+00:00:17,920 --> 00:00:19,380
+yes, I have this.
+
+9
+00:00:19,380 --> 00:00:21,000
+So we don't need to keep it or anything like this,
+
+10
+00:00:21,000 --> 00:00:22,700
+we just want the instance to be launched.
+
+11
+00:00:22,700 --> 00:00:24,380
+And the idea is that we want to create an alarm that
+
+12
+00:00:24,380 --> 00:00:28,470
+will terminate the instance, if the CPU goes to 100%,
+
+13
+00:00:28,470 --> 00:00:30,340
+so let's create this alarm.
+
+14
+00:00:30,340 --> 00:00:32,780
+So we need to select a metric.
+
+15
+00:00:32,780 --> 00:00:35,300
+And so for this, we need to choose a metric.
+
+16
+00:00:35,300 --> 00:00:38,050
+So we need to go and find our EC2 instance.
+
+17
+00:00:38,050 --> 00:00:42,120
+So this is our instance ID, right here, and search for it.
+
+18
+00:00:42,120 --> 00:00:44,800
+And I'm maybe a little bit too quick, okay.
+
+19
+00:00:44,800 --> 00:00:47,410
+So let's wait for the instance to be launched.
+
+20
+00:00:47,410 --> 00:00:50,610
+I will go into EC2 per instance metric,
+
+21
+00:00:50,610 --> 00:00:54,540
+and then I will wait for it to be populating.
+
+22
+00:00:54,540 --> 00:00:57,280
+So it took about five minutes for some metrics to appear
+
+23
+00:00:57,280 --> 00:00:59,160
+in that cloud dashboard for my instance.
+
+24
+00:00:59,160 --> 00:01:03,090
+So now I can probably refresh this page and I will get the
+
+25
+00:01:03,090 --> 00:01:04,790
+chance to find the metrics I'm looking for.
+
+26
+00:01:04,790 --> 00:01:07,960
+So let me select a metric and then paste the instance
+
+27
+00:01:07,960 --> 00:01:09,610
+in perfect, I have it,
+
+28
+00:01:09,610 --> 00:01:14,300
+and I will go and find the CPU utilization of my instance.
+
+29
+00:01:14,300 --> 00:01:16,110
+So this is this metric right here.
+
+30
+00:01:16,110 --> 00:01:18,080
+Okay, well, select this metric.
+
+31
+00:01:18,080 --> 00:01:19,030
+As you can see, we have
+
+32
+00:01:19,030 --> 00:01:22,190
+the eight here and then we can choose a way to
+
+33
+00:01:22,190 --> 00:01:25,530
+compute this metric, so average, sum, maximum, and so on.
+
+34
+00:01:25,530 --> 00:01:28,560
+The period we want to evaluate this alarm on.
+
+35
+00:01:28,560 --> 00:01:32,100
+So five minutes is good because this metric gets populated
+
+36
+00:01:32,100 --> 00:01:35,240
+every five minutes, if we don't enable detailed monitoring.
+
+37
+00:01:35,240 --> 00:01:37,370
+Now we get some conditions in terms of the threshold.
+
+38
+00:01:37,370 --> 00:01:40,710
+So is it Static or is it an Anomaly detection?
+
+39
+00:01:40,710 --> 00:01:43,610
+Is it a greater than, equal than, and so on.
+
+40
+00:01:43,610 --> 00:01:44,530
+So I will say for example,
+
+41
+00:01:44,530 --> 00:01:48,040
+if you're a greater than 95%
+
+42
+00:01:48,040 --> 00:01:50,040
+for a long time, so for,
+
+43
+00:01:50,040 --> 00:01:53,120
+and here you can say, three out of three.
+
+44
+00:01:53,120 --> 00:01:57,770
+So that means that for 15 minutes, you're stuck at 95%,
+
+45
+00:01:57,770 --> 00:02:01,160
+then probably something is up with this machine.
+
+46
+00:02:01,160 --> 00:02:03,810
+And so in that case, I could choose a notification.
+
+47
+00:02:03,810 --> 00:02:05,580
+I could choose a Auto Scaling action.
+
+48
+00:02:05,580 --> 00:02:07,930
+I could choose an EC2 action, or in a systems manager
+
+49
+00:02:07,930 --> 00:02:10,389
+action, but I'm going to choose an EC2 action.
+
+50
+00:02:10,389 --> 00:02:14,330
+Okay, and it will say, hey, if you are in alarm, okay,
+
+51
+00:02:14,330 --> 00:02:16,970
+then just terminate this instance because maybe I know that
+
+52
+00:02:16,970 --> 00:02:20,930
+my application sometimes has a huge failure and the CPU
+
+53
+00:02:20,930 --> 00:02:23,880
+installation will be at a 95% or a 100%
+
+54
+00:02:23,880 --> 00:02:25,930
+for a very long time, And the only way to resolve this
+
+55
+00:02:25,930 --> 00:02:27,720
+is to just terminate the instance.
+
+56
+00:02:27,720 --> 00:02:31,120
+So I will choose this, and then click on next,
+
+57
+00:02:31,120 --> 00:02:32,033
+and say terminate,
+
+58
+00:02:33,950 --> 00:02:35,813
+EC2 on high CPU.
+
+59
+00:02:38,260 --> 00:02:41,310
+Click on next to verify everything, and we're good to go.
+
+60
+00:02:41,310 --> 00:02:44,170
+So now this alarm obviously does have insufficient data,
+
+61
+00:02:44,170 --> 00:02:46,090
+so we need to wait 15 minutes for it to be okay,
+
+62
+00:02:46,090 --> 00:02:49,910
+and it's not going to be triggered unless we make it so.
+
+63
+00:02:49,910 --> 00:02:52,610
+So, we could go into the EC2 instance and launch a way
+
+64
+00:02:52,610 --> 00:02:55,420
+to get the CPU very high for 15 minutes,
+
+65
+00:02:55,420 --> 00:02:57,720
+but this would be a very, very long,
+
+66
+00:02:57,720 --> 00:02:59,890
+or we can use the API call name,
+
+67
+00:02:59,890 --> 00:03:04,180
+Set alarm state, to really see what would happen if this
+
+68
+00:03:04,180 --> 00:03:07,190
+alarm went into the breach phase.
+
+69
+00:03:07,190 --> 00:03:08,640
+So let's have a look.
+
+70
+00:03:08,640 --> 00:03:10,460
+This is the history of the alarm, okay.
+
+71
+00:03:10,460 --> 00:03:12,884
+And what I'm going to do is that I'm going to set the alarm
+
+72
+00:03:12,884 --> 00:03:16,163
+to say, so I type AWS CloudWatch, set alarm states,
+
+73
+00:03:18,250 --> 00:03:20,280
+and we'll look at the API reference.
+
+74
+00:03:20,280 --> 00:03:23,330
+And so we need to do set alarm state the alarm name and the
+
+75
+00:03:23,330 --> 00:03:26,380
+state value and the state reason.
+
+76
+00:03:26,380 --> 00:03:29,920
+So we'll do, in here.
+
+77
+00:03:29,920 --> 00:03:34,430
+So AWS CloudWatch set alarm states,
+
+78
+00:03:34,430 --> 00:03:37,080
+and then we need to set multiple parameters.
+
+79
+00:03:37,080 --> 00:03:41,993
+So the alarm name is going to be this one,
+
+80
+00:03:45,180 --> 00:03:47,890
+then the alarm,
+
+81
+00:03:47,890 --> 00:03:50,460
+so the states value
+
+82
+00:03:52,720 --> 00:03:54,700
+is going to be alarm.
+
+83
+00:03:54,700 --> 00:03:58,390
+And the state reason, is going to be testing.
+
+84
+00:03:58,390 --> 00:04:01,160
+We press enter, and now this alarm,
+
+85
+00:04:01,160 --> 00:04:05,890
+if we refer to this page is now in the alarm state,
+
+86
+00:04:05,890 --> 00:04:07,670
+as you can see, it says in alarm.
+
+87
+00:04:07,670 --> 00:04:10,830
+And so the action is, when in alarm terminate the instance.
+
+88
+00:04:10,830 --> 00:04:12,280
+And so if you look at the history,
+
+89
+00:04:12,280 --> 00:04:15,310
+it says that the alarm updated from OK, to in alarm and
+
+90
+00:04:15,310 --> 00:04:18,519
+then an action was made and it's, successfully
+
+91
+00:04:18,519 --> 00:04:21,600
+executed the action to terminate my EC2 instance.
+
+92
+00:04:21,600 --> 00:04:24,090
+So if I go into my EC2 instances here, and I refresh,
+
+93
+00:04:24,090 --> 00:04:26,650
+as we can see is shutting down and is being terminated
+
+94
+00:04:26,650 --> 00:04:29,470
+because while there was an alarm that was triggered on top
+
+95
+00:04:29,470 --> 00:04:30,660
+of this EC2 instance,
+
+96
+00:04:30,660 --> 00:04:33,720
+and we did set up the alarm to do this specific action.
+
+97
+00:04:33,720 --> 00:04:34,980
+So that's it, I hope you liked it.
+
+98
+00:04:34,980 --> 00:04:36,470
+I hope this makes sense to you.
+
+99
+00:04:36,470 --> 00:04:38,420
+And I will see you in the next lecture.
+

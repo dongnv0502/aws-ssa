@@ -1,0 +1,132 @@
+1
+00:00:00,190 --> 00:00:02,580
+Welcome to this section on Kinesis.
+
+2
+00:00:02,580 --> 00:00:05,540
+So Kinesis at the Certified Developer exam
+
+3
+00:00:05,540 --> 00:00:07,320
+is something you need to know in depth,
+
+4
+00:00:07,320 --> 00:00:08,900
+so I'm going to spend a lot of time
+
+5
+00:00:08,900 --> 00:00:11,290
+describing how each service works
+
+6
+00:00:11,290 --> 00:00:13,740
+to really give you that in-depth expertise
+
+7
+00:00:13,740 --> 00:00:15,990
+to allow you to score the maximum amount of points
+
+8
+00:00:15,990 --> 00:00:17,030
+at the exam.
+
+9
+00:00:17,030 --> 00:00:18,380
+So let's start with an overview of Kinesis.
+
+10
+00:00:18,380 --> 00:00:21,030
+Kinesis makes it easy to collect, process,
+
+11
+00:00:21,030 --> 00:00:23,570
+and analyze streaming data in real time.
+
+12
+00:00:23,570 --> 00:00:25,340
+So the real-time data could be anything,
+
+13
+00:00:25,340 --> 00:00:27,470
+such as application logs, metrics,
+
+14
+00:00:27,470 --> 00:00:30,700
+website clickstreams, IoT telemetry data.
+
+15
+00:00:30,700 --> 00:00:33,870
+As long as the data is generated fast and in real time,
+
+16
+00:00:33,870 --> 00:00:36,460
+this counts as a real time stream of data.
+
+17
+00:00:36,460 --> 00:00:38,293
+So there are four services that comprise Kinesis.
+
+18
+00:00:38,293 --> 00:00:39,990
+There's Kinesis Data Streams
+
+19
+00:00:39,990 --> 00:00:42,130
+that we'll explore really in depth
+
+20
+00:00:42,130 --> 00:00:45,240
+to capture, process, and store data streams.
+
+21
+00:00:45,240 --> 00:00:47,630
+There is Kinesis Data Firehose to load data streams
+
+22
+00:00:47,630 --> 00:00:52,310
+into some data stores in AWS, but also outside of AWS.
+
+23
+00:00:52,310 --> 00:00:55,440
+There is Kinesis Data Analytics to analyze data streams
+
+24
+00:00:55,440 --> 00:00:58,260
+with the SQL language or Apache Flink.
+
+25
+00:00:58,260 --> 00:01:00,880
+And finally, a service that doesn't appear at the exam
+
+26
+00:01:00,880 --> 00:01:03,670
+but still good to mention is Kinesis Video Streams
+
+27
+00:01:03,670 --> 00:01:06,990
+to capture, process, and store video streams.
+
+28
+00:01:06,990 --> 00:01:09,430
+So this was just a very high-level overview.
+
+29
+00:01:09,430 --> 00:01:10,280
+In the next lectures,
+
+30
+00:01:10,280 --> 00:01:12,640
+we'll be exploring one of these services one by one
+
+31
+00:01:12,640 --> 00:01:13,473
+and making sure
+
+32
+00:01:13,473 --> 00:01:14,650
+we get the right amount of knowledge on them.
+
+33
+00:01:14,650 --> 00:01:16,550
+So I will see you in the next lecture.
+

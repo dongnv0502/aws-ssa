@@ -1,0 +1,712 @@
+1
+00:00:00,011 --> 00:00:02,480
+Okay, so first let me show you
+
+2
+00:00:02,480 --> 00:00:04,770
+the CloudWatch Events UI.
+
+3
+00:00:04,770 --> 00:00:06,350
+So this is CloudWatch Events,
+
+4
+00:00:06,350 --> 00:00:07,580
+and within CloudWatch, there's Events
+
+5
+00:00:07,580 --> 00:00:09,360
+and it's going to go away at some point,
+
+6
+00:00:09,360 --> 00:00:11,330
+so don't be surprised if you don't find it
+
+7
+00:00:11,330 --> 00:00:13,890
+because now CloudWatch Events is EventBridge,
+
+8
+00:00:13,890 --> 00:00:17,130
+which is the enhanced version of CloudWatch Events.
+
+9
+00:00:17,130 --> 00:00:21,570
+So I can go into Amazon EventBridge and look at the new UI.
+
+10
+00:00:21,570 --> 00:00:24,850
+So in here I get access to multiple things.
+
+11
+00:00:24,850 --> 00:00:27,330
+So under Event buses,
+
+12
+00:00:27,330 --> 00:00:30,340
+we have access here to the default event bus.
+
+13
+00:00:30,340 --> 00:00:33,120
+And this event bus is the one that is created
+
+14
+00:00:33,120 --> 00:00:34,500
+by default in your account.
+
+15
+00:00:34,500 --> 00:00:37,230
+And you can already start defining rules on it.
+
+16
+00:00:37,230 --> 00:00:39,350
+But you can create your own event bus,
+
+17
+00:00:39,350 --> 00:00:42,940
+and call this one the central event bus,
+
+18
+00:00:42,940 --> 00:00:45,050
+and I'm recreating, so V2.
+
+19
+00:00:45,050 --> 00:00:47,490
+You can enable event archives if you wanted to,
+
+20
+00:00:47,490 --> 00:00:50,040
+to archive these events and retain them forever
+
+21
+00:00:50,040 --> 00:00:52,260
+in case you wanted to do some debugging,
+
+22
+00:00:52,260 --> 00:00:55,560
+as well as do automated schema discovery.
+
+23
+00:00:55,560 --> 00:00:58,910
+And if you needed to get cross-account access
+
+24
+00:00:58,910 --> 00:01:01,170
+on this event bus, then you could define
+
+25
+00:01:01,170 --> 00:01:04,680
+a resource-based policy and the templates would be here.
+
+26
+00:01:04,680 --> 00:01:07,030
+To do so, you would need to edit everything.
+
+27
+00:01:07,030 --> 00:01:09,930
+So if you don't have a resource-based policy,
+
+28
+00:01:09,930 --> 00:01:12,260
+then only the event bus owner can send events
+
+29
+00:01:12,260 --> 00:01:14,450
+to the event bus, which is fine for us.
+
+30
+00:01:14,450 --> 00:01:15,770
+So let's create this,
+
+31
+00:01:15,770 --> 00:01:18,610
+and you have created a custom event bus,
+
+32
+00:01:18,610 --> 00:01:20,410
+and now we're good to go.
+
+33
+00:01:20,410 --> 00:01:23,520
+So now let's talk about the events.
+
+34
+00:01:23,520 --> 00:01:26,460
+So we have event sources that can come from partners.
+
+35
+00:01:26,460 --> 00:01:28,310
+For example, here, we can say
+
+36
+00:01:28,310 --> 00:01:31,970
+that I want to catch all the events coming from of Auth0.
+
+37
+00:01:31,970 --> 00:01:33,300
+So we're going to set up
+
+38
+00:01:33,300 --> 00:01:36,700
+and here is the way to set up your event bus for Auth0.
+
+39
+00:01:36,700 --> 00:01:38,700
+So there are some instructions to read from
+
+40
+00:01:38,700 --> 00:01:40,140
+on the Auth0 website.
+
+41
+00:01:40,140 --> 00:01:41,910
+And then once everything is set up,
+
+42
+00:01:41,910 --> 00:01:44,080
+then I'm able to catch the events
+
+43
+00:01:44,080 --> 00:01:46,830
+from Auth0 directly within EventBridge.
+
+44
+00:01:46,830 --> 00:01:50,620
+So now all the events are captured into EventBridge,
+
+45
+00:01:50,620 --> 00:01:53,270
+and you need to go ahead and create some rules.
+
+46
+00:01:53,270 --> 00:01:56,270
+So you need to select Create rule option,
+
+47
+00:01:56,270 --> 00:01:58,860
+and I'll call this one DemoRuleEventBridge.
+
+48
+00:02:02,850 --> 00:02:03,940
+And then we select the bus.
+
+49
+00:02:03,940 --> 00:02:06,380
+So the bus could be default, could be central bus,
+
+50
+00:02:06,380 --> 00:02:08,130
+or whatever you wanna create, right?
+
+51
+00:02:08,130 --> 00:02:09,419
+So I'll use a default bus
+
+52
+00:02:09,419 --> 00:02:11,140
+because it's the one created by default.
+
+53
+00:02:11,140 --> 00:02:12,690
+And you could either run it on a schedule.
+
+54
+00:02:12,690 --> 00:02:13,837
+For example, I say,
+
+55
+00:02:13,837 --> 00:02:16,380
+"Hey, I want this rule to run every hour."
+
+56
+00:02:16,380 --> 00:02:18,900
+And this could be a way to do a cron in the cloud,
+
+57
+00:02:18,900 --> 00:02:21,420
+or I wanna run this rule
+
+58
+00:02:21,420 --> 00:02:23,750
+whenever this specific event happens.
+
+59
+00:02:23,750 --> 00:02:25,970
+So let's choose the first one.
+
+60
+00:02:25,970 --> 00:02:28,550
+So next, we have to choose an event source.
+
+61
+00:02:28,550 --> 00:02:30,130
+And we have a couple of options.
+
+62
+00:02:30,130 --> 00:02:31,500
+Either we want to have the event source
+
+63
+00:02:31,500 --> 00:02:35,020
+to be from within AWS, so we choose AWS services,
+
+64
+00:02:35,020 --> 00:02:38,200
+or this is a custom event or a partner event,
+
+65
+00:02:38,200 --> 00:02:39,880
+and we would choose Other.
+
+66
+00:02:39,880 --> 00:02:42,550
+And if you wanted to centralize all your events
+
+67
+00:02:42,550 --> 00:02:44,810
+in your accounts across accounts,
+
+68
+00:02:44,810 --> 00:02:45,970
+then you would choose All events
+
+69
+00:02:45,970 --> 00:02:48,860
+and then you will send that into a central event bus
+
+70
+00:02:48,860 --> 00:02:50,730
+thanks to resource-based policy.
+
+71
+00:02:50,730 --> 00:02:53,150
+But for now, we'll choose AWS services,
+
+72
+00:02:53,150 --> 00:02:56,550
+and next we can filter for sample events.
+
+73
+00:02:56,550 --> 00:02:58,710
+So this is a feature that is new
+
+74
+00:02:58,710 --> 00:03:00,230
+and it's called the Sandbox.
+
+75
+00:03:00,230 --> 00:03:03,780
+So if you go back into Amazon EventBridge
+
+76
+00:03:03,780 --> 00:03:05,480
+and you go here to the Sandbox,
+
+77
+00:03:05,480 --> 00:03:08,130
+you can actually test with sample events
+
+78
+00:03:08,130 --> 00:03:10,340
+and then test against your event pattern
+
+79
+00:03:10,340 --> 00:03:11,720
+without creating a rule.
+
+80
+00:03:11,720 --> 00:03:14,090
+But these UI are accessible as well
+
+81
+00:03:14,090 --> 00:03:15,510
+when you create a rule.
+
+82
+00:03:15,510 --> 00:03:19,040
+So for sample events, I'm going to select EC2.
+
+83
+00:03:19,040 --> 00:03:20,690
+And don't get fooled, there's auto scaling here,
+
+84
+00:03:20,690 --> 00:03:23,770
+but you scroll down and now there's EC2.
+
+85
+00:03:23,770 --> 00:03:24,603
+And you're going to go
+
+86
+00:03:24,603 --> 00:03:27,870
+for EC2 State-change notification.
+
+87
+00:03:27,870 --> 00:03:29,170
+And this is the kind of event
+
+88
+00:03:29,170 --> 00:03:31,460
+that will get sent into EventBridge
+
+89
+00:03:31,460 --> 00:03:34,100
+whenever there's a state-change notification.
+
+90
+00:03:34,100 --> 00:03:36,330
+So we can choose different sample events.
+
+91
+00:03:36,330 --> 00:03:37,550
+As you can see, this one,
+
+92
+00:03:37,550 --> 00:03:39,700
+the instant state is in pending,
+
+93
+00:03:39,700 --> 00:03:42,530
+and this one it's in running, okay?
+
+94
+00:03:42,530 --> 00:03:45,020
+So let's assume we want to generate events
+
+95
+00:03:45,020 --> 00:03:48,670
+whenever our instances go into V.
+
+96
+00:03:48,670 --> 00:03:50,180
+Let's choose the stopping state
+
+97
+00:03:50,180 --> 00:03:52,310
+because we wanna know whenever they've been stopped.
+
+98
+00:03:52,310 --> 00:03:53,610
+Okay, stopped, here we go.
+
+99
+00:03:54,480 --> 00:03:56,450
+So what I'm going to do is scroll down
+
+100
+00:03:56,450 --> 00:03:58,060
+and create an event pattern.
+
+101
+00:03:58,060 --> 00:04:01,120
+So I will choose a service provider which is EC2,
+
+102
+00:04:01,120 --> 00:04:01,953
+and an event type
+
+103
+00:04:01,953 --> 00:04:06,183
+which is the instance state-change notification.
+
+104
+00:04:07,020 --> 00:04:08,390
+And we can have all states,
+
+105
+00:04:08,390 --> 00:04:10,210
+and if I test the pattern right now
+
+106
+00:04:10,210 --> 00:04:12,380
+is going to match the sample events.
+
+107
+00:04:12,380 --> 00:04:15,870
+But I can specify a specific state.
+
+108
+00:04:15,870 --> 00:04:17,820
+For example, only the instances
+
+109
+00:04:17,820 --> 00:04:20,230
+that have been stopped or terminated.
+
+110
+00:04:20,230 --> 00:04:23,420
+As you can see, my event pattern just got more granular.
+
+111
+00:04:23,420 --> 00:04:24,610
+So if we test this right now
+
+112
+00:04:24,610 --> 00:04:27,860
+is going to match what we had above, which is great.
+
+113
+00:04:27,860 --> 00:04:30,840
+But if I choose for example, the pending
+
+114
+00:04:30,840 --> 00:04:35,210
+or the running states and test the pattern again,
+
+115
+00:04:35,210 --> 00:04:36,500
+it's not going to be cut.
+
+116
+00:04:36,500 --> 00:04:37,400
+So we know for sure
+
+117
+00:04:37,400 --> 00:04:40,030
+that the events we are catching right now
+
+118
+00:04:40,030 --> 00:04:44,760
+are whenever an EC2 instance is stopped or terminated.
+
+119
+00:04:44,760 --> 00:04:45,593
+Why do we do this?
+
+120
+00:04:45,593 --> 00:04:47,650
+Well, maybe because whenever that happens
+
+121
+00:04:47,650 --> 00:04:49,550
+we want to be notified.
+
+122
+00:04:49,550 --> 00:04:53,310
+So the targets could be either an EventBridge event bus,
+
+123
+00:04:53,310 --> 00:04:56,340
+which is when you wanna centralize destinations
+
+124
+00:04:56,340 --> 00:05:00,313
+or an API destination, or you could choose
+
+125
+00:05:00,313 --> 00:05:02,190
+one of the following AWS services.
+
+126
+00:05:02,190 --> 00:05:03,023
+And you can see,
+
+127
+00:05:03,023 --> 00:05:06,210
+you have a lot of possible targets or actions.
+
+128
+00:05:06,210 --> 00:05:08,940
+But the one that's interesting to me is the SNS topic
+
+129
+00:05:08,940 --> 00:05:11,420
+because I wanna send into my demo topic,
+
+130
+00:05:11,420 --> 00:05:15,623
+a message whenever an EC2 instance is stopped or terminated.
+
+131
+00:05:16,500 --> 00:05:21,480
+So I'll click on Next, Next, and then Review and create.
+
+132
+00:05:21,480 --> 00:05:23,420
+Yes, my rule looks good.
+
+133
+00:05:23,420 --> 00:05:24,623
+Let's create this rule.
+
+134
+00:05:26,210 --> 00:05:27,610
+So now you could try it out
+
+135
+00:05:27,610 --> 00:05:30,650
+and start to launch an EC2 instance and then terminate it
+
+136
+00:05:30,650 --> 00:05:32,950
+or stop it and make sure you are subscribed
+
+137
+00:05:32,950 --> 00:05:34,840
+into your SNS topic with your email,
+
+138
+00:05:34,840 --> 00:05:35,970
+and then you would receive an email
+
+139
+00:05:35,970 --> 00:05:38,570
+whenever, well, an instance is stopped or terminated,
+
+140
+00:05:38,570 --> 00:05:40,050
+which I think is quite nice.
+
+141
+00:05:40,050 --> 00:05:42,140
+So just to summarize, we have also the archives
+
+142
+00:05:42,140 --> 00:05:45,490
+to find all the archives of your events, if you needed to,
+
+143
+00:05:45,490 --> 00:05:47,468
+and the replays to replay events
+
+144
+00:05:47,468 --> 00:05:49,260
+and put them back into an event bus
+
+145
+00:05:49,260 --> 00:05:51,730
+to properly fix your integrations.
+
+146
+00:05:51,730 --> 00:05:54,120
+Finally, you have the schema registry.
+
+147
+00:05:54,120 --> 00:05:56,520
+So this is a way for you to look at the schema
+
+148
+00:05:56,520 --> 00:05:58,070
+of these events.
+
+149
+00:05:58,070 --> 00:05:58,903
+And so for example,
+
+150
+00:05:58,903 --> 00:06:02,270
+we can look at the AWS event schema registry,
+
+151
+00:06:02,270 --> 00:06:04,603
+and we type aws.ec2,
+
+152
+00:06:06,110 --> 00:06:09,027
+and in here you can look at the AWS EC2,
+
+153
+00:06:09,027 --> 00:06:12,300
+EC2's instant state-change notification.
+
+154
+00:06:12,300 --> 00:06:16,810
+So it's version one, the schema type is OpenAPI 3.0,
+
+155
+00:06:16,810 --> 00:06:19,490
+and this is the schema itself right here.
+
+156
+00:06:19,490 --> 00:06:21,500
+And what this means is that it defines,
+
+157
+00:06:21,500 --> 00:06:25,230
+well, the possibility of what goes into these events.
+
+158
+00:06:25,230 --> 00:06:27,730
+So we can see, well, the ID is a string,
+
+159
+00:06:27,730 --> 00:06:29,040
+the source is a string,
+
+160
+00:06:29,040 --> 00:06:32,260
+the time is a string in format date-time, and so on.
+
+161
+00:06:32,260 --> 00:06:35,430
+And this defines how things can be looking
+
+162
+00:06:37,210 --> 00:06:38,510
+in your event itself.
+
+163
+00:06:38,510 --> 00:06:40,940
+And thanks to this schema, which was quite complicated,
+
+164
+00:06:40,940 --> 00:06:43,300
+you can actually download code bindings,
+
+165
+00:06:43,300 --> 00:06:45,220
+and it's going to generate code for you
+
+166
+00:06:45,220 --> 00:06:46,930
+for example, in Java, in Python,
+
+167
+00:06:46,930 --> 00:06:48,400
+in TypeScript or in Go
+
+168
+00:06:48,400 --> 00:06:50,430
+so that you can manipulate these objects
+
+169
+00:06:50,430 --> 00:06:51,990
+in a much easier fashion
+
+170
+00:06:51,990 --> 00:06:55,340
+in your code without writing some manual code for you.
+
+171
+00:06:55,340 --> 00:06:57,090
+Okay, so that's it for EventBridge.
+
+172
+00:06:57,090 --> 00:06:58,920
+As you can see, it's a very complete service
+
+173
+00:06:58,920 --> 00:07:00,390
+with a lot of different features,
+
+174
+00:07:00,390 --> 00:07:01,580
+but the most important ones
+
+175
+00:07:01,580 --> 00:07:03,620
+are going to be around setting up rules
+
+176
+00:07:03,620 --> 00:07:07,350
+and setting up event buses with resource policies.
+
+177
+00:07:07,350 --> 00:07:08,470
+All right, that's it.
+
+178
+00:07:08,470 --> 00:07:11,470
+I hope you liked it, and I will see you in the next lecture.
+

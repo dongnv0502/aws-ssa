@@ -1,0 +1,492 @@
+1
+00:00:00,348 --> 00:00:03,111
+So it turns out that this EC2 instance we've created
+
+2
+00:00:03,111 --> 00:00:06,481
+in our public subnet could have a name and the name
+
+3
+00:00:06,481 --> 00:00:08,994
+could be Bashian host.
+
+4
+00:00:08,994 --> 00:00:10,510
+This is because we are able to SSH
+
+5
+00:00:10,510 --> 00:00:13,000
+into this fashion host and
+
+6
+00:00:13,000 --> 00:00:15,780
+from it, we'll be able to connect to an EC two instance
+
+7
+00:00:15,780 --> 00:00:17,260
+in a private subnet.
+
+8
+00:00:17,260 --> 00:00:19,691
+So to do so well, let's go ahead and create an EC two
+
+9
+00:00:19,691 --> 00:00:22,180
+instance in a private subnet, but first, if you don't
+
+10
+00:00:22,180 --> 00:00:24,910
+have a key pair, yet sometimes I reuse accounts
+
+11
+00:00:24,910 --> 00:00:26,090
+or create new ones or transfusions.
+
+12
+00:00:26,090 --> 00:00:27,810
+So I don't necessarily have key pairs.
+
+13
+00:00:27,810 --> 00:00:30,190
+You can just enter a key pair.
+
+14
+00:00:30,190 --> 00:00:33,410
+So I'll have a, a demo key pair right here, and then
+
+15
+00:00:33,410 --> 00:00:34,952
+in the PM format.
+
+16
+00:00:34,952 --> 00:00:37,750
+And then I will create my key pair.
+
+17
+00:00:37,750 --> 00:00:41,220
+So I will save this file and this is going to be very handy
+
+18
+00:00:41,220 --> 00:00:44,960
+for us to SSH into the EC two instance in my private subnet.
+
+19
+00:00:44,960 --> 00:00:47,010
+So let's have a look at how we can do it.
+
+20
+00:00:48,291 --> 00:00:49,124
+So now let's go into EC two instances
+
+21
+00:00:49,124 --> 00:00:52,070
+And I'm going to launch an EC two instance.
+
+22
+00:00:52,070 --> 00:00:56,380
+I will scroll down Amazon Linux 2, two micro.
+
+23
+00:00:56,380 --> 00:00:58,950
+We will use the key pair named demo key pair we
+
+24
+00:00:58,950 --> 00:01:00,590
+just created.
+
+25
+00:01:00,590 --> 00:01:02,410
+And then for network settings, we will make sure to
+
+26
+00:01:02,410 --> 00:01:05,051
+launch this into our demo VPC.
+
+27
+00:01:05,051 --> 00:01:07,300
+And so far as subnet association.
+
+28
+00:01:07,300 --> 00:01:10,290
+So we want to be into a private subnet, for example
+
+29
+00:01:10,290 --> 00:01:14,020
+the private subnet a, and we're going to create
+
+30
+00:01:14,020 --> 00:01:15,393
+a security group.
+
+31
+00:01:16,811 --> 00:01:19,470
+I'm going to name it private SG because it is
+
+32
+00:01:19,470 --> 00:01:23,131
+a private security group and we are going to allow SSH
+
+33
+00:01:23,131 --> 00:01:26,530
+but actually not from anywhere from custom
+
+34
+00:01:26,530 --> 00:01:28,870
+and this time it will choose a security group we
+
+35
+00:01:28,870 --> 00:01:31,200
+have created from before, which is called a launch
+
+36
+00:01:31,200 --> 00:01:32,880
+wizard one, which is not a great name.
+
+37
+00:01:32,880 --> 00:01:34,960
+I'm going to rename it very, very soon
+
+38
+00:01:34,960 --> 00:01:39,960
+but what it means that we allow SSH from the Bashian host.
+
+39
+00:01:42,000 --> 00:01:43,590
+And this is how through a hub,
+
+40
+00:01:43,590 --> 00:01:45,650
+through the Basian host, we're going to be able to SSH
+
+41
+00:01:45,650 --> 00:01:48,750
+into this private instance.
+
+42
+00:01:48,750 --> 00:01:50,740
+Okay, so this looks good.
+
+43
+00:01:50,740 --> 00:01:53,393
+Now let's go ahead and actually launch that instance,
+
+44
+00:01:55,800 --> 00:01:59,640
+and we are good to go.
+
+45
+00:01:59,640 --> 00:02:04,640
+So here we have our private instance and because it is
+
+46
+00:02:05,720 --> 00:02:07,440
+in a private sublet, as you know,
+
+47
+00:02:07,440 --> 00:02:09,550
+we cannot use the EC two instance connect
+
+48
+00:02:09,550 --> 00:02:11,240
+into it because that will not work.
+
+49
+00:02:11,240 --> 00:02:12,940
+Okay. We will need to edit the root tables at
+
+50
+00:02:12,940 --> 00:02:15,400
+the internet gateway, but that would make the subnet public.
+
+51
+00:02:15,400 --> 00:02:17,090
+So what we have to do is to SSH
+
+52
+00:02:17,090 --> 00:02:18,960
+through the Bashian host.
+
+53
+00:02:18,960 --> 00:02:21,890
+Okay. So let's go ahead and see how we can do it.
+
+54
+00:02:21,890 --> 00:02:24,470
+So we're going to connect into our Bashian host.
+
+55
+00:02:24,470 --> 00:02:27,670
+So I will click on connect and then EC two instance connect.
+
+56
+00:02:27,670 --> 00:02:30,319
+So effectively what we're doing is that we're
+
+57
+00:02:30,319 --> 00:02:31,290
+doing SSH into our Bashian host.
+
+58
+00:02:31,290 --> 00:02:33,421
+So you could use either EC two instance connect, or
+
+59
+00:02:33,421 --> 00:02:37,010
+you know, your SSH command line through your terminal.
+
+60
+00:02:37,010 --> 00:02:38,780
+And from this fashion host
+
+61
+00:02:38,780 --> 00:02:41,270
+we wanna connect into our private instance.
+
+62
+00:02:41,270 --> 00:02:42,103
+Now our private instance
+
+63
+00:02:42,103 --> 00:02:44,840
+as we can see has a private IP four address.
+
+64
+00:02:44,840 --> 00:02:45,673
+So this is what we need to do.
+
+65
+00:02:45,673 --> 00:02:49,640
+So we need to do SSH easy two user at, and then
+
+66
+00:02:49,640 --> 00:02:53,460
+the private IP, and then we need to specify a key pair.
+
+67
+00:02:53,460 --> 00:02:55,810
+Okay. So yes, and this is not going to work
+
+68
+00:02:55,810 --> 00:02:57,270
+because we haven't specified a key pair.
+
+69
+00:02:57,270 --> 00:03:00,050
+So we need to actually create that key pair
+
+70
+00:03:00,050 --> 00:03:02,130
+and then have it on my EC two instance.
+
+71
+00:03:02,130 --> 00:03:07,130
+So what I'm doing is I'm going to have a VI or nano
+
+72
+00:03:07,190 --> 00:03:11,100
+and then I'll call it demo key pair.pm
+
+73
+00:03:11,100 --> 00:03:13,490
+and then I will have to paste the content
+
+74
+00:03:13,490 --> 00:03:15,170
+of the key pair I just downloaded.
+
+75
+00:03:15,170 --> 00:03:18,270
+So I open my file that PM with a text editor
+
+76
+00:03:18,270 --> 00:03:20,821
+and then I paste exactly what I have in here,
+
+77
+00:03:20,821 --> 00:03:22,930
+and I wanna make sure this is going to be good.
+
+78
+00:03:22,930 --> 00:03:25,180
+So I think it's missing a new line right here.
+
+79
+00:03:25,180 --> 00:03:26,780
+Okay. This looks good, actually.
+
+80
+00:03:28,632 --> 00:03:29,731
+Let's see.
+
+81
+00:03:29,731 --> 00:03:31,632
+And then exit and then save.
+
+82
+00:03:31,632 --> 00:03:32,800
+Okay. So let's clear the screen.
+
+83
+00:03:32,800 --> 00:03:35,460
+Let's just make sure that this has been properly saved.
+
+84
+00:03:35,460 --> 00:03:36,890
+So this hopefully looks good.
+
+85
+00:03:36,890 --> 00:03:37,723
+Let's see.
+
+86
+00:03:37,723 --> 00:03:38,790
+I'm not too...I'm not a bit confused
+
+87
+00:03:38,790 --> 00:03:40,590
+by the formatting, but let's see.
+
+88
+00:03:40,590 --> 00:03:44,100
+And we need to make sure we change the permission.
+
+89
+00:03:44,100 --> 00:03:47,350
+So I will change the permissions on this demo key profile.
+
+90
+00:03:47,350 --> 00:03:51,090
+Okay. And now let's do this SSH command
+
+91
+00:03:51,090 --> 00:03:55,211
+and minus I demo key pair.pm, and there's a pass rise
+
+92
+00:03:55,211 --> 00:03:58,790
+and this is definitely an issue
+
+93
+00:03:58,790 --> 00:04:00,180
+with the formatting of my files.
+
+94
+00:04:00,180 --> 00:04:01,780
+So what I'm going to do is
+
+95
+00:04:01,780 --> 00:04:03,530
+that I'm going to remove demo key pair.
+
+96
+00:04:03,530 --> 00:04:04,930
+Yes. Please remove it.
+
+97
+00:04:04,930 --> 00:04:08,200
+And I will use another text editor to see if that works.
+
+98
+00:04:08,200 --> 00:04:10,970
+So VI demo, key pair that PM.
+
+99
+00:04:10,970 --> 00:04:12,370
+And I'm gonna keep this on video
+
+100
+00:04:12,370 --> 00:04:15,330
+because this is a super important to see what can go wrong.
+
+101
+00:04:15,330 --> 00:04:17,600
+And in case you have these issues, then at least, you know
+
+102
+00:04:17,600 --> 00:04:19,370
+so this looks a lot better.
+
+103
+00:04:19,370 --> 00:04:22,029
+And then I will save this file.
+
+104
+00:04:22,029 --> 00:04:27,030
+Okay. So now if we run the SSH command again, okay.
+
+105
+00:04:27,410 --> 00:04:28,360
+This is unprotected so
+
+106
+00:04:28,360 --> 00:04:30,590
+that we are needing to running the shma command.
+
+107
+00:04:30,590 --> 00:04:32,020
+So here we go.
+
+108
+00:04:32,020 --> 00:04:34,100
+And then with such again, and here we go.
+
+109
+00:04:34,100 --> 00:04:34,933
+This has worked.
+
+110
+00:04:34,933 --> 00:04:38,360
+So now we are SSH'd into my Amazon index
+
+111
+00:04:38,360 --> 00:04:40,650
+two AMI in my private subnet.
+
+112
+00:04:40,650 --> 00:04:42,440
+So this is really good.
+
+113
+00:04:42,440 --> 00:04:44,810
+We went from the Bashian host into the private instance
+
+114
+00:04:44,810 --> 00:04:46,880
+and this works, and this is quite cool.
+
+115
+00:04:46,880 --> 00:04:49,550
+But now if we try to ping Google account
+
+116
+00:04:49,550 --> 00:04:50,970
+as you can see, well, this doesn't work.
+
+117
+00:04:50,970 --> 00:04:52,890
+The private EC two instance does not
+
+118
+00:04:52,890 --> 00:04:54,832
+have internet access outgoing.
+
+119
+00:04:54,832 --> 00:04:56,740
+And so we're going to see how to resolve this
+
+120
+00:04:56,740 --> 00:04:57,573
+in the next lecture.
+
+121
+00:04:57,573 --> 00:04:59,390
+But so far we've seen how to use Bashian host.
+
+122
+00:04:59,390 --> 00:05:00,223
+So awesome.
+
+123
+00:05:00,223 --> 00:05:02,110
+And I will see you in the next lecture.
+

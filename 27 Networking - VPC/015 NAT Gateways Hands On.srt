@@ -1,0 +1,336 @@
+1
+00:00:00,690 --> 00:00:04,240
+Okay. So now that may not instances stopped or terminated,
+
+2
+00:00:04,240 --> 00:00:05,939
+we do not have access to the internet.
+
+3
+00:00:05,939 --> 00:00:09,340
+So if I do curls.com ah, is not going to work. Okay.
+
+4
+00:00:09,340 --> 00:00:12,870
+So let's fix this and go ahead with NAT Gateway.
+
+5
+00:00:12,870 --> 00:00:15,423
+So first let me refresh this private route table.
+
+6
+00:00:17,760 --> 00:00:18,920
+And as we can see now,
+
+7
+00:00:18,920 --> 00:00:20,210
+this destination
+
+8
+00:00:20,210 --> 00:00:22,690
+targeting this ENI is a black hole and
+
+9
+00:00:22,690 --> 00:00:24,990
+black hole means that this rule is not active anymore.
+
+10
+00:00:24,990 --> 00:00:27,830
+Why? Because where we have stopped our net instance and
+
+11
+00:00:27,830 --> 00:00:31,290
+therefore I will see this fruit does not lead to anything.
+
+12
+00:00:31,290 --> 00:00:33,920
+So this is why also it's really good to use managed services
+
+13
+00:00:33,920 --> 00:00:35,730
+and not, NAT instances.
+
+14
+00:00:35,730 --> 00:00:37,910
+So we are going to create a NATs Gateway
+
+15
+00:00:38,950 --> 00:00:40,437
+and I call it 'DemoNATGW'.
+
+16
+00:00:42,860 --> 00:00:44,300
+Now, when you choose a subnet for the NAT Gateway
+
+17
+00:00:44,300 --> 00:00:45,410
+which should be in so
+
+18
+00:00:45,410 --> 00:00:46,320
+for high availability,
+
+19
+00:00:46,320 --> 00:00:47,960
+we need to use multiple subnets.
+
+20
+00:00:47,960 --> 00:00:50,400
+But right now we'll start with one PublicSubnetA
+
+21
+00:00:51,530 --> 00:00:55,050
+and the connectivity type is going to be public.
+
+22
+00:00:55,050 --> 00:00:57,720
+And then we need to allocate an elastic IP
+
+23
+00:00:57,720 --> 00:01:00,260
+to this NAT gateway. So let's allocate one.
+
+24
+00:01:00,260 --> 00:01:02,670
+Okay. These us to get IP has been allocated,
+
+25
+00:01:02,670 --> 00:01:06,360
+and then we'll just click on create NAT gateway.
+
+26
+00:01:06,360 --> 00:01:08,600
+So this is NAT gateway has been created.
+
+27
+00:01:08,600 --> 00:01:11,140
+So while then that gateway is being created.
+
+28
+00:01:11,140 --> 00:01:13,050
+What I can do is edit my route table.
+
+29
+00:01:13,050 --> 00:01:15,190
+So I will go back into my route table,
+
+30
+00:01:15,190 --> 00:01:17,160
+look at my private route table,
+
+31
+00:01:17,160 --> 00:01:18,730
+and then I will edit them.
+
+32
+00:01:18,730 --> 00:01:22,100
+So let's edit the routes in it.
+
+33
+00:01:22,100 --> 00:01:24,330
+And this route that was a black hole obviously
+
+34
+00:01:24,330 --> 00:01:25,970
+will not, we don't need anymore.
+
+35
+00:01:25,970 --> 00:01:28,580
+So instead we want to send internet traffic out
+
+36
+00:01:28,580 --> 00:01:31,030
+to a NAT Gateway
+
+37
+00:01:31,030 --> 00:01:32,040
+and we'll use the 'DemoNATGW'
+
+38
+00:01:32,040 --> 00:01:33,700
+we've created from before.
+
+39
+00:01:33,700 --> 00:01:34,570
+So let's save this.
+
+40
+00:01:34,570 --> 00:01:35,720
+So now we don't have black holes.
+
+41
+00:01:35,720 --> 00:01:37,360
+We have two active rules
+
+42
+00:01:37,360 --> 00:01:39,400
+and one of them is sending it to
+
+43
+00:01:39,400 --> 00:01:40,570
+our NAT Gateway.
+
+44
+00:01:40,570 --> 00:01:42,780
+Now we can take a little bit of time for a NAT Gateway
+
+45
+00:01:42,780 --> 00:01:43,680
+to be active, as you can see,
+
+46
+00:01:43,680 --> 00:01:45,270
+the state is still pending.
+
+47
+00:01:45,270 --> 00:01:46,750
+So what I'm going to do is pause the videos
+
+48
+00:01:46,750 --> 00:01:48,790
+and get back to you when this is done.
+
+49
+00:01:48,790 --> 00:01:50,720
+And here we go, it is active.
+
+50
+00:01:50,720 --> 00:01:53,290
+And so let's go back into our Institute instance. This one,
+
+51
+00:01:53,290 --> 00:01:54,123
+yes, I'm still connected.
+
+52
+00:01:54,123 --> 00:01:57,773
+This is perfect. So if I do curl a google.com,
+
+53
+00:01:58,740 --> 00:02:02,340
+then it's working and ping, google.com, is working as well.
+
+54
+00:02:02,340 --> 00:02:05,240
+So the NAT Gateway is active and are EC2 instance
+
+55
+00:02:05,240 --> 00:02:06,930
+is sending traffic into it.
+
+56
+00:02:06,930 --> 00:02:09,520
+And we didn't have to specify any security group rules.
+
+57
+00:02:09,520 --> 00:02:10,690
+We didn't have to specify many things
+
+58
+00:02:10,690 --> 00:02:12,200
+just to create this Nat Gateway,
+
+59
+00:02:12,200 --> 00:02:14,320
+but send it into a subnet and then
+
+60
+00:02:14,320 --> 00:02:15,570
+edit the route table.
+
+61
+00:02:15,570 --> 00:02:16,403
+And here we go.
+
+62
+00:02:16,403 --> 00:02:19,040
+My instance in this...
+
+63
+00:02:19,040 --> 00:02:20,720
+private subnets can get access to the
+
+64
+00:02:20,720 --> 00:02:22,290
+internet. That means that's.
+
+65
+00:02:22,290 --> 00:02:25,050
+For example, we can do sudo yum, and then updates,
+
+66
+00:02:25,050 --> 00:02:26,850
+for example, our operating system,
+
+67
+00:02:26,850 --> 00:02:28,790
+without making this instance public,
+
+68
+00:02:28,790 --> 00:02:29,840
+which is really good.
+
+69
+00:02:30,900 --> 00:02:32,350
+So just to finish,
+
+70
+00:02:32,350 --> 00:02:34,780
+we have created one NAT Gateway
+
+71
+00:02:34,780 --> 00:02:36,360
+in one specific...
+
+72
+00:02:37,480 --> 00:02:38,313
+abilities zone,
+
+73
+00:02:38,313 --> 00:02:40,740
+but we could create a second yet NAT Gateway
+
+74
+00:02:40,740 --> 00:02:41,880
+that in another abilities zones,
+
+75
+00:02:41,880 --> 00:02:44,150
+and then edit the route tables to make it
+
+76
+00:02:44,150 --> 00:02:44,983
+highly available.
+
+77
+00:02:44,983 --> 00:02:46,000
+Now, this is not something we're going to do
+
+78
+00:02:46,000 --> 00:02:47,970
+in this lecture,
+
+79
+00:02:47,970 --> 00:02:50,560
+but remember the architecture diagram from before. Again,
+
+80
+00:02:50,560 --> 00:02:52,230
+if you want it to make it a highly available setup,
+
+81
+00:02:52,230 --> 00:02:54,610
+you would need to set up multiple, NAT Gateways
+
+82
+00:02:54,610 --> 00:02:59,610
+for be able to resist a disaster affecting an entire AC.
+
+83
+00:02:59,830 --> 00:03:01,850
+So that's it for this lecture. I hope you liked it.
+
+84
+00:03:01,850 --> 00:03:03,800
+And I will see you in the next lecture.
+

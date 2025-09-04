@@ -1,0 +1,500 @@
+1
+00:00:00,000 --> 00:00:01,220
+So let's go ahead and
+
+2
+00:00:01,220 --> 00:00:02,060
+create some health checks.
+
+3
+00:00:02,060 --> 00:00:03,400
+So on the left hand side,
+
+4
+00:00:03,400 --> 00:00:05,730
+I'm going to go into the health checks, and we're going to
+
+5
+00:00:05,730 --> 00:00:08,039
+create health checks for all our EC2 instances.
+
+6
+00:00:08,039 --> 00:00:09,800
+So we're going to check three health checks.
+
+7
+00:00:09,800 --> 00:00:11,330
+So the first one is going to be from an
+
+8
+00:00:11,330 --> 00:00:15,900
+instance in US east one, and is going to be an end point.
+
+9
+00:00:15,900 --> 00:00:18,510
+And then you'd just specify either an IP address or a
+
+10
+00:00:18,510 --> 00:00:19,400
+domain name.
+
+11
+00:00:19,400 --> 00:00:21,170
+So we'll keep it as an IP address.
+
+12
+00:00:21,170 --> 00:00:24,020
+And my instance in US east one is right here.
+
+13
+00:00:24,020 --> 00:00:27,540
+So we'll paste that in. We have to specify a port,
+
+14
+00:00:27,540 --> 00:00:30,260
+so we'll keep it as 80, because this is the HTTP port.
+
+15
+00:00:30,260 --> 00:00:31,180
+And for path,
+
+16
+00:00:31,180 --> 00:00:33,800
+we're just going to be keeping the path as slash because
+
+17
+00:00:33,800 --> 00:00:36,030
+while this is the same as the IP slash,
+
+18
+00:00:36,030 --> 00:00:37,776
+which is the root of our website,
+
+19
+00:00:37,776 --> 00:00:39,420
+if we had a real application,
+
+20
+00:00:39,420 --> 00:00:42,090
+sometimes it is very common to have a path slash health,
+
+21
+00:00:42,090 --> 00:00:42,923
+for example,
+
+22
+00:00:42,923 --> 00:00:46,760
+which responds with the health of the endpoint itself.
+
+23
+00:00:46,760 --> 00:00:48,790
+Okay, so we have this ready,
+
+24
+00:00:48,790 --> 00:00:50,850
+so I'll just remove the slash health.
+
+25
+00:00:50,850 --> 00:00:52,900
+And then we can look at some advanced configuration.
+
+26
+00:00:52,900 --> 00:00:54,600
+So we can have either have a standard
+
+27
+00:00:54,600 --> 00:00:55,800
+every thirty seconds or a
+
+28
+00:00:55,800 --> 00:00:57,420
+fast every ten seconds health check.
+
+29
+00:00:57,420 --> 00:00:59,560
+We'll keep it as standard because this is
+
+30
+00:00:59,560 --> 00:01:01,130
+otherwise more expensive.
+
+31
+00:01:01,130 --> 00:01:02,290
+How many times does it need to fail
+
+32
+00:01:02,290 --> 00:01:05,459
+before being considered as a failure?
+
+33
+00:01:05,459 --> 00:01:08,463
+Do you want to do string matching so do you want to look for
+
+34
+00:01:08,463 --> 00:01:10,780
+a string in the first 5,120 bytes? Yes or no?
+
+35
+00:01:10,780 --> 00:01:12,960
+Do we want a latency graph,
+
+36
+00:01:12,960 --> 00:01:17,934
+to see how latency evolves over time?
+
+37
+00:01:17,934 --> 00:01:20,771
+Do we want to invert the health check status.
+
+38
+00:01:20,771 --> 00:01:22,370
+Do we want to be healthy and vise-versa.
+
+39
+00:01:22,370 --> 00:01:23,450
+Or disable it.
+
+40
+00:01:23,450 --> 00:01:25,780
+And then do you want to customize the regions of
+
+41
+00:01:25,780 --> 00:01:26,613
+the health checkers?
+
+42
+00:01:26,613 --> 00:01:28,540
+Or do you want to use the recommended and we'll just keep it
+
+43
+00:01:28,540 --> 00:01:30,430
+as is with using recommended?
+
+44
+00:01:30,430 --> 00:01:32,940
+So every option is pretty much as default.
+
+45
+00:01:32,940 --> 00:01:35,220
+And do we want to be notified whenever this health check
+
+46
+00:01:35,220 --> 00:01:37,170
+fails? Yes or no by creating alarm?
+
+47
+00:01:37,170 --> 00:01:38,770
+I will just say no for now.
+
+48
+00:01:38,770 --> 00:01:40,200
+So we have created our first health check.
+
+49
+00:01:40,200 --> 00:01:43,270
+Now let's create our second health check and it's going to
+
+50
+00:01:43,270 --> 00:01:48,270
+be for AP Southeast one. So AP Southeast one,
+
+51
+00:01:48,370 --> 00:01:51,010
+and then IP address right here,
+
+52
+00:01:51,010 --> 00:01:54,720
+not host name. And then next and create.
+
+53
+00:01:54,720 --> 00:01:58,320
+And the last health check is for EU central one.
+
+54
+00:01:58,320 --> 00:02:01,560
+So let's create this health check and I will name it
+
+55
+00:02:01,560 --> 00:02:04,500
+EU central one.
+
+56
+00:02:04,500 --> 00:02:08,620
+And then here is the IP address and click on next and
+
+57
+00:02:08,620 --> 00:02:10,210
+create health check.
+
+58
+00:02:10,210 --> 00:02:12,280
+Okay. So our health checks are created.
+
+59
+00:02:12,280 --> 00:02:15,070
+And what I'm going to do is I'm going to go to one of my
+
+60
+00:02:15,070 --> 00:02:15,903
+instances, for example,
+
+61
+00:02:15,903 --> 00:02:18,740
+the one in Singapore and for the security group,
+
+62
+00:02:18,740 --> 00:02:23,050
+I'm going to start blocking the port 80, removing this rule.
+
+63
+00:02:23,050 --> 00:02:25,770
+And the idea is that I want to get a failing health check.
+
+64
+00:02:25,770 --> 00:02:27,990
+So I'm going to go into the security group right here.
+
+65
+00:02:27,990 --> 00:02:31,070
+I will do action and end it's the inbound rules,
+
+66
+00:02:31,070 --> 00:02:33,660
+and it will delete my HTTP based rules.
+
+67
+00:02:33,660 --> 00:02:36,130
+And what this will do is that's the one health check
+
+68
+00:02:36,130 --> 00:02:39,480
+for AP Southeast one should give me a unhealthy status.
+
+69
+00:02:39,480 --> 00:02:41,320
+So let me wait a little bit for the health checkers to do
+
+70
+00:02:41,320 --> 00:02:43,470
+their thing, and then we'll get back to you.
+
+71
+00:02:43,470 --> 00:02:45,823
+Okay. So as we can see, we have three health checkers,
+
+72
+00:02:45,823 --> 00:02:48,373
+and one of them is unhealthy,
+
+73
+00:02:48,373 --> 00:02:50,190
+obviously because I locked at the security group and the
+
+74
+00:02:50,190 --> 00:02:51,640
+other two healthy because I don't see any
+
+75
+00:02:51,640 --> 00:02:52,820
+security group event.
+
+76
+00:02:52,820 --> 00:02:55,719
+So we can have a look at the health checkers and to give you
+
+77
+00:02:55,719 --> 00:02:57,970
+some information around when it was last checked and so on.
+
+78
+00:02:57,970 --> 00:03:00,670
+And for the unhealthy one, we can view the error status.
+
+79
+00:03:00,670 --> 00:03:03,387
+So if we look at view last failed check,
+
+80
+00:03:03,387 --> 00:03:06,330
+we can see that there was a connection timeout,
+
+81
+00:03:06,330 --> 00:03:09,260
+and maybe the requests are being blocked by my firewall and
+
+82
+00:03:09,260 --> 00:03:11,990
+firewall is your security group. So that makes sense.
+
+83
+00:03:11,990 --> 00:03:13,860
+So at least it gives us some information and they are
+
+84
+00:03:13,860 --> 00:03:16,013
+working just as expected.
+
+85
+00:03:16,013 --> 00:03:18,450
+And one last thing and you can create is a calculated
+
+86
+00:03:18,450 --> 00:03:19,283
+health check.
+
+87
+00:03:19,283 --> 00:03:22,123
+And this one is going to be a calculated health check,
+
+88
+00:03:23,439 --> 00:03:25,070
+Cal-cu-lated. Here we go.
+
+89
+00:03:25,070 --> 00:03:27,960
+And this going to check for the status of
+
+90
+00:03:27,960 --> 00:03:29,130
+other health checks.
+
+91
+00:03:29,130 --> 00:03:32,030
+And now we can specify which health checks
+
+92
+00:03:32,030 --> 00:03:33,500
+we want to monitor.
+
+93
+00:03:33,500 --> 00:03:34,333
+And okay,
+
+94
+00:03:34,333 --> 00:03:37,410
+we're saying maybe you want to report healthy when one of
+
+95
+00:03:37,410 --> 00:03:39,268
+the three health checks are healthy or when 2,
+
+96
+00:03:39,268 --> 00:03:41,110
+or when all of them are healthy.
+
+97
+00:03:41,110 --> 00:03:44,080
+So this is an AND or one or more health checks are healthy.
+
+98
+00:03:44,080 --> 00:03:45,160
+So this is,
+
+99
+00:03:45,160 --> 00:03:47,150
+so we can definitely create as complicated rule.
+
+100
+00:03:47,150 --> 00:03:50,310
+So I would just keep it as this should be healthy when all
+
+101
+00:03:50,310 --> 00:03:52,880
+of my health checks are healthy and then
+
+102
+00:03:52,880 --> 00:03:55,810
+click on next, next.
+
+103
+00:03:55,810 --> 00:03:58,950
+And we have created a calculated health check and the last
+
+104
+00:03:58,950 --> 00:04:01,220
+kind of a health check we can create is to monitor the
+
+105
+00:04:01,220 --> 00:04:02,750
+state of a CloudWatch alarm.
+
+106
+00:04:02,750 --> 00:04:04,740
+In which case we need to specify the region
+
+107
+00:04:04,740 --> 00:04:06,270
+the alarm is going to be in,
+
+108
+00:04:06,270 --> 00:04:08,310
+and then this alarm could be monitoring.
+
+109
+00:04:08,310 --> 00:04:10,770
+Obviously the state have a private EC2 instance
+
+110
+00:04:10,770 --> 00:04:11,603
+for example.
+
+111
+00:04:11,603 --> 00:04:13,590
+And this is how we would link the health check,
+
+112
+00:04:13,590 --> 00:04:15,250
+the health of a private resource
+
+113
+00:04:15,250 --> 00:04:17,970
+into a route 53 health check. Okay.
+
+114
+00:04:17,970 --> 00:04:19,450
+But I can't create it right now because I don't have
+
+115
+00:04:19,450 --> 00:04:22,040
+an alarm available for us. Okay.
+
+116
+00:04:22,040 --> 00:04:22,873
+Okay.
+
+117
+00:04:22,873 --> 00:04:24,790
+So my calculated health check is now reported unhealthy
+
+118
+00:04:24,790 --> 00:04:26,550
+because well, one of the health checks,
+
+119
+00:04:26,550 --> 00:04:28,640
+I'm trying to monitor is unhealthy,
+
+120
+00:04:28,640 --> 00:04:29,910
+and this is how we define it.
+
+121
+00:04:29,910 --> 00:04:31,520
+So that really shows you the power of health checks.
+
+122
+00:04:31,520 --> 00:04:33,810
+And in the next lecture, we'll be using them of course,
+
+123
+00:04:33,810 --> 00:04:35,641
+alongside records in route 53.
+
+124
+00:04:35,641 --> 00:04:38,320
+So I hope you liked this lecture and I will see you in the
+
+125
+00:04:38,320 --> 00:04:39,153
+next lecture.
+

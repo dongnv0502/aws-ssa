@@ -1,0 +1,276 @@
+1
+00:00:00,330 --> 00:00:03,060
+So let's have a quick look at Amazon FSx,
+
+2
+00:00:03,060 --> 00:00:06,390
+and Amazon FSx is where to get manage file systems
+
+3
+00:00:06,390 --> 00:00:07,740
+on AWS.
+
+4
+00:00:07,740 --> 00:00:10,590
+So, we can go ahead and create a file system,
+
+5
+00:00:10,590 --> 00:00:13,170
+and you have to choose between multiple options,
+
+6
+00:00:13,170 --> 00:00:14,580
+and the one you need to know for sure
+
+7
+00:00:14,580 --> 00:00:17,100
+for the exam are going to be these four ones.
+
+8
+00:00:17,100 --> 00:00:19,320
+If more are added over time,
+
+9
+00:00:19,320 --> 00:00:20,730
+unless they appear on the exam,
+
+10
+00:00:20,730 --> 00:00:22,440
+I will not update this lecture,
+
+11
+00:00:22,440 --> 00:00:24,360
+just to keep it super simple.
+
+12
+00:00:24,360 --> 00:00:27,060
+So here we have FSx for Lustre, and that's
+
+13
+00:00:27,060 --> 00:00:30,450
+to provide a Lustre file system for your workload,
+
+14
+00:00:30,450 --> 00:00:33,000
+and you can just enter the file system details.
+
+15
+00:00:33,000 --> 00:00:35,160
+You can get a deployment and storage type,
+
+16
+00:00:35,160 --> 00:00:37,230
+which has, gives you better overage performance.
+
+17
+00:00:37,230 --> 00:00:39,690
+You can choose your throughput, and so on,
+
+18
+00:00:39,690 --> 00:00:41,130
+and then the place within your VPC,
+
+19
+00:00:41,130 --> 00:00:43,830
+and choose any level of encryption.
+
+20
+00:00:43,830 --> 00:00:45,750
+So we don't need to know that many details
+
+21
+00:00:45,750 --> 00:00:48,120
+about each file system, okay?
+
+22
+00:00:48,120 --> 00:00:50,070
+Just that there's Persistent
+
+23
+00:00:50,070 --> 00:00:54,480
+and Scratch file systems options for Lustre.
+
+24
+00:00:54,480 --> 00:00:57,960
+Next, if I go back to Amazon FSx for Windows File Server,
+
+25
+00:00:57,960 --> 00:01:01,260
+this is the way to get a Windows File Server on AWS,
+
+26
+00:01:01,260 --> 00:01:03,960
+and it's accessible using the Server Message Block,
+
+27
+00:01:03,960 --> 00:01:05,850
+SMB protocol.
+
+28
+00:01:05,850 --> 00:01:07,470
+So if we look quickly at the option,
+
+29
+00:01:07,470 --> 00:01:11,580
+we can do Multi AZ or Single AZ, which is good for Dev.
+
+30
+00:01:11,580 --> 00:01:13,230
+The Multi AZ is good as well.
+
+31
+00:01:13,230 --> 00:01:18,060
+The storage type, SSD or HDD, the full gift capacity depends
+
+32
+00:01:18,060 --> 00:01:20,190
+on the storage capacity, so if you put,
+
+33
+00:01:20,190 --> 00:01:22,830
+for example, one 10,000 gigabytes,
+
+34
+00:01:22,830 --> 00:01:25,980
+then we're going to get some options for gift capacity.
+
+35
+00:01:25,980 --> 00:01:29,280
+We can deposit into a specific VPC.
+
+36
+00:01:29,280 --> 00:01:31,590
+We can enable Windows authentication
+
+37
+00:01:31,590 --> 00:01:33,810
+with Active Directory integration,
+
+38
+00:01:33,810 --> 00:01:37,650
+either through a host, active host directory on AWS,
+
+39
+00:01:37,650 --> 00:01:40,860
+or a Self-managed Microsoft Active Directory.
+
+40
+00:01:40,860 --> 00:01:44,310
+And we get encryption, and then we can get more options,
+
+41
+00:01:44,310 --> 00:01:46,200
+such as auditing, access, main,
+
+42
+00:01:46,200 --> 00:01:48,330
+backup and maintenance, and so on.
+
+43
+00:01:48,330 --> 00:01:51,030
+Now for Amazon FSx for NetApp ONTAP is
+
+44
+00:01:51,030 --> 00:01:55,230
+to get the NetApp ONTAP popular file system onto AWS,
+
+45
+00:01:55,230 --> 00:01:57,960
+and the main feature is that it's compatible
+
+46
+00:01:57,960 --> 00:02:01,410
+with Linux, Windows, and macOS, okay,
+
+47
+00:02:01,410 --> 00:02:04,650
+and then, you also get access to a really good performance.
+
+48
+00:02:04,650 --> 00:02:06,120
+So in that case, we can have a look
+
+49
+00:02:06,120 --> 00:02:08,820
+at the file system options, where we again,
+
+50
+00:02:08,820 --> 00:02:10,889
+we have Multi AZ or Single AZ,
+
+51
+00:02:10,889 --> 00:02:13,350
+we specify a storage type capacity
+
+52
+00:02:13,350 --> 00:02:14,940
+and whether or not we want storage efficiency,
+
+53
+00:02:14,940 --> 00:02:17,370
+such as features, such as deduplication,
+
+54
+00:02:17,370 --> 00:02:20,460
+compression, and compaction, okay?
+
+55
+00:02:20,460 --> 00:02:22,224
+So this is where we quick create,
+
+56
+00:02:22,224 --> 00:02:23,220
+and standard create, it gives you more option,
+
+57
+00:02:23,220 --> 00:02:25,710
+but then again, you just need to know this file system
+
+58
+00:02:25,710 --> 00:02:27,300
+at the high level.
+
+59
+00:02:27,300 --> 00:02:30,930
+And finally, Amazon FSx for OpenZFS,
+
+60
+00:02:30,930 --> 00:02:35,550
+and this is to have a ZFS file system on AWS,
+
+61
+00:02:35,550 --> 00:02:38,790
+which is compatible with Linux, Windows, and macOS as well,
+
+62
+00:02:38,790 --> 00:02:41,610
+and again, I would invite you to explore the options.
+
+63
+00:02:41,610 --> 00:02:44,670
+But at a high level, from an exam perspective,
+
+64
+00:02:44,670 --> 00:02:45,780
+you need to know the differences
+
+65
+00:02:45,780 --> 00:02:49,290
+between these four options, okay, and all the details
+
+66
+00:02:49,290 --> 00:02:52,650
+to choose which one is right was in the previous lecture.
+
+67
+00:02:52,650 --> 00:02:53,670
+So that's it for this lecture.
+
+68
+00:02:53,670 --> 00:02:55,650
+I hoped you liked it, and I will see you
+
+69
+00:02:55,650 --> 00:02:56,650
+in the next lecture.
+

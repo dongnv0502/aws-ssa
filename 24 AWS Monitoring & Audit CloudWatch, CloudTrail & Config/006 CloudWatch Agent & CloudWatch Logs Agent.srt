@@ -1,0 +1,332 @@
+1
+00:00:00,670 --> 00:00:03,090
+Now let's talk about how we can use something
+
+2
+00:00:03,090 --> 00:00:05,734
+called the CloudWatch Agents to take logs
+
+3
+00:00:05,734 --> 00:00:08,147
+from EC2 instances, as well as metrics
+
+4
+00:00:08,147 --> 00:00:10,665
+and have them onto CloudWatch.
+
+5
+00:00:10,665 --> 00:00:13,329
+So by default, no logs are going
+
+6
+00:00:13,329 --> 00:00:16,760
+from your EC2 instance from CloudWatch.
+
+7
+00:00:16,760 --> 00:00:20,120
+For this, you need to create and start an agent
+
+8
+00:00:20,120 --> 00:00:23,290
+which is a small program on your EC2 instances
+
+9
+00:00:23,290 --> 00:00:25,610
+that will push the log files that you want.
+
+10
+00:00:25,610 --> 00:00:28,240
+So the idea, is that your easy EC2 instances
+
+11
+00:00:28,240 --> 00:00:29,830
+will have the CloudWatch Log Agents,
+
+12
+00:00:29,830 --> 00:00:31,960
+for example running sending the logs into
+
+13
+00:00:31,960 --> 00:00:33,732
+CloudWatch Logs for it to work.
+
+14
+00:00:33,732 --> 00:00:36,713
+Your EC2 instance must have an IAM role
+
+15
+00:00:36,713 --> 00:00:39,221
+that allows it to send the log
+
+16
+00:00:39,221 --> 00:00:41,880
+to CloudWatch Logs, that make sense?
+
+17
+00:00:41,880 --> 00:00:44,080
+And good to notice that this CloudWatch
+
+18
+00:00:44,080 --> 00:00:46,810
+log agents can also be setup
+
+19
+00:00:46,810 --> 00:00:47,960
+on-premises servers.
+
+20
+00:00:47,960 --> 00:00:50,600
+So it's possible for you to have your services,
+
+21
+00:00:50,600 --> 00:00:53,580
+virtual servers like VM-ware on premises
+
+22
+00:00:53,580 --> 00:00:54,960
+and you install the exact same agent,
+
+23
+00:00:54,960 --> 00:00:56,493
+which is a small Linux Program
+
+24
+00:00:56,493 --> 00:00:58,796
+and your logs will end up in CloudWatch Logs as well.
+
+25
+00:00:58,796 --> 00:01:02,060
+Now, there are two different agents
+
+26
+00:01:02,060 --> 00:01:03,140
+you can find in CloudWatch.
+
+27
+00:01:03,140 --> 00:01:04,989
+You have the CloudWatch Logs Agent,
+
+28
+00:01:04,989 --> 00:01:06,500
+which is the older one
+
+29
+00:01:06,500 --> 00:01:08,700
+and the CloudWatch Unified Agent,
+
+30
+00:01:08,700 --> 00:01:10,030
+which is the newer one.
+
+31
+00:01:10,030 --> 00:01:11,970
+So they're both for virtual servers
+
+32
+00:01:11,970 --> 00:01:14,863
+EC2 instances on premises servers, et cetera.
+
+33
+00:01:14,863 --> 00:01:17,276
+The CloudWatch Logs Agents is the old version
+
+34
+00:01:17,276 --> 00:01:19,545
+and can only send logs to CloudWatch Logs.
+
+35
+00:01:19,545 --> 00:01:21,556
+Whereas the Unified Agents,
+
+36
+00:01:21,556 --> 00:01:25,105
+will collect additional system level metrics
+
+37
+00:01:25,105 --> 00:01:26,135
+which has RAM, processes.
+
+38
+00:01:26,135 --> 00:01:27,905
+I'll show you this in the very next slide,
+
+39
+00:01:27,905 --> 00:01:31,723
+and also send the logs into CloudWatch Logs.
+
+40
+00:01:31,723 --> 00:01:33,124
+Now it's unified.
+
+41
+00:01:33,124 --> 00:01:36,210
+It's better because it can do both metrics and logs.
+
+42
+00:01:36,210 --> 00:01:37,804
+Hence, the name Unified Agent.
+
+43
+00:01:37,804 --> 00:01:41,185
+But also you can configure that agents very easily
+
+44
+00:01:41,185 --> 00:01:43,760
+using the SSM Parameter Store,
+
+45
+00:01:43,760 --> 00:01:46,480
+which is a feature that the previous agent did not have.
+
+46
+00:01:46,480 --> 00:01:48,760
+So you can do centralized configuration,
+
+47
+00:01:48,760 --> 00:01:51,084
+for all your Unified Agents.
+
+48
+00:01:51,084 --> 00:01:53,223
+So the CloudWatch Unified Agent can send,
+
+49
+00:01:53,223 --> 00:01:54,320
+logs to CloudWatch Logs.
+
+50
+00:01:54,320 --> 00:01:55,796
+But let's have a look at the metrics.
+
+51
+00:01:55,796 --> 00:01:57,408
+So if you install it,
+
+52
+00:01:57,408 --> 00:01:59,704
+on your Institute instances or your Linux servers
+
+53
+00:01:59,704 --> 00:02:02,415
+you can collect metrics, and what are they?
+
+54
+00:02:02,415 --> 00:02:04,895
+Well, we can collect the CPU metrics
+
+55
+00:02:04,895 --> 00:02:07,590
+but at a way more granular levels,
+
+56
+00:02:07,590 --> 00:02:10,614
+for example: active, guest, idle, system, user, steal.
+
+57
+00:02:10,614 --> 00:02:12,550
+You don't need to know them at all.
+
+58
+00:02:12,550 --> 00:02:15,710
+I'm just giving you the granularity of all these metrics.
+
+59
+00:02:15,710 --> 00:02:17,810
+Disc metrics of free use total.
+
+60
+00:02:17,810 --> 00:02:21,673
+Disc IO in terms of number of writes, reads, bytes, iops.
+
+61
+00:02:21,673 --> 00:02:25,100
+RAM so free, inactive, used, total, cached.
+
+62
+00:02:25,100 --> 00:02:27,740
+Netstats with number of TCP and UDP connections,
+
+63
+00:02:27,740 --> 00:02:30,200
+net packets, bytes to get some information
+
+64
+00:02:30,200 --> 00:02:31,620
+around the processes.
+
+65
+00:02:31,620 --> 00:02:33,140
+So in total number of process,
+
+66
+00:02:33,140 --> 00:02:34,670
+I mean your dead, bloqued, idle,
+
+67
+00:02:34,670 --> 00:02:35,920
+running, sleep.
+
+68
+00:02:35,920 --> 00:02:39,316
+And Swap Space, which is a memory spilling on disc.
+
+69
+00:02:39,316 --> 00:02:41,905
+So how much is free use and use percentage?
+
+70
+00:02:41,905 --> 00:02:44,760
+So why don't you remember is just take a
+
+71
+00:02:44,760 --> 00:02:46,636
+a mental screenshot of these things.
+
+72
+00:02:46,636 --> 00:02:49,930
+The bottom line is the CloudWatch Unified Agent allows it.
+
+73
+00:02:49,930 --> 00:02:52,264
+You get a lot more metrics at a lot more granular details
+
+74
+00:02:52,264 --> 00:02:55,716
+than the normal monitoring for EC2 instances.
+
+75
+00:02:55,716 --> 00:02:58,735
+As a reminder out of the box for EC2,
+
+76
+00:02:58,735 --> 00:03:01,980
+you get some information on disk, CPU,
+
+77
+00:03:01,980 --> 00:03:03,380
+and network not memory
+
+78
+00:03:03,380 --> 00:03:07,110
+not swap, but all of this at a high level, okay?
+
+79
+00:03:07,110 --> 00:03:09,110
+If you want more granularity
+
+80
+00:03:09,110 --> 00:03:12,290
+think CloudWatch Unified Agents, okay?
+
+81
+00:03:12,290 --> 00:03:13,123
+So that's it for me.
+
+82
+00:03:13,123 --> 00:03:14,100
+I hope you liked it.
+
+83
+00:03:14,100 --> 00:03:16,050
+And I will see you in the next lecture.
+

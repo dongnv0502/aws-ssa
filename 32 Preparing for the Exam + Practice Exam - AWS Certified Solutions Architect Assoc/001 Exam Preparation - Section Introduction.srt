@@ -1,0 +1,32 @@
+1
+00:00:02,630 --> 00:00:08,270
+Welcome to the end of this course we've learned all the technical stuff we need to learn.
+
+2
+00:00:08,270 --> 00:00:13,660
+And I hope that by now you've learned so many AWS services that you feel very confident about them.
+
+3
+00:00:13,700 --> 00:00:17,860
+This section is going to be dedicated to help you pass the exam.
+
+4
+00:00:17,990 --> 00:00:20,240
+I'm going to give you a few practical tips.
+
+5
+00:00:20,240 --> 00:00:21,740
+Walk you through how the exam works.
+
+6
+00:00:21,980 --> 00:00:26,710
+And at the end of the section you're going to have a whole practice exam to assess where you are.
+
+7
+00:00:27,200 --> 00:00:29,060
+I wish you good luck with the exam.
+
+8
+00:00:29,060 --> 00:00:29,690
+Let's get started.
+

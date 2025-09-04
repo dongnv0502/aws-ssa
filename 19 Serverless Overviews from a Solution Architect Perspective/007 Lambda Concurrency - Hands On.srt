@@ -1,0 +1,272 @@
+1
+00:00:00,520 --> 00:00:02,190
+So let's have a quick look at the
+
+2
+00:00:02,190 --> 00:00:04,880
+concurrency settings within our Lambda function.
+
+3
+00:00:04,880 --> 00:00:07,030
+And so for this under configuration,
+
+4
+00:00:07,030 --> 00:00:10,560
+we can find on the left hand side, the concurrency tab.
+
+5
+00:00:10,560 --> 00:00:13,820
+So right now we have the unreserved account concurrency
+
+6
+00:00:13,820 --> 00:00:15,990
+that we're using whenever this function run.
+
+7
+00:00:15,990 --> 00:00:17,930
+And we have an unreserved account concurrency
+
+8
+00:00:17,930 --> 00:00:20,470
+of 1000 for our entire accounts.
+
+9
+00:00:20,470 --> 00:00:22,820
+And this is shared across all the Lambda functions
+
+10
+00:00:22,820 --> 00:00:23,800
+in our account.
+
+11
+00:00:23,800 --> 00:00:26,100
+But you can edit this, and instead you're saying,
+
+12
+00:00:26,100 --> 00:00:29,840
+okay, this Lambda function probably needs some concurrency
+
+13
+00:00:29,840 --> 00:00:31,670
+of 20, and you can reserve it.
+
+14
+00:00:31,670 --> 00:00:34,030
+In which case, when you save this, then what happens
+
+15
+00:00:34,030 --> 00:00:36,700
+is that we have 20 reserve concurrency
+
+16
+00:00:36,700 --> 00:00:38,440
+for this Lambda function.
+
+17
+00:00:38,440 --> 00:00:42,650
+And your account has 980 unreserved account concurrency
+
+18
+00:00:42,650 --> 00:00:44,990
+available to all the other functions.
+
+19
+00:00:44,990 --> 00:00:46,870
+So to test concurrency, what we can do is that
+
+20
+00:00:46,870 --> 00:00:49,250
+we can reserve concurrency of zero.
+
+21
+00:00:49,250 --> 00:00:51,650
+Which means that the function is always throttled,
+
+22
+00:00:51,650 --> 00:00:55,290
+which is a good use case to test.
+
+23
+00:00:55,290 --> 00:00:57,300
+So now, if we go into our code.
+
+24
+00:00:57,300 --> 00:01:00,550
+Or just, we click on test here and just click on test
+
+25
+00:01:00,550 --> 00:01:03,100
+then, calling the invoke API action failed
+
+26
+00:01:03,100 --> 00:01:04,540
+because we have exceeded the rate.
+
+27
+00:01:04,540 --> 00:01:06,860
+So this is the kind of error message you will get
+
+28
+00:01:06,860 --> 00:01:09,900
+whenever you go over your reserve concurrency.
+
+29
+00:01:09,900 --> 00:01:11,820
+So this is why it is good to set it to zero,
+
+30
+00:01:11,820 --> 00:01:13,420
+just to be able to deal with this use case
+
+31
+00:01:13,420 --> 00:01:15,530
+maybe in your applications, okay?
+
+32
+00:01:15,530 --> 00:01:18,340
+But we can fix this by going back into the concurrency
+
+33
+00:01:18,340 --> 00:01:20,550
+and use the unreserved account currency
+
+34
+00:01:20,550 --> 00:01:23,350
+or reserve a specific currency for our function.
+
+35
+00:01:23,350 --> 00:01:25,260
+Now, if we test this function right now,
+
+36
+00:01:25,260 --> 00:01:27,640
+then the execution will work and we'll get
+
+37
+00:01:27,640 --> 00:01:31,660
+the results directly from within this window, right here.
+
+38
+00:01:31,660 --> 00:01:32,720
+Okay, great.
+
+39
+00:01:32,720 --> 00:01:33,580
+Back into our function.
+
+40
+00:01:33,580 --> 00:01:37,320
+We can also provision concurrency to
+
+41
+00:01:37,320 --> 00:01:39,520
+remove these cold starts.
+
+42
+00:01:39,520 --> 00:01:40,610
+And the cold starts wiz,
+
+43
+00:01:40,610 --> 00:01:43,150
+are whenever your application first starts
+
+44
+00:01:43,150 --> 00:01:45,020
+and it takes a bit of time to initialize.
+
+45
+00:01:45,020 --> 00:01:47,040
+In which case we want to keep a warm pool of them,
+
+46
+00:01:47,040 --> 00:01:50,550
+the function available to reduce these cold starts.
+
+47
+00:01:50,550 --> 00:01:53,260
+And this is the Provisioned Concurrency Configuration.
+
+48
+00:01:53,260 --> 00:01:55,820
+So in this case, we need to add a configuration
+
+49
+00:01:55,820 --> 00:01:57,610
+and you can set the provisioned concurrency
+
+50
+00:01:57,610 --> 00:01:59,610
+either for as alias or a version.
+
+51
+00:01:59,610 --> 00:02:01,810
+And we'll see aliases and version very, very soon.
+
+52
+00:02:01,810 --> 00:02:03,530
+So alias, we don't have any right now.
+
+53
+00:02:03,530 --> 00:02:06,010
+And versions, we cannot apply it to the latest
+
+54
+00:02:06,010 --> 00:02:09,150
+because latest is not working for provisioned concurrency,
+
+55
+00:02:09,150 --> 00:02:10,280
+we need to publish a version.
+
+56
+00:02:10,280 --> 00:02:12,683
+So we'll see how to do this in the future lectures.
+
+57
+00:02:12,683 --> 00:02:15,680
+But right now, just want to show you where the setting is.
+
+58
+00:02:15,680 --> 00:02:17,810
+And then whenever you have a provisioned concurrency
+
+59
+00:02:17,810 --> 00:02:18,850
+for example, we say,
+
+60
+00:02:18,850 --> 00:02:22,130
+hey, we want to have five as provisioned concurrency.
+
+61
+00:02:22,130 --> 00:02:25,440
+We're going to get some cost associated with it.
+
+62
+00:02:25,440 --> 00:02:28,250
+So make sure that you set a number that makes sense for you
+
+63
+00:02:28,250 --> 00:02:29,083
+and this is not free.
+
+64
+00:02:29,083 --> 00:02:30,190
+So we're not going to say this,
+
+65
+00:02:30,190 --> 00:02:32,443
+anyway, we cannot as of right now.
+
+66
+00:02:32,443 --> 00:02:35,740
+But that's it for the concurrency settings in Lambda.
+
+67
+00:02:35,740 --> 00:02:36,690
+I hope this makes sense.
+
+68
+00:02:36,690 --> 00:02:38,640
+And I will see you in the next lecture.
+

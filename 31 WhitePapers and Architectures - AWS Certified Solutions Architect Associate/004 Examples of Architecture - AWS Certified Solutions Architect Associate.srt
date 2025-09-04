@@ -1,0 +1,432 @@
+1
+00:00:00,120 --> 00:00:01,710
+So in this course, I really try
+
+2
+00:00:01,710 --> 00:00:04,080
+to make it a huge differentiator for you
+
+3
+00:00:04,080 --> 00:00:07,710
+to actually see very important architectural patterns.
+
+4
+00:00:07,710 --> 00:00:10,200
+To me, you can't do a solutions architect course
+
+5
+00:00:10,200 --> 00:00:12,030
+without seeing solution architecture.
+
+6
+00:00:12,030 --> 00:00:15,330
+So we've explored architectures around classic, you know,
+
+7
+00:00:15,330 --> 00:00:18,840
+for example, EC2, ELB, RDS, ElastiCache, et cetera.
+
+8
+00:00:18,840 --> 00:00:21,570
+And also, we've explored in-depth serverless,
+
+9
+00:00:21,570 --> 00:00:25,557
+more cloud native serverless architectures using S3, Lambda,
+
+10
+00:00:25,557 --> 00:00:29,640
+DynamoDB, CloudFront, API Gateway, et cetera, et cetera.
+
+11
+00:00:29,640 --> 00:00:32,729
+But you may be hungry for more architectures.
+
+12
+00:00:32,729 --> 00:00:34,860
+And so if you wanna see more architectures,
+
+13
+00:00:34,860 --> 00:00:36,690
+there's two links on the AWS website,
+
+14
+00:00:36,690 --> 00:00:37,890
+which I think are really awesome
+
+15
+00:00:37,890 --> 00:00:39,150
+and not many people know about it.
+
+16
+00:00:39,150 --> 00:00:41,670
+So hopefully, I raise awareness on these links
+
+17
+00:00:41,670 --> 00:00:42,600
+through this course.
+
+18
+00:00:42,600 --> 00:00:45,030
+The first one is this link, and the second one is this link.
+
+19
+00:00:45,030 --> 00:00:45,863
+So you know what?
+
+20
+00:00:45,863 --> 00:00:47,490
+We're going to visualize these links together
+
+21
+00:00:47,490 --> 00:00:49,560
+just to show you what they're about.
+
+22
+00:00:49,560 --> 00:00:53,280
+So here I am on the AWS Architecture Center,
+
+23
+00:00:53,280 --> 00:00:54,113
+and this is where you're going
+
+24
+00:00:54,113 --> 00:00:57,600
+to find reference architecture examples and diagrams.
+
+25
+00:00:57,600 --> 00:00:59,280
+So if you scroll down, you get access
+
+26
+00:00:59,280 --> 00:01:01,200
+to different links, such as, for example, a link
+
+27
+00:01:01,200 --> 00:01:03,450
+to the Well-Architected Framework.
+
+28
+00:01:03,450 --> 00:01:05,310
+But let's scroll down even more.
+
+29
+00:01:05,310 --> 00:01:07,200
+In here, we can browse the contents
+
+30
+00:01:07,200 --> 00:01:09,810
+with all the architecture diagrams.
+
+31
+00:01:09,810 --> 00:01:12,510
+So as you can see, we have over 2,000 of those.
+
+32
+00:01:12,510 --> 00:01:13,980
+So this is huge.
+
+33
+00:01:13,980 --> 00:01:16,980
+And therefore, on the left-hand side, you have some filters
+
+34
+00:01:16,980 --> 00:01:18,990
+to select whatever you want.
+
+35
+00:01:18,990 --> 00:01:22,440
+So for example, here, if I automate your DR solution
+
+36
+00:01:22,440 --> 00:01:25,320
+for relational databases, I click on it
+
+37
+00:01:25,320 --> 00:01:29,130
+and I get access to this in PDF form or HTML form.
+
+38
+00:01:29,130 --> 00:01:31,410
+So let's access it in PDF form,
+
+39
+00:01:31,410 --> 00:01:34,410
+and you get access to a lot of information.
+
+40
+00:01:34,410 --> 00:01:35,610
+And within that information,
+
+41
+00:01:35,610 --> 00:01:38,190
+you will find some architecture diagrams
+
+42
+00:01:38,190 --> 00:01:39,810
+and everything is explained,
+
+43
+00:01:39,810 --> 00:01:43,080
+which I think is tremendously good resources
+
+44
+00:01:43,080 --> 00:01:44,550
+as a solution architect.
+
+45
+00:01:44,550 --> 00:01:45,630
+So it's very detailed.
+
+46
+00:01:45,630 --> 00:01:48,030
+As you can see, we have CloudFormation templates
+
+47
+00:01:48,030 --> 00:01:50,700
+that functions, I mean, everything is there.
+
+48
+00:01:50,700 --> 00:01:53,970
+You also have, for example, WordPress architecture.
+
+49
+00:01:53,970 --> 00:01:56,880
+So if you type WordPress, you have best practices
+
+50
+00:01:56,880 --> 00:01:58,620
+of WordPress on AWS.
+
+51
+00:01:58,620 --> 00:02:02,463
+Again, let's open the PDF version and scroll down.
+
+52
+00:02:04,380 --> 00:02:05,213
+And here we go again.
+
+53
+00:02:05,213 --> 00:02:07,230
+We have some architecture diagrams
+
+54
+00:02:07,230 --> 00:02:09,150
+and we have an even bigger architecture diagram.
+
+55
+00:02:09,150 --> 00:02:10,770
+So everything is quite thorough
+
+56
+00:02:10,770 --> 00:02:13,860
+and there's a lot of text that really helps you to step up
+
+57
+00:02:13,860 --> 00:02:16,050
+as a solution architect.
+
+58
+00:02:16,050 --> 00:02:21,050
+The other one I really liked is the AWS Solutions Library.
+
+59
+00:02:21,300 --> 00:02:24,870
+So this is vetted solutions and guidance for businesses
+
+60
+00:02:24,870 --> 00:02:27,180
+and technical use cases.
+
+61
+00:02:27,180 --> 00:02:28,230
+And I really like it
+
+62
+00:02:28,230 --> 00:02:30,510
+because it provides you not only architecture diagrams,
+
+63
+00:02:30,510 --> 00:02:32,340
+but also CloudFormation templates
+
+64
+00:02:32,340 --> 00:02:34,200
+to actually implement things.
+
+65
+00:02:34,200 --> 00:02:36,990
+So here, let's look at this AWS solution
+
+66
+00:02:36,990 --> 00:02:40,170
+called Live Streaming on AWS.
+
+67
+00:02:40,170 --> 00:02:41,760
+And here, this is how to build
+
+68
+00:02:41,760 --> 00:02:42,870
+a highly available architecture
+
+69
+00:02:42,870 --> 00:02:45,600
+that delivers reliable, real-time viewing experience.
+
+70
+00:02:45,600 --> 00:02:47,430
+Okay, perfect, let's scroll down,
+
+71
+00:02:47,430 --> 00:02:48,840
+and we get some information
+
+72
+00:02:48,840 --> 00:02:50,400
+around the type of solution we have.
+
+73
+00:02:50,400 --> 00:02:53,940
+So we have one on S3 and one on AWS,
+
+74
+00:02:53,940 --> 00:02:56,250
+which use different kind of services,
+
+75
+00:02:56,250 --> 00:02:59,670
+where they support, what they don't support and so on.
+
+76
+00:02:59,670 --> 00:03:01,470
+And then the technical details.
+
+77
+00:03:01,470 --> 00:03:04,830
+So we have the first architecture, the second architecture,
+
+78
+00:03:04,830 --> 00:03:06,450
+so they're both here.
+
+79
+00:03:06,450 --> 00:03:08,970
+And we can actually get implementation guides
+
+80
+00:03:08,970 --> 00:03:11,640
+and we can actually launch it in the console.
+
+81
+00:03:11,640 --> 00:03:13,740
+So there is a CloudFormation template,
+
+82
+00:03:13,740 --> 00:03:15,600
+the source being here,
+
+83
+00:03:15,600 --> 00:03:19,200
+and the source code is also on GitHub, as you can see.
+
+84
+00:03:19,200 --> 00:03:21,450
+And these CloudFormation template allow you
+
+85
+00:03:21,450 --> 00:03:24,180
+to actually develop and deploy these kind of architectures.
+
+86
+00:03:24,180 --> 00:03:25,013
+So this is awesome
+
+87
+00:03:25,013 --> 00:03:27,570
+because you really do a huge steps forward
+
+88
+00:03:27,570 --> 00:03:30,420
+as a solution architect into deploying some
+
+89
+00:03:30,420 --> 00:03:31,470
+of these solutions.
+
+90
+00:03:31,470 --> 00:03:33,660
+So if you scroll down on the solutions library,
+
+91
+00:03:33,660 --> 00:03:37,470
+you will find that you can browse by industry based
+
+92
+00:03:37,470 --> 00:03:40,560
+on what industry it is or cross industry solutions
+
+93
+00:03:40,560 --> 00:03:43,530
+or by technology or by organization type.
+
+94
+00:03:43,530 --> 00:03:45,390
+And finally, again, you have a lot
+
+95
+00:03:45,390 --> 00:03:47,610
+of filters on the on the left-hand side.
+
+96
+00:03:47,610 --> 00:03:50,910
+So if I type, for example, serverless in here,
+
+97
+00:03:50,910 --> 00:03:54,300
+I can find the Serverless Image Handler, which shows me
+
+98
+00:03:54,300 --> 00:03:56,970
+how to handle some images, such as smart cropping,
+
+99
+00:03:56,970 --> 00:03:59,490
+constant moderation, na, na, na, and so on.
+
+100
+00:03:59,490 --> 00:04:01,140
+And this is the architecture.
+
+101
+00:04:01,140 --> 00:04:03,450
+Again, there's a CloudFormation template.
+
+102
+00:04:03,450 --> 00:04:05,490
+You have an implementation guide and so on.
+
+103
+00:04:05,490 --> 00:04:08,220
+So everything is super well described,
+
+104
+00:04:08,220 --> 00:04:09,390
+and I really like these two resources
+
+105
+00:04:09,390 --> 00:04:12,450
+because they really propel you into the real world
+
+106
+00:04:12,450 --> 00:04:14,250
+of solution architecture.
+
+107
+00:04:14,250 --> 00:04:15,420
+So I hope you liked it,
+
+108
+00:04:15,420 --> 00:04:17,493
+and I will see you in the next lecture.
+

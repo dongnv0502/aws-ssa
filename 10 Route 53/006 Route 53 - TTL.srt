@@ -1,0 +1,540 @@
+1
+00:00:00,330 --> 00:00:02,870
+Okay, so let's have a look at TTLs.
+
+2
+00:00:02,870 --> 00:00:05,689
+So a record TTL is a Time To Live.
+
+3
+00:00:05,689 --> 00:00:08,160
+And let's take this example where a client is accessing
+
+4
+00:00:08,160 --> 00:00:10,840
+our DNS Route 53 and a web server.
+
+5
+00:00:10,840 --> 00:00:13,640
+So we do a DNS request for myapp.example.com,
+
+6
+00:00:13,640 --> 00:00:15,670
+and we get an answer from the DNS,
+
+7
+00:00:15,670 --> 00:00:19,420
+which is saying, hey, please, this is an A record.
+
+8
+00:00:19,420 --> 00:00:21,720
+Here is the IP, and there is a TTL,
+
+9
+00:00:21,720 --> 00:00:24,310
+maybe a TTL of 300 seconds.
+
+10
+00:00:24,310 --> 00:00:28,900
+So TTL is saying, hey clients, please cache this result
+
+11
+00:00:28,900 --> 00:00:30,460
+for the duration of the TTL.
+
+12
+00:00:30,460 --> 00:00:31,680
+So for 300 seconds,
+
+13
+00:00:31,680 --> 00:00:34,450
+the client is going to cache the results.
+
+14
+00:00:34,450 --> 00:00:38,350
+That means that if the client is requesting again
+
+15
+00:00:38,350 --> 00:00:41,480
+or accessing the same host name,
+
+16
+00:00:41,480 --> 00:00:42,330
+what's going to happen is that
+
+17
+00:00:42,330 --> 00:00:46,320
+the client will not issue a query to the DNS system,
+
+18
+00:00:46,320 --> 00:00:48,380
+because it already knows the answer,
+
+19
+00:00:48,380 --> 00:00:49,670
+because the answer has been cached,
+
+20
+00:00:49,670 --> 00:00:53,010
+and we're still within the cache period, so the cache TTL.
+
+21
+00:00:53,010 --> 00:00:53,970
+The idea behind this
+
+22
+00:00:53,970 --> 00:00:57,520
+is that we don't want to query the DNS too often,
+
+23
+00:00:57,520 --> 00:00:59,910
+because we don't expect records to change a lot,
+
+24
+00:00:59,910 --> 00:01:01,650
+and so, therefore, using the response it has,
+
+25
+00:01:01,650 --> 00:01:03,210
+the client can access our web server
+
+26
+00:01:03,210 --> 00:01:05,720
+and do HTTP request and responses.
+
+27
+00:01:05,720 --> 00:01:08,380
+So we have, you know, two extreme cases.
+
+28
+00:01:08,380 --> 00:01:12,180
+For example, if you set a high TTL of, say, 24 hours,
+
+29
+00:01:12,180 --> 00:01:15,520
+then this is going to do a lot less traffic on Route 53,
+
+30
+00:01:15,520 --> 00:01:17,350
+because less clients are doing requests,
+
+31
+00:01:17,350 --> 00:01:21,220
+because the result are cached for 24 hours,
+
+32
+00:01:21,220 --> 00:01:24,470
+and, possibly, while the client will have outdated records.
+
+33
+00:01:24,470 --> 00:01:26,470
+If somehow you want to change the record,
+
+34
+00:01:26,470 --> 00:01:28,060
+you will need to wait 24 hours
+
+35
+00:01:28,060 --> 00:01:29,360
+to make sure that all your clients
+
+36
+00:01:29,360 --> 00:01:32,310
+will have the new records in their cache.
+
+37
+00:01:32,310 --> 00:01:33,438
+If you said set a low TTL,
+
+38
+00:01:33,438 --> 00:01:35,940
+for example, 60 seconds, at the opposite,
+
+39
+00:01:35,940 --> 00:01:38,490
+then it's going to do a lot more traffic on your DNS,
+
+40
+00:01:38,490 --> 00:01:40,760
+so a lot more dollar you're going to spend,
+
+41
+00:01:40,760 --> 00:01:43,000
+because you get price per how many request
+
+42
+00:01:43,000 --> 00:01:45,330
+do reach Route 53.
+
+43
+00:01:45,330 --> 00:01:47,510
+But the records will be outdated for less time,
+
+44
+00:01:47,510 --> 00:01:49,920
+so it's quicker for you to do a record change,
+
+45
+00:01:49,920 --> 00:01:52,370
+and it's easier to change records overall.
+
+46
+00:01:52,370 --> 00:01:53,310
+So it's up to you, really,
+
+47
+00:01:53,310 --> 00:01:55,530
+to see what a good TTL or low TTL is.
+
+48
+00:01:55,530 --> 00:01:57,210
+If you plan on changing a record,
+
+49
+00:01:57,210 --> 00:01:58,160
+the idea is that sometimes
+
+50
+00:01:58,160 --> 00:02:01,040
+you will decrease the TTL for, say, 24 hours,
+
+51
+00:02:01,040 --> 00:02:02,400
+and then when you know that all the clients
+
+52
+00:02:02,400 --> 00:02:04,100
+have a new TTL that is low,
+
+53
+00:02:04,100 --> 00:02:05,930
+then you change the record value
+
+54
+00:02:05,930 --> 00:02:07,240
+which gets updated for everyone,
+
+55
+00:02:07,240 --> 00:02:08,580
+and then you increase the TTL.
+
+56
+00:02:08,580 --> 00:02:10,110
+This is a strategy.
+
+57
+00:02:10,110 --> 00:02:12,800
+So the TTL is mandatory for every record
+
+58
+00:02:12,800 --> 00:02:15,850
+except the Alias record that we'll see in the next lecture.
+
+59
+00:02:15,850 --> 00:02:18,740
+So let's have a look how TTL works in the console.
+
+60
+00:02:18,740 --> 00:02:21,150
+So let's have a look at how Time To Live works.
+
+61
+00:02:21,150 --> 00:02:22,870
+So let's create a new record,
+
+62
+00:02:22,870 --> 00:02:25,230
+and this one is going to be called
+
+63
+00:02:25,230 --> 00:02:27,770
+demo.stephanetheteacher.com,
+
+64
+00:02:27,770 --> 00:02:29,420
+and the value of it is going to be
+
+65
+00:02:29,420 --> 00:02:31,390
+one of the EC2 instances we know.
+
+66
+00:02:31,390 --> 00:02:32,980
+So let's take the one in eu-central-1.
+
+67
+00:02:32,980 --> 00:02:34,730
+So I'm gonna take this EC2 instance
+
+68
+00:02:35,870 --> 00:02:37,610
+and paste the value of it.
+
+69
+00:02:37,610 --> 00:02:39,490
+And then for the TTL, we're going to set two minutes.
+
+70
+00:02:39,490 --> 00:02:42,610
+So to do so I'm going to click twice on this minute button.
+
+71
+00:02:42,610 --> 00:02:45,550
+So the TTL is now 120 seconds.
+
+72
+00:02:45,550 --> 00:02:47,073
+So let me create this record.
+
+73
+00:02:48,190 --> 00:02:50,100
+And now my record has been created.
+
+74
+00:02:50,100 --> 00:02:52,970
+So it is an A record pointing to a specific IP
+
+75
+00:02:52,970 --> 00:02:56,070
+at demo.stephanetheteacher.com.
+
+76
+00:02:56,070 --> 00:02:58,350
+Now, I want to show you that the record is working,
+
+77
+00:02:58,350 --> 00:03:00,900
+but Firefox is not very nice with me.
+
+78
+00:03:00,900 --> 00:03:02,913
+So if I try to open this in Firefox
+
+79
+00:03:02,913 --> 00:03:04,700
+it's going to give me a problem.
+
+80
+00:03:04,700 --> 00:03:06,490
+So this is not something I can fix easily,
+
+81
+00:03:06,490 --> 00:03:08,730
+so I'm going to use Google Chrome on the right-hand side
+
+82
+00:03:08,730 --> 00:03:09,563
+to show you this.
+
+83
+00:03:09,563 --> 00:03:13,300
+So if I do demo.stephanetheteacher.com on Google,
+
+84
+00:03:13,300 --> 00:03:17,100
+then automatically it should direct me to, yes,
+
+85
+00:03:17,100 --> 00:03:18,490
+my eu-central-1 instance.
+
+86
+00:03:18,490 --> 00:03:21,250
+So that means that this record, this A record,
+
+87
+00:03:21,250 --> 00:03:23,000
+is fully functioning.
+
+88
+00:03:23,000 --> 00:03:24,400
+And I can also make sure of that,
+
+89
+00:03:24,400 --> 00:03:26,420
+for example, if I'm using CloudShell.
+
+90
+00:03:26,420 --> 00:03:30,270
+So if I clear this and do an nslookup
+
+91
+00:03:30,270 --> 00:03:32,160
+on demo.stephanetheteacher.com,
+
+92
+00:03:32,160 --> 00:03:34,460
+as you can see, the address is correct.
+
+93
+00:03:34,460 --> 00:03:38,960
+And if I do a dig command on this, then we get an answer.
+
+94
+00:03:38,960 --> 00:03:40,690
+And there's a cool number that we're showing here,
+
+95
+00:03:40,690 --> 00:03:43,350
+so the answer section, there's 115.
+
+96
+00:03:43,350 --> 00:03:47,800
+So the idea here, that's because I did do a DNS query.
+
+97
+00:03:47,800 --> 00:03:51,610
+Then the record get cached for 120 seconds.
+
+98
+00:03:51,610 --> 00:03:55,110
+And if I retype again this dig command right here,
+
+99
+00:03:55,110 --> 00:03:57,540
+as you can see the number got down to 98.
+
+100
+00:03:57,540 --> 00:03:59,300
+So that means that for 98 seconds,
+
+101
+00:03:59,300 --> 00:04:01,440
+actually, I will get the same response,
+
+102
+00:04:01,440 --> 00:04:02,440
+because, no matter what,
+
+103
+00:04:02,440 --> 00:04:04,690
+this is what's cached on my computer.
+
+104
+00:04:04,690 --> 00:04:06,130
+So if I'm very quick
+
+105
+00:04:06,130 --> 00:04:09,760
+and I go to this record right here and I edit it,
+
+106
+00:04:09,760 --> 00:04:14,220
+so instead of this IP, I want to go to ap-southeast-1,
+
+107
+00:04:14,220 --> 00:04:18,723
+so we'll use the first IP in my list and save this.
+
+108
+00:04:19,779 --> 00:04:23,000
+So even though this record was being updated, okay,
+
+109
+00:04:23,000 --> 00:04:26,980
+if I go into CloudShell and, again, do this dig command,
+
+110
+00:04:26,980 --> 00:04:29,540
+as you can see, the insert is still the same as before.
+
+111
+00:04:29,540 --> 00:04:31,560
+That's because for 66 more seconds
+
+112
+00:04:31,560 --> 00:04:32,930
+this is going to be cached.
+
+113
+00:04:32,930 --> 00:04:35,140
+And if I go to Chrome, I think I was fast enough,
+
+114
+00:04:35,140 --> 00:04:36,410
+I go to Chrome and refresh this page,
+
+115
+00:04:36,410 --> 00:04:39,080
+as you can see, I still have the answer from eu-central-1.
+
+116
+00:04:39,080 --> 00:04:40,270
+And this is because, again,
+
+117
+00:04:40,270 --> 00:04:43,370
+my record got cached for two minutes.
+
+118
+00:04:43,370 --> 00:04:47,160
+So when the cache is expiring, then only then
+
+119
+00:04:47,160 --> 00:04:50,200
+my command line interface or my Chrome web browser
+
+120
+00:04:50,200 --> 00:04:54,510
+will ask again Route 53 for the value of this record.
+
+121
+00:04:54,510 --> 00:04:56,270
+And then, again, will I get the answer
+
+122
+00:04:56,270 --> 00:04:59,200
+and will be redirected to this new IP.
+
+123
+00:04:59,200 --> 00:05:01,180
+So the best way to check it is just to wait.
+
+124
+00:05:01,180 --> 00:05:02,870
+So I'm going to wait maybe one more minute
+
+125
+00:05:02,870 --> 00:05:04,190
+and then get back to you.
+
+126
+00:05:04,190 --> 00:05:05,370
+Okay, so it's been a minute
+
+127
+00:05:05,370 --> 00:05:07,480
+and now if I refresh my web browser,
+
+128
+00:05:07,480 --> 00:05:09,240
+as you can see now, I get a different Hello World
+
+129
+00:05:09,240 --> 00:05:12,100
+and this time it's from ap-southeast-1b.
+
+130
+00:05:12,100 --> 00:05:16,090
+And if I go into my CloudShell and do the same dig command,
+
+131
+00:05:16,090 --> 00:05:19,820
+then, as you can see, there's a new TTL, so 120 seconds,
+
+132
+00:05:19,820 --> 00:05:22,010
+and there is a new IP right here
+
+133
+00:05:22,010 --> 00:05:23,660
+which is the IPO menu server.
+
+134
+00:05:23,660 --> 00:05:25,090
+So this was a cool demo of the TTL.
+
+135
+00:05:25,090 --> 00:05:28,113
+I hope you liked it, and I will see you in the next lecture.
+

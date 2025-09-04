@@ -1,0 +1,1192 @@
+1
+00:00:00,070 --> 00:00:02,290
+Okay, so let's go for a very long lecture
+
+2
+00:00:02,290 --> 00:00:05,510
+on Security Groups and Network ACLs or NACLs.
+
+3
+00:00:05,510 --> 00:00:07,380
+So let's take an example of a subnet
+
+4
+00:00:07,380 --> 00:00:08,840
+and we know when you have an EC2 instance
+
+5
+00:00:08,840 --> 00:00:10,860
+that we attach a security group to it.
+
+6
+00:00:10,860 --> 00:00:13,410
+But there is an extra level of protection on the subnet
+
+7
+00:00:13,410 --> 00:00:14,550
+that we haven't seen yet,
+
+8
+00:00:14,550 --> 00:00:16,950
+which is your network ACL or NACL.
+
+9
+00:00:16,950 --> 00:00:18,320
+And let's take an example
+
+10
+00:00:18,320 --> 00:00:20,420
+to really understand the role of a NACL
+
+11
+00:00:20,420 --> 00:00:21,820
+in an incoming request.
+
+12
+00:00:21,820 --> 00:00:24,450
+So a request goes to your EC2 instance,
+
+13
+00:00:24,450 --> 00:00:26,720
+now what is happening from a network perspective?
+
+14
+00:00:26,720 --> 00:00:29,990
+Well, first the request is going to make it to the NACL
+
+15
+00:00:29,990 --> 00:00:32,200
+before going into the subnets.
+
+16
+00:00:32,200 --> 00:00:34,610
+And so there are going to be some inbound rules
+
+17
+00:00:34,610 --> 00:00:36,570
+on the NACL that are going to be defined.
+
+18
+00:00:36,570 --> 00:00:38,640
+And if the request is not allowed,
+
+19
+00:00:38,640 --> 00:00:39,830
+then the request doesn't go in.
+
+20
+00:00:39,830 --> 00:00:42,340
+And if it is allowed, then it will go in, right?
+
+21
+00:00:42,340 --> 00:00:43,810
+So the NACL is stateless.
+
+22
+00:00:43,810 --> 00:00:45,670
+So we'll see what that means in a second.
+
+23
+00:00:45,670 --> 00:00:47,660
+So the first request goes through the NACL
+
+24
+00:00:47,660 --> 00:00:50,180
+and then it reaches inside the subnets
+
+25
+00:00:50,180 --> 00:00:52,000
+and it goes through the security group
+
+26
+00:00:52,000 --> 00:00:52,940
+inbound rules, okay.
+
+27
+00:00:52,940 --> 00:00:54,040
+So we know how this works.
+
+28
+00:00:54,040 --> 00:00:57,590
+So again, if the request is not allowed explicitly
+
+29
+00:00:57,590 --> 00:00:58,980
+then it is denied.
+
+30
+00:00:58,980 --> 00:01:00,458
+Now something about security group
+
+31
+00:01:00,458 --> 00:01:02,341
+is that they are stateful.
+
+32
+00:01:02,341 --> 00:01:04,160
+So remember NACLs are stateless
+
+33
+00:01:04,160 --> 00:01:06,120
+and security groups are stateful.
+
+34
+00:01:06,120 --> 00:01:07,000
+So what does that mean?
+
+35
+00:01:07,000 --> 00:01:10,100
+That means that if the request makes it through
+
+36
+00:01:10,100 --> 00:01:12,417
+the inbound rules of the security group
+
+37
+00:01:12,417 --> 00:01:14,240
+and makes it to the EC2 instance,
+
+38
+00:01:14,240 --> 00:01:16,060
+the EC2 instance will then reply
+
+39
+00:01:16,060 --> 00:01:18,210
+with whatever reply there is to do
+
+40
+00:01:18,210 --> 00:01:19,930
+for the application perspective.
+
+41
+00:01:19,930 --> 00:01:24,280
+And then the outbound is automatically going to be accepted
+
+42
+00:01:24,280 --> 00:01:25,960
+at the security group level.
+
+43
+00:01:25,960 --> 00:01:29,180
+This is because the security group is stateful.
+
+44
+00:01:29,180 --> 00:01:33,550
+That means whatever is accepted in can go also out.
+
+45
+00:01:33,550 --> 00:01:36,180
+So here, there is no rules being evaluated.
+
+46
+00:01:36,180 --> 00:01:38,140
+And the security group outbound rules
+
+47
+00:01:38,140 --> 00:01:41,410
+are not mattering in this example.
+
+48
+00:01:41,410 --> 00:01:42,910
+So now that we know
+
+49
+00:01:42,910 --> 00:01:44,810
+that the outbound at the security group level
+
+50
+00:01:44,810 --> 00:01:46,700
+is always allowed because it's stateful,
+
+51
+00:01:46,700 --> 00:01:47,700
+what happens still?
+
+52
+00:01:47,700 --> 00:01:50,760
+Well the NACL is not stateful, it is stateless,
+
+53
+00:01:50,760 --> 00:01:52,610
+and therefore, because it is stateless
+
+54
+00:01:52,610 --> 00:01:56,040
+then the NACL outbound rules are going to be evaluated.
+
+55
+00:01:56,040 --> 00:01:58,370
+And again, if they are not passing,
+
+56
+00:01:58,370 --> 00:02:00,580
+then the request will not make it through.
+
+57
+00:02:00,580 --> 00:02:02,100
+So this is for an incoming request.
+
+58
+00:02:02,100 --> 00:02:04,100
+Now let's go through the same scenario,
+
+59
+00:02:04,100 --> 00:02:05,630
+but for an outgoing request,
+
+60
+00:02:05,630 --> 00:02:07,470
+and you can try doing this on your own
+
+61
+00:02:07,470 --> 00:02:08,690
+by pausing the video,
+
+62
+00:02:08,690 --> 00:02:10,130
+just to see if you understand the difference
+
+63
+00:02:10,130 --> 00:02:12,743
+between stateful and stateless.
+
+64
+00:02:13,690 --> 00:02:14,870
+Okay. Did you try?
+
+65
+00:02:14,870 --> 00:02:15,860
+Okay, let's go.
+
+66
+00:02:15,860 --> 00:02:17,860
+So the security group this time,
+
+67
+00:02:17,860 --> 00:02:20,560
+so the EC2 instance is making an outbound request.
+
+68
+00:02:20,560 --> 00:02:23,440
+So it's doing a request to the outside.
+
+69
+00:02:23,440 --> 00:02:26,250
+And so the EC2 instance will first maybe use,
+
+70
+00:02:26,250 --> 00:02:28,120
+for example, connect to www.google.com,
+
+71
+00:02:28,120 --> 00:02:29,723
+and so therefore the first rules
+
+72
+00:02:29,723 --> 00:02:31,560
+that are going to be evaluated
+
+73
+00:02:31,560 --> 00:02:33,680
+are the security group outbound rules.
+
+74
+00:02:33,680 --> 00:02:36,250
+So is the traffic allowed out
+
+75
+00:02:36,250 --> 00:02:38,390
+from the EC2 instance to the web?
+
+76
+00:02:38,390 --> 00:02:42,210
+Then if the rules are good and the request is allowed,
+
+77
+00:02:42,210 --> 00:02:44,410
+then the request goes through the NACL
+
+78
+00:02:44,410 --> 00:02:45,243
+outbound rules as well.
+
+79
+00:02:45,243 --> 00:02:46,870
+So they're evaluated.
+
+80
+00:02:46,870 --> 00:02:48,930
+Then the request reaches www.google.com,
+
+81
+00:02:48,930 --> 00:02:52,810
+it comes back to Amazon web services,
+
+82
+00:02:52,810 --> 00:02:56,260
+and obviously the NACL is stateless and therefore
+
+83
+00:02:56,260 --> 00:02:59,290
+the NACL inbound rules are going to be evaluated.
+
+84
+00:02:59,290 --> 00:03:02,840
+And finally, while the inbound within the subnet
+
+85
+00:03:02,840 --> 00:03:05,210
+at the security level is also going to be allowed
+
+86
+00:03:05,210 --> 00:03:08,040
+no matter what, because of the statefulness
+
+87
+00:03:08,040 --> 00:03:09,160
+of your security group rules.
+
+88
+00:03:09,160 --> 00:03:11,750
+So here the inbound rules of your security group
+
+89
+00:03:11,750 --> 00:03:14,310
+do not make a difference
+
+90
+00:03:14,310 --> 00:03:16,540
+because the admin roles was already accepted
+
+91
+00:03:16,540 --> 00:03:18,890
+and your security group is stateful.
+
+92
+00:03:18,890 --> 00:03:20,880
+So hopefully that is a very clear explanation
+
+93
+00:03:20,880 --> 00:03:23,140
+between stateful and stateless.
+
+94
+00:03:23,140 --> 00:03:25,820
+So what are Network Access Control List, NACLs?
+
+95
+00:03:25,820 --> 00:03:27,720
+Well they're like a firewall that control the traffic
+
+96
+00:03:27,720 --> 00:03:30,020
+to and from the subnet level,
+
+97
+00:03:30,020 --> 00:03:32,040
+and you have one NACL per subnet,
+
+98
+00:03:32,040 --> 00:03:34,810
+and each new subnet will be assigned the default NACL.
+
+99
+00:03:34,810 --> 00:03:37,600
+We'll have a look at the default NACL in the next slide.
+
+100
+00:03:37,600 --> 00:03:39,880
+So you define NACL rules and rules have a number
+
+101
+00:03:39,880 --> 00:03:42,070
+from one to 32,000 and so.
+
+102
+00:03:42,070 --> 00:03:44,210
+And there's a higher precedence with a lower number,
+
+103
+00:03:44,210 --> 00:03:45,900
+so one is the highest priority
+
+104
+00:03:45,900 --> 00:03:48,970
+and the latest is 32,000 and so on.
+
+105
+00:03:48,970 --> 00:03:51,660
+And the first rule match will drive the decision, okay.
+
+106
+00:03:51,660 --> 00:03:55,600
+So for example, if you define allow on this CIDR
+
+107
+00:03:55,600 --> 00:03:58,260
+and deny on the same CIDR, so a specific IP,
+
+108
+00:03:58,260 --> 00:04:01,420
+but the allow is 100 and the deny is 200,
+
+109
+00:04:01,420 --> 00:04:03,130
+the IP address will be allowed
+
+110
+00:04:03,130 --> 00:04:06,150
+because 100 as a higher precedence over 200.
+
+111
+00:04:06,150 --> 00:04:06,983
+In that case,
+
+112
+00:04:06,983 --> 00:04:09,250
+the first rule match will drive the decision.
+
+113
+00:04:09,250 --> 00:04:12,150
+The less rule is an asterisk and will deny any request
+
+114
+00:04:12,150 --> 00:04:14,980
+in case of no rules match.
+
+115
+00:04:14,980 --> 00:04:18,140
+Now, AWS recommends adding rules by increments of 100.
+
+116
+00:04:18,140 --> 00:04:20,310
+And the reason is that if you want to add rules
+
+117
+00:04:20,310 --> 00:04:22,970
+in between then, you are fine.
+
+118
+00:04:22,970 --> 00:04:25,960
+Okay, so newly created NACLs will deny everything
+
+119
+00:04:25,960 --> 00:04:27,150
+by default.
+
+120
+00:04:27,150 --> 00:04:29,510
+And NACLs have a very, very good use case.
+
+121
+00:04:29,510 --> 00:04:31,830
+They're great for blocking a specific IP address
+
+122
+00:04:31,830 --> 00:04:33,832
+at the subnet level.
+
+123
+00:04:33,832 --> 00:04:36,450
+So NACLs in this diagram, where are they?
+
+124
+00:04:36,450 --> 00:04:37,700
+So we have this diagram we know about,
+
+125
+00:04:37,700 --> 00:04:39,820
+but NACLs again are at the subnet level.
+
+126
+00:04:39,820 --> 00:04:41,470
+And so we can have NACLs at the public subnet,
+
+127
+00:04:41,470 --> 00:04:43,790
+private subnet level and so on.
+
+128
+00:04:43,790 --> 00:04:46,010
+So the default NACL is super important because
+
+129
+00:04:46,010 --> 00:04:47,300
+it can come up in the exam.
+
+130
+00:04:47,300 --> 00:04:50,510
+And the default NACL has this one specificity
+
+131
+00:04:50,510 --> 00:04:53,200
+that it accepts everything inbound and outbound
+
+132
+00:04:53,200 --> 00:04:55,310
+with the subnets it's associated with.
+
+133
+00:04:55,310 --> 00:04:57,210
+So this is what the default NACL looks like
+
+134
+00:04:57,210 --> 00:04:58,370
+for the IPv4.
+
+135
+00:04:58,370 --> 00:05:01,400
+It allows everything out and everything in.
+
+136
+00:05:01,400 --> 00:05:02,233
+And that makes sense, right?
+
+137
+00:05:02,233 --> 00:05:03,930
+Because if the NACL was not allowing
+
+138
+00:05:03,930 --> 00:05:05,380
+everything in and everything out
+
+139
+00:05:05,380 --> 00:05:07,970
+then we would have do some serious debugging to do
+
+140
+00:05:07,970 --> 00:05:09,640
+when we get started with AWS.
+
+141
+00:05:09,640 --> 00:05:12,070
+But the default NACL is very open.
+
+142
+00:05:12,070 --> 00:05:15,340
+Now my recommendation is to not modify the default NACL.
+
+143
+00:05:15,340 --> 00:05:16,960
+Instead, if you want to have some custom
+
+144
+00:05:16,960 --> 00:05:19,110
+Network ACLs, then create a custom one.
+
+145
+00:05:19,110 --> 00:05:21,760
+Okay, but if the exam mentions to you,
+
+146
+00:05:21,760 --> 00:05:23,200
+that there is a default NACL,
+
+147
+00:05:23,200 --> 00:05:25,630
+just know that by default this NACL will
+
+148
+00:05:26,601 --> 00:05:28,490
+disassociate it with subnets.
+
+149
+00:05:28,490 --> 00:05:31,100
+If this NACL is associated with subnets, sorry,
+
+150
+00:05:31,100 --> 00:05:34,150
+then it will allow everything in and everything out.
+
+151
+00:05:34,150 --> 00:05:37,100
+Okay, so now let's go into the important concept
+
+152
+00:05:37,100 --> 00:05:38,730
+of Ephemeral Ports.
+
+153
+00:05:38,730 --> 00:05:41,900
+So when you have a client and a server connecting together,
+
+154
+00:05:41,900 --> 00:05:42,830
+they must use port.
+
+155
+00:05:42,830 --> 00:05:44,890
+So we have IP address and ports,
+
+156
+00:05:44,890 --> 00:05:46,890
+and the clients connect to the server
+
+157
+00:05:46,890 --> 00:05:47,830
+on the defined port.
+
+158
+00:05:47,830 --> 00:05:49,070
+So we know for example,
+
+159
+00:05:49,070 --> 00:05:51,240
+that the HTTP port is 80,
+
+160
+00:05:51,240 --> 00:05:53,750
+the HTTPS port is four, four, three,
+
+161
+00:05:53,750 --> 00:05:55,710
+the SSH port is 22 and so on.
+
+162
+00:05:55,710 --> 00:05:58,810
+So when we have a server that exposes a service,
+
+163
+00:05:58,810 --> 00:06:01,053
+then the client connects to a defined ports,
+
+164
+00:06:02,320 --> 00:06:03,810
+except though that the clients
+
+165
+00:06:03,810 --> 00:06:05,170
+needs a reply back from the server.
+
+166
+00:06:05,170 --> 00:06:07,124
+So the server also needs to connect to the clients
+
+167
+00:06:07,124 --> 00:06:09,400
+to send a response.
+
+168
+00:06:09,400 --> 00:06:12,290
+And the client does not have any open port by default.
+
+169
+00:06:12,290 --> 00:06:13,860
+So what it does that when the client
+
+170
+00:06:13,860 --> 00:06:15,610
+is connecting to a server,
+
+171
+00:06:15,610 --> 00:06:19,060
+the client will open a specific ports on itself.
+
+172
+00:06:19,060 --> 00:06:20,560
+And this port is ephemeral
+
+173
+00:06:20,560 --> 00:06:21,970
+because it's just a port that will be
+
+174
+00:06:21,970 --> 00:06:23,560
+as long lived as the connection is
+
+175
+00:06:23,560 --> 00:06:25,660
+between the clients and the server.
+
+176
+00:06:25,660 --> 00:06:27,120
+And so what is that ephemeral ports?
+
+177
+00:06:27,120 --> 00:06:28,800
+Well, based on the OS you have,
+
+178
+00:06:28,800 --> 00:06:30,010
+the operating system you have,
+
+179
+00:06:30,010 --> 00:06:31,400
+you have different port ranges, for example,
+
+180
+00:06:31,400 --> 00:06:33,800
+if you're using Windows 10, for example,
+
+181
+00:06:33,800 --> 00:06:36,560
+then you get to 49,152
+
+182
+00:06:36,560 --> 00:06:38,871
+all the way through 65,535,
+
+183
+00:06:38,871 --> 00:06:41,210
+the port ranges that will be chosen
+
+184
+00:06:41,210 --> 00:06:43,670
+for a random ephemeral ports.
+
+185
+00:06:43,670 --> 00:06:46,100
+If you use Linux, then a good range
+
+186
+00:06:46,100 --> 00:06:48,200
+will be 32,768
+
+187
+00:06:48,200 --> 00:06:51,310
+to 60,999, okay.
+
+188
+00:06:51,310 --> 00:06:52,740
+So based on the different OS,
+
+189
+00:06:52,740 --> 00:06:53,990
+you have different port ranges.
+
+190
+00:06:53,990 --> 00:06:55,460
+So let's go through concrete example
+
+191
+00:06:55,460 --> 00:06:56,293
+to understand how that works.
+
+192
+00:06:56,293 --> 00:06:58,280
+So the clients connects to a web server,
+
+193
+00:06:58,280 --> 00:07:01,290
+the web server has a fixed IP and a fixed ports.
+
+194
+00:07:01,290 --> 00:07:03,172
+So the client is saying, hey, here's my IP,
+
+195
+00:07:03,172 --> 00:07:06,230
+and I will open for this one request
+
+196
+00:07:06,230 --> 00:07:07,430
+or this one connection,
+
+197
+00:07:07,430 --> 00:07:11,020
+an ephemeral port of five, zero, one, zero, five.
+
+198
+00:07:11,020 --> 00:07:13,890
+So the request sent from the client to the server is,
+
+199
+00:07:13,890 --> 00:07:15,530
+Hey, here is the destination IP,
+
+200
+00:07:15,530 --> 00:07:16,883
+here is the destination port of the server
+
+201
+00:07:16,883 --> 00:07:17,780
+that you connect to,
+
+202
+00:07:17,780 --> 00:07:20,010
+here's the payload of my request, so what I'm requesting,
+
+203
+00:07:20,010 --> 00:07:22,630
+and here is my source IP, by the way, for the reply,
+
+204
+00:07:22,630 --> 00:07:25,110
+and here is my source ephemeral ports
+
+205
+00:07:25,110 --> 00:07:26,060
+for the replay as well,
+
+206
+00:07:26,060 --> 00:07:28,760
+which is five, zero, one, zero, five.
+
+207
+00:07:28,760 --> 00:07:29,593
+And then the web server,
+
+208
+00:07:29,593 --> 00:07:31,430
+when connecting back to the client
+
+209
+00:07:31,430 --> 00:07:32,810
+to send back of the response,
+
+210
+00:07:32,810 --> 00:07:34,330
+will send the response and say, Hey,
+
+211
+00:07:34,330 --> 00:07:36,560
+so here's the source IP, here's a source port.
+
+212
+00:07:36,560 --> 00:07:39,630
+So, the server port, and then the destination IP
+
+213
+00:07:39,630 --> 00:07:42,133
+is 11.22.33.44,
+
+214
+00:07:43,040 --> 00:07:44,430
+here is the response payload.
+
+215
+00:07:44,430 --> 00:07:46,280
+And finally, where we'll also need a port
+
+216
+00:07:46,280 --> 00:07:48,370
+it will reuse the ephemeral port
+
+217
+00:07:48,370 --> 00:07:49,400
+that the client has sent.
+
+218
+00:07:49,400 --> 00:07:50,703
+And this is why it's called ephemeral port
+
+219
+00:07:50,703 --> 00:07:53,430
+it's because it's a random port that is assigned
+
+220
+00:07:53,430 --> 00:07:57,350
+just for the connection life.
+
+221
+00:07:57,350 --> 00:07:59,390
+So now, why do I mention ephemeral ports?
+
+222
+00:07:59,390 --> 00:08:01,010
+Well, because they're very important
+
+223
+00:08:01,010 --> 00:08:02,340
+in terms of NACLs.
+
+224
+00:08:02,340 --> 00:08:04,636
+So if you consider a client's connecting
+
+225
+00:08:04,636 --> 00:08:05,840
+to a database
+
+226
+00:08:05,840 --> 00:08:08,580
+and we have a private subnet and a public subnet,
+
+227
+00:08:08,580 --> 00:08:11,450
+we have one NACL associated with each subnet.
+
+228
+00:08:11,450 --> 00:08:13,810
+So a web NACL and a DB NACL.
+
+229
+00:08:13,810 --> 00:08:16,160
+Now, when the client initiates a connection
+
+230
+00:08:16,160 --> 00:08:17,950
+to the database instance,
+
+231
+00:08:17,950 --> 00:08:20,330
+what are the rules that need to be allowed
+
+232
+00:08:20,330 --> 00:08:21,660
+when you think about it, right?
+
+233
+00:08:21,660 --> 00:08:23,640
+Well, if you consider the first NACL
+
+234
+00:08:23,640 --> 00:08:25,920
+we need to allow outbound TCP
+
+235
+00:08:25,920 --> 00:08:28,070
+on port three, three, zero six
+
+236
+00:08:28,070 --> 00:08:30,700
+to the database subnet CIDR, that makes sense.
+
+237
+00:08:30,700 --> 00:08:33,950
+Otherwise, the request will not leave the subnets.
+
+238
+00:08:33,950 --> 00:08:35,577
+And then from a database perspective,
+
+239
+00:08:35,577 --> 00:08:37,299
+then the DB NACL says,
+
+240
+00:08:37,299 --> 00:08:39,429
+Hey, I need to allow inbound TCP
+
+241
+00:08:39,429 --> 00:08:41,159
+on port three, three, zero, six
+
+242
+00:08:41,159 --> 00:08:43,590
+from the web submit CIDR.
+
+243
+00:08:43,590 --> 00:08:44,870
+All this makes sense, right?
+
+244
+00:08:44,870 --> 00:08:46,740
+Now, here's the tricky part.
+
+245
+00:08:46,740 --> 00:08:49,030
+When the database sends back the request
+
+246
+00:08:49,030 --> 00:08:52,593
+to the clients, what do you think needs to happen?
+
+247
+00:08:53,480 --> 00:08:56,010
+Well, the client has an ephemeral port, right?
+
+248
+00:08:56,010 --> 00:08:58,320
+And so as such, they will be a random ports
+
+249
+00:08:58,320 --> 00:09:00,010
+being assigned for this request.
+
+250
+00:09:00,010 --> 00:09:01,380
+And so therefore,
+
+251
+00:09:01,380 --> 00:09:04,051
+the DB NACL must allow outbound TCP
+
+252
+00:09:04,051 --> 00:09:06,190
+on ports and, on ephemeral port,
+
+253
+00:09:06,190 --> 00:09:08,017
+so, maybe from 1024
+
+254
+00:09:08,017 --> 00:09:08,850
+to 65,535
+
+255
+00:09:10,470 --> 00:09:11,820
+to web subnet CIDR,
+
+256
+00:09:11,820 --> 00:09:15,370
+and then the web NACL also needs to allow inbound TCP
+
+257
+00:09:15,370 --> 00:09:17,250
+on this range of ephemeral ports
+
+258
+00:09:17,250 --> 00:09:18,280
+from the DB subnet CIDR.
+
+259
+00:09:18,280 --> 00:09:19,990
+And this is why ephemeral ports
+
+260
+00:09:19,990 --> 00:09:22,140
+are super important to configure well.
+
+261
+00:09:22,140 --> 00:09:23,270
+So if you want to learn more,
+
+262
+00:09:23,270 --> 00:09:25,460
+there's a link to the documentation.
+
+263
+00:09:25,460 --> 00:09:26,820
+Another thing about NACLs you need to know
+
+264
+00:09:26,820 --> 00:09:31,460
+is that if you have multiple NACLs and multiple subnets,
+
+265
+00:09:31,460 --> 00:09:33,520
+then each NACL combination
+
+266
+00:09:33,520 --> 00:09:35,370
+needs to be allowed within the NACL,
+
+267
+00:09:35,370 --> 00:09:36,750
+because you're using CIDRs
+
+268
+00:09:36,750 --> 00:09:38,530
+and each subnet will have its own CIDR.
+
+269
+00:09:38,530 --> 00:09:40,800
+So it's super important for you to realize that,
+
+270
+00:09:40,800 --> 00:09:43,370
+if you add subnets into a NACL,
+
+271
+00:09:43,370 --> 00:09:45,060
+you need to also update all the NACL rules
+
+272
+00:09:45,060 --> 00:09:46,950
+to make sure that the combination of connections
+
+273
+00:09:46,950 --> 00:09:48,650
+is possible.
+
+274
+00:09:48,650 --> 00:09:50,410
+So to summarize, what is the difference between
+
+275
+00:09:50,410 --> 00:09:52,140
+a security group and a NACL?
+
+276
+00:09:52,140 --> 00:09:54,290
+Well the security group operates at the instance level,
+
+277
+00:09:54,290 --> 00:09:56,550
+whereas the NACL is at the subnet level.
+
+278
+00:09:56,550 --> 00:09:58,710
+The security group supports allow rules only,
+
+279
+00:09:58,710 --> 00:10:01,530
+whereas NACL supports allow and deny rules,
+
+280
+00:10:01,530 --> 00:10:05,370
+this is why you can deny a specific IP address in a NACL.
+
+281
+00:10:05,370 --> 00:10:06,203
+Security groups are stateful,
+
+282
+00:10:06,203 --> 00:10:09,110
+so automatically return traffic is allowed
+
+283
+00:10:09,110 --> 00:10:10,370
+regardless of the rules,
+
+284
+00:10:10,370 --> 00:10:12,810
+whereas NACL is stateless, that means that every time
+
+285
+00:10:12,810 --> 00:10:16,200
+the inbound and outbound rules will be evaluated
+
+286
+00:10:16,200 --> 00:10:19,610
+and think of ephemeral ports as a reminder.
+
+287
+00:10:19,610 --> 00:10:22,900
+Now for security group, all rules are going to be evaluated
+
+288
+00:10:22,900 --> 00:10:24,740
+to decide whether or not to allow traffic,
+
+289
+00:10:24,740 --> 00:10:27,290
+whereas for a NACL, the ones that will be having
+
+290
+00:10:27,290 --> 00:10:28,810
+the highest priority will be evaluated first,
+
+291
+00:10:28,810 --> 00:10:30,560
+and the first match wins.
+
+292
+00:10:30,560 --> 00:10:32,740
+Security group applies to an EC2 instance
+
+293
+00:10:32,740 --> 00:10:34,090
+when specified by someone,
+
+294
+00:10:34,090 --> 00:10:36,330
+whereas NACL applies to all EC2 instances
+
+295
+00:10:36,330 --> 00:10:38,650
+in a subnet that it's associated with.
+
+296
+00:10:38,650 --> 00:10:40,510
+So that sits for this lecture.
+
+297
+00:10:40,510 --> 00:10:41,343
+Hopefully that makes sense
+
+298
+00:10:41,343 --> 00:10:43,983
+and I will see you in the next lecture for some practice.
+

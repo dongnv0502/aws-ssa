@@ -1,0 +1,376 @@
+1
+00:00:00,030 --> 00:00:02,130
+All right, so just a few exam tips,
+
+2
+00:00:02,130 --> 00:00:04,430
+just to make sure that you have the maximum chances
+
+3
+00:00:04,430 --> 00:00:05,660
+to pass your exam.
+
+4
+00:00:05,660 --> 00:00:07,020
+Number one, practice makes perfect.
+
+5
+00:00:07,020 --> 00:00:09,590
+So if you're new to AWS, maybe you're overwhelmed
+
+6
+00:00:09,590 --> 00:00:11,810
+by this course, so take a bit of AWS practice
+
+7
+00:00:11,810 --> 00:00:12,643
+thanks to this course.
+
+8
+00:00:12,643 --> 00:00:13,940
+And don't rush to go to the exam.
+
+9
+00:00:13,940 --> 00:00:14,980
+Take your time, okay?
+
+10
+00:00:14,980 --> 00:00:17,640
+This is not a race, this is a challenge to you
+
+11
+00:00:17,640 --> 00:00:19,970
+to know that you know AWS, okay?
+
+12
+00:00:19,970 --> 00:00:21,940
+This exam recommends that you have one or more years
+
+13
+00:00:21,940 --> 00:00:23,670
+of hands-on experience on the AWS.
+
+14
+00:00:23,670 --> 00:00:24,540
+You can't fake that.
+
+15
+00:00:24,540 --> 00:00:27,430
+Now, you should be able to answer all the exam questions,
+
+16
+00:00:27,430 --> 00:00:30,377
+but hands-on experience is really how I learned AWS,
+
+17
+00:00:30,377 --> 00:00:33,010
+and this is how you should learn AWS, too.
+
+18
+00:00:33,010 --> 00:00:35,960
+Practice makes perfect, so give it a go.
+
+19
+00:00:35,960 --> 00:00:37,520
+Now, if you feel overwhelmed by this course
+
+20
+00:00:37,520 --> 00:00:39,960
+because you learned a lot of knowledge right now,
+
+21
+00:00:39,960 --> 00:00:41,450
+go through it one more time.
+
+22
+00:00:41,450 --> 00:00:43,320
+It is fine to take your time, okay?
+
+23
+00:00:43,320 --> 00:00:45,140
+There is so much new knowledge, even me,
+
+24
+00:00:45,140 --> 00:00:48,110
+I need to go back to it sometimes, so take your time.
+
+25
+00:00:48,110 --> 00:00:50,490
+Now when you do have questions, proceed by elimination.
+
+26
+00:00:50,490 --> 00:00:52,690
+So most questions are going to be scenario based,
+
+27
+00:00:52,690 --> 00:00:53,530
+they're going to be a bit long,
+
+28
+00:00:53,530 --> 00:00:54,870
+giving you hints and stuff.
+
+29
+00:00:54,870 --> 00:00:57,910
+And so for all the questions, first rule out answers
+
+30
+00:00:57,910 --> 00:01:00,600
+that you know for sure are going to be wrong.
+
+31
+00:01:00,600 --> 00:01:03,550
+This is really good way for you to maybe come back to
+
+32
+00:01:03,550 --> 00:01:06,610
+one or two answers, and then just know which
+
+33
+00:01:06,610 --> 00:01:08,280
+one is right, right away, okay?
+
+34
+00:01:08,280 --> 00:01:10,860
+So understand which one makes the most sense, okay?
+
+35
+00:01:10,860 --> 00:01:13,230
+Sometimes they are not that complicated,
+
+36
+00:01:13,230 --> 00:01:14,970
+so there is very few trick questions.
+
+37
+00:01:14,970 --> 00:01:17,080
+Maybe in the scenario they will try to lead you
+
+38
+00:01:17,080 --> 00:01:18,700
+into thinking something else because there will be
+
+39
+00:01:18,700 --> 00:01:21,690
+EBS, ASG, SSM, all these kind of technologies.
+
+40
+00:01:21,690 --> 00:01:24,030
+But there are very few trick questions,
+
+41
+00:01:24,030 --> 00:01:26,200
+and don't overthink your answers, okay?
+
+42
+00:01:26,200 --> 00:01:28,570
+If an answer seems feasible, but it's too complicated,
+
+43
+00:01:28,570 --> 00:01:29,890
+it's probably wrong.
+
+44
+00:01:29,890 --> 00:01:32,040
+So think about it, think about it real hard.
+
+45
+00:01:32,040 --> 00:01:35,530
+And if you don't know the answer of a question right away,
+
+46
+00:01:35,530 --> 00:01:38,360
+answer it, and then you can flag it for review later
+
+47
+00:01:38,360 --> 00:01:40,420
+using your little flag feature in the exam.
+
+48
+00:01:40,420 --> 00:01:42,070
+And so you can come back to it later,
+
+49
+00:01:42,070 --> 00:01:43,880
+and maybe you'll have the response then
+
+50
+00:01:43,880 --> 00:01:45,620
+because you have time to think about it.
+
+51
+00:01:45,620 --> 00:01:47,550
+I also recommend that you skim through
+
+52
+00:01:47,550 --> 00:01:49,320
+some AWS white papers.
+
+53
+00:01:49,320 --> 00:01:51,570
+And so you can read them, there's three of them
+
+54
+00:01:51,570 --> 00:01:52,403
+that I recommend.
+
+55
+00:01:52,403 --> 00:01:55,190
+Architecting for the Cloud: AWS Best Practices,
+
+56
+00:01:55,190 --> 00:01:58,540
+AWS Well-Architected Framework, and then finally,
+
+57
+00:01:58,540 --> 00:01:59,860
+AWS Disaster Recovery, and here's the link
+
+58
+00:01:59,860 --> 00:02:02,020
+because this one may be tough to find.
+
+59
+00:02:02,020 --> 00:02:04,220
+So overall I think we've explored the most important
+
+60
+00:02:04,220 --> 00:02:06,830
+concept in this course, but if you are interested
+
+61
+00:02:06,830 --> 00:02:09,580
+into these white papers, then it's never bad to look at them
+
+62
+00:02:09,580 --> 00:02:10,413
+or read them.
+
+63
+00:02:10,413 --> 00:02:14,111
+Maybe it will help you reinforce your learnings on AWS
+
+64
+00:02:14,111 --> 00:02:17,050
+and make you understand the course a little bit better.
+
+65
+00:02:17,050 --> 00:02:18,970
+Also, if you don't know a service very well,
+
+66
+00:02:18,970 --> 00:02:21,120
+or you have doubts, look at the service FAQ.
+
+67
+00:02:21,120 --> 00:02:23,730
+This is where most of the questions on the exam will be.
+
+68
+00:02:23,730 --> 00:02:26,100
+FAQ stands for frequently asked questions.
+
+69
+00:02:26,100 --> 00:02:28,850
+For example, if you look at VPC, this will be the URL,
+
+70
+00:02:28,850 --> 00:02:32,070
+amazon.com/vpc/faqs.
+
+71
+00:02:32,070 --> 00:02:34,350
+FAQs, as I said, cover a lot of questions that are going
+
+72
+00:02:34,350 --> 00:02:36,440
+to be asked on the exam, and it's really helpful
+
+73
+00:02:36,440 --> 00:02:38,420
+to look at it just to make sure that you understand
+
+74
+00:02:38,420 --> 00:02:39,810
+a service really, really well.
+
+75
+00:02:39,810 --> 00:02:43,110
+And finally, I think if you are really serious about AWS,
+
+76
+00:02:43,110 --> 00:02:45,320
+you need to get into the AWS community.
+
+77
+00:02:45,320 --> 00:02:47,160
+So do participate in this course,
+
+78
+00:02:47,160 --> 00:02:49,883
+answer other peoples' Q and A, help other.
+
+79
+00:02:50,780 --> 00:02:52,630
+Review questions that are asked by other people
+
+80
+00:02:52,630 --> 00:02:54,730
+just to make that you may be having the same questions,
+
+81
+00:02:54,730 --> 00:02:56,100
+and maybe you have the same doubts.
+
+82
+00:02:56,100 --> 00:02:58,450
+Maybe the answers will help you clear out your doubts.
+
+83
+00:02:58,450 --> 00:03:00,300
+And then do the practice test in this section.
+
+84
+00:03:00,300 --> 00:03:02,830
+You have to do it just to make sure you're ready.
+
+85
+00:03:02,830 --> 00:03:05,510
+Finally, there's some forums online, there's online blogs,
+
+86
+00:03:05,510 --> 00:03:07,940
+and there's even local meetups in pretty much every city
+
+87
+00:03:07,940 --> 00:03:10,610
+in the world to discuss with other AWS engineers.
+
+88
+00:03:10,610 --> 00:03:12,480
+And then if you're really into AWS,
+
+89
+00:03:12,480 --> 00:03:14,080
+you can also watch the re-invent videos.
+
+90
+00:03:14,080 --> 00:03:16,630
+This is Amazon's conference on YouTube,
+
+91
+00:03:16,630 --> 00:03:18,780
+and they're really, really great to get started.
+
+92
+00:03:18,780 --> 00:03:20,330
+So that's it for my tips.
+
+93
+00:03:20,330 --> 00:03:22,250
+I hope you're excited to pass the exam,
+
+94
+00:03:22,250 --> 00:03:24,200
+and I will see you in the next lecture.
+

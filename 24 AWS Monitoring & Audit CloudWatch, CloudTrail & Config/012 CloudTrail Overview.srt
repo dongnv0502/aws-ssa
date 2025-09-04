@@ -1,0 +1,560 @@
+1
+00:00:00,690 --> 00:00:02,430
+Now let's talk about CloudTrail.
+
+2
+00:00:02,430 --> 00:00:04,650
+So CloudTrail is a way to get governance
+
+3
+00:00:04,650 --> 00:00:08,130
+compliance and audit for your AWS Accounts.
+
+4
+00:00:08,130 --> 00:00:10,680
+And CloudTrail is enabled by default.
+
+5
+00:00:10,680 --> 00:00:13,560
+This will allow you to get a history of all the events
+
+6
+00:00:13,560 --> 00:00:17,880
+and API Calls made within your AWS Accounts, by the console
+
+7
+00:00:17,880 --> 00:00:21,960
+by the SDK, the CLI other services on AWS
+
+8
+00:00:21,960 --> 00:00:25,006
+and all these logs will be appearing in CloudTrail.
+
+9
+00:00:25,006 --> 00:00:27,330
+Now, what you can do is that you can also put these logs
+
+10
+00:00:27,330 --> 00:00:31,050
+from CloudTrail into CloudWatch Logs or Amazon S3.
+
+11
+00:00:31,050 --> 00:00:33,120
+And you can create a trail to be applied
+
+12
+00:00:33,120 --> 00:00:34,650
+to all regions or a single region,
+
+13
+00:00:34,650 --> 00:00:37,080
+if you wanted to accumulate all these history
+
+14
+00:00:37,080 --> 00:00:39,270
+of events accumulated across all regions
+
+15
+00:00:39,270 --> 00:00:42,150
+into one specific, for example, S3 buckets.
+
+16
+00:00:42,150 --> 00:00:44,820
+And when we use CloudTrail, for example,
+
+17
+00:00:44,820 --> 00:00:49,080
+we'll say someone went ahead and deleted something in AWS.
+
+18
+00:00:49,080 --> 00:00:51,390
+For example, say that an EC2 instance
+
+19
+00:00:51,390 --> 00:00:52,710
+was being terminated
+
+20
+00:00:52,710 --> 00:00:54,510
+and you wanna figure out who did it?
+
+21
+00:00:54,510 --> 00:00:56,790
+Well, the answer is to look into CloudTrail
+
+22
+00:00:56,790 --> 00:00:58,950
+because CloudTrail will have that API Call
+
+23
+00:00:58,950 --> 00:01:00,390
+in it and will be able to get
+
+24
+00:01:00,390 --> 00:01:03,570
+to the bottom of it and understand who did what and when.
+
+25
+00:01:03,570 --> 00:01:06,000
+So to summarize CloudTrail is in the middle
+
+26
+00:01:06,000 --> 00:01:10,320
+and the actions of the SDK, the CLI, or the console
+
+27
+00:01:10,320 --> 00:01:12,300
+or even IAM Users and IAM Roles
+
+28
+00:01:12,300 --> 00:01:15,690
+or other services will be in the CloudTrail console.
+
+29
+00:01:15,690 --> 00:01:19,140
+We can look in it to inspect and audit what happened.
+
+30
+00:01:19,140 --> 00:01:21,510
+And if you want to have all the events for more
+
+31
+00:01:21,510 --> 00:01:24,690
+than 90 days, then we can send them into CloudWatch Logs
+
+32
+00:01:24,690 --> 00:01:27,150
+or we can send them into an S3 buckets.
+
+33
+00:01:27,150 --> 00:01:29,250
+So let me dive a little bit deeper for CloudTrail.
+
+34
+00:01:29,250 --> 00:01:30,570
+So we have three kinds
+
+35
+00:01:30,570 --> 00:01:32,010
+of events that you can see in CloudTrail.
+
+36
+00:01:32,010 --> 00:01:34,050
+The first one is called the Management Events
+
+37
+00:01:34,050 --> 00:01:36,330
+and these represents operations that are performed
+
+38
+00:01:36,330 --> 00:01:39,150
+on resources in your AWS Accounts.
+
+39
+00:01:39,150 --> 00:01:41,640
+For example, whenever someone configures security,
+
+40
+00:01:41,640 --> 00:01:45,420
+they will use the API Call called IAM AttachRolePolicy.
+
+41
+00:01:45,420 --> 00:01:47,400
+And this will appear in CloudTrail.
+
+42
+00:01:47,400 --> 00:01:50,490
+If you create a subnet, this will appear as well.
+
+43
+00:01:50,490 --> 00:01:52,320
+If you set up logging, this will appear by default.
+
+44
+00:01:52,320 --> 00:01:54,210
+Anything that modifies your resources
+
+45
+00:01:54,210 --> 00:01:57,000
+or your iOS accounts will appear in CloudTrail.
+
+46
+00:01:57,000 --> 00:01:57,990
+And by default,
+
+47
+00:01:57,990 --> 00:02:00,180
+trails are configured to log Management Events
+
+48
+00:02:00,180 --> 00:02:01,230
+no matter what.
+
+49
+00:02:01,230 --> 00:02:03,292
+You can separate two kind of Management Events.
+
+50
+00:02:03,292 --> 00:02:06,300
+You have the Read Events that don't modify resources.
+
+51
+00:02:06,300 --> 00:02:08,669
+For example, someone is listing all the users
+
+52
+00:02:08,669 --> 00:02:11,640
+in IAM or listing all the EC2 instances in EC2,
+
+53
+00:02:11,640 --> 00:02:12,750
+these kind of things.
+
+54
+00:02:12,750 --> 00:02:13,590
+You can separate them
+
+55
+00:02:13,590 --> 00:02:15,990
+from Write Events that may modify resources.
+
+56
+00:02:15,990 --> 00:02:17,550
+For example, someone deletes
+
+57
+00:02:17,550 --> 00:02:20,100
+or tries to delete a DynamoDB table.
+
+58
+00:02:20,100 --> 00:02:22,440
+And obviously the Write Events have probably
+
+59
+00:02:22,440 --> 00:02:23,790
+a lot more importance
+
+60
+00:02:23,790 --> 00:02:27,480
+because they can wreck damages into your AWS infrastructure.
+
+61
+00:02:27,480 --> 00:02:29,910
+Whereas the Read Events is just to get information
+
+62
+00:02:29,910 --> 00:02:32,940
+which are still very important, but maybe less destructive.
+
+63
+00:02:32,940 --> 00:02:34,200
+Then you have Data Events.
+
+64
+00:02:34,200 --> 00:02:36,660
+So they're separate and by default Data Events
+
+65
+00:02:36,660 --> 00:02:40,020
+as are not logged because they're high volume operations.
+
+66
+00:02:40,020 --> 00:02:41,520
+So what are Data Events?
+
+67
+00:02:41,520 --> 00:02:44,370
+Well, you have Amazon S3 object level activity
+
+68
+00:02:44,370 --> 00:02:47,700
+for example, GetObject, DeleteObject, PutObject.
+
+69
+00:02:47,700 --> 00:02:48,690
+And as you can see,
+
+70
+00:02:48,690 --> 00:02:51,180
+these can be happening a lot on an S3 bucket.
+
+71
+00:02:51,180 --> 00:02:53,610
+And so this is why they're not logged by default
+
+72
+00:02:53,610 --> 00:02:55,980
+and you have the option to separate again
+
+73
+00:02:55,980 --> 00:02:57,150
+Read and Write Events.
+
+74
+00:02:57,150 --> 00:02:59,550
+So a Read Event will be a GetObject
+
+75
+00:02:59,550 --> 00:03:00,950
+whereas a Right Event would be a DeleteObject
+
+76
+00:03:00,950 --> 00:03:01,783
+or a PutObject.
+
+77
+00:03:03,930 --> 00:03:05,790
+Another kind of event you can have
+
+78
+00:03:05,790 --> 00:03:08,542
+in a CloudTrail are AWS Lambda function
+
+79
+00:03:08,542 --> 00:03:09,840
+execution activities.
+
+80
+00:03:09,840 --> 00:03:12,180
+So whenever someone uses the Invoke API
+
+81
+00:03:12,180 --> 00:03:13,013
+so you can get insights
+
+82
+00:03:13,013 --> 00:03:14,610
+about how many times your Lambda functions are being evoked.
+
+83
+00:03:14,610 --> 00:03:16,509
+And again, this could be really high volumes,
+
+84
+00:03:16,509 --> 00:03:19,560
+if your Lambda functions are executed a lot.
+
+85
+00:03:19,560 --> 00:03:21,240
+And the third kind of events
+
+86
+00:03:21,240 --> 00:03:24,600
+in CloudTrail are called CloudTrail Insights Events.
+
+87
+00:03:24,600 --> 00:03:27,000
+And so I will talk to you about CloudTrail Insights
+
+88
+00:03:27,000 --> 00:03:29,597
+in a bit more details in the next slide.
+
+89
+00:03:29,597 --> 00:03:32,820
+So now let's talk about CloudTrail Insights.
+
+90
+00:03:32,820 --> 00:03:36,360
+So when we have so many Management Events across all types
+
+91
+00:03:36,360 --> 00:03:39,000
+of services and so many APIs happening very quickly
+
+92
+00:03:39,000 --> 00:03:39,833
+in your accounts,
+
+93
+00:03:39,833 --> 00:03:43,110
+it can be quite difficult to understand what looks odd,
+
+94
+00:03:43,110 --> 00:03:45,030
+what looks unusual and what doesn't.
+
+95
+00:03:45,030 --> 00:03:47,310
+And so this is where CloudTrail Insights comes in.
+
+96
+00:03:47,310 --> 00:03:49,320
+So with CloudTrail Insights and you have to enable it
+
+97
+00:03:49,320 --> 00:03:52,440
+and you have to pay for it, it will analyze your events
+
+98
+00:03:52,440 --> 00:03:55,200
+and try to detect unusual activity in your accounts.
+
+99
+00:03:55,200 --> 00:03:58,170
+For example, in accurate resource provisioning,
+
+100
+00:03:58,170 --> 00:04:01,890
+hitting service limits, burst of AWS IAM actions,
+
+101
+00:04:01,890 --> 00:04:04,590
+gaps in periodic maintenance activity.
+
+102
+00:04:04,590 --> 00:04:06,660
+So the way it works is that CloudTrail will analyze
+
+103
+00:04:06,660 --> 00:04:08,070
+what normal management
+
+104
+00:04:08,070 --> 00:04:10,020
+activities look like to create the baseline
+
+105
+00:04:10,020 --> 00:04:13,230
+and then it will continuously analyze anything
+
+106
+00:04:13,230 --> 00:04:15,000
+that is the right type of event.
+
+107
+00:04:15,000 --> 00:04:16,649
+So whenever something is changed
+
+108
+00:04:16,649 --> 00:04:19,271
+or try to be changed to detect unusual patterns.
+
+109
+00:04:19,271 --> 00:04:21,899
+So very simply the Management Events are going
+
+110
+00:04:21,899 --> 00:04:24,630
+to be continuously analyzed by CloudTrail Insights
+
+111
+00:04:24,630 --> 00:04:26,340
+which will generate Insights Event
+
+112
+00:04:26,340 --> 00:04:28,020
+in case something is detected.
+
+113
+00:04:28,020 --> 00:04:31,560
+And so these anomalies, so these Insight Events will appear
+
+114
+00:04:31,560 --> 00:04:32,815
+in the CloudTrail console.
+
+115
+00:04:32,815 --> 00:04:36,120
+They will also be sent to Amazon industry if you want to,
+
+116
+00:04:36,120 --> 00:04:38,018
+and an EventBridge Event.
+
+117
+00:04:38,018 --> 00:04:40,230
+So in CloudWatch event is going to be generated
+
+118
+00:04:40,230 --> 00:04:42,330
+in case you need to automate on top
+
+119
+00:04:42,330 --> 00:04:45,960
+of these CloudTrail Insights, for example, to send an email.
+
+120
+00:04:45,960 --> 00:04:48,690
+So this is the idea behind CloudTrail Insights.
+
+121
+00:04:48,690 --> 00:04:52,050
+Finally, let's talk about CloudTrail Event Retention.
+
+122
+00:04:52,050 --> 00:04:56,220
+So events by default are stored for 90 days in CloudTrail
+
+123
+00:04:56,220 --> 00:04:58,050
+and then afterwards they're deleted,
+
+124
+00:04:58,050 --> 00:05:00,471
+but sometimes you may want to have events for longer
+
+125
+00:05:00,471 --> 00:05:02,520
+in case you want to go back to something that happened
+
+126
+00:05:02,520 --> 00:05:05,400
+maybe a year ago for audited purposes.
+
+127
+00:05:05,400 --> 00:05:07,560
+And so to keep events beyond this period,
+
+128
+00:05:07,560 --> 00:05:10,440
+what you have to do is that you have to log them to S3.
+
+129
+00:05:10,440 --> 00:05:12,810
+So send them to S3, and then you would use Athena
+
+130
+00:05:12,810 --> 00:05:13,860
+to analyze them.
+
+131
+00:05:13,860 --> 00:05:17,307
+So very simply all your Management Events, your Data Events
+
+132
+00:05:17,307 --> 00:05:20,610
+and your Insights Events are going to go into CloudTrail
+
+133
+00:05:20,610 --> 00:05:22,680
+for 90 days, retention period.
+
+134
+00:05:22,680 --> 00:05:25,770
+And then you would log those into your S3 buckets
+
+135
+00:05:25,770 --> 00:05:27,270
+for long-term retention.
+
+136
+00:05:27,270 --> 00:05:28,770
+And when you're ready to analyze them,
+
+137
+00:05:28,770 --> 00:05:31,260
+you would use the Athena service, which is a serverless
+
+138
+00:05:31,260 --> 00:05:35,040
+service to query data in S3 to find the events
+
+139
+00:05:35,040 --> 00:05:37,740
+Okay
+
+140
+00:05:37,740 --> 00:05:42,000
+I hope you like this lecture, and I will see you in the next lecture.
+

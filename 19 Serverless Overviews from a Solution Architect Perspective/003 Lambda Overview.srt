@@ -1,0 +1,708 @@
+1
+00:00:00,090 --> 00:00:02,610
+Though, what is AWS Lambda
+
+2
+00:00:02,610 --> 00:00:04,770
+and why is it helpful for us?
+
+3
+00:00:04,770 --> 00:00:06,030
+So let's take an example.
+
+4
+00:00:06,030 --> 00:00:08,280
+We are going to start with the Amazon EC2.
+
+5
+00:00:08,280 --> 00:00:10,500
+And Amazon EC2, as we know, there are virtual servers
+
+6
+00:00:10,500 --> 00:00:12,750
+in the cloud, and we have to provision them,
+
+7
+00:00:12,750 --> 00:00:15,240
+so we are limited by the amount of memory
+
+8
+00:00:15,240 --> 00:00:17,220
+and CPU we're going to provision.
+
+9
+00:00:17,220 --> 00:00:18,570
+They have to be continuously running.
+
+10
+00:00:18,570 --> 00:00:20,970
+I mean, we can optimize them by starting them
+
+11
+00:00:20,970 --> 00:00:22,290
+and stopping them efficiently,
+
+12
+00:00:22,290 --> 00:00:23,730
+but otherwise, they run continuously
+
+13
+00:00:23,730 --> 00:00:26,430
+regardless of if something's happening or not
+
+14
+00:00:26,430 --> 00:00:27,630
+on your instance.
+
+15
+00:00:27,630 --> 00:00:30,180
+And if you wanna scale, you can use Auto Scaling groups,
+
+16
+00:00:30,180 --> 00:00:32,400
+but that means that you need to do something
+
+17
+00:00:32,400 --> 00:00:35,790
+to automatically add and remove servers.
+
+18
+00:00:35,790 --> 00:00:37,380
+Now, this is one way of doing things
+
+19
+00:00:37,380 --> 00:00:41,640
+and it has worked great, but then there is AWS Lambda.
+
+20
+00:00:41,640 --> 00:00:43,830
+So with Lambda, these are visual functions,
+
+21
+00:00:43,830 --> 00:00:45,330
+no servers to manage.
+
+22
+00:00:45,330 --> 00:00:47,250
+So that means that we just provision the code
+
+23
+00:00:47,250 --> 00:00:48,810
+and the functions run.
+
+24
+00:00:48,810 --> 00:00:49,800
+It is limited by time.
+
+25
+00:00:49,800 --> 00:00:52,620
+So we're talking about short executions of up to 15 minutes,
+
+26
+00:00:52,620 --> 00:00:55,290
+which is, in my opinion, not that short.
+
+27
+00:00:55,290 --> 00:00:57,780
+And then finally, they run on demand.
+
+28
+00:00:57,780 --> 00:00:59,520
+So that means that when you don't use Lambda,
+
+29
+00:00:59,520 --> 00:01:01,020
+your Lambda function is not running
+
+30
+00:01:01,020 --> 00:01:03,330
+and you only are going to be billed when your function
+
+31
+00:01:03,330 --> 00:01:06,090
+is running and it'll run on demand when it gets invoked,
+
+32
+00:01:06,090 --> 00:01:09,120
+which is a huge shift from Amazon EC2.
+
+33
+00:01:09,120 --> 00:01:11,520
+Finally, the scaling is automated.
+
+34
+00:01:11,520 --> 00:01:14,850
+If you need more Lambda functions occurrences
+
+35
+00:01:14,850 --> 00:01:16,470
+and the concurrency,
+
+36
+00:01:16,470 --> 00:01:18,660
+then automatically, AWS will provision
+
+37
+00:01:18,660 --> 00:01:20,250
+for you more Lambda functions.
+
+38
+00:01:20,250 --> 00:01:21,083
+Magical.
+
+39
+00:01:21,083 --> 00:01:22,260
+We'll see this in the hands-on.
+
+40
+00:01:22,260 --> 00:01:24,780
+So benefits of Lambda, I'm sure you see many.
+
+41
+00:01:24,780 --> 00:01:27,150
+First of all, the pricing is super easy.
+
+42
+00:01:27,150 --> 00:01:28,530
+You're going to pay for the number
+
+43
+00:01:28,530 --> 00:01:31,470
+of requests Lambda receives, so the number of invocations,
+
+44
+00:01:31,470 --> 00:01:32,790
+and your compute time.
+
+45
+00:01:32,790 --> 00:01:34,770
+So how long Lambda was running for.
+
+46
+00:01:34,770 --> 00:01:37,770
+There is a very generous free tier on Lambda,
+
+47
+00:01:37,770 --> 00:01:40,200
+which is 1 million Lambda requests
+
+48
+00:01:40,200 --> 00:01:44,100
+and 400,000 gigabyte seconds of compute time.
+
+49
+00:01:44,100 --> 00:01:47,670
+It is also integrated with so many AWS services
+
+50
+00:01:47,670 --> 00:01:48,810
+as we'll see.
+
+51
+00:01:48,810 --> 00:01:51,150
+We can use a lot of different programming languages
+
+52
+00:01:51,150 --> 00:01:53,250
+on Lambda, so we're quite free.
+
+53
+00:01:53,250 --> 00:01:55,470
+And there is very easy monitoring integrations
+
+54
+00:01:55,470 --> 00:01:56,640
+through CloudWatch.
+
+55
+00:01:56,640 --> 00:01:58,980
+Finally, if you wanted to provision more resources
+
+56
+00:01:58,980 --> 00:02:02,340
+per function, you can provision up to 10 gigabytes
+
+57
+00:02:02,340 --> 00:02:04,593
+of RAM per function, which is a lot.
+
+58
+00:02:06,180 --> 00:02:08,039
+And by the way, you need to know this.
+
+59
+00:02:08,039 --> 00:02:10,440
+If you increase the RAM of your function,
+
+60
+00:02:10,440 --> 00:02:13,200
+then it will also improve the quality
+
+61
+00:02:13,200 --> 00:02:16,650
+and performance of your CPU and network.
+
+62
+00:02:16,650 --> 00:02:20,580
+So AWS Lambda can run many languages such as node.js
+
+63
+00:02:20,580 --> 00:02:25,110
+for JavaScript, Python, Java, C#, so either .NET Core
+
+64
+00:02:25,110 --> 00:02:29,310
+or PowerShell, Ruby, and it supports many other languages
+
+65
+00:02:29,310 --> 00:02:31,350
+through something called the custom runtime API,
+
+66
+00:02:31,350 --> 00:02:32,183
+for example.
+
+67
+00:02:32,183 --> 00:02:35,580
+It supports the Rust or the Golang languages through that.
+
+68
+00:02:35,580 --> 00:02:38,760
+You also have the option to use containers on Lambda.
+
+69
+00:02:38,760 --> 00:02:40,740
+So this is a container image
+
+70
+00:02:40,740 --> 00:02:43,500
+and you must implement what's called the Lambda Runtime API.
+
+71
+00:02:43,500 --> 00:02:46,260
+Now, that maybe too advanced from an exam perspective,
+
+72
+00:02:46,260 --> 00:02:47,460
+but what don't we should remember
+
+73
+00:02:47,460 --> 00:02:50,580
+is that there is a service named ECS or Fargate.
+
+74
+00:02:50,580 --> 00:02:53,760
+And so to run container images, especially Docker images,
+
+75
+00:02:53,760 --> 00:02:56,670
+it is always going to be preferred from an exam perspective
+
+76
+00:02:56,670 --> 00:02:59,490
+to run them on ECS or Fargate versus Lambda,
+
+77
+00:02:59,490 --> 00:03:02,220
+even though Lambda supports running some level
+
+78
+00:03:02,220 --> 00:03:04,890
+of customized Docker images.
+
+79
+00:03:04,890 --> 00:03:06,720
+So you don't need to remember all the languages,
+
+80
+00:03:06,720 --> 00:03:07,800
+of course, from Lambda, but just remember
+
+81
+00:03:07,800 --> 00:03:09,450
+that it has some level of support.
+
+82
+00:03:09,450 --> 00:03:12,450
+The most important ones is going to be, for sure, node.js
+
+83
+00:03:12,450 --> 00:03:13,383
+and Python.
+
+84
+00:03:14,250 --> 00:03:16,260
+Now, I said that Lambda was integrated
+
+85
+00:03:16,260 --> 00:03:19,470
+with so many services, so I'll give you a few
+
+86
+00:03:19,470 --> 00:03:21,870
+and some idea of how they're integrated.
+
+87
+00:03:21,870 --> 00:03:24,990
+And in this course, we will see some of these integrations.
+
+88
+00:03:24,990 --> 00:03:28,860
+So API Gateway is to create a REST API
+
+89
+00:03:28,860 --> 00:03:30,870
+and they will invoke our Lambda functions.
+
+90
+00:03:30,870 --> 00:03:32,220
+Kinesis will be using Lambda
+
+91
+00:03:32,220 --> 00:03:34,770
+to do some data transformations on the fly.
+
+92
+00:03:34,770 --> 00:03:37,320
+DynamoDB will be used to create some triggers.
+
+93
+00:03:37,320 --> 00:03:39,660
+So whenever something happens in our database,
+
+94
+00:03:39,660 --> 00:03:41,310
+a Lambda function will be triggered.
+
+95
+00:03:41,310 --> 00:03:42,143
+Amazon is free.
+
+96
+00:03:42,143 --> 00:03:43,140
+We've seen it already.
+
+97
+00:03:43,140 --> 00:03:45,000
+Lambda function would be triggered anytime,
+
+98
+00:03:45,000 --> 00:03:47,970
+for example, a file is created in S3.
+
+99
+00:03:47,970 --> 00:03:49,980
+CloudFront, this will be Lambda at edge,
+
+100
+00:03:49,980 --> 00:03:52,350
+and I have a lecture dedicated to this in this section.
+
+101
+00:03:52,350 --> 00:03:54,120
+CloudWatch Events or EventBridge.
+
+102
+00:03:54,120 --> 00:03:58,470
+This is whenever things happen in our infrastructure on AWS
+
+103
+00:03:58,470 --> 00:04:00,270
+and we want to be able to react to things.
+
+104
+00:04:00,270 --> 00:04:03,000
+For example, say, we have a code pipeline state changes
+
+105
+00:04:03,000 --> 00:04:05,430
+and we want to do some automations based on it,
+
+106
+00:04:05,430 --> 00:04:07,230
+we can use a Lambda function.
+
+107
+00:04:07,230 --> 00:04:10,140
+CloudWatch Logs to stream these logs wherever you want.
+
+108
+00:04:10,140 --> 00:04:13,560
+SNS to react to notifications in your SNS topics.
+
+109
+00:04:13,560 --> 00:04:16,769
+SQS to process messages from your SQS queues.
+
+110
+00:04:16,769 --> 00:04:21,209
+And finally, Cognito to react to whenever, for example,
+
+111
+00:04:21,209 --> 00:04:23,310
+a user logs in to your database.
+
+112
+00:04:23,310 --> 00:04:25,080
+So these are just the main ones.
+
+113
+00:04:25,080 --> 00:04:27,510
+There are tons of Lambda integrations.
+
+114
+00:04:27,510 --> 00:04:30,360
+And so I wanna show you a very good example here,
+
+115
+00:04:30,360 --> 00:04:33,120
+which is a serverless thumbnail creation.
+
+116
+00:04:33,120 --> 00:04:35,310
+So let's say we have an S3 bucket
+
+117
+00:04:35,310 --> 00:04:38,220
+and we want to create thumbnails on the flight.
+
+118
+00:04:38,220 --> 00:04:40,530
+So there will be an event, which is that the new image
+
+119
+00:04:40,530 --> 00:04:42,810
+will be uploaded in Amazon S3.
+
+120
+00:04:42,810 --> 00:04:46,620
+This will trigger through an S3 event notification,
+
+121
+00:04:46,620 --> 00:04:47,880
+a Lambda function.
+
+122
+00:04:47,880 --> 00:04:49,110
+In that Lambda function,
+
+123
+00:04:49,110 --> 00:04:51,930
+we'll have code to generate a thumbnail.
+
+124
+00:04:51,930 --> 00:04:53,820
+That thumbnail may be pushed
+
+125
+00:04:53,820 --> 00:04:57,600
+and uploaded into another S3 Bucket or the same S3 Bucket,
+
+126
+00:04:57,600 --> 00:05:00,570
+which will be a smaller version of that image.
+
+127
+00:05:00,570 --> 00:05:04,260
+And also, our Lambda function may want to insert some data
+
+128
+00:05:04,260 --> 00:05:07,440
+into DynamoDB around some metadata for the image.
+
+129
+00:05:07,440 --> 00:05:09,750
+For example, the image name, size, creation date,
+
+130
+00:05:09,750 --> 00:05:10,950
+et cetera, et cetera.
+
+131
+00:05:10,950 --> 00:05:13,470
+And so thanks to Lambda, we've automated
+
+132
+00:05:13,470 --> 00:05:17,490
+and had a reactive architecture to the event of new app,
+
+133
+00:05:17,490 --> 00:05:21,060
+new images being created in S3.
+
+134
+00:05:21,060 --> 00:05:23,130
+Another example that's extremely popular
+
+135
+00:05:23,130 --> 00:05:25,140
+is a serverless CRON job.
+
+136
+00:05:25,140 --> 00:05:28,950
+So CRON is a way on your EC2 instances, for example,
+
+137
+00:05:28,950 --> 00:05:31,560
+to generate jobs every five minutes
+
+138
+00:05:31,560 --> 00:05:35,190
+or every Monday at 10:00 AM, et cetera, et cetera.
+
+139
+00:05:35,190 --> 00:05:38,700
+But you need to run CRON on a virtual server,
+
+140
+00:05:38,700 --> 00:05:40,350
+so an EC2 instance and so on.
+
+141
+00:05:40,350 --> 00:05:42,330
+And so while your instance is not running,
+
+142
+00:05:42,330 --> 00:05:43,980
+or at least your CRON's are not doing anything,
+
+143
+00:05:43,980 --> 00:05:46,860
+then your instance time is wasted.
+
+144
+00:05:46,860 --> 00:05:49,740
+And so as such, you can create a CloudWatch Event rule
+
+145
+00:05:49,740 --> 00:05:51,480
+or an EventBridge rule
+
+146
+00:05:51,480 --> 00:05:53,940
+that will be triggered every one hour.
+
+147
+00:05:53,940 --> 00:05:56,460
+And every one hour, it will be integrated
+
+148
+00:05:56,460 --> 00:05:59,250
+with a Lambda function that will perform your task.
+
+149
+00:05:59,250 --> 00:06:01,200
+So this is a way to create a serverless CRON
+
+150
+00:06:01,200 --> 00:06:03,990
+because in this example, CloudWatch Events is serverless
+
+151
+00:06:03,990 --> 00:06:06,660
+and Lambda functions are serverless too.
+
+152
+00:06:06,660 --> 00:06:09,390
+Now, let's take an example at the Lambda pricing.
+
+153
+00:06:09,390 --> 00:06:11,370
+So you can find all the information on this website
+
+154
+00:06:11,370 --> 00:06:13,110
+in case the information here is outdated,
+
+155
+00:06:13,110 --> 00:06:15,090
+but it will give you an example of how that works.
+
+156
+00:06:15,090 --> 00:06:18,360
+So you pay per calls, the first 1 million requests are free,
+
+157
+00:06:18,360 --> 00:06:20,430
+and then you're going to pay 20 cents
+
+158
+00:06:20,430 --> 00:06:22,260
+per extra 1 million requests.
+
+159
+00:06:22,260 --> 00:06:24,780
+So that makes a very, very cheap request.
+
+160
+00:06:24,780 --> 00:06:27,120
+Then you're going to pay per duration in increments
+
+161
+00:06:27,120 --> 00:06:28,650
+of one millisecond.
+
+162
+00:06:28,650 --> 00:06:31,200
+So you get the first 400,000 gigabytes seconds
+
+163
+00:06:31,200 --> 00:06:34,050
+of compute time per month for free.
+
+164
+00:06:34,050 --> 00:06:36,990
+And then what that means, this gigabyte seconds
+
+165
+00:06:36,990 --> 00:06:41,040
+is that it means you get 400,000 seconds of execution
+
+166
+00:06:41,040 --> 00:06:43,680
+if the function has one gigabyte of RAM.
+
+167
+00:06:43,680 --> 00:06:46,230
+That means you get eight times as more seconds
+
+168
+00:06:46,230 --> 00:06:48,300
+if the function has eight times as less RAM,
+
+169
+00:06:48,300 --> 00:06:51,600
+so 128 megabytes of RAM.
+
+170
+00:06:51,600 --> 00:06:53,640
+And after that, you're going to pay $1
+
+171
+00:06:53,640 --> 00:06:55,710
+for 600,000 gigabyte seconds.
+
+172
+00:06:55,710 --> 00:06:57,540
+So to be honest, you can make the math.
+
+173
+00:06:57,540 --> 00:07:01,290
+It's usually very, very cheap to run your code on Lambda.
+
+174
+00:07:01,290 --> 00:07:04,320
+So it's a very popular option to create your applications.
+
+175
+00:07:04,320 --> 00:07:05,153
+So that's it.
+
+176
+00:07:05,153 --> 00:07:05,986
+Now, let's go into the hands-on
+
+177
+00:07:05,986 --> 00:07:08,163
+to get a feeling of how Lambda works.
+

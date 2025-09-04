@@ -1,0 +1,404 @@
+1
+00:00:00,350 --> 00:00:01,370
+So now let's go ahead
+
+2
+00:00:01,370 --> 00:00:04,800
+and create our first records in Route 53.
+
+3
+00:00:04,800 --> 00:00:06,910
+So I'm going to go into my hosted zone,
+
+4
+00:00:06,910 --> 00:00:09,960
+and in there I'm going to create some simple records.
+
+5
+00:00:09,960 --> 00:00:10,793
+So let's have a look.
+
+6
+00:00:10,793 --> 00:00:13,660
+We're going to create a record by clicking on here.
+
+7
+00:00:13,660 --> 00:00:15,990
+And in here, I can just have a record name.
+
+8
+00:00:15,990 --> 00:00:19,720
+So we want it to be test.stephanetheteacher.com.
+
+9
+00:00:19,720 --> 00:00:21,240
+But you can enter anything you want here.
+
+10
+00:00:21,240 --> 00:00:23,730
+This is how you would create your domain names.
+
+11
+00:00:23,730 --> 00:00:25,920
+Now you have to specify the record type.
+
+12
+00:00:25,920 --> 00:00:28,150
+So you can see there's a lot of record types in here,
+
+13
+00:00:28,150 --> 00:00:29,360
+but for now we'll keep it simple.
+
+14
+00:00:29,360 --> 00:00:31,120
+We'll keep it as an A record.
+
+15
+00:00:31,120 --> 00:00:34,000
+And which is to route an IPv4 address
+
+16
+00:00:34,000 --> 00:00:36,870
+into a domain name, to an IPv4 address.
+
+17
+00:00:36,870 --> 00:00:38,530
+So the answer is going to be
+
+18
+00:00:38,530 --> 00:00:42,100
+value is 1, 1, dot, 2, 2, dot, 3, 3, dot, four four.
+
+19
+00:00:42,100 --> 00:00:44,150
+Which is just a value we want to have,
+
+20
+00:00:44,150 --> 00:00:46,760
+and this is not a domain, an IP we own right now,
+
+21
+00:00:46,760 --> 00:00:48,720
+but just to show you just a random value.
+
+22
+00:00:48,720 --> 00:00:52,690
+Later on, we'll be routing to a real institute instance.
+
+23
+00:00:52,690 --> 00:00:53,523
+Okay.
+
+24
+00:00:53,523 --> 00:00:54,356
+TTL is time to live.
+
+25
+00:00:54,356 --> 00:00:55,860
+We'll leave it as 300 seconds right now.
+
+26
+00:00:55,860 --> 00:00:57,220
+And the routing policy will
+
+27
+00:00:57,220 --> 00:00:59,900
+routing policy will have a look at it later on as well.
+
+28
+00:00:59,900 --> 00:01:02,690
+We'll leave everything as simple routing. Okay.
+
+29
+00:01:02,690 --> 00:01:04,739
+So let's go ahead and create this record.
+
+30
+00:01:06,240 --> 00:01:08,920
+And now my record has been successfully created.
+
+31
+00:01:08,920 --> 00:01:12,860
+So the idea is that if I go to test.stephanetheteacher.com,
+
+32
+00:01:12,860 --> 00:01:16,040
+it is going to ask my host zone.
+
+33
+00:01:16,040 --> 00:01:18,060
+What is the value of that? And those isn't going to say,
+
+34
+00:01:18,060 --> 00:01:21,083
+well, the value of it is 1, 1, dot, 2, 2, dot,
+
+35
+00:01:21,083 --> 00:01:22,270
+3, 3, dot, 4, 4.
+
+36
+00:01:22,270 --> 00:01:24,960
+So if you try it to do it with a web browser,
+
+37
+00:01:24,960 --> 00:01:27,440
+so if you take your browser and you open it
+
+38
+00:01:27,440 --> 00:01:28,940
+and you press enter,
+
+39
+00:01:28,940 --> 00:01:30,850
+and it's not going to show you many things,
+
+40
+00:01:30,850 --> 00:01:34,626
+because right now we don't have 11.22.33.44,
+
+41
+00:01:34,626 --> 00:01:38,110
+there's probably no server that exists with that IP as well.
+
+42
+00:01:38,110 --> 00:01:40,510
+And if I try to just access this URL,
+
+43
+00:01:40,510 --> 00:01:42,040
+it doesn't work. Okay.
+
+44
+00:01:42,040 --> 00:01:44,830
+So what we know is what is going on behind the scenes.
+
+45
+00:01:44,830 --> 00:01:46,910
+And so for this, we're going to type some command lines.
+
+46
+00:01:46,910 --> 00:01:48,240
+Now you can be using your command line
+
+47
+00:01:48,240 --> 00:01:50,550
+on your windows laptop, or your Mac,
+
+48
+00:01:50,550 --> 00:01:53,240
+but because I want everyone to follow the same way as me,
+
+49
+00:01:53,240 --> 00:01:54,823
+I'm going to show you how to do it using
+
+50
+00:01:54,823 --> 00:01:57,270
+the CloudTrail environments in AWS.
+
+51
+00:01:57,270 --> 00:01:59,339
+So let me open the management console,
+
+52
+00:01:59,339 --> 00:02:03,020
+and then I'm going to click here to open cloud shell and
+
+53
+00:02:03,020 --> 00:02:06,680
+cloud shell is going to allow me to do some commands using
+
+54
+00:02:06,680 --> 00:02:09,280
+a standard Linux command line interface. Okay.
+
+55
+00:02:09,280 --> 00:02:10,113
+But this is fine,
+
+56
+00:02:10,113 --> 00:02:12,620
+if you want to just do it with your own terminal on windows
+
+57
+00:02:12,620 --> 00:02:13,603
+or on Mac.
+
+58
+00:02:14,480 --> 00:02:16,620
+Okay. So my terminal is not ready.
+
+59
+00:02:16,620 --> 00:02:17,730
+And if you're on windows,
+
+60
+00:02:17,730 --> 00:02:20,400
+the NS lookup command is going to work. If you're on Mac,
+
+61
+00:02:20,400 --> 00:02:22,800
+the dig command is going to work as well.
+
+62
+00:02:22,800 --> 00:02:24,630
+But as you can see, these commands are not found
+
+63
+00:02:24,630 --> 00:02:26,060
+on my cloud shell.
+
+64
+00:02:26,060 --> 00:02:26,970
+So I need you to install them.
+
+65
+00:02:26,970 --> 00:02:30,360
+So I do sudo yum, and then install
+
+66
+00:02:30,360 --> 00:02:32,450
+minus Y and then bind
+
+67
+00:02:32,450 --> 00:02:34,540
+minus utils.
+
+68
+00:02:34,540 --> 00:02:36,680
+And it's going to install both VNS lookup
+
+69
+00:02:36,680 --> 00:02:39,360
+and the dig commands on my cloud shell.
+
+70
+00:02:39,360 --> 00:02:41,160
+So lets clear the screen.
+
+71
+00:02:41,160 --> 00:02:44,190
+And now let's try to do NS lookup,
+
+72
+00:02:44,190 --> 00:02:48,940
+test.stephanietheteacher.com.
+
+73
+00:02:48,940 --> 00:02:51,410
+And as you can see, I get an answer,
+
+74
+00:02:51,410 --> 00:02:54,709
+which is at test.stephanietheteacher.com,
+
+75
+00:02:54,709 --> 00:02:56,580
+is going to 11.22.33.44,
+
+76
+00:02:56,580 --> 00:03:00,380
+which is corresponding to what is happening right here,
+
+77
+00:03:00,380 --> 00:03:01,540
+which is cool.
+
+78
+00:03:01,540 --> 00:03:04,180
+And I presented like the dig command a little bit more
+
+79
+00:03:04,180 --> 00:03:05,700
+because I'm more familiar with it,
+
+80
+00:03:05,700 --> 00:03:08,440
+but if you type dig and then the URL that you have,
+
+81
+00:03:08,440 --> 00:03:09,820
+okay.
+
+82
+00:03:09,820 --> 00:03:11,020
+And press enter,
+
+83
+00:03:11,020 --> 00:03:14,940
+you're going to see that and have the wrong commands.
+
+84
+00:03:14,940 --> 00:03:16,980
+So stefantheteacher.com,
+
+85
+00:03:16,980 --> 00:03:19,780
+so let's clear this screen and then retype the comments.
+
+86
+00:03:19,780 --> 00:03:20,750
+Okay.
+
+87
+00:03:20,750 --> 00:03:21,950
+Well here, we're going to see
+
+88
+00:03:21,950 --> 00:03:24,500
+is that we have the answer section
+
+89
+00:03:24,500 --> 00:03:29,080
+and says, test.stephanetheteacher.com is an a record,
+
+90
+00:03:29,080 --> 00:03:31,660
+and this is the value of the record. So I like it better,
+
+91
+00:03:31,660 --> 00:03:34,400
+better, because it shows you the TTL, as we'll see later on,
+
+92
+00:03:34,400 --> 00:03:36,905
+and also shows you the a record,
+
+93
+00:03:36,905 --> 00:03:39,100
+the fact that isn't a record. Okay.
+
+94
+00:03:39,100 --> 00:03:42,100
+So we have created our first route 53 record,
+
+95
+00:03:42,100 --> 00:03:44,830
+and we have been able to query it using a terminal,
+
+96
+00:03:44,830 --> 00:03:45,680
+which is cool.
+
+97
+00:03:45,680 --> 00:03:49,016
+Obviously loading it from a webpage doesn't work right now,
+
+98
+00:03:49,016 --> 00:03:51,720
+but we'll see how we can do it later on
+
+99
+00:03:51,720 --> 00:03:53,330
+when we have a real server.
+
+100
+00:03:53,330 --> 00:03:54,380
+So I hope you liked this lecture
+
+101
+00:03:54,380 --> 00:03:56,330
+and I will see you in the next lecture.
+

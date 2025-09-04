@@ -1,0 +1,100 @@
+1
+00:00:00,240 --> 00:00:02,310
+Hi, so a very short lecture
+
+2
+00:00:02,310 --> 00:00:04,680
+on an architecture that can come up in the exam.
+
+3
+00:00:04,680 --> 00:00:07,860
+So the idea is that you have your corporate data center
+
+4
+00:00:07,860 --> 00:00:11,100
+and it's connected to your VPC using Direct Connect.
+
+5
+00:00:11,100 --> 00:00:13,140
+And that's your primary connection
+
+6
+00:00:13,140 --> 00:00:15,750
+and it's expensive, but maybe sometimes
+
+7
+00:00:15,750 --> 00:00:18,570
+you will have an issue with your Direct Connect connection,
+
+8
+00:00:18,570 --> 00:00:20,880
+and of course, you do not want to have
+
+9
+00:00:20,880 --> 00:00:24,330
+no internet connection into your VPC.
+
+10
+00:00:24,330 --> 00:00:26,850
+Therefore, you can use a Direct Connect
+
+11
+00:00:26,850 --> 00:00:28,950
+as a secondary connection,
+
+12
+00:00:28,950 --> 00:00:30,990
+but that would be quite expensive.
+
+13
+00:00:30,990 --> 00:00:34,050
+Or you can set up a site to site VPN connection
+
+14
+00:00:34,050 --> 00:00:35,460
+as a backup connection
+
+15
+00:00:35,460 --> 00:00:38,850
+and set it up so that if the primary connection fails,
+
+16
+00:00:38,850 --> 00:00:41,550
+then it kicks in, and now you are connected
+
+17
+00:00:41,550 --> 00:00:44,880
+through the public internet using site to site VPN,
+
+18
+00:00:44,880 --> 00:00:47,100
+which can be a bit more reliable
+
+19
+00:00:47,100 --> 00:00:49,230
+because the internet, public internet,
+
+20
+00:00:49,230 --> 00:00:51,360
+may always be accessible, okay?
+
+21
+00:00:51,360 --> 00:00:53,850
+So this is an architecture that can come up in the exam
+
+22
+00:00:53,850 --> 00:00:55,380
+and I just wanted to show it to you once,
+
+23
+00:00:55,380 --> 00:00:57,030
+so that you know what to expect.
+
+24
+00:00:57,030 --> 00:00:58,650
+Okay, that's it, I hope you liked it,
+
+25
+00:00:58,650 --> 00:01:00,600
+and I will see you in the next lecture.
+

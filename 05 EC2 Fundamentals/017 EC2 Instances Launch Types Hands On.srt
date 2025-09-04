@@ -1,0 +1,904 @@
+1
+00:00:00,060 --> 00:00:00,893
+So let's have a look
+
+2
+00:00:00,893 --> 00:00:03,870
+at all the ways we can launch our EC2 instances,
+
+3
+00:00:03,870 --> 00:00:06,260
+and the first one is using a spot request.
+
+4
+00:00:06,260 --> 00:00:08,520
+On the left hand side, I click on Spot Request
+
+5
+00:00:08,520 --> 00:00:11,400
+and we can have a look at first the pricing history
+
+6
+00:00:11,400 --> 00:00:13,050
+for our EC2 instances.
+
+7
+00:00:13,050 --> 00:00:17,100
+So if we look, for example, at a c3 or a c4.large,
+
+8
+00:00:17,100 --> 00:00:20,160
+for example, you're running Linux/Unix
+
+9
+00:00:20,160 --> 00:00:22,260
+and I'm going to look at three months range,
+
+10
+00:00:22,260 --> 00:00:25,140
+we can see how the price has evolved over time
+
+11
+00:00:25,140 --> 00:00:26,940
+based on April, May, June,
+
+12
+00:00:26,940 --> 00:00:30,780
+and we have the on-demand price as a black bar right here,
+
+13
+00:00:30,780 --> 00:00:34,140
+and then we have, based on the different AZ, the price.
+
+14
+00:00:34,140 --> 00:00:35,280
+And as we can see,
+
+15
+00:00:35,280 --> 00:00:37,650
+well the price has been quite low and quite stable.
+
+16
+00:00:37,650 --> 00:00:40,680
+And based on the different range you're looking at,
+
+17
+00:00:40,680 --> 00:00:44,400
+you're looking at savings of around 69 to 70%
+
+18
+00:00:44,400 --> 00:00:45,600
+for this type of instance.
+
+19
+00:00:45,600 --> 00:00:49,170
+So huge savings if you're using a spot instance
+
+20
+00:00:49,170 --> 00:00:51,120
+of type c4.large.
+
+21
+00:00:51,120 --> 00:00:52,770
+So how do we request a spot instance?
+
+22
+00:00:52,770 --> 00:00:55,980
+Well, we click on Request Spot Instances.
+
+23
+00:00:55,980 --> 00:00:59,460
+So I am in my spot fleet request screen,
+
+24
+00:00:59,460 --> 00:01:01,050
+and there's a lot of parameters that I can see,
+
+25
+00:01:01,050 --> 00:01:02,910
+but I want to go quickly over them
+
+26
+00:01:02,910 --> 00:01:05,280
+just so to get an idea of how spot fleet request works.
+
+27
+00:01:05,280 --> 00:01:07,320
+So you can either use your launch templates
+
+28
+00:01:07,320 --> 00:01:09,240
+or manually configure launch parameters,
+
+29
+00:01:09,240 --> 00:01:11,280
+and you can specify Amazon Linux 2,
+
+30
+00:01:11,280 --> 00:01:12,570
+the key pair you want to use,
+
+31
+00:01:12,570 --> 00:01:15,030
+as well as some additional launch parameters
+
+32
+00:01:15,030 --> 00:01:17,700
+you would specify if you were to create an EC2 instance.
+
+33
+00:01:17,700 --> 00:01:20,610
+So this defines how your EC2 instances are created
+
+34
+00:01:20,610 --> 00:01:21,960
+and this makes sense.
+
+35
+00:01:21,960 --> 00:01:23,430
+Next, we have request details,
+
+36
+00:01:23,430 --> 00:01:25,050
+so we have more settings in here.
+
+37
+00:01:25,050 --> 00:01:27,210
+We can say what's the max price you wanna have,
+
+38
+00:01:27,210 --> 00:01:30,720
+when is the request valid from and valid until,
+
+39
+00:01:30,720 --> 00:01:32,190
+do we want to terminate the instances
+
+40
+00:01:32,190 --> 00:01:34,530
+when the request expires or not,
+
+41
+00:01:34,530 --> 00:01:37,200
+and are we linking these EC2 instances
+
+42
+00:01:37,200 --> 00:01:40,740
+to one or more classic load balancer or a target group
+
+43
+00:01:40,740 --> 00:01:43,350
+to have it, for example, for an application balancer.
+
+44
+00:01:43,350 --> 00:01:45,570
+So we'll use the defaults for this.
+
+45
+00:01:45,570 --> 00:01:47,040
+Then for target capacity,
+
+46
+00:01:47,040 --> 00:01:49,080
+how many instances do we want to have
+
+47
+00:01:49,080 --> 00:01:51,420
+as part of our spot fleets.
+
+48
+00:01:51,420 --> 00:01:54,570
+So we can say, for example, 10 instances, okay.
+
+49
+00:01:54,570 --> 00:01:56,880
+We could also specify it in terms of vCPUs
+
+50
+00:01:56,880 --> 00:01:59,280
+if your unit of compute was more important,
+
+51
+00:01:59,280 --> 00:02:03,960
+or megabytes of memory if RAM was more of your target.
+
+52
+00:02:03,960 --> 00:02:06,510
+So we can say, for example, we want 10 vCPUs,
+
+53
+00:02:06,510 --> 00:02:08,759
+we want to maintain the target capacity
+
+54
+00:02:08,759 --> 00:02:09,930
+and then what happens?
+
+55
+00:02:09,930 --> 00:02:11,760
+Well, in case of interruption,
+
+56
+00:02:11,760 --> 00:02:13,800
+please terminate my instances,
+
+57
+00:02:13,800 --> 00:02:16,260
+but you can also stop them or hibernate them, okay?
+
+58
+00:02:16,260 --> 00:02:19,350
+And you can also rebalance the capacity if need be.
+
+59
+00:02:19,350 --> 00:02:23,400
+So this is just some tweaking around the target capacity.
+
+60
+00:02:23,400 --> 00:02:24,900
+Then for networking settings,
+
+61
+00:02:24,900 --> 00:02:26,670
+so where do you wanna launch them,
+
+62
+00:02:26,670 --> 00:02:30,270
+in specific AZs or not, in a specific VPC or not.
+
+63
+00:02:30,270 --> 00:02:31,860
+Then for the instance type,
+
+64
+00:02:31,860 --> 00:02:34,590
+do we want to have some restrictions,
+
+65
+00:02:34,590 --> 00:02:37,140
+so you can manually select the EC2 instances
+
+66
+00:02:37,140 --> 00:02:39,730
+that are matching some specific criteria
+
+67
+00:02:41,693 --> 00:02:42,630
+for your spot fleet request,
+
+68
+00:02:42,630 --> 00:02:46,050
+for example, c3.large, c4.large, and so on,
+
+69
+00:02:46,050 --> 00:02:49,800
+or you could specify just instance attributes
+
+70
+00:02:49,800 --> 00:02:52,890
+and this can say, hey, how many vCPUs you want, min and max,
+
+71
+00:02:52,890 --> 00:02:54,450
+how much memory you want, min and max,
+
+72
+00:02:54,450 --> 00:02:56,490
+and then other attributes if you wanted to.
+
+73
+00:02:56,490 --> 00:02:58,680
+And then based on what you specify right here
+
+74
+00:02:58,680 --> 00:03:01,890
+is going to give you the matching instance types.
+
+75
+00:03:01,890 --> 00:03:03,780
+And we see the more restrictive you have
+
+76
+00:03:03,780 --> 00:03:05,670
+you are around these parameters,
+
+77
+00:03:05,670 --> 00:03:08,340
+the less instant type matches you're going to have.
+
+78
+00:03:08,340 --> 00:03:10,140
+But the idea is that you want to just launch
+
+79
+00:03:10,140 --> 00:03:13,080
+whatever AWS has in store for you
+
+80
+00:03:13,080 --> 00:03:14,850
+so that you maximize the savings
+
+81
+00:03:14,850 --> 00:03:19,080
+while having some compliance with the restrictions
+
+82
+00:03:19,080 --> 00:03:20,400
+you said before.
+
+83
+00:03:20,400 --> 00:03:22,320
+Then the allocation strategy,
+
+84
+00:03:22,320 --> 00:03:24,210
+so do you want to optimize for capacity
+
+85
+00:03:24,210 --> 00:03:26,370
+so to make sure that you have the right capacity
+
+86
+00:03:26,370 --> 00:03:27,210
+all the time,
+
+87
+00:03:27,210 --> 00:03:28,830
+or do you want to have the lowest price
+
+88
+00:03:28,830 --> 00:03:31,860
+and you're going to get the strongest savings based to that.
+
+89
+00:03:31,860 --> 00:03:34,320
+And then if you had chosen
+
+90
+00:03:34,320 --> 00:03:36,450
+the manually selected instance types here,
+
+91
+00:03:36,450 --> 00:03:38,940
+for example, one, two, three, four,
+
+92
+00:03:38,940 --> 00:03:40,950
+then you could select this option right here
+
+93
+00:03:40,950 --> 00:03:44,010
+to maintain a diverse pool of instances
+
+94
+00:03:44,010 --> 00:03:47,010
+across all the instance types you selected right here.
+
+95
+00:03:47,010 --> 00:03:48,300
+So once you've done it,
+
+96
+00:03:48,300 --> 00:03:51,120
+you get some summary of your fleet request,
+
+97
+00:03:51,120 --> 00:03:52,620
+and whether it's a strong fleet,
+
+98
+00:03:52,620 --> 00:03:55,350
+how many instances match and so on in which AZ.
+
+99
+00:03:55,350 --> 00:03:58,080
+And then it gives you the estimated hourly price
+
+100
+00:03:58,080 --> 00:03:58,913
+for this fleet,
+
+101
+00:03:58,913 --> 00:04:02,310
+so 0.156 per hour at target capacity,
+
+102
+00:04:02,310 --> 00:04:04,830
+which is going to give me a 73% savings
+
+103
+00:04:04,830 --> 00:04:06,150
+compared to on-demand.
+
+104
+00:04:06,150 --> 00:04:08,310
+So no need to know exactly how these work, okay,
+
+105
+00:04:08,310 --> 00:04:10,650
+but just you can see all the parameters you can have
+
+106
+00:04:10,650 --> 00:04:12,513
+to do a spot fleet request.
+
+107
+00:04:13,410 --> 00:04:16,709
+If you want to launch a spot instance directly,
+
+108
+00:04:16,709 --> 00:04:19,529
+just go to Instances and then Launch an instance,
+
+109
+00:04:19,529 --> 00:04:21,990
+and in there, you can scroll down
+
+110
+00:04:21,990 --> 00:04:26,790
+and you will find under the Advanced details,
+
+111
+00:04:26,790 --> 00:04:29,940
+the option to request a spot instance.
+
+112
+00:04:29,940 --> 00:04:32,820
+So should you do so, then you are requesting spot instances
+
+113
+00:04:32,820 --> 00:04:35,910
+and by default, the request of the spot price
+
+114
+00:04:35,910 --> 00:04:38,580
+is capped at the on-demand price,
+
+115
+00:04:38,580 --> 00:04:40,560
+which is quite good, but you can customize this.
+
+116
+00:04:40,560 --> 00:04:43,620
+So you can, for example, enter your own maximum price
+
+117
+00:04:43,620 --> 00:04:46,200
+if you wanted to, per instance, per hour,
+
+118
+00:04:46,200 --> 00:04:48,930
+then you can choose the type of request you want.
+
+119
+00:04:48,930 --> 00:04:50,760
+So by default, it is a one-time request.
+
+120
+00:04:50,760 --> 00:04:54,210
+That means that whenever you request a spot instance
+
+121
+00:04:54,210 --> 00:04:55,890
+in case it gets reclaimed,
+
+122
+00:04:55,890 --> 00:04:58,440
+it will automatically be terminated,
+
+123
+00:04:58,440 --> 00:05:01,800
+this is the only correct interruption behavior,
+
+124
+00:05:01,800 --> 00:05:04,680
+or you can choose a persistent type of request.
+
+125
+00:05:04,680 --> 00:05:07,320
+In that case, then the spot instance
+
+126
+00:05:07,320 --> 00:05:08,910
+will keep on coming back
+
+127
+00:05:08,910 --> 00:05:11,790
+when the price requirements are set.
+
+128
+00:05:11,790 --> 00:05:15,030
+In that case, you have to set a validity of your request.
+
+129
+00:05:15,030 --> 00:05:17,700
+You say, okay, this request is persistent
+
+130
+00:05:17,700 --> 00:05:21,810
+until a date or just no expiry,
+
+131
+00:05:21,810 --> 00:05:25,320
+as well as what happens in case the price goes over
+
+132
+00:05:25,320 --> 00:05:26,760
+the maximum price you have.
+
+133
+00:05:26,760 --> 00:05:28,950
+In that case, you have an interruption behavior
+
+134
+00:05:28,950 --> 00:05:32,190
+of either hibernate or stop.
+
+135
+00:05:32,190 --> 00:05:34,170
+And finally you see here, block duration.
+
+136
+00:05:34,170 --> 00:05:37,050
+This is going away on December 22nd,
+
+137
+00:05:37,050 --> 00:05:39,300
+on December 31st of 2022,
+
+138
+00:05:39,300 --> 00:05:40,830
+so I'm not describing it to you right now.
+
+139
+00:05:40,830 --> 00:05:42,930
+This is a outdated feature
+
+140
+00:05:42,930 --> 00:05:46,053
+that you may not even see on your account right now.
+
+141
+00:05:47,280 --> 00:05:48,210
+Next, let's have a look
+
+142
+00:05:48,210 --> 00:05:50,640
+at all the other options available to us.
+
+143
+00:05:50,640 --> 00:05:52,950
+So we have reserved instances
+
+144
+00:05:52,950 --> 00:05:55,260
+and reserved instances allows us to purchase
+
+145
+00:05:55,260 --> 00:05:57,810
+a specific reserve instance of a specific type.
+
+146
+00:05:57,810 --> 00:06:01,530
+For example, we can look for a c5.large
+
+147
+00:06:01,530 --> 00:06:03,780
+and we can do a search of all the offerings.
+
+148
+00:06:03,780 --> 00:06:04,710
+And as we can see,
+
+149
+00:06:04,710 --> 00:06:06,510
+we have different offerings available to us.
+
+150
+00:06:06,510 --> 00:06:09,930
+For example, we have a 12-months or a 13-months term
+
+151
+00:06:09,930 --> 00:06:11,190
+and it could be a standard
+
+152
+00:06:11,190 --> 00:06:13,110
+or a convertible type of instance,
+
+153
+00:06:13,110 --> 00:06:14,730
+and this is all upfront,
+
+154
+00:06:14,730 --> 00:06:15,780
+but we scroll down,
+
+155
+00:06:15,780 --> 00:06:17,280
+we can get so all upfront,
+
+156
+00:06:17,280 --> 00:06:18,900
+we can get no upfront,
+
+157
+00:06:18,900 --> 00:06:20,700
+we can get partial upfront.
+
+158
+00:06:20,700 --> 00:06:21,630
+We say how many you want,
+
+159
+00:06:21,630 --> 00:06:23,640
+for example, we want two of these,
+
+160
+00:06:23,640 --> 00:06:26,160
+so I'll just have the number two in here.
+
+161
+00:06:26,160 --> 00:06:27,930
+And then on the right hand side,
+
+162
+00:06:27,930 --> 00:06:29,880
+you can just click on Add to carts
+
+163
+00:06:29,880 --> 00:06:32,220
+to add this reserved instance to your carts.
+
+164
+00:06:32,220 --> 00:06:33,300
+If you click on View carts,
+
+165
+00:06:33,300 --> 00:06:34,260
+you can have a look
+
+166
+00:06:34,260 --> 00:06:37,050
+at what type of reserved instance do you want
+
+167
+00:06:37,050 --> 00:06:39,090
+and then we can order all.
+
+168
+00:06:39,090 --> 00:06:41,190
+But if you click on that, you will pay a lot of money,
+
+169
+00:06:41,190 --> 00:06:43,140
+so I would suggest not to do this.
+
+170
+00:06:43,140 --> 00:06:45,240
+As we can see, reserved instances,
+
+171
+00:06:45,240 --> 00:06:47,370
+I think, will soon go away
+
+172
+00:06:47,370 --> 00:06:49,710
+because now the AWS Savings Plans,
+
+173
+00:06:49,710 --> 00:06:51,330
+maybe something that's easier to use,
+
+174
+00:06:51,330 --> 00:06:53,820
+and so this is why it's recommended to use the savings plan.
+
+175
+00:06:53,820 --> 00:06:57,750
+So the Savings Plan is available here on the left hand side,
+
+176
+00:06:57,750 --> 00:06:59,970
+which is allow you to dedicate
+
+177
+00:06:59,970 --> 00:07:02,910
+a specific amount of dollar per hour you spend
+
+178
+00:07:02,910 --> 00:07:05,010
+on a one, two, three-year term
+
+179
+00:07:05,010 --> 00:07:06,300
+and gives you flexibility
+
+180
+00:07:06,300 --> 00:07:08,700
+of how you want to launch your instance.
+
+181
+00:07:08,700 --> 00:07:10,680
+It gives you flexibility in terms of instance type,
+
+182
+00:07:10,680 --> 00:07:12,330
+AZs, and so on.
+
+183
+00:07:12,330 --> 00:07:14,970
+So we'll go now, go over it, but it gives you the option.
+
+184
+00:07:14,970 --> 00:07:16,560
+Next, we have dedicated hosts.
+
+185
+00:07:16,560 --> 00:07:19,530
+So dedicated host is for you to launch a host
+
+186
+00:07:19,530 --> 00:07:23,370
+that you get access to a lower level kind of hardware,
+
+187
+00:07:23,370 --> 00:07:25,890
+which gives you better licensing pricing,
+
+188
+00:07:25,890 --> 00:07:28,230
+which is why if you click on this,
+
+189
+00:07:28,230 --> 00:07:30,270
+it will direct you to a license manager,
+
+190
+00:07:30,270 --> 00:07:33,360
+which is a way to think in terms of licenses
+
+191
+00:07:33,360 --> 00:07:35,190
+and not think in terms of host,
+
+192
+00:07:35,190 --> 00:07:37,530
+and in which case, it's going to simplify the management
+
+193
+00:07:37,530 --> 00:07:38,730
+of your dedicated host.
+
+194
+00:07:38,730 --> 00:07:40,950
+But if you wanted to launch a dedicated host directly
+
+195
+00:07:40,950 --> 00:07:41,970
+from this UI,
+
+196
+00:07:41,970 --> 00:07:44,550
+you click on Allocate Dedicated Host,
+
+197
+00:07:44,550 --> 00:07:45,840
+then you would name it,
+
+198
+00:07:45,840 --> 00:07:49,170
+you would specify the instance family, for example, c5,
+
+199
+00:07:49,170 --> 00:07:50,883
+you would specify an AZ.
+
+200
+00:07:51,780 --> 00:07:53,490
+So on this dedicated host of the c5,
+
+201
+00:07:53,490 --> 00:07:56,010
+we can launch multiple instance types
+
+202
+00:07:56,010 --> 00:07:58,470
+and then a bunch of settings as you go,
+
+203
+00:07:58,470 --> 00:07:59,520
+and then you click on Allocates
+
+204
+00:07:59,520 --> 00:08:00,750
+and you will have a dedicated host.
+
+205
+00:08:00,750 --> 00:08:02,070
+But again, I will not do this
+
+206
+00:08:02,070 --> 00:08:04,470
+because this will cost you a lot of money.
+
+207
+00:08:04,470 --> 00:08:06,300
+Finally, for capacity reservations,
+
+208
+00:08:06,300 --> 00:08:10,170
+this is when you want to ensure that capacity is available
+
+209
+00:08:10,170 --> 00:08:13,500
+within your EC2 instance launch.
+
+210
+00:08:13,500 --> 00:08:14,617
+So for example, we're saying,
+
+211
+00:08:14,617 --> 00:08:19,170
+"Hey, I want to make sure that I have enough m5.2xlarge
+
+212
+00:08:19,170 --> 00:08:20,190
+available to me,"
+
+213
+00:08:20,190 --> 00:08:22,590
+so I want them to be in eu-central-1,
+
+214
+00:08:22,590 --> 00:08:27,590
+and I want them to have four EC2 instance type
+
+215
+00:08:27,600 --> 00:08:30,780
+m5.2xlarge available to me no matter what, okay?
+
+216
+00:08:30,780 --> 00:08:33,090
+And then you can say, when the reservation ends,
+
+217
+00:08:33,090 --> 00:08:35,190
+is it manually on a specific time,
+
+218
+00:08:35,190 --> 00:08:36,360
+and then this will guarantee
+
+219
+00:08:36,360 --> 00:08:38,580
+that the instances will be available to you,
+
+220
+00:08:38,580 --> 00:08:41,789
+but you will have to pay for this reservation regardless
+
+221
+00:08:41,789 --> 00:08:44,310
+whether or not you are launching your instances in it.
+
+222
+00:08:44,310 --> 00:08:45,143
+Okay?
+
+223
+00:08:45,143 --> 00:08:47,550
+So that's it for this lecture.
+
+224
+00:08:47,550 --> 00:08:50,340
+We've seen all the ways to launch your EC2 instance types.
+
+225
+00:08:50,340 --> 00:08:51,173
+I hope you liked it,
+
+226
+00:08:51,173 --> 00:08:53,040
+and I will see you in the next lecture.
+

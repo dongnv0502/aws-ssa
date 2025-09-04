@@ -1,0 +1,584 @@
+1
+00:00:00,400 --> 00:00:01,260
+So let's go ahead,
+
+2
+00:00:01,260 --> 00:00:03,670
+and practice using VPC endpoints.
+
+3
+00:00:03,670 --> 00:00:05,710
+First what I wanna show you is that,
+
+4
+00:00:05,710 --> 00:00:08,160
+and I'm going to stop this default VPCs instance,
+
+5
+00:00:08,160 --> 00:00:09,350
+'cause we don't really need it.
+
+6
+00:00:09,350 --> 00:00:12,460
+So I'm going to terminate that instance, and yes, be done.
+
+7
+00:00:12,460 --> 00:00:14,100
+So if we go into our bastion host,
+
+8
+00:00:14,100 --> 00:00:15,340
+which is also a public instance,
+
+9
+00:00:15,340 --> 00:00:16,873
+we're going to connect to it.
+
+10
+00:00:16,873 --> 00:00:19,580
+And then from this EC2 instance,
+
+11
+00:00:19,580 --> 00:00:22,330
+I'm going to connect into my private EC2 instance,
+
+12
+00:00:22,330 --> 00:00:25,270
+so again, this is the IP of my private EC2 instance,
+
+13
+00:00:25,270 --> 00:00:26,940
+that we have here, so what we can do,
+
+14
+00:00:26,940 --> 00:00:28,560
+is do the SSH command from within,
+
+15
+00:00:28,560 --> 00:00:33,560
+so EC2 user at the IP, minus i demoKeyPair.pm.
+
+16
+00:00:33,620 --> 00:00:34,930
+Okay, let's clear this.
+
+17
+00:00:34,930 --> 00:00:38,210
+So now we want to access the S3, okay?
+
+18
+00:00:38,210 --> 00:00:40,270
+So to access S3, what we need to do,
+
+19
+00:00:40,270 --> 00:00:42,310
+is to create a role for this instance.
+
+20
+00:00:42,310 --> 00:00:44,730
+Okay, so we're going to go under security,
+
+21
+00:00:44,730 --> 00:00:46,490
+there's no IM role attached right now.
+
+22
+00:00:46,490 --> 00:00:48,180
+So what I have to do is to right click,
+
+23
+00:00:48,180 --> 00:00:50,660
+and then I will go into security,
+
+24
+00:00:50,660 --> 00:00:52,960
+and then modify the IM role.
+
+25
+00:00:52,960 --> 00:00:54,230
+We need to create a new role,
+
+26
+00:00:54,230 --> 00:00:56,380
+and I will just create a quick role for EC2 instances,
+
+27
+00:00:56,380 --> 00:00:59,683
+so, let's create a role.
+
+28
+00:01:01,250 --> 00:01:05,440
+And this is for EC2 instances, next, permissions.
+
+29
+00:01:05,440 --> 00:01:07,810
+And then for the policy that we have,
+
+30
+00:01:07,810 --> 00:01:12,520
+we'll use the Amazon S3 read only access, okay?
+
+31
+00:01:12,520 --> 00:01:15,030
+Tags, review, and then I'll call it
+
+32
+00:01:15,030 --> 00:01:17,447
+DemoRoleEC2-S3ReadOnly, okay.
+
+33
+00:01:23,660 --> 00:01:28,010
+Create role, and it has been created.
+
+34
+00:01:28,010 --> 00:01:30,020
+So now back in it, I can refresh this page,
+
+35
+00:01:30,020 --> 00:01:33,263
+and look at this demo role EC2 S3 read only, and save it.
+
+36
+00:01:34,153 --> 00:01:38,070
+So invalid instance, I am providing, so here we go,
+
+37
+00:01:38,070 --> 00:01:41,470
+it was just a little lag that we needed to wait for.
+
+38
+00:01:41,470 --> 00:01:44,530
+Okay, so my private instance now as an IM role
+
+39
+00:01:44,530 --> 00:01:46,940
+attached to it, so if I go back into here,
+
+40
+00:01:46,940 --> 00:01:49,723
+and do AWS S3 LS.
+
+41
+00:01:51,170 --> 00:01:54,423
+As we can see, we get the answer of our four buckets,
+
+42
+00:01:55,900 --> 00:01:59,460
+of our accounts.
+
+43
+00:01:59,460 --> 00:02:01,180
+So our instance is connected to the internet,
+
+44
+00:02:01,180 --> 00:02:03,996
+and again, we can do curl google.com.
+
+45
+00:02:03,996 --> 00:02:05,410
+And again, we get an answer, okay?
+
+46
+00:02:05,410 --> 00:02:08,370
+So this is working, but now what I'm going to do,
+
+47
+00:02:08,370 --> 00:02:12,661
+is under the route table of my private subnets,
+
+48
+00:02:12,661 --> 00:02:14,150
+I'm going to edit the routes,
+
+49
+00:02:14,150 --> 00:02:16,370
+and this one that was connecting to the internet
+
+50
+00:02:16,370 --> 00:02:19,200
+through the NAT gateway, I'm going to remove it.
+
+51
+00:02:19,200 --> 00:02:20,750
+So effectively what I'm going to do,
+
+52
+00:02:20,750 --> 00:02:21,830
+what I'm doing right now,
+
+53
+00:02:21,830 --> 00:02:25,339
+is that I'm preventing this instance right here,
+
+54
+00:02:25,339 --> 00:02:26,770
+to access the internet.
+
+55
+00:02:26,770 --> 00:02:30,261
+So if we do S3 LS, this is not working,
+
+56
+00:02:30,261 --> 00:02:33,610
+and if we do curl google.com, this is not working either,
+
+57
+00:02:33,610 --> 00:02:36,620
+so we've removed internet access from this EC2 instance,
+
+58
+00:02:36,620 --> 00:02:39,640
+because we want to connect to Amazon S3 privately,
+
+59
+00:02:39,640 --> 00:02:41,290
+through a VPC endpoint.
+
+60
+00:02:41,290 --> 00:02:43,890
+So let's go ahead and create a VPC endpoint,
+
+61
+00:02:43,890 --> 00:02:47,130
+so I will click on endpoints, not endpoint services,
+
+62
+00:02:47,130 --> 00:02:49,780
+and then click on create endpoint.
+
+63
+00:02:49,780 --> 00:02:53,390
+And here I can choose the type of endpoint I want.
+
+64
+00:02:53,390 --> 00:02:55,990
+So I want an end point for an AWS service,
+
+65
+00:02:55,990 --> 00:02:58,036
+and then we have a list of all the services,
+
+66
+00:02:58,036 --> 00:03:00,170
+and the type of VPC endpoint we have.
+
+67
+00:03:00,170 --> 00:03:03,339
+So we have either an interface type of endpoint,
+
+68
+00:03:03,339 --> 00:03:06,660
+or if I type, for example, dynamodb in here,
+
+69
+00:03:06,660 --> 00:03:09,530
+it is a gateway type of endpoint.
+
+70
+00:03:09,530 --> 00:03:12,640
+So if we take a interface type of endpoint,
+
+71
+00:03:12,640 --> 00:03:14,330
+I'll just take the first one I see.
+
+72
+00:03:14,330 --> 00:03:16,030
+What I have to do is select a VPC
+
+73
+00:03:16,030 --> 00:03:19,150
+in which this endpoint will be deployed.
+
+74
+00:03:19,150 --> 00:03:22,320
+Then we need to make sure that DNS name is enabled,
+
+75
+00:03:22,320 --> 00:03:24,730
+and for this we need to modify some VPC settings
+
+76
+00:03:24,730 --> 00:03:27,500
+regarding DNS, but we have done that from before.
+
+77
+00:03:27,500 --> 00:03:31,690
+And then we specify in which AZ will this endpoint
+
+78
+00:03:31,690 --> 00:03:33,740
+be deployed, this interface endpoint be deployed.
+
+79
+00:03:33,740 --> 00:03:36,340
+So you can say in these two subnets,
+
+80
+00:03:36,340 --> 00:03:37,620
+because we're not with the third subnet,
+
+81
+00:03:37,620 --> 00:03:42,070
+because we didn't create a subnet for this, for the last AZ.
+
+82
+00:03:42,070 --> 00:03:44,960
+But anyway, you choose the end points you want,
+
+83
+00:03:44,960 --> 00:03:47,430
+you choose the associated subnet ID with it,
+
+84
+00:03:47,430 --> 00:03:51,070
+for example, it is going to be in private subnet A,
+
+85
+00:03:51,070 --> 00:03:54,920
+and then private subnet B, of IPv4.
+
+86
+00:03:54,920 --> 00:03:56,820
+And then you select a security group
+
+87
+00:03:56,820 --> 00:03:59,010
+to attach to this endpoint,
+
+88
+00:03:59,010 --> 00:04:02,260
+and this will define the security of how this endpoint
+
+89
+00:04:02,260 --> 00:04:06,950
+is accessed from your other type of instances, okay?
+
+90
+00:04:06,950 --> 00:04:09,300
+So the other option, instead of creating
+
+91
+00:04:09,300 --> 00:04:12,003
+an interface endpoint, is to create a gateway endpoint.
+
+92
+00:04:12,003 --> 00:04:14,740
+And for this we'll use Amazon S3.
+
+93
+00:04:14,740 --> 00:04:17,113
+So as we can see, we have different kinds of endpoints,
+
+94
+00:04:17,113 --> 00:04:18,990
+we have a gateway and interface,
+
+95
+00:04:18,990 --> 00:04:21,339
+but to go through this example,
+
+96
+00:04:21,339 --> 00:04:23,760
+the most common is going to be a gateway endpoint
+
+97
+00:04:23,760 --> 00:04:25,160
+into Amazon S3.
+
+98
+00:04:25,160 --> 00:04:27,193
+In which case we have to choose a VPC,
+
+99
+00:04:27,193 --> 00:04:31,770
+the demo VPC, we have to choose then to update route table.
+
+100
+00:04:31,770 --> 00:04:33,550
+And so therefore we're going to update
+
+101
+00:04:33,550 --> 00:04:36,820
+the private route table, so that any request
+
+102
+00:04:36,820 --> 00:04:41,820
+made within my private subnet in this route table,
+
+103
+00:04:41,890 --> 00:04:44,073
+is going to be routed to this gateway endpoint.
+
+104
+00:04:44,073 --> 00:04:47,780
+So we'll use full access for this gateway endpoint,
+
+105
+00:04:47,780 --> 00:04:50,380
+and then click on create endpoint.
+
+106
+00:04:50,380 --> 00:04:52,330
+So the endpoint has been created,
+
+107
+00:04:52,330 --> 00:04:53,400
+and if you look at route tables,
+
+108
+00:04:53,400 --> 00:04:54,720
+we can see that it is associated
+
+109
+00:04:54,720 --> 00:04:56,437
+with my private route table.
+
+110
+00:04:56,437 --> 00:04:59,510
+So we can verify that by going into the route tables,
+
+111
+00:04:59,510 --> 00:05:01,290
+in my private route table,
+
+112
+00:05:01,290 --> 00:05:02,920
+look at the routes and then edit them.
+
+113
+00:05:02,920 --> 00:05:04,930
+As we can see we have this route right here
+
+114
+00:05:04,930 --> 00:05:08,240
+that get added directly, and that means that some traffic
+
+115
+00:05:08,240 --> 00:05:12,061
+is going to go directly into my VPC endpoint.
+
+116
+00:05:12,061 --> 00:05:13,700
+So we're good to go, and we cannot delete it,
+
+117
+00:05:13,700 --> 00:05:17,050
+because it's actually linked to the endpoint itself.
+
+118
+00:05:17,050 --> 00:05:18,150
+And so now this is done,
+
+119
+00:05:18,150 --> 00:05:21,380
+let's have a look at our bastion instance,
+
+120
+00:05:21,380 --> 00:05:22,860
+and see if things work.
+
+121
+00:05:22,860 --> 00:05:26,360
+So if I do curl and right now this is not working,
+
+122
+00:05:26,360 --> 00:05:29,420
+I got disconnected, so let's go back into it,
+
+123
+00:05:29,420 --> 00:05:32,053
+by going through the bastion host.
+
+124
+00:05:35,250 --> 00:05:39,380
+then we SSH again, so we use the demo key pair,
+
+125
+00:05:39,380 --> 00:05:44,380
+and then we add in the IP of our private instance,
+
+126
+00:05:46,450 --> 00:05:47,703
+which is right here.
+
+127
+00:05:49,870 --> 00:05:53,775
+Okay, now if you do curl google.com,
+
+128
+00:05:53,775 --> 00:05:55,470
+as we can see, it still does not work,
+
+129
+00:05:55,470 --> 00:05:58,140
+because we still have a route out to the internet.
+
+130
+00:05:58,140 --> 00:06:02,950
+And if you do AWS S3 LS, it doesn't work either.
+
+131
+00:06:02,950 --> 00:06:04,690
+And you may say, but we have a gateway endpoint,
+
+132
+00:06:04,690 --> 00:06:05,760
+so it should work.
+
+133
+00:06:05,760 --> 00:06:08,477
+Yes, actually this is because of a CLI problem.
+
+134
+00:06:08,477 --> 00:06:10,730
+So what you have to do is that by default,
+
+135
+00:06:10,730 --> 00:06:13,630
+the region of the CLI will be US East one,
+
+136
+00:06:13,630 --> 00:06:14,892
+and so we need to edit it,
+
+137
+00:06:14,892 --> 00:06:17,695
+and for this, we're gonna do AWS S3 LS,
+
+138
+00:06:17,695 --> 00:06:20,120
+and then region is EU central one,
+
+139
+00:06:20,120 --> 00:06:22,760
+or whatever region you are in when you do this hands on.
+
+140
+00:06:22,760 --> 00:06:24,470
+Press center, and as you can see now,
+
+141
+00:06:24,470 --> 00:06:28,780
+this traffic is redirected to the VPC endpoint of my region,
+
+142
+00:06:28,780 --> 00:06:31,876
+and therefore I have the list of all the buckets
+
+143
+00:06:31,876 --> 00:06:34,290
+on Amazon S3, even though my instance
+
+144
+00:06:34,290 --> 00:06:35,900
+does not have internet access.
+
+145
+00:06:35,900 --> 00:06:37,680
+So this is the whole power of VPC endpoints,
+
+146
+00:06:37,680 --> 00:06:40,680
+I hope you liked it, and I will see you in the next lecture.
+

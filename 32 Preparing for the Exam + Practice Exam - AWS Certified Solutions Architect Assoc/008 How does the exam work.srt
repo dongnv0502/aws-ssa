@@ -1,0 +1,168 @@
+1
+00:00:00,270 --> 00:00:01,710
+So a common question I get
+
+2
+00:00:01,710 --> 00:00:03,240
+is how will the exam work?
+
+3
+00:00:03,240 --> 00:00:05,760
+So first you register online, as I showed you.
+
+4
+00:00:05,760 --> 00:00:09,090
+Then you pay $150 to sign up for the exam.
+
+5
+00:00:09,090 --> 00:00:12,030
+Then you provide one identity document on the day.
+
+6
+00:00:12,030 --> 00:00:13,590
+So it could be your ID, your passport,
+
+7
+00:00:13,590 --> 00:00:15,510
+and all the details are in the email
+
+8
+00:00:15,510 --> 00:00:18,570
+that will be sent to you after you register for the exam.
+
+9
+00:00:18,570 --> 00:00:19,620
+You cannot take any notes.
+
+10
+00:00:19,620 --> 00:00:20,850
+You cannot use a pen.
+
+11
+00:00:20,850 --> 00:00:21,720
+You cannot speak.
+
+12
+00:00:21,720 --> 00:00:24,570
+And if you're at home, you will have to scan your room
+
+13
+00:00:24,570 --> 00:00:26,700
+to make sure it's fully empty.
+
+14
+00:00:26,700 --> 00:00:31,080
+Then we have 65 questions that will be asked in 130 minutes.
+
+15
+00:00:31,080 --> 00:00:33,960
+And in case you're not sure about a specific question,
+
+16
+00:00:33,960 --> 00:00:36,330
+you can use the flag feature
+
+17
+00:00:36,330 --> 00:00:39,690
+to optionally mark the question with the flag.
+
+18
+00:00:39,690 --> 00:00:40,710
+And at the end
+
+19
+00:00:40,710 --> 00:00:43,170
+when you can review all the questions and answer,
+
+20
+00:00:43,170 --> 00:00:45,990
+you can directly go back to the ones where you put a flag
+
+21
+00:00:45,990 --> 00:00:49,950
+to maybe answer it in a better way or verify your answer.
+
+22
+00:00:49,950 --> 00:00:51,480
+Once you submit the exam,
+
+23
+00:00:51,480 --> 00:00:53,730
+you cannot change any of your responses.
+
+24
+00:00:53,730 --> 00:00:54,563
+And to pass,
+
+25
+00:00:54,563 --> 00:00:59,190
+you will need a score of at least 720 out of 1000
+
+26
+00:00:59,190 --> 00:01:01,440
+and you will know within five days
+
+27
+00:01:01,440 --> 00:01:04,230
+if you passed or failed your exam.
+
+28
+00:01:04,230 --> 00:01:06,360
+Most of the time, it's going to be less than five days
+
+29
+00:01:06,360 --> 00:01:08,160
+but it's not immediate.
+
+30
+00:01:08,160 --> 00:01:11,310
+You will know the overall score as well, a few days later.
+
+31
+00:01:11,310 --> 00:01:13,193
+So you'll receive an email notification
+
+32
+00:01:13,193 --> 00:01:14,940
+telling you your score
+
+33
+00:01:14,940 --> 00:01:18,300
+to be downloaded on the certification website.
+
+34
+00:01:18,300 --> 00:01:21,090
+You will never know which answers were right or wrong.
+
+35
+00:01:21,090 --> 00:01:23,310
+This is so that people don't cheat.
+
+36
+00:01:23,310 --> 00:01:28,260
+And if you fail, you can take the exam again 14 days later.
+
+37
+00:01:28,260 --> 00:01:30,450
+So that's it, I wish you good luck for your exam
+
+38
+00:01:30,450 --> 00:01:32,400
+but I know you've prepared very hard.
+
+39
+00:01:32,400 --> 00:01:34,260
+Make sure to practice, practice, practice,
+
+40
+00:01:34,260 --> 00:01:36,780
+and revisit the lectures in this course
+
+41
+00:01:36,780 --> 00:01:38,250
+where you have some doubts.
+
+42
+00:01:38,250 --> 00:01:40,563
+That's it, I will see you in the next lecture.
+

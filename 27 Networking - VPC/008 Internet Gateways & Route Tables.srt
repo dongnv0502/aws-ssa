@@ -1,0 +1,132 @@
+1
+00:00:00,010 --> 00:00:02,790
+Okay so now we're going to see how we can get
+
+2
+00:00:02,790 --> 00:00:04,240
+internet access into our subnets
+
+3
+00:00:04,240 --> 00:00:06,840
+because right now we don't know what a Public Subnet is
+
+4
+00:00:06,840 --> 00:00:08,680
+and what a Private Subnet is, and currently,
+
+5
+00:00:08,680 --> 00:00:11,030
+both our subnets do not have internet access.
+
+6
+00:00:11,030 --> 00:00:13,380
+So an Internet Gateway will allow resources
+
+7
+00:00:13,380 --> 00:00:15,330
+in a VPC to connect to the internet,
+
+8
+00:00:15,330 --> 00:00:17,564
+and it could be EC2 instances allowing the functions
+
+9
+00:00:17,564 --> 00:00:18,397
+and so on.
+
+10
+00:00:18,397 --> 00:00:19,580
+It will scale horizontally
+
+11
+00:00:19,580 --> 00:00:21,610
+and it's highly available and redundant.
+
+12
+00:00:21,610 --> 00:00:24,570
+So it's a really nice managed resource
+
+13
+00:00:24,570 --> 00:00:27,550
+and it must be created separately from a VPC.
+
+14
+00:00:27,550 --> 00:00:30,310
+Now one VPC can only be attached to one Internet Gateway
+
+15
+00:00:30,310 --> 00:00:33,270
+and vice versa and Internet Gateways on their own
+
+16
+00:00:33,270 --> 00:00:35,110
+do not allow internet access.
+
+17
+00:00:35,110 --> 00:00:37,860
+We must also edit the Route Tables to make it work.
+
+18
+00:00:37,860 --> 00:00:38,880
+So we'll see this in a second.
+
+19
+00:00:38,880 --> 00:00:40,740
+So currently we have a VPC.
+
+20
+00:00:40,740 --> 00:00:42,470
+We have two subnets in one EC,
+
+21
+00:00:42,470 --> 00:00:44,270
+so I didn't represent the other two subnets
+
+22
+00:00:44,270 --> 00:00:46,560
+to make this diagram as simple as possible.
+
+23
+00:00:46,560 --> 00:00:49,200
+We're going to create an Internet Gateway in this VPC,
+
+24
+00:00:49,200 --> 00:00:52,250
+and this enough will not give internet access
+
+25
+00:00:52,250 --> 00:00:53,300
+to our subnets.
+
+26
+00:00:53,300 --> 00:00:55,930
+What we need to do is to also edit the Route Tables.
+
+27
+00:00:55,930 --> 00:00:59,450
+So we'll create a Public EC2 Instance in our Public Subnet
+
+28
+00:00:59,450 --> 00:01:03,280
+and then we will have to edit a Route Table so that
+
+29
+00:01:03,280 --> 00:01:05,500
+the EC2 Instance can connect to the Router,
+
+30
+00:01:05,500 --> 00:01:07,690
+then connect to the Internet Gateway,
+
+31
+00:01:07,690 --> 00:01:10,740
+and then from the Internet Gateway connect to the internet.
+
+32
+00:01:10,740 --> 00:01:12,220
+So let's have a look at how we can do this
+
+33
+00:01:12,220 --> 00:01:13,220
+in the next lecture.
+

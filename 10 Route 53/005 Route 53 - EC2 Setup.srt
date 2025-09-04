@@ -1,0 +1,480 @@
+1
+00:00:00,240 --> 00:00:01,230
+So let's get started.
+
+2
+00:00:01,230 --> 00:00:03,390
+And before we use Route 53,
+
+3
+00:00:03,390 --> 00:00:05,850
+I want to go ahead and create three EC2 instances
+
+4
+00:00:05,850 --> 00:00:08,517
+in different regions, as well as one ALB.
+
+5
+00:00:08,517 --> 00:00:10,314
+So in one of these regions I'm going to go
+
+6
+00:00:10,314 --> 00:00:13,530
+into instances and then launch an instance.
+
+7
+00:00:13,530 --> 00:00:16,736
+And very simply, I will choose Amazon Linux2
+
+8
+00:00:16,736 --> 00:00:20,250
+on this architecture, a T2 micro type of instance.
+
+9
+00:00:20,250 --> 00:00:22,770
+I don't need a key pair, because I will use,
+
+10
+00:00:22,770 --> 00:00:25,039
+if I need to, I will use EC2 instance connect.
+
+11
+00:00:25,039 --> 00:00:26,580
+And then for network settings,
+
+12
+00:00:26,580 --> 00:00:28,830
+I'm going to create a security group.
+
+13
+00:00:28,830 --> 00:00:32,985
+I will allow SSH as well as HTTP from anywhere.
+
+14
+00:00:32,985 --> 00:00:36,630
+Then I will just, in advanced details,
+
+15
+00:00:36,630 --> 00:00:39,630
+specify a bootstrap user data script.
+
+16
+00:00:39,630 --> 00:00:43,620
+So, to do so, just go into your Route 53
+
+17
+00:00:43,620 --> 00:00:47,280
+user script and you copy this entire script.
+
+18
+00:00:47,280 --> 00:00:48,471
+And you paste it here.
+
+19
+00:00:48,471 --> 00:00:50,280
+So what's going to do is it's going to say
+
+20
+00:00:50,280 --> 00:00:52,590
+hello world from the instance, just as before.
+
+21
+00:00:52,590 --> 00:00:54,357
+But now we're going to add the AZ
+
+22
+00:00:54,357 --> 00:00:55,602
+the instance was launched in,
+
+23
+00:00:55,602 --> 00:00:58,590
+using this environment verbal called EC2,
+
+24
+00:00:58,590 --> 00:01:01,169
+availability, zone that I created from before.
+
+25
+00:01:01,169 --> 00:01:03,240
+So it's going to give us a little bit
+
+26
+00:01:03,240 --> 00:01:05,498
+more info about EC2 instance.
+
+27
+00:01:05,498 --> 00:01:08,943
+So I'm going to go ahead and launch this instance.
+
+28
+00:01:10,029 --> 00:01:13,382
+So this has been launched and it is right here.
+
+29
+00:01:13,382 --> 00:01:14,880
+Okay, that's good.
+
+30
+00:01:14,880 --> 00:01:16,950
+Next I'm going to go into another region.
+
+31
+00:01:16,950 --> 00:01:21,300
+For example, Northern Virginia, so US East one.
+
+32
+00:01:21,300 --> 00:01:23,253
+And then I will launch an instance.
+
+33
+00:01:24,210 --> 00:01:26,190
+And same settings.
+
+34
+00:01:26,190 --> 00:01:28,740
+So again, no key pair required.
+
+35
+00:01:28,740 --> 00:01:30,158
+So proceed without a key pair.
+
+36
+00:01:30,158 --> 00:01:33,240
+I will allow HTTP as well.
+
+37
+00:01:33,240 --> 00:01:35,670
+And for advanced details, I will provide
+
+38
+00:01:35,670 --> 00:01:38,733
+the exact same EC2 user data script.
+
+39
+00:01:39,870 --> 00:01:42,573
+Then we click on launch instance and we're good to go.
+
+40
+00:01:46,230 --> 00:01:47,760
+And finally I'm going to go into
+
+41
+00:01:47,760 --> 00:01:50,313
+one last region, for example Singapore.
+
+42
+00:01:51,690 --> 00:01:56,690
+And in Singapore I'm going to launch an instance.
+
+43
+00:02:00,870 --> 00:02:02,610
+And then we'll leave it as t2 micro,
+
+44
+00:02:02,610 --> 00:02:04,534
+we will choose no key pair.
+
+45
+00:02:04,534 --> 00:02:07,560
+We'll allow HTTP from anywhere.
+
+46
+00:02:07,560 --> 00:02:09,902
+And then, under advanced details,
+
+47
+00:02:11,220 --> 00:02:16,020
+I'm going to paste in the data and launch this instance.
+
+48
+00:02:16,020 --> 00:02:18,030
+Okay, so we have three instances
+
+49
+00:02:18,030 --> 00:02:20,070
+now being started in three different regions.
+
+50
+00:02:20,070 --> 00:02:22,740
+So we have one in Frankfurt,
+
+51
+00:02:22,740 --> 00:02:25,140
+one in Northern Virginia, and one in Singapore.
+
+52
+00:02:25,140 --> 00:02:26,280
+So this is good.
+
+53
+00:02:26,280 --> 00:02:27,480
+Lastly, what I'm going to do is that
+
+54
+00:02:27,480 --> 00:02:30,180
+I'm going to launch a load balancer
+
+55
+00:02:30,180 --> 00:02:32,670
+in Frankfurt, for example.
+
+56
+00:02:32,670 --> 00:02:35,760
+So here I'm going to create a load balancer
+
+57
+00:02:35,760 --> 00:02:38,340
+and choose an application load balancer.
+
+58
+00:02:38,340 --> 00:02:39,495
+Create.
+
+59
+00:02:39,495 --> 00:02:43,053
+And then the unique name will be DemoRoute53ALB.
+
+60
+00:02:44,850 --> 00:02:49,650
+This is fine, it's going to be internet facing, on IPv4.
+
+61
+00:02:49,650 --> 00:02:54,650
+I will choose for mapping, one, two, and three subnets.
+
+62
+00:02:55,860 --> 00:02:58,260
+And for security group I can choose up to five.
+
+63
+00:02:58,260 --> 00:03:01,170
+So I'm going to choose the one that I've created
+
+64
+00:03:01,170 --> 00:03:03,435
+just from before, which was the launch user two,
+
+65
+00:03:03,435 --> 00:03:06,488
+which had AWS and HTTP enabled.
+
+66
+00:03:06,488 --> 00:03:09,540
+This way we're sure that HTTP is enabled.
+
+67
+00:03:09,540 --> 00:03:11,970
+And the protocol is on 80, you're going
+
+68
+00:03:11,970 --> 00:03:14,160
+to forward to a new target group,
+
+69
+00:03:14,160 --> 00:03:17,951
+that we're going to have to create, based on instances.
+
+70
+00:03:17,951 --> 00:03:22,951
+And I'll call it this one demo tg route 53.
+
+71
+00:03:22,994 --> 00:03:27,420
+And, what I want to do is next
+
+72
+00:03:27,420 --> 00:03:30,120
+and register my one instance right now
+
+73
+00:03:30,120 --> 00:03:32,670
+that I just created from before.
+
+74
+00:03:32,670 --> 00:03:35,100
+So you do include as pending below.
+
+75
+00:03:35,100 --> 00:03:37,950
+Then on the review targets, you have one target.
+
+76
+00:03:37,950 --> 00:03:41,370
+And then create the target group.
+
+77
+00:03:41,370 --> 00:03:42,540
+So the target group is not created.
+
+78
+00:03:42,540 --> 00:03:44,100
+So back into model balancers.
+
+79
+00:03:44,100 --> 00:03:49,093
+I can refresh this and select the demo tg group route 53.
+
+80
+00:03:51,210 --> 00:03:53,310
+And everything looks good.
+
+81
+00:03:53,310 --> 00:03:56,040
+Let's create our load balancer,
+
+82
+00:03:56,040 --> 00:03:57,600
+and then click on view the balancer.
+
+83
+00:03:57,600 --> 00:03:58,516
+And here we go.
+
+84
+00:03:58,516 --> 00:04:00,720
+So now to summarize, let's see
+
+85
+00:04:00,720 --> 00:04:02,280
+if everything has been working properly.
+
+86
+00:04:02,280 --> 00:04:05,175
+So, we have one EC2 instance right here.
+
+87
+00:04:05,175 --> 00:04:08,280
+And let's take the public IP, so I'll just copy
+
+88
+00:04:08,280 --> 00:04:12,150
+the IP itself, make sure using the IP via http.
+
+89
+00:04:12,150 --> 00:04:14,490
+And it says hello world from blah, blah, blah.
+
+90
+00:04:14,490 --> 00:04:15,870
+So this is good, so what I'm going to do
+
+91
+00:04:15,870 --> 00:04:18,029
+is that I'm going to, under a text file,
+
+92
+00:04:18,029 --> 00:04:20,726
+just to have a mark of a trace of everything,
+
+93
+00:04:20,726 --> 00:04:23,130
+I'm going to put the IP address
+
+94
+00:04:23,130 --> 00:04:24,960
+as well as the region I'm in.
+
+95
+00:04:24,960 --> 00:04:26,430
+So EU central one.
+
+96
+00:04:26,430 --> 00:04:30,480
+As you can see, it says hello from AZ EU central one B.
+
+97
+00:04:30,480 --> 00:04:31,770
+Okay, so this instance is working.
+
+98
+00:04:31,770 --> 00:04:33,960
+I'm just testing whereas everything's working.
+
+99
+00:04:33,960 --> 00:04:37,863
+So I'm going to also take this public IP right here,
+
+100
+00:04:38,940 --> 00:04:42,720
+paste it in, and it says yes hello from US East one A.
+
+101
+00:04:42,720 --> 00:04:46,143
+So this is perfect, so this is US East one.
+
+102
+00:04:46,983 --> 00:04:50,883
+And the last instance right now it's here.
+
+103
+00:04:52,440 --> 00:04:56,133
+And then I'm going to copy this IPv4 address,
+
+104
+00:04:57,600 --> 00:05:01,200
+paste it in, and it says hello from AP Southeast one b.
+
+105
+00:05:01,200 --> 00:05:02,970
+So this one's working as well.
+
+106
+00:05:02,970 --> 00:05:07,970
+So let's go here, AP southeast one.
+
+107
+00:05:08,986 --> 00:05:13,620
+And finally, if I go under my ALB
+
+108
+00:05:13,620 --> 00:05:15,900
+and take the DNS name right here,
+
+109
+00:05:15,900 --> 00:05:17,280
+let's see if it has been provisioned.
+
+110
+00:05:17,280 --> 00:05:18,870
+So let's refresh this.
+
+111
+00:05:18,870 --> 00:05:20,820
+So it is provisioned as we can tell.
+
+112
+00:05:20,820 --> 00:05:21,780
+So this can take a bit of time.
+
+113
+00:05:21,780 --> 00:05:24,180
+So for you, it may not work, for me it worked.
+
+114
+00:05:24,180 --> 00:05:26,700
+And so because it is pointing to one EC2 instance,
+
+115
+00:05:26,700 --> 00:05:30,420
+it's a hello world from AZ EU Central one B.
+
+116
+00:05:30,420 --> 00:05:33,390
+So now we have properly set up
+
+117
+00:05:33,390 --> 00:05:35,670
+all our instances, as well our GNS.
+
+118
+00:05:35,670 --> 00:05:36,810
+So we're good to go.
+
+119
+00:05:36,810 --> 00:05:38,175
+And keep this information handy,
+
+120
+00:05:38,175 --> 00:05:40,233
+and I will see you in the next lecture.
+

@@ -1,0 +1,404 @@
+1
+00:00:00,240 --> 00:00:02,870
+So now let's talk about the Routing Policy-Geolocation,
+
+2
+00:00:02,870 --> 00:00:04,920
+which is very different from Latency-based.
+
+3
+00:00:04,920 --> 00:00:09,070
+So, this is based on where the user is actually located.
+
+4
+00:00:09,070 --> 00:00:10,230
+So, for example, you can say,
+
+5
+00:00:10,230 --> 00:00:12,510
+if a user comes from a specific continent,
+
+6
+00:00:12,510 --> 00:00:15,560
+or a country, or even more precise, on the U.S. states,
+
+7
+00:00:15,560 --> 00:00:17,590
+and, the most precise location is going to be selected
+
+8
+00:00:17,590 --> 00:00:20,720
+at first, then routed to this IP.
+
+9
+00:00:20,720 --> 00:00:22,340
+So, you should create a default record,
+
+10
+00:00:22,340 --> 00:00:24,660
+in case there's going to be no match on location,
+
+11
+00:00:24,660 --> 00:00:25,920
+and the use case for this is going to be
+
+12
+00:00:25,920 --> 00:00:27,320
+for website localization,
+
+13
+00:00:27,320 --> 00:00:29,040
+to restrict content distribution,
+
+14
+00:00:29,040 --> 00:00:30,630
+do load balancing, and so on.
+
+15
+00:00:30,630 --> 00:00:32,240
+And these type of records can be associated
+
+16
+00:00:32,240 --> 00:00:33,140
+with health checks.
+
+17
+00:00:33,140 --> 00:00:34,930
+So the idea is that, if we have a map of Europe,
+
+18
+00:00:34,930 --> 00:00:38,090
+with multiple countries, we can define a geolocation record
+
+19
+00:00:38,090 --> 00:00:41,320
+for Germany, to see the German users should go to this IP,
+
+20
+00:00:41,320 --> 00:00:43,600
+which contains my German version of my app.
+
+21
+00:00:43,600 --> 00:00:45,700
+And if I go to France, then go to this IP,
+
+22
+00:00:45,700 --> 00:00:47,710
+which contains a French version of my app.
+
+23
+00:00:47,710 --> 00:00:50,770
+But for anywhere else, go to the default IP here,
+
+24
+00:00:50,770 --> 00:00:53,470
+which contains maybe the English version of my app.
+
+25
+00:00:53,470 --> 00:00:55,010
+So, this is how you would use a geolocation.
+
+26
+00:00:55,010 --> 00:00:57,450
+Now, let's go practice in the console.
+
+27
+00:00:57,450 --> 00:01:01,040
+Okay, so, let's go ahead, and create our first geo record.
+
+28
+00:01:01,040 --> 00:01:04,780
+So, I'm going to create a record, and I'm gonna make geo,
+
+29
+00:01:04,780 --> 00:01:08,070
+and, the record type would be A, the value of it is,
+
+30
+00:01:08,070 --> 00:01:12,160
+let's link it first to the ap-southeast-1.
+
+31
+00:01:12,160 --> 00:01:13,940
+And, what we're going to do here is going to say,
+
+32
+00:01:13,940 --> 00:01:16,960
+the routing policy is going to be geolocation.
+
+33
+00:01:16,960 --> 00:01:19,220
+And we're saying, okay, all of Asia,
+
+34
+00:01:19,220 --> 00:01:20,970
+so, any user located in Asia,
+
+35
+00:01:20,970 --> 00:01:25,080
+should go to my ap-southeast-1 EC2 instance.
+
+36
+00:01:25,080 --> 00:01:27,750
+We could associate a health check with it if we wanted to,
+
+37
+00:01:27,750 --> 00:01:30,730
+we need to give a record ID, so, here we go.
+
+38
+00:01:30,730 --> 00:01:33,210
+Now, let's add another two records.
+
+39
+00:01:33,210 --> 00:01:35,730
+So what I'm going to do is that, I'm going to say that's,
+
+40
+00:01:35,730 --> 00:01:36,830
+for
+
+41
+00:01:36,830 --> 00:01:39,050
+us-east-1.
+
+42
+00:01:39,050 --> 00:01:41,790
+I want to send any user from,
+
+43
+00:01:41,790 --> 00:01:44,810
+and, we can say geolocation yet again.
+
+44
+00:01:44,810 --> 00:01:46,860
+And let's say, for example, just a country,
+
+45
+00:01:46,860 --> 00:01:49,133
+so we can say, United States.
+
+46
+00:01:51,060 --> 00:01:54,020
+And, we could say lastly, so this is record ID, U.S.,
+
+47
+00:01:54,020 --> 00:01:55,920
+and so, as you can see here, I specified a country,
+
+48
+00:01:55,920 --> 00:01:59,240
+and here's specified a whole continent, it doesn't matter.
+
+49
+00:01:59,240 --> 00:02:01,360
+And then lastly, we'll add one more record,
+
+50
+00:02:01,360 --> 00:02:03,220
+here's the record name,
+
+51
+00:02:03,220 --> 00:02:06,970
+and the value of which, is going to be eu-central-1.
+
+52
+00:02:06,970 --> 00:02:09,570
+And, this one is going to be my defaults,
+
+53
+00:02:09,570 --> 00:02:12,570
+so, I'm going to say, geolocation,
+
+54
+00:02:12,570 --> 00:02:13,690
+and the location is default,
+
+55
+00:02:13,690 --> 00:02:16,020
+that means that anything that doesn't match Asia
+
+56
+00:02:16,020 --> 00:02:19,760
+or United States, is going to go to my default location,
+
+57
+00:02:19,760 --> 00:02:22,343
+and this one is going to be called, Default EU.
+
+58
+00:02:23,330 --> 00:02:25,260
+Now, it's create these records,
+
+59
+00:02:25,260 --> 00:02:27,870
+and they've been successfully created.
+
+60
+00:02:27,870 --> 00:02:30,580
+So, what I can do now is that I can test it, right?
+
+61
+00:02:30,580 --> 00:02:34,070
+So, currently, I am not in the U.S., and I'm not in Asia.
+
+62
+00:02:34,070 --> 00:02:38,090
+So, if I open this URL, I will get the eu-central-1 region,
+
+63
+00:02:38,090 --> 00:02:39,090
+so, this is good, that means that
+
+64
+00:02:39,090 --> 00:02:40,350
+this is the default record,
+
+65
+00:02:40,350 --> 00:02:42,303
+that is pure, that is working properly.
+
+66
+00:02:43,150 --> 00:02:46,110
+So now, let's change geographic location, and to do so,
+
+67
+00:02:46,110 --> 00:02:49,010
+I'm going to use my VPN, and now let's go to an,
+
+68
+00:02:49,010 --> 00:02:51,680
+a country in Asia, so let's go to India.
+
+69
+00:02:51,680 --> 00:02:54,540
+So, I'm now connected into India.
+
+70
+00:02:54,540 --> 00:02:56,090
+And, when I refresh this page now,
+
+71
+00:02:56,090 --> 00:02:57,770
+what I expect is to get a Hello World,
+
+72
+00:02:57,770 --> 00:03:01,230
+from my ap-southeast-1 instance.
+
+73
+00:03:01,230 --> 00:03:03,410
+Oh, as you can see, there's a, a long load,
+
+74
+00:03:03,410 --> 00:03:06,010
+so, I know what's happening, so, this is a timeout,
+
+75
+00:03:06,010 --> 00:03:08,040
+and so, whenever you see a timeout in AWS,
+
+76
+00:03:08,040 --> 00:03:10,210
+usually you have to think about security groups.
+
+77
+00:03:10,210 --> 00:03:11,590
+So, if I go to my security group,
+
+78
+00:03:11,590 --> 00:03:14,290
+yes, I'm in the right region, so in the Singapore region,
+
+79
+00:03:14,290 --> 00:03:18,290
+and look at the Inbound rules, and edit them.
+
+80
+00:03:18,290 --> 00:03:20,650
+If you remember, I had removed that the HTTP rule
+
+81
+00:03:20,650 --> 00:03:22,520
+to make the health check fail,
+
+82
+00:03:22,520 --> 00:03:25,280
+so, we need to add back that HTTP rule,
+
+83
+00:03:25,280 --> 00:03:28,490
+so, let's add it back, and it's a good edit on your screen.
+
+84
+00:03:28,490 --> 00:03:30,260
+So, the HTTP rule has been added back,
+
+85
+00:03:30,260 --> 00:03:32,890
+and so now, if I go back into this page,
+
+86
+00:03:32,890 --> 00:03:34,960
+as we can see, now, we get the Hello World from
+
+87
+00:03:34,960 --> 00:03:38,550
+ap-southeast-1b, so, the Asia thing is working.
+
+88
+00:03:38,550 --> 00:03:40,940
+Now, if I go to a country in the U.S.,
+
+89
+00:03:40,940 --> 00:03:42,843
+if I go to the United States, overall,
+
+90
+00:03:45,130 --> 00:03:46,090
+and, I'm in the U.S.,
+
+91
+00:03:46,090 --> 00:03:49,030
+and refresh, I'm going to get Hello World from us-east-1a,
+
+92
+00:03:49,030 --> 00:03:50,450
+so, this is perfect.
+
+93
+00:03:50,450 --> 00:03:52,810
+And, if I go to something right next to the U.S.,
+
+94
+00:03:52,810 --> 00:03:55,453
+but not in the U.S., for example, if I go to Mexico.
+
+95
+00:03:57,510 --> 00:04:02,070
+And refresh, as you can see, I get my eu-central-1c,
+
+96
+00:04:02,070 --> 00:04:03,820
+because this is my default record,
+
+97
+00:04:03,820 --> 00:04:06,650
+and, the Mexico was not specified as a rule
+
+98
+00:04:06,650 --> 00:04:09,970
+in the geolocation Route 53 record.
+
+99
+00:04:09,970 --> 00:04:12,100
+Okay, so this is it, this is working perfectly.
+
+100
+00:04:12,100 --> 00:04:13,050
+I hope you like this lecture,
+
+101
+00:04:13,050 --> 00:04:15,000
+and I will see you in the next lecture.
+

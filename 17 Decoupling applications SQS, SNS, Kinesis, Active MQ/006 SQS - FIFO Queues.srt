@@ -1,0 +1,352 @@
+1
+00:00:00,120 --> 00:00:01,050
+So now let's talk
+
+2
+00:00:01,050 --> 00:00:03,270
+about Amazon's SQS FIFO queues.
+
+3
+00:00:03,270 --> 00:00:05,370
+So FIFO means first in, first out,
+
+4
+00:00:05,370 --> 00:00:08,730
+and it corresponds to the ordering of messages in the queue.
+
+5
+00:00:08,730 --> 00:00:09,900
+That means that when you have a producer
+
+6
+00:00:09,900 --> 00:00:12,300
+that send messages in a specific order,
+
+7
+00:00:12,300 --> 00:00:14,444
+then one, two, three, four,
+
+8
+00:00:14,444 --> 00:00:16,620
+then the consumer's polling messages
+
+9
+00:00:16,620 --> 00:00:18,120
+from your SQS FIFO queue
+
+10
+00:00:18,120 --> 00:00:21,540
+is going to read these messages in the same order.
+
+11
+00:00:21,540 --> 00:00:23,850
+So this is a guarantee of the FIFO queue
+
+12
+00:00:23,850 --> 00:00:27,120
+but this is not true for just a regular SQS queue.
+
+13
+00:00:27,120 --> 00:00:29,850
+Messages can be received out of order.
+
+14
+00:00:29,850 --> 00:00:31,638
+So because you have this ordering guarantee,
+
+15
+00:00:31,638 --> 00:00:33,720
+you have limits on throughput,
+
+16
+00:00:33,720 --> 00:00:36,600
+about 300 messages per second without batching,
+
+17
+00:00:36,600 --> 00:00:40,260
+and 3,000 messages per second with batching.
+
+18
+00:00:40,260 --> 00:00:41,790
+FIFO queue also have the ability
+
+19
+00:00:41,790 --> 00:00:45,030
+to do something called exactly-once send.
+
+20
+00:00:45,030 --> 00:00:48,300
+That means that any duplicates can be removed directly
+
+21
+00:00:48,300 --> 00:00:49,410
+at the queue level.
+
+22
+00:00:49,410 --> 00:00:50,700
+For this, you're just going to provide
+
+23
+00:00:50,700 --> 00:00:54,060
+on every message you send a deduplication ID.
+
+24
+00:00:54,060 --> 00:00:56,430
+And if this ID is seen twice
+
+25
+00:00:56,430 --> 00:01:00,390
+in the time range of five minutes,
+
+26
+00:01:00,390 --> 00:01:02,490
+then duplicates are going to be removed.
+
+27
+00:01:02,490 --> 00:01:03,870
+So this is a very handy thing
+
+28
+00:01:03,870 --> 00:01:05,700
+if you want to make sure you have no duplicates
+
+29
+00:01:05,700 --> 00:01:07,440
+within five minutes.
+
+30
+00:01:07,440 --> 00:01:09,240
+The messages are going to be processed in order
+
+31
+00:01:09,240 --> 00:01:11,730
+by the consumer and the ordering guarantee
+
+32
+00:01:11,730 --> 00:01:13,470
+is at the message group ID level.
+
+33
+00:01:13,470 --> 00:01:15,990
+So you need to send a message group ID
+
+34
+00:01:15,990 --> 00:01:19,440
+every time you send a message to Amazon SQS FIFO queue,
+
+35
+00:01:19,440 --> 00:01:21,180
+and then all the messages are going to be in order
+
+36
+00:01:21,180 --> 00:01:23,310
+for that specific group ID.
+
+37
+00:01:23,310 --> 00:01:24,143
+So that's it.
+
+38
+00:01:24,143 --> 00:01:25,110
+Now let's go in the console to see
+
+39
+00:01:25,110 --> 00:01:27,330
+how the FIFO queue work.
+
+40
+00:01:27,330 --> 00:01:29,280
+So let's go and create a queue,
+
+41
+00:01:29,280 --> 00:01:31,200
+and I will create a FIFO queue.
+
+42
+00:01:31,200 --> 00:01:33,600
+So as you can see, it's first-in-first-out delivery
+
+43
+00:01:33,600 --> 00:01:36,420
+and the message ordering is preserved.
+
+44
+00:01:36,420 --> 00:01:39,420
+Okay, so I will name it DemoQueue.fifo.
+
+45
+00:01:41,460 --> 00:01:45,060
+And you have to end it with .fifo,
+
+46
+00:01:45,060 --> 00:01:47,939
+otherwise you will not have the ability
+
+47
+00:01:47,939 --> 00:01:49,380
+to create this queue.
+
+48
+00:01:49,380 --> 00:01:51,510
+It has to end with .fifo.
+
+49
+00:01:51,510 --> 00:01:52,710
+Now, if we look at the configuration,
+
+50
+00:01:52,710 --> 00:01:54,570
+it looks very similar to before,
+
+51
+00:01:54,570 --> 00:01:55,890
+but we have one more setting
+
+52
+00:01:55,890 --> 00:01:57,750
+called content-based deduplication.
+
+53
+00:01:57,750 --> 00:02:00,240
+This is to deduplicate the messages
+
+54
+00:02:00,240 --> 00:02:02,160
+if the same is sent twice
+
+55
+00:02:02,160 --> 00:02:05,370
+in a very small five-minute window.
+
+56
+00:02:05,370 --> 00:02:07,320
+Access policy will be left the same,
+
+57
+00:02:07,320 --> 00:02:09,690
+encryption and so on will be left the same.
+
+58
+00:02:09,690 --> 00:02:11,280
+So I'll create this queue.
+
+59
+00:02:11,280 --> 00:02:15,330
+And now if I go to send and receive messages,
+
+60
+00:02:15,330 --> 00:02:17,580
+we can have a look at the message body.
+
+61
+00:02:17,580 --> 00:02:20,910
+We can say Hello World 1,
+
+62
+00:02:20,910 --> 00:02:23,940
+and then I will have to specify a message group ID.
+
+63
+00:02:23,940 --> 00:02:24,930
+I'll call this one demo,
+
+64
+00:02:24,930 --> 00:02:27,300
+and we'll use the same message group ID all along this demo.
+
+65
+00:02:27,300 --> 00:02:31,590
+So demo is sent and a deduplication ID, excuse me,
+
+66
+00:02:31,590 --> 00:02:33,270
+I will say it's my message number one.
+
+67
+00:02:33,270 --> 00:02:35,670
+So I'll say ID one, send this message.
+
+68
+00:02:35,670 --> 00:02:38,460
+I'll do Hellow World 2, the same message group ID,
+
+69
+00:02:38,460 --> 00:02:40,593
+and I will say deduplication ID two.
+
+70
+00:02:41,820 --> 00:02:44,700
+And then message the third one.
+
+71
+00:02:44,700 --> 00:02:49,290
+And I will say three in here, and finally the fourth one,
+
+72
+00:02:49,290 --> 00:02:51,540
+and I will say four.
+
+73
+00:02:51,540 --> 00:02:52,680
+Okay.
+
+74
+00:02:52,680 --> 00:02:54,120
+So now the messages have been sent
+
+75
+00:02:54,120 --> 00:02:55,740
+and they're ready to be received.
+
+76
+00:02:55,740 --> 00:02:57,540
+And so we have four messages available,
+
+77
+00:02:57,540 --> 00:03:01,290
+and if I pull four messages, we look at all the messages,
+
+78
+00:03:01,290 --> 00:03:05,310
+and if I look at this one, it's actually in the wrong order.
+
+79
+00:03:05,310 --> 00:03:07,440
+So if I look at the bottom one, which is the first one,
+
+80
+00:03:07,440 --> 00:03:08,910
+it says Hello World 1.
+
+81
+00:03:08,910 --> 00:03:10,920
+Then if I look at the second message,
+
+82
+00:03:10,920 --> 00:03:12,390
+I have Hello World 2.
+
+83
+00:03:12,390 --> 00:03:15,180
+The third message, I have Hello World 3,
+
+84
+00:03:15,180 --> 00:03:18,150
+and the fourth message, I will have Hello World 4.
+
+85
+00:03:18,150 --> 00:03:21,930
+So this is a guarantee that you get thanks to FIFO queues.
+
+86
+00:03:21,930 --> 00:03:24,870
+Then you go ahead and delete these messages and you're done.
+
+87
+00:03:24,870 --> 00:03:26,670
+So that's it, I hope that was helpful
+
+88
+00:03:26,670 --> 00:03:28,620
+and I will see you in the next lecture.
+

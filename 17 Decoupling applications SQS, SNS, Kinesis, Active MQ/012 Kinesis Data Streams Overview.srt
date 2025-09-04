@@ -1,0 +1,576 @@
+1
+00:00:00,230 --> 00:00:01,880
+So the first service you need to know about
+
+2
+00:00:01,880 --> 00:00:03,610
+is Kinesis Data Streams.
+
+3
+00:00:03,610 --> 00:00:05,590
+And Kinesis Data Streams is a way
+
+4
+00:00:05,590 --> 00:00:09,330
+for you to stream big data in your systems.
+
+5
+00:00:09,330 --> 00:00:11,780
+So a Kinesis Data Stream is made
+
+6
+00:00:11,780 --> 00:00:13,470
+of multiple shards,
+
+7
+00:00:13,470 --> 00:00:15,070
+and shards are numbered.
+
+8
+00:00:15,070 --> 00:00:18,640
+Number one, number two, all the way to number N.
+
+9
+00:00:18,640 --> 00:00:21,600
+And this is something you have to provision ahead of time.
+
+10
+00:00:21,600 --> 00:00:23,440
+So when you start with Kinesis Data Streams,
+
+11
+00:00:23,440 --> 00:00:26,930
+you're saying, hey, I want a stream with six shards.
+
+12
+00:00:26,930 --> 00:00:30,240
+And so the data is going to be split across all the shards.
+
+13
+00:00:30,240 --> 00:00:31,073
+Okay?
+
+14
+00:00:31,073 --> 00:00:34,390
+And the shards are going to be defining your stream capacity
+
+15
+00:00:34,390 --> 00:00:37,260
+in terms of ingestion and consumption rates.
+
+16
+00:00:37,260 --> 00:00:39,720
+So, for now, let's just start with this.
+
+17
+00:00:39,720 --> 00:00:41,080
+And then we have producers.
+
+18
+00:00:41,080 --> 00:00:44,150
+So producers send data into Kinesis Data Streams,
+
+19
+00:00:44,150 --> 00:00:45,600
+and producers can be manyfold.
+
+20
+00:00:45,600 --> 00:00:46,840
+They could be applications,
+
+21
+00:00:46,840 --> 00:00:49,760
+they could be clients which has desktop, or mobile clients,
+
+22
+00:00:49,760 --> 00:00:52,630
+they could be leveraging the AWS SDK at a very,
+
+23
+00:00:52,630 --> 00:00:55,350
+very low level, or the Kinesis Producer Library,
+
+24
+00:00:55,350 --> 00:00:57,749
+KPL, at a higher level and we'll have a deep down,
+
+25
+00:00:57,749 --> 00:01:01,010
+deeper dive onto the producers in the next lectures,
+
+26
+00:01:01,010 --> 00:01:03,220
+or it could be the Kinesis Agent
+
+27
+00:01:03,220 --> 00:01:05,459
+inside of the server to stream, for example
+
+28
+00:01:05,459 --> 00:01:08,460
+application logs into Kinesis Data Streams.
+
+29
+00:01:08,460 --> 00:01:10,480
+So all these producers do the exact same thing.
+
+30
+00:01:10,480 --> 00:01:13,890
+They rely on the SDK at a very, very low level,
+
+31
+00:01:13,890 --> 00:01:15,157
+and they're going to produce records
+
+32
+00:01:15,157 --> 00:01:17,300
+into our Kinesis Data Stream.
+
+33
+00:01:17,300 --> 00:01:20,630
+So a record, at its fundamental, is made of two things,
+
+34
+00:01:20,630 --> 00:01:24,330
+it's made of a partition key and it is made of the
+
+35
+00:01:24,330 --> 00:01:27,870
+data blob, or the value that is up to one megabytes.
+
+36
+00:01:27,870 --> 00:01:29,460
+So the partition key will define
+
+37
+00:01:29,460 --> 00:01:33,040
+and help determine in which shard will the record go to.
+
+38
+00:01:33,040 --> 00:01:35,420
+And the data blob is the value itself.
+
+39
+00:01:35,420 --> 00:01:37,800
+So when you have the producers sending data
+
+40
+00:01:37,800 --> 00:01:40,000
+to Kinesis Data Streams, they can send data
+
+41
+00:01:40,000 --> 00:01:42,170
+at a rate of one megabytes per second,
+
+42
+00:01:42,170 --> 00:01:45,320
+or a thousand messages per second, per shard.
+
+43
+00:01:45,320 --> 00:01:47,886
+So if you have six shards, you get six megabytes per second,
+
+44
+00:01:47,886 --> 00:01:52,500
+or 6,000 messages per second, overall, okay?
+
+45
+00:01:52,500 --> 00:01:54,830
+Now, once the data is in Kinesis Data Streams,
+
+46
+00:01:54,830 --> 00:01:57,070
+it can be consumed by many consumers,
+
+47
+00:01:57,070 --> 00:01:58,960
+and these consumers, again, can have many forms
+
+48
+00:01:58,960 --> 00:02:01,510
+and we'll explore them in details in this section.
+
+49
+00:02:01,510 --> 00:02:03,410
+So we have applications and they could be relying
+
+50
+00:02:03,410 --> 00:02:07,460
+on the SDK or at a high level, the Kinesis Client Libraries,
+
+51
+00:02:07,460 --> 00:02:10,050
+so KCL. They could be Lambda functions,
+
+52
+00:02:10,050 --> 00:02:11,870
+if you want to do serverless processing on top
+
+53
+00:02:11,870 --> 00:02:13,035
+of Kinesis Data Streams.
+
+54
+00:02:13,035 --> 00:02:15,150
+It could be Kinesis Data Firehose,
+
+55
+00:02:15,150 --> 00:02:16,910
+as we'll see in this section,
+
+56
+00:02:16,910 --> 00:02:19,430
+or Kinesis Data Analytics.
+
+57
+00:02:19,430 --> 00:02:22,160
+So when the consumer receives a record, it receives, again,
+
+58
+00:02:22,160 --> 00:02:24,590
+the partition key, also a sequence number
+
+59
+00:02:24,590 --> 00:02:28,500
+which represents where the record was in the shard,
+
+60
+00:02:28,500 --> 00:02:31,950
+as well as the data blob, so the data itself.
+
+61
+00:02:31,950 --> 00:02:33,367
+Now we have different consumption modes
+
+62
+00:02:33,367 --> 00:02:35,130
+for Kinesis Data Streams.
+
+63
+00:02:35,130 --> 00:02:37,470
+We have two megabytes per second
+
+64
+00:02:37,470 --> 00:02:41,950
+of throughput shared for all the consumers, per shard, okay?
+
+65
+00:02:41,950 --> 00:02:45,250
+Or you get two megabytes per second, per shard, per consumer
+
+66
+00:02:45,250 --> 00:02:48,340
+if you are enabling the enhanced consumer mode,
+
+67
+00:02:48,340 --> 00:02:49,250
+the enhanced fan-out.
+
+68
+00:02:49,250 --> 00:02:51,930
+So, we will look at it again in this section
+
+69
+00:02:51,930 --> 00:02:53,400
+in greater detail.
+
+70
+00:02:53,400 --> 00:02:56,286
+So again, producers send data to Kinesis Data Streams.
+
+71
+00:02:56,286 --> 00:02:59,200
+It stays in there for a while,
+
+72
+00:02:59,200 --> 00:03:02,200
+and then it is read by many different consumers.
+
+73
+00:03:02,200 --> 00:03:04,500
+Okay, some properties of Kinesis Data Streams.
+
+74
+00:03:04,500 --> 00:03:06,600
+The first one is that retention can be set
+
+75
+00:03:06,600 --> 00:03:09,070
+between 1 day to 365 days.
+
+76
+00:03:09,070 --> 00:03:10,780
+And that means that by default
+
+77
+00:03:10,780 --> 00:03:13,965
+you have the ability to reprocess or replay data.
+
+78
+00:03:13,965 --> 00:03:16,410
+And once data is inserted into Kinesis,
+
+79
+00:03:16,410 --> 00:03:17,620
+it cannot be deleted.
+
+80
+00:03:17,620 --> 00:03:19,760
+That's called immutability.
+
+81
+00:03:19,760 --> 00:03:22,500
+Also, when you send messages to Kinesis Data Streams
+
+82
+00:03:22,500 --> 00:03:25,690
+you add a partition key. And messages that share
+
+83
+00:03:25,690 --> 00:03:28,250
+the same partition key will go to the same shard,
+
+84
+00:03:28,250 --> 00:03:30,550
+and that gives you key based ordering.
+
+85
+00:03:30,550 --> 00:03:33,090
+For producers, you can send data using the SDK,
+
+86
+00:03:33,090 --> 00:03:36,240
+Kinesis Producer Library, KPL, or the Kinesis Agents.
+
+87
+00:03:36,240 --> 00:03:37,970
+And for consumers, you can write your own.
+
+88
+00:03:37,970 --> 00:03:41,430
+So, Kinesis Client Library, KCL, or the SDK,
+
+89
+00:03:41,430 --> 00:03:44,030
+or you can use a managed consumer on AWS,
+
+90
+00:03:44,030 --> 00:03:46,480
+such as AWS Lambda, Kinesis Data Firehose,
+
+91
+00:03:46,480 --> 00:03:48,830
+or Kinesis Data Analytics.
+
+92
+00:03:48,830 --> 00:03:49,900
+Now for capacity modes,
+
+93
+00:03:49,900 --> 00:03:52,230
+you have two options for Kinesis Data Stream.
+
+94
+00:03:52,230 --> 00:03:54,400
+The first one, that's the historic capacity mode,
+
+95
+00:03:54,400 --> 00:03:56,080
+it's called provisioned mode.
+
+96
+00:03:56,080 --> 00:03:58,393
+So you choose a number of shards provisioned,
+
+97
+00:03:58,393 --> 00:04:01,880
+and then you can scale them manually or using an API.
+
+98
+00:04:01,880 --> 00:04:04,080
+And each shard in Kinesis Data Streams
+
+99
+00:04:04,080 --> 00:04:06,370
+is going to get one megabyte per second,
+
+100
+00:04:06,370 --> 00:04:08,490
+or 1000 records per second.
+
+101
+00:04:08,490 --> 00:04:11,240
+And then for the out-throughput
+
+102
+00:04:11,240 --> 00:04:13,765
+each shard will get two megabytes per second,
+
+103
+00:04:13,765 --> 00:04:17,433
+and this is applicable to classic or fan-out consumer.
+
+104
+00:04:18,380 --> 00:04:20,519
+You also pay per shard provisioned per hour.
+
+105
+00:04:20,519 --> 00:04:22,370
+So you need to think a lot in advance,
+
+106
+00:04:22,370 --> 00:04:24,610
+and that's why it's called provisioned mode.
+
+107
+00:04:24,610 --> 00:04:28,005
+But the second mode is a neuro mode called On-demand mode.
+
+108
+00:04:28,005 --> 00:04:30,100
+And in this, you don't need to provision
+
+109
+00:04:30,100 --> 00:04:31,413
+or manage the capacity.
+
+110
+00:04:31,413 --> 00:04:33,920
+That means that the capacity will be adjusted
+
+111
+00:04:33,920 --> 00:04:35,600
+over time, on demand.
+
+112
+00:04:35,600 --> 00:04:37,430
+You get the default capacity provisioned,
+
+113
+00:04:37,430 --> 00:04:41,140
+which is four megabytes per second, or 4,000 records per,
+
+114
+00:04:41,140 --> 00:04:43,720
+and then there will be automatic scaling based on
+
+115
+00:04:43,720 --> 00:04:47,500
+the observed throughput peak during the last 30 days.
+
+116
+00:04:47,500 --> 00:04:49,060
+And in this mode, you're still going to pay
+
+117
+00:04:49,060 --> 00:04:52,560
+per stream per hour, and per data in/out per gigabyte.
+
+118
+00:04:52,560 --> 00:04:54,180
+So a different pricing model.
+
+119
+00:04:54,180 --> 00:04:58,030
+So if you don't know your capacity events, go for On-demand,
+
+120
+00:04:58,030 --> 00:04:59,660
+but if you can plan capacity events,
+
+121
+00:04:59,660 --> 00:05:01,885
+you should go for Provisioned mode.
+
+122
+00:05:01,885 --> 00:05:04,800
+In terms of security for Kinesis Data Streams,
+
+123
+00:05:04,800 --> 00:05:07,410
+it is deployed within a region.
+
+124
+00:05:07,410 --> 00:05:09,030
+And so you have your shards.
+
+125
+00:05:09,030 --> 00:05:12,150
+You can control access to produce and read
+
+126
+00:05:12,150 --> 00:05:14,220
+from the shard using IAM policies.
+
+127
+00:05:14,220 --> 00:05:16,920
+There is encryption in flight using HTTPS,
+
+128
+00:05:16,920 --> 00:05:19,426
+and encryption at rest using KMS.
+
+129
+00:05:19,426 --> 00:05:22,350
+You can implement your own encryption
+
+130
+00:05:22,350 --> 00:05:24,250
+and decryption of data on the client side,
+
+131
+00:05:24,250 --> 00:05:25,810
+which is called client side encryption,
+
+132
+00:05:25,810 --> 00:05:27,970
+and it is harder to implement because you need to
+
+133
+00:05:27,970 --> 00:05:30,360
+encrypt the data yourself and decrypt it yourself.
+
+134
+00:05:30,360 --> 00:05:31,724
+But this enhances security.
+
+135
+00:05:31,724 --> 00:05:33,866
+VPC endpoints are available for Kinesis.
+
+136
+00:05:33,866 --> 00:05:36,830
+This allows you to access Kinesis directly
+
+137
+00:05:36,830 --> 00:05:38,340
+from HTTPS, for instance
+
+138
+00:05:38,340 --> 00:05:41,230
+in a private subject without going through the internet.
+
+139
+00:05:41,230 --> 00:05:42,170
+And finally,
+
+140
+00:05:42,170 --> 00:05:44,857
+all the API calls can be monitored using CloudTrail.
+
+141
+00:05:44,857 --> 00:05:48,330
+So that's it for an overview of Kinesis Data Streams.
+
+142
+00:05:48,330 --> 00:05:49,163
+I hope you liked it.
+
+143
+00:05:49,163 --> 00:05:52,180
+And I will see you in the next lecture for a deeper dive
+
+144
+00:05:52,180 --> 00:05:56,120
+on all the moving parts in Kinesis Data Streams.
+

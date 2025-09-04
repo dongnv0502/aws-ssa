@@ -1,0 +1,48 @@
+1
+00:00:02,160 --> 00:00:04,470
+OK so we have our application it's in the cloud.
+
+2
+00:00:04,500 --> 00:00:05,520
+It's running.
+
+3
+00:00:05,730 --> 00:00:09,990
+And your manager calls you at 2:00 a.m. and say it's not running anymore.
+
+4
+00:00:09,990 --> 00:00:10,580
+What happened?
+
+5
+00:00:10,710 --> 00:00:14,290
+Well we've deployed her application but we forgot to turn on monitoring.
+
+6
+00:00:14,490 --> 00:00:19,160
+Monitoring is so important and it will make sure that your applications are running the right way.
+
+7
+00:00:19,350 --> 00:00:24,990
+Such as you can see what's happening with the logs with the metrics with tracing and audits who made what's
+
+8
+00:00:25,020 --> 00:00:26,340
+in your AWS infrastructure.
+
+9
+00:00:26,670 --> 00:00:29,020
+This section is so important because as a developer.
+
+10
+00:00:29,070 --> 00:00:33,680
+I never deployed an application in AWS without enabling some kind of monitoring.
+
+11
+00:00:34,020 --> 00:00:35,790
+I know you're excited to learn about monitoring!
+
+12
+00:00:35,960 --> 00:00:36,320
+Let's go.
+

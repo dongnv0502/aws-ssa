@@ -1,0 +1,304 @@
+1
+00:00:00,510 --> 00:00:01,920
+So let's summarize the kind
+
+2
+00:00:01,920 --> 00:00:03,690
+of ways you can protect your network
+
+3
+00:00:03,690 --> 00:00:06,210
+on AWS that we know about so far.
+
+4
+00:00:06,210 --> 00:00:08,880
+So we've seen Network Access Control Lists,
+
+5
+00:00:08,880 --> 00:00:11,730
+we've seen Amazon VPC security groups,
+
+6
+00:00:11,730 --> 00:00:13,010
+we've seen AWS WAF.
+
+7
+00:00:13,010 --> 00:00:16,680
+It protect against malicious requests made through HTP
+
+8
+00:00:16,680 --> 00:00:18,900
+on specific services that we have.
+
+9
+00:00:18,900 --> 00:00:21,270
+We've seen AWS Shield and Shield Advance
+
+10
+00:00:21,270 --> 00:00:22,890
+to protect against DDoS,
+
+11
+00:00:22,890 --> 00:00:25,110
+and we've seen AWS Firewall Manager
+
+12
+00:00:25,110 --> 00:00:28,950
+to manage them all, your rules for WAF and Shield and so on,
+
+13
+00:00:28,950 --> 00:00:31,170
+across multiple accounts.
+
+14
+00:00:31,170 --> 00:00:32,729
+Okay, so we know about this,
+
+15
+00:00:32,729 --> 00:00:36,060
+but what if we want to protect our entire VPC
+
+16
+00:00:36,060 --> 00:00:38,040
+in a sophisticated way?
+
+17
+00:00:38,040 --> 00:00:41,850
+Introducing the AWS Network Firewall.
+
+18
+00:00:41,850 --> 00:00:45,120
+So this is used to protect your entire VPC with a firewall.
+
+19
+00:00:45,120 --> 00:00:46,620
+So here's my VPC
+
+20
+00:00:46,620 --> 00:00:49,230
+and the firewall is going to be all around it.
+
+21
+00:00:49,230 --> 00:00:52,200
+And so this AWS Network Firewall protects it
+
+22
+00:00:52,200 --> 00:00:55,320
+from the layer 3 to the layer 7 protection.
+
+23
+00:00:55,320 --> 00:00:58,800
+So you can inspect any kind of traffic in any direction.
+
+24
+00:00:58,800 --> 00:01:01,770
+So you can expect VPC to VPC traffic,
+
+25
+00:01:01,770 --> 00:01:04,620
+outbound to internet, inbound from internet,
+
+26
+00:01:04,620 --> 00:01:06,360
+and to and from Direct Connect
+
+27
+00:01:06,360 --> 00:01:08,310
+and Site-to-Site VPN connections.
+
+28
+00:01:08,310 --> 00:01:09,420
+So every representative there,
+
+29
+00:01:09,420 --> 00:01:11,580
+so here we protect anything coming
+
+30
+00:01:11,580 --> 00:01:13,020
+in and out of the internet,
+
+31
+00:01:13,020 --> 00:01:14,940
+in and out of a peered VPC
+
+32
+00:01:14,940 --> 00:01:16,620
+and in and out of Direct Connect
+
+33
+00:01:16,620 --> 00:01:19,170
+or a Site-to-Site VPN connection.
+
+34
+00:01:19,170 --> 00:01:20,546
+So we define rules
+
+35
+00:01:20,546 --> 00:01:23,220
+and then we can control anything that happens.
+
+36
+00:01:23,220 --> 00:01:26,370
+So internally, the network firewall uses
+
+37
+00:01:26,370 --> 00:01:28,560
+the AWS Gateway Load Balancer,
+
+38
+00:01:28,560 --> 00:01:32,130
+but instead of us setting up a third party appliance
+
+39
+00:01:32,130 --> 00:01:33,420
+to inspect the traffic,
+
+40
+00:01:33,420 --> 00:01:37,380
+we just have AWS manage it with its own appliances.
+
+41
+00:01:37,380 --> 00:01:39,210
+And so therefore, we have our own rules
+
+42
+00:01:39,210 --> 00:01:40,770
+on the firewall.
+
+43
+00:01:40,770 --> 00:01:43,530
+And these rules can be centrally managed as well
+
+44
+00:01:43,530 --> 00:01:46,380
+across multiple accounts and many VPCs
+
+45
+00:01:46,380 --> 00:01:49,980
+on the AWS Firewall Manager service.
+
+46
+00:01:49,980 --> 00:01:51,180
+So with the network firewall,
+
+47
+00:01:51,180 --> 00:01:52,410
+we have fine grained controls
+
+48
+00:01:52,410 --> 00:01:55,800
+over all kind of network traffic.
+
+49
+00:01:55,800 --> 00:01:58,800
+So we support thousands of rules at our VPC level.
+
+50
+00:01:58,800 --> 00:02:01,080
+We can filter by IP and by port
+
+51
+00:02:01,080 --> 00:02:03,090
+with tens of thousands of IPs.
+
+52
+00:02:03,090 --> 00:02:04,860
+We can filter by protocol.
+
+53
+00:02:04,860 --> 00:02:07,470
+For example, we can disable the SMB protocol
+
+54
+00:02:07,470 --> 00:02:09,120
+for outbound communication.
+
+55
+00:02:09,120 --> 00:02:11,490
+We can filter at the domain level.
+
+56
+00:02:11,490 --> 00:02:14,160
+So we say, hey, you only allow outbound traffic
+
+57
+00:02:14,160 --> 00:02:17,490
+from our VPC into our mycorp domain
+
+58
+00:02:17,490 --> 00:02:19,470
+or any third party software repository
+
+59
+00:02:19,470 --> 00:02:21,030
+that we only allow.
+
+60
+00:02:21,030 --> 00:02:23,700
+We can do general pattern matching with regex and so on.
+
+61
+00:02:23,700 --> 00:02:25,830
+And we can choose to allow,
+
+62
+00:02:25,830 --> 00:02:28,140
+drop or get alerted on the traffic
+
+63
+00:02:28,140 --> 00:02:30,388
+that will match the rules that we've set up.
+
+64
+00:02:30,388 --> 00:02:33,270
+And we also have active flow inspection,
+
+65
+00:02:33,270 --> 00:02:37,440
+so we can actually have an intrusion prevention capability
+
+66
+00:02:37,440 --> 00:02:39,480
+just like we have with the Gateway Load Balancer,
+
+67
+00:02:39,480 --> 00:02:41,940
+but all managed by AWS.
+
+68
+00:02:41,940 --> 00:02:44,400
+And all the rule matches can also be sent
+
+69
+00:02:44,400 --> 00:02:46,530
+to Amazon S3, CloudWatch Logs,
+
+70
+00:02:46,530 --> 00:02:49,560
+and Kinesis Data Firehose for analysis.
+
+71
+00:02:49,560 --> 00:02:51,360
+So that's it for the network firewall.
+
+72
+00:02:51,360 --> 00:02:53,580
+This is a firewall that you do at the VPC level.
+
+73
+00:02:53,580 --> 00:02:54,540
+Remember this.
+
+74
+00:02:54,540 --> 00:02:57,660
+And you can do traffic filtering and flow inspection.
+
+75
+00:02:57,660 --> 00:02:58,620
+I hope you liked it
+
+76
+00:02:58,620 --> 00:03:00,570
+and I will see you in the next lecture.
+

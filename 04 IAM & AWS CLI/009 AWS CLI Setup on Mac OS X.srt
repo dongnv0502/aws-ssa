@@ -1,0 +1,168 @@
+1
+00:00:00,090 --> 00:00:03,093
+So let's install the AWS CLI on mac
+
+2
+00:00:03,093 --> 00:00:04,718
+and for this we're just going to go on Google
+
+3
+00:00:04,718 --> 00:00:06,720
+and make sure to choose a link
+
+4
+00:00:06,720 --> 00:00:10,240
+installing the AWS CLI version 2 on macOS.
+
+5
+00:00:10,240 --> 00:00:12,240
+And then we're just going to follow the process,
+
+6
+00:00:12,240 --> 00:00:13,950
+so we'll scroll down
+
+7
+00:00:13,950 --> 00:00:15,720
+and see what they say.
+
+8
+00:00:15,720 --> 00:00:18,220
+And here is how to install it.
+
+9
+00:00:18,220 --> 00:00:21,040
+So we can just download a pkg file
+
+10
+00:00:21,040 --> 00:00:23,060
+and this will be a graphical installer.
+
+11
+00:00:23,060 --> 00:00:24,713
+So you download the pkg file.
+
+12
+00:00:25,719 --> 00:00:29,460
+Then you click on continue, continue, continue
+
+13
+00:00:29,460 --> 00:00:30,800
+and you agree.
+
+14
+00:00:30,800 --> 00:00:32,857
+Then you say, "Okay, install for all the users
+
+15
+00:00:32,857 --> 00:00:34,180
+"on this computer."
+
+16
+00:00:34,180 --> 00:00:35,550
+Click on continue
+
+17
+00:00:35,550 --> 00:00:37,560
+and then click on install,
+
+18
+00:00:37,560 --> 00:00:41,000
+and this goes ahead and installs the CLI on mac.
+
+19
+00:00:41,000 --> 00:00:43,050
+So we wait for everything to be done,
+
+20
+00:00:43,050 --> 00:00:44,690
+the files are being written.
+
+21
+00:00:44,690 --> 00:00:47,130
+Okay, the installation is now successful
+
+22
+00:00:47,130 --> 00:00:48,910
+and we'll move the installer to trash.
+
+23
+00:00:48,910 --> 00:00:50,400
+And now to fill this out,
+
+24
+00:00:50,400 --> 00:00:52,100
+you open a terminal on mac.
+
+25
+00:00:52,100 --> 00:00:54,654
+So you just go ahead and type, for example, "terminal",
+
+26
+00:00:54,654 --> 00:00:56,610
+and this will give you a terminal app.
+
+27
+00:00:56,610 --> 00:00:58,930
+Mine is called iterm on mac,
+
+28
+00:00:58,930 --> 00:01:01,170
+which is a free terminal that you can use.
+
+29
+00:01:01,170 --> 00:01:05,850
+And then you just type aws -- version
+
+30
+00:01:05,850 --> 00:01:08,010
+and if everything is going well,
+
+31
+00:01:08,010 --> 00:01:10,040
+then it should give you back the version
+
+32
+00:01:10,040 --> 00:01:12,260
+of the AWS executable.
+
+33
+00:01:12,260 --> 00:01:14,180
+So let's wait for a little bit.
+
+34
+00:01:14,180 --> 00:01:15,250
+And we get the answer,
+
+35
+00:01:15,250 --> 00:01:17,330
+AWS CLI 2.0.10,
+
+36
+00:01:17,330 --> 00:01:20,236
+so that means that everything has been installed correctly.
+
+37
+00:01:20,236 --> 00:01:21,810
+So that's it for this lecture.
+
+38
+00:01:21,810 --> 00:01:22,690
+In case of issues,
+
+39
+00:01:22,690 --> 00:01:24,010
+please have a look at this guide.
+
+40
+00:01:24,010 --> 00:01:25,610
+It will have the answer for you.
+
+41
+00:01:25,610 --> 00:01:26,530
+And that's it for me.
+
+42
+00:01:26,530 --> 00:01:28,280
+I will see you in the next lecture.
+

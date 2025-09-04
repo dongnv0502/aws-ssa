@@ -1,0 +1,252 @@
+1
+00:00:00,000 --> 00:00:02,280
+So now let's talk about bastion hosts
+
+2
+00:00:02,280 --> 00:00:04,207
+and the idea is that our users
+
+3
+00:00:04,207 --> 00:00:07,590
+want to access an EC2 instance that is
+
+4
+00:00:07,590 --> 00:00:10,271
+in a private subnet, but we as users,
+
+5
+00:00:10,271 --> 00:00:13,740
+we are on our computer on the public internet.
+
+6
+00:00:13,740 --> 00:00:15,960
+So obviously because our EC2 instance
+
+7
+00:00:15,960 --> 00:00:17,190
+is in a private subnet
+
+8
+00:00:17,190 --> 00:00:19,980
+we don't have direct internet access to it.
+
+9
+00:00:19,980 --> 00:00:21,556
+So the trick, or one trick at least,
+
+10
+00:00:21,556 --> 00:00:23,516
+is to use a bastion host.
+
+11
+00:00:23,516 --> 00:00:26,580
+The bastion host is an EC2 instance,
+
+12
+00:00:26,580 --> 00:00:28,800
+that's named bastion host, okay?
+
+13
+00:00:28,800 --> 00:00:31,080
+And that EC2 instance is special
+
+14
+00:00:31,080 --> 00:00:33,540
+because it is in a public subnet.
+
+15
+00:00:33,540 --> 00:00:35,730
+It has its own security group called
+
+16
+00:00:35,730 --> 00:00:37,830
+the bastion host security group,
+
+17
+00:00:37,830 --> 00:00:40,260
+then we also have a security group, of course,
+
+18
+00:00:40,260 --> 00:00:44,190
+for our EC2 instance in the private subnet.
+
+19
+00:00:44,190 --> 00:00:46,620
+Now, the idea is that the EC2 instance
+
+20
+00:00:46,620 --> 00:00:48,458
+in the public subnet, our bastion host,
+
+21
+00:00:48,458 --> 00:00:52,620
+does have access to the EC2 instance in our private subnet,
+
+22
+00:00:52,620 --> 00:00:53,453
+well, because everything is in our VPC.
+
+23
+00:00:53,453 --> 00:00:58,453
+So now to access our EC2 instance in the private subnet,
+
+24
+00:00:58,980 --> 00:01:01,140
+what we do is that we first connect
+
+25
+00:01:01,140 --> 00:01:03,780
+through SSH to the bastion host
+
+26
+00:01:03,780 --> 00:01:05,542
+and then connect from the bastion host,
+
+27
+00:01:05,542 --> 00:01:10,542
+again with SSH, to the EC2 instance in the private subnet.
+
+28
+00:01:11,100 --> 00:01:12,300
+And it could be one
+
+29
+00:01:12,300 --> 00:01:15,240
+but it could be as well, many EC2 instances.
+
+30
+00:01:15,240 --> 00:01:17,598
+So to summarize a bastion host is a way for us
+
+31
+00:01:17,598 --> 00:01:21,030
+to SSH into our private EC2 instances.
+
+32
+00:01:21,030 --> 00:01:24,123
+And we must put the bastion host in the public subnet.
+
+33
+00:01:25,020 --> 00:01:27,090
+So in terms of security group rules,
+
+34
+00:01:27,090 --> 00:01:28,890
+this is something that can come up with the exam,
+
+35
+00:01:28,890 --> 00:01:31,320
+we need to understand what we can define.
+
+36
+00:01:31,320 --> 00:01:33,660
+So for a bastion host perspective,
+
+37
+00:01:33,660 --> 00:01:36,054
+the security group must allow access
+
+38
+00:01:36,054 --> 00:01:38,520
+from the internet, okay?
+
+39
+00:01:38,520 --> 00:01:41,070
+But instead of allowing everywhere
+
+40
+00:01:41,070 --> 00:01:42,240
+from the internet access,
+
+41
+00:01:42,240 --> 00:01:44,640
+because that could be a security risk,
+
+42
+00:01:44,640 --> 00:01:46,440
+we can only restrict, for example,
+
+43
+00:01:46,440 --> 00:01:50,700
+access from the public CIDR of your corporation
+
+44
+00:01:50,700 --> 00:01:52,800
+or your internet access and so on.
+
+45
+00:01:52,800 --> 00:01:57,060
+So that we have to restrict the EC2 security group
+
+46
+00:01:57,060 --> 00:01:59,790
+of the bastion host as much as possible to guarantee
+
+47
+00:01:59,790 --> 00:02:02,610
+that only a few select IPs can access it,
+
+48
+00:02:02,610 --> 00:02:05,912
+because if somehow a random attacker has access
+
+49
+00:02:05,912 --> 00:02:08,910
+to our EC2 instance as the bastion host,
+
+50
+00:02:08,910 --> 00:02:12,750
+it could be a security risk for our infrastructure.
+
+51
+00:02:12,750 --> 00:02:15,150
+Now, in terms of the security group
+
+52
+00:02:15,150 --> 00:02:18,030
+of the EC2 instances in the private subnets,
+
+53
+00:02:18,030 --> 00:02:20,730
+well, they must allow the SSH access,
+
+54
+00:02:20,730 --> 00:02:25,140
+so on the port 22 again, from this time the private IP
+
+55
+00:02:25,140 --> 00:02:25,973
+of the bastion host
+
+56
+00:02:25,973 --> 00:02:28,350
+or the security group of the bastion host,
+
+57
+00:02:28,350 --> 00:02:29,370
+this is equivalent.
+
+58
+00:02:29,370 --> 00:02:30,873
+And this is because the traffic
+
+59
+00:02:30,873 --> 00:02:34,590
+these EC2 instances are seeing are originating
+
+60
+00:02:34,590 --> 00:02:36,362
+from this bastion host.
+
+61
+00:02:36,362 --> 00:02:37,830
+So that's it for this lecture,
+
+62
+00:02:37,830 --> 00:02:38,970
+I hope you liked it
+
+63
+00:02:38,970 --> 00:02:40,920
+and I will see you in the next lecture.
+

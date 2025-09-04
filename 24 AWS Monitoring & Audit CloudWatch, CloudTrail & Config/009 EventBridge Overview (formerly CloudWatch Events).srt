@@ -1,0 +1,664 @@
+1
+00:00:00,180 --> 00:00:02,640
+So now let's talk about Amazon EventBridge,
+
+2
+00:00:02,640 --> 00:00:05,430
+and Amazon EventBridge used to be formally known
+
+3
+00:00:05,430 --> 00:00:08,270
+as CloudWatch Events so you will see EventBridge
+
+4
+00:00:08,270 --> 00:00:09,960
+in the exam, but just so you know,
+
+5
+00:00:09,960 --> 00:00:12,630
+if you come from old AWS experience,
+
+6
+00:00:12,630 --> 00:00:16,050
+then it used to be named the CloudWatch Events.
+
+7
+00:00:16,050 --> 00:00:19,140
+So with EventBridge, you can do a lot of things.
+
+8
+00:00:19,140 --> 00:00:21,510
+For example, we can schedule cron jobs in the Cloud,
+
+9
+00:00:21,510 --> 00:00:23,010
+so we can schedule scripts.
+
+10
+00:00:23,010 --> 00:00:26,580
+For example, we say, "Hey, every hour please trigger
+
+11
+00:00:26,580 --> 00:00:28,200
+a Lambda function,"
+
+12
+00:00:28,200 --> 00:00:30,720
+and that Lambda function will run a script.
+
+13
+00:00:30,720 --> 00:00:33,090
+So the events are generated every hour,
+
+14
+00:00:33,090 --> 00:00:34,980
+hence the name Amazon EventBridge,
+
+15
+00:00:34,980 --> 00:00:37,860
+but not just a schedule like every hour,
+
+16
+00:00:37,860 --> 00:00:40,740
+it can also react to an event pattern.
+
+17
+00:00:40,740 --> 00:00:42,750
+So there are event rules that can react
+
+18
+00:00:42,750 --> 00:00:44,580
+to a service doing something.
+
+19
+00:00:44,580 --> 00:00:46,890
+For example, you can react to the event
+
+20
+00:00:46,890 --> 00:00:50,610
+of IAM root user sign in in the console.
+
+21
+00:00:50,610 --> 00:00:53,370
+So when that happens, maybe you want to send a message
+
+22
+00:00:53,370 --> 00:00:56,610
+into an SNS topic and receive an email notification,
+
+23
+00:00:56,610 --> 00:00:59,580
+so that if anyone is using the root account,
+
+24
+00:00:59,580 --> 00:01:01,020
+then you will receive an email,
+
+25
+00:01:01,020 --> 00:01:04,230
+which may be a good security feature for your accounts.
+
+26
+00:01:04,230 --> 00:01:06,720
+Also, for example, you have different destinations,
+
+27
+00:01:06,720 --> 00:01:08,040
+you can trigger Lambda functions,
+
+28
+00:01:08,040 --> 00:01:10,110
+send SNS and SQS messages, and so on,
+
+29
+00:01:10,110 --> 00:01:12,450
+I will show you this all in a second.
+
+30
+00:01:12,450 --> 00:01:14,730
+So EventBridge sits in the middle
+
+31
+00:01:14,730 --> 00:01:18,150
+and we have all the sources that can send events
+
+32
+00:01:18,150 --> 00:01:19,890
+into Amazon EventBridge.
+
+33
+00:01:19,890 --> 00:01:22,470
+So for example, EC2 instances when they start,
+
+34
+00:01:22,470 --> 00:01:24,900
+when they're stop, when they're terminated, and so on.
+
+35
+00:01:24,900 --> 00:01:26,070
+Code Build, for example,
+
+36
+00:01:26,070 --> 00:01:27,690
+if you have a build that fails
+
+37
+00:01:27,690 --> 00:01:30,000
+or S3, whenever there's an event, for example,
+
+38
+00:01:30,000 --> 00:01:31,740
+when an object is uploaded,
+
+39
+00:01:31,740 --> 00:01:33,600
+or Trusted Advisor when you have a new finding
+
+40
+00:01:33,600 --> 00:01:35,250
+of security in your accounts
+
+41
+00:01:35,250 --> 00:01:38,680
+or as a good combo, you can combine EventBridge
+
+42
+00:01:38,680 --> 00:01:42,810
+and CloudTrail and actually intercept any API call made
+
+43
+00:01:42,810 --> 00:01:45,930
+within your AWS accounts, which is huge.
+
+44
+00:01:45,930 --> 00:01:48,510
+Also, as I said, you can have a schedule or a cron,
+
+45
+00:01:48,510 --> 00:01:52,888
+so you can say every four hours or every Monday at 8:00 am,
+
+46
+00:01:52,888 --> 00:01:54,300
+the first Monday of the month,
+
+47
+00:01:54,300 --> 00:01:56,580
+this is something you can do as well.
+
+48
+00:01:56,580 --> 00:01:59,430
+Then these events get sent into Amazon EventBridge
+
+49
+00:01:59,430 --> 00:02:01,170
+and you can set up a filter.
+
+50
+00:02:01,170 --> 00:02:04,260
+For example, you say, "Hey, I only want these events
+
+51
+00:02:04,260 --> 00:02:07,860
+for a specific bucket," for Amazon is free, for example.
+
+52
+00:02:07,860 --> 00:02:11,220
+Then EventBridge is going to generate adjacent document
+
+53
+00:02:11,220 --> 00:02:14,220
+that represents the details about your events.
+
+54
+00:02:14,220 --> 00:02:17,250
+So which instance, for example, gets started,
+
+55
+00:02:17,250 --> 00:02:19,050
+whether its ID, and so on.
+
+56
+00:02:19,050 --> 00:02:22,350
+A lot of information, the time, the IP, and so on.
+
+57
+00:02:22,350 --> 00:02:26,010
+So once this is done, then this JSON document, this event,
+
+58
+00:02:26,010 --> 00:02:29,190
+can be sent into so many kind of different destinations,
+
+59
+00:02:29,190 --> 00:02:31,980
+allowing you to do really awesome integrations.
+
+60
+00:02:31,980 --> 00:02:35,430
+For example, you can schedule and trigger a Lambda function,
+
+61
+00:02:35,430 --> 00:02:38,730
+you can schedule a batch in AWS Batch,
+
+62
+00:02:38,730 --> 00:02:41,760
+you can launch an ECS task for Amazon ECS,
+
+63
+00:02:41,760 --> 00:02:44,370
+you can send a message to SQS, to SNS,
+
+64
+00:02:44,370 --> 00:02:46,350
+or even to a Kinesis Data Stream,
+
+65
+00:02:46,350 --> 00:02:48,450
+you can, for example, start a Step Function,
+
+66
+00:02:48,450 --> 00:02:51,420
+you can start a CI/CD Pipeline with CodePipeline
+
+67
+00:02:51,420 --> 00:02:53,730
+or a build with CodeBuild so you don't actually know
+
+68
+00:02:53,730 --> 00:02:55,020
+all these things, of course,
+
+69
+00:02:55,020 --> 00:02:56,130
+these are different AWS services,
+
+70
+00:02:56,130 --> 00:02:59,130
+but I'm just giving you an overview what you can do
+
+71
+00:02:59,130 --> 00:03:01,920
+and you can also, for example, start an SSM automation
+
+72
+00:03:01,920 --> 00:03:05,640
+or a specific EC2 action, such as starting or stopping
+
+73
+00:03:05,640 --> 00:03:07,740
+or restarting an EC2 instance.
+
+74
+00:03:07,740 --> 00:03:09,960
+So you can see the possibilities are endless
+
+75
+00:03:09,960 --> 00:03:12,630
+and it really depends on what is your use case.
+
+76
+00:03:12,630 --> 00:03:15,000
+So Amazon EventBridge is what we call
+
+77
+00:03:15,000 --> 00:03:18,000
+the default event bus, which is what we just saw,
+
+78
+00:03:18,000 --> 00:03:20,640
+which represents services from AWS
+
+79
+00:03:20,640 --> 00:03:24,660
+that send their events into the default event bus,
+
+80
+00:03:24,660 --> 00:03:27,270
+but Amazon EventBridge has more capability.
+
+81
+00:03:27,270 --> 00:03:30,210
+There is something called the partner event bus
+
+82
+00:03:30,210 --> 00:03:33,810
+and this is AWS that has integrated with partners,
+
+83
+00:03:33,810 --> 00:03:35,670
+most likely they are going to be software
+
+84
+00:03:35,670 --> 00:03:38,580
+as a service partners and they are going
+
+85
+00:03:38,580 --> 00:03:42,930
+to send their events directly into your partner event bus.
+
+86
+00:03:42,930 --> 00:03:46,860
+So if you're using, for example, Zendesk, Datadog, Auth0,
+
+87
+00:03:46,860 --> 00:03:49,590
+or others, you need to check the partner list.
+
+88
+00:03:49,590 --> 00:03:50,423
+Then there's a chance
+
+89
+00:03:50,423 --> 00:03:52,260
+that they can send their events directly
+
+90
+00:03:52,260 --> 00:03:54,930
+into a specified partner event bus
+
+91
+00:03:54,930 --> 00:03:57,660
+and so you can react to changes happening outside
+
+92
+00:03:57,660 --> 00:04:01,440
+of AWS directly in your accounts.
+
+93
+00:04:01,440 --> 00:04:03,590
+Okay, and finally, there is a custom event bus
+
+94
+00:04:03,590 --> 00:04:05,580
+so you can create your own event buses
+
+95
+00:04:05,580 --> 00:04:08,700
+and then your own applications can send their own events
+
+96
+00:04:08,700 --> 00:04:11,010
+into a custom event bus and therefore, you have
+
+97
+00:04:11,010 --> 00:04:13,980
+the same capability of sending these events
+
+98
+00:04:13,980 --> 00:04:17,613
+to different destinations thanks to the EventBridge rules.
+
+99
+00:04:18,510 --> 00:04:21,329
+Also, you can access event buses, cross accounts,
+
+100
+00:04:21,329 --> 00:04:24,360
+using resource based policies as we'll see very soon.
+
+101
+00:04:24,360 --> 00:04:26,910
+You can also archive events so all of them
+
+102
+00:04:26,910 --> 00:04:29,250
+or just a subset event to a filter
+
+103
+00:04:29,250 --> 00:04:31,440
+and by archiving the events,
+
+104
+00:04:31,440 --> 00:04:33,930
+you can set it to be either indefinite retention
+
+105
+00:04:33,930 --> 00:04:36,390
+or a set period for retention, okay?
+
+106
+00:04:36,390 --> 00:04:38,790
+What you can do with these is that you can replay
+
+107
+00:04:38,790 --> 00:04:39,690
+these archived events.
+
+108
+00:04:39,690 --> 00:04:42,450
+For example, say there is a bug in your Lambda function
+
+109
+00:04:42,450 --> 00:04:44,610
+and you want to fix it, so you fixed it
+
+110
+00:04:44,610 --> 00:04:47,400
+and then you want to retest the event, replay it,
+
+111
+00:04:47,400 --> 00:04:49,830
+then you can replay these archived events,
+
+112
+00:04:49,830 --> 00:04:51,870
+which is super handy for debugging,
+
+113
+00:04:51,870 --> 00:04:53,460
+super handy for troubleshooting,
+
+114
+00:04:53,460 --> 00:04:56,193
+and for fixing production as well.
+
+115
+00:04:57,120 --> 00:04:58,860
+Now, EventBridge receives a lot of events
+
+116
+00:04:58,860 --> 00:05:00,900
+from different places and so therefore,
+
+117
+00:05:00,900 --> 00:05:02,610
+you need to understand what the events are going
+
+118
+00:05:02,610 --> 00:05:04,440
+to look like and remember, these events are
+
+119
+00:05:04,440 --> 00:05:06,450
+in this adjacent format we just saw.
+
+120
+00:05:06,450 --> 00:05:08,640
+So therefore, there is a Schema Registry
+
+121
+00:05:08,640 --> 00:05:11,160
+and the capability is that EventBridge is going
+
+122
+00:05:11,160 --> 00:05:13,050
+to analyze the events in your bus
+
+123
+00:05:13,050 --> 00:05:15,450
+and then it's going to infer the schema
+
+124
+00:05:15,450 --> 00:05:18,120
+and the schema out of the Schema Registry is going
+
+125
+00:05:18,120 --> 00:05:20,640
+to allow you to generate code for your application
+
+126
+00:05:20,640 --> 00:05:22,650
+that will know in advance how the data is structured
+
+127
+00:05:22,650 --> 00:05:23,790
+in the event bus.
+
+128
+00:05:23,790 --> 00:05:25,590
+For example, this is an example here
+
+129
+00:05:25,590 --> 00:05:27,750
+for a specific CodePipeline in action.
+
+130
+00:05:27,750 --> 00:05:30,000
+There's a schema and you can download
+
+131
+00:05:30,000 --> 00:05:32,730
+the code directly using the Orange button
+
+132
+00:05:32,730 --> 00:05:35,310
+and this will know directly how to infer the schema
+
+133
+00:05:35,310 --> 00:05:38,400
+and structure the data out of your event bus.
+
+134
+00:05:38,400 --> 00:05:39,682
+Also, the schemas can be versioned
+
+135
+00:05:39,682 --> 00:05:42,450
+so you can over time iterates between the schemas
+
+136
+00:05:42,450 --> 00:05:44,000
+of your application, of course.
+
+137
+00:05:45,060 --> 00:05:48,360
+Now, we have resource based policies for EventBridge,
+
+138
+00:05:48,360 --> 00:05:49,200
+what does that mean?
+
+139
+00:05:49,200 --> 00:05:51,810
+That means that you can manage permissions
+
+140
+00:05:51,810 --> 00:05:53,700
+for a specific event bus.
+
+141
+00:05:53,700 --> 00:05:54,840
+For example, you can say
+
+142
+00:05:54,840 --> 00:05:58,200
+that a specific event bus can be allowed
+
+143
+00:05:58,200 --> 00:06:02,130
+or denied other events from other regions or accounts
+
+144
+00:06:02,130 --> 00:06:04,500
+and the use case for it, for example, would be
+
+145
+00:06:04,500 --> 00:06:07,290
+to have a central events bus
+
+146
+00:06:07,290 --> 00:06:09,240
+within your AWS organization,
+
+147
+00:06:09,240 --> 00:06:12,480
+so a set of accounts and then all these events are going
+
+148
+00:06:12,480 --> 00:06:14,790
+to be aggregated, so how does that work?
+
+149
+00:06:14,790 --> 00:06:18,270
+Well, we have a central event bus with a specific account
+
+150
+00:06:18,270 --> 00:06:21,930
+and we're going to add a specific resource based policy,
+
+151
+00:06:21,930 --> 00:06:25,140
+allowing other accounts to send events to it
+
+152
+00:06:25,140 --> 00:06:28,350
+and therefore, this other account, for example,
+
+153
+00:06:28,350 --> 00:06:30,450
+will be able to do a put events
+
+154
+00:06:30,450 --> 00:06:34,530
+and send events directly into the central event bus.
+
+155
+00:06:34,530 --> 00:06:37,050
+So that's it, we've seen EventBridge left to right,
+
+156
+00:06:37,050 --> 00:06:38,010
+you know everything about it.
+
+157
+00:06:38,010 --> 00:06:40,110
+So remember, you can react to events happening
+
+158
+00:06:40,110 --> 00:06:41,970
+within your accounts, thanks to the default event bus,
+
+159
+00:06:41,970 --> 00:06:44,940
+but also partner events and also your own events
+
+160
+00:06:44,940 --> 00:06:46,260
+with custom buses,
+
+161
+00:06:46,260 --> 00:06:48,540
+you have the Schema Registry capability,
+
+162
+00:06:48,540 --> 00:06:50,400
+and then you have resource based policies,
+
+163
+00:06:50,400 --> 00:06:53,880
+which allow you to have a cross accounts, for example,
+
+164
+00:06:53,880 --> 00:06:56,250
+capability for event buses.
+
+165
+00:06:56,250 --> 00:06:57,900
+Okay, that's it, I hope you liked it
+
+166
+00:06:57,900 --> 00:06:59,850
+and I will see you in the next lecture.
+

@@ -1,0 +1,312 @@
+1
+00:00:00,280 --> 00:00:02,050
+So now, let's talk about another feature
+
+2
+00:00:02,050 --> 00:00:04,510
+which is called Geoproximity Routing.
+
+3
+00:00:04,510 --> 00:00:05,910
+And it can be a little bit confusing
+
+4
+00:00:05,910 --> 00:00:07,500
+but I will try to explain with diagrams
+
+5
+00:00:07,500 --> 00:00:09,620
+in the very next slide to make it clear.
+
+6
+00:00:09,620 --> 00:00:12,680
+So this allows you to route traffic to your resources based
+
+7
+00:00:12,680 --> 00:00:16,430
+on the geographic location of your users and resources.
+
+8
+00:00:16,430 --> 00:00:18,810
+So the idea is that with this policy,
+
+9
+00:00:18,810 --> 00:00:21,240
+you're able using a number called the bias
+
+10
+00:00:21,240 --> 00:00:24,030
+to shift more traffic to resources
+
+11
+00:00:24,030 --> 00:00:25,700
+based on specific locations.
+
+12
+00:00:25,700 --> 00:00:26,990
+And it will show you this in a diagram
+
+13
+00:00:26,990 --> 00:00:28,380
+in the very next slide.
+
+14
+00:00:28,380 --> 00:00:30,330
+So the idea is that to change the size
+
+15
+00:00:30,330 --> 00:00:34,660
+of a geographic location, you need to specify a bias value.
+
+16
+00:00:34,660 --> 00:00:37,460
+If you want more traffic to go to a specific resource,
+
+17
+00:00:37,460 --> 00:00:40,520
+you expand the bias value by increasing it.
+
+18
+00:00:40,520 --> 00:00:42,800
+And if you want less traffic to go to your resource,
+
+19
+00:00:42,800 --> 00:00:45,704
+you shrink it, you decrease the bias values
+
+20
+00:00:45,704 --> 00:00:47,410
+to a negative number.
+
+21
+00:00:47,410 --> 00:00:50,280
+So the resources can be resources from AWS,
+
+22
+00:00:50,280 --> 00:00:52,980
+in which case you specify the region they're in
+
+23
+00:00:52,980 --> 00:00:56,950
+and automatically a list will compute the correct routing.
+
+24
+00:00:56,950 --> 00:00:59,400
+Or if there are none, AWS resources exercise
+
+25
+00:00:59,400 --> 00:01:01,580
+such as your on premises data center.
+
+26
+00:01:01,580 --> 00:01:03,440
+Then, you will just need to specify the latitude
+
+27
+00:01:03,440 --> 00:01:07,240
+and longitude, so the AWS knows where they are right now.
+
+28
+00:01:07,240 --> 00:01:08,610
+And then it chooses feature,
+
+29
+00:01:08,610 --> 00:01:11,170
+you need to use the advanced Route 53 Traffic
+
+30
+00:01:11,170 --> 00:01:14,140
+flow to be able to leverage the bias.
+
+31
+00:01:14,140 --> 00:01:17,250
+So the diagram should make everything more simple.
+
+32
+00:01:17,250 --> 00:01:18,790
+And to me, this is what you should remember.
+
+33
+00:01:18,790 --> 00:01:23,790
+So let's take an example of a resource in us-west-1,
+
+34
+00:01:24,710 --> 00:01:27,760
+and one resource in us-east-1.
+
+35
+00:01:27,760 --> 00:01:31,890
+And the bias is set to zero in both regions.
+
+36
+00:01:31,890 --> 00:01:34,460
+So that means that if you have users all around the US
+
+37
+00:01:34,460 --> 00:01:36,530
+trying to access these resources,
+
+38
+00:01:36,530 --> 00:01:40,080
+there's going to be a line dividing the US is too into two,
+
+39
+00:01:40,080 --> 00:01:44,310
+and users left of that line will go to us-west-1,
+
+40
+00:01:44,310 --> 00:01:48,780
+and user rights of that line will go to us-east-1.
+
+41
+00:01:48,780 --> 00:01:51,370
+Now, this is simple, this is when there is no bias, okay?
+
+42
+00:01:51,370 --> 00:01:55,110
+And this looks like going to the closest resource region
+
+43
+00:01:55,110 --> 00:01:56,780
+based on the user location.
+
+44
+00:01:56,780 --> 00:02:01,140
+But thanks to the bias, we can have the same setup
+
+45
+00:02:01,140 --> 00:02:04,160
+but a different way to have the users routed
+
+46
+00:02:04,160 --> 00:02:04,993
+to different regions.
+
+47
+00:02:04,993 --> 00:02:06,240
+So let's take an example.
+
+48
+00:02:06,240 --> 00:02:08,360
+We have us-west-1 and us-east-1,
+
+49
+00:02:08,360 --> 00:02:11,450
+and the bias is set to zero in us-west-1,
+
+50
+00:02:11,450 --> 00:02:16,260
+but we're going to have a positive bias of 50 in us-east-1.
+
+51
+00:02:16,260 --> 00:02:19,960
+And we've seen that the bias make more users
+
+52
+00:02:19,960 --> 00:02:21,690
+and more traffic to that resource.
+
+53
+00:02:21,690 --> 00:02:22,523
+Why?
+
+54
+00:02:22,523 --> 00:02:24,970
+Well, because of the bias now the quote in quote,
+
+55
+00:02:24,970 --> 00:02:27,300
+dividing line between the first.
+
+56
+00:02:27,300 --> 00:02:29,450
+The two resources is going to be a little bit more
+
+57
+00:02:29,450 --> 00:02:32,977
+to the left because of the higher bias of us-east-1.
+
+58
+00:02:32,977 --> 00:02:35,410
+And so that means is that's the user left
+
+59
+00:02:35,410 --> 00:02:37,650
+of that line can go to us-west-1,
+
+60
+00:02:37,650 --> 00:02:41,050
+but the users right or that one will go to us-east-1.
+
+61
+00:02:41,050 --> 00:02:42,400
+So what we do this?
+
+62
+00:02:42,400 --> 00:02:44,660
+Well, for example, you would set your resources
+
+63
+00:02:44,660 --> 00:02:47,210
+all around the world and say you needed to shift
+
+64
+00:02:47,210 --> 00:02:49,210
+more traffic to a specific region.
+
+65
+00:02:49,210 --> 00:02:50,450
+What you would do is that you will use
+
+66
+00:02:50,450 --> 00:02:54,280
+a Geoproximity Routing Policy to increase the bias
+
+67
+00:02:54,280 --> 00:02:55,850
+in that specific region.
+
+68
+00:02:55,850 --> 00:02:58,970
+And therefore, have more users dragged
+
+69
+00:02:58,970 --> 00:03:02,350
+and more users have traffic attracted to that region.
+
+70
+00:03:02,350 --> 00:03:04,403
+So what you to remember going into an exam is
+
+71
+00:03:04,403 --> 00:03:07,600
+that the Geoproximity Routing is really helpful
+
+72
+00:03:07,600 --> 00:03:09,490
+when you need to shift traffic
+
+73
+00:03:09,490 --> 00:03:12,840
+from one region to another, by increasing the bias.
+
+74
+00:03:12,840 --> 00:03:13,673
+Okay?
+
+75
+00:03:13,673 --> 00:03:15,980
+So hopefully the diagrams helped you make more sense
+
+76
+00:03:15,980 --> 00:03:18,190
+of the Geoproximity Routing Policy.
+
+77
+00:03:18,190 --> 00:03:19,160
+I hope you liked this lecture,
+
+78
+00:03:19,160 --> 00:03:21,110
+and I will see you in the next lecture.
+

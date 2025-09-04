@@ -1,0 +1,576 @@
+1
+00:00:00,480 --> 00:00:02,790
+Okay, so before we talk about Route 53
+
+2
+00:00:02,790 --> 00:00:05,850
+we have to talk about what is a DNS?
+
+3
+00:00:05,850 --> 00:00:08,550
+So, this is a basic level lecture,
+
+4
+00:00:08,550 --> 00:00:10,980
+but at least it will help you understand how DNS works.
+
+5
+00:00:10,980 --> 00:00:12,300
+And this is something you've been using
+
+6
+00:00:12,300 --> 00:00:13,530
+behind the scenes every day
+
+7
+00:00:13,530 --> 00:00:15,360
+but you don't know about it exactly.
+
+8
+00:00:15,360 --> 00:00:16,560
+So, let's have a look.
+
+9
+00:00:16,560 --> 00:00:19,560
+So, a DNS is a domain name system, and what it will do
+
+10
+00:00:19,560 --> 00:00:22,110
+is that it will translate human friendly hostnames
+
+11
+00:00:22,110 --> 00:00:25,500
+into the target server IP addresses.
+
+12
+00:00:25,500 --> 00:00:27,660
+For example, when you type in your web browser,
+
+13
+00:00:27,660 --> 00:00:31,500
+www.google.com, it will in the end
+
+14
+00:00:31,500 --> 00:00:35,010
+give you back an IP address and this is IP address
+
+15
+00:00:35,010 --> 00:00:36,840
+that your web browser will be able to access
+
+16
+00:00:36,840 --> 00:00:40,680
+behind the scenes and get some data back from Google.
+
+17
+00:00:40,680 --> 00:00:42,810
+So, the DNS is the backbone of the internet.
+
+18
+00:00:42,810 --> 00:00:44,670
+It is a way for you to understand
+
+19
+00:00:44,670 --> 00:00:49,620
+how to translate these URLs, these hostnames into IPs.
+
+20
+00:00:49,620 --> 00:00:53,040
+So, there is a hierarchical naming structure for DNS
+
+21
+00:00:53,040 --> 00:00:54,690
+and the idea is that at the root
+
+22
+00:00:54,690 --> 00:00:58,560
+of www.google.com for example, there is the .com,
+
+23
+00:00:58,560 --> 00:01:01,710
+but then there is example.com which is a bit more precise.
+
+24
+00:01:01,710 --> 00:01:06,390
+Then, www.example.com or api.example.com.
+
+25
+00:01:06,390 --> 00:01:09,540
+So, all of these are going to be the hierarchy
+
+26
+00:01:09,540 --> 00:01:10,683
+of your domain names.
+
+27
+00:01:11,670 --> 00:01:13,290
+Next, we need to define a little bit
+
+28
+00:01:13,290 --> 00:01:15,990
+of terminology regarding your DNS.
+
+29
+00:01:15,990 --> 00:01:17,910
+So, there is a domain registrar.
+
+30
+00:01:17,910 --> 00:01:20,010
+This is where you're going to register your domain names
+
+31
+00:01:20,010 --> 00:01:23,580
+and it could be Amazon Route 53, or it could be GoDaddy
+
+32
+00:01:23,580 --> 00:01:26,580
+or any other domain registrar you can find online.
+
+33
+00:01:26,580 --> 00:01:28,650
+Then you have DNS Records and they have different types
+
+34
+00:01:28,650 --> 00:01:30,870
+and we'll have a look at them in detail in this section.
+
+35
+00:01:30,870 --> 00:01:34,740
+So it could be A, AAAA, CNAME, NS, et cetera, et cetera.
+
+36
+00:01:34,740 --> 00:01:37,590
+Don't worry, we'll see those in detail in this section.
+
+37
+00:01:37,590 --> 00:01:40,230
+A zone file which contains all the DNS records.
+
+38
+00:01:40,230 --> 00:01:42,000
+So, this is how to match these hostnames
+
+39
+00:01:42,000 --> 00:01:44,340
+to IPs or addresses.
+
+40
+00:01:44,340 --> 00:01:46,020
+Name servers is servers
+
+41
+00:01:46,020 --> 00:01:48,240
+that will actually resolve the DNS queries.
+
+42
+00:01:48,240 --> 00:01:50,370
+And we'll have a look at them as well in this section.
+
+43
+00:01:50,370 --> 00:01:54,300
+Top level domains which is .com, .us, .in, .gov, .org,
+
+44
+00:01:54,300 --> 00:01:55,620
+et cetera, et cetera.
+
+45
+00:01:55,620 --> 00:01:58,290
+Second level domain which is amazon.com and google.com.
+
+46
+00:01:58,290 --> 00:02:01,620
+So you can see there are two words in between a dot.
+
+47
+00:02:01,620 --> 00:02:03,150
+And so if we take a look for example
+
+48
+00:02:03,150 --> 00:02:06,720
+at this FQDN, so fully qualified domain name,
+
+49
+00:02:06,720 --> 00:02:11,720
+we have http://api.www.example.com.
+
+50
+00:02:12,720 --> 00:02:13,553
+Okay?
+
+51
+00:02:13,553 --> 00:02:15,870
+So, the last dot the end is called the root
+
+52
+00:02:15,870 --> 00:02:18,660
+and it is the root of all the domain names.
+
+53
+00:02:18,660 --> 00:02:20,340
+Then the .com,
+
+54
+00:02:20,340 --> 00:02:25,109
+so .com is your TLD, so that's your top level domain.
+
+55
+00:02:25,109 --> 00:02:30,109
+The example.com is going to be your second level domain.
+
+56
+00:02:31,110 --> 00:02:34,200
+Then we have www.example.com.
+
+57
+00:02:34,200 --> 00:02:36,240
+That's your subdomain.
+
+58
+00:02:36,240 --> 00:02:41,240
+api.www.example.com is your FQDN,
+
+59
+00:02:41,520 --> 00:02:44,250
+your fully qualified domain name.
+
+60
+00:02:44,250 --> 00:02:46,740
+HTTP is going to be your protocol
+
+61
+00:02:46,740 --> 00:02:49,863
+and all these things together is going to be your URL.
+
+62
+00:02:51,240 --> 00:02:53,550
+So, now that we know a little bit of terminology,
+
+63
+00:02:53,550 --> 00:02:55,980
+let's have a look at how DNS works.
+
+64
+00:02:55,980 --> 00:02:58,800
+So we have a web server, and let's say for example
+
+65
+00:02:58,800 --> 00:03:00,810
+that we have an IP, it's a public IP,
+
+66
+00:03:00,810 --> 00:03:02,760
+could be an EC2 instance, for example.
+
+67
+00:03:02,760 --> 00:03:06,900
+And the public IP is 9.10.11.12
+
+68
+00:03:06,900 --> 00:03:09,060
+and we want to be able to access this
+
+69
+00:03:09,060 --> 00:03:11,700
+using the example.com domain name.
+
+70
+00:03:11,700 --> 00:03:13,830
+So, we're going to register this example.com domain name
+
+71
+00:03:13,830 --> 00:03:16,650
+on one of our servers for the DNS.
+
+72
+00:03:16,650 --> 00:03:19,320
+But let's see how the computer, your web browser,
+
+73
+00:03:19,320 --> 00:03:22,080
+can access it and can get that response.
+
+74
+00:03:22,080 --> 00:03:25,170
+So, your web browser is going to want to access example.com.
+
+75
+00:03:25,170 --> 00:03:28,177
+And to do so, it's going to ask its local DNS server.
+
+76
+00:03:28,177 --> 00:03:30,780
+"Hey, do you know what example.com is?"
+
+77
+00:03:30,780 --> 00:03:33,180
+Now, this local DNS server is usually assigned
+
+78
+00:03:33,180 --> 00:03:35,430
+and managed by your company or assigned
+
+79
+00:03:35,430 --> 00:03:38,250
+by your internet service provider dynamically.
+
+80
+00:03:38,250 --> 00:03:41,820
+And if the local DNS server has never seen this query before
+
+81
+00:03:41,820 --> 00:03:45,060
+what it's going to do is first ask the root DNS server
+
+82
+00:03:45,060 --> 00:03:49,290
+managed by the I-C-A-N-N, the ICANN organization
+
+83
+00:03:49,290 --> 00:03:52,740
+and is going to say, "Hey, do you know what's example.com?"
+
+84
+00:03:52,740 --> 00:03:55,080
+Which is the first server that's going to be asked.
+
+85
+00:03:55,080 --> 00:03:57,037
+And the Root DNS Server is going to say,
+
+86
+00:03:57,037 --> 00:04:00,570
+"I've never seen it, but I know .com."
+
+87
+00:04:00,570 --> 00:04:04,710
+So, .com is NS, so it's an NS Record Name server
+
+88
+00:04:04,710 --> 00:04:07,800
+and go see 1234 this public IP.
+
+89
+00:04:07,800 --> 00:04:08,887
+So, this is saying to local DNS,
+
+90
+00:04:08,887 --> 00:04:10,200
+"Hey, I don't have this answer
+
+91
+00:04:10,200 --> 00:04:12,750
+but I'm getting you a little bit closer to your answer
+
+92
+00:04:12,750 --> 00:04:14,757
+because I know the .com domain,
+
+93
+00:04:14,757 --> 00:04:19,589
+and the .com domain name server has this IP, 1234."
+
+94
+00:04:19,589 --> 00:04:21,990
+So the local DNS server saying, "Okay, good.
+
+95
+00:04:21,990 --> 00:04:24,360
+Now I'm going to ask the top level domain."
+
+96
+00:04:24,360 --> 00:04:27,397
+So the .com domain server at 1234.
+
+97
+00:04:27,397 --> 00:04:30,360
+"I'm going to ask for the answer of my query."
+
+98
+00:04:30,360 --> 00:04:34,830
+So, this is another domain managed by I-A-N-A, the IANA
+
+99
+00:04:34,830 --> 00:04:38,190
+and the example.com, okay, is going to be asked again
+
+100
+00:04:38,190 --> 00:04:40,110
+to this DNS server.
+
+101
+00:04:40,110 --> 00:04:42,150
+So, do you know about example.com?
+
+102
+00:04:42,150 --> 00:04:43,747
+And the DNS server is gonna say,
+
+103
+00:04:43,747 --> 00:04:46,017
+"Hey, I do know about example.com.
+
+104
+00:04:46,017 --> 00:04:49,290
+I don't have the answer to your query right away.
+
+105
+00:04:49,290 --> 00:04:50,580
+I don't know which record it is,
+
+106
+00:04:50,580 --> 00:04:54,030
+but there is a server called example.com that I know about
+
+107
+00:04:54,030 --> 00:04:57,990
+which is at 5.6.7.8, that's a public IP
+
+108
+00:04:57,990 --> 00:05:01,500
+that you should ask the answer to your question.
+
+109
+00:05:01,500 --> 00:05:05,070
+So, local DNS server is then going go to our final server
+
+110
+00:05:05,070 --> 00:05:08,700
+which is the second-level domain DNS server
+
+111
+00:05:08,700 --> 00:05:11,010
+and this is a server that is going to be managed
+
+112
+00:05:11,010 --> 00:05:12,510
+by your domain registrar.
+
+113
+00:05:12,510 --> 00:05:16,080
+So it could be, for example, Amazon Route 53 and so on.
+
+114
+00:05:16,080 --> 00:05:17,317
+So the DNS server is gonna say,
+
+115
+00:05:17,317 --> 00:05:19,830
+"Hey, do you know about example.com?"
+
+116
+00:05:19,830 --> 00:05:22,980
+And the DNS server will have an entry for example.com.
+
+117
+00:05:22,980 --> 00:05:23,813
+And so it will say,
+
+118
+00:05:23,813 --> 00:05:25,710
+"Hey, yes, of course I know example.com."
+
+119
+00:05:25,710 --> 00:05:27,210
+And it turns out that example.com,
+
+120
+00:05:27,210 --> 00:05:29,250
+I know that it's an A record
+
+121
+00:05:29,250 --> 00:05:34,250
+and that the result of it is the IP 9.10.11.12.
+
+122
+00:05:34,620 --> 00:05:36,900
+So, the DNS server now knows the answer
+
+123
+00:05:36,900 --> 00:05:39,660
+by recursively asking DNS servers
+
+124
+00:05:39,660 --> 00:05:42,000
+and finding the most specific one.
+
+125
+00:05:42,000 --> 00:05:43,650
+And then it says, "Okay, hey, yes.
+
+126
+00:05:43,650 --> 00:05:46,140
+I'm going to cache that answer right away
+
+127
+00:05:46,140 --> 00:05:47,490
+because I want to be able to,
+
+128
+00:05:47,490 --> 00:05:49,770
+if someone is asking me again for example.com
+
+129
+00:05:49,770 --> 00:05:52,890
+I want to get it right away, give them the answer."
+
+130
+00:05:52,890 --> 00:05:56,730
+So, it's going to send back the answer into your browser
+
+131
+00:05:56,730 --> 00:05:58,080
+and your web browser now has the answer
+
+132
+00:05:58,080 --> 00:06:00,120
+and using this IP address
+
+133
+00:06:00,120 --> 00:06:03,630
+then is going to be able to access your web server.
+
+134
+00:06:03,630 --> 00:06:04,950
+So, this is how DNS works.
+
+135
+00:06:04,950 --> 00:06:07,080
+So, you've been using DNS behind the scenes
+
+136
+00:06:07,080 --> 00:06:08,250
+all along all your life.
+
+137
+00:06:08,250 --> 00:06:10,770
+For example, when you access www.google.com
+
+138
+00:06:10,770 --> 00:06:12,660
+you're using DNS or any website.
+
+139
+00:06:12,660 --> 00:06:15,450
+But now we see how the DNS queries work.
+
+140
+00:06:15,450 --> 00:06:16,800
+So, this is just some background knowledge
+
+141
+00:06:16,800 --> 00:06:18,960
+because now we're going to go into Route 53
+
+142
+00:06:18,960 --> 00:06:21,660
+and learn how to manage a DNS server on our own.
+
+143
+00:06:21,660 --> 00:06:22,493
+So I hope you liked it
+
+144
+00:06:22,493 --> 00:06:24,390
+and I will see you in the next lecture.
+

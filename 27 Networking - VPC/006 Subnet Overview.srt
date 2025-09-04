@@ -1,0 +1,188 @@
+1
+00:00:00,080 --> 00:00:01,170
+Okay, so the next step is
+
+2
+00:00:01,170 --> 00:00:03,260
+to add subnets into our VPC.
+
+3
+00:00:03,260 --> 00:00:04,580
+So we're going to create two subnets.
+
+4
+00:00:04,580 --> 00:00:05,950
+One will be a public subnet,
+
+5
+00:00:05,950 --> 00:00:07,920
+and one will be a private subnet.
+
+6
+00:00:07,920 --> 00:00:10,540
+Now this is going to be within the one availability zone,
+
+7
+00:00:10,540 --> 00:00:13,190
+and we'll see what makes a subnet public
+
+8
+00:00:13,190 --> 00:00:15,180
+or a subnet private.
+
+9
+00:00:15,180 --> 00:00:17,610
+So let's have a look just first at what subnets are.
+
+10
+00:00:17,610 --> 00:00:19,760
+So a subnet is going to be, again,
+
+11
+00:00:19,760 --> 00:00:23,110
+a sub-range of IPv4 addresses within your VPC.
+
+12
+00:00:23,110 --> 00:00:25,000
+And it turns out that's in this range,
+
+13
+00:00:25,000 --> 00:00:27,370
+AWS will reserved the five IP addresses in it.
+
+14
+00:00:27,370 --> 00:00:30,520
+So, the first four IP addresses and the last one is reserved
+
+15
+00:00:30,520 --> 00:00:31,740
+in each subnet.
+
+16
+00:00:31,740 --> 00:00:33,880
+These IP addresses are not available for use,
+
+17
+00:00:33,880 --> 00:00:37,020
+and they cannot be assigned as an IP to an EC2 instance.
+
+18
+00:00:37,020 --> 00:00:37,853
+So for example,
+
+19
+00:00:37,853 --> 00:00:41,320
+if you have a CIDR block 10.0.0.0/24,
+
+20
+00:00:41,320 --> 00:00:43,700
+then you're going to have a few reserved IP addresses.
+
+21
+00:00:43,700 --> 00:00:44,890
+Such as, well, the first one,
+
+22
+00:00:44,890 --> 00:00:46,090
+which is network address,
+
+23
+00:00:46,090 --> 00:00:46,923
+the second one,
+
+24
+00:00:46,923 --> 00:00:49,840
+so .1, which is reserved AWS for the VPC router,
+
+25
+00:00:49,840 --> 00:00:52,440
+the .2, which is reserved by AWS for mapping
+
+26
+00:00:52,440 --> 00:00:53,820
+to Amazon provided DNS,
+
+27
+00:00:53,820 --> 00:00:55,397
+and this is very important,
+
+28
+00:00:55,397 --> 00:00:56,660
+.3, which is not used yet,
+
+29
+00:00:56,660 --> 00:00:58,870
+but is reserved for future use.
+
+30
+00:00:58,870 --> 00:01:02,090
+And we have .255, which is a network broadcast address.
+
+31
+00:01:02,090 --> 00:01:04,950
+But because AWS does not support broadcast in a VPC,
+
+32
+00:01:04,950 --> 00:01:07,670
+this address is reserved and cannot be used, okay?
+
+33
+00:01:07,670 --> 00:01:08,760
+So as an Exam Tip,
+
+34
+00:01:08,760 --> 00:01:11,140
+if you need 29 IG IP addresses in a sub-net
+
+35
+00:01:11,140 --> 00:01:12,820
+for EC2 instances,
+
+36
+00:01:12,820 --> 00:01:15,650
+then you can not choose a subnet of /27
+
+37
+00:01:15,650 --> 00:01:19,490
+because this is 32 IP addresses, right, in this /27.
+
+38
+00:01:19,490 --> 00:01:21,640
+But if you remove the five that are reserved IP addresses,
+
+39
+00:01:21,640 --> 00:01:23,280
+you're going to get 27 addresses,
+
+40
+00:01:23,280 --> 00:01:25,630
+which are less than the number 29 that we need.
+
+41
+00:01:25,630 --> 00:01:28,210
+So we need to choose a subnet size of /26
+
+42
+00:01:28,210 --> 00:01:30,630
+because this gives us 64 IP addresses in that subnet.
+
+43
+00:01:30,630 --> 00:01:33,250
+And then if you remove the five reserved IP addresses
+
+44
+00:01:33,250 --> 00:01:34,620
+with sub-59 IP addresses,
+
+45
+00:01:34,620 --> 00:01:37,760
+which is greater than the 29 we needed, okay?
+
+46
+00:01:37,760 --> 00:01:39,130
+So, I will see you in the next lecture
+
+47
+00:01:39,130 --> 00:01:40,530
+to create our first subnets.
+

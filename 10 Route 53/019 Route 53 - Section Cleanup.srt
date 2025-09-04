@@ -1,0 +1,156 @@
+1
+00:00:00,270 --> 00:00:02,040
+Okay, so let's clean up
+
+2
+00:00:02,040 --> 00:00:03,530
+what we've done in the Route 53
+
+3
+00:00:03,530 --> 00:00:04,860
+if you wanted to avoid some costs.
+
+4
+00:00:04,860 --> 00:00:07,050
+So the domain name you've bought,
+
+5
+00:00:07,050 --> 00:00:09,080
+of course stays in your accounts,
+
+6
+00:00:09,080 --> 00:00:10,950
+and it will cost you $12 a year
+
+7
+00:00:10,950 --> 00:00:11,854
+if you wanted to renew it
+
+8
+00:00:11,854 --> 00:00:15,500
+or more if you've bought a more pricey domain name
+
+9
+00:00:15,500 --> 00:00:17,810
+And the domain name itself, so the hosted zone,
+
+10
+00:00:17,810 --> 00:00:18,700
+if you're not using it,
+
+11
+00:00:18,700 --> 00:00:20,620
+you can delete this hosted zone
+
+12
+00:00:20,620 --> 00:00:22,270
+by first emptying all the records.
+
+13
+00:00:22,270 --> 00:00:25,020
+Otherwise it will cost you 50 cents per month
+
+14
+00:00:25,020 --> 00:00:27,750
+to keep this hosting zone alive, okay.
+
+15
+00:00:27,750 --> 00:00:29,860
+Within it, it doesn't matter if you have many records,
+
+16
+00:00:29,860 --> 00:00:31,150
+you can just leave them as is.
+
+17
+00:00:31,150 --> 00:00:32,350
+This is fine.
+
+18
+00:00:32,350 --> 00:00:35,640
+The other thing we have to delete is all our EC2 instances
+
+19
+00:00:35,640 --> 00:00:38,320
+in our different regions, as well as our ALB.
+
+20
+00:00:38,320 --> 00:00:41,440
+So we had EC2 instances in three different regions.
+
+21
+00:00:41,440 --> 00:00:43,730
+So what I'm going to do is just delete them one by one.
+
+22
+00:00:43,730 --> 00:00:45,550
+So there was one from me in Frankfurt,
+
+23
+00:00:45,550 --> 00:00:48,540
+and I believe that the load balancer I had created
+
+24
+00:00:48,540 --> 00:00:49,373
+is also here.
+
+25
+00:00:49,373 --> 00:00:51,780
+So let me delete this load balancer as well.
+
+26
+00:00:51,780 --> 00:00:54,670
+And we can also delete the associated target group
+
+27
+00:00:54,670 --> 00:00:56,840
+with that load balancer, okay.
+
+28
+00:00:56,840 --> 00:00:57,760
+This is good.
+
+29
+00:00:57,760 --> 00:01:01,460
+And we have to perform the same kind of cleanup
+
+30
+00:01:01,460 --> 00:01:02,293
+in other regions.
+
+31
+00:01:02,293 --> 00:01:05,410
+So for me was us-east-1 where I'm going to go ahead
+
+32
+00:01:06,448 --> 00:01:08,450
+and delete another, terminate another EC2 instance,
+
+33
+00:01:08,450 --> 00:01:12,100
+and finally do the exact same thing in ap-southeast-1.
+
+34
+00:01:12,100 --> 00:01:12,933
+Okay.
+
+35
+00:01:12,933 --> 00:01:14,566
+After this, you should not incur any costs
+
+36
+00:01:14,566 --> 00:01:16,295
+out of this lectures.
+
+37
+00:01:16,295 --> 00:01:19,260
+Okay, so I really hope you liked this section
+
+38
+00:01:19,260 --> 00:01:20,110
+and I will see you
+
+39
+00:01:20,110 --> 00:01:21,110
+in the next lecture.
+

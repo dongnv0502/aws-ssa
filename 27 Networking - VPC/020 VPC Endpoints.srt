@@ -1,0 +1,512 @@
+1
+00:00:00,300 --> 00:00:02,940
+So now let's talk about VPC endpoints.
+
+2
+00:00:02,940 --> 00:00:06,450
+The idea is that you have services on AWS, for example,
+
+3
+00:00:06,450 --> 00:00:10,350
+such as DynamoDB and they are accessible publicly.
+
+4
+00:00:10,350 --> 00:00:12,450
+So that means that your whole infrastructure
+
+5
+00:00:12,450 --> 00:00:15,360
+through your NAT gateway and then your internet gateway
+
+6
+00:00:15,360 --> 00:00:16,193
+or just directly
+
+7
+00:00:16,193 --> 00:00:19,347
+through your internet gateway does access DynamoDB.
+
+8
+00:00:19,347 --> 00:00:22,560
+But all this traffic goes through the public internet
+
+9
+00:00:22,560 --> 00:00:24,905
+and you may have other services such as CloudWatch
+
+10
+00:00:24,905 --> 00:00:27,990
+and Amazon S3 that you also wanna access
+
+11
+00:00:27,990 --> 00:00:29,280
+without going through the internet.
+
+12
+00:00:29,280 --> 00:00:31,350
+You wanna access them privately.
+
+13
+00:00:31,350 --> 00:00:34,050
+So the idea is that you're going to use VPC endpoints
+
+14
+00:00:34,050 --> 00:00:36,360
+so that your instances don't have to go
+
+15
+00:00:36,360 --> 00:00:37,710
+through the public internet,
+
+16
+00:00:37,710 --> 00:00:39,420
+they can just go directly
+
+17
+00:00:39,420 --> 00:00:43,773
+through the private AWS network to these services.
+
+18
+00:00:44,880 --> 00:00:48,180
+So let's consider this architecture that we know already,
+
+19
+00:00:48,180 --> 00:00:50,100
+so we have public subnets with a NAT gateway
+
+20
+00:00:50,100 --> 00:00:53,010
+and it's EC2 instance, a private subnet,
+
+21
+00:00:53,010 --> 00:00:56,160
+and then we're going to have an internet gateway
+
+22
+00:00:56,160 --> 00:00:59,340
+so that we know we can access the Amazon SNS service
+
+23
+00:00:59,340 --> 00:01:01,410
+for example, through different ways.
+
+24
+00:01:01,410 --> 00:01:04,230
+So if we look at the private subnet
+
+25
+00:01:04,230 --> 00:01:05,970
+and the EC2 instance in it,
+
+26
+00:01:05,970 --> 00:01:08,400
+to access the Amazon SNS service,
+
+27
+00:01:08,400 --> 00:01:11,370
+the EC2 instance can go through the NAT gateway
+
+28
+00:01:11,370 --> 00:01:13,620
+which then goes to the internet gateway
+
+29
+00:01:13,620 --> 00:01:17,400
+and then accesses publicly the Amazon SNS service
+
+30
+00:01:17,400 --> 00:01:18,233
+and this is the same
+
+31
+00:01:18,233 --> 00:01:20,490
+for the EC2 instance in the public subnet,
+
+32
+00:01:20,490 --> 00:01:22,860
+it goes directly through the internet gateway
+
+33
+00:01:22,860 --> 00:01:24,663
+to the Amazon SNS service.
+
+34
+00:01:25,950 --> 00:01:27,150
+And this option is fine
+
+35
+00:01:27,150 --> 00:01:29,430
+but it costs just a lot of money because, well,
+
+36
+00:01:29,430 --> 00:01:31,890
+we have to go through NAT gateway, which has a cost,
+
+37
+00:01:31,890 --> 00:01:34,560
+and then we have to go through the internet gateway
+
+38
+00:01:34,560 --> 00:01:35,460
+which doesn't have a cost
+
+39
+00:01:35,460 --> 00:01:39,000
+but still there is obviously many hops
+
+40
+00:01:39,000 --> 00:01:40,770
+and it's not very efficient.
+
+41
+00:01:40,770 --> 00:01:42,390
+So instead, I'm just representing
+
+42
+00:01:42,390 --> 00:01:43,890
+the same Amazon SNS service,
+
+43
+00:01:43,890 --> 00:01:45,390
+but somewhere else on the diagram,
+
+44
+00:01:45,390 --> 00:01:47,700
+we can use a VPC endpoint.
+
+45
+00:01:47,700 --> 00:01:50,220
+And the idea is that the VPC endpoint is deployed
+
+46
+00:01:50,220 --> 00:01:54,030
+within your VPC and by doing some networking,
+
+47
+00:01:54,030 --> 00:01:56,850
+we can actually make the EC2 instance
+
+48
+00:01:56,850 --> 00:02:00,240
+in the private subnet go through the VPC endpoint
+
+49
+00:02:00,240 --> 00:02:02,700
+directly into the Amazon SNS service
+
+50
+00:02:02,700 --> 00:02:07,290
+and the network has never left AWS, which is really good.
+
+51
+00:02:07,290 --> 00:02:10,889
+So, every AWS service is publicly exposed,
+
+52
+00:02:10,889 --> 00:02:12,450
+it has public a URL,
+
+53
+00:02:12,450 --> 00:02:14,970
+and if you use VPC endpoints, they are powered
+
+54
+00:02:14,970 --> 00:02:17,220
+by something called AWS PrivateLink because you
+
+55
+00:02:17,220 --> 00:02:19,560
+access these services privately.
+
+56
+00:02:19,560 --> 00:02:22,110
+Then you can connect to any of these services
+
+57
+00:02:22,110 --> 00:02:24,690
+by AWS using a private network
+
+58
+00:02:24,690 --> 00:02:27,180
+instead of going over the public internet.
+
+59
+00:02:27,180 --> 00:02:30,660
+These VPC endpoints are redundant and they scale
+
+60
+00:02:30,660 --> 00:02:33,510
+horizontally, and they're going to remove the need
+
+61
+00:02:33,510 --> 00:02:36,660
+for an internet gateway or a NAT gateway
+
+62
+00:02:36,660 --> 00:02:38,700
+to access AWS services,
+
+63
+00:02:38,700 --> 00:02:42,120
+thus simplifying your network infrastructure by a lot.
+
+64
+00:02:42,120 --> 00:02:44,760
+So in case of issues, you need to check the DNS
+
+65
+00:02:44,760 --> 00:02:48,180
+settings resolution in your VPC and your route tables.
+
+66
+00:02:48,180 --> 00:02:51,030
+So this is the general idea behind the VPC endpoints now,
+
+67
+00:02:51,030 --> 00:02:53,640
+we have two types of VPC endpoints.
+
+68
+00:02:53,640 --> 00:02:55,590
+We have the Interface Endpoints
+
+69
+00:02:55,590 --> 00:02:58,020
+and these are powered by PrivateLink
+
+70
+00:02:58,020 --> 00:03:00,210
+and we have the Gateway Endpoints.
+
+71
+00:03:00,210 --> 00:03:02,940
+So the Interface Endpoints provision an ENI,
+
+72
+00:03:02,940 --> 00:03:05,700
+so it's a private IP address in your VPC
+
+73
+00:03:05,700 --> 00:03:10,700
+and this ENI is an entry point to your private AWS service.
+
+74
+00:03:11,760 --> 00:03:14,190
+And so for this, we must attach a security group
+
+75
+00:03:14,190 --> 00:03:18,390
+because there is an ENI and it supports most AWS services
+
+76
+00:03:18,390 --> 00:03:21,480
+if not all, and there's a cost to it, it's a cost
+
+77
+00:03:21,480 --> 00:03:25,380
+per hour and it's a cost per gigabyte of data processed.
+
+78
+00:03:25,380 --> 00:03:27,070
+So here we go, we have an EC2 instance
+
+79
+00:03:27,070 --> 00:03:30,870
+and a private subnet and thanks to a PrivateLink
+
+80
+00:03:30,870 --> 00:03:33,270
+VPC endpoint of type interface
+
+81
+00:03:33,270 --> 00:03:36,930
+then we can access through the ENI to the service.
+
+82
+00:03:36,930 --> 00:03:39,690
+And this works for every single service out there.
+
+83
+00:03:39,690 --> 00:03:43,050
+Now we have the Gateway Endpoint and they're special.
+
+84
+00:03:43,050 --> 00:03:45,030
+They provision what's called a gateway
+
+85
+00:03:45,030 --> 00:03:49,290
+and this has to be used as a target in a route table.
+
+86
+00:03:49,290 --> 00:03:51,900
+So this does not leverage IP addresses,
+
+87
+00:03:51,900 --> 00:03:53,820
+this is not a leverage security groups,
+
+88
+00:03:53,820 --> 00:03:56,040
+it's just a target in a route table
+
+89
+00:03:56,040 --> 00:03:57,450
+and you need to remember that.
+
+90
+00:03:57,450 --> 00:04:00,540
+And there are only two targets for a Gateway Endpoint,
+
+91
+00:04:00,540 --> 00:04:04,050
+it is Amazon S3 and DynamoDB, but the advantage
+
+92
+00:04:04,050 --> 00:04:06,930
+that this is free and this scales automatically
+
+93
+00:04:06,930 --> 00:04:09,480
+because it's only a route table access.
+
+94
+00:04:09,480 --> 00:04:13,830
+So, it's only for Amazon S3 and DynamoDB, remember this.
+
+95
+00:04:13,830 --> 00:04:15,060
+And in this instance,
+
+96
+00:04:15,060 --> 00:04:18,240
+we provide a VPC endpoint of type gateway
+
+97
+00:04:18,240 --> 00:04:21,600
+and we have access to Amazon S3 or DynamoDB.
+
+98
+00:04:21,600 --> 00:04:24,240
+So the question you may ask me is, hey,
+
+99
+00:04:24,240 --> 00:04:27,240
+if the Interface Endpoint supports everything
+
+100
+00:04:27,240 --> 00:04:30,870
+and the Gateway Endpoint supports Amazon S3 and DynamoDB,
+
+101
+00:04:30,870 --> 00:04:32,040
+should I use the Gateway
+
+102
+00:04:32,040 --> 00:04:35,910
+or the Interface Endpoint for Amazon S3 or DynamoDB?
+
+103
+00:04:35,910 --> 00:04:38,550
+Well, we have indeed two ways
+
+104
+00:04:38,550 --> 00:04:41,070
+of accessing Amazon S3, right?
+
+105
+00:04:41,070 --> 00:04:42,300
+Either with the Gateway Endpoint
+
+106
+00:04:42,300 --> 00:04:44,220
+or with an Interface Endpoint.
+
+107
+00:04:44,220 --> 00:04:48,150
+And at the exam, the Gateway is most likely going to
+
+108
+00:04:48,150 --> 00:04:52,140
+be the preferred solution at the exam, why?
+
+109
+00:04:52,140 --> 00:04:55,080
+Well, because we just have to modify a route table.
+
+110
+00:04:55,080 --> 00:04:58,590
+So, and your apps can access Amazon S3 free of charge,
+
+111
+00:04:58,590 --> 00:05:01,890
+so the cost is free for a Gateway, it scales more,
+
+112
+00:05:01,890 --> 00:05:03,960
+and for the Interface Endpoint,
+
+113
+00:05:03,960 --> 00:05:06,420
+you have a cost associated with it.
+
+114
+00:05:06,420 --> 00:05:10,530
+The only time where an Interface Endpoint may be preferable
+
+115
+00:05:10,530 --> 00:05:12,390
+over a Gateway Endpoint is
+
+116
+00:05:12,390 --> 00:05:15,900
+if you require access from on-premises, for example
+
+117
+00:05:15,900 --> 00:05:18,810
+you want private access from your on-premise data center
+
+118
+00:05:18,810 --> 00:05:20,880
+and we haven't seen it yet, but we can connect it
+
+119
+00:05:20,880 --> 00:05:24,360
+through something called site to site VPN or direct connect
+
+120
+00:05:24,360 --> 00:05:28,260
+or it's maybe preferable if you want to connect
+
+121
+00:05:28,260 --> 00:05:31,830
+from another VPC through this Interface Endpoint.
+
+122
+00:05:31,830 --> 00:05:33,450
+So these are advanced use cases, right?
+
+123
+00:05:33,450 --> 00:05:35,670
+And this is what is represented on this graph.
+
+124
+00:05:35,670 --> 00:05:36,840
+But most of the time
+
+125
+00:05:36,840 --> 00:05:39,390
+the Gateway Endpoint is going to be preferred
+
+126
+00:05:39,390 --> 00:05:41,050
+for Amazon S3.
+
+127
+00:05:41,050 --> 00:05:42,420
+Okay, that's it for this lecture,
+
+128
+00:05:42,420 --> 00:05:45,370
+I hope you liked it and I will see you in the next lecture.
+

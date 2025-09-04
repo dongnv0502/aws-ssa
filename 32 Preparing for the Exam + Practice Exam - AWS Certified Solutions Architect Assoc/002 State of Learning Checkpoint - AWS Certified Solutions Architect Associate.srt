@@ -1,0 +1,464 @@
+1
+00:00:00,240 --> 00:00:01,890
+Okay, so let's see how far we've learned
+
+2
+00:00:01,890 --> 00:00:02,820
+in this course,
+
+3
+00:00:02,820 --> 00:00:06,570
+and we're going to check the exam certification page
+
+4
+00:00:06,570 --> 00:00:08,970
+to have a look at the exam guide.
+
+5
+00:00:08,970 --> 00:00:09,960
+So here I am
+
+6
+00:00:09,960 --> 00:00:13,860
+on the AWS Certified Solutions Architect Associate page.
+
+7
+00:00:13,860 --> 00:00:14,910
+And if you scroll down,
+
+8
+00:00:14,910 --> 00:00:17,400
+you can have a look at the exam guide
+
+9
+00:00:17,400 --> 00:00:18,540
+as well as the sample question.
+
+10
+00:00:18,540 --> 00:00:20,670
+So let's go over the exam guide.
+
+11
+00:00:20,670 --> 00:00:23,910
+So this is a long document at 17 pages
+
+12
+00:00:23,910 --> 00:00:26,610
+and it represents what you should be knowing
+
+13
+00:00:26,610 --> 00:00:28,140
+going into the exam.
+
+14
+00:00:28,140 --> 00:00:30,330
+So we're going to skim through this document
+
+15
+00:00:30,330 --> 00:00:32,610
+and verify that we know a lot,
+
+16
+00:00:32,610 --> 00:00:35,010
+and then I will do a few precisions,
+
+17
+00:00:35,010 --> 00:00:38,790
+especially when we go into this right here,
+
+18
+00:00:38,790 --> 00:00:42,270
+which is the services covered
+
+19
+00:00:42,270 --> 00:00:46,050
+which are at the very bottom, the appendix.
+
+20
+00:00:46,050 --> 00:00:49,650
+And this is concept that might be covered on the exam, okay?
+
+21
+00:00:49,650 --> 00:00:51,630
+So all these services here
+
+22
+00:00:51,630 --> 00:00:54,060
+will not necessarily be at the exam
+
+23
+00:00:54,060 --> 00:00:58,470
+and I've created the course in a way that's what I teach
+
+24
+00:00:58,470 --> 00:01:00,540
+I know is at the exam, okay?
+
+25
+00:01:00,540 --> 00:01:02,130
+So if you see something here
+
+26
+00:01:02,130 --> 00:01:03,600
+but I don't teach it in the course,
+
+27
+00:01:03,600 --> 00:01:04,680
+do not freak out.
+
+28
+00:01:04,680 --> 00:01:08,700
+If I hear from students that it is indeed at the exam,
+
+29
+00:01:08,700 --> 00:01:11,280
+then I will include lecture on it, okay?
+
+30
+00:01:11,280 --> 00:01:14,640
+This is just technology that might be covered at the exam.
+
+31
+00:01:14,640 --> 00:01:16,080
+Okay, so let's go back up.
+
+32
+00:01:16,080 --> 00:01:19,230
+So you're going to have one year of hands-on experience
+
+33
+00:01:19,230 --> 00:01:20,160
+to do the exam,
+
+34
+00:01:20,160 --> 00:01:21,330
+but after doing this course
+
+35
+00:01:21,330 --> 00:01:23,010
+you will have enough experience.
+
+36
+00:01:23,010 --> 00:01:25,410
+So the exam will be of two types of question.
+
+37
+00:01:25,410 --> 00:01:26,700
+You have the multi-choice
+
+38
+00:01:26,700 --> 00:01:30,270
+where one correct responses and three incorrect responses,
+
+39
+00:01:30,270 --> 00:01:31,260
+and multi response
+
+40
+00:01:31,260 --> 00:01:34,230
+when you have two or more correct responses out of five.
+
+41
+00:01:34,230 --> 00:01:37,320
+And you must answer a question.
+
+42
+00:01:37,320 --> 00:01:38,760
+So there's no penalty for guessing.
+
+43
+00:01:38,760 --> 00:01:40,650
+You must answer every question,
+
+44
+00:01:40,650 --> 00:01:43,980
+because if you answer incorrect or if you don't answer,
+
+45
+00:01:43,980 --> 00:01:48,450
+you will not get points removed from your score, okay?
+
+46
+00:01:48,450 --> 00:01:50,370
+So answer all the questions.
+
+47
+00:01:50,370 --> 00:01:53,610
+There are 15 unscored questions that you do not know about
+
+48
+00:01:53,610 --> 00:01:54,870
+and they do not affect your score.
+
+49
+00:01:54,870 --> 00:01:58,650
+This is so that AWS can test new questions over time
+
+50
+00:01:58,650 --> 00:01:59,483
+and make sure they're good
+
+51
+00:01:59,483 --> 00:02:02,340
+and make sure people answer them correctly or not,
+
+52
+00:02:02,340 --> 00:02:03,330
+but you don't know about them, okay?
+
+53
+00:02:03,330 --> 00:02:06,990
+So you're actually scored on 50 questions out of 65,
+
+54
+00:02:06,990 --> 00:02:09,120
+but 15 of them you don't know about.
+
+55
+00:02:09,120 --> 00:02:09,960
+Okay.
+
+56
+00:02:09,960 --> 00:02:13,800
+So your exam score is between 100 and 1000,
+
+57
+00:02:13,800 --> 00:02:17,373
+and the minimum passing score is 720.
+
+58
+00:02:18,750 --> 00:02:21,690
+Next you should have the content outlines.
+
+59
+00:02:21,690 --> 00:02:23,580
+So this is the domains at the exam.
+
+60
+00:02:23,580 --> 00:02:25,800
+So you have four domains you're being tested on.
+
+61
+00:02:25,800 --> 00:02:28,650
+And when you receive the final results,
+
+62
+00:02:28,650 --> 00:02:30,060
+it will tell you on each domain
+
+63
+00:02:30,060 --> 00:02:32,550
+if you were passing or not passing.
+
+64
+00:02:32,550 --> 00:02:34,380
+And it doesn't tell you your score per domain.
+
+65
+00:02:34,380 --> 00:02:35,490
+It will never tell you
+
+66
+00:02:35,490 --> 00:02:37,590
+if you're right or wrong on the question,
+
+67
+00:02:37,590 --> 00:02:39,930
+it will just tell you your total score,
+
+68
+00:02:39,930 --> 00:02:43,350
+as well as your domain level pass or not pass.
+
+69
+00:02:43,350 --> 00:02:47,100
+So 30% of the exam is on designing secure architecture.
+
+70
+00:02:47,100 --> 00:02:48,900
+So security is a big thing.
+
+71
+00:02:48,900 --> 00:02:51,510
+26% is resilient architecture.
+
+72
+00:02:51,510 --> 00:02:54,750
+So making sure we know about high availability and so on.
+
+73
+00:02:54,750 --> 00:02:57,150
+24% is high performance.
+
+74
+00:02:57,150 --> 00:03:00,660
+So how do we leverage the best service for the best use case
+
+75
+00:03:00,660 --> 00:03:03,000
+with the best features and the best options?
+
+76
+00:03:03,000 --> 00:03:05,580
+And finally cost-optimized architecture is at 20%.
+
+77
+00:03:05,580 --> 00:03:08,670
+How do we save on cost in the cloud?
+
+78
+00:03:08,670 --> 00:03:09,503
+Okay.
+
+79
+00:03:09,503 --> 00:03:12,690
+So here you can really have a look at each domain
+
+80
+00:03:12,690 --> 00:03:14,280
+and each knowledge of.
+
+81
+00:03:14,280 --> 00:03:16,290
+So I'm not going to read everything out to you,
+
+82
+00:03:16,290 --> 00:03:18,360
+that would be extremely boring, okay?
+
+83
+00:03:18,360 --> 00:03:21,600
+But I've designed this course in reading all the domains
+
+84
+00:03:21,600 --> 00:03:23,700
+and all the tasks and all the skills.
+
+85
+00:03:23,700 --> 00:03:25,590
+So really you should be good to go.
+
+86
+00:03:25,590 --> 00:03:27,180
+If there is something that you don't know
+
+87
+00:03:27,180 --> 00:03:28,320
+or don't feel confident about,
+
+88
+00:03:28,320 --> 00:03:29,580
+try to go back to the course,
+
+89
+00:03:29,580 --> 00:03:30,660
+or even better,
+
+90
+00:03:30,660 --> 00:03:31,680
+now you should know enough
+
+91
+00:03:31,680 --> 00:03:34,470
+to start looking into the AWS documentation
+
+92
+00:03:34,470 --> 00:03:36,930
+and really get the right information you need
+
+93
+00:03:36,930 --> 00:03:38,910
+to understand some services, okay?
+
+94
+00:03:38,910 --> 00:03:40,230
+So you have the four domains.
+
+95
+00:03:40,230 --> 00:03:41,760
+I invite you to read them in your own time,
+
+96
+00:03:41,760 --> 00:03:44,520
+otherwise that would be a very horrible video.
+
+97
+00:03:44,520 --> 00:03:46,740
+And then the appendix of services
+
+98
+00:03:46,740 --> 00:03:49,920
+that you can consider can appear at the exam
+
+99
+00:03:49,920 --> 00:03:51,630
+or might appear at the exam,
+
+100
+00:03:51,630 --> 00:03:53,730
+but you can hopefully rely on me
+
+101
+00:03:53,730 --> 00:03:57,060
+and say that, "I know what goes at the exam.
+
+102
+00:03:57,060 --> 00:03:57,893
+I've passed it."
+
+103
+00:03:57,893 --> 00:03:58,726
+People have passed it
+
+104
+00:03:58,726 --> 00:04:00,420
+and I receive feedback all the time.
+
+105
+00:04:00,420 --> 00:04:02,460
+And so what I cover in the course should be enough.
+
+106
+00:04:02,460 --> 00:04:03,570
+And if I don't,
+
+107
+00:04:03,570 --> 00:04:05,790
+if you have something that is not covered in the course,
+
+108
+00:04:05,790 --> 00:04:07,770
+just please let me know and I will edit the course
+
+109
+00:04:07,770 --> 00:04:08,940
+as soon as possible.
+
+110
+00:04:08,940 --> 00:04:11,520
+But it's usually one question out of 65.
+
+111
+00:04:11,520 --> 00:04:14,760
+So it doesn't impact your ability to pass the exam.
+
+112
+00:04:14,760 --> 00:04:16,800
+I want you to have a very high score.
+
+113
+00:04:16,800 --> 00:04:17,632
+Okay.
+
+114
+00:04:17,632 --> 00:04:19,050
+So that's it for this lecture.
+
+115
+00:04:19,050 --> 00:04:19,950
+I hope you liked it,
+
+116
+00:04:19,950 --> 00:04:21,899
+and I will see you in the next lecture.
+

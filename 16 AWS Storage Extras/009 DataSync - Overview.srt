@@ -1,0 +1,400 @@
+1
+00:00:00,270 --> 00:00:03,210
+So now, let's talk about AWS DataSync.
+
+2
+00:00:03,210 --> 00:00:04,680
+And DataSync is a service
+
+3
+00:00:04,680 --> 00:00:07,920
+that is appearing now quite a lot at the exam.
+
+4
+00:00:07,920 --> 00:00:08,850
+It's a very simple one,
+
+5
+00:00:08,850 --> 00:00:11,070
+but you need to know what it does and its core.
+
+6
+00:00:11,070 --> 00:00:12,450
+So the idea as an image,
+
+7
+00:00:12,450 --> 00:00:15,180
+to indicate is to synchronize data.
+
+8
+00:00:15,180 --> 00:00:19,410
+Therefore, move large amount of data to, and from places.
+
+9
+00:00:19,410 --> 00:00:21,690
+And these places can be for example,
+
+10
+00:00:21,690 --> 00:00:26,690
+on-premises or other cloud locations into AWS.
+
+11
+00:00:26,760 --> 00:00:29,610
+So you would connect to your server using the NFS,
+
+12
+00:00:29,610 --> 00:00:33,480
+the SMB, the HDFS, or other protocols,
+
+13
+00:00:33,480 --> 00:00:36,210
+and it needs an agent to run on-premises
+
+14
+00:00:36,210 --> 00:00:38,910
+or on the other cloud to do that connection.
+
+15
+00:00:38,910 --> 00:00:41,880
+And you can, for example, do other types of migrations.
+
+16
+00:00:41,880 --> 00:00:46,110
+For example, you can move data from one AWS service
+
+17
+00:00:46,110 --> 00:00:48,120
+to another AWS service.
+
+18
+00:00:48,120 --> 00:00:49,950
+And this requires no agent.
+
+19
+00:00:49,950 --> 00:00:51,240
+I will show you what it means.
+
+20
+00:00:51,240 --> 00:00:54,270
+So the idea is that you can synchronize data
+
+21
+00:00:54,270 --> 00:00:59,270
+to Amazon S3 including any storage classes, even Glacier.
+
+22
+00:00:59,370 --> 00:01:03,660
+Amazon EFS, to store into your network file system,
+
+23
+00:01:03,660 --> 00:01:07,230
+or Amazon FSx, and it supports all of them.
+
+24
+00:01:07,230 --> 00:01:09,930
+Now, the replication tasks are not continuous.
+
+25
+00:01:09,930 --> 00:01:11,340
+They are scheduled,
+
+26
+00:01:11,340 --> 00:01:15,840
+so you can make DataSync run hourly, daily, or weekly.
+
+27
+00:01:15,840 --> 00:01:17,280
+So there's a lag, okay?
+
+28
+00:01:17,280 --> 00:01:21,120
+But the data is going to be synchronized on a schedule.
+
+29
+00:01:21,120 --> 00:01:23,880
+On top of it, DataSync has the ability
+
+30
+00:01:23,880 --> 00:01:27,480
+to keep the file permissions and the metadata.
+
+31
+00:01:27,480 --> 00:01:29,880
+That means the security and so on.
+
+32
+00:01:29,880 --> 00:01:31,050
+So that means that it's compliance
+
+33
+00:01:31,050 --> 00:01:35,910
+with the NFS POSIX file system and the SMB permissions.
+
+34
+00:01:35,910 --> 00:01:38,430
+This is very important because at the exam,
+
+35
+00:01:38,430 --> 00:01:40,170
+this will be the unique option
+
+36
+00:01:40,170 --> 00:01:42,450
+that will preserve the metadata of your file
+
+37
+00:01:42,450 --> 00:01:45,600
+when moving them from one location to another.
+
+38
+00:01:45,600 --> 00:01:47,910
+One DataSync agent can be quite powerful.
+
+39
+00:01:47,910 --> 00:01:50,190
+It can run one task,
+
+40
+00:01:50,190 --> 00:01:53,520
+can use up to 10 gigabits of data per second.
+
+41
+00:01:53,520 --> 00:01:56,340
+Although, if you don't want to max out your network
+
+42
+00:01:56,340 --> 00:01:58,650
+you can set up a bandwidth limits.
+
+43
+00:01:58,650 --> 00:02:01,860
+So let's have a look at what it means in the diagram.
+
+44
+00:02:01,860 --> 00:02:04,650
+So here is the use case of synchronizing
+
+45
+00:02:04,650 --> 00:02:07,260
+your on-premises files using the SMB
+
+46
+00:02:07,260 --> 00:02:10,110
+or NFS protocol into AWS.
+
+47
+00:02:10,110 --> 00:02:12,450
+And that could be S3, EFS or FSx.
+
+48
+00:02:12,450 --> 00:02:15,870
+So you have your on-premises and then your AWS region
+
+49
+00:02:15,870 --> 00:02:17,700
+where DataSync is running.
+
+50
+00:02:17,700 --> 00:02:20,820
+So here is your NFS or SMB server.
+
+51
+00:02:20,820 --> 00:02:23,970
+And what you have to do is to install on-premises
+
+52
+00:02:23,970 --> 00:02:28,680
+the AWS DataSync agent, and you will tell it to connect
+
+53
+00:02:28,680 --> 00:02:31,140
+to your NFS or SMB server.
+
+54
+00:02:31,140 --> 00:02:33,480
+And then the DataSync agent will establish a connection
+
+55
+00:02:33,480 --> 00:02:35,910
+and also connect in an encrypted fashion
+
+56
+00:02:35,910 --> 00:02:37,860
+into the DataSync service.
+
+57
+00:02:37,860 --> 00:02:40,650
+From there, you can tell it to go wherever you want.
+
+58
+00:02:40,650 --> 00:02:44,910
+That could be any storage class for your Amazon S3 buckets
+
+59
+00:02:44,910 --> 00:02:49,910
+or it could be AWS, EFS, or it could be Amazon FSx.
+
+60
+00:02:50,010 --> 00:02:51,870
+And the synchronization can happen one way
+
+61
+00:02:51,870 --> 00:02:54,600
+from on-premises to AWS,
+
+62
+00:02:54,600 --> 00:02:59,600
+but you can also synchronize from AWS back into on-premises.
+
+63
+00:03:00,210 --> 00:03:01,620
+This is why it's called DataSync.
+
+64
+00:03:01,620 --> 00:03:03,330
+It can work any way.
+
+65
+00:03:03,330 --> 00:03:05,250
+Now, sometimes at the exam
+
+66
+00:03:05,250 --> 00:03:07,260
+we will tell you that we want to use DataSync,
+
+67
+00:03:07,260 --> 00:03:10,680
+but we don't have the network capacity to do so.
+
+68
+00:03:10,680 --> 00:03:12,390
+Therefore, what you have to think about
+
+69
+00:03:12,390 --> 00:03:16,770
+is to use the AWS Snowcone device specifically
+
+70
+00:03:16,770 --> 00:03:18,720
+because the Snowcone device comes
+
+71
+00:03:18,720 --> 00:03:21,360
+with the DataSync agent pre-install on it.
+
+72
+00:03:21,360 --> 00:03:24,090
+So you can run Snowcone on-premises,
+
+73
+00:03:24,090 --> 00:03:26,940
+then it will pull your data, run the DataSync agents,
+
+74
+00:03:26,940 --> 00:03:30,720
+then it will be shipped back into your AWS region
+
+75
+00:03:30,720 --> 00:03:31,710
+and then synchronize your data
+
+76
+00:03:31,710 --> 00:03:35,460
+to the storage resources of AWS.
+
+77
+00:03:35,460 --> 00:03:38,850
+So that is to show the architecture of synchronization
+
+78
+00:03:38,850 --> 00:03:42,990
+from on-premises to AWS, or it could be for example,
+
+79
+00:03:42,990 --> 00:03:46,350
+another cloud to AWS using the DataSync agents.
+
+80
+00:03:46,350 --> 00:03:48,900
+But you can also use DataSync to just synchronize
+
+81
+00:03:48,900 --> 00:03:51,540
+between different AWS storage services.
+
+82
+00:03:51,540 --> 00:03:54,210
+For example, do you want synchronize between Amazon S3,
+
+83
+00:03:54,210 --> 00:03:56,910
+or Amazon EFS, or Amazon FSx,
+
+84
+00:03:56,910 --> 00:04:01,230
+back into Amazon S3, Amazon EFS, or Amazon FSx.
+
+85
+00:04:01,230 --> 00:04:02,070
+And for this, again,
+
+86
+00:04:02,070 --> 00:04:06,840
+we will use the AWS DataSync service
+
+87
+00:04:06,840 --> 00:04:08,760
+and it will copy the data of course,
+
+88
+00:04:08,760 --> 00:04:10,890
+but also the metadata will be kept
+
+89
+00:04:10,890 --> 00:04:13,350
+between the different AWS storage services,
+
+90
+00:04:13,350 --> 00:04:14,340
+which is very important.
+
+91
+00:04:14,340 --> 00:04:16,829
+And again, something that can come up in the exam.
+
+92
+00:04:16,829 --> 00:04:20,640
+So to remind you, DataSync can pretty much synchronize
+
+93
+00:04:20,640 --> 00:04:23,250
+between anything, but it is not continuous.
+
+94
+00:04:23,250 --> 00:04:26,160
+It is scheduled task that can be happening hourly,
+
+95
+00:04:26,160 --> 00:04:30,960
+daily, weekly, and also it will preserve metadata
+
+96
+00:04:30,960 --> 00:04:33,600
+and your file permissions.
+
+97
+00:04:33,600 --> 00:04:36,720
+And finally, you need to run the DataSync agents
+
+98
+00:04:36,720 --> 00:04:40,560
+if you are connecting to an NFS or SMB server.
+
+99
+00:04:40,560 --> 00:04:42,300
+Okay, that's it for this lecture.
+
+100
+00:04:42,300 --> 00:04:45,300
+I hope you liked it, and I will see you in the next lecture.
+

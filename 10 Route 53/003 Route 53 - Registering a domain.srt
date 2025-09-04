@@ -1,0 +1,364 @@
+1
+00:00:00,030 --> 00:00:02,820
+Okay, so we are in Route 53
+
+2
+00:00:02,820 --> 00:00:04,770
+and we're going to be registering domains.
+
+3
+00:00:04,770 --> 00:00:08,460
+So as you can see, I have one hosted zone and one domain.
+
+4
+00:00:08,460 --> 00:00:09,480
+You should have none right now.
+
+5
+00:00:09,480 --> 00:00:11,730
+It's just because I've been using my accounts before.
+
+6
+00:00:11,730 --> 00:00:13,770
+But let's go and register a domain.
+
+7
+00:00:13,770 --> 00:00:14,910
+So on the left hand side,
+
+8
+00:00:14,910 --> 00:00:16,830
+click on register domains
+
+9
+00:00:16,830 --> 00:00:18,690
+and you have a new console experience.
+
+10
+00:00:18,690 --> 00:00:20,490
+If you don't have it, you can click
+
+11
+00:00:20,490 --> 00:00:23,040
+on somewhere to use the new console and I will use this
+
+12
+00:00:23,040 --> 00:00:25,800
+because this is what's going to happen moving forward.
+
+13
+00:00:25,800 --> 00:00:27,510
+So here we have a domain name.
+
+14
+00:00:27,510 --> 00:00:29,070
+This is stephanetheteacher.com.
+
+15
+00:00:29,070 --> 00:00:31,530
+It's something I have registered a while ago
+
+16
+00:00:31,530 --> 00:00:32,910
+and you will have nothing.
+
+17
+00:00:32,910 --> 00:00:34,620
+So what we need to do to get started
+
+18
+00:00:34,620 --> 00:00:38,070
+with Group 53 is to actually register our own domain.
+
+19
+00:00:38,070 --> 00:00:39,300
+So this is going to cost you money
+
+20
+00:00:39,300 --> 00:00:40,890
+and if you don't want to pay
+
+21
+00:00:40,890 --> 00:00:43,830
+say $12 a year to have a domain name,
+
+22
+00:00:43,830 --> 00:00:47,040
+just don't do this and watch this section entirely.
+
+23
+00:00:47,040 --> 00:00:49,020
+So I'm going to follow the step you would follow.
+
+24
+00:00:49,020 --> 00:00:52,410
+So register domain, and here you just enter a domain name.
+
+25
+00:00:52,410 --> 00:00:57,410
+So something that no one else has chosen before
+
+26
+00:00:58,350 --> 00:00:59,183
+whatever you want.
+
+27
+00:00:59,183 --> 00:01:00,840
+Okay? The idea is that you choose a domain name.
+
+28
+00:01:00,840 --> 00:01:03,360
+So hopefully no one has registered domain name.
+
+29
+00:01:03,360 --> 00:01:04,349
+Okay, perfect.
+
+30
+00:01:04,349 --> 00:01:08,220
+So I can buy this one for US $13 a year.
+
+31
+00:01:08,220 --> 00:01:10,560
+So I will select it and it's in my basket.
+
+32
+00:01:10,560 --> 00:01:13,320
+So I'm going to proceed to checkout.
+
+33
+00:01:13,320 --> 00:01:14,850
+So here is my domain name.
+
+34
+00:01:14,850 --> 00:01:17,220
+I can choose Duration, for example, one year
+
+35
+00:01:17,220 --> 00:01:19,980
+and I can autorenew or not autorenew.
+
+36
+00:01:19,980 --> 00:01:21,780
+So if you intend on keeping a domain,
+
+37
+00:01:21,780 --> 00:01:23,790
+please leave autorenew on.
+
+38
+00:01:23,790 --> 00:01:25,590
+If you don't want it at the end of the year,
+
+39
+00:01:25,590 --> 00:01:27,780
+click it so that it's off.
+
+40
+00:01:27,780 --> 00:01:29,130
+But of course, if you use the domain,
+
+41
+00:01:29,130 --> 00:01:30,900
+it's much better to keep autorenew on.
+
+42
+00:01:30,900 --> 00:01:33,120
+Otherwise someone will be able to buy the domain
+
+43
+00:01:33,120 --> 00:01:34,170
+when you lose it.
+
+44
+00:01:34,170 --> 00:01:37,380
+And this is not good, so up to you to keep it on or off.
+
+45
+00:01:37,380 --> 00:01:39,210
+But if you just intended to have it
+
+46
+00:01:39,210 --> 00:01:41,880
+for the course, then leave it off.
+
+47
+00:01:41,880 --> 00:01:43,740
+Okay, click on Next.
+
+48
+00:01:43,740 --> 00:01:45,240
+Then we have contact information.
+
+49
+00:01:45,240 --> 00:01:48,479
+So this is the information that you have part
+
+50
+00:01:48,479 --> 00:01:51,600
+of the account that has been pre-populated.
+
+51
+00:01:51,600 --> 00:01:54,930
+And so you can enter your own information if you wanted to.
+
+52
+00:01:54,930 --> 00:01:56,460
+And so the admin contact
+
+53
+00:01:56,460 --> 00:01:58,200
+and the tech contact can be the same
+
+54
+00:01:58,200 --> 00:02:00,330
+as the registrant contact.
+
+55
+00:02:00,330 --> 00:02:03,300
+And finally, you should enable privacy protection
+
+56
+00:02:03,300 --> 00:02:04,590
+so that you don't receive spam.
+
+57
+00:02:04,590 --> 00:02:06,510
+And so that the real contact information,
+
+58
+00:02:06,510 --> 00:02:09,240
+your own personal address, phone number, et cetera
+
+59
+00:02:09,240 --> 00:02:11,730
+is hidden from the internet.
+
+60
+00:02:11,730 --> 00:02:15,840
+You click on Next and then you have the review page.
+
+61
+00:02:15,840 --> 00:02:17,670
+So make sure everything is correct
+
+62
+00:02:17,670 --> 00:02:19,410
+and you check the terms and condition.
+
+63
+00:02:19,410 --> 00:02:23,040
+And if you submit, just so you know, you will pay these $13.
+
+64
+00:02:23,040 --> 00:02:24,240
+So please don't do this
+
+65
+00:02:24,240 --> 00:02:26,610
+if you don't want to pay that amount of money.
+
+66
+00:02:26,610 --> 00:02:28,800
+Then your domain is going to be registered
+
+67
+00:02:28,800 --> 00:02:30,000
+after a little bit of time.
+
+68
+00:02:30,000 --> 00:02:32,490
+It can take a few minutes or a few hours
+
+69
+00:02:32,490 --> 00:02:33,480
+but you'll be good to go.
+
+70
+00:02:33,480 --> 00:02:36,480
+And to confirm everything, just go on the left hand side
+
+71
+00:02:36,480 --> 00:02:40,200
+to hosted zones and then you click on stefanetheteacher.com
+
+72
+00:02:40,200 --> 00:02:42,540
+or whatever domain name you have registered.
+
+73
+00:02:42,540 --> 00:02:44,670
+And you will have a few records
+
+74
+00:02:44,670 --> 00:02:46,350
+and you should have two records.
+
+75
+00:02:46,350 --> 00:02:49,110
+I have four because I've been using this before.
+
+76
+00:02:49,110 --> 00:02:53,760
+But you should have the NS record and the SOA record.
+
+77
+00:02:53,760 --> 00:02:55,470
+And the NS record is simply saying
+
+78
+00:02:55,470 --> 00:02:58,110
+that you should use the AWS DNS
+
+79
+00:02:58,110 --> 00:02:59,760
+to insert DNS queries.
+
+80
+00:02:59,760 --> 00:03:01,710
+And this is Route 53.
+
+81
+00:03:01,710 --> 00:03:04,170
+So what this means that now that we have a hosted zone,
+
+82
+00:03:04,170 --> 00:03:06,450
+anytime we will insert DNS records such
+
+83
+00:03:06,450 --> 00:03:07,920
+as this one or that one
+
+84
+00:03:07,920 --> 00:03:10,260
+and I will teach you in the next lecture is how to do it.
+
+85
+00:03:10,260 --> 00:03:11,610
+Then the source of truth
+
+86
+00:03:11,610 --> 00:03:14,490
+for these DNS records will be Route 53 itself.
+
+87
+00:03:14,490 --> 00:03:16,920
+So what we're configuring in here, so that's perfect.
+
+88
+00:03:16,920 --> 00:03:17,850
+We're good to go.
+
+89
+00:03:17,850 --> 00:03:18,720
+We have a domain name
+
+90
+00:03:18,720 --> 00:03:20,670
+and we can get started with the hands-on.
+
+91
+00:03:20,670 --> 00:03:23,793
+I hope you liked it and I will see you in the next lecture.
+

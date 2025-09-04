@@ -1,0 +1,228 @@
+1
+00:00:00,150 --> 00:00:02,910
+So now let's talk about Amazon MQ.
+
+2
+00:00:02,910 --> 00:00:05,340
+So we know about SQS and SNS
+
+3
+00:00:05,340 --> 00:00:07,080
+and they're cloud-native services
+
+4
+00:00:07,080 --> 00:00:10,980
+because they are proprietary protocols from AWS.
+
+5
+00:00:10,980 --> 00:00:13,590
+They use their own sets of APIs.
+
+6
+00:00:13,590 --> 00:00:17,340
+But if you are running traditional application on-premises,
+
+7
+00:00:17,340 --> 00:00:19,320
+you may use open protocols
+
+8
+00:00:19,320 --> 00:00:24,320
+such as MQTT, AMQP, STOMP, Openwire, WSS.
+
+9
+00:00:25,530 --> 00:00:28,410
+And when you're migrating your application to the cloud,
+
+10
+00:00:28,410 --> 00:00:31,530
+you may not want to re-engineer your application
+
+11
+00:00:31,530 --> 00:00:35,910
+to use the SQS and the SNS protocols or APIs.
+
+12
+00:00:35,910 --> 00:00:39,090
+So instead, you wanna use the traditional protocols
+
+13
+00:00:39,090 --> 00:00:42,330
+you used to, such as MQTT, AMQP, and so on.
+
+14
+00:00:42,330 --> 00:00:44,880
+So for this, we can use Amazon MQ.
+
+15
+00:00:44,880 --> 00:00:46,830
+So Amazon MQ is very simple.
+
+16
+00:00:46,830 --> 00:00:51,240
+It's a managed message broker service for two technologies,
+
+17
+00:00:51,240 --> 00:00:54,090
+for RabbitMQ and for ActiveMQ.
+
+18
+00:00:54,090 --> 00:00:57,030
+So RabbitMQ and ActiveMQ are, for example,
+
+19
+00:00:57,030 --> 00:01:00,390
+on-premises technologies that provide you access
+
+20
+00:01:00,390 --> 00:01:03,060
+to the open protocols I just mentioned.
+
+21
+00:01:03,060 --> 00:01:06,330
+So then we can get a managed version of these brokers
+
+22
+00:01:06,330 --> 00:01:08,850
+onto the cloud thanks to Amazon MQ.
+
+23
+00:01:08,850 --> 00:01:11,310
+So as such, you can understand the implications.
+
+24
+00:01:11,310 --> 00:01:15,630
+First of all, Amazon MQ doesn't scale as much as SQS or SNS,
+
+25
+00:01:15,630 --> 00:01:18,540
+which have sort of like infinite scaling.
+
+26
+00:01:18,540 --> 00:01:20,550
+And because Amazon MQ runs on servers,
+
+27
+00:01:20,550 --> 00:01:22,410
+you may have server issues.
+
+28
+00:01:22,410 --> 00:01:24,960
+And so you can run multi-AZ setup
+
+29
+00:01:24,960 --> 00:01:28,350
+with a failover if you want to be highly available.
+
+30
+00:01:28,350 --> 00:01:31,860
+Also, Amazon MQ comes with both a queue feature,
+
+31
+00:01:31,860 --> 00:01:33,900
+so it looks like SQS,
+
+32
+00:01:33,900 --> 00:01:36,480
+and topic features, it looks like SNS
+
+33
+00:01:36,480 --> 00:01:38,733
+as part of a single broker.
+
+34
+00:01:39,690 --> 00:01:43,440
+Now, how does the high availability work for Amazon MQ?
+
+35
+00:01:43,440 --> 00:01:46,140
+Well, for example, let's say we have a region us-east-1
+
+36
+00:01:46,140 --> 00:01:47,970
+and we have two availability zones,
+
+37
+00:01:47,970 --> 00:01:50,490
+us-east-1a and us-east-1b.
+
+38
+00:01:50,490 --> 00:01:51,870
+One zone is going to be active
+
+39
+00:01:51,870 --> 00:01:53,640
+and the other one is going to be a standby.
+
+40
+00:01:53,640 --> 00:01:57,930
+So we're going to have an Amazon MQ broker in both AZ, okay,
+
+41
+00:01:57,930 --> 00:02:00,030
+where one is active and one is standby.
+
+42
+00:02:00,030 --> 00:02:01,920
+And so for the failover to work,
+
+43
+00:02:01,920 --> 00:02:05,550
+you need to define Amazon EFS as your backend storage.
+
+44
+00:02:05,550 --> 00:02:08,940
+And we've seen that EFS is a network file system
+
+45
+00:02:08,940 --> 00:02:12,960
+which can be mounted onto multiple availability zones.
+
+46
+00:02:12,960 --> 00:02:14,700
+So what happens is that whenever
+
+47
+00:02:14,700 --> 00:02:16,290
+you have failover happening,
+
+48
+00:02:16,290 --> 00:02:18,930
+well, the standby is going to be also mounted
+
+49
+00:02:18,930 --> 00:02:21,960
+onto Amazon EFS, and therefore will have the same data
+
+50
+00:02:21,960 --> 00:02:23,670
+as your first active queue
+
+51
+00:02:23,670 --> 00:02:26,040
+and therefore the failover can happen correctly.
+
+52
+00:02:26,040 --> 00:02:30,510
+So if your client talks to the Amazon MQ broker, okay,
+
+53
+00:02:30,510 --> 00:02:32,130
+and there is a failover happening,
+
+54
+00:02:32,130 --> 00:02:36,330
+then the data will be kept safe thanks to Amazon EFS.
+
+55
+00:02:36,330 --> 00:02:37,200
+And that's it.
+
+56
+00:02:37,200 --> 00:02:39,210
+That's all you need to remember for going to the exam.
+
+57
+00:02:39,210 --> 00:02:42,083
+I hope you liked it and I will see you in the next lecture.
+

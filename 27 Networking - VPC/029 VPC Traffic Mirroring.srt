@@ -1,0 +1,256 @@
+1
+00:00:00,350 --> 00:00:02,870
+So here is a very cool security feature
+
+2
+00:00:02,870 --> 00:00:05,120
+called the VPC, Traffic Mirroring.
+
+3
+00:00:05,120 --> 00:00:06,810
+The idea is that we want to capture
+
+4
+00:00:06,810 --> 00:00:09,280
+and inspect network traffic in our VPC,
+
+5
+00:00:09,280 --> 00:00:12,160
+but to do it in a non-intrusive manner.
+
+6
+00:00:12,160 --> 00:00:14,540
+So to do so, we want to route the traffic
+
+7
+00:00:14,540 --> 00:00:16,940
+to security appliances that we manage.
+
+8
+00:00:16,940 --> 00:00:18,700
+And to do so, we're going to capture the traffic,
+
+9
+00:00:18,700 --> 00:00:19,920
+so we're going to define
+
+10
+00:00:19,920 --> 00:00:21,610
+which are the source ENIs
+
+11
+00:00:21,610 --> 00:00:23,590
+we want to capture the traffic from.
+
+12
+00:00:23,590 --> 00:00:24,570
+And then the targets,
+
+13
+00:00:24,570 --> 00:00:27,280
+so where do we want to send that traffic to,
+
+14
+00:00:27,280 --> 00:00:29,980
+our own ENIs or maybe a Network Load Balancer.
+
+15
+00:00:29,980 --> 00:00:30,813
+So to do an example.
+
+16
+00:00:30,813 --> 00:00:32,840
+So we have an EC2 instance
+
+17
+00:00:32,840 --> 00:00:34,610
+and we have an Elastic Network Interface,
+
+18
+00:00:34,610 --> 00:00:36,210
+so an ENI attached to it
+
+19
+00:00:36,210 --> 00:00:37,280
+and works really well.
+
+20
+00:00:37,280 --> 00:00:39,380
+Our EC2 instance is accessing the internet
+
+21
+00:00:39,380 --> 00:00:40,450
+and is being accessed.
+
+22
+00:00:40,450 --> 00:00:43,100
+And so we get a lot of inbound and outbound traffic
+
+23
+00:00:43,100 --> 00:00:46,310
+on the ENI to the EC2 instance.
+
+24
+00:00:46,310 --> 00:00:47,910
+But we wanted to analyze our traffic.
+
+25
+00:00:47,910 --> 00:00:50,720
+So to do so we're going to set up a Load Balancer
+
+26
+00:00:50,720 --> 00:00:52,870
+and behind this Network Load Balancer,
+
+27
+00:00:52,870 --> 00:00:55,650
+we're going to have an auto scaling group of EC2 instances
+
+28
+00:00:55,650 --> 00:00:58,210
+that will have some security software on it.
+
+29
+00:00:58,210 --> 00:01:00,110
+Now we want to be able to capture
+
+30
+00:01:00,110 --> 00:01:01,500
+all the traffic from Source A
+
+31
+00:01:01,500 --> 00:01:04,030
+without disrupting the functioning of Source A.
+
+32
+00:01:04,030 --> 00:01:07,080
+So to do so, we're going to set up a VPC traffic mirroring,
+
+33
+00:01:07,080 --> 00:01:09,010
+and optionally, we can have a filter,
+
+34
+00:01:09,010 --> 00:01:11,010
+if you want you to get just some information,
+
+35
+00:01:11,010 --> 00:01:12,270
+not everything.
+
+36
+00:01:12,270 --> 00:01:14,804
+And with this traffic mirroring feature,
+
+37
+00:01:14,804 --> 00:01:18,210
+all the traffic sent to the ENI or Source A
+
+38
+00:01:18,210 --> 00:01:21,030
+is also going to be sent to our Network Load Balancer.
+
+39
+00:01:21,030 --> 00:01:22,310
+So our Source A,
+
+40
+00:01:22,310 --> 00:01:24,430
+our EC2 instance is still working fine.
+
+41
+00:01:24,430 --> 00:01:26,290
+It still doesn't know what's happening,
+
+42
+00:01:26,290 --> 00:01:27,290
+but on top of it,
+
+43
+00:01:27,290 --> 00:01:28,710
+the traffic is being mirrored.
+
+44
+00:01:28,710 --> 00:01:30,520
+So hence the name, Traffic Mirroring,
+
+45
+00:01:30,520 --> 00:01:32,080
+into our Network Load Balancer.
+
+46
+00:01:32,080 --> 00:01:34,750
+And from there, we can analyze the traffic itself.
+
+47
+00:01:34,750 --> 00:01:36,150
+And this applies not just to one source,
+
+48
+00:01:36,150 --> 00:01:37,180
+but to multiple sources.
+
+49
+00:01:37,180 --> 00:01:40,250
+So if you had a second EC2 instance with another ENI,
+
+50
+00:01:40,250 --> 00:01:42,380
+yet again, we can mirror the traffic
+
+51
+00:01:42,380 --> 00:01:44,590
+into our Network Load Balancer.
+
+52
+00:01:44,590 --> 00:01:45,460
+So how does that work?
+
+53
+00:01:45,460 --> 00:01:47,040
+We need to have the source
+
+54
+00:01:47,040 --> 00:01:49,450
+and the targets to be in the same VPC,
+
+55
+00:01:49,450 --> 00:01:50,907
+or it could be across different VPC,
+
+56
+00:01:50,907 --> 00:01:53,730
+and if we have enabled VPC Peering.
+
+57
+00:01:53,730 --> 00:01:56,430
+So the use cases for VPC traffic mirroring
+
+58
+00:01:56,430 --> 00:01:58,550
+is going to be around content inspection,
+
+59
+00:01:58,550 --> 00:02:00,830
+threat monitoring, or troubleshooting
+
+60
+00:02:00,830 --> 00:02:02,960
+from a networking perspective, okay.
+
+61
+00:02:02,960 --> 00:02:05,490
+It's very hard to demonstrate this in a demo,
+
+62
+00:02:05,490 --> 00:02:07,150
+but this diagram should be enough.
+
+63
+00:02:07,150 --> 00:02:08,199
+So hope you liked it.
+
+64
+00:02:08,199 --> 00:02:10,150
+And I will see you in the next lecture.
+

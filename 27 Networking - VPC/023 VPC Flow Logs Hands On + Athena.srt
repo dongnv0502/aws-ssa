@@ -1,0 +1,960 @@
+1
+00:00:00,480 --> 00:00:02,370
+Okay, so now we're going to practice
+
+2
+00:00:02,370 --> 00:00:04,140
+VPC flow logs.
+
+3
+00:00:04,140 --> 00:00:07,260
+And to do so well, we'll go into our demo VPC
+
+4
+00:00:07,260 --> 00:00:09,480
+under Flow Logs and we can create a flow log.
+
+5
+00:00:09,480 --> 00:00:11,250
+So we have a few types of flow logs.
+
+6
+00:00:11,250 --> 00:00:14,760
+So I'll call this one DemoS3FlowLog.
+
+7
+00:00:14,760 --> 00:00:17,730
+And we have a filter, do we want the accept type,
+
+8
+00:00:17,730 --> 00:00:19,860
+reject type or all kind of traffic?
+
+9
+00:00:19,860 --> 00:00:21,750
+So if you're trying to debug why some traffic
+
+10
+00:00:21,750 --> 00:00:24,300
+is not going through, maybe reject is more relevant.
+
+11
+00:00:24,300 --> 00:00:26,730
+Otherwise, all or accept are good as well.
+
+12
+00:00:26,730 --> 00:00:28,650
+The maximum aggregation interval.
+
+13
+00:00:28,650 --> 00:00:31,050
+So how long you need to wait to aggregate.
+
+14
+00:00:31,050 --> 00:00:32,430
+And you can look at the info.
+
+15
+00:00:32,430 --> 00:00:35,910
+So you can optionally specify a one minute aggregation,
+
+16
+00:00:35,910 --> 00:00:36,743
+but if you do so
+
+17
+00:00:36,743 --> 00:00:38,460
+then there's gonna be more records being created,
+
+18
+00:00:38,460 --> 00:00:41,730
+because it's possible that you have lots of records
+
+19
+00:00:41,730 --> 00:00:42,990
+getting created over time
+
+20
+00:00:42,990 --> 00:00:44,500
+and obviously every one minute written to
+
+21
+00:00:44,500 --> 00:00:47,940
+S3 or CloudWatch Logs can be very expensive.
+
+22
+00:00:47,940 --> 00:00:49,290
+So let's just do one minute
+
+23
+00:00:49,290 --> 00:00:51,270
+just for the sake of the demo to go quicker.
+
+24
+00:00:51,270 --> 00:00:52,890
+But 10 minutes is usually a better option
+
+25
+00:00:52,890 --> 00:00:54,540
+if you're looking at it, especially
+
+26
+00:00:54,540 --> 00:00:55,800
+after a little bit of time.
+
+27
+00:00:55,800 --> 00:00:56,633
+So a few options.
+
+28
+00:00:56,633 --> 00:00:59,160
+We can send the destination to CloudWatch Logs
+
+29
+00:00:59,160 --> 00:01:00,780
+And we need to specify a log group,
+
+30
+00:01:00,780 --> 00:01:03,750
+we need to we can also send it to an Amazon S3 bucket.
+
+31
+00:01:03,750 --> 00:01:06,240
+We need to specify the S3 bucket ARN
+
+32
+00:01:06,240 --> 00:01:08,820
+or we can send it to Kinesis Data Firehose
+
+33
+00:01:08,820 --> 00:01:11,460
+in the same account or in a different account.
+
+34
+00:01:11,460 --> 00:01:13,350
+But we'll use Amazon S3.
+
+35
+00:01:13,350 --> 00:01:14,183
+So to do so,
+
+36
+00:01:14,183 --> 00:01:17,680
+I'm going to go into the S3 service in here
+
+37
+00:01:18,630 --> 00:01:20,970
+and I will create a bucket and create
+
+38
+00:01:20,970 --> 00:01:25,170
+demo-stephane-vpc-flow-logs-v2, okay?
+
+39
+00:01:25,170 --> 00:01:28,560
+In the same region where my VPC is obviously.
+
+40
+00:01:28,560 --> 00:01:30,393
+And then I will create this bucket.
+
+41
+00:01:31,410 --> 00:01:33,240
+Now view the details of the bucket
+
+42
+00:01:33,240 --> 00:01:35,220
+and now we need to get the bucket ARN.
+
+43
+00:01:35,220 --> 00:01:36,690
+So to do so, here it is
+
+44
+00:01:36,690 --> 00:01:38,910
+I can just copy it from the Properties.
+
+45
+00:01:38,910 --> 00:01:40,140
+So let's paste this in.
+
+46
+00:01:40,140 --> 00:01:42,210
+And as we can see, a resource-based policy
+
+47
+00:01:42,210 --> 00:01:44,310
+will be created for you and attached to the target bucket.
+
+48
+00:01:44,310 --> 00:01:46,890
+So bucket policy will be created for us automatically
+
+49
+00:01:46,890 --> 00:01:50,820
+so that the VPC service can send data into our S3 buckets.
+
+50
+00:01:50,820 --> 00:01:52,080
+Now the format looks like this.
+
+51
+00:01:52,080 --> 00:01:54,660
+This is the default format of AWS.
+
+52
+00:01:54,660 --> 00:01:57,273
+And next I will click on Create Flow Log.
+
+53
+00:01:58,680 --> 00:02:01,860
+Okay, so this first flow log has been created, perfect.
+
+54
+00:02:01,860 --> 00:02:04,080
+And I will go ahead and create a second flow log now.
+
+55
+00:02:04,080 --> 00:02:06,150
+So I'll create flow log.
+
+56
+00:02:06,150 --> 00:02:11,150
+And this one is going to be DemoFlowLog CloudWatch Logs
+
+57
+00:02:12,660 --> 00:02:13,635
+all kind of traffic,
+
+58
+00:02:13,635 --> 00:02:14,940
+one minute interval,
+
+59
+00:02:14,940 --> 00:02:15,840
+to CloudWatch logs.
+
+60
+00:02:15,840 --> 00:02:19,170
+And we need to create a log group and an IAM role.
+
+61
+00:02:19,170 --> 00:02:22,140
+Okay, so let's do both of these things.
+
+62
+00:02:22,140 --> 00:02:25,810
+So to do so when you click on Set Up Permissions
+
+63
+00:02:27,150 --> 00:02:28,200
+so let's create a role.
+
+64
+00:02:28,200 --> 00:02:30,210
+So we are going to create a role
+
+65
+00:02:30,210 --> 00:02:33,180
+this is a custom trust policy.
+
+66
+00:02:33,180 --> 00:02:36,600
+And in here for principle, just go to the new line.
+
+67
+00:02:36,600 --> 00:02:40,470
+You're going to enter Service in between quotes, then colon
+
+68
+00:02:40,470 --> 00:02:41,303
+and then Service
+
+69
+00:02:41,303 --> 00:02:46,140
+is vpc-flow-logs.amazonaws.com.
+
+70
+00:02:46,140 --> 00:02:49,080
+So make sure you have this in between quotes as well.
+
+71
+00:02:49,080 --> 00:02:50,010
+So this is going to say
+
+72
+00:02:50,010 --> 00:02:53,670
+that this role can be assumed by VPC flow logs.
+
+73
+00:02:53,670 --> 00:02:55,050
+Click on Next.
+
+74
+00:02:55,050 --> 00:02:56,370
+Now for permissions policy
+
+75
+00:02:56,370 --> 00:03:00,540
+we need CloudWatch Logs full access.
+
+76
+00:03:00,540 --> 00:03:03,930
+So we're going to have this one CloudWatch Log full access
+
+77
+00:03:03,930 --> 00:03:05,370
+which is enough.
+
+78
+00:03:05,370 --> 00:03:06,660
+Then click on Next.
+
+79
+00:03:06,660 --> 00:03:10,087
+And this role name is going to be flowlogsrole.
+
+80
+00:03:12,450 --> 00:03:13,743
+Then create this role.
+
+81
+00:03:18,570 --> 00:03:19,800
+And now this role is created.
+
+82
+00:03:19,800 --> 00:03:21,420
+So if I refresh this
+
+83
+00:03:21,420 --> 00:03:23,850
+and look for flow log roles, here we go.
+
+84
+00:03:23,850 --> 00:03:24,870
+It is created.
+
+85
+00:03:24,870 --> 00:03:25,920
+And now we need a log group.
+
+86
+00:03:25,920 --> 00:03:30,063
+So let's go into the CloudWatch Logs console.
+
+87
+00:03:31,800 --> 00:03:33,183
+So let's click on it here.
+
+88
+00:03:35,749 --> 00:03:40,260
+And under Logs, Log Groups, I'm going to create a log group.
+
+89
+00:03:40,260 --> 00:03:41,583
+I'll call it VPCFlowLogs.
+
+90
+00:03:43,500 --> 00:03:46,410
+And I will set the retention to one day
+
+91
+00:03:46,410 --> 00:03:50,730
+and click on Create, click on this log group here.
+
+92
+00:03:50,730 --> 00:03:53,700
+Now refresh this and the VPCFlowLogs is appearing.
+
+93
+00:03:53,700 --> 00:03:55,110
+So we're good to go.
+
+94
+00:03:55,110 --> 00:03:57,090
+Now let's create this flow log.
+
+95
+00:03:57,090 --> 00:03:58,980
+And yet again, so now we have two flow logs.
+
+96
+00:03:58,980 --> 00:04:00,270
+One flowing into Amazon S3
+
+97
+00:04:00,270 --> 00:04:03,030
+and one flowing into CloudWatch Logs.
+
+98
+00:04:03,030 --> 00:04:06,750
+So into Amazon S3 under my Objects, I can refresh this
+
+99
+00:04:06,750 --> 00:04:09,870
+and as we can see some AWSLogs have already been created.
+
+100
+00:04:09,870 --> 00:04:11,130
+I can click on it,
+
+101
+00:04:11,130 --> 00:04:13,740
+look at the VPC flow logs for eu-central-1.
+
+102
+00:04:13,740 --> 00:04:15,190
+And then we have a timestamp,
+
+103
+00:04:16,200 --> 00:04:19,740
+and we have here the VPC flow logs available to us.
+
+104
+00:04:19,740 --> 00:04:21,750
+So now let's go into the CloudWatch Logs
+
+105
+00:04:21,750 --> 00:04:24,690
+and refresh this and have two log streams.
+
+106
+00:04:24,690 --> 00:04:26,010
+And these log streams correspond
+
+107
+00:04:26,010 --> 00:04:28,170
+to the enis within my accounts.
+
+108
+00:04:28,170 --> 00:04:33,120
+So if we ever a look at the eni of my BastionHost, this one,
+
+109
+00:04:33,120 --> 00:04:35,400
+and we have a look at the eni number.
+
+110
+00:04:35,400 --> 00:04:38,580
+So we go under Networking, and what I'm going to do
+
+111
+00:04:38,580 --> 00:04:41,700
+is put this up a little bit and look for the eni id.
+
+112
+00:04:41,700 --> 00:04:45,270
+So the eni id is 0835.
+
+113
+00:04:45,270 --> 00:04:50,220
+So let's go into here and look for 0835, this one, perfect.
+
+114
+00:04:50,220 --> 00:04:52,950
+So this is showing us the kind of traffic that is happening
+
+115
+00:04:52,950 --> 00:04:54,660
+onto my EC2 instance.
+
+116
+00:04:54,660 --> 00:04:57,120
+And if you look at it, well, it seems that some people
+
+117
+00:04:57,120 --> 00:05:00,090
+are trying to access my EC2 instance,
+
+118
+00:05:00,090 --> 00:05:01,350
+but it's getting rejected.
+
+119
+00:05:01,350 --> 00:05:03,780
+So this is the version, this is like all these fields,
+
+120
+00:05:03,780 --> 00:05:06,000
+okay the eni id and this IP address,
+
+121
+00:05:06,000 --> 00:05:07,020
+which is the public IP address
+
+122
+00:05:07,020 --> 00:05:09,630
+is trying to access my EC2 instance.
+
+123
+00:05:09,630 --> 00:05:11,310
+And this is really like this kind of attackers
+
+124
+00:05:11,310 --> 00:05:14,010
+were attacking your instance and just scanning the web
+
+125
+00:05:14,010 --> 00:05:15,030
+for holes and so on.
+
+126
+00:05:15,030 --> 00:05:17,760
+So you're gonna have a lot of this kind of traffic.
+
+127
+00:05:17,760 --> 00:05:19,740
+And if I wanted to get some defense,
+
+128
+00:05:19,740 --> 00:05:21,870
+I could for example, if this IP address
+
+129
+00:05:21,870 --> 00:05:23,820
+was annoying me too much,
+
+130
+00:05:23,820 --> 00:05:27,030
+I could block it at the that code level, for example
+
+131
+00:05:27,030 --> 00:05:28,260
+and not have this traffic.
+
+132
+00:05:28,260 --> 00:05:31,620
+But as we can see, a lot of traffic is appearing in here
+
+133
+00:05:31,620 --> 00:05:32,700
+and it's all Reject.
+
+134
+00:05:32,700 --> 00:05:35,340
+But if I were to do some activity on my S3 instance
+
+135
+00:05:35,340 --> 00:05:36,390
+and connect to Google for example,
+
+136
+00:05:36,390 --> 00:05:39,180
+we would see some traffic with Accept as well.
+
+137
+00:05:39,180 --> 00:05:44,180
+And the same kind of data is going to appear on Amazon S3.
+
+138
+00:05:44,250 --> 00:05:46,530
+So if I go here, you will have a lot of data, okay?
+
+139
+00:05:46,530 --> 00:05:50,370
+So you use CloudWatch Logs, if you want to have
+
+140
+00:05:50,370 --> 00:05:51,810
+some kind of metrics filter
+
+141
+00:05:51,810 --> 00:05:54,330
+to do some real-time analysis in case you're being attacked
+
+142
+00:05:54,330 --> 00:05:55,950
+and a lot of traffic is being rejected and so on.
+
+143
+00:05:55,950 --> 00:05:59,190
+So this is very helpful and you'll use Amazon S3
+
+144
+00:05:59,190 --> 00:06:02,070
+if you wanted to do some more bigger analysis
+
+145
+00:06:02,070 --> 00:06:04,320
+for example, using Athena.
+
+146
+00:06:04,320 --> 00:06:06,690
+So let's go ahead and practice using Athena
+
+147
+00:06:06,690 --> 00:06:08,790
+to query this data into my S3 bucket.
+
+148
+00:06:08,790 --> 00:06:12,780
+So in Athena, what I'm going to do is to first set up
+
+149
+00:06:12,780 --> 00:06:15,540
+a query result location in Amazon S3.
+
+150
+00:06:15,540 --> 00:06:18,630
+So I'm going to click on New Settings, Manage
+
+151
+00:06:18,630 --> 00:06:21,360
+and then I need to specify an S3 bucket
+
+152
+00:06:21,360 --> 00:06:23,010
+where I'm going to store my results.
+
+153
+00:06:23,010 --> 00:06:25,080
+So back into Amazon S3
+
+154
+00:06:25,080 --> 00:06:27,330
+what I'm going to do is just quickly create an S3 bucket,
+
+155
+00:06:27,330 --> 00:06:28,710
+because this wasn't set up for this account.
+
+156
+00:06:28,710 --> 00:06:33,710
+So I call this one demo-athena-stephane-v2,
+
+157
+00:06:34,020 --> 00:06:35,610
+and this should work.
+
+158
+00:06:35,610 --> 00:06:40,018
+Now let's click on Create these buckets, View Details,
+
+159
+00:06:40,018 --> 00:06:41,970
+and I can just use this S3 bucket,
+
+160
+00:06:41,970 --> 00:06:44,133
+so Properties, I will copy the ARN,
+
+161
+00:06:45,156 --> 00:06:48,960
+back into Athena and then click on Save.
+
+162
+00:06:48,960 --> 00:06:52,140
+So I need to just do slash and then Athena.
+
+163
+00:06:52,140 --> 00:06:57,140
+And then something like, ah, S3://, here we go.
+
+164
+00:06:57,750 --> 00:06:59,040
+Okay, this is good.
+
+165
+00:06:59,040 --> 00:07:00,750
+So let's click on Save.
+
+166
+00:07:00,750 --> 00:07:03,870
+And now we have this query location being saved
+
+167
+00:07:03,870 --> 00:07:04,950
+and I need to go ahead
+
+168
+00:07:04,950 --> 00:07:07,680
+and start creating a database and then create some data.
+
+169
+00:07:07,680 --> 00:07:10,260
+So what I need to do is to go in here
+
+170
+00:07:10,260 --> 00:07:14,633
+and I will type AWS VPC flow logs Athena
+
+171
+00:07:16,050 --> 00:07:16,920
+and this is going to take me
+
+172
+00:07:16,920 --> 00:07:19,860
+into a tutorial on how to do it.
+
+173
+00:07:19,860 --> 00:07:22,710
+So to do so, we need to create a table.
+
+174
+00:07:22,710 --> 00:07:25,140
+And this whole statement right here shows you how.
+
+175
+00:07:25,140 --> 00:07:30,030
+So let's go ahead and paste this in my Athena UI.
+
+176
+00:07:30,030 --> 00:07:31,440
+So here we go.
+
+177
+00:07:31,440 --> 00:07:34,620
+And we need to specify where the data is.
+
+178
+00:07:34,620 --> 00:07:37,230
+So the log bucket, the prefixed logs
+
+179
+00:07:37,230 --> 00:07:39,990
+and then account id VBC flow logs and region code.
+
+180
+00:07:39,990 --> 00:07:40,860
+So let's find it.
+
+181
+00:07:40,860 --> 00:07:42,780
+So let's go back in here.
+
+182
+00:07:42,780 --> 00:07:44,030
+This is my Athena bucket.
+
+183
+00:07:44,880 --> 00:07:47,040
+No, this is my VPC flow logs bucket.
+
+184
+00:07:47,040 --> 00:07:47,873
+Here we go.
+
+185
+00:07:47,873 --> 00:07:48,706
+So let's go to the top of it.
+
+186
+00:07:48,706 --> 00:07:49,539
+Just to go back.
+
+187
+00:07:49,539 --> 00:07:53,700
+So logs, account id, VPC flow logs, region.
+
+188
+00:07:53,700 --> 00:07:54,810
+Okay, we got it.
+
+189
+00:07:54,810 --> 00:07:58,330
+Now we're going to copy this S3 URI directly
+
+190
+00:07:59,220 --> 00:08:03,150
+back into Athena and I'm going to paste this in.
+
+191
+00:08:03,150 --> 00:08:04,620
+Okay, perfect.
+
+192
+00:08:04,620 --> 00:08:06,753
+And let's run this statement.
+
+193
+00:08:08,490 --> 00:08:12,000
+So this completed, and now we have a VPC flow log
+
+194
+00:08:12,000 --> 00:08:13,230
+table in here.
+
+195
+00:08:13,230 --> 00:08:15,030
+Okay, and it is partitioned.
+
+196
+00:08:15,030 --> 00:08:18,150
+So we can see we have all the information in here.
+
+197
+00:08:18,150 --> 00:08:19,620
+Now the second thing we need to do
+
+198
+00:08:19,620 --> 00:08:20,790
+is to run another statement.
+
+199
+00:08:20,790 --> 00:08:25,790
+So let's go here and find this alter table,
+
+200
+00:08:27,762 --> 00:08:30,420
+to create partitions to read this data.
+
+201
+00:08:30,420 --> 00:08:34,890
+So let's copy this, paste this in.
+
+202
+00:08:34,890 --> 00:08:38,010
+And again, we need to specify a date
+
+203
+00:08:38,010 --> 00:08:41,520
+and as well as the entire replacement
+
+204
+00:08:41,520 --> 00:08:44,220
+for month, year, and day.
+
+205
+00:08:44,220 --> 00:08:45,660
+Okay, so let's go ahead and do this.
+
+206
+00:08:45,660 --> 00:08:50,660
+So back into Amazon S3, into my Objects
+
+207
+00:08:50,880 --> 00:08:54,750
+I will click, click and click, go back to Properties
+
+208
+00:08:54,750 --> 00:08:59,250
+and paste this, copy and paste this in.
+
+209
+00:08:59,250 --> 00:09:00,510
+So we're good to go.
+
+210
+00:09:00,510 --> 00:09:01,890
+And then we need to add a partition.
+
+211
+00:09:01,890 --> 00:09:05,187
+So 2021-10-06.
+
+212
+00:09:05,187 --> 00:09:06,570
+And this is quite manual,
+
+213
+00:09:06,570 --> 00:09:09,325
+but Glue can help with automating this.
+
+214
+00:09:09,325 --> 00:09:10,775
+Now let's run this statement.
+
+215
+00:09:11,610 --> 00:09:13,170
+And the statement was successfully completed.
+
+216
+00:09:13,170 --> 00:09:15,810
+So now we have added one partition into our table.
+
+217
+00:09:15,810 --> 00:09:17,940
+And then finally we can query the flow logs
+
+218
+00:09:17,940 --> 00:09:19,710
+just by doing a select.
+
+219
+00:09:19,710 --> 00:09:24,710
+So let's do this to find all the reject traffic
+
+220
+00:09:25,830 --> 00:09:27,543
+and then click on Run.
+
+221
+00:09:29,880 --> 00:09:30,713
+And this is worked.
+
+222
+00:09:30,713 --> 00:09:33,750
+And now we have 46 results and we can have a look.
+
+223
+00:09:33,750 --> 00:09:37,890
+So day, date, interface id, source address,
+
+224
+00:09:37,890 --> 00:09:40,380
+action reject, protocol 6.
+
+225
+00:09:40,380 --> 00:09:42,060
+So we can get a lot of information from Athena
+
+226
+00:09:42,060 --> 00:09:43,560
+and we can start doing some complex queries
+
+227
+00:09:43,560 --> 00:09:45,990
+to try to group for example, by IP addresses,
+
+228
+00:09:45,990 --> 00:09:47,940
+see who is attacking us the most
+
+229
+00:09:47,940 --> 00:09:49,290
+where we're attacked the most, and so on.
+
+230
+00:09:49,290 --> 00:09:50,160
+So this could be quite helpful
+
+231
+00:09:50,160 --> 00:09:52,590
+for doing some batch analysis, okay?
+
+232
+00:09:52,590 --> 00:09:54,540
+But that's it, we've seen how to set VPC flow logs.
+
+233
+00:09:54,540 --> 00:09:56,010
+We send to CloudWatch Logs.
+
+234
+00:09:56,010 --> 00:09:58,500
+And to Amazon S3, we've used Athena to query these logs
+
+235
+00:09:58,500 --> 00:09:59,333
+in Amazon S3.
+
+236
+00:09:59,333 --> 00:10:00,720
+So very complete demo.
+
+237
+00:10:00,720 --> 00:10:03,660
+And what I'm going to do now is just disable all these logs.
+
+238
+00:10:03,660 --> 00:10:06,900
+I'm going to delete them, just not to run any ongoing cost.
+
+239
+00:10:06,900 --> 00:10:08,220
+Okay, so that's it.
+
+240
+00:10:08,220 --> 00:10:11,220
+I hope you liked it, and I will see you in the next lecture.
+

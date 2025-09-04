@@ -1,0 +1,868 @@
+1
+00:00:00,100 --> 00:00:02,270
+So now let's talk about networking cost
+
+2
+00:00:02,270 --> 00:00:04,019
+in AWS per gigabyte.
+
+3
+00:00:04,019 --> 00:00:06,050
+And this is a simplified version
+
+4
+00:00:06,050 --> 00:00:07,750
+to make things as easy as possible
+
+5
+00:00:07,750 --> 00:00:10,760
+and to explain to you a few important concepts.
+
+6
+00:00:10,760 --> 00:00:13,670
+Now, networking costs enables can get very complicated,
+
+7
+00:00:13,670 --> 00:00:15,540
+but here is a high-level overview
+
+8
+00:00:15,540 --> 00:00:17,180
+and that should helps you going into the exam.
+
+9
+00:00:17,180 --> 00:00:18,330
+So we have a region
+
+10
+00:00:18,330 --> 00:00:22,720
+and I've drawn two availability zones in this region.
+
+11
+00:00:22,720 --> 00:00:25,460
+Let's assume we have an EC2 instance in the first AZ.
+
+12
+00:00:25,460 --> 00:00:26,780
+And so the first thing you should know
+
+13
+00:00:26,780 --> 00:00:30,500
+is that any traffic going into your EC2 instances
+
+14
+00:00:30,500 --> 00:00:31,610
+is going to be free.
+
+15
+00:00:31,610 --> 00:00:34,910
+So any incoming traffic onto EC2 is free.
+
+16
+00:00:34,910 --> 00:00:37,530
+Now let's assume we have a second EC2 instance
+
+17
+00:00:37,530 --> 00:00:41,060
+and it is in the same availability zone, then in that case,
+
+18
+00:00:41,060 --> 00:00:42,620
+because an availability zone represents
+
+19
+00:00:42,620 --> 00:00:44,080
+a set of multiple data centers
+
+20
+00:00:44,080 --> 00:00:47,150
+that are geographically located within one another,
+
+21
+00:00:47,150 --> 00:00:51,230
+then any traffic between your two EC2 instances
+
+22
+00:00:51,230 --> 00:00:53,650
+will be free assuming that there are using
+
+23
+00:00:53,650 --> 00:00:55,760
+their private IP to communicate,
+
+24
+00:00:55,760 --> 00:00:58,410
+by using the private IP they will go over the network
+
+25
+00:00:58,410 --> 00:01:00,470
+that they are connected with.
+
+26
+00:01:00,470 --> 00:01:02,800
+So this is great. So far everything is free.
+
+27
+00:01:02,800 --> 00:01:06,840
+But now that's include an EC2 instance in another AZ.
+
+28
+00:01:06,840 --> 00:01:10,160
+And this time we want you have these two EC2 instances
+
+29
+00:01:10,160 --> 00:01:12,350
+across two different AZ within the same region
+
+30
+00:01:12,350 --> 00:01:14,800
+to communicate with one another.
+
+31
+00:01:14,800 --> 00:01:17,530
+One approach would be to use a public IP
+
+32
+00:01:17,530 --> 00:01:18,680
+or an elastic IP.
+
+33
+00:01:18,680 --> 00:01:23,100
+And if we do so, we're going to pay 2 cents per gigabytes
+
+34
+00:01:23,100 --> 00:01:25,830
+if using a public IP or elastic IP.
+
+35
+00:01:25,830 --> 00:01:26,663
+Why?
+
+36
+00:01:26,663 --> 00:01:30,130
+Well, because the traffic has to leave via AWS network
+
+37
+00:01:30,130 --> 00:01:33,540
+and go back in for our two instances to communicate
+
+38
+00:01:33,540 --> 00:01:35,730
+and so AWS will charge us for that.
+
+39
+00:01:35,730 --> 00:01:38,880
+Instead, if we are using a private IP,
+
+40
+00:01:38,880 --> 00:01:41,070
+then we're going to be charge half as less,
+
+41
+00:01:41,070 --> 00:01:44,500
+because we're now using the internal AWS network
+
+42
+00:01:44,500 --> 00:01:48,090
+to link between these two availability zones.
+
+43
+00:01:48,090 --> 00:01:50,630
+So a takeaway here is that if you want
+
+44
+00:01:50,630 --> 00:01:54,230
+to make your instances communicate one, faster
+
+45
+00:01:54,230 --> 00:01:55,940
+and two, at a lesser price,
+
+46
+00:01:55,940 --> 00:01:59,410
+then use as much as possible the private IP
+
+47
+00:01:59,410 --> 00:02:01,420
+versus using the public IP.
+
+48
+00:02:01,420 --> 00:02:03,310
+Next, let's consider another region
+
+49
+00:02:03,310 --> 00:02:05,070
+with another availability zone.
+
+50
+00:02:05,070 --> 00:02:09,570
+In which case the traffic to go from one region to another
+
+51
+00:02:09,570 --> 00:02:14,020
+is going to be $0.02 on the gigabytes.
+
+52
+00:02:14,020 --> 00:02:16,040
+So that means that the entire region traffic
+
+53
+00:02:16,040 --> 00:02:18,410
+can be quite expensive.
+
+54
+00:02:18,410 --> 00:02:20,480
+So what do we get as a takeaway
+
+55
+00:02:20,480 --> 00:02:23,180
+from this very simplified slide?
+
+56
+00:02:23,180 --> 00:02:26,290
+The first thing is that you should use a private IP
+
+57
+00:02:26,290 --> 00:02:27,940
+instead of a public IP,
+
+58
+00:02:27,940 --> 00:02:30,360
+if you want to have good savings, okay,
+
+59
+00:02:30,360 --> 00:02:31,820
+and better network performance,
+
+60
+00:02:31,820 --> 00:02:35,490
+because you will automatically be onto the private network.
+
+61
+00:02:35,490 --> 00:02:38,780
+So one reason is do not use the public IP
+
+62
+00:02:38,780 --> 00:02:40,980
+to communicate between two instances
+
+63
+00:02:40,980 --> 00:02:43,300
+in the same region into AZ.
+
+64
+00:02:43,300 --> 00:02:45,780
+The second thing is that if you have a cluster
+
+65
+00:02:45,780 --> 00:02:47,030
+that does some computation
+
+66
+00:02:47,030 --> 00:02:49,080
+and does require a lot of communication
+
+67
+00:02:49,080 --> 00:02:52,000
+between your EC2 instances from one another,
+
+68
+00:02:52,000 --> 00:02:55,300
+then you may want to use the same availability zones
+
+69
+00:02:55,300 --> 00:02:58,360
+for a maximum amount of savings, okay?
+
+70
+00:02:58,360 --> 00:03:01,300
+That obviously these cost savings come at a cost
+
+71
+00:03:01,300 --> 00:03:04,350
+and the cost is that you're not highly available anymore.
+
+72
+00:03:04,350 --> 00:03:06,410
+That means that if your AZ goes down,
+
+73
+00:03:06,410 --> 00:03:08,620
+then you don't have any fell over available.
+
+74
+00:03:08,620 --> 00:03:10,060
+So here you have to balance
+
+75
+00:03:10,060 --> 00:03:12,780
+between the high availability and cost.
+
+76
+00:03:12,780 --> 00:03:15,210
+And based on the question you will be ask in the exam,
+
+77
+00:03:15,210 --> 00:03:16,950
+you have to choose the right balance.
+
+78
+00:03:16,950 --> 00:03:19,010
+So typical example of that would be,
+
+79
+00:03:19,010 --> 00:03:20,870
+hey, we have an RDS database
+
+80
+00:03:20,870 --> 00:03:22,620
+and we want you to create a read replica
+
+81
+00:03:22,620 --> 00:03:25,140
+and do some analytics on top of this read replica.
+
+82
+00:03:25,140 --> 00:03:26,430
+How do we create a read replica
+
+83
+00:03:26,430 --> 00:03:28,260
+for the cheapest amount of money?
+
+84
+00:03:28,260 --> 00:03:30,940
+Well, if you create that read replica in the same AZ,
+
+85
+00:03:30,940 --> 00:03:33,710
+then you're not going to be charged anything to replicate
+
+86
+00:03:33,710 --> 00:03:36,460
+the one database to another in terms of network costs.
+
+87
+00:03:36,460 --> 00:03:39,230
+But if you create that read replica in another AZ,
+
+88
+00:03:39,230 --> 00:03:42,040
+then you're going to pay 1 cents per gigabyte
+
+89
+00:03:42,040 --> 00:03:45,020
+of data transfer between the two databases.
+
+90
+00:03:45,020 --> 00:03:46,140
+So now let's talk about
+
+91
+00:03:46,140 --> 00:03:47,830
+how we can optimize our networking costs
+
+92
+00:03:47,830 --> 00:03:50,700
+by making some smart architectural decisions.
+
+93
+00:03:50,700 --> 00:03:53,390
+So egress traffic is outbound traffic.
+
+94
+00:03:53,390 --> 00:03:55,990
+That means from AWS to the outside.
+
+95
+00:03:55,990 --> 00:03:58,620
+An ingress traffic is inbound traffic.
+
+96
+00:03:58,620 --> 00:04:01,060
+That means from the outside to AWS
+
+97
+00:04:01,060 --> 00:04:02,550
+which is typically free.
+
+98
+00:04:02,550 --> 00:04:05,120
+So sending data to AWS is usually free,
+
+99
+00:04:05,120 --> 00:04:08,640
+but taking data outside of AWS, you have to pay.
+
+100
+00:04:08,640 --> 00:04:11,570
+So your goal is going to be to try to keep
+
+101
+00:04:11,570 --> 00:04:13,350
+as much internet traffic as possible
+
+102
+00:04:13,350 --> 00:04:16,300
+within AWS to minimize the costs.
+
+103
+00:04:16,300 --> 00:04:17,980
+So let's say we have a database
+
+104
+00:04:17,980 --> 00:04:20,459
+and then we have a user in a corporate data center
+
+105
+00:04:20,459 --> 00:04:23,980
+and we run an application in our corporate data center.
+
+106
+00:04:23,980 --> 00:04:26,360
+That application is doing a query to the database
+
+107
+00:04:26,360 --> 00:04:30,090
+and retrieving 100 megabytes of data from the database.
+
+108
+00:04:30,090 --> 00:04:32,840
+And then it will do some aggregation, some computations
+
+109
+00:04:32,840 --> 00:04:34,630
+and then finally, returned the query results,
+
+110
+00:04:34,630 --> 00:04:37,300
+only 50 kilobytes to the user.
+
+111
+00:04:37,300 --> 00:04:38,360
+In that case,
+
+112
+00:04:38,360 --> 00:04:41,350
+the egress traffic is going to be really, really high.
+
+113
+00:04:41,350 --> 00:04:43,050
+And the cost associated with it as well
+
+114
+00:04:43,050 --> 00:04:44,220
+is going to be really high.
+
+115
+00:04:44,220 --> 00:04:47,430
+Because we took 100 megabytes of data from AWS
+
+116
+00:04:47,430 --> 00:04:49,930
+and we took it into our corporate data center,
+
+117
+00:04:49,930 --> 00:04:51,870
+maybe over the internet, right?
+
+118
+00:04:51,870 --> 00:04:54,460
+But if we make a smart choice,
+
+119
+00:04:54,460 --> 00:04:58,830
+we could move our application directly into the AWS cloud
+
+120
+00:04:58,830 --> 00:05:00,260
+on an EC2 instance.
+
+121
+00:05:00,260 --> 00:05:01,910
+In this case, if we're very smart
+
+122
+00:05:01,910 --> 00:05:04,480
+and we keep the data within the same availability zone,
+
+123
+00:05:04,480 --> 00:05:07,710
+then the DB query data transfer is going to be free.
+
+124
+00:05:07,710 --> 00:05:11,320
+And so 100 megabytes will not be built at all for accounts.
+
+125
+00:05:11,320 --> 00:05:12,910
+And then the query results themselves
+
+126
+00:05:12,910 --> 00:05:15,760
+of only 50 kilobytes will be sent to us
+
+127
+00:05:15,760 --> 00:05:17,640
+and it will be a much cheaper cost.
+
+128
+00:05:17,640 --> 00:05:21,340
+And in this case, the egress cost is minimized.
+
+129
+00:05:21,340 --> 00:05:22,290
+Another thing you need to know
+
+130
+00:05:22,290 --> 00:05:24,410
+to minimize egress traffic network costs
+
+131
+00:05:24,410 --> 00:05:26,470
+is that if you're using Direct Connect,
+
+132
+00:05:26,470 --> 00:05:28,450
+you need to choose a Direct Connect location
+
+133
+00:05:28,450 --> 00:05:31,170
+that is co-located in the same AWS region
+
+134
+00:05:31,170 --> 00:05:34,273
+to result in the lower cost for egress network.
+
+135
+00:05:35,460 --> 00:05:38,490
+Okay. What about S3 data transfer pricing?
+
+136
+00:05:38,490 --> 00:05:40,670
+Let's do an analysis for the USA.
+
+137
+00:05:40,670 --> 00:05:42,210
+So we have an S3 bucket
+
+138
+00:05:42,210 --> 00:05:45,130
+and any data going into the S3 bucket is going to be free,
+
+139
+00:05:45,130 --> 00:05:47,180
+because this is ingress traffic.
+
+140
+00:05:47,180 --> 00:05:50,320
+But if we download the data from Amazon S3
+
+141
+00:05:50,320 --> 00:05:52,690
+to our computers through the internet,
+
+142
+00:05:52,690 --> 00:05:55,840
+then we're going to pay an egress traffic cost
+
+143
+00:05:55,840 --> 00:05:58,880
+of 9 cents per gigabytes.
+
+144
+00:05:58,880 --> 00:06:00,610
+This is represented right here.
+
+145
+00:06:00,610 --> 00:06:02,810
+If we want to use S3 transfer acceleration
+
+146
+00:06:02,810 --> 00:06:06,700
+to get faster transfer times from 50 to 500% better,
+
+147
+00:06:06,700 --> 00:06:08,680
+then we're going to get an additional cost
+
+148
+00:06:08,680 --> 00:06:10,780
+on top of the data transfer pricing,
+
+149
+00:06:10,780 --> 00:06:11,990
+which is going to be anywhere
+
+150
+00:06:11,990 --> 00:06:15,360
+between 4 cents to 8 cents per gigabytes.
+
+151
+00:06:15,360 --> 00:06:18,700
+So using transfer acceleration has a cost.
+
+152
+00:06:18,700 --> 00:06:22,080
+Now S3 to CloudFront is going to be free traffic.
+
+153
+00:06:22,080 --> 00:06:23,900
+So if you set up a CloudFront distribution
+
+154
+00:06:23,900 --> 00:06:25,760
+on top of your S3 bucket,
+
+155
+00:06:25,760 --> 00:06:26,970
+any data transfer that happens
+
+156
+00:06:26,970 --> 00:06:29,820
+between S3 and CloudFront is free.
+
+157
+00:06:29,820 --> 00:06:32,250
+But from CloudFront to the internet
+
+158
+00:06:32,250 --> 00:06:35,900
+is going to cost you 8.50 cents per gigabyte,
+
+159
+00:06:35,900 --> 00:06:38,710
+which is slightly cheaper than Amazon S3.
+
+160
+00:06:38,710 --> 00:06:40,930
+On top of it, you're going to get caching capabilities.
+
+161
+00:06:40,930 --> 00:06:43,780
+So lower latency for the access of the data
+
+162
+00:06:43,780 --> 00:06:46,960
+and the reduced cost is going to be also
+
+163
+00:06:46,960 --> 00:06:48,770
+whenever you have requests being made.
+
+164
+00:06:48,770 --> 00:06:51,030
+So when someone makes a request to your S3 bucket,
+
+165
+00:06:51,030 --> 00:06:52,930
+you're going to pay for that requests,
+
+166
+00:06:52,930 --> 00:06:56,980
+but a request made into Amazon CloudFront is much cheaper.
+
+167
+00:06:56,980 --> 00:06:58,460
+It is seven times cheaper.
+
+168
+00:06:58,460 --> 00:07:00,990
+So you're going to save a lot of money by using CloudFront
+
+169
+00:07:00,990 --> 00:07:05,080
+on top of your Amazon S3 bucket, if that fits your use case.
+
+170
+00:07:05,080 --> 00:07:08,820
+And then finally, if you do a Cross Region Replication
+
+171
+00:07:08,820 --> 00:07:10,500
+for your Amazon S3 buckets,
+
+172
+00:07:10,500 --> 00:07:14,000
+then you're going to pay 2 cents per gigabyte for it, okay?
+
+173
+00:07:14,000 --> 00:07:15,560
+So the numbers can change over time
+
+174
+00:07:15,560 --> 00:07:18,720
+and this is for the USA and it can change for your region,
+
+175
+00:07:18,720 --> 00:07:19,800
+but what you need to remember
+
+176
+00:07:19,800 --> 00:07:23,120
+is that using some services have an added cost
+
+177
+00:07:23,120 --> 00:07:24,480
+and it's important for you to know
+
+178
+00:07:24,480 --> 00:07:26,833
+how these costs relates to one another.
+
+179
+00:07:28,170 --> 00:07:31,340
+Another analysis of cost is to use a NAT Gateway
+
+180
+00:07:31,340 --> 00:07:34,210
+versus a Gateway VPC Endpoint.
+
+181
+00:07:34,210 --> 00:07:37,020
+So we have a VPC in the region
+
+182
+00:07:37,020 --> 00:07:38,560
+and we have two private subnets
+
+183
+00:07:38,560 --> 00:07:41,000
+with two different types of EC2 instances.
+
+184
+00:07:41,000 --> 00:07:44,640
+And they both want to access data into an Amazon S3 bucket.
+
+185
+00:07:44,640 --> 00:07:47,610
+So one way to do so is to use the public internet
+
+186
+00:07:47,610 --> 00:07:49,790
+and so to do so, we set up a public subnets,
+
+187
+00:07:49,790 --> 00:07:51,390
+which has a NAT Gateway.
+
+188
+00:07:51,390 --> 00:07:53,370
+For the subnet to be public, we need to have a route
+
+189
+00:07:53,370 --> 00:07:55,120
+into an Internet Gateway.
+
+190
+00:07:55,120 --> 00:07:56,580
+And so we're going to establish a route
+
+191
+00:07:56,580 --> 00:07:58,160
+using the route table.
+
+192
+00:07:58,160 --> 00:08:00,020
+And then we have a direct connectivity
+
+193
+00:08:00,020 --> 00:08:02,940
+from the EC2 instance through the NAT Gateway
+
+194
+00:08:02,940 --> 00:08:05,750
+and through the Internet Gateway into the internet.
+
+195
+00:08:05,750 --> 00:08:07,010
+Then from the internet,
+
+196
+00:08:07,010 --> 00:08:10,040
+we access the data in your Amazon S3 buckets.
+
+197
+00:08:10,040 --> 00:08:13,873
+And so the cost associated with this is $0.045 per hour
+
+198
+00:08:16,030 --> 00:08:17,437
+for your NAT Gateway,
+
+199
+00:08:17,437 --> 00:08:22,040
+$0.045 per gigabytes of data process
+
+200
+00:08:22,040 --> 00:08:23,550
+through your NAT Gateway
+
+201
+00:08:23,550 --> 00:08:27,980
+and then $0.09 per hour for data transfer out
+
+202
+00:08:27,980 --> 00:08:32,980
+to S3 cross-region or $0 if it's same region, okay?
+
+203
+00:08:33,020 --> 00:08:36,480
+But if we were to set up a VPC Endpoints, okay,
+
+204
+00:08:36,480 --> 00:08:40,570
+to access our data into our Amazon S3 bucket privately,
+
+205
+00:08:40,570 --> 00:08:42,340
+then we set up a different route table.
+
+206
+00:08:42,340 --> 00:08:46,263
+So in this case, to access the VPC Endpoint
+
+207
+00:08:46,263 --> 00:08:48,160
+we just set up a route to it.
+
+208
+00:08:48,160 --> 00:08:50,640
+And so the data flows directly from the private subnets
+
+209
+00:08:50,640 --> 00:08:53,390
+into the VPC Endpoints and the S3 buckets.
+
+210
+00:08:53,390 --> 00:08:56,450
+And we have no cost for using Gateway Endpoint
+
+211
+00:08:56,450 --> 00:09:00,330
+and we pay 1 cent per gigabytes of data transferred
+
+212
+00:09:00,330 --> 00:09:03,550
+in and out of your S3 bucket for the same region.
+
+213
+00:09:03,550 --> 00:09:06,700
+So this can be a significantly lower cost
+
+214
+00:09:06,700 --> 00:09:10,640
+to use a VPC Endpoint instead of your NAT Gateway.
+
+215
+00:09:10,640 --> 00:09:13,670
+And this is again, something that the exam can test you on.
+
+216
+00:09:13,670 --> 00:09:15,220
+So I hope you liked this lecture
+
+217
+00:09:15,220 --> 00:09:17,170
+and I will see you in the next lecture.
+

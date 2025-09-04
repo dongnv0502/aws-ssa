@@ -1,0 +1,624 @@
+1
+00:00:00,360 --> 00:00:02,610
+So, let's practice Amazon SQS.
+
+2
+00:00:02,610 --> 00:00:05,400
+So we are going to go into the SQS console
+
+3
+00:00:05,400 --> 00:00:07,320
+and then create a queue.
+
+4
+00:00:07,320 --> 00:00:09,150
+Now as we can see, we have two types of queue
+
+5
+00:00:09,150 --> 00:00:10,530
+we can set up in SQS.
+
+6
+00:00:10,530 --> 00:00:14,070
+We have the standard queue and the FIFO queue.
+
+7
+00:00:14,070 --> 00:00:15,690
+And I'm going to use standard
+
+8
+00:00:15,690 --> 00:00:17,490
+and the name is going to be Demo Queue.
+
+9
+00:00:17,490 --> 00:00:19,440
+We'll see FIFO later on.
+
+10
+00:00:19,440 --> 00:00:22,050
+For configuration, all these things we're going to see
+
+11
+00:00:22,050 --> 00:00:22,883
+in future lectures
+
+12
+00:00:22,883 --> 00:00:26,580
+so visibility timeout, delivery delay, the wait time,
+
+13
+00:00:26,580 --> 00:00:28,980
+the retention period, we're going to use four days
+
+14
+00:00:28,980 --> 00:00:32,009
+and the max message size is going to be 256 kilobytes
+
+15
+00:00:32,009 --> 00:00:35,250
+which is a max allowed in SQS.
+
+16
+00:00:35,250 --> 00:00:37,710
+For encryption, we have several encryption options
+
+17
+00:00:37,710 --> 00:00:40,740
+so we can disable encryption for our queue altogether
+
+18
+00:00:40,740 --> 00:00:44,610
+but by default we enable it with an Amazon SQS key.
+
+19
+00:00:44,610 --> 00:00:47,340
+It's called SSE-SQS type of encryption
+
+20
+00:00:47,340 --> 00:00:51,960
+which is similar to what we have in Amazon S3 with SSE-S3.
+
+21
+00:00:51,960 --> 00:00:54,810
+So that's one option for server side encryption.
+
+22
+00:00:54,810 --> 00:00:56,730
+The other one is to use KMS.
+
+23
+00:00:56,730 --> 00:00:59,460
+And this is where we have to choose the customer master key.
+
+24
+00:00:59,460 --> 00:01:03,750
+So we can choose the default CMK of AWS
+
+25
+00:01:03,750 --> 00:01:06,810
+called the alias/AWS/SQS
+
+26
+00:01:06,810 --> 00:01:09,150
+and then we can define a data key reuse period
+
+27
+00:01:09,150 --> 00:01:10,890
+that could be five minutes, for example.
+
+28
+00:01:10,890 --> 00:01:15,120
+This is to limit the number of API calls made in two KMS.
+
+29
+00:01:15,120 --> 00:01:16,140
+But this is not very important
+
+30
+00:01:16,140 --> 00:01:20,250
+so let's keep the encryption as Amazon SQS key,
+
+31
+00:01:20,250 --> 00:01:22,080
+SSE-SQS.
+
+32
+00:01:22,080 --> 00:01:22,913
+All right.
+
+33
+00:01:22,913 --> 00:01:25,260
+Next we have an access policy.
+
+34
+00:01:25,260 --> 00:01:27,690
+And this access policy can be defined
+
+35
+00:01:27,690 --> 00:01:29,550
+using these prompts right here.
+
+36
+00:01:29,550 --> 00:01:32,010
+So we can say, 'Hey, who can access this queue well?'
+
+37
+00:01:32,010 --> 00:01:34,110
+Only the queue owner can send messages
+
+38
+00:01:34,110 --> 00:01:36,840
+or maybe I wanna specify a list of accounts,
+
+39
+00:01:36,840 --> 00:01:39,660
+users and roles and then who can receive, again.
+
+40
+00:01:39,660 --> 00:01:41,370
+Is it just me, the queue owner
+
+41
+00:01:41,370 --> 00:01:44,220
+or specified accounts, users and roles?
+
+42
+00:01:44,220 --> 00:01:47,400
+And this will generate a json document out of it
+
+43
+00:01:47,400 --> 00:01:49,620
+and this json document, as you can see,
+
+44
+00:01:49,620 --> 00:01:52,500
+looks very similar to what we had in Amazon S3
+
+45
+00:01:52,500 --> 00:01:54,540
+with Amazon S3 Bucket policy.
+
+46
+00:01:54,540 --> 00:01:57,060
+So this is a resource policy for SQS
+
+47
+00:01:57,060 --> 00:01:59,193
+and it works very very similarly.
+
+48
+00:02:00,060 --> 00:02:01,980
+Now for the redrive and the dead-letter queue,
+
+49
+00:02:01,980 --> 00:02:04,230
+we'll see this later on so right now, we're good.
+
+50
+00:02:04,230 --> 00:02:06,273
+Let's go ahead and create our queue.
+
+51
+00:02:07,440 --> 00:02:09,419
+And now the queue is successfully created
+
+52
+00:02:09,419 --> 00:02:13,290
+so we can go ahead and send and receive messages from it.
+
+53
+00:02:13,290 --> 00:02:16,470
+So we get a lot of different panels in this UI
+
+54
+00:02:16,470 --> 00:02:18,840
+but what we want to be doing is
+
+55
+00:02:18,840 --> 00:02:21,030
+to go to the top right-hand side
+
+56
+00:02:21,030 --> 00:02:24,330
+and click on send and receive messages.
+
+57
+00:02:24,330 --> 00:02:27,390
+So here is a facility for us to send messages
+
+58
+00:02:27,390 --> 00:02:29,490
+and then at the bottom, to receive them.
+
+59
+00:02:29,490 --> 00:02:30,930
+So as we can see right now in the queue,
+
+60
+00:02:30,930 --> 00:02:33,030
+we have zero messages available.
+
+61
+00:02:33,030 --> 00:02:38,030
+But if I enter 'hello world!' in the message body
+
+62
+00:02:38,100 --> 00:02:40,560
+and then send the message.
+
+63
+00:02:40,560 --> 00:02:41,910
+As you can see, the message is sent
+
+64
+00:02:41,910 --> 00:02:43,380
+and is ready to be received.
+
+65
+00:02:43,380 --> 00:02:45,990
+Now we have a messages available one,
+
+66
+00:02:45,990 --> 00:02:49,620
+and so in here, as soon as I click on pull for messages,
+
+67
+00:02:49,620 --> 00:02:51,480
+the messages will appear.
+
+68
+00:02:51,480 --> 00:02:52,313
+So let's have a look.
+
+69
+00:02:52,313 --> 00:02:53,760
+I click on pull for messages
+
+70
+00:02:53,760 --> 00:02:56,280
+and yes, we did receive that message right here.
+
+71
+00:02:56,280 --> 00:02:58,170
+As we can see, we have a message id.
+
+72
+00:02:58,170 --> 00:03:00,870
+And if you want to look at the content of the message,
+
+73
+00:03:00,870 --> 00:03:02,280
+I click on the message details
+
+74
+00:03:02,280 --> 00:03:04,260
+and I can have some information.
+
+75
+00:03:04,260 --> 00:03:06,630
+So there's a lot of metadata around that message.
+
+76
+00:03:06,630 --> 00:03:09,630
+For example, the hash of the message, who sent it,
+
+77
+00:03:09,630 --> 00:03:11,730
+how many times were received so just one time right now
+
+78
+00:03:11,730 --> 00:03:14,250
+because this is the first time we process this message,
+
+79
+00:03:14,250 --> 00:03:16,140
+the size in bytes.
+
+80
+00:03:16,140 --> 00:03:19,470
+And if we go and want to receive the body itself,
+
+81
+00:03:19,470 --> 00:03:22,020
+we can see that whatever has sent before 'hello world!'
+
+82
+00:03:22,020 --> 00:03:24,900
+has in it up right here in the message that has just read.
+
+83
+00:03:24,900 --> 00:03:27,390
+If we created attributes for the message,
+
+84
+00:03:27,390 --> 00:03:30,960
+there was a message attributes panel that we didn't look at,
+
+85
+00:03:30,960 --> 00:03:33,960
+we could create key values and read them from here as well.
+
+86
+00:03:33,960 --> 00:03:35,640
+So very simple, what you would expect
+
+87
+00:03:35,640 --> 00:03:38,910
+when you send a message and then read it,
+
+88
+00:03:38,910 --> 00:03:41,190
+you get the exact same message.
+
+89
+00:03:41,190 --> 00:03:42,330
+But we have decoupled
+
+90
+00:03:42,330 --> 00:03:45,030
+because a producer has sent some information
+
+91
+00:03:45,030 --> 00:03:48,240
+and a consumer has received that information.
+
+92
+00:03:48,240 --> 00:03:50,760
+Now we can see that the message has been received twice
+
+93
+00:03:50,760 --> 00:03:55,350
+because we didn't process it in enough time.
+
+94
+00:03:55,350 --> 00:03:58,770
+So after 30 seconds, the message went back into the queue
+
+95
+00:03:58,770 --> 00:04:00,540
+and we received it again.
+
+96
+00:04:00,540 --> 00:04:02,280
+So if I pull for messages,
+
+97
+00:04:02,280 --> 00:04:04,230
+now the message receive count is three.
+
+98
+00:04:04,230 --> 00:04:07,230
+So it has been read yet again another time.
+
+99
+00:04:07,230 --> 00:04:09,150
+So to be done with this message,
+
+100
+00:04:09,150 --> 00:04:11,670
+because say we've processed this 'hello world!' Message,
+
+101
+00:04:11,670 --> 00:04:13,350
+I'm going to click on it
+
+102
+00:04:13,350 --> 00:04:15,690
+and then I'm going to click on delete.
+
+103
+00:04:15,690 --> 00:04:17,910
+And by deleting the message from the queue,
+
+104
+00:04:17,910 --> 00:04:20,790
+we have signaled to the SQS queue
+
+105
+00:04:20,790 --> 00:04:23,040
+that the message has been successfully processed
+
+106
+00:04:23,040 --> 00:04:26,640
+and therefore we have zero messages available in the queue.
+
+107
+00:04:26,640 --> 00:04:28,710
+And if we pull again,
+
+108
+00:04:28,710 --> 00:04:30,330
+we will not receive the same message again
+
+109
+00:04:30,330 --> 00:04:32,280
+because we have deleted it.
+
+110
+00:04:32,280 --> 00:04:34,140
+So you start seeing the power of queues.
+
+111
+00:04:34,140 --> 00:04:37,140
+We could go ahead and send many times different messages,
+
+112
+00:04:37,140 --> 00:04:39,510
+hello world and so on, and you can just play with it
+
+113
+00:04:39,510 --> 00:04:42,090
+and this is how you would set message attributes
+
+114
+00:04:42,090 --> 00:04:44,220
+but this is out of scope for the exam.
+
+115
+00:04:44,220 --> 00:04:47,010
+And here you would receive these messages
+
+116
+00:04:47,010 --> 00:04:49,110
+and you can receive many messages at time.
+
+117
+00:04:49,110 --> 00:04:52,440
+So if we send 'hello world', we'll send that message again
+
+118
+00:04:52,440 --> 00:04:56,040
+and 'hello world 2' for example and send that message
+
+119
+00:04:56,040 --> 00:04:57,810
+and 'hello world 3',
+
+120
+00:04:57,810 --> 00:04:59,460
+whatever you want really in that message.
+
+121
+00:04:59,460 --> 00:05:03,033
+As we can see, as soon as I refresh this window,
+
+122
+00:05:04,080 --> 00:05:06,600
+we can see that the number of messages available is three.
+
+123
+00:05:06,600 --> 00:05:08,460
+And so if I pull for messages,
+
+124
+00:05:08,460 --> 00:05:13,170
+I will get three messages available in here to be processed.
+
+125
+00:05:13,170 --> 00:05:14,910
+And again, you can take them all
+
+126
+00:05:14,910 --> 00:05:17,220
+and delete them to signal to SQS
+
+127
+00:05:17,220 --> 00:05:18,570
+that they have been processed.
+
+128
+00:05:18,570 --> 00:05:19,500
+So fairly easy.
+
+129
+00:05:19,500 --> 00:05:23,130
+But you've seen the power of producers and consumers.
+
+130
+00:05:23,130 --> 00:05:24,540
+Now, back in the queue,
+
+131
+00:05:24,540 --> 00:05:26,520
+just a few options as well we can see out.
+
+132
+00:05:26,520 --> 00:05:30,390
+So we can edit this queue to edit all the configurations
+
+133
+00:05:30,390 --> 00:05:33,600
+that we've seen from before or you can purge the queue.
+
+134
+00:05:33,600 --> 00:05:36,300
+This will delete all the messages in the queue.
+
+135
+00:05:36,300 --> 00:05:37,830
+And so to delete all the messages,
+
+136
+00:05:37,830 --> 00:05:39,450
+you just need to type purge,
+
+137
+00:05:39,450 --> 00:05:40,980
+and it will go ahead and remove everything
+
+138
+00:05:40,980 --> 00:05:43,320
+which is very helpful when you do developments.
+
+139
+00:05:43,320 --> 00:05:45,780
+But I don't think you should do this in production.
+
+140
+00:05:45,780 --> 00:05:48,420
+And then you get some information around monitoring
+
+141
+00:05:48,420 --> 00:05:51,360
+for example here, which gives you some information around
+
+142
+00:05:51,360 --> 00:05:53,640
+how many messages are in the queue,
+
+143
+00:05:53,640 --> 00:05:55,860
+what's the approximate age of the oldest message,
+
+144
+00:05:55,860 --> 00:05:58,260
+which could be another way to scale your SQS Queue
+
+145
+00:05:58,260 --> 00:06:00,510
+if you have an auto-scaling group reading from it,
+
+146
+00:06:00,510 --> 00:06:01,343
+and so on.
+
+147
+00:06:01,343 --> 00:06:03,180
+And finally, access policy,
+
+148
+00:06:03,180 --> 00:06:05,733
+which is who can access the queue and how;
+
+149
+00:06:06,660 --> 00:06:10,020
+encryption, which is the service side encryption we defined
+
+150
+00:06:10,020 --> 00:06:11,220
+for our SQS queue.
+
+151
+00:06:11,220 --> 00:06:14,190
+So for example, we're using SSE-SQS right now
+
+152
+00:06:14,190 --> 00:06:16,440
+as our encryption scheme, but we can edit it.
+
+153
+00:06:16,440 --> 00:06:19,200
+And finally, the dead-letter redrive status
+
+154
+00:06:19,200 --> 00:06:22,413
+which is relevant if you set up a dead letter queue.
+
+155
+00:06:23,430 --> 00:06:24,570
+So that's it for this lecture.
+
+156
+00:06:24,570 --> 00:06:27,570
+I hope you liked it, and I will see you in the next lecture.
+

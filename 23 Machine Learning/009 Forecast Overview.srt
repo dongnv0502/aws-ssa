@@ -1,0 +1,124 @@
+1
+00:00:00,381 --> 00:00:02,640
+Now, let's talk about Amazon Forecast.
+
+2
+00:00:02,640 --> 00:00:03,860
+And this is a very easy one
+
+3
+00:00:03,860 --> 00:00:06,080
+because it allows you to do forecasts.
+
+4
+00:00:06,080 --> 00:00:07,630
+So this is a fully managed services
+
+5
+00:00:07,630 --> 00:00:08,750
+that will use machine learning
+
+6
+00:00:08,750 --> 00:00:10,790
+to deliver a highly accurate forecast.
+
+7
+00:00:10,790 --> 00:00:13,280
+For example, you want to predict the future sales
+
+8
+00:00:13,280 --> 00:00:14,510
+of a raincoat.
+
+9
+00:00:14,510 --> 00:00:16,660
+The idea is that it's going to be 50% more accurate,
+
+10
+00:00:16,660 --> 00:00:18,450
+than looking at the data itself.
+
+11
+00:00:18,450 --> 00:00:21,280
+And you reduce forecasting time from months to hours
+
+12
+00:00:21,280 --> 00:00:22,990
+by using a managed service.
+
+13
+00:00:22,990 --> 00:00:24,330
+So the use cases can be multiple,
+
+14
+00:00:24,330 --> 00:00:25,380
+whenever you need a forecast.
+
+15
+00:00:25,380 --> 00:00:28,340
+For example, product demand planning, financial planning,
+
+16
+00:00:28,340 --> 00:00:30,110
+resource planning, and so on.
+
+17
+00:00:30,110 --> 00:00:31,090
+So how does it work?
+
+18
+00:00:31,090 --> 00:00:33,160
+Well, you take your historical time-series data,
+
+19
+00:00:33,160 --> 00:00:35,700
+for example, and you also add your product features,
+
+20
+00:00:35,700 --> 00:00:38,206
+prices, discounts, website traffic, store locations,
+
+21
+00:00:38,206 --> 00:00:40,010
+basically, any kind of data you can
+
+22
+00:00:40,010 --> 00:00:41,380
+to then enhance your model.
+
+23
+00:00:41,380 --> 00:00:43,790
+Then you upload this into Amazon S3.
+
+24
+00:00:43,790 --> 00:00:46,560
+You then start the Amazon Forecast service
+
+25
+00:00:46,560 --> 00:00:48,620
+which will create a forecasting model.
+
+26
+00:00:48,620 --> 00:00:50,570
+And you can use that forecasting model, for example,
+
+27
+00:00:50,570 --> 00:00:52,010
+to say that your future sales
+
+28
+00:00:52,010 --> 00:00:56,060
+of raincoats are going to be $500,000 next year.
+
+29
+00:00:56,060 --> 00:00:57,360
+And that's it, super simple.
+
+30
+00:00:57,360 --> 00:00:58,920
+Whenever you see forecasts at the exam,
+
+31
+00:00:58,920 --> 00:01:00,503
+think Amazon Forecast.
+

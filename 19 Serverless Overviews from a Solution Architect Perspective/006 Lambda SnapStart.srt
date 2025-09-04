@@ -1,0 +1,152 @@
+1
+00:00:00,240 --> 00:00:03,270
+So now, let's talk about Lambda SnapStart.
+
+2
+00:00:03,270 --> 00:00:05,160
+So this is a feature of Lambda
+
+3
+00:00:05,160 --> 00:00:08,130
+that helps you improve your Lambda function performance
+
+4
+00:00:08,130 --> 00:00:12,210
+up to 10x at no extra cost for your Lambda functions
+
+5
+00:00:12,210 --> 00:00:16,140
+that are running on Java 11 or above.
+
+6
+00:00:16,140 --> 00:00:18,270
+So let's understand how and why.
+
+7
+00:00:18,270 --> 00:00:21,450
+So your Lambda invocation have several lifecycle phases.
+
+8
+00:00:21,450 --> 00:00:24,270
+And if SnapStart is disabled
+
+9
+00:00:24,270 --> 00:00:27,450
+and you have, again, remember a Lambda function
+
+10
+00:00:27,450 --> 00:00:29,520
+that is running on Java,
+
+11
+00:00:29,520 --> 00:00:31,830
+then whenever your Lambda function is invoked,
+
+12
+00:00:31,830 --> 00:00:35,220
+your Java code is going to be initialized, then invoked,
+
+13
+00:00:35,220 --> 00:00:37,680
+and then there is going to be a shutdown.
+
+14
+00:00:37,680 --> 00:00:40,230
+But when you enable SnapStart,
+
+15
+00:00:40,230 --> 00:00:42,060
+then the function is going to be invoked
+
+16
+00:00:42,060 --> 00:00:44,400
+from a pre-initialized state.
+
+17
+00:00:44,400 --> 00:00:46,260
+That means, there is no function initialization
+
+18
+00:00:46,260 --> 00:00:47,160
+from scratch.
+
+19
+00:00:47,160 --> 00:00:48,870
+So when you enable SnapStart,
+
+20
+00:00:48,870 --> 00:00:51,930
+then your Lambda function running Java again is invoked,
+
+21
+00:00:51,930 --> 00:00:53,850
+but the function is pre-initialized.
+
+22
+00:00:53,850 --> 00:00:55,380
+And so this init phase,
+
+23
+00:00:55,380 --> 00:00:58,650
+which can last a very long time in Java is gone.
+
+24
+00:00:58,650 --> 00:01:00,750
+And you go straight into the invoke phase
+
+25
+00:01:00,750 --> 00:01:02,670
+and then the shutdown down phase.
+
+26
+00:01:02,670 --> 00:01:05,129
+So this is a feature
+
+27
+00:01:05,129 --> 00:01:07,590
+that is completely free and how does it work?
+
+28
+00:01:07,590 --> 00:01:11,190
+Well, whenever you publish a new Lambda version,
+
+29
+00:01:11,190 --> 00:01:13,500
+then Lambda is going to initialize your function.
+
+30
+00:01:13,500 --> 00:01:16,650
+So this init phase is going to be done ahead of time.
+
+31
+00:01:16,650 --> 00:01:18,720
+Then a snapshot of the memory
+
+32
+00:01:18,720 --> 00:01:20,190
+and the disc state
+
+33
+00:01:20,190 --> 00:01:23,040
+of your initialized function is going to be taken.
+
+34
+00:01:23,040 --> 00:01:26,190
+And finally, this snapshot is going to be caged
+
+35
+00:01:26,190 --> 00:01:29,880
+for low-latency access, which will allow your function
+
+36
+00:01:29,880 --> 00:01:33,390
+to have what's called a SnapStart, a rapid start.
+
+37
+00:01:33,390 --> 00:01:34,710
+So that's it for this lecture.
+
+38
+00:01:34,710 --> 00:01:37,893
+I hope you liked it and I will see you in the next lecture.
+

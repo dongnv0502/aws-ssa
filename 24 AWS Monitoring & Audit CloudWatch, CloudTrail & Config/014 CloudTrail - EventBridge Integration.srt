@@ -1,0 +1,156 @@
+1
+00:00:00,090 --> 00:00:01,890
+A very important cultural integration
+
+2
+00:00:01,890 --> 00:00:04,500
+you need to know about is the one with Amazon EventBridge
+
+3
+00:00:04,500 --> 00:00:06,540
+to intercept any API calls.
+
+4
+00:00:06,540 --> 00:00:09,660
+So let's say you wanted to receive an SNS notification,
+
+5
+00:00:09,660 --> 00:00:12,630
+anytime a user would delete a table
+
+6
+00:00:12,630 --> 00:00:17,070
+in DynamoDB by using the DeleteTable API Call.
+
+7
+00:00:17,070 --> 00:00:20,550
+So what happens that whenever we do an API call in AWS,
+
+8
+00:00:20,550 --> 00:00:23,250
+as you know, the API call itself is going
+
+9
+00:00:23,250 --> 00:00:25,050
+to be logged in CloudTrail.
+
+10
+00:00:25,050 --> 00:00:26,940
+That's for any API call.
+
+11
+00:00:26,940 --> 00:00:30,330
+But then all these API calls will end up as events
+
+12
+00:00:30,330 --> 00:00:32,250
+as well in Amazon EventBridge.
+
+13
+00:00:32,250 --> 00:00:33,390
+And so we can look
+
+14
+00:00:33,390 --> 00:00:36,660
+for that very specific delete table API call,
+
+15
+00:00:36,660 --> 00:00:38,400
+and create a rule out of it.
+
+16
+00:00:38,400 --> 00:00:40,008
+And this rule will have a destination
+
+17
+00:00:40,008 --> 00:00:42,630
+the destination being Amazon SNS
+
+18
+00:00:42,630 --> 00:00:44,610
+and therefore, we can create alerts.
+
+19
+00:00:44,610 --> 00:00:46,740
+So let me give you a few more examples
+
+20
+00:00:46,740 --> 00:00:49,890
+on how you can integrate Amazon Eventbridge and CloudTrail.
+
+21
+00:00:49,890 --> 00:00:51,900
+For example, say, you wanted to be notified
+
+22
+00:00:51,900 --> 00:00:55,620
+whenever a user was assuming a role in your accounts.
+
+23
+00:00:55,620 --> 00:00:59,430
+So the AssumeRole is an API in the IAM service
+
+24
+00:00:59,430 --> 00:01:02,250
+and therefore, is going to be logged by CloudTrail.
+
+25
+00:01:02,250 --> 00:01:04,290
+And then using EventBridge integration,
+
+26
+00:01:04,290 --> 00:01:08,160
+we can trigger a message into an SNS topic.
+
+27
+00:01:08,160 --> 00:01:10,890
+Similarly, we can also intercept API calls that,
+
+28
+00:01:10,890 --> 00:01:14,160
+for example, change the Security Group inbound rules.
+
+29
+00:01:14,160 --> 00:01:16,020
+So the Security Group call
+
+30
+00:01:16,020 --> 00:01:17,693
+is called AuthorizeSecurityGroupIngress,
+
+31
+00:01:19,020 --> 00:01:21,240
+and it's an EC2 API call.
+
+32
+00:01:21,240 --> 00:01:24,210
+So these are going to be logged again by CloudTrail
+
+33
+00:01:24,210 --> 00:01:26,490
+and then they will appear in EventBridge
+
+34
+00:01:26,490 --> 00:01:29,370
+and then we can trigger a notification in SNS.
+
+35
+00:01:29,370 --> 00:01:31,620
+So as you can see, the possibilities are endless,
+
+36
+00:01:31,620 --> 00:01:32,940
+but now you have a few ideas
+
+37
+00:01:32,940 --> 00:01:34,920
+of how the integration can be leveraged.
+
+38
+00:01:34,920 --> 00:01:36,180
+So I hope you liked it,
+
+39
+00:01:36,180 --> 00:01:38,253
+and I will see you in the next lecture.
+

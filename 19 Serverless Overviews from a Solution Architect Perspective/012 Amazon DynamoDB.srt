@@ -1,0 +1,504 @@
+1
+00:00:00,180 --> 00:00:01,770
+So now let's talk about a database
+
+2
+00:00:01,770 --> 00:00:03,870
+that will appear quite a lot at the exam
+
+3
+00:00:03,870 --> 00:00:05,310
+from an architectural point of view,
+
+4
+00:00:05,310 --> 00:00:07,230
+which is Amazon DynamoDB.
+
+5
+00:00:07,230 --> 00:00:10,740
+So it's a fully managed database, it's highly available,
+
+6
+00:00:10,740 --> 00:00:15,030
+and it has replication of data across multiple AZs.
+
+7
+00:00:15,030 --> 00:00:17,790
+DynamoDB is special because it is Cloud native,
+
+8
+00:00:17,790 --> 00:00:22,260
+it's made by AWS's proprietary and it's a NoSQL database.
+
+9
+00:00:22,260 --> 00:00:25,350
+So it's not a relational database like RDS and Aurora
+
+10
+00:00:25,350 --> 00:00:28,260
+although it has still transaction supports.
+
+11
+00:00:28,260 --> 00:00:30,480
+So with DynamoDB, the use case is that
+
+12
+00:00:30,480 --> 00:00:32,430
+you can scale to massive workloads
+
+13
+00:00:32,430 --> 00:00:35,640
+because the database is internally distributed.
+
+14
+00:00:35,640 --> 00:00:36,510
+That means you can scale
+
+15
+00:00:36,510 --> 00:00:38,490
+to millions of requests per seconds,
+
+16
+00:00:38,490 --> 00:00:42,000
+trillions of rows and hundreds of terabytes of storage.
+
+17
+00:00:42,000 --> 00:00:43,920
+The idea is that, and you need to remember this,
+
+18
+00:00:43,920 --> 00:00:46,500
+you have single digit millisecond performance
+
+19
+00:00:46,500 --> 00:00:49,320
+which is going to be fast, of course, and consistent.
+
+20
+00:00:49,320 --> 00:00:51,720
+Also for all your security needs,
+
+21
+00:00:51,720 --> 00:00:54,510
+everything is integrated with IAM.
+
+22
+00:00:54,510 --> 00:00:58,050
+So for security, authorization, and administration,
+
+23
+00:00:58,050 --> 00:01:00,390
+it's low cost, has auto-scaling capabilities
+
+24
+00:01:00,390 --> 00:01:01,770
+that we'll see in a second,
+
+25
+00:01:01,770 --> 00:01:03,870
+and there is no maintenance or patching,
+
+26
+00:01:03,870 --> 00:01:04,920
+it's always available.
+
+27
+00:01:04,920 --> 00:01:07,380
+So you don't need to provision a database,
+
+28
+00:01:07,380 --> 00:01:08,250
+it's already there.
+
+29
+00:01:08,250 --> 00:01:10,110
+You just need to go ahead and create a table
+
+30
+00:01:10,110 --> 00:01:13,830
+and say how much capacity you want to put in this table.
+
+31
+00:01:13,830 --> 00:01:15,510
+You have two kind of table class,
+
+32
+00:01:15,510 --> 00:01:18,780
+you have the standard class for frequently accessed data
+
+33
+00:01:18,780 --> 00:01:20,490
+and you have the infrequent access,
+
+34
+00:01:20,490 --> 00:01:23,970
+the IA table class for infrequently accessed data.
+
+35
+00:01:23,970 --> 00:01:26,370
+So the basics of DynamoDB is that
+
+36
+00:01:26,370 --> 00:01:28,800
+DynamoDB is made of tables
+
+37
+00:01:28,800 --> 00:01:30,150
+but you don't need to create a database, okay?
+
+38
+00:01:30,150 --> 00:01:31,770
+It's not like Aurora and RDS,
+
+39
+00:01:31,770 --> 00:01:33,930
+the database is already there,
+
+40
+00:01:33,930 --> 00:01:36,450
+that is the service named DynamoDB.
+
+41
+00:01:36,450 --> 00:01:38,310
+So you go ahead and you create tables
+
+42
+00:01:38,310 --> 00:01:40,710
+and each table will have a primary key
+
+43
+00:01:40,710 --> 00:01:43,200
+and you decide on this at the creation time,
+
+44
+00:01:43,200 --> 00:01:44,670
+and then you add data.
+
+45
+00:01:44,670 --> 00:01:47,700
+So each table can have an infinite number of items
+
+46
+00:01:47,700 --> 00:01:51,330
+and there are rows and each item will have attributes.
+
+47
+00:01:51,330 --> 00:01:54,240
+And they're pretty much columns, but you can add
+
+48
+00:01:54,240 --> 00:01:56,940
+the attributes over time and they can be null.
+
+49
+00:01:56,940 --> 00:02:01,290
+So this is a big difference in an RDS or Aurora database,
+
+50
+00:02:01,290 --> 00:02:04,680
+you can add columns over time, but it's complicated process
+
+51
+00:02:04,680 --> 00:02:07,440
+and it can be difficult to evolve your schemas.
+
+52
+00:02:07,440 --> 00:02:10,410
+But then in DynamoDB, you can add attributes just like that
+
+53
+00:02:10,410 --> 00:02:13,890
+over time without any pre-requirements.
+
+54
+00:02:13,890 --> 00:02:16,906
+So the item size, the maximum item size in DynamoDB
+
+55
+00:02:16,906 --> 00:02:18,540
+is 400 kilobytes,
+
+56
+00:02:18,540 --> 00:02:22,410
+so DynamoDB is not there to store very large objects.
+
+57
+00:02:22,410 --> 00:02:24,150
+You have different data types supported,
+
+58
+00:02:24,150 --> 00:02:27,810
+you have the Scalar types such as String, Number, Binary,
+
+59
+00:02:27,810 --> 00:02:31,560
+Boolean, and Null, you have list, and maps, and sets.
+
+60
+00:02:31,560 --> 00:02:34,290
+So DynamoDB is at the exam,
+
+61
+00:02:34,290 --> 00:02:37,530
+gonna be a great choice if you need to see from
+
+62
+00:02:37,530 --> 00:02:39,210
+the exam that the schema,
+
+63
+00:02:39,210 --> 00:02:42,450
+so that means how your data looks, how it's shaped,
+
+64
+00:02:42,450 --> 00:02:45,420
+if the schema needs to rapidly evolve.
+
+65
+00:02:45,420 --> 00:02:48,360
+In that case, DynamoDB is a much better choice
+
+66
+00:02:48,360 --> 00:02:50,610
+than Aurora or RDS,
+
+67
+00:02:50,610 --> 00:02:52,500
+so look for this at the exam.
+
+68
+00:02:52,500 --> 00:02:55,050
+So here is an example of a table in DynamoDB.
+
+69
+00:02:55,050 --> 00:02:56,610
+We have a partition key,
+
+70
+00:02:56,610 --> 00:03:00,180
+optionally a sort key, which composes your primary key,
+
+71
+00:03:00,180 --> 00:03:01,560
+and then we have attributes
+
+72
+00:03:01,560 --> 00:03:04,410
+and then it looks just like a database, okay?
+
+73
+00:03:04,410 --> 00:03:05,610
+But it's possible, for example,
+
+74
+00:03:05,610 --> 00:03:08,460
+for your attributes to be null or to add attributes
+
+75
+00:03:08,460 --> 00:03:11,493
+over time, which makes the strength of DynamoDB.
+
+76
+00:03:12,540 --> 00:03:13,710
+Another thing you need to choose,
+
+77
+00:03:13,710 --> 00:03:15,450
+if you need to choose DynamoDB
+
+78
+00:03:15,450 --> 00:03:18,210
+is the capacity mode for reads and writes.
+
+79
+00:03:18,210 --> 00:03:21,360
+So you can control how to manage your table's capacity
+
+80
+00:03:21,360 --> 00:03:23,700
+and there are two modes you need to know about.
+
+81
+00:03:23,700 --> 00:03:26,430
+There is the provision mode, which is the default
+
+82
+00:03:26,430 --> 00:03:29,760
+in which you are going to provision the capacity in advance,
+
+83
+00:03:29,760 --> 00:03:31,350
+so you're going to say how many reads
+
+84
+00:03:31,350 --> 00:03:33,720
+and writes you expect per second
+
+85
+00:03:33,720 --> 00:03:36,450
+and that's going to be your capacity of your table,
+
+86
+00:03:36,450 --> 00:03:38,940
+so you need to plan the capacity beforehand
+
+87
+00:03:38,940 --> 00:03:43,940
+and then you're going to pay for every provision RCU or WCU
+
+88
+00:03:44,040 --> 00:03:46,020
+which stands for Read Capacity Units
+
+89
+00:03:46,020 --> 00:03:48,000
+or Write Capacity Units.
+
+90
+00:03:48,000 --> 00:03:50,370
+Although if you want a planned capacity,
+
+91
+00:03:50,370 --> 00:03:52,800
+you can still automatically adjust it
+
+92
+00:03:52,800 --> 00:03:54,270
+thanks to autoscaling,
+
+93
+00:03:54,270 --> 00:03:57,930
+which will increase or decrease your RCU and WCU
+
+94
+00:03:57,930 --> 00:04:02,760
+over time based on the load of your table.
+
+95
+00:04:02,760 --> 00:04:04,650
+So this is the provision mode and it works great
+
+96
+00:04:04,650 --> 00:04:09,060
+if your load is predictable, it evolves smoothly,
+
+97
+00:04:09,060 --> 00:04:11,430
+and you wanna do some cost saving
+
+98
+00:04:11,430 --> 00:04:13,860
+but there is also the On-Demand Mode.
+
+99
+00:04:13,860 --> 00:04:16,709
+And here, the read and writes capacity
+
+100
+00:04:16,709 --> 00:04:18,899
+will scale automatically with your workload.
+
+101
+00:04:18,899 --> 00:04:20,519
+There's no capacity planning needed,
+
+102
+00:04:20,519 --> 00:04:24,180
+there is actually no concept of RCU and WCU,
+
+103
+00:04:24,180 --> 00:04:26,400
+so instead in the On-Demand Mode
+
+104
+00:04:26,400 --> 00:04:28,590
+you're going to pay exactly for what you use,
+
+105
+00:04:28,590 --> 00:04:29,880
+so for every single writes
+
+106
+00:04:29,880 --> 00:04:32,040
+and every single reads you're going to pay for it.
+
+107
+00:04:32,040 --> 00:04:34,560
+So it's a lot more expensive as a solution
+
+108
+00:04:34,560 --> 00:04:38,490
+but it's going to be amazing for unpredictable workloads
+
+109
+00:04:38,490 --> 00:04:41,310
+or workloads that have steep, sudden spikes.
+
+110
+00:04:41,310 --> 00:04:43,250
+So again, these are some keywords you need to look
+
+111
+00:04:43,250 --> 00:04:44,340
+at for the exam,
+
+112
+00:04:44,340 --> 00:04:46,410
+if you have an application that will scale
+
+113
+00:04:46,410 --> 00:04:48,180
+from a thousand transactions
+
+114
+00:04:48,180 --> 00:04:50,690
+to 1 million transactions in less than a minute,
+
+115
+00:04:50,690 --> 00:04:53,100
+Provision Mode is not going to be good for you
+
+116
+00:04:53,100 --> 00:04:55,080
+because it doesn't scale fast enough.
+
+117
+00:04:55,080 --> 00:04:57,660
+So in that case, you need to use On-Demand Mode
+
+118
+00:04:57,660 --> 00:05:00,660
+or if you have a workload that has no transactions at all,
+
+119
+00:05:00,660 --> 00:05:04,680
+maybe four or five times a day maximum then
+
+120
+00:05:04,680 --> 00:05:06,720
+On-Demand Mode is great because you're only going to pay
+
+121
+00:05:06,720 --> 00:05:09,120
+for these four or five transactions.
+
+122
+00:05:09,120 --> 00:05:12,360
+So look out for the differences and these keywords
+
+123
+00:05:12,360 --> 00:05:13,500
+and you will be able to select
+
+124
+00:05:13,500 --> 00:05:16,320
+between Provision Mode and On-Demand Mode.
+
+125
+00:05:16,320 --> 00:05:18,450
+So that's it for the DynamoDB basics,
+
+126
+00:05:18,450 --> 00:05:21,543
+I hope you liked it and I will see you in the next lecture.
+

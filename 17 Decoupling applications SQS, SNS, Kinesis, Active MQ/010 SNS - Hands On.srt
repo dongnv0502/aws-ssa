@@ -1,0 +1,440 @@
+1
+00:00:00,300 --> 00:00:02,310
+So, let's practice using SNS.
+
+2
+00:00:02,310 --> 00:00:05,430
+So, we're going to go into the Simple Notification Service
+
+3
+00:00:05,430 --> 00:00:07,170
+and create our first topic.
+
+4
+00:00:07,170 --> 00:00:09,333
+So I'll just call this MyFirstTopic,
+
+5
+00:00:10,350 --> 00:00:12,510
+and then click on Next step.
+
+6
+00:00:12,510 --> 00:00:14,940
+So we have two options for creating a topic.
+
+7
+00:00:14,940 --> 00:00:16,950
+It can either be a standard topic,
+
+8
+00:00:16,950 --> 00:00:17,910
+and this what we'll be creating,
+
+9
+00:00:17,910 --> 00:00:20,100
+which is best-effort message ordering,
+
+10
+00:00:20,100 --> 00:00:21,750
+at least once message delivery,
+
+11
+00:00:21,750 --> 00:00:24,270
+highest throughput in terms of publishes per second,
+
+12
+00:00:24,270 --> 00:00:27,780
+and SQS, Lambda, HTTPS, SMS, email,
+
+13
+00:00:27,780 --> 00:00:29,640
+and mobile application endpoints can read
+
+14
+00:00:29,640 --> 00:00:31,470
+from this SNS topic.
+
+15
+00:00:31,470 --> 00:00:34,830
+Or we've seen that we could create an SNS FIFO topic.
+
+16
+00:00:34,830 --> 00:00:38,460
+And this is to get strictly preserved message ordering,
+
+17
+00:00:38,460 --> 00:00:40,170
+exactly once message delivery,
+
+18
+00:00:40,170 --> 00:00:42,930
+high throughput up to 300 publishes per second,
+
+19
+00:00:42,930 --> 00:00:44,430
+and the only thing that can subscribe
+
+20
+00:00:44,430 --> 00:00:47,610
+to a FIFO SNS topic is an SQS queue.
+
+21
+00:00:47,610 --> 00:00:49,230
+In this case, if we have FIFO, we can see
+
+22
+00:00:49,230 --> 00:00:52,620
+that the name of topic has to end with .fifo.
+
+23
+00:00:52,620 --> 00:00:54,390
+So we'll just go with standard,
+
+24
+00:00:54,390 --> 00:00:57,600
+and then we'll use MyFirstTopic as the name.
+
+25
+00:00:57,600 --> 00:01:00,300
+We can encrypt the messages in our topic.
+
+26
+00:01:00,300 --> 00:01:02,370
+We can set up an access policy.
+
+27
+00:01:02,370 --> 00:01:03,750
+And the access policy is going
+
+28
+00:01:03,750 --> 00:01:07,260
+to define who and what can write to the SNS topic.
+
+29
+00:01:07,260 --> 00:01:09,810
+So this is similar to an S3 bucket policy,
+
+30
+00:01:09,810 --> 00:01:14,760
+and this is similar to also an SQS access queue policy.
+
+31
+00:01:14,760 --> 00:01:15,593
+Okay?
+
+32
+00:01:15,593 --> 00:01:17,400
+The idea is that with this access policy, for example,
+
+33
+00:01:17,400 --> 00:01:19,170
+we could set up an S3 bucket
+
+34
+00:01:19,170 --> 00:01:21,660
+to write events into an SNS topic,
+
+35
+00:01:21,660 --> 00:01:24,540
+and then the SNS topic could send data to SQS, and so on.
+
+36
+00:01:24,540 --> 00:01:26,190
+So the access policy will be needed
+
+37
+00:01:26,190 --> 00:01:29,490
+to allow the S3 bucket to write to our SNS topic.
+
+38
+00:01:29,490 --> 00:01:30,690
+So for now, I'll just use basic,
+
+39
+00:01:30,690 --> 00:01:32,790
+because we don't need to do anything fancy,
+
+40
+00:01:32,790 --> 00:01:35,490
+and then we are not going to set up any of these.
+
+41
+00:01:35,490 --> 00:01:38,070
+And then we'll just click on Create topic.
+
+42
+00:01:38,070 --> 00:01:40,140
+So MyFirstTopic is created,
+
+43
+00:01:40,140 --> 00:01:43,890
+and as we can see right now, we have zero subscriptions.
+
+44
+00:01:43,890 --> 00:01:46,350
+So we need to create our first subscription.
+
+45
+00:01:46,350 --> 00:01:47,820
+So I'm going to create one,
+
+46
+00:01:47,820 --> 00:01:48,930
+and we need to choose the protocol.
+
+47
+00:01:48,930 --> 00:01:52,680
+So it could be Kinesis Data Firehose, SQS Lambda, Email,
+
+48
+00:01:52,680 --> 00:01:56,640
+Email-JSON, HTTP, HTTPS, and SMS, okay?
+
+49
+00:01:56,640 --> 00:01:58,830
+And you have to remember those going into the exam.
+
+50
+00:01:58,830 --> 00:02:02,040
+But to make it very simple, we're first going to use Email,
+
+51
+00:02:02,040 --> 00:02:04,770
+and actually only going to use Email in this hands-on.
+
+52
+00:02:04,770 --> 00:02:07,170
+Now we need to use an endpoint on the email address.
+
+53
+00:02:07,170 --> 00:02:12,170
+I will use stephanetheteacher@mailinator.com,
+
+54
+00:02:12,900 --> 00:02:15,780
+and this is just a service for me to get a temporary email.
+
+55
+00:02:15,780 --> 00:02:19,950
+So if I type stephanetheteacher, and press on GO,
+
+56
+00:02:19,950 --> 00:02:21,570
+then I'm getting a public inbox,
+
+57
+00:02:21,570 --> 00:02:25,560
+and they will receive emails from this address, okay?
+
+58
+00:02:25,560 --> 00:02:27,360
+So we're going to create this.
+
+59
+00:02:27,360 --> 00:02:28,440
+As we can see right here,
+
+60
+00:02:28,440 --> 00:02:31,560
+we could set up a subscription filter policy.
+
+61
+00:02:31,560 --> 00:02:33,870
+This is optional, but with this policy,
+
+62
+00:02:33,870 --> 00:02:35,610
+we could filter the messages
+
+63
+00:02:35,610 --> 00:02:37,680
+that will be sent to the subscription,
+
+64
+00:02:37,680 --> 00:02:39,600
+which can be really helpful if you have many subscribers
+
+65
+00:02:39,600 --> 00:02:41,070
+that just need to get only subsets
+
+66
+00:02:41,070 --> 00:02:45,060
+of the messages sent into your SNS topic.
+
+67
+00:02:45,060 --> 00:02:46,920
+But we will not set it up right now.
+
+68
+00:02:46,920 --> 00:02:48,660
+So we'll create the subscription,
+
+69
+00:02:48,660 --> 00:02:52,710
+and now we need to validate the subscription.
+
+70
+00:02:52,710 --> 00:02:56,340
+So as you can see right now, it is pending confirmation.
+
+71
+00:02:56,340 --> 00:02:59,100
+And so to confirm it, I'm going to go into my Mailinator,
+
+72
+00:02:59,100 --> 00:03:00,600
+and I've received an email.
+
+73
+00:03:00,600 --> 00:03:03,030
+And by clicking on this Confirmed subscription,
+
+74
+00:03:03,030 --> 00:03:05,580
+I'm going to confirm my subscription, so here we go.
+
+75
+00:03:05,580 --> 00:03:09,030
+And now if I refresh this page, what I should be seeing is
+
+76
+00:03:09,030 --> 00:03:11,340
+that my subscription right here is confirmed.
+
+77
+00:03:11,340 --> 00:03:12,570
+So this is perfect.
+
+78
+00:03:12,570 --> 00:03:14,160
+So again, if I click on my subscription,
+
+79
+00:03:14,160 --> 00:03:16,080
+I can look at it, see that is going
+
+80
+00:03:16,080 --> 00:03:18,120
+to send an email to this endpoint.
+
+81
+00:03:18,120 --> 00:03:19,410
+And if I wanted to do it,
+
+82
+00:03:19,410 --> 00:03:22,050
+I could have a subscription filter policy.
+
+83
+00:03:22,050 --> 00:03:23,190
+But right now we don't have any,
+
+84
+00:03:23,190 --> 00:03:26,040
+because we want all messages sent to my SNS topic
+
+85
+00:03:26,040 --> 00:03:28,590
+to go directly into the subscription.
+
+86
+00:03:28,590 --> 00:03:29,970
+So now, let's do a test.
+
+87
+00:03:29,970 --> 00:03:31,920
+We're going to publish a message,
+
+88
+00:03:31,920 --> 00:03:35,070
+and I'm going to just enter a message structure.
+
+89
+00:03:35,070 --> 00:03:37,830
+I'll say hello world, which is very common
+
+90
+00:03:37,830 --> 00:03:42,390
+when we test some services, and then publish the message.
+
+91
+00:03:42,390 --> 00:03:45,600
+So the message has been published into MyFirstTopic.
+
+92
+00:03:45,600 --> 00:03:46,980
+And so what I should be seeing is
+
+93
+00:03:46,980 --> 00:03:51,120
+that if I go back to my emails and go to my public messages,
+
+94
+00:03:51,120 --> 00:03:53,820
+so back to my inbox, I should be seeing, yes,
+
+95
+00:03:53,820 --> 00:03:56,820
+an AWS notification message coming straight from SNS
+
+96
+00:03:56,820 --> 00:03:58,440
+saying hello world.
+
+97
+00:03:58,440 --> 00:04:00,900
+So very easy, very cool,
+
+98
+00:04:00,900 --> 00:04:04,110
+and we just shows that SNS is working for us.
+
+99
+00:04:04,110 --> 00:04:06,030
+So this is perfect. We're good to go.
+
+100
+00:04:06,030 --> 00:04:09,120
+If we wanted to implement the SQS fanout pattern,
+
+101
+00:04:09,120 --> 00:04:10,770
+we will need to choose SQS
+
+102
+00:04:10,770 --> 00:04:14,670
+and set up many, many different queues as the receivers
+
+103
+00:04:14,670 --> 00:04:17,130
+of the subscription for our SNS topic.
+
+104
+00:04:17,130 --> 00:04:18,750
+So yeah, that's it for SNS.
+
+105
+00:04:18,750 --> 00:04:21,420
+When you're done, delete the subscription
+
+106
+00:04:21,420 --> 00:04:25,560
+and then go back to the topic on the left hand side,
+
+107
+00:04:25,560 --> 00:04:28,140
+and then click on Delete to delete the topic
+
+108
+00:04:28,140 --> 00:04:30,420
+by typing, delete me.
+
+109
+00:04:30,420 --> 00:04:32,760
+And off you go. That's it for SNS.
+
+110
+00:04:32,760 --> 00:04:35,760
+I hope you liked it, and I will see you in the next lecture.
+

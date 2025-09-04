@@ -1,0 +1,116 @@
+1
+00:00:00,380 --> 00:00:01,410
+Now let's talk about
+
+2
+00:00:01,410 --> 00:00:03,600
+the machine learning services on AWS,
+
+3
+00:00:03,600 --> 00:00:05,920
+and you have to remember them all going into the exam.
+
+4
+00:00:05,920 --> 00:00:09,020
+So, recognition is a way for you to do face detections,
+
+5
+00:00:09,020 --> 00:00:11,900
+to do labeling, and celebrity recognition.
+
+6
+00:00:11,900 --> 00:00:13,630
+Transcribe is for you to get,
+
+7
+00:00:13,630 --> 00:00:14,870
+a way to get subtitles.
+
+8
+00:00:14,870 --> 00:00:17,680
+For example, to convert your audio into text.
+
+9
+00:00:17,680 --> 00:00:19,410
+Whereas Polly is the opposite.
+
+10
+00:00:19,410 --> 00:00:20,950
+It allows you to get,
+
+11
+00:00:20,950 --> 00:00:24,780
+to use your text and create audio out of it.
+
+12
+00:00:24,780 --> 00:00:27,370
+Translate is for you to get translations.
+
+13
+00:00:27,370 --> 00:00:30,630
+Lex is to build conversational robots or chatbots.
+
+14
+00:00:30,630 --> 00:00:32,810
+And if you bundle it with Connect,
+
+15
+00:00:32,810 --> 00:00:35,850
+then you can create a cloud contact center.
+
+16
+00:00:35,850 --> 00:00:37,190
+Comprehend is a way for you
+
+17
+00:00:37,190 --> 00:00:39,560
+to do natural language processing.
+
+18
+00:00:39,560 --> 00:00:42,730
+SageMaker is a fully featured machine learning service
+
+19
+00:00:42,730 --> 00:00:45,810
+that is accessible to developer and data scientist.
+
+20
+00:00:45,810 --> 00:00:48,720
+Forecast allows you to build highly accurate forecast.
+
+21
+00:00:48,720 --> 00:00:52,480
+Kendra is going to be an ML-powered document search engine.
+
+22
+00:00:52,480 --> 00:00:54,200
+Personalize is used for real-time
+
+23
+00:00:54,200 --> 00:00:56,530
+personalized recommendations for your customers.
+
+24
+00:00:56,530 --> 00:00:58,860
+And Textract is used to detect text and data,
+
+25
+00:00:58,860 --> 00:01:02,240
+and extract them from various documents.
+
+26
+00:01:02,240 --> 00:01:04,090
+So, hopefully you can remember this whole list.
+
+27
+00:01:04,090 --> 00:01:06,290
+This will get you a few points on the exam.
+
+28
+00:01:06,290 --> 00:01:07,300
+I hope you like this lecture,
+
+29
+00:01:07,300 --> 00:01:09,250
+and I will see you in the next lecture.
+
