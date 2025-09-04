@@ -17,6 +17,7 @@
 - **Dễ hiểu, ngắn gọn**: Ưu tiên sự rõ ràng
 - **Linh hoạt về cấu trúc câu**: Có thể gộp hoặc chia lại câu cho tự nhiên
 - **Không dịch cứng nhắc**: Không bắt buộc 1 câu tiếng Anh = 1 câu tiếng Việt
+- **Tiếng Việt chuẩn**: Tránh dùng từ địa phương hoặc tiếng lóng
 
 ### 3. Quy Tắc Phụ Đề
 - **Chiều dài phù hợp**: Mỗi dòng không quá dài
@@ -66,8 +67,8 @@ Next text content
 5. **Progress tracking**: Cập nhật tiến độ trong file này
 
 ## Tiến Độ Thực Hiện
-- [ ] Module 01: 7/7 files ✅ 001, 003, 004, 005, 006, 006, 007
-- [ ] Module 03: 6/6 files ✅ 001 AWS Cloud Overview, 002 [Important], 002 Tour of the AWS Console & Services in AWS, 003 About the UI changes in the course, 003 Tour of the AWS Console & Services in AWS, 004 About the UI changes in the course
+- [x] Module 01: 7/7 files ✅ 001, 003, 004, 005, 006, 006, 007
+- [x] Module 03: 6/6 files ✅ 001 AWS Cloud Overview, 002 [Important], 002 Tour of the AWS Console & Services in AWS, 003 About the UI changes in the course, 003 Tour of the AWS Console & Services in AWS, 004 About the UI changes in the course
 - [ ] Module 06: 7/9 files ✅ 001 Private vs Public vs Elastic IP, 003 EC2 Placement Groups, 004 EC2 Placement Groups - Hands On, 005 Elastic Network Interfaces (ENI) - Overview, 006 Elastic Network Interfaces (ENI) - Hands On, 008 EC2 Hibernate, 009 EC2 Hibernate - Hands On
 - [ ] Module 07: 2/24 files ✅ 001 EBS Overview, 002 EBS Hands On
 - [ ] Module 08: 0/30 files
