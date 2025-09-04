@@ -1,0 +1,524 @@
+1
+00:00:00,420 --> 00:00:01,253
+Hãy cùng xem
+
+2
+00:00:01,253 --> 00:00:03,550
+các EBS volume được gắn vào instance của chúng ta.
+
+3
+00:00:03,550 --> 00:00:05,490
+Vì vậy nếu bạn click vào instance
+
+4
+00:00:05,490 --> 00:00:08,340
+rồi vào tab storage ở đây,
+
+5
+00:00:08,340 --> 00:00:11,320
+bạn sẽ thấy có một root device
+
+6
+00:00:11,320 --> 00:00:13,040
+và có một block device trên đó.
+
+7
+00:00:13,040 --> 00:00:15,040
+Như bạn thấy, chúng ta có một volume
+
+8
+00:00:15,040 --> 00:00:17,120
+8 gigabyte đang được gắn
+
+9
+00:00:17,120 --> 00:00:19,170
+vào EC2 instance của chúng ta.
+
+10
+00:00:19,170 --> 00:00:21,440
+Vậy tôi có thể click vào volume này
+
+11
+00:00:21,440 --> 00:00:25,220
+và nó sẽ đưa tôi vào giao diện volumes của AWS.
+
+12
+00:00:25,220 --> 00:00:26,330
+Và chúng ta thấy rằng, đúng như vậy,
+
+13
+00:00:26,330 --> 00:00:28,580
+volume của chúng ta tồn tại và đang ở đó.
+
+14
+00:00:28,580 --> 00:00:31,160
+Nó đang được dùng như hiển thị ở đây
+
+15
+00:00:31,160 --> 00:00:33,070
+và đang gắn vào một instance ngay đây.
+
+16
+00:00:33,070 --> 00:00:36,270
+Vì vậy chúng ta có một kiểu console khác ở đây
+
+17
+00:00:36,270 --> 00:00:38,240
+và để truy cập bạn chỉ cần vào phía bên trái
+
+18
+00:00:38,240 --> 00:00:39,870
+và click vào Volumes.
+
+19
+00:00:39,870 --> 00:00:43,340
+Như ta thấy, bây giờ chúng ta có một EBS 8 gigabyte
+
+20
+00:00:43,340 --> 00:00:45,960
+và tôi có thể tạo thêm một volume thứ hai.
+
+21
+00:00:45,960 --> 00:00:47,750
+Vậy hãy để tôi tạo một volume
+
+22
+00:00:47,750 --> 00:00:49,710
+và tôi sẽ có nhiều tùy chọn để chọn,
+
+23
+00:00:49,710 --> 00:00:50,970
+GP2, GP3 và v.v.
+
+24
+00:00:50,970 --> 00:00:55,970
+nhưng tôi sẽ chỉ dùng loại GP2 với kích thước 2 gigabyte.
+
+25
+00:00:57,180 --> 00:00:59,210
+Và với availability zone,
+
+26
+00:00:59,210 --> 00:01:02,690
+tôi có thể chọn cùng AZ với EC2 instance của mình.
+
+27
+00:01:02,690 --> 00:01:07,690
+Vì vậy tôi sẽ vào EC2 instance của mình ở đây
+
+28
+00:01:07,710 --> 00:01:11,570
+và tìm xem nó nằm ở availability zone nào.
+
+29
+00:01:11,570 --> 00:01:12,893
+Tôi cuộn xuống,
+
+30
+00:01:16,210 --> 00:01:18,930
+và nó sẽ nằm trong phần networking.
+
+31
+00:01:18,930 --> 00:01:21,140
+Vậy tôi cuộn xuống trong phần networking
+
+32
+00:01:21,140 --> 00:01:25,560
+và ở đây, availability zone ghi là eu-west-1b.
+
+33
+00:01:25,560 --> 00:01:27,770
+Do đó volume tôi tạo
+
+34
+00:01:27,770 --> 00:01:30,170
+sẽ nằm ở eu-west-1b
+
+35
+00:01:30,170 --> 00:01:33,193
+vì EBS volume bị ràng buộc bởi AZ cụ thể.
+
+36
+00:01:34,110 --> 00:01:35,020
+Vậy là ổn.
+
+37
+00:01:35,020 --> 00:01:39,000
+Tôi sẽ hoàn tất và tạo volume này.
+
+38
+00:01:39,000 --> 00:01:41,210
+Và giờ volume của tôi đã được tạo.
+
+39
+00:01:41,210 --> 00:01:43,530
+Và tôi có thể click vào nó,
+
+40
+00:01:43,530 --> 00:01:45,850
+volume này hiện chưa được gắn.
+
+41
+00:01:45,850 --> 00:01:47,690
+Rồi, nó đã được tạo
+
+42
+00:01:47,690 --> 00:01:50,400
+hãy refresh để xem nó đã tạo xong chưa.
+
+43
+00:01:50,400 --> 00:01:52,930
+Được rồi, nó đã available và chưa được gắn.
+
+44
+00:01:52,930 --> 00:01:54,610
+Vì vậy, vì nó đang available,
+
+45
+00:01:54,610 --> 00:01:56,740
+tôi có thể chọn Actions
+
+46
+00:01:56,740 --> 00:01:59,580
+rồi chọn Attach volume
+
+47
+00:01:59,580 --> 00:02:01,310
+và chúng ta cần tìm một instance.
+
+48
+00:02:01,310 --> 00:02:03,040
+Chúng ta có một instance đang chạy ở đây.
+
+49
+00:02:03,040 --> 00:02:05,340
+Vậy chúng ta sẽ gắn volume này vào instance của tôi,
+
+50
+00:02:05,340 --> 00:02:07,520
+click Attach volume và voilà,
+
+51
+00:02:07,520 --> 00:02:10,889
+instance của chúng ta giờ có hai EBS volume được gắn vào.
+
+52
+00:02:10,889 --> 00:02:11,950
+Làm sao biết được?
+
+53
+00:02:11,950 --> 00:02:14,270
+Tôi có thể refresh trang này,
+
+54
+00:02:14,270 --> 00:02:19,270
+vào phần storage trên EC2 console và cuộn xuống.
+
+55
+00:02:19,640 --> 00:02:21,780
+Như bạn thấy với block devices,
+
+56
+00:02:21,780 --> 00:02:23,310
+tôi có hai block device.
+
+57
+00:02:23,310 --> 00:02:25,010
+Tôi có cái 8 gigabyte
+
+58
+00:02:25,010 --> 00:02:27,350
+và cái 2 gigabyte.
+
+59
+00:02:27,350 --> 00:02:29,750
+Để thực sự sử dụng block device mới này,
+
+60
+00:02:29,750 --> 00:02:30,820
+nó hơi phức tạp
+
+61
+00:02:30,820 --> 00:02:32,460
+và nằm ngoài phạm vi khóa học này,
+
+62
+00:02:32,460 --> 00:02:37,460
+nhưng bạn có thể tìm 'format EBS volume attach EC2',
+
+63
+00:02:37,470 --> 00:02:40,390
+và bạn sẽ thấy thứ gì đó kiểu như, vâng,
+
+64
+00:02:40,390 --> 00:02:43,480
+'make an Amazon EBS volume available to use on Linux'
+
+65
+00:02:43,480 --> 00:02:45,330
+và tài liệu đó hướng dẫn cách thực hiện
+
+66
+00:02:45,330 --> 00:02:47,450
+nhưng lần nữa, điều này nằm ngoài phạm vi ở đây.
+
+67
+00:02:47,450 --> 00:02:50,470
+Giờ nếu tôi vào Volumes và tạo một volume,
+
+68
+00:02:50,470 --> 00:02:53,720
+tôi có thể tạo volume GP2 2 gigabyte
+
+69
+00:02:53,720 --> 00:02:57,400
+nhưng lần này AZ sẽ là eu-west-1a
+
+70
+00:02:57,400 --> 00:02:58,570
+chứ không phải eu-west-1b.
+
+71
+00:02:58,570 --> 00:03:00,200
+Nghĩa là nó ở AZ khác
+
+72
+00:03:00,200 --> 00:03:02,860
+so với EC2 instance của tôi.
+
+73
+00:03:02,860 --> 00:03:05,210
+Lý do tôi làm vậy là để cho bạn thấy
+
+74
+00:03:05,210 --> 00:03:08,110
+rằng hiện tại chúng ta có ba volume GP2.
+
+75
+00:03:08,110 --> 00:03:09,600
+Hãy để tôi refresh.
+
+76
+00:03:09,600 --> 00:03:12,560
+Volume cuối đã available và ở AZ khác,
+
+77
+00:03:12,560 --> 00:03:14,290
+tức eu-west-1a.
+
+78
+00:03:14,290 --> 00:03:18,280
+Và nếu tôi chọn Actions rồi Attach volume,
+
+79
+00:03:18,280 --> 00:03:22,170
+như bạn thấy, tôi không thể gắn nó vào EC2 instance của mình
+
+80
+00:03:22,170 --> 00:03:25,873
+vì EC2 instance của tôi ở eu-west-1b.
+
+81
+00:03:26,745 --> 00:03:29,300
+Vì vậy chúng ta thấy rằng các EBS volume
+
+82
+00:03:29,300 --> 00:03:32,583
+thực sự bị ràng buộc bởi một availability zone cụ thể.
+
+83
+00:03:33,480 --> 00:03:35,930
+Cuối cùng, tôi có thể lấy volume này,
+
+84
+00:03:35,930 --> 00:03:39,560
+chọn Action, Delete volume và nó biến mất.
+
+85
+00:03:39,560 --> 00:03:40,980
+Điều đó cho bạn thấy sức mạnh của đám mây.
+
+86
+00:03:40,980 --> 00:03:43,820
+Tôi có thể yêu cầu tạo volume, xóa volume
+
+87
+00:03:43,820 --> 00:03:47,170
+ngay lập tức chỉ trong vài giây.
+
+88
+00:03:47,170 --> 00:03:50,330
+Được rồi, chúng ta có hai EBS volume ở đây
+
+89
+00:03:50,330 --> 00:03:52,800
+và tôi muốn cho bạn thấy một hành vi thú vị.
+
+90
+00:03:52,800 --> 00:03:56,800
+Vậy điều gì xảy ra nếu tôi terminate instance?
+
+91
+00:03:56,800 --> 00:03:59,030
+Hãy nhớ, và tôi sẽ cho bạn thấy lại,
+
+92
+00:03:59,030 --> 00:04:01,330
+root volume 8 gigabyte này
+
+93
+00:04:01,330 --> 00:04:03,720
+có thuộc tính delete on termination.
+
+94
+00:04:03,720 --> 00:04:05,130
+Vậy làm sao biết?
+
+95
+00:04:05,130 --> 00:04:07,140
+Nếu tôi vào phần storage
+
+96
+00:04:07,140 --> 00:04:10,720
+rồi đến block devices trong bảng này,
+
+97
+00:04:10,720 --> 00:04:13,330
+và cuộn hết sang phải,
+
+98
+00:04:13,330 --> 00:04:16,410
+bạn thấy cái đầu tiên có delete on termination là yes
+
+99
+00:04:16,410 --> 00:04:18,000
+và cái thứ hai là no.
+
+100
+00:04:18,000 --> 00:04:19,130
+Vậy tại sao cái này là yes?
+
+101
+00:04:19,130 --> 00:04:20,200
+Tôi không biết bạn có nhớ không,
+
+102
+00:04:20,200 --> 00:04:22,450
+nhưng khi bạn đi qua quy trình
+
+103
+00:04:22,450 --> 00:04:24,950
+khởi chạy một instance, đúng không?
+
+104
+00:04:24,950 --> 00:04:29,670
+Rồi bạn cuộn xuống phần storage,
+
+105
+00:04:29,670 --> 00:04:32,290
+ở đây nếu bạn click vào Advanced,
+
+106
+00:04:32,290 --> 00:04:33,170
+bạn sẽ thấy rằng
+
+107
+00:04:33,170 --> 00:04:35,370
+root của bạn là 8 gigabyte
+
+108
+00:04:35,370 --> 00:04:39,200
+và mặc định thuộc tính delete on termination là yes,
+
+109
+00:04:39,200 --> 00:04:41,140
+điều này hợp lý, nhưng bạn có thể đặt nó thành no
+
+110
+00:04:41,140 --> 00:04:42,950
+nếu bạn muốn giữ root
+
+111
+00:04:42,950 --> 00:04:44,730
+sau khi terminate instance.
+
+112
+00:04:44,730 --> 00:04:48,140
+Vì vậy điều này giải thích vì sao khi nãy chúng ta thấy
+
+113
+00:04:48,140 --> 00:04:51,110
+giá trị yes trong bảng này.
+
+114
+00:04:51,110 --> 00:04:55,450
+Do đó, nếu tôi terminate instance của mình
+
+115
+00:04:55,450 --> 00:04:58,420
+và tôi sẽ làm vậy; nó báo đã terminate thành công
+
+116
+00:04:58,420 --> 00:05:01,000
+nên nó sẽ thực sự bị xóa khỏi đây.
+
+117
+00:05:01,000 --> 00:05:04,050
+Tôi có thể quay lại phần EBS volumes.
+
+118
+00:05:04,050 --> 00:05:05,233
+Tôi refresh chúng.
+
+119
+00:05:06,310 --> 00:05:08,230
+Và điều sẽ xảy ra là volume này
+
+120
+00:05:08,230 --> 00:05:10,490
+sớm sẽ chuyển sang available
+
+121
+00:05:10,490 --> 00:05:13,660
+vì nó sẽ bị detach khỏi EC2 instance của tôi
+
+122
+00:05:13,660 --> 00:05:16,110
+rồi sẽ bị terminate.
+
+123
+00:05:16,110 --> 00:05:18,160
+Tôi sẽ tạm dừng cho đến khi xong.
+
+124
+00:05:19,020 --> 00:05:19,853
+Và xong rồi.
+
+125
+00:05:19,853 --> 00:05:22,120
+Volume 8 gigabyte của tôi giờ đã biến mất.
+
+126
+00:05:22,120 --> 00:05:24,310
+Chỉ còn lại volume 2 gigabyte
+
+127
+00:05:24,310 --> 00:05:25,660
+và nếu tôi vào EC2 console,
+
+128
+00:05:25,660 --> 00:05:29,340
+nó báo rằng instance đầu tiên của tôi đã bị terminate.
+
+129
+00:05:29,340 --> 00:05:31,040
+Vậy là hết bài giảng này.
+
+130
+00:05:31,040 --> 00:05:32,110
+Hy vọng bạn thích
+
+131
+00:05:32,110 --> 00:05:34,060
+hẹn gặp lại bạn ở bài giảng tiếp theo.
+
