@@ -1,7 +1,7 @@
 # Kế Hoạch Dịch Subtitle AWS SAA-C03
 
 ## Tổng Quan
-- **Số lượng file cần dịch**: 227 file .srt
+- **Số lượng file cần dịch**: 428 file .srt
 - **Ngôn ngữ**: Tiếng Anh → Tiếng Việt
 - **Mục tiêu**: Dịch toàn bộ subtitle với chất lượng cao, tuân thủ quy tắc chuyên môn
 
@@ -37,27 +37,38 @@ Next text content
 ```
 
 ## Danh Sách Module Cần Dịch
-1. **01 Introduction - AWS Certified Solutions Architect Associate** (12 files)
+1. **01 Introduction - AWS Certified Solutions Architect Associate** (7 files)
 2. **03 Getting started with AWS** (6 files)  
-3. **06 EC2 - Solutions Architect Associate Level** (7 files)
-4. **07 EC2 Instance Storage** (24 files)
-5. **08 High Availability and Scalability ELB & ASG** (30 files)
-6. **09 AWS Fundamentals RDS + Aurora + ElastiCache** (23 files)
-7. **11 Classic Solutions Architecture Discussions** (16 files)
-8. **12 Amazon S3 Introduction** (16 files)
-9. **13 Advanced Amazon S3** (24 files)
-10. **14 Amazon S3 Security** (31 files)
-11. **15 CloudFront & AWS Global Accelerator** (20 files)
-12. **17 Decoupling applications SQS, SNS, Kinesis, Active MQ** (7 files)
-13. **18 Containers on AWS ECS, Fargate, ECR & EKS** (16 files)
-14. **20 Serverless Solution Architecture Discussions** (10 files)
-15. **21 Databases in AWS** (25 files)
-16. **22 Data & Analytics** (30 files)
-17. **25 Identity and Access Management (IAM) - Advanced** (17 files)
-18. **26 AWS Security & Encryption KMS, SSM Parameter Store, Shield, WAF** (31 files)
-19. **28 Disaster Recovery & Migrations** (10 files)
-20. **29 More Solution Architectures** (12 files)
-21. **30 Other Services** (20 files)
+3. **04 IAM & AWS CLI** (18 files)
+4. **05 EC2 Fundamentals** (18 files)
+5. **06 EC2 - Solutions Architect Associate Level** (8 files)
+6. **07 EC2 Instance Storage** (14 files)
+7. **08 High Availability and Scalability ELB & ASG** (17 files)
+8. **09 AWS Fundamentals RDS + Aurora + ElastiCache** (13 files)
+9. **10 Route 53** (21 files)
+10. **11 Classic Solutions Architecture Discussions** (7 files)
+11. **12 Amazon S3 Introduction** (13 files)
+12. **13 Advanced Amazon S3** (11 files)
+13. **14 Amazon S3 Security** (14 files)
+14. **15 CloudFront & AWS Global Accelerator** (9 files)
+15. **16 AWS Storage Extras** (10 files)
+16. **17 Decoupling applications SQS, SNS, Kinesis, Active MQ** (24 files)
+17. **18 Containers on AWS ECS, Fargate, ECR & EKS** (13 files)
+18. **19 Serverless Overviews from a Solution Architect Perspective** (28 files)
+19. **20 Serverless Solution Architecture Discussions** (4 files)
+20. **21 Databases in AWS** (12 files)
+21. **22 Data & Analytics** (14 files)
+22. **23 Machine Learning** (17 files)
+23. **24 AWS Monitoring & Audit CloudWatch, CloudTrail & Config** (17 files)
+24. **25 Identity and Access Management (IAM) - Advanced** (9 files)
+25. **26 AWS Security & Encryption KMS, SSM Parameter Store, Shield, WAF** (21 files)
+26. **27 Networking - VPC** (37 files)
+27. **28 Disaster Recovery & Migrations** (10 files)
+28. **29 More Solution Architectures** (5 files)
+29. **30 Other Services** (18 files)
+30. **31 WhitePapers and Architectures** (4 files)
+31. **32 Preparing for the Exam + Practice Exam** (7 files)
+32. **33 Congratulations** (2 files)
 
 ## Quy Trình Thực Hiện
 1. **Dịch từng module**: Bắt đầu từ module 01
@@ -69,30 +80,46 @@ Next text content
 ## Tiến Độ Thực Hiện
 - [x] Module 01: 7/7 files
 - [x] Module 03: 6/6 files
-- [x] Module 06: 7/7 files
-- [ ] Module 07: 13/24 files
-- [ ] Module 08: 2/30 files
-- [ ] Module 09: 2/23 files
-- [ ] Module 11: 7/16 files
-- [ ] Module 12: 5/16 files
-- [ ] Module 13: 5/24 files
-- [ ] Module 14: 9/31 files
-- [ ] Module 15: 5/20 files
-- [ ] Module 17: 1/7 files
-- [ ] Module 18: 6/16 files
-- [ ] Module 20: 4/10 files
-- [ ] Module 21: 10/25 files
-- [ ] Module 22: 4/30 files
-- [ ] Module 25: 1/17 files
-- [ ] Module 26: 10/31 files
+- [ ] Module 04: 0/18 files
+- [ ] Module 05: 0/18 files
+- [x] Module 06: 7/8 files
+- [ ] Module 07: 13/14 files
+- [ ] Module 08: 2/17 files
+- [ ] Module 09: 2/13 files
+- [ ] Module 10: 0/21 files
+- [x] Module 11: 7/7 files
+- [ ] Module 12: 5/13 files
+- [ ] Module 13: 5/11 files
+- [ ] Module 14: 9/14 files
+- [ ] Module 15: 5/9 files
+- [ ] Module 16: 0/10 files
+- [ ] Module 17: 1/24 files
+- [ ] Module 18: 6/13 files
+- [ ] Module 19: 0/28 files
+- [x] Module 20: 4/4 files
+- [ ] Module 21: 10/12 files
+- [ ] Module 22: 4/14 files
+- [ ] Module 23: 0/17 files
+- [ ] Module 24: 0/17 files
+- [ ] Module 25: 1/9 files
+- [ ] Module 26: 10/21 files
+- [ ] Module 27: 0/37 files
 - [ ] Module 28: 2/10 files
-- [ ] Module 29: 0/12 files
-- [ ] Module 30: 12/20 files
+- [ ] Module 29: 0/5 files
+- [ ] Module 30: 12/18 files
+- [ ] Module 31: 0/4 files
+- [ ] Module 32: 0/7 files
+- [ ] Module 33: 0/2 files
 
-**Tổng tiến độ: 118/227 files (52.0%)**
+**Tổng tiến độ: 118/428 files (27.6%)**
 
 ## Ghi Chú
-- Ưu tiên dịch các module cơ bản trước (01, 03, 06)
+### Thứ tự ưu tiên dịch:
+1. **Theo thứ tự tăng dần của tên module** (01 → 02 → 03 → ...)
+2. **Ưu tiên các module chưa dịch xong** trước khi hoàn thiện các module đã dịch một phần
+3. **Module tiếp theo cần dịch**: Module 04 (IAM & AWS CLI) - 0/18 files
+
+### Quy tắc kỹ thuật:
 - Chú ý đặc biệt với các thuật ngữ mới xuất hiện
 - Kiểm tra timestamp không bị thay đổi
 - Đảm bảo độ dài text phù hợp với thời gian hiển thị
