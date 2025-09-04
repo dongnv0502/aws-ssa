@@ -1,0 +1,199 @@
+1
+00:00:00,340 --> 00:00:01,173
+Bây giờ chúng ta nói về
+
+2
+00:00:01,173 --> 00:00:04,140
+thứ cung cấp sức mạnh cho EC2 instance, đó là AMI,
+
+3
+00:00:04,140 --> 00:00:07,280
+AMI là viết tắt của Amazon Machine Image
+
+4
+00:00:07,280 --> 00:00:11,890
+và nó thể hiện việc tùy biến một EC2 instance.
+
+5
+00:00:11,890 --> 00:00:13,930
+Bạn có thể dùng AMI do AWS tạo sẵn
+
+6
+00:00:13,930 --> 00:00:17,520
+hoặc tùy biến thành của riêng bạn. AMI gồm những gì?
+
+7
+00:00:17,520 --> 00:00:20,500
+Chúng ta có cấu hình phần mềm của mình,
+
+8
+00:00:20,500 --> 00:00:23,470
+có thể định nghĩa và cài đặt hệ điều hành,
+
+9
+00:00:23,470 --> 00:00:25,510
+cài đặt mọi công cụ giám sát
+
+10
+00:00:25,510 --> 00:00:27,320
+và nếu tự tạo AMI
+
+11
+00:00:27,320 --> 00:00:30,670
+chúng ta sẽ có thời gian boot và cấu hình nhanh hơn
+
+12
+00:00:30,670 --> 00:00:32,750
+vì toàn bộ phần mềm muốn cài
+
+13
+00:00:32,750 --> 00:00:34,370
+trên EC2 instance
+
+14
+00:00:34,370 --> 00:00:37,520
+đã được đóng gói sẵn trong AMI.
+
+15
+00:00:37,520 --> 00:00:39,330
+Vì vậy chúng ta phải xây AMI của riêng mình
+
+16
+00:00:39,330 --> 00:00:42,060
+và chúng có thể được tạo cho một region cụ thể
+
+17
+00:00:42,060 --> 00:00:44,370
+sau đó có thể copy sang region khác
+
+18
+00:00:44,370 --> 00:00:45,430
+nếu muốn sử dụng
+
+19
+00:00:45,430 --> 00:00:48,810
+và tận dụng hạ tầng toàn cầu của AWS.
+
+20
+00:00:48,810 --> 00:00:52,730
+Chúng ta có thể launch EC2 instance từ nhiều loại AMI.
+
+21
+00:00:52,730 --> 00:00:54,570
+Trong khóa học đến giờ
+
+22
+00:00:54,570 --> 00:00:58,840
+chúng ta dùng public AMI do AWS cung cấp.
+
+23
+00:00:58,840 --> 00:01:03,070
+Amazon Linux 2 AMI là AMI rất phổ biến
+
+24
+00:01:03,070 --> 00:01:05,860
+và được AWS cung cấp
+
+25
+00:01:05,860 --> 00:01:08,310
+nhưng chúng ta có thể tạo AMI của riêng mình
+
+26
+00:01:08,310 --> 00:01:11,170
+và bạn phải tự xây dựng, bảo trì
+
+27
+00:01:11,170 --> 00:01:13,630
+dĩ nhiên có công cụ để tự động hóa việc này
+
+28
+00:01:13,630 --> 00:01:17,630
+nhưng đây vẫn là nhiệm vụ bạn phải làm với tư cách người dùng cloud
+
+29
+00:01:17,630 --> 00:01:20,670
+hoặc cuối cùng bạn có thể launch EC2 instance
+
+30
+00:01:20,670 --> 00:01:23,120
+từ một AWS Marketplace AMI
+
+31
+00:01:23,120 --> 00:01:26,950
+là AMI do người khác tạo
+
+32
+00:01:26,950 --> 00:01:29,040
+và có thể được bán
+
+33
+00:01:29,040 --> 00:01:32,430
+vì thế rất phổ biến các vendor trên AWS
+
+34
+00:01:32,430 --> 00:01:35,420
+tạo AMI hay phần mềm của riêng họ
+
+35
+00:01:36,570 --> 00:01:39,160
+với cấu hình sẵn và nhiều thứ khác
+
+36
+00:01:39,160 --> 00:01:42,410
+rồi bán qua Marketplace AMI
+
+37
+00:01:42,410 --> 00:01:45,060
+để bạn mua và tiết kiệm thời gian.
+
+38
+00:01:45,060 --> 00:01:49,170
+Thậm chí bạn, với tư cách người dùng, cũng có thể tạo doanh nghiệp
+
+39
+00:01:49,170 --> 00:01:52,080
+bằng cách bán AMI trên AWS Marketplace,
+
+40
+00:01:52,080 --> 00:01:54,200
+đó là việc nhiều doanh nghiệp đang làm.
+
+41
+00:01:54,200 --> 00:01:57,960
+Vậy quy trình tạo AMI từ một EC2 instance
+
+42
+00:01:57,960 --> 00:01:58,830
+hoạt động thế nào?
+
+43
+00:01:58,830 --> 00:02:02,620
+Chúng ta start một EC2 instance và tùy biến nó.
+
+44
+00:02:02,620 --> 00:02:04,430
+Sau đó dừng instance
+
+45
+00:02:04,430 --> 00:02:07,010
+để đảm bảo tính toàn vẹn dữ liệu,
+
+46
+00:02:07,010 --> 00:02:09,410
+rồi tạo AMI từ đó
+
+47
+00:02:09,410 --> 00:02:12,700
+đồng thời tạo ra các EBS snapshot phía sau
+
+48
+00:02:12,700 --> 00:02:16,380
+cuối cùng có thể launch instance từ các AMI khác
+
+49
+00:02:16,380 --> 00:02:17,680
+đây là việc chúng ta sẽ làm
+
+50
+00:02:17,680 --> 00:02:19,720
+trong phần demo và bài học kế tiếp.

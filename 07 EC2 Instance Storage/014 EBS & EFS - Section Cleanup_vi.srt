@@ -1,0 +1,159 @@
+1
+00:00:00,140 --> 00:00:01,340
+Được rồi, hãy dọn dẹp
+
+2
+00:00:01,340 --> 00:00:02,610
+toàn bộ phần này.
+
+3
+00:00:02,610 --> 00:00:05,070
+Tôi sẽ vào Action trên file system
+
+4
+00:00:05,070 --> 00:00:07,100
+và xóa nó, phải nhập
+
+5
+00:00:07,100 --> 00:00:09,590
+ID file system, tôi sẽ copy và dán.
+
+6
+00:00:09,590 --> 00:00:12,540
+Được rồi, chúng ta sẽ xóa file system.
+
+7
+00:00:12,540 --> 00:00:13,530
+Hoàn hảo!
+
+8
+00:00:13,530 --> 00:00:16,087
+Giờ vào EC2 instances, nhớ terminate
+
+9
+00:00:16,087 --> 00:00:20,320
+mọi EC2 instance đang chạy, như vậy là xong.
+
+10
+00:00:20,320 --> 00:00:22,930
+Tiếp theo với volumes, chúng ta cần
+
+11
+00:00:22,930 --> 00:00:26,130
+dọn các volume còn lại, bất kỳ volume nào đang available
+
+12
+00:00:26,130 --> 00:00:28,360
+bạn phải xóa, tôi sẽ right-click
+
+13
+00:00:28,360 --> 00:00:29,870
+và delete tất cả các volume này.
+
+14
+00:00:29,870 --> 00:00:30,910
+Được rồi.
+
+15
+00:00:30,910 --> 00:00:33,230
+Tiếp theo, bạn đã tạo vài snapshot,
+
+16
+00:00:33,230 --> 00:00:36,800
+hãy quay lại và xóa mọi snapshot.
+
+17
+00:00:36,800 --> 00:00:38,020
+Để bạn có thể loại bỏ
+
+18
+00:00:38,020 --> 00:00:40,570
+và không phải trả tiền lưu trữ cho snapshot.
+
+19
+00:00:40,570 --> 00:00:41,470
+Được rồi.
+
+20
+00:00:41,470 --> 00:00:43,230
+Cuối cùng là security group.
+
+21
+00:00:43,230 --> 00:00:46,020
+Nếu bạn muốn, vì sẽ có rất nhiều
+
+22
+00:00:46,020 --> 00:00:47,340
+security group ở đây,
+
+23
+00:00:47,340 --> 00:00:50,890
+bạn có thể xóa bớt nhiều security group
+
+24
+00:00:50,890 --> 00:00:53,960
+trừ cái default, đừng xóa nó.
+
+25
+00:00:53,960 --> 00:00:56,790
+Vì vậy bạn có thể xóa các security group này.
+
+26
+00:00:56,790 --> 00:01:00,560
+Chúng chỉ bị xóa sau khi bạn
+
+27
+00:01:00,560 --> 00:01:03,870
+xóa mọi EC2 instance liên quan.
+
+28
+00:01:03,870 --> 00:01:06,120
+Có thể chúng không bị xóa ngay
+
+29
+00:01:06,120 --> 00:01:08,740
+nhưng cứ thử lại cho đến khi được.
+
+30
+00:01:08,740 --> 00:01:10,620
+Tôi sẽ xóa security group này.
+
+31
+00:01:10,620 --> 00:01:11,530
+Vâng, cái này đã xóa.
+
+32
+00:01:11,530 --> 00:01:13,690
+Tôi sẽ xóa security group của load balancer.
+
+33
+00:01:13,690 --> 00:01:16,860
+Được rồi, và security group EC2 cho EFS này
+
+34
+00:01:16,860 --> 00:01:18,280
+vẫn đang được dùng bởi các instance
+
+35
+00:01:18,280 --> 00:01:20,009
+nên tôi phải đợi các instance
+
+36
+00:01:20,009 --> 00:01:23,150
+tắt hẳn trước khi
+
+37
+00:01:23,150 --> 00:01:25,560
+xóa security group cuối cùng.
+
+38
+00:01:25,560 --> 00:01:28,250
+Tôi sẽ phải chờ một chút, vậy thôi.
+
+39
+00:01:28,250 --> 00:01:29,300
+Khi đã dọn xong mọi thứ
+
+40
+00:01:29,300 --> 00:01:31,300
+bạn sẵn sàng cho phần tiếp theo.

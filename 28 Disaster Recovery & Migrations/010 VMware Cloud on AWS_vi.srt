@@ -1,0 +1,160 @@
+1
+00:00:00,960 --> 00:00:04,680
+Giờ hãy nói về VMware Cloud trên AWS.
+
+2
+00:00:04,680 --> 00:00:06,210
+Đây là bối cảnh.
+
+3
+00:00:06,210 --> 00:00:09,180
+Khi bạn có trung tâm dữ liệu on-premises,
+
+4
+00:00:09,180 --> 00:00:11,700
+đôi khi bạn dùng VMware Cloud
+
+5
+00:00:11,700 --> 00:00:13,860
+để quản lý trung tâm dữ liệu của mình.
+
+6
+00:00:13,860 --> 00:00:16,560
+Bạn có môi trường dựa trên vSphere
+
+7
+00:00:16,560 --> 00:00:20,460
+và các VM được quản lý bởi VMware Cloud.
+
+8
+00:00:20,460 --> 00:00:23,610
+Những khách hàng có data center dùng VMware,
+
+9
+00:00:23,610 --> 00:00:26,400
+muốn mở rộng năng lực data center
+
+10
+00:00:26,400 --> 00:00:29,370
+để tận dụng cloud, đặc biệt là
+
+11
+00:00:29,370 --> 00:00:31,350
+họ muốn dùng AWS.
+
+12
+00:00:31,350 --> 00:00:34,260
+Nhưng họ muốn tiếp tục quản lý mọi thứ,
+
+13
+00:00:34,260 --> 00:00:36,420
+cả data center của họ lẫn cloud,
+
+14
+00:00:36,420 --> 00:00:39,060
+bằng phần mềm VMware Cloud.
+
+15
+00:00:39,060 --> 00:00:42,300
+Đó là ý tưởng của VMware Cloud on AWS.
+
+16
+00:00:42,300 --> 00:00:43,980
+Nhờ đó bạn có thể mở rộng
+
+17
+00:00:43,980 --> 00:00:48,900
+hạ tầng VMware Cloud của mình lên AWS
+
+18
+00:00:48,900 --> 00:00:52,470
+và chạy vSphere, vSAN, NSX,...
+
+19
+00:00:52,470 --> 00:00:53,310
+bạn không cần biết chi tiết
+
+20
+00:00:53,310 --> 00:00:56,520
+đó là các dịch vụ con của VMware.
+
+21
+00:00:56,520 --> 00:00:58,680
+Khi có rồi, các use case là gì?
+
+22
+00:00:58,680 --> 00:01:00,060
+Đầu tiên, giờ bạn có thể
+
+23
+00:01:00,060 --> 00:01:02,760
+mở rộng sức mạnh tính toán từ data center lên cloud
+
+24
+00:01:02,760 --> 00:01:05,760
+hoặc lưu trữ từ data center lên cloud,
+
+25
+00:01:05,760 --> 00:01:08,280
+và từ đó bắt đầu di chuyển
+
+26
+00:01:08,280 --> 00:01:12,060
+các workload VMware lên AWS.
+
+27
+00:01:12,060 --> 00:01:14,700
+Bạn cũng có thể chạy workload production
+
+28
+00:01:14,700 --> 00:01:17,370
+trên nhiều data center, và chọn giữa
+
+29
+00:01:17,370 --> 00:01:20,610
+môi trường private, public hoặc hybrid.
+
+30
+00:01:20,610 --> 00:01:23,520
+Cuối cùng, nó cung cấp chiến lược DR
+
+31
+00:01:23,520 --> 00:01:25,440
+vì giờ bạn có thể nhanh chóng lên cloud
+
+32
+00:01:25,440 --> 00:01:28,530
+với bộ phần mềm quen thuộc.
+
+33
+00:01:28,530 --> 00:01:32,340
+Và vì bạn đang ở AWS Cloud
+
+34
+00:01:32,340 --> 00:01:35,430
+bạn có thể truy cập các dịch vụ AWS khác
+
+35
+00:01:35,430 --> 00:01:38,010
+và tận dụng chúng như Amazon EC2,
+
+36
+00:01:38,010 --> 00:01:39,990
+Amazon FSx, S3, RDS,
+
+37
+00:01:39,990 --> 00:01:42,690
+Direct Connect, Redshift, v.v.
+
+38
+00:01:42,690 --> 00:01:43,523
+Vậy là xong.
+
+39
+00:01:43,523 --> 00:01:45,690
+Chỉ là cái nhìn tổng quan bạn cần biết.
+
+40
+00:01:45,690 --> 00:01:48,690
+Hy vọng bạn thích, hẹn gặp lại trong bài kế tiếp.
+

@@ -1,0 +1,199 @@
+1
+00:00:00,120 --> 00:00:01,950
+Bây giờ hãy nói về sự khác nhau
+
+2
+00:00:01,950 --> 00:00:05,460
+giữa EBS volume và EFS file system.
+
+3
+00:00:05,460 --> 00:00:08,580
+EBS volume chỉ gắn với một instance
+
+4
+00:00:08,580 --> 00:00:11,160
+tại một thời điểm, trừ trường hợp đặc biệt
+
+5
+00:00:11,160 --> 00:00:12,750
+khi dùng tính năng multi-attach
+
+6
+00:00:12,750 --> 00:00:15,660
+của volume loại io1 và io2,
+
+7
+00:00:15,660 --> 00:00:18,450
+nhưng chỉ cho vài trường hợp đặc biệt.
+
+8
+00:00:18,450 --> 00:00:21,930
+EBS volume cũng bị khóa ở cấp AZ,
+
+9
+00:00:21,930 --> 00:00:23,460
+ví dụ như sau.
+
+10
+00:00:23,460 --> 00:00:25,440
+Chúng ta có một EC2 ở AZ1
+
+11
+00:00:25,440 --> 00:00:28,020
+và một EBS volume gắn với nó
+
+12
+00:00:28,020 --> 00:00:31,560
+và không thể gắn vào EC2 instance ở AZ2.
+
+13
+00:00:31,560 --> 00:00:33,690
+Đối với volume gp2,
+
+14
+00:00:33,690 --> 00:00:37,440
+IO tăng khi kích thước đĩa tăng,
+
+15
+00:00:37,440 --> 00:00:41,730
+còn với gp3 và io1,
+
+16
+00:00:41,730 --> 00:00:46,730
+bạn có thể tăng IO độc lập với kích thước đĩa.
+
+17
+00:00:46,920 --> 00:00:50,130
+Để di chuyển một EBS volume giữa các AZ,
+
+18
+00:00:50,130 --> 00:00:51,540
+ta phải tạo snapshot,
+
+19
+00:00:51,540 --> 00:00:54,210
+nó sẽ nằm trong EBS snapshot,
+
+20
+00:00:54,210 --> 00:00:57,540
+rồi khôi phục snapshot sang AZ khác.
+
+21
+00:00:57,540 --> 00:01:00,270
+Đây là cách chuyển từ AZ này sang AZ khác.
+
+22
+00:01:00,270 --> 00:01:04,230
+Các bản sao lưu EBS volume sẽ dùng IO,
+
+23
+00:01:04,230 --> 00:01:06,270
+nên đừng chạy khi ứng dụng của bạn
+
+24
+00:01:06,270 --> 00:01:07,740
+đang xử lý nhiều lưu lượng
+
+25
+00:01:07,740 --> 00:01:10,020
+vì có thể ảnh hưởng hiệu năng.
+
+26
+00:01:10,020 --> 00:01:13,260
+Với EC2 instance, EBS volume chứa hệ điều hành
+
+27
+00:01:13,260 --> 00:01:16,050
+sẽ bị xóa theo mặc định
+
+28
+00:01:16,050 --> 00:01:18,180
+khi EC2 instance bị terminate,
+
+29
+00:01:18,180 --> 00:01:19,893
+nhưng bạn có thể tắt hành vi này.
+
+30
+00:01:20,790 --> 00:01:22,950
+Với EFS thì hơi khác.
+
+31
+00:01:22,950 --> 00:01:24,570
+Đó là một network file system,
+
+32
+00:01:24,570 --> 00:01:26,550
+mục tiêu là gắn nó
+
+33
+00:01:26,550 --> 00:01:29,220
+vào hàng trăm instance khắp các AZ,
+
+34
+00:01:29,220 --> 00:01:31,200
+vì thế khác biệt khá rõ.
+
+35
+00:01:31,200 --> 00:01:33,630
+Với một EFS file system,
+
+36
+00:01:33,630 --> 00:01:35,970
+ta có thể có nhiều mount target ở các AZ khác nhau,
+
+37
+00:01:35,970 --> 00:01:38,100
+và nhiều instance có thể chia sẻ
+
+38
+00:01:38,100 --> 00:01:39,780
+cùng một file system đó.
+
+39
+00:01:39,780 --> 00:01:42,060
+Rất hữu ích chẳng hạn khi chạy WordPress
+
+40
+00:01:42,060 --> 00:01:43,890
+và chỉ dành cho Linux instance
+
+41
+00:01:43,890 --> 00:01:46,200
+vì sử dụng hệ thống POSIX.
+
+42
+00:01:46,200 --> 00:01:49,890
+EFS có giá cao hơn EBS,
+
+43
+00:01:49,890 --> 00:01:53,700
+nhưng bạn có thể dùng storage tier để tiết kiệm chi phí.
+
+44
+00:01:53,700 --> 00:01:56,511
+Hy vọng giờ bạn hiểu sự khác biệt giữa EFS
+
+45
+00:01:56,511 --> 00:01:59,130
+và EBS, còn với instance store,
+
+46
+00:01:59,130 --> 00:02:02,100
+nó gắn vật lý với EC2 instance,
+
+47
+00:02:02,100 --> 00:02:04,560
+nên nếu bạn mất EC2 instance,
+
+48
+00:02:04,560 --> 00:02:06,750
+bạn cũng mất luôn storage.
+
+49
+00:02:06,750 --> 00:02:09,060
+Được rồi, vậy là xong, hy vọng bạn thích,
+
+50
+00:02:09,060 --> 00:02:11,073
+hẹn gặp lại ở bài giảng sau.

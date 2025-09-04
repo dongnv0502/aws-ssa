@@ -1,0 +1,172 @@
+1
+00:00:00,510 --> 00:00:01,343
+Now let's talk
+
+2
+00:00:01,343 --> 00:00:04,410
+about the Amazon Managed Service for Apache Flink.
+
+3
+00:00:04,410 --> 00:00:06,780
+It used to be called Kinesis Data Analytics
+
+4
+00:00:06,780 --> 00:00:09,360
+for Apache Flink, but since then it has been renamed
+
+5
+00:00:09,360 --> 00:00:12,330
+to just Managed Service for Apache Flink.
+
+6
+00:00:12,330 --> 00:00:13,920
+So Flink, what is Flink?
+
+7
+00:00:13,920 --> 00:00:18,000
+Well, it's a framework, and usually use the Java, SQL,
+
+8
+00:00:18,000 --> 00:00:19,530
+or Scala languages.
+
+9
+00:00:19,530 --> 00:00:23,100
+So it's a framework used for processing data streams
+
+10
+00:00:23,100 --> 00:00:24,120
+in real time.
+
+11
+00:00:24,120 --> 00:00:26,850
+So you have Amazon Managed Service for Apache Flink
+
+12
+00:00:26,850 --> 00:00:28,080
+on the right hand side,
+
+13
+00:00:28,080 --> 00:00:31,500
+and then you can read data from Kinesis Data Streams,
+
+14
+00:00:31,500 --> 00:00:34,950
+or even Amazon MSK, which is Apache Kafka,
+
+15
+00:00:34,950 --> 00:00:37,860
+which is also a service for real-time data streams.
+
+16
+00:00:37,860 --> 00:00:42,060
+But it's not an AWS service, it's a managed service
+
+17
+00:00:42,060 --> 00:00:44,310
+for something called Apache Kafka.
+
+18
+00:00:44,310 --> 00:00:45,870
+All right, so you can,
+
+19
+00:00:45,870 --> 00:00:48,510
+thanks to the Amazon Managed Service for Apache Flink,
+
+20
+00:00:48,510 --> 00:00:51,240
+you can run any Apache Flink application
+
+21
+00:00:51,240 --> 00:00:53,670
+on the managed cluster on AWS.
+
+22
+00:00:53,670 --> 00:00:56,100
+That means that AWS is going to provision for you
+
+23
+00:00:56,100 --> 00:00:57,390
+the compute resources,
+
+24
+00:00:57,390 --> 00:00:59,880
+is going to give you access to parallel computation
+
+25
+00:00:59,880 --> 00:01:01,560
+and automatic scaling.
+
+26
+00:01:01,560 --> 00:01:02,758
+On top of it,
+
+27
+00:01:02,758 --> 00:01:05,519
+AWS is going to manage your application backups,
+
+28
+00:01:05,519 --> 00:01:06,810
+which are going to be implemented
+
+29
+00:01:06,810 --> 00:01:08,550
+as checkpoints and snapshots.
+
+30
+00:01:08,550 --> 00:01:10,800
+And then you can use any sort
+
+31
+00:01:10,800 --> 00:01:13,350
+of Apache Flink supported programming features
+
+32
+00:01:13,350 --> 00:01:14,220
+to transform your data.
+
+33
+00:01:14,220 --> 00:01:15,780
+So you're really free around the type
+
+34
+00:01:15,780 --> 00:01:18,330
+of transformations you want to do on your streams.
+
+35
+00:01:18,330 --> 00:01:21,720
+And as you should know, Flink can read from, yes,
+
+36
+00:01:21,720 --> 00:01:22,553
+Kinesis Data Streams,
+
+37
+00:01:22,553 --> 00:01:25,290
+but it cannot read from Amazon Data Firehose,
+
+38
+00:01:25,290 --> 00:01:27,450
+and that could be an exam trick.
+
+39
+00:01:27,450 --> 00:01:29,160
+All right, so that's all you should know
+
+40
+00:01:29,160 --> 00:01:31,590
+for Amazon Managed Service for Apache Flink.
+
+41
+00:01:31,590 --> 00:01:36,330
+Remember, it's only used for processing data streams.
+
+42
+00:01:36,330 --> 00:01:37,860
+And that's it for this lecture.
+
+43
+00:01:37,860 --> 00:01:40,860
+I hope you liked it, and I will see you in the next lecture.
+

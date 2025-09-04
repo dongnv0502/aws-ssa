@@ -1,0 +1,160 @@
+1
+00:00:00,090 --> 00:00:02,160
+Hãy xem cách kích hoạt
+
+2
+00:00:02,160 --> 00:00:07,160
+chứng chỉ SSL trên ALB và NLB.
+
+3
+00:00:07,470 --> 00:00:09,180
+Nếu tôi xem ALB,
+
+4
+00:00:09,180 --> 00:00:11,760
+tôi chỉ cần thêm một listener,
+
+5
+00:00:11,760 --> 00:00:15,720
+tôi thêm listener với giao thức HTTPS
+
+6
+00:00:15,720 --> 00:00:18,600
+và cổng mặc định là 443.
+
+7
+00:00:18,600 --> 00:00:21,995
+Sau đó chúng ta chỉ định, nếu client dùng
+
+8
+00:00:21,995 --> 00:00:24,030
+cổng 443 cho giao thức HTTPS,
+
+9
+00:00:24,030 --> 00:00:27,603
+thì chuyển tiếp tới target group cụ thể.
+
+10
+00:00:28,620 --> 00:00:31,440
+Chúng ta cũng có thể cấu hình secure listener.
+
+11
+00:00:31,440 --> 00:00:36,120
+Ta có thể đặt SSL security policy
+
+12
+00:00:36,120 --> 00:00:39,960
+để quy định cách thương lượng chứng chỉ,
+
+13
+00:00:39,960 --> 00:00:42,690
+tùy vào việc bạn cần
+
+14
+00:00:42,690 --> 00:00:46,830
+tương thích với phiên bản SSL hoặc TLS cũ
+
+15
+00:00:46,830 --> 00:00:49,560
+v.v., nên có thể để mặc định
+
+16
+00:00:49,560 --> 00:00:52,767
+rồi bạn phải chỉ nơi lưu
+
+17
+00:00:52,767 --> 00:00:54,840
+chứng chỉ SSL/TLS
+
+18
+00:00:54,840 --> 00:00:58,530
+có thể nằm trong ACM,
+
+19
+00:00:58,530 --> 00:00:59,580
+nhưng hiện tại tôi không có,
+
+20
+00:00:59,580 --> 00:01:02,820
+nên ở đây không thấy, hoặc từ IAM,
+
+21
+00:01:02,820 --> 00:01:05,790
+nhưng cách này không được khuyến nghị.
+
+22
+00:01:05,790 --> 00:01:08,880
+Hoặc bạn nhập bằng cách dán private key,
+
+23
+00:01:08,880 --> 00:01:12,210
+nội dung và chuỗi chứng chỉ nếu cần
+
+24
+00:01:12,210 --> 00:01:14,730
+và chứng chỉ sẽ được nhập
+
+25
+00:01:14,730 --> 00:01:17,310
+trực tiếp vào ACM.
+
+26
+00:01:17,310 --> 00:01:20,970
+Quy trình với Network Load Balancer cũng tương tự.
+
+27
+00:01:20,970 --> 00:01:24,240
+Nếu tôi vào network balancer,
+
+28
+00:01:24,240 --> 00:01:25,410
+và xem các listener,
+
+29
+00:01:25,410 --> 00:01:29,820
+tôi có thể thêm listener TLS,
+
+30
+00:01:29,820 --> 00:01:33,810
+rồi chuyển tiếp tới demo target group
+
+31
+00:01:33,810 --> 00:01:35,280
+và với security policy,
+
+32
+00:01:35,280 --> 00:01:37,800
+chúng ta chọn policy tùy ý,
+
+33
+00:01:37,800 --> 00:01:40,560
+cũng như chọn nguồn chứng chỉ
+
+34
+00:01:40,560 --> 00:01:44,940
+từ ACM, IAM hoặc import, và cuối cùng đặt
+
+35
+00:01:44,940 --> 00:01:47,193
+application layer protocol negotiation,
+
+36
+00:01:48,104 --> 00:01:48,937
+tôi sẽ không trình bày
+
+37
+00:01:48,937 --> 00:01:51,270
+vì đây là thiết lập TLS nâng cao.
+
+38
+00:01:51,270 --> 00:01:53,270
+Vậy là bạn đã thấy cách dùng SSL
+
+39
+00:01:54,180 --> 00:01:56,100
+hoặc chứng chỉ TLS trên load balancer.
+
+40
+00:01:56,100 --> 00:01:59,223
+Hy vọng bạn thích và hẹn gặp lại ở bài sau.
+

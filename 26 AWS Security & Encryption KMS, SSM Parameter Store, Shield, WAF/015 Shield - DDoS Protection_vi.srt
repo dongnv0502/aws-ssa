@@ -1,0 +1,188 @@
+1
+00:00:00,270 --> 00:00:02,969
+So now let's talk about AWS Shields.
+
+2
+00:00:02,969 --> 00:00:05,280
+And Shield is a service to protect yourself
+
+3
+00:00:05,280 --> 00:00:06,720
+from DDoS attacks.
+
+4
+00:00:06,720 --> 00:00:07,770
+What is DDoS?
+
+5
+00:00:07,770 --> 00:00:10,800
+Well, it's a distributed denial of service.
+
+6
+00:00:10,800 --> 00:00:13,590
+And the idea is that your infrastructure
+
+7
+00:00:13,590 --> 00:00:16,470
+is going to suddenly receive many, many requests
+
+8
+00:00:16,470 --> 00:00:17,430
+at the same time
+
+9
+00:00:17,430 --> 00:00:20,940
+from a lot of computers all around the world.
+
+10
+00:00:20,940 --> 00:00:23,100
+And so the goal of it is to overwhelm
+
+11
+00:00:23,100 --> 00:00:25,740
+and overload your infrastructure.
+
+12
+00:00:25,740 --> 00:00:28,260
+And this way your infrastructure cannot serve
+
+13
+00:00:28,260 --> 00:00:29,370
+your real users
+
+14
+00:00:29,370 --> 00:00:31,680
+and this is what it's called a distributed denial
+
+15
+00:00:31,680 --> 00:00:32,940
+of service.
+
+16
+00:00:32,940 --> 00:00:34,470
+So we can protect against it,
+
+17
+00:00:34,470 --> 00:00:38,130
+so we have the AWS Shield Standard service.
+
+18
+00:00:38,130 --> 00:00:39,030
+It's a free service,
+
+19
+00:00:39,030 --> 00:00:42,330
+it's already activated for every customer of AWS
+
+20
+00:00:42,330 --> 00:00:44,610
+and is going to give you protection from attacks
+
+21
+00:00:44,610 --> 00:00:48,150
+such as the SYN or UDP floods or any reflection attack
+
+22
+00:00:48,150 --> 00:00:51,720
+or other layer 3, or layer 4 attacks.
+
+23
+00:00:51,720 --> 00:00:53,700
+And if you want to get advanced protection,
+
+24
+00:00:53,700 --> 00:00:57,210
+you can use the AWS Shield Advanced service.
+
+25
+00:00:57,210 --> 00:01:00,210
+So this is an optional DDoS mitigation service.
+
+26
+00:01:00,210 --> 00:01:04,140
+It costs around 3,000 per month per organization.
+
+27
+00:01:04,140 --> 00:01:06,210
+And the idea is that you're going to get protected
+
+28
+00:01:06,210 --> 00:01:09,270
+against more sophisticated DDoS attacks
+
+29
+00:01:09,270 --> 00:01:13,650
+on Amazon EC2, Elastic Load Balancing, Amazon CloudFront,
+
+30
+00:01:13,650 --> 00:01:17,190
+the Global Accelerator and Route 53.
+
+31
+00:01:17,190 --> 00:01:20,070
+It also gives you 24/7 access
+
+32
+00:01:20,070 --> 00:01:22,860
+to the AWS DDoS response team.
+
+33
+00:01:22,860 --> 00:01:23,970
+So in case you get attacked,
+
+34
+00:01:23,970 --> 00:01:25,260
+you will have someone to help you
+
+35
+00:01:25,260 --> 00:01:27,240
+and get you along the way.
+
+36
+00:01:27,240 --> 00:01:29,640
+In case you are incurring higher fees
+
+37
+00:01:29,640 --> 00:01:31,500
+because you are also being attacked,
+
+38
+00:01:31,500 --> 00:01:35,190
+this Shield Advance protects you from these higher fees.
+
+39
+00:01:35,190 --> 00:01:39,240
+And this Shield Advance has an automatic application layer,
+
+40
+00:01:39,240 --> 00:01:41,760
+DDoS mitigation, and it's going to mean
+
+41
+00:01:41,760 --> 00:01:44,910
+that it's automatically going to create and evaluate
+
+42
+00:01:44,910 --> 00:01:49,350
+and deploy WAF rules to mitigate layer 7 attacks.
+
+43
+00:01:49,350 --> 00:01:52,080
+So automatically your web application firewall
+
+44
+00:01:52,080 --> 00:01:56,010
+will have rules to help you mitigate these attacks,
+
+45
+00:01:56,010 --> 00:02:00,090
+DDoS attacks if they happen at the layer 7, which is great.
+
+46
+00:02:00,090 --> 00:02:02,400
+So let's say for this lecture, I hope you liked it,
+
+47
+00:02:02,400 --> 00:02:04,350
+and I will see you in the next lecture.
+

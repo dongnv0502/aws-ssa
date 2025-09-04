@@ -1,0 +1,180 @@
+1
+00:00:00,150 --> 00:00:02,700
+Bây giờ hãy nói về EBS Snapshot.
+
+2
+00:00:02,700 --> 00:00:05,520
+EBS Snapshot là một bản sao lưu
+
+3
+00:00:05,520 --> 00:00:08,640
+ở bất kỳ thời điểm nào của EBS volume của bạn.
+
+4
+00:00:08,640 --> 00:00:11,460
+Và để làm điều này, bạn không cần ngắt EBS volume
+
+5
+00:00:11,460 --> 00:00:15,000
+khỏi EC2 instance nhưng nên làm vậy.
+
+6
+00:00:15,000 --> 00:00:17,400
+Bạn có thể sao chép các EBS Snapshot này
+
+7
+00:00:17,400 --> 00:00:19,230
+giữa các Availability Zone khác nhau
+
+8
+00:00:19,230 --> 00:00:21,720
+hoặc thậm chí giữa các Region khác nhau.
+
+9
+00:00:21,720 --> 00:00:22,920
+Ví dụ,
+
+10
+00:00:22,920 --> 00:00:27,920
+giả sử một EC2 instance có một EBS volume ở US-EAST-1A
+
+11
+00:00:28,800 --> 00:00:32,340
+và một EC2 instance ở US-EAST-1B.
+
+12
+00:00:32,340 --> 00:00:36,180
+Vậy chúng ta có thể tạo snapshot của EBS volume.
+
+13
+00:00:36,180 --> 00:00:37,740
+Và nhờ snapshot đó
+
+14
+00:00:37,740 --> 00:00:41,130
+chúng ta có thể restore nó ở AZ khác.
+
+15
+00:00:41,130 --> 00:00:43,920
+Đây là cách bạn chuyển một EBS volume
+
+16
+00:00:43,920 --> 00:00:46,683
+từ AZ này sang AZ khác.
+
+17
+00:00:48,630 --> 00:00:52,350
+Tiếp theo, bạn cần biết vài tính năng của EBS Snapshot.
+
+18
+00:00:52,350 --> 00:00:54,870
+Đầu tiên là EBS Snapshot Archive.
+
+19
+00:00:54,870 --> 00:00:57,120
+Tính năng này cho phép bạn di chuyển snapshot
+
+20
+00:00:57,120 --> 00:01:02,120
+sang "archive tier" có thể rẻ hơn đến 75%.
+
+21
+00:01:02,130 --> 00:01:05,519
+Nếu bạn chuyển snapshot này sang "archive tier"
+
+22
+00:01:05,519 --> 00:01:10,290
+thì sẽ mất từ 24 đến 72 giờ
+
+23
+00:01:10,290 --> 00:01:11,820
+để restore archive đó.
+
+24
+00:01:11,820 --> 00:01:13,860
+Vì vậy không có hiệu lực ngay.
+
+25
+00:01:13,860 --> 00:01:16,680
+Tính năng khác là Recycle Bin cho EBS Snapshot.
+
+26
+00:01:16,680 --> 00:01:20,460
+Nếu bạn xóa EBS Snapshot
+
+27
+00:01:20,460 --> 00:01:23,040
+thì thay vì bị xóa vĩnh viễn
+
+28
+00:01:23,040 --> 00:01:26,250
+chúng sẽ nằm trong Recycle Bin.
+
+29
+00:01:26,250 --> 00:01:27,330
+Mục đích là
+
+30
+00:01:27,330 --> 00:01:31,770
+bạn có thể khôi phục khi lỡ xóa.
+
+31
+00:01:31,770 --> 00:01:34,920
+Thời gian lưu giữ của Recycle Bin có thể đặt
+
+32
+00:01:34,920 --> 00:01:37,503
+từ một ngày đến một năm.
+
+33
+00:01:38,340 --> 00:01:39,600
+Tính năng cuối cùng bạn cần biết
+
+34
+00:01:39,600 --> 00:01:43,590
+đối với EBS Snapshot là Fast Snapshot Restore.
+
+35
+00:01:43,590 --> 00:01:45,900
+Tính năng này buộc khởi tạo đầy đủ
+
+36
+00:01:45,900 --> 00:01:49,590
+snapshot để không có độ trễ khi sử dụng lần đầu.
+
+37
+00:01:49,590 --> 00:01:51,180
+Điều này đặc biệt hữu ích
+
+38
+00:01:51,180 --> 00:01:53,610
+nếu snapshot của bạn lớn, rất lớn
+
+39
+00:01:53,610 --> 00:01:56,370
+và cần khởi tạo EBS volume
+
+40
+00:01:56,370 --> 00:01:59,220
+hoặc cần boot instance từ đó rất nhanh,
+
+41
+00:01:59,220 --> 00:02:00,660
+nhưng tính năng này tốn khá nhiều chi phí,
+
+42
+00:02:00,660 --> 00:02:02,850
+nên cẩn thận khi sử dụng.
+
+43
+00:02:02,850 --> 00:02:04,860
+Được rồi, bài học này đến đây.
+
+44
+00:02:04,860 --> 00:02:05,880
+Hy vọng bạn thích.
+
+45
+00:02:05,880 --> 00:02:07,923
+Hẹn gặp bạn ở bài học tiếp theo.
+

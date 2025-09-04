@@ -1,0 +1,220 @@
+1
+00:00:00,330 --> 00:00:02,820
+So now let's talk about Amazon Timestream
+
+2
+00:00:02,820 --> 00:00:04,140
+and the name indicates
+
+3
+00:00:04,140 --> 00:00:06,630
+that it's actually a time series database.
+
+4
+00:00:06,630 --> 00:00:08,640
+So it's fully managed, it's fast, it's scalable
+
+5
+00:00:08,640 --> 00:00:10,320
+and it's serverless.
+
+6
+00:00:10,320 --> 00:00:12,000
+So what is a time series?
+
+7
+00:00:12,000 --> 00:00:15,240
+Well, it's a bunch of points that have a time
+
+8
+00:00:15,240 --> 00:00:16,079
+included in them.
+
+9
+00:00:16,079 --> 00:00:18,750
+So for example, here's a graph by year.
+
+10
+00:00:18,750 --> 00:00:20,340
+So this is a time series.
+
+11
+00:00:20,340 --> 00:00:22,440
+Now with Timestream you can automatically
+
+12
+00:00:22,440 --> 00:00:26,670
+adjust the database up and down to scale capacity
+
+13
+00:00:26,670 --> 00:00:30,150
+and you can store and analyze trillions of events per day.
+
+14
+00:00:30,150 --> 00:00:33,150
+The idea is that if you have a time series database
+
+15
+00:00:33,150 --> 00:00:36,600
+it's going to be much faster and much cheaper
+
+16
+00:00:36,600 --> 00:00:40,290
+than using relational databases for time series data.
+
+17
+00:00:40,290 --> 00:00:44,190
+Hence the specificity of having a time series database.
+
+18
+00:00:44,190 --> 00:00:45,420
+You can do schedule queries.
+
+19
+00:00:45,420 --> 00:00:47,940
+You can have records with multiple measures
+
+20
+00:00:47,940 --> 00:00:50,880
+and there is full SQL compatibility.
+
+21
+00:00:50,880 --> 00:00:53,490
+The recent data will be kept in memory.
+
+22
+00:00:53,490 --> 00:00:55,470
+And then the historical data is kept
+
+23
+00:00:55,470 --> 00:00:58,350
+in a cost-optimized storage tier.
+
+24
+00:00:58,350 --> 00:01:01,620
+As well as, you have time series analytics function
+
+25
+00:01:01,620 --> 00:01:04,349
+to help you analyze your data and find patterns
+
+26
+00:01:04,349 --> 00:01:05,940
+in near real time.
+
+27
+00:01:05,940 --> 00:01:08,850
+This database just like every database on AWS
+
+28
+00:01:08,850 --> 00:01:11,640
+supports encryption in transit and at rest.
+
+29
+00:01:11,640 --> 00:01:14,640
+So the use cases for Timestream would be
+
+30
+00:01:14,640 --> 00:01:16,350
+to have an IoT application,
+
+31
+00:01:16,350 --> 00:01:18,720
+operational applications, real-time analytics
+
+32
+00:01:18,720 --> 00:01:22,470
+but everything related to a time series database.
+
+33
+00:01:22,470 --> 00:01:25,500
+Now in terms of architecture, Timestream is here
+
+34
+00:01:25,500 --> 00:01:29,460
+and it can receive data from AWS IoT, so internet of things.
+
+35
+00:01:29,460 --> 00:01:32,250
+Kinesis Data Streams through Lambda can receive data
+
+36
+00:01:32,250 --> 00:01:33,083
+as well.
+
+37
+00:01:33,083 --> 00:01:36,150
+Prometheus, Telegraf, there are integrations for that.
+
+38
+00:01:36,150 --> 00:01:38,160
+Kinesis Data Streams as well through
+
+39
+00:01:38,160 --> 00:01:40,380
+Kinesis Data Analytics for Apache Flink
+
+40
+00:01:40,380 --> 00:01:43,500
+can receive data into Amazon Timestream
+
+41
+00:01:43,500 --> 00:01:46,560
+and Amazon MSK as well through the same process.
+
+42
+00:01:46,560 --> 00:01:49,290
+And in terms of what can connect to Timestream,
+
+43
+00:01:49,290 --> 00:01:52,470
+where we can build dashboards using Amazon QuickSight.
+
+44
+00:01:52,470 --> 00:01:55,230
+We can do machine learning using Amazon SageMaker.
+
+45
+00:01:55,230 --> 00:01:57,900
+We can do Grafana or because there is a standard
+
+46
+00:01:57,900 --> 00:02:00,150
+JDBC connection into your database,
+
+47
+00:02:00,150 --> 00:02:02,580
+any application that is compatible with JDBC
+
+48
+00:02:02,580 --> 00:02:06,060
+and SQL can leverage Amazon Timestream.
+
+49
+00:02:06,060 --> 00:02:06,893
+So that's it.
+
+50
+00:02:06,893 --> 00:02:08,520
+I think for the exam you just need to remember
+
+51
+00:02:08,520 --> 00:02:10,080
+what Timestream is at a high level
+
+52
+00:02:10,080 --> 00:02:12,630
+but I want to give you a bit more details as well.
+
+53
+00:02:12,630 --> 00:02:14,010
+So that's it for this lecture.
+
+54
+00:02:14,010 --> 00:02:14,850
+I hope you liked it
+
+55
+00:02:14,850 --> 00:02:16,863
+and I will see you in the next lecture.
+

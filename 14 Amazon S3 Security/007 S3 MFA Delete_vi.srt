@@ -1,0 +1,152 @@
+1
+00:00:00,150 --> 00:00:01,859
+Giờ hãy nói về một tính năng bảo mật
+
+2
+00:00:01,859 --> 00:00:03,450
+gọi là MFA Delete.
+
+3
+00:00:03,450 --> 00:00:06,060
+MFA là viết tắt của multi-factor authentication,
+
+4
+00:00:06,060 --> 00:00:08,220
+và đây là cách buộc người dùng
+
+5
+00:00:08,220 --> 00:00:09,720
+tạo mã trên một thiết bị.
+
+6
+00:00:09,720 --> 00:00:11,700
+Ví dụ có thể là điện thoại
+
+7
+00:00:11,700 --> 00:00:14,190
+chạy ứng dụng Google Authenticator hay tương tự,
+
+8
+00:00:14,190 --> 00:00:15,870
+hoặc một thiết bị khác,
+
+9
+00:00:15,870 --> 00:00:18,480
+như thiết bị phần cứng MFA.
+
+10
+00:00:18,480 --> 00:00:19,890
+Thiết bị đó sẽ cung cấp một mã,
+
+11
+00:00:19,890 --> 00:00:22,830
+và mã này phải nhập vào Amazon S3
+
+12
+00:00:22,830 --> 00:00:24,990
+trước khi thực hiện thao tác quan trọng.
+
+13
+00:00:24,990 --> 00:00:27,540
+Vậy khi nào cần MFA?
+
+14
+00:00:27,540 --> 00:00:28,470
+Nó sẽ được yêu cầu
+
+15
+00:00:28,470 --> 00:00:31,320
+khi bạn muốn xóa vĩnh viễn một phiên bản object.
+
+16
+00:00:31,320 --> 00:00:32,520
+Đây rõ ràng là một lớp bảo vệ
+
+17
+00:00:32,520 --> 00:00:34,320
+chống việc xóa vĩnh viễn
+
+18
+00:00:34,320 --> 00:00:36,540
+hoặc khi muốn tạm ngưng Versioning trên bucket.
+
+19
+00:00:36,540 --> 00:00:38,940
+Cả hai hành động này khá phá hoại,
+
+20
+00:00:38,940 --> 00:00:41,040
+nên MFA sẽ được yêu cầu.
+
+21
+00:00:41,040 --> 00:00:43,320
+Nhưng nếu bạn muốn bật Versioning
+
+22
+00:00:43,320 --> 00:00:45,420
+hoặc liệt kê các phiên bản đã xóa,
+
+23
+00:00:45,420 --> 00:00:47,460
+thì không cần MFA
+
+24
+00:00:47,460 --> 00:00:52,350
+vì đây không phải thao tác nguy hiểm.
+
+25
+00:00:52,350 --> 00:00:55,650
+Vì vậy để dùng MFA Delete, trước tiên bạn phải bật
+
+26
+00:00:55,650 --> 00:00:56,940
+Versioning cho bucket
+
+27
+00:00:56,940 --> 00:01:00,030
+vì dĩ nhiên tính năng này liên quan đến Versioning,
+
+28
+00:01:00,030 --> 00:01:03,000
+và chỉ chủ bucket, tức tài khoản root,
+
+29
+00:01:03,000 --> 00:01:05,580
+mới có thể bật hoặc tắt MFA Delete,
+
+30
+00:01:05,580 --> 00:01:07,380
+như bạn sẽ thấy ở phần thực hành sau.
+
+31
+00:01:07,380 --> 00:01:08,550
+Điều này khá phức tạp
+
+32
+00:01:08,550 --> 00:01:10,170
+vì sử dụng tài khoản root
+
+33
+00:01:10,170 --> 00:01:11,760
+không phải điều nên làm nhiều,
+
+34
+00:01:11,760 --> 00:01:13,890
+nhưng bạn sẽ thấy cách làm trong bài sau.
+
+35
+00:01:13,890 --> 00:01:17,280
+Hãy nhớ MFA Delete là lớp bảo vệ bổ sung
+
+36
+00:01:17,280 --> 00:01:20,190
+để ngăn xóa vĩnh viễn
+
+37
+00:01:20,190 --> 00:01:22,260
+các phiên bản object cụ thể.
+
+38
+00:01:22,260 --> 00:01:24,860
+Vậy thôi, hẹn gặp bạn ở bài học tiếp theo.
+

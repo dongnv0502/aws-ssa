@@ -1,0 +1,156 @@
+1
+00:00:00,150 --> 00:00:02,040
+Hãy chắc chắn chúng ta xóa sạch mọi thứ
+
+2
+00:00:02,040 --> 00:00:03,240
+trước khi kết thúc.
+
+3
+00:00:03,240 --> 00:00:06,060
+Đầu tiên, cần dừng service.
+
+4
+00:00:06,060 --> 00:00:06,990
+Để dừng service,
+
+5
+00:00:06,990 --> 00:00:08,640
+hãy bảo đảm không còn task nào chạy.
+
+6
+00:00:08,640 --> 00:00:10,170
+Nếu còn, bạn cập nhật service
+
+7
+00:00:10,170 --> 00:00:12,510
+và đặt desired task về 0.
+
+8
+00:00:12,510 --> 00:00:16,110
+Sau đó nhấn Delete Service, gõ Delete,
+
+9
+00:00:16,110 --> 00:00:18,210
+và service sẽ bị xóa.
+
+10
+00:00:18,210 --> 00:00:19,410
+Khi bạn xóa service,
+
+11
+00:00:19,410 --> 00:00:20,610
+việc này sẽ chuyển sang
+
+12
+00:00:20,610 --> 00:00:23,880
+một dịch vụ tên CloudFormation.
+
+13
+00:00:23,880 --> 00:00:26,460
+CloudFormation sẽ mất thời gian
+
+14
+00:00:26,460 --> 00:00:29,820
+để xóa toàn bộ stack đã tạo.
+
+15
+00:00:29,820 --> 00:00:31,410
+Một phần những gì sẽ xóa
+
+16
+00:00:31,410 --> 00:00:34,620
+là ECS service, cả Load Balancer Listener,
+
+17
+00:00:34,620 --> 00:00:36,930
+Load Balancer, security group,
+
+18
+00:00:36,930 --> 00:00:38,310
+và các target group.
+
+19
+00:00:38,310 --> 00:00:40,140
+Việc này sẽ mất một chút thời gian
+
+20
+00:00:40,140 --> 00:00:42,840
+và ta phải chờ mọi thứ bị xóa.
+
+21
+00:00:42,840 --> 00:00:44,580
+Khi service xóa xong,
+
+22
+00:00:44,580 --> 00:00:46,980
+bạn có thể xóa cluster.
+
+23
+00:00:46,980 --> 00:00:49,140
+Chỉ cần nhấn Delete Cluster
+
+24
+00:00:49,140 --> 00:00:53,340
+để xóa demo cluster.
+
+25
+00:00:53,340 --> 00:00:55,350
+Ta có thể làm ngay bây giờ.
+
+26
+00:00:55,350 --> 00:00:56,850
+Một lần nữa, việc này sẽ kích hoạt
+
+27
+00:00:56,850 --> 00:01:00,120
+trong CloudFormation để xóa hạ tầng
+
+28
+00:01:00,120 --> 00:01:01,860
+của ECS cluster.
+
+29
+00:01:01,860 --> 00:01:03,600
+Bao gồm cả capacity provider,
+
+30
+00:01:03,600 --> 00:01:05,820
+auto scaling group chúng ta tạo,
+
+31
+00:01:05,820 --> 00:01:08,070
+cluster và launch template.
+
+32
+00:01:08,070 --> 00:01:09,510
+Vậy là ổn.
+
+33
+00:01:09,510 --> 00:01:12,660
+Cuối cùng, bạn có thể giữ nguyên task definition.
+
+34
+00:01:12,660 --> 00:01:15,540
+Chúng không tốn phí, chỉ là định nghĩa.
+
+35
+00:01:15,540 --> 00:01:16,373
+Nhưng nếu muốn,
+
+36
+00:01:16,373 --> 00:01:19,860
+bạn có thể chọn một cái và deregister.
+
+37
+00:01:19,860 --> 00:01:22,830
+Chọn Action và deregister task definition.
+
+38
+00:01:22,830 --> 00:01:23,663
+Vậy là xong.
+
+39
+00:01:23,663 --> 00:01:26,703
+Hy vọng bạn thích, hẹn gặp ở bài tiếp theo.
+

@@ -1,0 +1,323 @@
+1
+00:00:00,220 --> 00:00:02,820
+Bây giờ chúng ta nói về một dịch vụ được đặt tên theo
+
+2
+00:00:02,820 --> 00:00:05,400
+chính chức năng của nó, đó là AWS Batch.
+
+3
+00:00:05,400 --> 00:00:08,350
+Batch là dịch vụ xử lý hàng loạt được quản lý hoàn toàn
+
+4
+00:00:08,350 --> 00:00:11,330
+cho phép bạn xử lý theo lô ở mọi quy mô.
+
+5
+00:00:11,330 --> 00:00:12,500
+Với dịch vụ Batch,
+
+6
+00:00:12,500 --> 00:00:14,480
+bạn có thể chạy hiệu quả hàng trăm nghìn
+
+7
+00:00:14,480 --> 00:00:18,010
+tác vụ xử lý hàng loạt trên AWS rất dễ dàng.
+
+8
+00:00:18,010 --> 00:00:19,510
+Vậy batch job là gì?
+
+9
+00:00:19,510 --> 00:00:23,060
+Đó là một công việc có thời điểm bắt đầu và kết thúc.
+
+10
+00:00:23,060 --> 00:00:25,370
+Khác với công việc liên tục
+
+11
+00:00:25,370 --> 00:00:28,210
+hay công việc streaming không bao giờ kết thúc
+
+12
+00:00:28,210 --> 00:00:29,650
+mà luôn chạy.
+
+13
+00:00:29,650 --> 00:00:30,590
+Còn batch job, ví dụ,
+
+14
+00:00:30,590 --> 00:00:34,470
+bắt đầu lúc 1 giờ sáng và kết thúc lúc 3 giờ sáng.
+
+15
+00:00:34,470 --> 00:00:38,150
+Batch job diễn ra tại một thời điểm
+
+16
+00:00:38,150 --> 00:00:40,300
+vì vậy dịch vụ Batch sẽ
+
+17
+00:00:40,300 --> 00:00:44,060
+tự động khởi chạy EC2 hoặc Spot Instances
+
+18
+00:00:44,060 --> 00:00:45,930
+để đáp ứng tải
+
+19
+00:00:45,930 --> 00:00:48,500
+khi bạn chạy các batch job.
+
+20
+00:00:48,500 --> 00:00:51,690
+Batch sẽ cung cấp đúng lượng tài nguyên tính toán
+
+21
+00:00:51,690 --> 00:00:54,830
+và bộ nhớ để xử lý hàng đợi batch.
+
+22
+00:00:54,830 --> 00:00:57,570
+Bạn chỉ việc gửi hoặc lên lịch các batch job
+
+23
+00:00:57,570 --> 00:01:01,580
+vào hàng đợi và dịch vụ Batch lo phần còn lại.
+
+24
+00:01:01,580 --> 00:01:03,050
+Vậy định nghĩa batch job như thế nào?
+
+25
+00:01:03,050 --> 00:01:05,470
+Đơn giản đó là một Docker image
+
+26
+00:01:05,470 --> 00:01:08,550
+cùng định nghĩa task bạn chạy trên dịch vụ ECS.
+
+27
+00:01:08,550 --> 00:01:10,760
+Điều này nghĩa là bất cứ gì
+
+28
+00:01:10,760 --> 00:01:13,150
+chạy được trên ECS đều chạy được trên Batch.
+
+29
+00:01:13,150 --> 00:01:15,200
+Điều này rất hữu ích khi dùng Batch
+
+30
+00:01:15,200 --> 00:01:16,610
+để chạy các batch job.
+
+31
+00:01:16,610 --> 00:01:18,700
+Và vì nó tự động mở rộng
+
+32
+00:01:18,700 --> 00:01:21,960
+số lượng EC2 hoặc Spot Instances phù hợp,
+
+33
+00:01:21,960 --> 00:01:23,260
+để thực hiện các công việc,
+
+34
+00:01:23,260 --> 00:01:25,450
+bạn sẽ tiết kiệm chi phí đáng kể
+
+35
+00:01:25,450 --> 00:01:27,860
+và ít phải tập trung vào hạ tầng,
+
+36
+00:01:27,860 --> 00:01:30,090
+chỉ cần tập trung vào batch job.
+
+37
+00:01:30,090 --> 00:01:32,280
+Như vậy là đủ cho kỳ thi,
+
+38
+00:01:32,280 --> 00:01:35,410
+nhưng tôi muốn cho bạn thấy sơ đồ nhỏ tôi đã vẽ.
+
+39
+00:01:35,410 --> 00:01:38,710
+Ví dụ, ta muốn xử lý các ảnh được gửi
+
+40
+00:01:38,710 --> 00:01:41,740
+bởi người dùng vào Amazon S3 theo dạng batch.
+
+41
+00:01:41,740 --> 00:01:44,960
+Ảnh sẽ được lưu vào Amazon S3,
+
+42
+00:01:44,960 --> 00:01:47,850
+và điều này kích hoạt một batch job.
+
+43
+00:01:47,850 --> 00:01:49,820
+Batch sẽ tự động có
+
+44
+00:01:49,820 --> 00:01:52,580
+một cụm ECS gồm các EC2,
+
+45
+00:01:52,580 --> 00:01:54,880
+hoặc Spot Instances và đảm bảo rằng
+
+46
+00:01:54,880 --> 00:01:56,900
+bạn có đủ số lượng instance
+
+47
+00:01:56,900 --> 00:01:58,870
+để đáp ứng tải của các batch job
+
+48
+00:01:58,870 --> 00:02:00,340
+trong hàng đợi.
+
+49
+00:02:00,340 --> 00:02:02,880
+Các instance này sẽ chạy
+
+50
+00:02:02,880 --> 00:02:05,940
+Docker image của bạn để thực hiện công việc.
+
+51
+00:02:05,940 --> 00:02:08,009
+Công việc đó có thể chèn
+
+52
+00:02:08,009 --> 00:02:09,190
+đối tượng đã xử lý
+
+53
+00:02:09,190 --> 00:02:11,190
+có thể là bộ lọc lên hình ảnh
+
+54
+00:02:11,190 --> 00:02:13,560
+vào một bucket Amazon S3 khác.
+
+55
+00:02:13,560 --> 00:02:14,550
+Bạn có thể tự hỏi
+
+56
+00:02:14,550 --> 00:02:16,250
+sự khác biệt giữa Batch và Lambda là gì
+
+57
+00:02:16,250 --> 00:02:17,950
+vì chúng có vẻ giống nhau?
+
+58
+00:02:17,950 --> 00:02:19,710
+Lambda có giới hạn thời gian,
+
+59
+00:02:19,710 --> 00:02:21,090
+là 15 phút,
+
+60
+00:02:21,090 --> 00:02:24,230
+và chỉ hỗ trợ một số ngôn ngữ lập trình.
+
+61
+00:02:24,230 --> 00:02:27,680
+Ngoài ra, không gian đĩa tạm thời bị giới hạn
+
+62
+00:02:27,680 --> 00:02:29,080
+nếu bạn muốn chạy công việc,
+
+63
+00:02:29,080 --> 00:02:30,880
+và đó là dịch vụ serverless,
+
+64
+00:02:30,880 --> 00:02:32,320
+trong khi Batch rất khác.
+
+65
+00:02:32,320 --> 00:02:33,750
+Batch không có giới hạn thời gian,
+
+66
+00:02:33,750 --> 00:02:36,540
+vì dựa trên các EC2 instances.
+
+67
+00:02:36,540 --> 00:02:38,600
+Bạn có thể dùng bất kỳ runtime nào miễn là
+
+68
+00:02:38,600 --> 00:02:40,840
+đóng gói nó thành Docker image.
+
+69
+00:02:40,840 --> 00:02:42,320
+Về lưu trữ,
+
+70
+00:02:42,320 --> 00:02:45,700
+bạn dùng bộ nhớ đi kèm với EC2.
+
+71
+00:02:45,700 --> 00:02:47,070
+Có thể là EBS volume,
+
+72
+00:02:47,070 --> 00:02:49,637
+hoặc EC2 instance store cho dung lượng đĩa,
+
+73
+00:02:49,637 --> 00:02:52,810
+nhiều hơn hẳn so với Lambda.
+
+74
+00:02:52,810 --> 00:02:55,460
+Cuối cùng, Batch không phải dịch vụ serverless.
+
+75
+00:02:55,460 --> 00:02:56,450
+Đó là dịch vụ được quản lý,
+
+76
+00:02:56,450 --> 00:02:59,670
+nhưng dựa trên các EC2 thật được tạo ra.
+
+77
+00:02:59,670 --> 00:03:03,330
+Tuy nhiên các EC2 này do AWS quản lý
+
+78
+00:03:03,330 --> 00:03:04,230
+nên chúng ta không phải lo
+
+79
+00:03:04,230 --> 00:03:06,360
+về auto scaling hay các vấn đề khác.
+
+80
+00:03:06,360 --> 00:03:07,193
+Hy vọng điều này hữu ích
+
+81
+00:03:07,193 --> 00:03:08,910
+hẹn gặp lại bạn ở bài giảng tiếp theo.

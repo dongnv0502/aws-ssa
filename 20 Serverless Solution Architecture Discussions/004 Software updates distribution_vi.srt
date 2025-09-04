@@ -1,0 +1,224 @@
+1
+00:00:00,130 --> 00:00:02,440
+Okay, yet another solution architecting
+
+2
+00:00:02,440 --> 00:00:03,340
+we are going to see right here.
+
+3
+00:00:03,340 --> 00:00:05,770
+So, let's talk about software updates offloading.
+
+4
+00:00:05,770 --> 00:00:08,750
+So, we have an application is running on EC2
+
+5
+00:00:08,750 --> 00:00:11,140
+and it distributes software updates once in a while.
+
+6
+00:00:11,140 --> 00:00:12,770
+So, think about the computers
+
+7
+00:00:12,770 --> 00:00:14,360
+that need to download the patch
+
+8
+00:00:14,360 --> 00:00:18,160
+and then you download from us and this patch sits on EC2.
+
+9
+00:00:18,160 --> 00:00:20,070
+So, when a new software update is out,
+
+10
+00:00:20,070 --> 00:00:21,530
+we are going to get a lot of request
+
+11
+00:00:21,530 --> 00:00:23,200
+because a lot of people want to update.
+
+12
+00:00:23,200 --> 00:00:24,870
+And so the content is distributed
+
+13
+00:00:24,870 --> 00:00:26,190
+in mass over the networking.
+
+14
+00:00:26,190 --> 00:00:28,460
+It cost us so much money.
+
+15
+00:00:28,460 --> 00:00:30,880
+Additionally, we really don't want to change
+
+16
+00:00:30,880 --> 00:00:32,520
+or re-architect our application.
+
+17
+00:00:32,520 --> 00:00:34,328
+We just wanna optimize our cost and CPU.
+
+18
+00:00:34,328 --> 00:00:37,480
+Is there an easy way for us to do it?
+
+19
+00:00:37,480 --> 00:00:38,690
+Of course the answer is yes.
+
+20
+00:00:38,690 --> 00:00:39,523
+There is.
+
+21
+00:00:39,523 --> 00:00:41,930
+So, let's talk about the application current state.
+
+22
+00:00:41,930 --> 00:00:46,280
+So, we have a classic ELB plus ASG develop application
+
+23
+00:00:46,280 --> 00:00:50,630
+running in multi AZ and we'll assume that these M5 instances
+
+24
+00:00:50,630 --> 00:00:53,780
+are the instances distributing the software updates.
+
+25
+00:00:53,780 --> 00:00:55,440
+Now, for simplicity stake,
+
+26
+00:00:55,440 --> 00:00:57,300
+let's say that these software updates
+
+27
+00:00:57,300 --> 00:00:59,300
+they're put into the Amazon EFS,
+
+28
+00:00:59,300 --> 00:01:01,930
+so all of them are in the EFS.
+
+29
+00:01:01,930 --> 00:01:03,480
+So, how do we fix things?
+
+30
+00:01:03,480 --> 00:01:06,260
+How do we basically enable these applications
+
+31
+00:01:06,260 --> 00:01:09,660
+to scale more globally and to reduce CPU utilization
+
+32
+00:01:09,660 --> 00:01:11,500
+and to reduce cost.
+
+33
+00:01:11,500 --> 00:01:12,510
+Super easy.
+
+34
+00:01:12,510 --> 00:01:14,870
+We just put CloudFront on top of it.
+
+35
+00:01:14,870 --> 00:01:18,630
+So, CloudFront will be our savior, and why?
+
+36
+00:01:18,630 --> 00:01:21,030
+Well, there's no changes to architecture.
+
+37
+00:01:21,030 --> 00:01:24,040
+They will cache software update files at the edge
+
+38
+00:01:24,040 --> 00:01:26,120
+because the software update files they don't change,
+
+39
+00:01:26,120 --> 00:01:27,490
+they're not dynamic, there're static,
+
+40
+00:01:27,490 --> 00:01:28,710
+they're never changing.
+
+41
+00:01:28,710 --> 00:01:32,842
+And so our EC2 instances, even though they're not serverless
+
+42
+00:01:32,842 --> 00:01:35,620
+CloudFront is and it will scale for us.
+
+43
+00:01:35,620 --> 00:01:37,786
+So that means that our ASG will not scale as much
+
+44
+00:01:37,786 --> 00:01:41,800
+and we'll save tremendously in EC2 class, network class,
+
+45
+00:01:41,800 --> 00:01:44,050
+EFS class and so much.
+
+46
+00:01:44,050 --> 00:01:47,840
+And on top of it, we'll save on availability and so on.
+
+47
+00:01:47,840 --> 00:01:49,640
+So, remember.
+
+48
+00:01:49,640 --> 00:01:50,790
+CloudFront is such an easy way
+
+49
+00:01:50,790 --> 00:01:54,640
+to make an existing application more scalable and cheaper
+
+50
+00:01:54,640 --> 00:01:58,280
+if it's mostly static content just using some caching
+
+51
+00:01:58,280 --> 00:01:59,910
+at the edges all around the well.
+
+52
+00:01:59,910 --> 00:02:00,810
+So remember it.
+
+53
+00:02:00,810 --> 00:02:01,890
+I find it pretty cool.
+
+54
+00:02:01,890 --> 00:02:05,480
+And sometimes the best solution are the easiest one
+
+55
+00:02:05,480 --> 00:02:06,930
+and this is one example of them.
+
+56
+00:02:06,930 --> 00:02:09,930
+So, hope you like it and I will see you in the next lecture.
+

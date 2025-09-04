@@ -1,0 +1,184 @@
+1
+00:00:00,180 --> 00:00:01,380
+So now, let's talk about
+
+2
+00:00:01,380 --> 00:00:03,690
+the S3 batch operation.
+
+3
+00:00:03,690 --> 00:00:06,390
+So this allows you to perform bulk operations
+
+4
+00:00:06,390 --> 00:00:09,600
+on existing S3 objects with a single request.
+
+5
+00:00:09,600 --> 00:00:12,300
+For example, and there are lots of use cases for it,
+
+6
+00:00:12,300 --> 00:00:14,700
+you can modify all the object metadata
+
+7
+00:00:14,700 --> 00:00:18,270
+and properties of many S3 objects at a time.
+
+8
+00:00:18,270 --> 00:00:21,630
+Or you can copy objects between S3 buckets
+
+9
+00:00:21,630 --> 00:00:23,400
+as a batch operation.
+
+10
+00:00:23,400 --> 00:00:25,590
+Or something that can come up in the exam,
+
+11
+00:00:25,590 --> 00:00:29,310
+is to encrypt all the unencrypted objects
+
+12
+00:00:29,310 --> 00:00:31,380
+in your S3 buckets.
+
+13
+00:00:31,380 --> 00:00:33,480
+Or to modify ACLs or tags,
+
+14
+00:00:33,480 --> 00:00:37,860
+or to restore many objects at a time from S3 Glacier.
+
+15
+00:00:37,860 --> 00:00:39,780
+Or to invoke a Lambda function
+
+16
+00:00:39,780 --> 00:00:42,420
+to perform whatever custom action you want on every object
+
+17
+00:00:42,420 --> 00:00:44,820
+from your S3 batch operation.
+
+18
+00:00:44,820 --> 00:00:47,790
+So the idea is that you can do whatever operation you want
+
+19
+00:00:47,790 --> 00:00:49,500
+on the list of objects.
+
+20
+00:00:49,500 --> 00:00:53,280
+And so, therefore, a job consists of a list of objects,
+
+21
+00:00:53,280 --> 00:00:56,880
+the action to perform, as well as optional parameters.
+
+22
+00:00:56,880 --> 00:00:59,730
+So why would we use S3 batch operations
+
+23
+00:00:59,730 --> 00:01:01,410
+versus scripting it ourselves?
+
+24
+00:01:01,410 --> 00:01:04,260
+Well, because when we use the S3 batch operation,
+
+25
+00:01:04,260 --> 00:01:07,830
+there is a management of retries, we can track the progress.
+
+26
+00:01:07,830 --> 00:01:10,080
+We can send completion notifications,
+
+27
+00:01:10,080 --> 00:01:12,240
+generate reports, and so on.
+
+28
+00:01:12,240 --> 00:01:15,630
+And, well, how to generate a list to pass to S3 Batch?
+
+29
+00:01:15,630 --> 00:01:17,760
+Well, we can use S3 Inventory
+
+30
+00:01:17,760 --> 00:01:19,980
+to get your object list in an S3 bucket.
+
+31
+00:01:19,980 --> 00:01:22,350
+And then you use Athena to query that list,
+
+32
+00:01:22,350 --> 00:01:24,600
+and filter the objects you actually wanna pass
+
+33
+00:01:24,600 --> 00:01:26,670
+to the S3 batch service.
+
+34
+00:01:26,670 --> 00:01:30,000
+So using S3 Inventory and then Athena,
+
+35
+00:01:30,000 --> 00:01:32,310
+we get a filtered list of objects
+
+36
+00:01:32,310 --> 00:01:35,640
+that we want to include in our batch operation.
+
+37
+00:01:35,640 --> 00:01:37,680
+We pass it to the batch operation,
+
+38
+00:01:37,680 --> 00:01:39,990
+plus whatever operation we wanna do,
+
+39
+00:01:39,990 --> 00:01:41,760
+as well as some parameters.
+
+40
+00:01:41,760 --> 00:01:45,840
+And then S3 Batch will do its thing and process the objects.
+
+41
+00:01:45,840 --> 00:01:49,050
+So, again, one main use case is to find
+
+42
+00:01:49,050 --> 00:01:52,230
+all the unencrypted objects using S3 Inventory.
+
+43
+00:01:52,230 --> 00:01:54,390
+And then encrypt them all at once
+
+44
+00:01:54,390 --> 00:01:56,910
+using an S3 batch operation.
+
+45
+00:01:56,910 --> 00:01:59,400
+So that's it for this lecture, I hope you liked it,
+
+46
+00:01:59,400 --> 00:02:01,350
+and I will see you in the next lecture.
+

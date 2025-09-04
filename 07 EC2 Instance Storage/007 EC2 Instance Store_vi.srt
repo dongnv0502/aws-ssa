@@ -1,0 +1,275 @@
+1
+00:00:00,260 --> 00:00:03,270
+Chúng ta đã thấy cách gắn một network drive
+
+2
+00:00:03,270 --> 00:00:04,838
+vào EC2 instance
+
+3
+00:00:04,838 --> 00:00:07,440
+nhưng hiệu năng của chúng có giới hạn
+
+4
+00:00:07,440 --> 00:00:10,045
+tôi nói vậy vì thực ra chúng đã rất tốt
+
+5
+00:00:10,045 --> 00:00:13,670
+nhưng đôi khi bạn muốn hiệu năng cao hơn nữa
+
+6
+00:00:13,670 --> 00:00:16,290
+đó sẽ là ổ đĩa phần cứng
+
+7
+00:00:16,290 --> 00:00:18,329
+gắn trực tiếp vào EC2 instance.
+
+8
+00:00:18,329 --> 00:00:21,499
+EC2 instance là một máy ảo
+
+9
+00:00:21,499 --> 00:00:25,370
+nhưng dĩ nhiên nó chạy trên máy chủ vật lý thật.
+
+10
+00:00:25,370 --> 00:00:28,500
+Một số máy chủ này có sẵn ổ đĩa
+
+11
+00:00:28,500 --> 00:00:30,750
+được gắn trực tiếp,
+
+12
+00:00:30,750 --> 00:00:33,730
+bằng kết nối vật lý với server.
+
+13
+00:00:33,730 --> 00:00:36,970
+Vì vậy một số loại EC2 instance đặc biệt có thể sử dụng
+
+14
+00:00:36,970 --> 00:00:39,136
+thứ gọi là EC2 Instance Store,
+
+15
+00:00:39,136 --> 00:00:41,095
+tên của ổ đĩa phần cứng
+
+16
+00:00:41,095 --> 00:00:44,603
+gắn vào máy chủ vật lý.
+
+17
+00:00:44,603 --> 00:00:46,641
+Chúng ta làm gì với EC2 Instance Store?
+
+18
+00:00:46,641 --> 00:00:49,510
+Ta dùng nó để có hiệu năng I/O tốt hơn.
+
+19
+00:00:49,510 --> 00:00:52,240
+Nó cũng cung cấp throughput tốt
+
+20
+00:00:52,240 --> 00:00:53,850
+v.v., nên đây là lựa chọn tuyệt vời
+
+21
+00:00:53,850 --> 00:00:56,880
+khi cần hiệu năng đĩa cực cao.
+
+22
+00:00:56,880 --> 00:00:59,766
+Nhưng lưu ý rằng nếu bạn stop
+
+23
+00:00:59,766 --> 00:01:02,800
+hoặc terminate EC2 instance,
+
+24
+00:01:02,800 --> 00:01:04,550
+có gắn Instance Store,
+
+25
+00:01:04,550 --> 00:01:06,910
+thì dữ liệu lưu trữ sẽ mất.
+
+26
+00:01:06,910 --> 00:01:09,149
+Vì vậy nó được gọi là ephemeral storage
+
+27
+00:01:09,149 --> 00:01:11,380
+tức là EC2 Instance Store
+
+28
+00:01:11,380 --> 00:01:14,930
+không thể dùng làm nơi lưu trữ lâu dài bền bỉ
+
+29
+00:01:14,930 --> 00:01:16,430
+cho dữ liệu.
+
+30
+00:01:16,430 --> 00:01:18,740
+Vậy dùng vào việc gì thì phù hợp?
+
+31
+00:01:18,740 --> 00:01:20,580
+Nếu bạn có buffer, cache,
+
+32
+00:01:20,580 --> 00:01:23,621
+dữ liệu tạm thời hay nội dung thoáng qua,
+
+33
+00:01:23,621 --> 00:01:26,870
+đây là nơi tuyệt vời để làm việc đó
+
+34
+00:01:26,870 --> 00:01:28,110
+nhưng không cho lưu trữ dài hạn.
+
+35
+00:01:28,110 --> 00:01:30,070
+Với lưu trữ dài hạn, ví dụ EBS
+
+36
+00:01:30,070 --> 00:01:31,810
+mới là lựa chọn tốt.
+
+37
+00:01:31,810 --> 00:01:34,349
+Cuối cùng, nếu máy chủ bên dưới
+
+38
+00:01:34,349 --> 00:01:37,517
+của EC2 instance bị lỗi,
+
+39
+00:01:37,517 --> 00:01:39,530
+bạn có nguy cơ mất dữ liệu
+
+40
+00:01:39,530 --> 00:01:41,950
+vì phần cứng gắn với EC2 instance
+
+41
+00:01:41,950 --> 00:01:43,340
+cũng sẽ hỏng theo.
+
+42
+00:01:43,340 --> 00:01:46,322
+Vì vậy nếu bạn dùng EC2 Instance Store,
+
+43
+00:01:46,322 --> 00:01:48,373
+thì bạn hoàn toàn chịu trách nhiệm
+
+44
+00:01:48,373 --> 00:01:50,511
+đảm bảo sao lưu
+
+45
+00:01:50,511 --> 00:01:54,015
+và replicate phù hợp theo nhu cầu.
+
+46
+00:01:54,015 --> 00:01:55,880
+Về ý nghĩa 'hiệu năng tốt hơn',
+
+47
+00:01:55,880 --> 00:01:58,400
+đây chỉ là ví dụ minh họa,
+
+48
+00:01:58,400 --> 00:01:59,233
+bạn không cần nhớ kỹ.
+
+49
+00:01:59,233 --> 00:02:01,130
+Nhưng nếu bạn nhìn vào, chẳng hạn,
+
+50
+00:02:01,130 --> 00:02:03,764
+instance dòng I3.x nào đó,
+
+51
+00:02:03,764 --> 00:02:07,110
+sẽ có Instance Store đi kèm
+
+52
+00:02:07,110 --> 00:02:09,070
+với loại instance này
+
+53
+00:02:09,070 --> 00:02:10,990
+và nếu xem Read IOPS
+
+54
+00:02:10,990 --> 00:02:11,823
+và Write IOPS
+
+55
+00:02:11,823 --> 00:02:13,770
+tương ứng số thao tác I/O
+
+56
+00:02:13,770 --> 00:02:15,120
+mỗi giây thực hiện được.
+
+57
+00:02:15,120 --> 00:02:17,980
+Bạn sẽ thấy các chỉ số Random Read IOPS
+
+58
+00:02:17,980 --> 00:02:21,575
+và Write IOPS có thể đạt 3,3 triệu hoặc 1,4 triệu,
+
+59
+00:02:21,575 --> 00:02:24,590
+với loại mạnh nhất.
+
+60
+00:02:24,590 --> 00:02:26,200
+So sánh thì
+
+61
+00:02:26,200 --> 00:02:28,820
+với một EBS volume loại gp2 chẳng hạn,
+
+62
+00:02:28,820 --> 00:02:31,407
+bạn chỉ đạt khoảng 32.000 IOPS.
+
+63
+00:02:31,407 --> 00:02:33,450
+Như vậy cao hơn rất nhiều.
+
+64
+00:02:33,450 --> 00:02:34,931
+Nhưng một lần nữa, chỉ để minh họa rằng
+
+65
+00:02:34,931 --> 00:02:37,960
+trong kỳ thi, bất cứ khi nào bạn thấy
+
+66
+00:02:37,960 --> 00:02:40,762
+một volume gắn kèm phần cứng hiệu năng cao
+
+67
+00:02:40,762 --> 00:02:45,350
+cho EC2 instance, hãy nghĩ tới EC2 Instance Store.
+
+68
+00:02:45,350 --> 00:02:46,183
+Vậy là xong.
+
+69
+00:02:46,183 --> 00:02:47,700
+Hẹn gặp bạn ở bài tiếp theo.

@@ -1,0 +1,168 @@
+1
+00:00:00,450 --> 00:00:01,950
+Giờ hãy có một bài ngắn
+
+2
+00:00:01,950 --> 00:00:03,600
+về RDS Custom.
+
+3
+00:00:03,600 --> 00:00:06,540
+Ta biết rằng với RDS ta không truy cập
+
+4
+00:00:06,540 --> 00:00:10,440
+hệ điều hành hay tùy chỉnh bên dưới,
+
+5
+00:00:10,440 --> 00:00:12,930
+nhưng với RDS Custom thì có.
+
+6
+00:00:12,930 --> 00:00:15,600
+RDS Custom dành cho hai loại database,
+
+7
+00:00:15,600 --> 00:00:19,620
+Oracle và Microsoft SQL Server.
+
+8
+00:00:19,620 --> 00:00:22,980
+Nhờ RDS Custom, ta truy cập OS
+
+9
+00:00:22,980 --> 00:00:25,080
+và tùy chỉnh database.
+
+10
+00:00:25,080 --> 00:00:27,270
+Với RDS, ta vẫn có lợi ích
+
+11
+00:00:27,270 --> 00:00:29,190
+cài đặt và vận hành tự động,
+
+12
+00:00:29,190 --> 00:00:32,009
+và scale database trên AWS.
+
+13
+00:00:32,009 --> 00:00:34,020
+Nhưng với tùy chọn RDS Custom,
+
+14
+00:00:34,020 --> 00:00:36,030
+phần 'custom' của RDS Custom,
+
+15
+00:00:36,030 --> 00:00:38,490
+ta truy cập được database
+
+16
+00:00:38,490 --> 00:00:39,810
+và hệ điều hành bên dưới.
+
+17
+00:00:39,810 --> 00:00:42,690
+Ta có thể cấu hình các thiết lập bên trong,
+
+18
+00:00:42,690 --> 00:00:45,540
+cài patch, bật tính năng native,
+
+19
+00:00:45,540 --> 00:00:49,110
+và truy cập EC2 instance bên dưới
+
+20
+00:00:49,110 --> 00:00:53,790
+của RDS bằng SSH hoặc SSM Session Manager.
+
+21
+00:00:53,790 --> 00:00:56,670
+Đây là EC2 instance của tôi, và với người dùng,
+
+22
+00:00:56,670 --> 00:00:59,430
+nếu dùng Amazon RDS Custom,
+
+23
+00:00:59,430 --> 00:01:02,400
+ta có thể tùy chỉnh và SSH vào.
+
+24
+00:01:02,400 --> 00:01:05,220
+Để tùy chỉnh, khuyên bạn
+
+25
+00:01:05,220 --> 00:01:07,770
+tắt chế độ automation,
+
+26
+00:01:07,770 --> 00:01:10,170
+để RDS không thực hiện tự động nào,
+
+27
+00:01:10,170 --> 00:01:12,180
+bảo trì hay scale trong lúc bạn thao tác,
+
+28
+00:01:12,180 --> 00:01:14,280
+khi bạn tùy chỉnh.
+
+29
+00:01:14,280 --> 00:01:17,010
+Và vì bạn có thể làm hỏng mọi thứ,
+
+30
+00:01:17,010 --> 00:01:19,920
+do có quyền truy cập EC2 bên dưới,
+
+31
+00:01:19,920 --> 00:01:22,050
+nên tốt hơn hãy chụp snapshot database,
+
+32
+00:01:22,050 --> 00:01:25,830
+nếu không bạn khó khôi phục.
+
+33
+00:01:25,830 --> 00:01:28,710
+Tóm lại, RDS so với RDS Custom.
+
+34
+00:01:28,710 --> 00:01:30,960
+RDS quản lý toàn bộ database,
+
+35
+00:01:30,960 --> 00:01:32,430
+và hệ điều hành.
+
+36
+00:01:32,430 --> 00:01:35,070
+Mọi thứ do AWS quản lý, bạn không phải làm gì,
+
+37
+00:01:35,070 --> 00:01:37,350
+còn RDS Custom dành cho Oracle
+
+38
+00:01:37,350 --> 00:01:39,600
+và chỉ Microsoft SQL Server,
+
+39
+00:01:39,600 --> 00:01:41,550
+và bạn có quyền admin đầy đủ
+
+40
+00:01:41,550 --> 00:01:45,000
+với hệ điều hành và database bên dưới.
+
+41
+00:01:45,000 --> 00:01:47,160
+Bài học đến đây là hết, hy vọng bạn thích,
+
+42
+00:01:47,160 --> 00:01:49,113
+và hẹn gặp bạn ở bài tiếp theo.
+
