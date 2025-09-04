@@ -73,14 +73,14 @@ Next text content
 - [ ] Module 07: 13/24 files
 - [ ] Module 08: 2/30 files
 - [ ] Module 09: 2/23 files
-- [ ] Module 11: 2/16 files
+- [ ] Module 11: 7/16 files
 - [ ] Module 12: 5/16 files
 - [ ] Module 13: 5/24 files
 - [ ] Module 14: 9/31 files
 - [ ] Module 15: 5/20 files
 - [ ] Module 17: 1/7 files
 - [ ] Module 18: 6/16 files
-- [ ] Module 20: 1/10 files
+- [ ] Module 20: 4/10 files
 - [ ] Module 21: 10/25 files
 - [ ] Module 22: 4/30 files
 - [ ] Module 25: 1/17 files
@@ -89,7 +89,7 @@ Next text content
 - [ ] Module 29: 0/12 files
 - [ ] Module 30: 12/20 files
 
-**Tổng tiến độ: 110/227 files (48.5%)**
+**Tổng tiến độ: 118/227 files (52.0%)**
 
 ## Ghi Chú
 - Ưu tiên dịch các module cơ bản trước (01, 03, 06)

@@ -1,0 +1,552 @@
+1
+00:00:00,210 --> 00:00:01,260
+Được rồi, bây giờ hãy nói về
+
+2
+00:00:01,260 --> 00:00:02,790
+Elastic Beanstalk.
+
+3
+00:00:02,790 --> 00:00:04,080
+Cho đến bây giờ trong khóa học này
+
+4
+00:00:04,080 --> 00:00:06,420
+khi chúng ta triển khai một ứng dụng,
+
+5
+00:00:06,420 --> 00:00:08,430
+chúng ta có cùng một kiến trúc.
+
+6
+00:00:08,430 --> 00:00:09,566
+Vậy chúng ta có một load balancer
+
+7
+00:00:09,566 --> 00:00:11,850
+nhận tất cả request từ người dùng
+
+8
+00:00:11,850 --> 00:00:13,710
+và rồi chúng ta có một auto scaling group
+
+9
+00:00:13,710 --> 00:00:16,860
+với nhiều availability zone và ở mỗi AZ
+
+10
+00:00:16,860 --> 00:00:19,470
+ sẽ có vài EC2 instance được triển khai ở đó
+
+11
+00:00:19,470 --> 00:00:21,030
+and then in the backend,
+
+12
+00:00:21,030 --> 00:00:22,770
+we have maybe some data subnets,
+
+13
+00:00:22,770 --> 00:00:25,740
+so we have an RDS database to take the reads and writes,
+
+14
+00:00:25,740 --> 00:00:27,570
+maybe we have replicas and so on.
+
+15
+00:00:27,570 --> 00:00:28,920
+And if you're in the caching layer,
+
+16
+00:00:28,920 --> 00:00:32,100
+in the caching layer, we need to look at ElastiCache, okay?
+
+17
+00:00:32,100 --> 00:00:35,400
+So if there are so many applications for us to deploy
+
+18
+00:00:35,400 --> 00:00:36,930
+and they follow the same architecture,
+
+19
+00:00:36,930 --> 00:00:39,870
+it may be a pain to recreate it every single time.
+
+20
+00:00:39,870 --> 00:00:42,000
+So as a developer, it's complicated
+
+21
+00:00:42,000 --> 00:00:44,137
+to manage infrastructure, to deploy code,
+
+22
+00:00:44,137 --> 00:00:45,938
+we don't want to be configuring all the databases,
+
+23
+00:00:45,938 --> 00:00:47,850
+the load balancers, et cetera, et cetera.
+
+24
+00:00:47,850 --> 00:00:50,100
+And of course we want everything to be scaling.
+
+25
+00:00:50,100 --> 00:00:52,830
+So as we can see, most of the web applications
+
+26
+00:00:52,830 --> 00:00:53,940
+will have the same architecture
+
+27
+00:00:53,940 --> 00:00:56,190
+with a load balancer and an auto scaling group
+
+28
+00:00:56,190 --> 00:00:58,140
+and as a developer, all I want to do
+
+29
+00:00:58,140 --> 00:00:59,550
+is for my code run, okay?
+
+30
+00:00:59,550 --> 00:01:02,100
+I don't want to worry about everything else.
+
+31
+00:01:02,100 --> 00:01:05,430
+So also, if I develop in different programming languages
+
+32
+00:01:05,430 --> 00:01:07,380
+and have different applications and environments,
+
+33
+00:01:07,380 --> 00:01:10,740
+I possibly want a single way of deploying my application
+
+34
+00:01:10,740 --> 00:01:13,440
+and this is where Beanstalk comes into play.
+
+35
+00:01:13,440 --> 00:01:16,140
+So Beanstalk gives a developer centric view
+
+36
+00:01:16,140 --> 00:01:18,840
+of deploying an application on AWS.
+
+37
+00:01:18,840 --> 00:01:21,060
+The idea is that from one single interface,
+
+38
+00:01:21,060 --> 00:01:23,640
+it's going to reuse all the components we've seen before,
+
+39
+00:01:23,640 --> 00:01:27,060
+such as EC2, ASG, ELB, RDS,
+
+40
+00:01:27,060 --> 00:01:28,650
+but it's going to be a managed service
+
+41
+00:01:28,650 --> 00:01:30,330
+that will deploy all these things for you.
+
+42
+00:01:30,330 --> 00:01:32,056
+So it will handle the capacity provisioning,
+
+43
+00:01:32,056 --> 00:01:34,050
+it will handle all the configuration of the load balancer,
+
+44
+00:01:34,050 --> 00:01:36,330
+the scaling, the application health monitoring,
+
+45
+00:01:36,330 --> 00:01:38,190
+the instance configuration and so on.
+
+46
+00:01:38,190 --> 00:01:40,800
+And the only responsibility for you as a developer
+
+47
+00:01:40,800 --> 00:01:43,140
+is going to be the code itself, okay?
+
+48
+00:01:43,140 --> 00:01:44,488
+You still have full control over the configuration
+
+49
+00:01:44,488 --> 00:01:47,006
+of each component, but at least they come bundled
+
+50
+00:01:47,006 --> 00:01:50,010
+as one single interface in Beanstalk
+
+51
+00:01:50,010 --> 00:01:52,020
+and the idea is that Beanstalk also has a really cool way
+
+52
+00:01:52,020 --> 00:01:53,790
+of updating applications.
+
+53
+00:01:53,790 --> 00:01:56,040
+So the Beanstalk service is free on its own,
+
+54
+00:01:56,040 --> 00:01:58,053
+but you're going to pay for the underlying instances
+
+55
+00:01:58,053 --> 00:02:00,390
+that are going to be leveraged by Beanstalk
+
+56
+00:02:00,390 --> 00:02:03,270
+or your ASG or your ELB, those kinds of things.
+
+57
+00:02:03,270 --> 00:02:06,870
+So components of Beanstalk consist of an application,
+
+58
+00:02:06,870 --> 00:02:08,187
+which is a collection of Beanstalk components,
+
+59
+00:02:08,187 --> 00:02:11,670
+such as environments, versions and configurations.
+
+60
+00:02:11,670 --> 00:02:13,530
+A version of the application itself
+
+61
+00:02:13,530 --> 00:02:15,420
+is an iteration of your application code.
+
+62
+00:02:15,420 --> 00:02:16,680
+So you can have version one, version two,
+
+63
+00:02:16,680 --> 00:02:18,510
+version three, et cetera, et cetera.
+
+64
+00:02:18,510 --> 00:02:20,640
+Then an environment, it's just a collection
+
+65
+00:02:20,640 --> 00:02:24,330
+of your resources running the specific application version.
+
+66
+00:02:24,330 --> 00:02:26,310
+So you can only have one application version at a time
+
+67
+00:02:26,310 --> 00:02:28,060
+in an environment, where we can see
+
+68
+00:02:29,160 --> 00:02:32,160
+we can actually update an application version
+
+69
+00:02:32,160 --> 00:02:34,530
+within an environment from version one to version two.
+
+70
+00:02:34,530 --> 00:02:36,360
+We have tiers, so we can have two different tiers.
+
+71
+00:02:36,360 --> 00:02:39,030
+In Beanstalk, we have the web server environment tier
+
+72
+00:02:39,030 --> 00:02:40,200
+and the worker environment tier.
+
+73
+00:02:40,200 --> 00:02:41,850
+We'll see those very quickly.
+
+74
+00:02:41,850 --> 00:02:45,510
+And we can also create multiple environments in Beanstalk,
+
+75
+00:02:45,510 --> 00:02:48,540
+such as dev, test and prod
+
+76
+00:02:48,540 --> 00:02:50,460
+and whatever environment you have in mind really.
+
+77
+00:02:50,460 --> 00:02:52,560
+So the process is to create an application,
+
+78
+00:02:52,560 --> 00:02:54,270
+then we upload a version.
+
+79
+00:02:54,270 --> 00:02:56,550
+Then we are going to launch an environment
+
+80
+00:02:56,550 --> 00:02:58,860
+and then we're going to manage an environment lifecycle
+
+81
+00:02:58,860 --> 00:03:00,210
+and if we wanted to iterate on that,
+
+82
+00:03:00,210 --> 00:03:02,640
+we could update the version by uploading a new version
+
+83
+00:03:02,640 --> 00:03:05,340
+and then deploy that new version again in our environment
+
+84
+00:03:05,340 --> 00:03:07,560
+to update our application stack.
+
+85
+00:03:07,560 --> 00:03:09,420
+So Beanstalk supports many programming languages,
+
+86
+00:03:09,420 --> 00:03:12,007
+such as Go, Java SE, Java with Tomcat,
+
+87
+00:03:12,007 --> 00:03:14,280
+.NET Core on Linux, .NET on Windows Server,
+
+88
+00:03:14,280 --> 00:03:16,410
+Node.js, PHP, Python, Ruby,
+
+89
+00:03:16,410 --> 00:03:17,945
+Packer Builder, Single Docker Container,
+
+90
+00:03:17,945 --> 00:03:20,550
+Multi Docker Container, Pre-configured Docker.
+
+91
+00:03:20,550 --> 00:03:22,050
+So the idea is that on Beanstalk
+
+92
+00:03:22,050 --> 00:03:24,570
+you should be able to deploy pretty much anything.
+
+93
+00:03:24,570 --> 00:03:25,661
+Now to finish, what do I mean
+
+94
+00:03:25,661 --> 00:03:28,410
+by server tier and worker tier?
+
+95
+00:03:28,410 --> 00:03:30,780
+Well, the web tier is looking like this.
+
+96
+00:03:30,780 --> 00:03:32,790
+This is the traditional architecture that we know,
+
+97
+00:03:32,790 --> 00:03:34,350
+where we have a load balancer
+
+98
+00:03:34,350 --> 00:03:37,410
+and then it's sending traffic to an auto scaling group
+
+99
+00:03:37,410 --> 00:03:38,613
+that has multiple EC2 instances
+
+100
+00:03:38,613 --> 00:03:40,200
+that are going to be your web server.
+
+101
+00:03:40,200 --> 00:03:42,930
+This is the architecture number one with Beanstalk
+
+102
+00:03:42,930 --> 00:03:44,550
+and the architecture number two with Beanstalk
+
+103
+00:03:44,550 --> 00:03:46,980
+is going to be around a worker environment.
+
+104
+00:03:46,980 --> 00:03:49,710
+So this time there is no clients accessing directly
+
+105
+00:03:49,710 --> 00:03:50,910
+your EC2 instances.
+
+106
+00:03:50,910 --> 00:03:54,270
+We're going to use an SQS queue, which is a message queue
+
+107
+00:03:54,270 --> 00:03:56,995
+and the message will be sent into the SQS queue
+
+108
+00:03:56,995 --> 00:03:59,190
+and the EC2 instances are going to be workers,
+
+109
+00:03:59,190 --> 00:04:00,840
+because they're going to pull messages
+
+110
+00:04:00,840 --> 00:04:03,330
+from the SQS queue to process them.
+
+111
+00:04:03,330 --> 00:04:07,110
+And in this case, the worker environment
+
+112
+00:04:07,110 --> 00:04:09,900
+is going to scale based on the number of SQS messages.
+
+113
+00:04:09,900 --> 00:04:12,750
+So the more messages, the more EC2 instances.
+
+114
+00:04:12,750 --> 00:04:15,390
+And then the cool is that you can put the web environment
+
+115
+00:04:15,390 --> 00:04:16,860
+and the work environment together
+
+116
+00:04:16,860 --> 00:04:19,350
+by having the web environment push some messages
+
+117
+00:04:19,350 --> 00:04:22,290
+into the SQS queue of the worker environment.
+
+118
+00:04:22,290 --> 00:04:24,270
+Finally, there are two deployment modes
+
+119
+00:04:24,270 --> 00:04:25,320
+you need to know for Beanstalk.
+
+120
+00:04:25,320 --> 00:04:27,210
+The first one is a single instance,
+
+121
+00:04:27,210 --> 00:04:29,070
+which is great for development purposes.
+
+122
+00:04:29,070 --> 00:04:31,530
+In this case, you'll have one EC2 instance
+
+123
+00:04:31,530 --> 00:04:33,240
+which will have an Elastic IP,
+
+124
+00:04:33,240 --> 00:04:35,700
+potentially it can also launch an RDS database and so on,
+
+125
+00:04:35,700 --> 00:04:38,850
+but it's all based on one instance with an Elastic IP.
+
+126
+00:04:38,850 --> 00:04:40,140
+It's great for development purposes,
+
+127
+00:04:40,140 --> 00:04:42,030
+but then if you wanted to scale
+
+128
+00:04:42,030 --> 00:04:44,310
+a real Elastic Beanstalk mode,
+
+129
+00:04:44,310 --> 00:04:47,760
+then you would go for high available with a load balancer,
+
+130
+00:04:47,760 --> 00:04:49,620
+which is great for production environments,
+
+131
+00:04:49,620 --> 00:04:52,380
+in which case, you can have a load balancer distributing
+
+132
+00:04:52,380 --> 00:04:55,020
+the loads across multiple EC2 instances
+
+133
+00:04:55,020 --> 00:04:57,570
+that are managed for an auto scaling group
+
+134
+00:04:57,570 --> 00:04:59,790
+and multiple available zones.
+
+135
+00:04:59,790 --> 00:05:02,130
+And finally, you may have an RDS database
+
+136
+00:05:02,130 --> 00:05:06,120
+that's also multi AZ with a master and a standby.
+
+137
+00:05:06,120 --> 00:05:06,953
+All right, that's it.
+
+138
+00:05:06,953 --> 00:05:09,880
+I hope you liked it and I will see you in the next lecture.
+

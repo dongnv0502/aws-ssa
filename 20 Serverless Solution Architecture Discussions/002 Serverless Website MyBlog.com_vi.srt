@@ -1,0 +1,588 @@
+1
+00:00:00,030 --> 00:00:01,110
+Được rồi, hãy nói
+
+2
+00:00:01,110 --> 00:00:03,390
+về một website host dạng serverless,
+
+3
+00:00:03,390 --> 00:00:05,100
+có thể gọi là MyBlog.com.
+
+4
+00:00:05,100 --> 00:00:07,680
+Website của chúng ta phải mở rộng toàn cầu,
+
+5
+00:00:07,680 --> 00:00:09,870
+và chúng ta hiếm khi viết blog,
+
+6
+00:00:09,870 --> 00:00:11,490
+chúng ta thường đọc blog.
+
+7
+00:00:11,490 --> 00:00:12,540
+Blog của chúng ta được xem
+
+8
+00:00:12,540 --> 00:00:14,550
+bởi hàng trăm nghìn người online,
+
+9
+00:00:14,550 --> 00:00:17,430
+và chúng ta thực sự chỉ thêm bài mới, có thể một ngày một bài, hoặc một tuần.
+
+10
+00:00:17,430 --> 00:00:20,250
+Nhưng hầu hết thời gian, các blog này được đọc.
+
+11
+00:00:20,250 --> 00:00:22,560
+Vì vậy phần lớn website của tôi sẽ
+
+12
+00:00:22,560 --> 00:00:24,450
+là các file tĩnh hoàn toàn,
+
+13
+00:00:24,450 --> 00:00:26,130
+và có thể một phần nhỏ website sẽ
+
+14
+00:00:26,130 --> 00:00:28,170
+là một REST API động.
+
+15
+00:00:28,170 --> 00:00:30,720
+Tôi muốn triển khai caching khi có thể,
+
+16
+00:00:30,720 --> 00:00:32,970
+to really save cost and save latency,
+
+17
+00:00:32,970 --> 00:00:34,680
+and have a great user experience.
+
+18
+00:00:34,680 --> 00:00:37,770
+And any new user that subscribes to my website,
+
+19
+00:00:37,770 --> 00:00:39,030
+to my blog, I really want them
+
+20
+00:00:39,030 --> 00:00:41,220
+to receive a warm welcome email.
+
+21
+00:00:41,220 --> 00:00:42,780
+And this should be serverless.
+
+22
+00:00:42,780 --> 00:00:44,790
+And any photo uploaded to the blog,
+
+23
+00:00:44,790 --> 00:00:47,160
+I also wanna have a thumbnail being generated,
+
+24
+00:00:47,160 --> 00:00:49,680
+also serverless, because I really like serverless.
+
+25
+00:00:49,680 --> 00:00:52,620
+So how do we implement all these requirements?
+
+26
+00:00:52,620 --> 00:00:54,660
+Number one, we wanna serve content,
+
+27
+00:00:54,660 --> 00:00:56,220
+it's static and it's global.
+
+28
+00:00:56,220 --> 00:00:58,050
+So if you remember, we have our clients,
+
+29
+00:00:58,050 --> 00:01:01,410
+and our static content maybe stored in Amazon S3.
+
+30
+00:01:01,410 --> 00:01:03,330
+So how do we expose that bucket?
+
+31
+00:01:03,330 --> 00:01:05,880
+Remember the Amazon S3 bucket is in specific region.
+
+32
+00:01:05,880 --> 00:01:07,350
+How do we expose this globally?
+
+33
+00:01:07,350 --> 00:01:09,420
+Well, we can use Amazon CloudFront.
+
+34
+00:01:09,420 --> 00:01:12,780
+And Amazon CloudFront is a global distribution CDN,
+
+35
+00:01:12,780 --> 00:01:15,390
+and so basically our client is going to interact
+
+36
+00:01:15,390 --> 00:01:17,910
+with edge locations of Amazon CloudFront,
+
+37
+00:01:17,910 --> 00:01:21,960
+and it's going to cache data coming straight from Amazon S3.
+
+38
+00:01:21,960 --> 00:01:23,520
+Okay. Super easy.
+
+39
+00:01:23,520 --> 00:01:24,353
+We've seen CloudFront,
+
+40
+00:01:24,353 --> 00:01:26,400
+we've seen S3 is a classic architecture.
+
+41
+00:01:26,400 --> 00:01:28,590
+Now how do we do this securely?
+
+42
+00:01:28,590 --> 00:01:30,240
+Now, that's a very common question as well.
+
+43
+00:01:30,240 --> 00:01:32,730
+So we have the clients, it's interacting with CloudFront
+
+44
+00:01:32,730 --> 00:01:34,590
+and it's a global distribution still.
+
+45
+00:01:34,590 --> 00:01:37,830
+But now we will add an Origin Access Control
+
+46
+00:01:37,830 --> 00:01:40,170
+which will ensure that our Amazon S3 bucket
+
+47
+00:01:40,170 --> 00:01:43,080
+can only be accessed by CloudFront.
+
+48
+00:01:43,080 --> 00:01:45,240
+For this, we will add a bucket policy
+
+49
+00:01:45,240 --> 00:01:48,000
+to only authorize the CloudFront distribution.
+
+50
+00:01:48,000 --> 00:01:49,110
+Therefore, a user trying
+
+51
+00:01:49,110 --> 00:01:51,300
+to access our Amazon S3 bucket directly
+
+52
+00:01:51,300 --> 00:01:52,740
+will not be authorized,
+
+53
+00:01:52,740 --> 00:01:56,613
+and we have secured our Amazon S3 buckets.
+
+54
+00:01:57,780 --> 00:02:00,750
+Okay, so now we have this, and this is really good.
+
+55
+00:02:00,750 --> 00:02:04,230
+How do we add a public serverless REST API?
+
+56
+00:02:04,230 --> 00:02:06,810
+Well, for this, we'll have a REST HTTPS,
+
+57
+00:02:06,810 --> 00:02:08,669
+talking to Amazon API Gateway,
+
+58
+00:02:08,669 --> 00:02:10,320
+invoking a Lambda function,
+
+59
+00:02:10,320 --> 00:02:12,870
+maybe querying and reading from DynamoDB.
+
+60
+00:02:12,870 --> 00:02:14,430
+And because we have so many reads,
+
+61
+00:02:14,430 --> 00:02:17,220
+maybe DAX is a great caching layer we could use.
+
+62
+00:02:17,220 --> 00:02:20,520
+Okay? So far very easy.
+
+63
+00:02:20,520 --> 00:02:21,900
+If we're going global,
+
+64
+00:02:21,900 --> 00:02:25,260
+maybe we could be leveraging DynamoDB Global Databases
+
+65
+00:02:25,260 --> 00:02:27,870
+to reduce the latencies in part of the world.
+
+66
+00:02:27,870 --> 00:02:29,550
+That also could be a really good way
+
+67
+00:02:29,550 --> 00:02:31,950
+of maybe speeding up our infrastructure
+
+68
+00:02:31,950 --> 00:02:33,390
+and our architecture.
+
+69
+00:02:33,390 --> 00:02:34,830
+Okay, so this is fine.
+
+70
+00:02:34,830 --> 00:02:36,300
+We have everything we need.
+
+71
+00:02:36,300 --> 00:02:39,450
+Now let's talk about the User Welcome email flow.
+
+72
+00:02:39,450 --> 00:02:42,150
+Well here, remember when a user subscribes,
+
+73
+00:02:42,150 --> 00:02:44,820
+I want them to be having an email saying,
+
+74
+00:02:44,820 --> 00:02:46,050
+hello, how are you?
+
+75
+00:02:46,050 --> 00:02:48,450
+So for this maybe in DynamoDB,
+
+76
+00:02:48,450 --> 00:02:51,030
+we want to enable streams of changes.
+
+77
+00:02:51,030 --> 00:02:54,180
+So we'll have a DynamoDB stream being created,
+
+78
+00:02:54,180 --> 00:02:58,560
+and that DynamoDB stream will invoke a Lambda function.
+
+79
+00:02:58,560 --> 00:03:01,170
+That Lambda function is going to be very special.
+
+80
+00:03:01,170 --> 00:03:02,670
+It's going to have an IAM role,
+
+81
+00:03:02,670 --> 00:03:05,310
+which allows us to use Amazon SES.
+
+82
+00:03:05,310 --> 00:03:06,750
+So we haven't seen what Amazon SES is,
+
+83
+00:03:06,750 --> 00:03:07,890
+but it's really simple.
+
+84
+00:03:07,890 --> 00:03:09,930
+It's called Amazon Simple Email Service.
+
+85
+00:03:09,930 --> 00:03:13,350
+So SES, and it basically allows us to send emails.
+
+86
+00:03:13,350 --> 00:03:17,070
+So here our Amazon Lambda function can use the AWS SDK
+
+87
+00:03:17,070 --> 00:03:19,380
+to send emails from Amazon SES.
+
+88
+00:03:19,380 --> 00:03:20,213
+And here we go.
+
+89
+00:03:20,213 --> 00:03:24,000
+We have a basically serverless User Welcome email flow,
+
+90
+00:03:24,000 --> 00:03:26,760
+and really simple, no infrastructure to manage,
+
+91
+00:03:26,760 --> 00:03:29,460
+it just works and scales really, really well.
+
+92
+00:03:29,460 --> 00:03:31,080
+Okay, so now we said,
+
+93
+00:03:31,080 --> 00:03:33,240
+okay, if users upload images,
+
+94
+00:03:33,240 --> 00:03:35,070
+we want thumbnails to be created.
+
+95
+00:03:35,070 --> 00:03:38,310
+So our clients is going to maybe upload
+
+96
+00:03:38,310 --> 00:03:40,410
+to our S3 bucket directly,
+
+97
+00:03:40,410 --> 00:03:43,680
+or maybe we again have an OAC and a CloudFront distribution,
+
+98
+00:03:43,680 --> 00:03:46,737
+in which case our clients will upload photos to CloudFront,
+
+99
+00:03:46,737 --> 00:03:49,920
+and CloudFront will forward them onto the Amazon S3 bucket.
+
+100
+00:03:49,920 --> 00:03:54,180
+And this is called S3 Transfer Acceleration.
+
+101
+00:03:54,180 --> 00:03:57,900
+So either directly to S3 or using Transfer Acceleration.
+
+102
+00:03:57,900 --> 00:03:58,733
+And then what we'll do is
+
+103
+00:03:58,733 --> 00:04:01,323
+that whenever a file is added to S3,
+
+104
+00:04:01,323 --> 00:04:03,900
+it's going to trigger a Lambda function,
+
+105
+00:04:03,900 --> 00:04:06,570
+so Lambda can be triggered by S3,
+
+106
+00:04:06,570 --> 00:04:08,460
+and Lambda will be creating a thumbnail,
+
+107
+00:04:08,460 --> 00:04:10,530
+and putting that thumbnail into an S3 bucket,
+
+108
+00:04:10,530 --> 00:04:12,450
+could be a different bucket, for example.
+
+109
+00:04:12,450 --> 00:04:14,880
+And just to show you that it's possible,
+
+110
+00:04:14,880 --> 00:04:19,110
+Amazon S3 also has triggers to SQS and SNS.
+
+111
+00:04:19,110 --> 00:04:21,600
+Now this is optional, and from SQS SNS you can do
+
+112
+00:04:21,600 --> 00:04:23,460
+whatever you want, but it's just to show you
+
+113
+00:04:23,460 --> 00:04:26,610
+that you're very free into how you want things to work.
+
+114
+00:04:26,610 --> 00:04:30,030
+And so Amazon S3 can invoke either Lambda, SQS or SNS,
+
+115
+00:04:30,030 --> 00:04:31,200
+and you're really free to think
+
+116
+00:04:31,200 --> 00:04:32,820
+about your solution architecture
+
+117
+00:04:32,820 --> 00:04:33,990
+and how to make things serverless
+
+118
+00:04:33,990 --> 00:04:36,210
+and easy for you on your end.
+
+119
+00:04:36,210 --> 00:04:39,240
+So this is quite a complete architecture we've just done,
+
+120
+00:04:39,240 --> 00:04:42,090
+but it's all serverless, it's all scaling globally,
+
+121
+00:04:42,090 --> 00:04:43,830
+and I think that's what matters most.
+
+122
+00:04:43,830 --> 00:04:46,290
+So we've seen static content being distributed
+
+123
+00:04:46,290 --> 00:04:47,940
+using CloudFront with S3.
+
+124
+00:04:47,940 --> 00:04:49,860
+We've seen the rest API that was serverless.
+
+125
+00:04:49,860 --> 00:04:51,210
+We didn't need Cognito this time,
+
+126
+00:04:51,210 --> 00:04:53,310
+because it was a public REST API.
+
+127
+00:04:53,310 --> 00:04:55,800
+And we leveraged a Global DynamoDB Table,
+
+128
+00:04:55,800 --> 00:04:57,390
+to serve the data globally.
+
+129
+00:04:57,390 --> 00:04:59,670
+We could have used also Aurora Global Database,
+
+130
+00:04:59,670 --> 00:05:02,490
+but in this case he wouldn't have been serverless,
+
+131
+00:05:02,490 --> 00:05:04,350
+it would've been provisioned Aurora.
+
+132
+00:05:04,350 --> 00:05:07,110
+Or we could also enable DynamoDB streams.
+
+133
+00:05:07,110 --> 00:05:09,750
+Basically, these streams will tell us about changes
+
+134
+00:05:09,750 --> 00:05:12,930
+to our user tables and then trigger a Lambda function.
+
+135
+00:05:12,930 --> 00:05:15,510
+And that Lambda function had an IAM role attached to it,
+
+136
+00:05:15,510 --> 00:05:18,630
+so it could use SES or Simple Email Service.
+
+137
+00:05:18,630 --> 00:05:21,270
+And this was just to send emails in a serverless way.
+
+138
+00:05:21,270 --> 00:05:24,870
+And S3, we've seen that it could trigger SQS, SNS, Lambda
+
+139
+00:05:24,870 --> 00:05:26,010
+to notify of events.
+
+140
+00:05:26,010 --> 00:05:27,420
+So quite a lot of learnings.
+
+141
+00:05:27,420 --> 00:05:28,253
+All these things we know,
+
+142
+00:05:28,253 --> 00:05:29,640
+but now it's I think, really nice
+
+143
+00:05:29,640 --> 00:05:31,440
+to see all these things working together,
+
+144
+00:05:31,440 --> 00:05:33,780
+and how we can create really cool applications
+
+145
+00:05:33,780 --> 00:05:35,430
+using all the concepts we know.
+
+146
+00:05:35,430 --> 00:05:36,263
+So I hope you liked it,
+
+147
+00:05:36,263 --> 00:05:38,130
+and I will see you in the next lecture.
+

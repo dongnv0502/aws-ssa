@@ -1,0 +1,428 @@
+1
+00:00:00,130 --> 00:00:03,051
+Được rồi, giờ chúng ta nói về micro services.
+
+2
+00:00:03,051 --> 00:00:04,970
+Vậy nên không hẳn là serverless, nhưng
+
+3
+00:00:04,970 --> 00:00:07,010
+vẫn là một chủ đề rất thú vị.
+
+4
+00:00:07,010 --> 00:00:09,750
+Chúng ta muốn chuyển sang kiến trúc micro service
+
+5
+00:00:09,750 --> 00:00:11,890
+và nhiều service sẽ tương tác
+
+6
+00:00:11,890 --> 00:00:13,810
+với nhau có thể thông qua REST API.
+
+7
+00:00:13,810 --> 00:00:16,100
+Đây là cách chúng tương tác
+
+8
+00:00:16,100 --> 00:00:18,260
+với nhau, chúng chỉ dùng REST API.
+
+9
+00:00:18,260 --> 00:00:21,250
+Mỗi kiến trúc cho từng micro service có thể khác
+
+10
+00:00:21,250 --> 00:00:23,800
+về hình thức, nên chúng ta tự do làm điều mình muốn.
+
+11
+00:00:23,800 --> 00:00:26,610
+Vì vậy, chúng ta muốn dùng kiến trúc micro service
+
+12
+00:00:26,610 --> 00:00:28,816
+bởi vì chúng ta muốn có chu kỳ phát triển gọn nhẹ hơn
+
+13
+00:00:28,816 --> 00:00:30,100
+cho từng service.
+
+14
+00:00:30,100 --> 00:00:32,530
+Chúng ta muốn mỗi service có thể mở rộng độc lập
+
+15
+00:00:32,530 --> 00:00:34,170
+và có repository riêng của nó.
+
+16
+00:00:34,170 --> 00:00:36,950
+So this is why we would use a micro service architecture.
+
+17
+00:00:36,950 --> 00:00:39,260
+Now, let's have a look, so our users may be able
+
+18
+00:00:39,260 --> 00:00:42,640
+to talk to our first micro service over HTTPS
+
+19
+00:00:42,640 --> 00:00:45,460
+and we've decided to have an elastic load balancer
+
+20
+00:00:45,460 --> 00:00:48,560
+talking to ECS, and then talking to Dynamo DB.
+
+21
+00:00:48,560 --> 00:00:50,080
+And, it's just a choice we made.
+
+22
+00:00:50,080 --> 00:00:52,180
+ECS, by the way, if you don't know what it is yet,
+
+23
+00:00:52,180 --> 00:00:55,940
+it is for docker, so for writing docker containers on AWS.
+
+24
+00:00:55,940 --> 00:00:58,390
+So that's it, now this micro service
+
+25
+00:00:58,390 --> 00:01:01,268
+usually has a DNS name or URL, so maybe it's
+
+26
+00:01:01,268 --> 00:01:04,068
+service1.example.com, and so to get all
+
+27
+00:01:04,068 --> 00:01:06,910
+that information maybe you will do a DNS Query
+
+28
+00:01:06,910 --> 00:01:09,740
+to route 53, get an alias record back and then
+
+29
+00:01:09,740 --> 00:01:12,150
+we can interact with that service.
+
+30
+00:01:12,150 --> 00:01:13,920
+That's my first service, but maybe we have
+
+31
+00:01:13,920 --> 00:01:16,150
+a second service, and this one is using
+
+32
+00:01:16,150 --> 00:01:19,160
+a classic architecture for server-less,
+
+33
+00:01:19,160 --> 00:01:21,280
+but instead of having Dynamo DB,
+
+34
+00:01:21,280 --> 00:01:22,310
+we have ElastiCache.
+
+35
+00:01:22,310 --> 00:01:24,750
+And again, just, you know, something just for fun,
+
+36
+00:01:24,750 --> 00:01:26,640
+just to mix things up, but we can definitely
+
+37
+00:01:26,640 --> 00:01:29,670
+use ElastiCache as the back end for Lambda.
+
+38
+00:01:29,670 --> 00:01:32,040
+So, cool everything works, but maybe
+
+39
+00:01:32,040 --> 00:01:34,240
+that second micro service, service two,
+
+40
+00:01:34,240 --> 00:01:36,850
+maybe it also interacts with service one.
+
+41
+00:01:36,850 --> 00:01:38,530
+So the lambda function will make
+
+42
+00:01:38,530 --> 00:01:40,580
+a call to our elastic load balancer
+
+43
+00:01:40,580 --> 00:01:42,180
+because it needs to get some information
+
+44
+00:01:42,180 --> 00:01:45,320
+from the first micro service to be able to make a response.
+
+45
+00:01:45,320 --> 00:01:47,430
+And then maybe we have a third micro service,
+
+46
+00:01:47,430 --> 00:01:49,740
+also using an ELB, but this one
+
+47
+00:01:49,740 --> 00:01:52,350
+is not server-less, it's using Amazon EC2 auto
+
+48
+00:01:52,350 --> 00:01:54,900
+scaling and an Amazon RDS database, so more
+
+49
+00:01:54,900 --> 00:01:57,180
+of the classic architecture we've seen from before.
+
+50
+00:01:57,180 --> 00:01:59,980
+And it turns out that maybe the EC2 instance
+
+51
+00:01:59,980 --> 00:02:02,480
+must make a call to the second micro service
+
+52
+00:02:02,480 --> 00:02:04,770
+before making a decision, so it's represented
+
+53
+00:02:04,770 --> 00:02:06,260
+here by the dotted lines.
+
+54
+00:02:06,260 --> 00:02:07,670
+And here, the URL for this is going
+
+55
+00:02:07,670 --> 00:02:11,300
+to be service3.example.com.
+
+56
+00:02:11,300 --> 00:02:12,570
+So, it's very simple, but what I
+
+57
+00:02:12,570 --> 00:02:14,500
+want to show is just have a quick discussion.
+
+58
+00:02:14,500 --> 00:02:16,600
+You're free to design each micro service
+
+59
+00:02:16,600 --> 00:02:18,170
+the way you want, and this is why
+
+60
+00:02:18,170 --> 00:02:21,030
+I had so many different random architectures.
+
+61
+00:02:21,030 --> 00:02:23,160
+There is two patterns for micro services.
+
+62
+00:02:23,160 --> 00:02:24,840
+There is a synchronous pattern, so this is
+
+63
+00:02:24,840 --> 00:02:27,050
+when we make explicit calls to other
+
+64
+00:02:27,050 --> 00:02:29,510
+micro service, so API Gateway, Load Balancer
+
+65
+00:02:29,510 --> 00:02:33,060
+are great way to do HTTPS calls to other micro services.
+
+66
+00:02:33,060 --> 00:02:35,960
+But there is also an asynchronous pattern
+
+67
+00:02:35,960 --> 00:02:37,780
+that I haven't made into a diagram,
+
+68
+00:02:37,780 --> 00:02:40,330
+but using SQS, or Kinesis, or SNS,
+
+69
+00:02:40,330 --> 00:02:42,030
+or Lambda triggers, or S3.
+
+70
+00:02:42,030 --> 00:02:43,937
+All these things basically we're saying,
+
+71
+00:02:43,937 --> 00:02:45,820
+"I'm goin to put a message in SQS,
+
+72
+00:02:45,820 --> 00:02:47,480
+but I don't care when I get a response,
+
+73
+00:02:47,480 --> 00:02:48,710
+actually I don't care about a response,
+
+74
+00:02:48,710 --> 00:02:50,080
+something else will happen, though."
+
+75
+00:02:50,080 --> 00:02:52,220
+And this is an asynchronous pattern.
+
+76
+00:02:52,220 --> 00:02:54,720
+So, some challenges with micro services,
+
+77
+00:02:54,720 --> 00:02:56,530
+the first one is that you need to
+
+78
+00:02:56,530 --> 00:02:58,240
+have some overhead for creating
+
+79
+00:02:58,240 --> 00:03:00,010
+each new micro service.
+
+80
+00:03:00,010 --> 00:03:02,110
+And you may get issues optimizing
+
+81
+00:03:02,110 --> 00:03:03,870
+server density or utilization.
+
+82
+00:03:03,870 --> 00:03:05,680
+You may get complexity of running
+
+83
+00:03:05,680 --> 00:03:07,210
+multiple versions of each micro
+
+84
+00:03:07,210 --> 00:03:08,760
+service simultaneously.
+
+85
+00:03:08,760 --> 00:03:10,809
+You may get a proliferation of client-side
+
+86
+00:03:10,809 --> 00:03:13,140
+code requirements to integrate with many
+
+87
+00:03:13,140 --> 00:03:14,470
+separate services.
+
+88
+00:03:14,470 --> 00:03:16,410
+But so, most of these challenges,
+
+89
+00:03:16,410 --> 00:03:18,260
+or some of them, are solved by using
+
+90
+00:03:18,260 --> 00:03:19,390
+server-less patterns.
+
+91
+00:03:19,390 --> 00:03:21,520
+For example, API Gateway, Lambda they scale
+
+92
+00:03:21,520 --> 00:03:23,460
+automatically and then you pay for usage.
+
+93
+00:03:23,460 --> 00:03:26,260
+So no need to worry about server utilization.
+
+94
+00:03:26,260 --> 00:03:28,309
+You can easily clone APIs or reproduce
+
+95
+00:03:28,309 --> 00:03:30,890
+environments in API Gateway.
+
+96
+00:03:30,890 --> 00:03:32,209
+And you can, for example, generate
+
+97
+00:03:32,209 --> 00:03:34,761
+client SDK through Swagger integration
+
+98
+00:03:34,761 --> 00:03:36,500
+for the API Gateway.
+
+99
+00:03:36,500 --> 00:03:38,610
+So, all in all, what you need to
+
+100
+00:03:38,610 --> 00:03:40,330
+remember is that micro service is
+
+101
+00:03:40,330 --> 00:03:43,290
+a design, and you can use any of this for that,
+
+102
+00:03:43,290 --> 00:03:44,650
+and it does solve some problems,
+
+103
+00:03:44,650 --> 00:03:46,170
+and it does add some problems.
+
+104
+00:03:46,170 --> 00:03:47,300
+But at least you get an idea of
+
+105
+00:03:47,300 --> 00:03:48,710
+how things would work.
+
+106
+00:03:48,710 --> 00:03:49,930
+Okay, that's it for this lecture.
+
+107
+00:03:49,930 --> 00:03:51,680
+I will see you in the next lecture.
+

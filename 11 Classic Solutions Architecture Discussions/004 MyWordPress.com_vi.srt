@@ -1,0 +1,412 @@
+1
+00:00:00,240 --> 00:00:03,360
+Được rồi, lại một ứng dụng web stateful nữa
+
+2
+00:00:03,360 --> 00:00:06,170
+và chúng ta sẽ gọi nó là MyWordPress.com
+
+3
+00:00:06,170 --> 00:00:08,930
+ở đây chúng ta đang cố tạo một
+
+4
+00:00:08,930 --> 00:00:12,800
+website WordPress có thể mở rộng hoàn toàn và WordPress là một
+
+5
+00:00:12,800 --> 00:00:15,880
+cách phổ biến để tạo website, nó rất phổ biến.
+
+6
+00:00:15,880 --> 00:00:17,200
+Có WordPress dạng hosted
+
+7
+00:00:17,200 --> 00:00:20,480
+nhưng mọi người thích triển khai WordPress trên AWS
+
+8
+00:00:20,480 --> 00:00:22,830
+và chúng ta muốn truy cập website đó
+
+9
+00:00:22,830 --> 00:00:25,700
+và chúng ta muốn hiển thị đúng các ảnh tải lên,
+
+10
+00:00:25,700 --> 00:00:28,420
+vì vậy WordPress sẽ lưu trữ hình ảnh đúng cách
+
+11
+00:00:28,420 --> 00:00:31,900
+somewhere on some drive and then basically
+
+12
+00:00:31,900 --> 00:00:34,410
+all your instances must access that data as well.
+
+13
+00:00:34,410 --> 00:00:36,500
+We'll see this in the solution architecture discussions
+
+14
+00:00:36,500 --> 00:00:40,210
+anyway. And so our user data, the blog content
+
+15
+00:00:40,210 --> 00:00:42,400
+and everything should be stored in a MySQL database
+
+16
+00:00:42,400 --> 00:00:44,200
+and we want this to scale globally
+
+17
+00:00:44,200 --> 00:00:46,610
+so let's see how we can achieve this.
+
+18
+00:00:46,610 --> 00:00:49,450
+So the first thing we have to do is to create a layer
+
+19
+00:00:49,450 --> 00:00:52,270
+that has RDS so we are now very familiar
+
+20
+00:00:52,270 --> 00:00:54,990
+with this kind of architecture with RDS in the back end
+
+21
+00:00:54,990 --> 00:00:56,876
+its Multi AZ it's going to be kind of
+
+22
+00:00:56,876 --> 00:00:58,720
+get through all of these 2 instances
+
+23
+00:00:58,720 --> 00:01:01,570
+but what if I just wanna go and go big
+
+24
+00:01:01,570 --> 00:01:04,769
+and really scale up, maybe I want to replace this layer
+
+25
+00:01:04,769 --> 00:01:08,750
+with Aurora MySQL an I can have Multi AZ, read replicas
+
+26
+00:01:08,750 --> 00:01:10,340
+even global databases if I wanted to.
+
+27
+00:01:10,340 --> 00:01:13,740
+Right here we're just basically getting less operations
+
+28
+00:01:13,740 --> 00:01:16,390
+by using Aurora, it's just a choice I'm making
+
+29
+00:01:16,390 --> 00:01:18,180
+as a solutions architect you don't have to
+
+30
+00:01:18,180 --> 00:01:19,970
+make that choice but I like Aurora,
+
+31
+00:01:19,970 --> 00:01:21,410
+I like the fact that it scales better
+
+32
+00:01:21,410 --> 00:01:24,360
+and I like the fact that it is easier to upwrite.
+
+33
+00:01:24,360 --> 00:01:27,560
+Okay, excellent, so now lets talk about storing images
+
+34
+00:01:27,560 --> 00:01:30,350
+so let's go back to the very simple
+
+35
+00:01:30,350 --> 00:01:33,290
+solution architecture when we have one EC2 instance
+
+36
+00:01:33,290 --> 00:01:35,300
+and it has one EBS volume attached to it
+
+37
+00:01:35,300 --> 00:01:38,150
+so it's in one AZ and so we're gonna get to
+
+38
+00:01:38,150 --> 00:01:40,400
+our loaded answer and so our user wants to
+
+39
+00:01:40,400 --> 00:01:42,740
+send an image to our loaded answer
+
+40
+00:01:42,740 --> 00:01:47,320
+and that image makes it all the way through to EBS
+
+41
+00:01:47,320 --> 00:01:49,890
+so the image is stored on EBS so now it works really well
+
+42
+00:01:49,890 --> 00:01:51,690
+we only have one EC2 instance
+
+43
+00:01:51,690 --> 00:01:54,120
+and so it goes straight the the EBS Volume
+
+44
+00:01:54,120 --> 00:01:56,320
+and we're happy. If we wanted to read that image,
+
+45
+00:01:56,320 --> 00:01:59,250
+same thing, the image can be read from the EBS Volume
+
+46
+00:01:59,250 --> 00:02:02,310
+and sent back to the user so very good, right?
+
+47
+00:02:02,310 --> 00:02:04,640
+The problem arrives when we start scaling
+
+48
+00:02:04,640 --> 00:02:08,370
+so now we have two EC2 instances and two different AZ
+
+49
+00:02:08,370 --> 00:02:11,830
+and each of these EC2 instances have their own
+
+50
+00:02:11,830 --> 00:02:15,720
+EBS Volumes and so what happens is that if I send
+
+51
+00:02:15,720 --> 00:02:18,800
+an image right here from this instance
+
+52
+00:02:18,800 --> 00:02:20,960
+and it gets stored on that EBS Volume
+
+53
+00:02:20,960 --> 00:02:23,660
+if I want to read that image maybe I'll make it this way
+
+54
+00:02:23,660 --> 00:02:26,920
+and yes, I can read it or, very common mistake
+
+55
+00:02:26,920 --> 00:02:29,550
+I can read that image and it will go here
+
+56
+00:02:29,550 --> 00:02:32,610
+and here on the bottom there is no image present
+
+57
+00:02:32,610 --> 00:02:35,140
+and so because it's not the same EBS Volume
+
+58
+00:02:35,140 --> 00:02:37,960
+and so here I won't be able to access my image
+
+59
+00:02:37,960 --> 00:02:39,800
+and so that's really, really bad.
+
+60
+00:02:39,800 --> 00:02:42,410
+So the problem with EBS Volumes is that it works really well
+
+61
+00:02:42,410 --> 00:02:44,600
+when you have one instance but when you start scaling
+
+62
+00:02:44,600 --> 00:02:47,350
+across multiple AZ or multiple instances
+
+63
+00:02:47,350 --> 00:02:49,750
+then it's starting to become problematic.
+
+64
+00:02:49,750 --> 00:02:52,900
+So for this we have seen it and how to store it basically
+
+65
+00:02:52,900 --> 00:02:56,430
+we can use EFS so let's use the exact same architecture
+
+66
+00:02:56,430 --> 00:03:00,340
+but now we are recording in EFS Network File System Drive
+
+67
+00:03:00,340 --> 00:03:04,460
+so EFS is NFS and so EFS basically creates ENI's
+
+68
+00:03:04,460 --> 00:03:06,150
+for Elastic Network Interface
+
+69
+00:03:06,150 --> 00:03:08,520
+and it creates these ENI's into each AZ
+
+70
+00:03:08,520 --> 00:03:12,100
+and this ENI can be used for all our EC2 instances
+
+71
+00:03:12,100 --> 00:03:15,100
+to access our EFS drive and the really cool thing here
+
+72
+00:03:15,100 --> 00:03:18,800
+is that the storage is shared between all the instances
+
+73
+00:03:18,800 --> 00:03:22,520
+so if we send an image to the M5 instance
+
+74
+00:03:22,520 --> 00:03:25,930
+to the ENI, to EFS so the image is stored in EFS
+
+75
+00:03:25,930 --> 00:03:27,570
+now if you wanna read the image,
+
+76
+00:03:27,570 --> 00:03:29,690
+it goes all the way to the bottom
+
+77
+00:03:29,690 --> 00:03:32,250
+and through the ENI and it's going to read on EFS
+
+78
+00:03:32,250 --> 00:03:34,760
+and yes EFS has that image available
+
+79
+00:03:34,760 --> 00:03:37,910
+so we can send it back and so this is a very common way
+
+80
+00:03:37,910 --> 00:03:41,280
+of scaling website storage across many different
+
+81
+00:03:41,280 --> 00:03:44,580
+EC2 instances to allow them all to have access to
+
+82
+00:03:44,580 --> 00:03:48,230
+the same files regardless of their availability zone
+
+83
+00:03:48,230 --> 00:03:50,360
+and how many instances we have.
+
+84
+00:03:50,360 --> 00:03:52,270
+So that's it that's that little subtlety
+
+85
+00:03:52,270 --> 00:03:55,400
+for WordPress but I wanted to discuss EBS vs EFS.
+
+86
+00:03:55,400 --> 00:03:57,000
+So we talked about Aurora Database
+
+87
+00:03:57,000 --> 00:03:58,960
+to basically have less operations
+
+88
+00:03:58,960 --> 00:04:01,210
+and have multi AZ and read replicas
+
+89
+00:04:01,210 --> 00:04:03,280
+and we've talked about storing data in EBS
+
+90
+00:04:03,280 --> 00:04:07,170
+which works great when we're in a single instance
+
+91
+00:04:07,170 --> 00:04:10,030
+application but it doesn't work really great when we have
+
+92
+00:04:10,030 --> 00:04:12,950
+many, and so maybe we can use EFS then
+
+93
+00:04:12,950 --> 00:04:14,590
+to have a distributed application
+
+94
+00:04:14,590 --> 00:04:17,120
+across multi AZ and that kind of stuff
+
+95
+00:04:17,120 --> 00:04:20,089
+now the costing aspect of it is that EBS is cheaper
+
+96
+00:04:20,089 --> 00:04:24,260
+than EFS but we do get a lot of advantages by using EFS
+
+97
+00:04:24,260 --> 00:04:25,930
+especially in these kind of use cases
+
+98
+00:04:25,930 --> 00:04:28,330
+so again, it's up to you as a solution architect
+
+99
+00:04:28,330 --> 00:04:30,150
+to really understand the trade offs for doing
+
+100
+00:04:30,150 --> 00:04:31,950
+and why you're doing things and the cost
+
+101
+00:04:31,950 --> 00:04:34,090
+implications of what you're doing.
+
+102
+00:04:34,090 --> 00:04:35,550
+So I hope that was helpful for this lecture
+
+103
+00:04:35,550 --> 00:04:37,500
+and I will see you in the next lecture.
+
