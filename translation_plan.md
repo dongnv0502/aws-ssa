@@ -1,7 +1,7 @@
 # Kế Hoạch Dịch Subtitle AWS SAA-C03
 
 ## Tổng Quan
-- **Số lượng file cần dịch**: 229 file .srt
+- **Số lượng file cần dịch**: 227 file .srt
 - **Ngôn ngữ**: Tiếng Anh → Tiếng Việt
 - **Mục tiêu**: Dịch toàn bộ subtitle với chất lượng cao, tuân thủ quy tắc chuyên môn
 
@@ -17,6 +17,7 @@
 - **Dễ hiểu, ngắn gọn**: Ưu tiên sự rõ ràng
 - **Linh hoạt về cấu trúc câu**: Có thể gộp hoặc chia lại câu cho tự nhiên
 - **Không dịch cứng nhắc**: Không bắt buộc 1 câu tiếng Anh = 1 câu tiếng Việt
+- **Tiếng Việt chuẩn**: Tránh dùng từ địa phương hoặc tiếng lóng
 
 ### 3. Quy Tắc Phụ Đề
 - **Chiều dài phù hợp**: Mỗi dòng không quá dài
@@ -38,7 +39,7 @@ Next text content
 ## Danh Sách Module Cần Dịch
 1. **01 Introduction - AWS Certified Solutions Architect Associate** (12 files)
 2. **03 Getting started with AWS** (6 files)  
-3. **06 EC2 - Solutions Architect Associate Level** (9 files)
+3. **06 EC2 - Solutions Architect Associate Level** (7 files)
 4. **07 EC2 Instance Storage** (24 files)
 5. **08 High Availability and Scalability ELB & ASG** (30 files)
 6. **09 AWS Fundamentals RDS + Aurora + ElastiCache** (23 files)
@@ -59,36 +60,36 @@ Next text content
 21. **30 Other Services** (20 files)
 
 ## Quy Trình Thực Hiện
-1. **Backup file gốc**: Tạo thư mục `original_subtitles_backup`
-2. **Dịch từng module**: Bắt đầu từ module 01
-3. **Đặt tên file dịch**: Thêm suffix `_vi` (ví dụ: `001_video_vi.srt`)
-4. **Quality check**: Kiểm tra sau mỗi file dịch
-5. **Progress tracking**: Cập nhật tiến độ trong file này
+1. **Dịch từng module**: Bắt đầu từ module 01
+2. **Đặt tên file dịch**: Thêm suffix `_vi` (ví dụ: `001_video_vi.srt`)
+3. **Quality check**: Kiểm tra sau mỗi file dịch
+4. **Progress tracking**: Cập nhật tiến độ trong file này
+5. **Đánh dấu module hoàn thành**: Tick `[x]` vào module đã dịch xong; không cần liệt kê các file đã hoàn thành
 
 ## Tiến Độ Thực Hiện
-- [ ] Module 01: 7/7 files ✅ 001, 003, 004, 005, 006, 006, 007
-- [ ] Module 03: 6/6 files ✅ 001 AWS Cloud Overview, 002 [Important], 002 Tour of the AWS Console & Services in AWS, 003 About the UI changes in the course, 003 Tour of the AWS Console & Services in AWS, 004 About the UI changes in the course
-- [ ] Module 06: 7/9 files ✅ 001 Private vs Public vs Elastic IP, 003 EC2 Placement Groups, 004 EC2 Placement Groups - Hands On, 005 Elastic Network Interfaces (ENI) - Overview, 006 Elastic Network Interfaces (ENI) - Hands On, 008 EC2 Hibernate, 009 EC2 Hibernate - Hands On
-- [ ] Module 07: 2/24 files ✅ 001 EBS Overview, 002 EBS Hands On
+- [x] Module 01: 7/7 files
+- [x] Module 03: 6/6 files
+- [x] Module 06: 7/7 files
+- [ ] Module 07: 2/24 files
 - [ ] Module 08: 0/30 files
 - [ ] Module 09: 0/23 files
-- [ ] Module 11: 1/16 files ✅ 001 Solutions Architecture Discussions Overview
-- [ ] Module 12: 3/16 files ✅ 005 S3 Website Overview, 007 S3 Versioning, 010 S3 Replication Notes
-- [ ] Module 13: 2/24 files ✅ 003 S3 Requester Pays, 007 S3 Select & Glacier Select
-- [ ] Module 14: 1/31 files ✅ 004 S3 Default Encryption
-- [ ] Module 15: 2/20 files ✅ 003 CloudFront - ALB as an Origin, 004 CloudFront - Geo Restriction
+- [ ] Module 11: 1/16 files
+- [ ] Module 12: 3/16 files
+- [ ] Module 13: 2/24 files
+- [ ] Module 14: 1/31 files
+- [ ] Module 15: 2/20 files
 - [ ] Module 17: 0/7 files
 - [ ] Module 18: 0/16 files
 - [ ] Module 20: 0/10 files
-- [ ] Module 21: 2/25 files ✅ 007 DocumentDB, 009 Keyspaces
+- [ ] Module 21: 2/25 files
 - [ ] Module 22: 0/30 files
 - [ ] Module 25: 0/17 files
-- [ ] Module 26: 3/31 files ✅ 001 Section Intro, 007 Encrypted AMI Sharing, 021 Amazon Macie
+- [ ] Module 26: 3/31 files
 - [ ] Module 28: 0/10 files
 - [ ] Module 29: 0/12 files
-- [ ] Module 30: 2/20 files ✅ 001 Section Intro, 010 AWS Cost Anomaly Detection
+- [ ] Module 30: 2/20 files
 
-**Tổng tiến độ: 38/229 files (16.6%)**
+**Tổng tiến độ: 38/227 files (16.7%)**
 
 ## Ghi Chú
 - Ưu tiên dịch các module cơ bản trước (01, 03, 06)
