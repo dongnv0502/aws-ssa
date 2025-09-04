@@ -1,0 +1,160 @@
+1
+00:00:00,450 --> 00:00:02,830
+Đây là một tính năng mà bạn có thể bị hỏi trong kỳ thi
+
+2
+00:00:02,830 --> 00:00:03,663
+ở kỳ thi.
+
+3
+00:00:03,663 --> 00:00:05,720
+Nó được gọi là S3 Requester Pays.
+
+4
+00:00:05,720 --> 00:00:07,520
+Tên gọi đã khá rõ ràng.
+
+5
+00:00:07,520 --> 00:00:10,530
+Nhìn chung, như chúng ta đã thấy,
+
+6
+00:00:10,530 --> 00:00:14,550
+chủ sở hữu bucket sẽ trả cho toàn bộ chi phí lưu trữ Amazon S3
+
+7
+00:00:14,550 --> 00:00:16,880
+và cả chi phí truyền dữ liệu liên quan
+
+8
+00:00:16,880 --> 00:00:17,780
+với bucket của họ.
+
+9
+00:00:17,780 --> 00:00:19,360
+Hãy lấy một ví dụ.
+
+10
+00:00:19,360 --> 00:00:20,590
+Chúng ta có một số bucket,
+
+11
+00:00:20,590 --> 00:00:22,240
+chúng ta lưu trữ vài object trong đó,
+
+12
+00:00:22,240 --> 00:00:25,790
+và rồi một requester, tức là một người dùng sẽ tải về một file
+
+13
+00:00:25,790 --> 00:00:27,000
+từ bucket của chúng ta.
+
+14
+00:00:27,000 --> 00:00:27,870
+Và điều xảy ra là
+
+15
+00:00:27,870 --> 00:00:31,510
+chi phí mạng cũng được tính
+
+16
+00:00:31,510 --> 00:00:35,520
+cho chủ sở hữu bucket và các object, đúng chứ?
+
+17
+00:00:35,520 --> 00:00:39,430
+Nhưng nếu bạn có nhiều file lớn
+
+18
+00:00:39,430 --> 00:00:41,610
+và một số khách hàng muốn tải chúng,
+
+19
+00:00:41,610 --> 00:00:44,960
+có lẽ bạn sẽ muốn bật bucket Requester Pays.
+
+20
+00:00:44,960 --> 00:00:47,710
+Lúc đó, requester sẽ trả
+
+21
+00:00:47,710 --> 00:00:49,700
+thay vì chủ bucket
+
+22
+00:00:49,700 --> 00:00:51,960
+cho chi phí tải dữ liệu các object.
+
+23
+00:00:51,960 --> 00:00:53,860
+Lại ví dụ nhé.
+
+24
+00:00:53,860 --> 00:00:56,360
+Chủ sở hữu vẫn trả chi phí lưu trữ
+
+25
+00:00:56,360 --> 00:00:58,320
+cho các object trong bucket,
+
+26
+00:00:58,320 --> 00:01:01,800
+nhưng giờ requester sẽ tải object
+
+27
+00:01:01,800 --> 00:01:03,510
+và requester sẽ là người trả
+
+28
+00:01:03,510 --> 00:01:06,650
+chi phí mạng liên quan đến việc tải đó.
+
+29
+00:01:06,650 --> 00:01:09,130
+Ý tưởng là điều này rất hữu ích nếu bạn muốn
+
+30
+00:01:09,130 --> 00:01:12,410
+bắt đầu chia sẻ bộ dữ liệu lớn với các tài khoản khác.
+
+31
+00:01:12,410 --> 00:01:13,870
+Và để làm được như vậy,
+
+32
+00:01:13,870 --> 00:01:17,050
+requester không được ẩn danh, hiểu chứ?
+
+33
+00:01:17,050 --> 00:01:19,540
+Requester phải được xác thực
+
+34
+00:01:19,540 --> 00:01:23,980
+trong AWS vì khi được xác thực với AWS,
+
+35
+00:01:23,980 --> 00:01:28,140
+thì AWS sẽ biết để tính phí cho requester của yêu cầu đó
+
+36
+00:01:28,140 --> 00:01:31,560
+cho lần tải object cụ thể đó, được chứ?
+
+37
+00:01:31,560 --> 00:01:32,910
+Vậy thôi, chỉ là một tính năng cần ghi nhớ.
+
+38
+00:01:32,910 --> 00:01:35,380
+Nó có thể xuất hiện trong đề thi dưới dạng tình huống.
+
+39
+00:01:35,380 --> 00:01:36,213
+Hy vọng bạn thích,
+
+40
+00:01:36,213 --> 00:01:38,130
+hẹn gặp bạn trong bài giảng tiếp theo.
+

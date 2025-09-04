@@ -1,0 +1,136 @@
+1
+00:00:00,300 --> 00:00:02,070
+Giờ hãy nói về S3 Select
+
+2
+00:00:02,070 --> 00:00:03,360
+và Glacier Select.
+
+3
+00:00:03,360 --> 00:00:05,340
+Ý tưởng là bạn biết bạn muốn lấy
+
+4
+00:00:05,340 --> 00:00:06,720
+một file từ S3,
+
+5
+00:00:06,720 --> 00:00:09,090
+nhưng rồi bạn sẽ lọc nó sau khi tải về,
+
+6
+00:00:09,090 --> 00:00:11,730
+vì thế bạn tải về quá nhiều dữ liệu.
+
+7
+00:00:11,730 --> 00:00:13,440
+Nếu thay vào đó bạn có thể dùng SQL
+
+8
+00:00:13,440 --> 00:00:15,390
+để thực hiện việc lọc phía server?
+
+9
+00:00:15,390 --> 00:00:17,370
+Điều đó có nghĩa là bạn sẽ lọc
+
+10
+00:00:17,370 --> 00:00:20,130
+theo dòng hoặc cột bằng các câu lệnh SQL đơn giản
+
+11
+00:00:20,130 --> 00:00:22,410
+để giảm truyền dữ liệu qua mạng
+
+12
+00:00:22,410 --> 00:00:23,940
+và giảm chi phí CPU phía client
+
+13
+00:00:23,940 --> 00:00:26,790
+khi duyệt và lọc dữ liệu.
+
+14
+00:00:26,790 --> 00:00:28,380
+Trước khi có S3 Select,
+
+15
+00:00:28,380 --> 00:00:30,810
+bạn sẽ tải toàn bộ dữ liệu
+
+16
+00:00:30,810 --> 00:00:33,060
+và sau đó, phía ứng dụng, bạn lọc nó
+
+17
+00:00:33,060 --> 00:00:34,320
+để tìm thứ bạn cần.
+
+18
+00:00:34,320 --> 00:00:35,730
+Và đó là rất nhiều dữ liệu được tải về
+
+19
+00:00:35,730 --> 00:00:37,950
+trong khi chỉ dùng một phần nhỏ.
+
+20
+00:00:37,950 --> 00:00:39,510
+Nhưng nếu bạn dùng S3 Select,
+
+21
+00:00:39,510 --> 00:00:42,960
+Amazon S3 sẽ lọc file cho bạn,
+
+22
+00:00:42,960 --> 00:00:44,820
+và bạn chỉ lấy dữ liệu mình cần.
+
+23
+00:00:44,820 --> 00:00:47,910
+Vì vậy Amazon cho rằng nó nhanh hơn tới 400%
+
+24
+00:00:47,910 --> 00:00:51,150
+và tiết kiệm 80% chi phí khi dùng S3 Select.
+
+25
+00:00:51,150 --> 00:00:52,680
+Nhìn ở sơ đồ khác,
+
+26
+00:00:52,680 --> 00:00:54,450
+chúng ta muốn lấy một CSV
+
+27
+00:00:54,450 --> 00:00:56,610
+bằng Amazon S3 Select, nhé.
+
+28
+00:00:56,610 --> 00:00:59,070
+Amazon S3 sẽ tìm file CSV
+
+29
+00:00:59,070 --> 00:01:02,310
+và lọc nó phía server, trên chính dịch vụ của nó,
+
+30
+00:01:02,310 --> 00:01:04,680
+sau đó gửi cho chúng ta bộ dữ liệu đã lọc
+
+31
+00:01:04,680 --> 00:01:07,770
+để kích thước nhỏ hơn và rẻ hơn nhiều.
+
+32
+00:01:07,770 --> 00:01:11,070
+Vì vậy để lọc đơn giản, hãy nghĩ tới S3 Select
+
+33
+00:01:11,070 --> 00:01:14,430
+và nó cũng hoạt động với Glacier, tức Glacier Select.
+
+34
+00:01:14,430 --> 00:01:16,730
+Vậy thôi. Hẹn gặp bạn ở bài giảng tiếp theo.
+

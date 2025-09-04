@@ -1,0 +1,552 @@
+1
+00:00:00,000 --> 00:00:02,009
+Bây giờ chúng ta hãy nói về placement group.
+
+2
+00:00:02,009 --> 00:00:03,780
+Placement group nâng cao hơn một chút,
+
+3
+00:00:03,780 --> 00:00:05,280
+và chúng ta muốn dùng chúng
+
+4
+00:00:05,280 --> 00:00:08,640
+khi muốn kiểm soát cách các EC2 instance của chúng ta
+
+5
+00:00:08,640 --> 00:00:12,420
+được sắp xếp trong hạ tầng AWS.
+
+6
+00:00:12,420 --> 00:00:14,040
+Chiến lược đó có thể được xác định
+
+7
+00:00:14,040 --> 00:00:15,930
+bằng cách sử dụng placement group này.
+
+8
+00:00:15,930 --> 00:00:19,860
+Chúng ta không thể tương tác trực tiếp với phần cứng của AWS,
+
+9
+00:00:19,860 --> 00:00:23,370
+nhưng chúng ta cho AWS biết cách chúng ta muốn các EC2 instance
+
+10
+00:00:23,370 --> 00:00:25,830
+được đặt so với nhau như thế nào.
+
+11
+00:00:25,830 --> 00:00:27,660
+Vì vậy khi bạn tạo placement group,
+
+12
+00:00:27,660 --> 00:00:30,420
+bạn có ba chiến lược để lựa chọn.
+
+13
+00:00:30,420 --> 00:00:33,330
+Bạn có cluster placement group nơi các instance của bạn
+
+14
+00:00:33,330 --> 00:00:37,680
+được gom lại trong một thiết lập phần cứng độ trễ thấp
+
+15
+00:00:37,680 --> 00:00:39,750
+trong cùng một availability zone.
+
+16
+00:00:39,750 --> 00:00:42,210
+Nó mang lại hiệu năng cao nhưng rủi ro cũng cao.
+
+17
+00:00:42,210 --> 00:00:44,100
+Chúng ta sẽ xem chi tiết điều này ngay sau đây.
+
+18
+00:00:44,100 --> 00:00:46,320
+Spread nghĩa là các instance của bạn
+
+19
+00:00:46,320 --> 00:00:49,500
+sẽ được phân tán trên nhiều phần cứng khác nhau,
+
+20
+00:00:49,500 --> 00:00:50,940
+và có một giới hạn cho việc này.
+
+21
+00:00:50,940 --> 00:00:53,610
+Nghĩa là bạn chỉ có thể có bảy EC2 instance
+
+22
+00:00:53,610 --> 00:00:56,790
+cho mỗi placement group được spread trên mỗi AZ.
+
+23
+00:00:56,790 --> 00:00:59,160
+Vì vậy bạn sẽ dùng spread placement group
+
+24
+00:00:59,160 --> 00:01:01,590
+khi bạn có ứng dụng quan trọng.
+
+25
+00:01:01,590 --> 00:01:03,420
+Cuối cùng, loại còn lại là một dạng mới
+
+26
+00:01:03,420 --> 00:01:05,129
+của placement group rất hữu ích.
+
+27
+00:01:05,129 --> 00:01:06,450
+Nó được gọi là partition.
+
+28
+00:01:06,450 --> 00:01:08,340
+Nó giống như spread,
+
+29
+00:01:08,340 --> 00:01:10,710
+nghĩa là bạn muốn phân tán các instance,
+
+30
+00:01:10,710 --> 00:01:13,590
+nhưng ở đây chúng được phân tán trên nhiều partition khác nhau.
+
+31
+00:01:13,590 --> 00:01:16,770
+Và các partition này dựa trên các bộ rack khác nhau
+
+32
+00:01:16,770 --> 00:01:19,020
+của phần cứng trong cùng một AZ.
+
+33
+00:01:19,020 --> 00:01:21,060
+Điều đó có nghĩa là chúng vẫn được phân tán,
+
+34
+00:01:21,060 --> 00:01:23,910
+nhưng chúng không được cô lập hoàn toàn khỏi lỗi của nhau,
+
+35
+00:01:23,910 --> 00:01:25,680
+nhưng mỗi partition phải được tách biệt
+
+36
+00:01:25,680 --> 00:01:27,750
+với partition khác khi xảy ra lỗi.
+
+37
+00:01:27,750 --> 00:01:29,850
+Ý tưởng ở đây là bạn có thể mở rộng tới hàng trăm
+
+38
+00:01:29,850 --> 00:01:32,730
+EC2 instance mỗi nhóm và điều đó cho phép bạn
+
+39
+00:01:32,730 --> 00:01:34,920
+chạy các ứng dụng như Hadoop,
+
+40
+00:01:34,920 --> 00:01:36,960
+Cassandra hoặc Kafka.
+
+41
+00:01:36,960 --> 00:01:38,610
+Bây giờ hãy xem từng
+
+42
+00:01:38,610 --> 00:01:41,220
+loại placement group chi tiết hơn.
+
+43
+00:01:41,220 --> 00:01:44,700
+Đầu tiên, chúng ta có cluster placement group,
+
+44
+00:01:44,700 --> 00:01:47,790
+và tất cả EC2 instance của bạn sẽ được
+
+45
+00:01:47,790 --> 00:01:50,550
+nằm trong cùng một availability zone.
+
+46
+00:01:50,550 --> 00:01:52,110
+Vì sao chúng ta làm vậy?
+
+47
+00:01:52,110 --> 00:01:55,200
+Placement group kiểu này
+
+48
+00:01:55,200 --> 00:01:57,270
+mang lại khả năng mạng tuyệt vời.
+
+49
+00:01:57,270 --> 00:02:01,080
+Bạn có khoảng 10 gigabit mỗi giây
+
+50
+00:02:01,080 --> 00:02:03,870
+băng thông giữa tất cả các instance
+
+51
+00:02:03,870 --> 00:02:06,630
+có bật enhanced networking.
+
+52
+00:02:06,630 --> 00:02:09,960
+Do đó bạn có mạng độ trễ thấp, thông lượng cao.
+
+53
+00:02:09,960 --> 00:02:11,580
+Ý tưởng là nhờ đó
+
+54
+00:02:11,580 --> 00:02:12,750
+bạn có thể có hiệu năng cao
+
+55
+00:02:12,750 --> 00:02:15,420
+cho bất kỳ tác vụ tính toán nào.
+
+56
+00:02:15,420 --> 00:02:18,660
+Nhược điểm của kiến trúc này
+
+57
+00:02:18,660 --> 00:02:21,480
+là nếu AZ của bạn gặp sự cố,
+
+58
+00:02:21,480 --> 00:02:24,690
+thì toàn bộ instance sẽ bị hỏng cùng lúc.
+
+59
+00:02:24,690 --> 00:02:26,970
+Nhưng với nhiều trường hợp, điều này vẫn chấp nhận được.
+
+60
+00:02:26,970 --> 00:02:29,670
+Do đó, trường hợp sử dụng cho loại placement group này
+
+61
+00:02:29,670 --> 00:02:33,780
+là các job big data cần hoàn thành rất nhanh
+
+62
+00:02:33,780 --> 00:02:35,490
+với mạng rất nhanh
+
+63
+00:02:35,490 --> 00:02:38,460
+hoặc các ứng dụng cần độ trễ cực thấp
+
+64
+00:02:38,460 --> 00:02:39,990
+và thông lượng mạng cao
+
+65
+00:02:39,990 --> 00:02:44,010
+giữa các instance trong ứng dụng.
+
+66
+00:02:44,010 --> 00:02:45,810
+Ngược lại, spread là hoàn toàn trái ngược.
+
+67
+00:02:45,810 --> 00:02:48,510
+Với spread, chúng ta muốn giảm thiểu rủi ro lỗi.
+
+68
+00:02:48,510 --> 00:02:51,990
+Do đó, khi yêu cầu spread placement group,
+
+69
+00:02:51,990 --> 00:02:55,140
+tất cả EC2 instance sẽ nằm
+
+70
+00:02:55,140 --> 00:02:56,520
+trên các phần cứng khác nhau.
+
+71
+00:02:56,520 --> 00:02:58,920
+Như bạn thấy ở đây, chúng ta có ba AZ,
+
+72
+00:02:58,920 --> 00:03:02,040
+và có sáu EC2, mỗi EC2
+
+73
+00:03:02,040 --> 00:03:03,720
+ở trên phần cứng khác nhau.
+
+74
+00:03:03,720 --> 00:03:04,800
+Điều đó có nghĩa là gì?
+
+75
+00:03:04,800 --> 00:03:07,890
+Nghĩa là chúng ta có thể trải rộng qua nhiều AZ,
+
+76
+00:03:07,890 --> 00:03:11,100
+và giảm rủi ro hỏng đồng thời.
+
+77
+00:03:11,100 --> 00:03:11,933
+Tại sao?
+
+78
+00:03:11,933 --> 00:03:14,370
+Bởi vì nếu phần cứng 1 hỏng,
+
+79
+00:03:14,370 --> 00:03:16,740
+thì phần cứng 2 của tôi chắc chắn không hỏng.
+
+80
+00:03:16,740 --> 00:03:18,360
+Như vậy chúng ta đã tách rời rủi ro
+
+81
+00:03:18,360 --> 00:03:21,360
+của hai instance ở us-east-1a
+
+82
+00:03:21,360 --> 00:03:23,100
+cùng hỏng một lúc.
+
+83
+00:03:23,100 --> 00:03:24,780
+Đó là lợi ích của cách này.
+
+84
+00:03:24,780 --> 00:03:27,690
+Nhược điểm là với cấu hình này,
+
+85
+00:03:27,690 --> 00:03:31,500
+chúng ta bị giới hạn bảy instance mỗi AZ cho mỗi placement group.
+
+86
+00:03:31,500 --> 00:03:34,260
+Vì vậy có giới hạn về độ lớn của placement group.
+
+87
+00:03:34,260 --> 00:03:36,120
+Do đó bạn cần ứng dụng
+
+88
+00:03:36,120 --> 00:03:39,210
+có kích thước vừa phải, không quá lớn.
+
+89
+00:03:39,210 --> 00:03:42,210
+Trường hợp sử dụng là ứng dụng cần tối đa hóa
+
+90
+00:03:42,210 --> 00:03:44,250
+tính sẵn sàng cao và giảm rủi ro.
+
+91
+00:03:44,250 --> 00:03:46,920
+Nói chung, cho ứng dụng quan trọng
+
+92
+00:03:46,920 --> 00:03:49,830
+khi lỗi của mỗi instance phải được cô lập
+
+93
+00:03:49,830 --> 00:03:51,000
+với nhau.
+
+94
+00:03:51,000 --> 00:03:53,190
+Hãy nhớ, ở đây chúng ta có giới hạn
+
+95
+00:03:53,190 --> 00:03:56,223
+bảy instance mỗi AZ mỗi placement group.
+
+96
+00:03:57,090 --> 00:03:59,250
+Còn với partition placement group,
+
+97
+00:03:59,250 --> 00:04:02,340
+chúng ta có thể phân tán instance giữa các partition
+
+98
+00:04:02,340 --> 00:04:04,500
+trong nhiều AZ.
+
+99
+00:04:04,500 --> 00:04:06,990
+Chúng ta có thể có tối đa bảy partition mỗi AZ.
+
+100
+00:04:06,990 --> 00:04:08,550
+Trong ví dụ này, chúng ta có partition 1
+
+101
+00:04:08,550 --> 00:04:11,760
+và partition 2 ở us-east-1a
+
+102
+00:04:11,760 --> 00:04:14,910
+và partition 3 ở us-east-1b.
+
+103
+00:04:14,910 --> 00:04:17,910
+Và trên mỗi partition bạn có thể có nhiều EC2 instance.
+
+104
+00:04:17,910 --> 00:04:19,350
+Partition đầu tiên có bốn,
+
+105
+00:04:19,350 --> 00:04:20,399
+partition thứ hai có bốn,
+
+106
+00:04:20,399 --> 00:04:22,590
+và partition thứ ba cũng có bốn.
+
+107
+00:04:22,590 --> 00:04:24,600
+Vậy tại sao dùng partition placement group?
+
+108
+00:04:24,600 --> 00:04:28,350
+Bởi vì mỗi partition đại diện cho một rack trong AWS.
+
+109
+00:04:28,350 --> 00:04:30,270
+Nhờ có nhiều partition, bạn đảm bảo rằng
+
+110
+00:04:30,270 --> 00:04:32,520
+các instance được phân bố
+
+111
+00:04:32,520 --> 00:04:35,400
+trên nhiều rack phần cứng, do đó
+
+112
+00:04:35,400 --> 00:04:38,580
+chúng an toàn trước lỗi của từng rack.
+
+113
+00:04:38,580 --> 00:04:41,550
+Bạn có thể có tối đa bảy partition mỗi AZ,
+
+114
+00:04:41,550 --> 00:04:43,620
+và các partition này có thể trải rộng
+
+115
+00:04:43,620 --> 00:04:47,790
+trên nhiều AZ trong cùng một region.
+
+116
+00:04:47,790 --> 00:04:51,270
+Với cấu hình này bạn có thể có hàng trăm EC2 instance.
+
+117
+00:04:51,270 --> 00:04:52,380
+Đây là điểm khác biệt
+
+118
+00:04:52,380 --> 00:04:55,170
+so với kiểu placement group spread.
+
+119
+00:04:55,170 --> 00:04:58,110
+Như tôi đã nói, các instance trong partition
+
+120
+00:04:58,110 --> 00:05:01,020
+không chia sẻ cùng rack phần cứng
+
+121
+00:05:01,020 --> 00:05:03,420
+với các instance ở partition khác,
+
+122
+00:05:03,420 --> 00:05:07,950
+do đó mỗi partition được cô lập khỏi lỗi.
+
+123
+00:05:07,950 --> 00:05:09,780
+Điều đó nghĩa là nếu một partition gặp sự cố,
+
+124
+00:05:09,780 --> 00:05:12,420
+ví dụ partition số hai bị hỏng,
+
+125
+00:05:12,420 --> 00:05:14,970
+thì partition số một vẫn ổn.
+
+126
+00:05:14,970 --> 00:05:19,620
+Để biết EC2 instance thuộc partition nào,
+
+127
+00:05:19,620 --> 00:05:22,510
+có tùy chọn truy cập thông tin này
+
+128
+00:05:24,150 --> 00:05:26,310
+bằng dịch vụ metadata.
+
+129
+00:05:26,310 --> 00:05:28,680
+Vậy khi nào dùng partition placement group?
+
+130
+00:05:28,680 --> 00:05:30,150
+Khi bạn có ứng dụng
+
+131
+00:05:30,150 --> 00:05:33,120
+có khả năng nhận biết partition để phân phối dữ liệu
+
+132
+00:05:33,120 --> 00:05:35,160
+và máy chủ qua các partition.
+
+133
+00:05:35,160 --> 00:05:36,810
+Và thường thì các trường hợp
+
+134
+00:05:36,810 --> 00:05:38,966
+là ứng dụng big data
+
+135
+00:05:38,966 --> 00:05:42,810
+có nhận biết partition như HDFS,
+
+136
+00:05:42,810 --> 00:05:46,440
+HBase, Cassandra và Apache Kafka.
+
+137
+00:05:46,440 --> 00:05:47,610
+Bài học đến đây là kết thúc.
+
+138
+00:05:47,610 --> 00:05:50,610
+Hy vọng bạn thích và hẹn gặp lại trong bài học tiếp theo.
+

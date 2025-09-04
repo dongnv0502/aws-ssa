@@ -1,0 +1,432 @@
+1
+00:00:00,210 --> 00:00:01,400
+Được rồi, chúng ta sẽ đi vào
+
+2
+00:00:01,400 --> 00:00:04,500
+khái niệm rất thú vị về Private và Public IP.
+
+3
+00:00:04,500 --> 00:00:06,830
+Điều này có thể quá cơ bản với bạn, tôi xin lỗi,
+
+4
+00:00:06,830 --> 00:00:08,180
+nhưng một số người vẫn cần hỗ trợ
+
+5
+00:00:08,180 --> 00:00:09,690
+nên tôi muốn giúp mọi người.
+
+6
+00:00:09,690 --> 00:00:13,900
+Trong mạng chúng ta có địa chỉ IP, gồm IPv4 và IPv6.
+
+7
+00:00:13,900 --> 00:00:16,930
+IPv4 là loại phổ biến nhất, chắc bạn đã biết
+
+8
+00:00:16,930 --> 00:00:19,880
+nó gồm bốn số được ngăn bằng ba dấu chấm.
+
+9
+00:00:19,880 --> 00:00:23,140
+IPv6 ít phổ biến hơn, có chuỗi rất dài
+
+10
+00:00:23,140 --> 00:00:26,820
+các ký hiệu, số và chữ cái kỳ lạ
+
+11
+00:00:26,820 --> 00:00:30,290
+và trong khóa học này chúng ta chỉ dùng IPv4,
+
+12
+00:00:30,290 --> 00:00:33,726
+nhưng AWS cũng hỗ trợ IPv6.
+
+13
+00:00:33,726 --> 00:00:37,129
+Hiện tại IPv4 vẫn là định dạng phổ biến nhất trên Internet
+
+14
+00:00:37,129 --> 00:00:40,210
+IPv6 dành nhiều hơn cho IoT, Internet of Things
+
+15
+00:00:40,210 --> 00:00:43,130
+và nó giải quyết nhiều vấn đề nhưng không phải cho chúng ta
+
+16
+00:00:43,130 --> 00:00:45,970
+vì ta chưa gặp vấn đề nào với IPv4.
+
+17
+00:00:45,970 --> 00:00:49,110
+IPv4 cho phép khoảng 3,7 tỷ địa chỉ khác nhau
+
+18
+00:00:49,110 --> 00:00:51,268
+trong không gian công cộng và đang gần cạn kiệt
+
+19
+00:00:51,268 --> 00:00:54,860
+mỗi số có thể dao động
+
+20
+00:00:54,860 --> 00:00:58,340
+từ 0 đến 255, ngăn cách bằng dấu chấm
+
+21
+00:00:58,340 --> 00:00:59,230
+nên nếu bạn tính,
+
+22
+00:00:59,230 --> 00:01:02,330
+sẽ có 3,7 tỷ địa chỉ khác nhau.
+
+23
+00:01:02,330 --> 00:01:04,849
+Giờ hãy lấy ví dụ
+
+24
+00:01:04,849 --> 00:01:06,761
+nếu bạn có một web server công khai,
+
+25
+00:01:06,761 --> 00:01:09,810
+đó có thể là EC2 instance của chúng ta với Public IP
+
+26
+00:01:09,810 --> 00:01:12,350
+và chúng ta có máy chủ khác với Public IP khác
+
+27
+00:01:12,350 --> 00:01:14,890
+và nhờ các Public IP, những máy chủ này
+
+28
+00:01:14,890 --> 00:01:17,670
+có thể giao tiếp với nhau, rất tuyệt.
+
+29
+00:01:17,670 --> 00:01:21,200
+Khi chúng ta có một công ty, ví dụ công ty của tôi
+
+30
+00:01:21,200 --> 00:01:24,220
+và có mạng riêng, mạng riêng này
+
+31
+00:01:24,220 --> 00:01:27,280
+có dải IP riêng, các private IP
+
+32
+00:01:27,280 --> 00:01:30,200
+được định nghĩa theo cách rất cụ thể
+
+33
+00:01:30,200 --> 00:01:32,620
+nhưng điều đó nghĩa là tất cả máy tính
+
+34
+00:01:32,620 --> 00:01:34,260
+trong mạng riêng
+
+35
+00:01:34,260 --> 00:01:37,090
+có thể nói chuyện với nhau bằng private IP.
+
+36
+00:01:37,090 --> 00:01:39,750
+Khi nối ra Internet Gateway,
+
+37
+00:01:39,750 --> 00:01:42,020
+là cổng công cộng, các instance này
+
+38
+00:01:42,020 --> 00:01:45,147
+cũng sẽ truy cập được các server khác, v.v.
+
+39
+00:01:45,147 --> 00:01:47,750
+và đó là mô hình phổ biến trên AWS.
+
+40
+00:01:47,750 --> 00:01:50,220
+Giả sử bạn có công ty khác
+
+41
+00:01:50,220 --> 00:01:52,020
+cũng có mạng riêng
+
+42
+00:01:52,020 --> 00:01:53,560
+và trong mạng riêng đó,
+
+43
+00:01:53,560 --> 00:01:55,570
+mọi máy tính có thể nói chuyện với nhau
+
+44
+00:01:55,570 --> 00:01:59,070
+và có thể có Internet Gateway với IP
+
+45
+00:01:59,070 --> 00:02:01,570
+và kết nối ra Internet
+
+46
+00:02:01,570 --> 00:02:03,530
+để nói chuyện với máy chủ khác.
+
+47
+00:02:03,530 --> 00:02:05,900
+Điểm khác biệt tôi muốn chỉ ra là
+
+48
+00:02:05,900 --> 00:02:07,840
+khi có Public IP, bạn truy cập được
+
+49
+00:02:07,840 --> 00:02:10,440
+trên Internet, còn với Private IP
+
+50
+00:02:10,440 --> 00:02:13,183
+bạn chỉ truy cập trong mạng riêng.
+
+51
+00:02:14,030 --> 00:02:16,720
+Một số khác biệt: Public IP nghĩa là
+
+52
+00:02:16,720 --> 00:02:18,260
+máy được định danh
+
+53
+00:02:18,260 --> 00:02:21,200
+trên Internet và Public IP phải duy nhất
+
+54
+00:02:21,200 --> 00:02:23,190
+trên toàn web, không thể có hai máy
+
+55
+00:02:23,190 --> 00:02:26,220
+cùng Public IP, điều đó hợp lý.
+
+56
+00:02:26,220 --> 00:02:28,900
+Và một IP công khai còn cho phép bạn
+
+57
+00:02:28,900 --> 00:02:31,030
+dùng Google để tra vị trí địa lý.
+
+58
+00:02:31,030 --> 00:02:32,660
+Trong khi Private IP nghĩa là
+
+59
+00:02:32,660 --> 00:02:34,510
+máy chỉ được định danh
+
+60
+00:02:34,510 --> 00:02:37,220
+trong mạng riêng và địa chỉ IP
+
+61
+00:02:37,220 --> 00:02:40,200
+chỉ cần duy nhất trong mạng đó
+
+62
+00:02:40,200 --> 00:02:42,130
+nhưng hai mạng riêng khác nhau
+
+63
+00:02:42,130 --> 00:02:44,820
+hai công ty khác nhau có thể có cùng Private IP
+
+64
+00:02:44,820 --> 00:02:46,560
+và đó không vấn đề.
+
+65
+00:02:46,560 --> 00:02:49,060
+Khi máy trong mạng riêng truy cập Internet
+
+66
+00:02:49,060 --> 00:02:52,180
+chúng sẽ đi qua thiết bị NAT
+
+67
+00:02:52,180 --> 00:02:54,690
+và Internet Gateway hoạt động như proxy.
+
+68
+00:02:54,690 --> 00:02:57,910
+Cuối cùng chỉ có một dải IP nhất định
+
+69
+00:02:57,910 --> 00:03:00,720
+được dùng làm Private IP.
+
+70
+00:03:00,720 --> 00:03:03,290
+Với Elastic IP, khi bạn stop
+
+71
+00:03:03,290 --> 00:03:06,460
+hoặc start EC2 instance, Public IP sẽ đổi
+
+72
+00:03:06,460 --> 00:03:08,300
+chúng ta sẽ thấy điều này trong phần hands-on.
+
+73
+00:03:08,300 --> 00:03:10,750
+Nếu bạn cần Public IP cố định
+
+74
+00:03:10,750 --> 00:03:12,810
+cho instance, bạn cần Elastic IP.
+
+75
+00:03:12,810 --> 00:03:15,050
+Elastic IP là một Public IPv4
+
+76
+00:03:15,050 --> 00:03:18,160
+bạn sở hữu miễn là không xóa nó.
+
+77
+00:03:18,160 --> 00:03:21,180
+Bạn chỉ gắn nó vào một instance tại một thời điểm,
+
+78
+00:03:21,180 --> 00:03:23,020
+và nếu IP đó là elastic,
+
+79
+00:03:23,020 --> 00:03:25,980
+bạn có thể dùng nó để che giấu lỗi
+
+80
+00:03:25,980 --> 00:03:28,430
+của instance hay phần mềm bằng cách nhanh chóng chuyển nó
+
+81
+00:03:28,430 --> 00:03:30,880
+từ instance này sang instance khác, nhưng
+
+82
+00:03:30,880 --> 00:03:33,640
+đây là mô hình khá hiếm vì bạn chỉ có
+
+83
+00:03:33,640 --> 00:03:36,030
+tối đa năm Elastic IP trong tài khoản.
+
+84
+00:03:36,030 --> 00:03:37,930
+Bạn có thể yêu cầu AWS tăng giới hạn
+
+85
+00:03:37,930 --> 00:03:40,610
+nhưng rất hiếm khi cần.
+
+86
+00:03:40,610 --> 00:03:43,220
+Tôi khuyên nên tránh dùng Elastic IP,
+
+87
+00:03:43,220 --> 00:03:45,670
+chúng thường được xem là quyết định kiến trúc tệ
+
+88
+00:03:45,670 --> 00:03:49,460
+thay vào đó hãy dùng Public IP ngẫu nhiên
+
+89
+00:03:49,460 --> 00:03:52,030
+và gắn cho nó một DNS name.
+
+90
+00:03:52,030 --> 00:03:54,660
+DNS, chúng ta sẽ học ở Route 53,
+
+91
+00:03:54,660 --> 00:03:56,940
+nó giúp ta kiểm soát tốt hơn
+
+92
+00:03:56,940 --> 00:03:59,700
+và có khả năng mở rộng hơn, hoặc
+
+93
+00:03:59,700 --> 00:04:01,590
+chúng ta có thể dùng Load Balancer
+
+94
+00:04:01,590 --> 00:04:04,600
+để khỏi cần Public IP, đó là mô hình tốt nhất trên AWS.
+
+95
+00:04:04,600 --> 00:04:07,940
+chúng ta cũng có thể dùng Load Balancer và không cần Public IP
+
+96
+00:04:07,940 --> 00:04:10,833
+đây là mô hình tốt nhất trên AWS.
+
+97
+00:04:12,060 --> 00:04:14,090
+Giờ hãy làm một phần Hands On nhanh,
+
+98
+00:04:14,090 --> 00:04:16,610
+để cảm nhận rõ hơn những điều này.
+
+99
+00:04:16,610 --> 00:04:19,640
+Mặc định, máy EC2 sẽ có một Private IP
+
+100
+00:04:19,640 --> 00:04:21,399
+cho mạng nội bộ AWS,
+
+101
+00:04:21,399 --> 00:04:24,500
+một Public IP cho WWW, World Wide Web
+
+102
+00:04:24,500 --> 00:04:27,440
+và khi chúng ta SSH vào các máy EC2
+
+103
+00:04:27,440 --> 00:04:29,270
+ta không thể dùng Private IP vì không cùng mạng
+
+104
+00:04:29,270 --> 00:04:31,970
+trừ khi bạn có VPN.
+
+105
+00:04:31,970 --> 00:04:35,440
+Chúng ta chỉ dùng Public IP nếu không có VPN
+
+106
+00:04:35,440 --> 00:04:37,600
+và nếu máy bị dừng rồi khởi động lại,
+
+107
+00:04:37,600 --> 00:04:39,310
+Public IP có thể thay đổi.
+
+108
+00:04:39,310 --> 00:04:41,953
+Vậy hãy cùng quan sát những hành vi này.
+
