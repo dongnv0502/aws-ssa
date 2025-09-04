@@ -1,0 +1,552 @@
+1
+00:00:00,240 --> 00:00:01,710
+Được rồi, hãy xem thử
+
+2
+00:00:01,710 --> 00:00:03,630
+cách IP hoạt động trong các vùng.
+
+3
+00:00:03,630 --> 00:00:07,860
+Chúng ta có một public IPv4 cho instance,
+
+4
+00:00:07,860 --> 00:00:10,140
+và đây là IPv4 mà ta có thể dùng
+
+5
+00:00:10,140 --> 00:00:13,890
+để SSH vào máy, hoạt động rất tốt, được chứ?
+
+6
+00:00:13,890 --> 00:00:15,060
+Khi đã đăng nhập, nhớ rằng
+
+7
+00:00:15,060 --> 00:00:18,450
+chúng ta thấy có một private IP gắn
+
+8
+00:00:18,450 --> 00:00:20,130
+vào tên host của instance.
+
+9
+00:00:20,130 --> 00:00:22,560
+Vì vậy khi đã vào, ta có thể dùng private IP.
+
+10
+00:00:22,560 --> 00:00:25,470
+Nhưng nếu chúng ta ngắt khỏi instance
+
+11
+00:00:25,470 --> 00:00:27,240
+và thử chạy lệnh SSH,
+
+12
+00:00:27,240 --> 00:00:30,390
+nhưng lần này sử dụng địa chỉ private IPv4,
+
+13
+00:00:30,390 --> 00:00:32,640
+thì như bạn thấy, nó sẽ không chạy.
+
+14
+00:00:32,640 --> 00:00:35,070
+Hãy xem, tôi sẽ nhấn Enter.
+
+15
+00:00:35,070 --> 00:00:37,260
+Như bạn thấy, nó không hoạt động. Vì sao?
+
+16
+00:00:37,260 --> 00:00:40,710
+Private IPv4 thuộc về một mạng riêng,
+
+17
+00:00:40,710 --> 00:00:42,000
+nhưng hiện giờ tôi không kết nối
+
+18
+00:00:42,000 --> 00:00:43,440
+với mạng riêng của AWS.
+
+19
+00:00:43,440 --> 00:00:46,410
+Tôi chỉ có thể kết nối AWS qua Internet.
+
+20
+00:00:46,410 --> 00:00:48,600
+Đó là lý do private IP không hoạt động.
+
+21
+00:00:48,600 --> 00:00:50,280
+Và đó là lý do bạn phải dùng public IP
+
+22
+00:00:50,280 --> 00:00:53,610
+vì public IP cho phép bạn truy cập AWS
+
+23
+00:00:53,610 --> 00:00:55,590
+từ mạng công cộng,
+
+24
+00:00:55,590 --> 00:00:58,770
+tức là mạng công cộng chính là Internet.
+
+25
+00:00:58,770 --> 00:01:01,470
+Được rồi, giờ hãy xem hành vi
+
+26
+00:01:01,470 --> 00:01:03,510
+của instance khi quan sát một lần.
+
+27
+00:01:03,510 --> 00:01:05,790
+Khi chúng ta start, stop và restart nó.
+
+28
+00:01:05,790 --> 00:01:08,400
+Vậy chúng ta sẽ stop instance
+
+29
+00:01:08,400 --> 00:01:09,990
+và instance chưa dừng.
+
+30
+00:01:09,990 --> 00:01:13,680
+Hãy lưu lại địa chỉ IPv4 ở đây
+
+31
+00:01:13,680 --> 00:01:16,320
+để hiển thị trên màn hình.
+
+32
+00:01:16,320 --> 00:01:18,750
+Vậy chúng ta sẽ stop instance.
+
+33
+00:01:18,750 --> 00:01:20,340
+Instance của tôi đã stop
+
+34
+00:01:20,340 --> 00:01:23,370
+và tôi sẽ start instance,
+
+35
+00:01:23,370 --> 00:01:25,950
+mà khác với việc reboot instance.
+
+36
+00:01:25,950 --> 00:01:28,620
+Vì thế bạn phải stop và start instance
+
+37
+00:01:28,620 --> 00:01:31,740
+để quan sát việc public IPv4 thay đổi.
+
+38
+00:01:31,740 --> 00:01:35,643
+Vậy sau khi tôi stop rồi start lại,
+
+39
+00:01:36,510 --> 00:01:37,343
+chỉ vài giây nữa
+
+40
+00:01:37,343 --> 00:01:39,810
+chúng ta sẽ có một public IPv4 mới.
+
+41
+00:01:39,810 --> 00:01:40,830
+Đây rồi.
+
+42
+00:01:40,830 --> 00:01:44,010
+Địa chỉ này, tôi sẽ copy và dán vào đây.
+
+43
+00:01:44,010 --> 00:01:47,910
+Và như ta thấy, đúng là trong console này,
+
+44
+00:01:47,910 --> 00:01:49,230
+hai địa chỉ IP khác nhau.
+
+45
+00:01:49,230 --> 00:01:52,650
+Nếu tôi dùng IP cũ để SSH,
+
+46
+00:01:52,650 --> 00:01:53,970
+sẽ không kết nối được
+
+47
+00:01:53,970 --> 00:01:56,760
+vì instance đã thay đổi IPv4.
+
+48
+00:01:56,760 --> 00:02:00,690
+Nhưng nếu dùng IP mới để chạy lệnh SSH,
+
+49
+00:02:00,690 --> 00:02:03,240
+thì tôi lại SSH vào instance được.
+
+50
+00:02:03,240 --> 00:02:04,980
+Nhưng private IP thì không đổi
+
+51
+00:02:04,980 --> 00:02:06,690
+vì nó không cần thay đổi.
+
+52
+00:02:06,690 --> 00:02:08,818
+Vậy làm sao giải quyết vấn đề này?
+
+53
+00:02:08,818 --> 00:02:11,460
+Có thể ta muốn stop rồi start instance,
+
+54
+00:02:11,460 --> 00:02:14,220
+nhưng không muốn public IPv4 thay đổi.
+
+55
+00:02:14,220 --> 00:02:17,190
+Trong trường hợp này, ta phải dùng elastic IP.
+
+56
+00:02:17,190 --> 00:02:21,180
+Hiện giờ bạn thấy số elastic IP là 0.
+
+57
+00:02:21,180 --> 00:02:23,790
+Ở bên trái bạn có thể tìm mục elastic IPs.
+
+58
+00:02:23,790 --> 00:02:25,830
+Tôi sẽ mở nó trong tab mới.
+
+59
+00:02:25,830 --> 00:02:28,800
+Và chúng ta sẽ allocate một địa chỉ IP mới
+
+60
+00:02:28,800 --> 00:02:31,590
+từ pool IPv4 của Amazon.
+
+61
+00:02:31,590 --> 00:02:32,423
+Việc này sẽ
+
+62
+00:02:32,423 --> 00:02:34,830
+tạo ra một địa chỉ IPv4
+
+63
+00:02:34,830 --> 00:02:37,920
+mà chúng ta sở hữu trong thời gian thuê.
+
+64
+00:02:37,920 --> 00:02:42,180
+Và nó có thể được gán cho một EC2 instance cụ thể
+
+65
+00:02:42,180 --> 00:02:45,780
+và instance sẽ giữ elastic IP miễn là còn gắn.
+
+66
+00:02:45,780 --> 00:02:49,800
+Giờ lưu ý nhanh về giá public IPv4.
+
+67
+00:02:49,800 --> 00:02:54,230
+Hiện tại trong AWS, nếu bạn dùng public IPv4,
+
+68
+00:02:54,230 --> 00:02:57,030
+hoặc không dùng public IPv4,
+
+69
+00:02:57,030 --> 00:03:00,000
+dù đó là public IPv4 hay elastic IP,
+
+70
+00:03:00,000 --> 00:03:05,000
+bạn bị tính khoảng 0,005 USD mỗi giờ.
+
+71
+00:03:05,970 --> 00:03:10,747
+Tức khoảng 3,50 USD mỗi tháng cho một public IPv4
+
+72
+00:03:10,747 --> 00:03:13,620
+dù bạn có dùng hay không.
+
+73
+00:03:13,620 --> 00:03:16,620
+Vì vậy, bạn cần terminate instance
+
+74
+00:03:16,620 --> 00:03:18,930
+và elastic IP nếu không dùng
+
+75
+00:03:18,930 --> 00:03:20,630
+để khỏi phải trả phí.
+
+76
+00:03:21,510 --> 00:03:24,180
+Trong tài khoản của bạn, nếu bạn làm theo tôi,
+
+77
+00:03:24,180 --> 00:03:26,490
+bạn có 750 giờ mỗi tháng
+
+78
+00:03:26,490 --> 00:03:29,550
+miễn phí cho public IPv4.
+
+79
+00:03:29,550 --> 00:03:32,640
+Nên nếu bạn tạo các EC2 instance,
+
+80
+00:03:32,640 --> 00:03:34,050
+hãy nhớ terminate chúng
+
+81
+00:03:34,050 --> 00:03:37,253
+để không vượt quá 750 giờ mỗi tháng
+
+82
+00:03:37,253 --> 00:03:41,250
+về IPv4, như vậy là ổn.
+
+83
+00:03:41,250 --> 00:03:44,070
+Ta có thể bấm chuột phải, chọn Action,
+
+84
+00:03:44,070 --> 00:03:47,520
+rồi Associate Elastic IP address.
+
+85
+00:03:47,520 --> 00:03:48,540
+Nếu làm vậy,
+
+86
+00:03:48,540 --> 00:03:50,340
+ta cần chọn muốn gắn nó vào đâu.
+
+87
+00:03:50,340 --> 00:03:52,800
+Là instance hay network interface?
+
+88
+00:03:52,800 --> 00:03:54,870
+Chúng ta sẽ chọn instance.
+
+89
+00:03:54,870 --> 00:03:57,035
+Tôi sẽ chọn instance đang chạy
+
+90
+00:03:57,035 --> 00:03:59,520
+và private IP
+
+91
+00:03:59,520 --> 00:04:01,680
+để gắn elastic IP vào.
+
+92
+00:04:01,680 --> 00:04:03,420
+Instance của tôi chỉ có một private IP.
+
+93
+00:04:03,420 --> 00:04:04,740
+Vậy là xong.
+
+94
+00:04:04,740 --> 00:04:07,803
+Chúng ta associate nó.
+
+95
+00:04:09,270 --> 00:04:11,040
+Giờ hãy xem chuyện gì xảy ra.
+
+96
+00:04:11,040 --> 00:04:13,770
+Quay lại EC2 instance,
+
+97
+00:04:13,770 --> 00:04:17,100
+tôi sẽ refresh cửa sổ và đóng chúng.
+
+98
+00:04:17,100 --> 00:04:18,899
+Như bạn thấy,
+
+99
+00:04:18,899 --> 00:04:22,530
+public IPv4 giờ bằng với giá trị
+
+100
+00:04:22,530 --> 00:04:24,150
+của elastic IP.
+
+101
+00:04:24,150 --> 00:04:28,713
+Nếu tôi cuộn xuống và refresh hoàn toàn,
+
+102
+00:04:31,680 --> 00:04:34,410
+thì trường Elastic IP addresses
+
+103
+00:04:34,410 --> 00:04:36,540
+cũng có một elastic IP ở đây,
+
+104
+00:04:36,540 --> 00:04:37,680
+đó là một địa chỉ public.
+
+105
+00:04:37,680 --> 00:04:40,680
+Giờ chúng ta có thể click vào elastic IP này
+
+106
+00:04:40,680 --> 00:04:45,030
+để đi thẳng tới console Elastic IP
+
+107
+00:04:45,030 --> 00:04:45,863
+trong EC2,
+
+108
+00:04:45,863 --> 00:04:49,110
+nơi ta có thêm thông tin về elastic IP này.
+
+109
+00:04:49,110 --> 00:04:50,100
+Vậy là tốt.
+
+110
+00:04:50,100 --> 00:04:51,660
+Giờ hãy xem nó có hoạt động không.
+
+111
+00:04:51,660 --> 00:04:55,113
+Ta sẽ copy địa chỉ này
+
+112
+00:04:56,040 --> 00:04:57,690
+và tôi sẽ chạy lệnh SSH
+
+113
+00:04:57,690 --> 00:05:00,180
+lệnh này không chạy, nên ta phải dùng địa chỉ mới.
+
+114
+00:05:00,180 --> 00:05:02,580
+Và đúng vậy, ta có thể SSH.
+
+115
+00:05:02,580 --> 00:05:05,370
+Nhưng nếu bây giờ ta stop instance.
+
+116
+00:05:05,370 --> 00:05:09,093
+Hãy stop instance và xem chuyện gì xảy ra.
+
+117
+00:05:10,830 --> 00:05:13,440
+Như bạn thấy, instance đang ở trạng thái stop,
+
+118
+00:05:13,440 --> 00:05:15,510
+nhưng vẫn có public IPv4
+
+119
+00:05:15,510 --> 00:05:18,330
+vì elastic IP vẫn gắn vào.
+
+120
+00:05:18,330 --> 00:05:21,213
+Điều đó nghĩa là khi start lại instance,
+
+121
+00:05:22,740 --> 00:05:25,170
+instance sẽ chạy lại
+
+122
+00:05:25,170 --> 00:05:27,360
+và elastic IP vẫn gắn
+
+123
+00:05:27,360 --> 00:05:29,340
+và public IPv4 không đổi.
+
+124
+00:05:29,340 --> 00:05:30,930
+Ta cũng có thể kiểm tra điều này
+
+125
+00:05:30,930 --> 00:05:32,610
+bằng cách SSH lại một lần nữa.
+
+126
+00:05:32,610 --> 00:05:35,250
+Và đúng, nó hoạt động với lệnh cũ.
+
+127
+00:05:35,250 --> 00:05:38,520
+Để kết thúc, ta vào elastic IP này
+
+128
+00:05:38,520 --> 00:05:43,520
+và disassociate để gỡ nó khỏi instance.
+
+129
+00:05:43,830 --> 00:05:45,309
+Sau đó để khỏi để nó chạy,
+
+130
+00:05:45,309 --> 00:05:47,990
+hãy nhớ release elastic IP này
+
+131
+00:05:47,990 --> 00:05:50,280
+để không bị tính phí.
+
+132
+00:05:50,280 --> 00:05:51,870
+Rồi quay lại EC2 instance.
+
+133
+00:05:51,870 --> 00:05:55,080
+Nếu refresh, nó sẽ nhận một public IPv4 mới
+
+134
+00:05:55,080 --> 00:05:58,050
+vì đã tách khỏi elastic IP.
+
+135
+00:05:58,050 --> 00:05:59,070
+Để kết thúc hands-on này,
+
+136
+00:05:59,070 --> 00:06:02,220
+tôi chỉ cần terminate instance là xong.
+
+137
+00:06:02,220 --> 00:06:03,330
+Vậy là hết bài giảng này.
+
+138
+00:06:03,330 --> 00:06:06,330
+Hy vọng bạn thích, hẹn gặp ở bài giảng tiếp theo.
+

@@ -82,8 +82,8 @@ Next text content
 - [x] Module 03: 6/6 files
 - [x] Module 04: 18/18 files
 - [x] Module 05: 18/18 files
-- [x] Module 06: 7/8 files
-- [ ] Module 07: 13/14 files
+- [x] Module 06: 8/8 files
+- [x] Module 07: 14/14 files
 - [ ] Module 08: 2/17 files
 - [ ] Module 09: 2/13 files
 - [ ] Module 10: 0/21 files
@@ -111,13 +111,13 @@ Next text content
 - [ ] Module 32: 0/7 files
 - [ ] Module 33: 0/2 files
 
-**Tổng tiến độ: 154/428 files (36.0%)**
+**Tổng tiến độ: 156/428 files (36.4%)**
 
 ## Ghi Chú
 ### Thứ tự ưu tiên dịch:
 1. **Theo thứ tự tăng dần của tên module** (01 → 02 → 03 → ...)
 2. **Ưu tiên các module chưa dịch xong** trước khi hoàn thiện các module đã dịch một phần
-3. **Module tiếp theo cần dịch**: Module 04 (IAM & AWS CLI) - 0/18 files
+3. **Module tiếp theo cần dịch**: Module 10 (Route 53) - 0/21 files
 
 ### Quy tắc kỹ thuật:
 - Chú ý đặc biệt với các thuật ngữ mới xuất hiện

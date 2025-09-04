@@ -1,0 +1,1171 @@
+1
+00:00:00,330 --> 00:00:02,160
+Hãy cùng thực hành sử dụng
+
+2
+00:00:02,160 --> 00:00:05,040
+dịch vụ Amazon Elastic File System.
+
+3
+00:00:05,040 --> 00:00:07,050
+Vậy hãy tạo file system của chúng ta
+
+4
+00:00:07,050 --> 00:00:08,580
+và ở đây có thể đặt tên tùy chọn,
+
+5
+00:00:08,580 --> 00:00:10,170
+nhưng tôi sẽ để trống và chúng ta phải
+
+6
+00:00:10,170 --> 00:00:13,800
+chọn một VPC nơi muốn kết nối file system.
+
+7
+00:00:13,800 --> 00:00:16,230
+Vậy nên ta giữ nguyên VPC mặc định,
+
+8
+00:00:16,230 --> 00:00:17,640
+và chỉ cần nhấn Create là xong.
+
+9
+00:00:17,640 --> 00:00:18,900
+Nhưng tôi muốn cho bạn xem các tùy chọn.
+
+10
+00:00:18,900 --> 00:00:21,000
+Vậy hãy bấm Customize.
+
+11
+00:00:21,000 --> 00:00:24,570
+Tại đây ta lại để trống tên tùy chọn.
+
+12
+00:00:24,570 --> 00:00:26,760
+Tiếp theo cần chọn kiểu file system.
+
+13
+00:00:26,760 --> 00:00:27,720
+Chúng ta có hai lựa chọn.
+
+14
+00:00:27,720 --> 00:00:30,450
+Regional cung cấp cho bạn file system
+
+15
+00:00:30,450 --> 00:00:33,330
+trong vùng với nhiều Availability Zone,
+
+16
+00:00:33,330 --> 00:00:35,130
+mang lại khả dụng rất cao
+
+17
+00:00:35,130 --> 00:00:37,080
+và độ bền dữ liệu.
+
+18
+00:00:37,080 --> 00:00:39,300
+Nhưng nếu muốn giảm chi phí, bạn có thể dùng
+
+19
+00:00:39,300 --> 00:00:41,430
+tuỳ chọn one zone, khi đó bạn phải
+
+20
+00:00:41,430 --> 00:00:44,250
+chọn một Availability Zone cụ thể.
+
+21
+00:00:44,250 --> 00:00:46,740
+Điều này phù hợp cho môi trường phát triển
+
+22
+00:00:46,740 --> 00:00:48,120
+nhưng không tốt cho môi trường production
+
+23
+00:00:48,120 --> 00:00:51,120
+vì nếu AZ đó gặp sự cố,
+
+24
+00:00:51,120 --> 00:00:53,040
+bạn sẽ không truy cập được dữ liệu.
+
+25
+00:00:53,040 --> 00:00:55,530
+Vì vậy bạn nên dùng regional
+
+26
+00:00:55,530 --> 00:00:57,750
+trong môi trường production và chúng ta sẽ dùng regional
+
+27
+00:00:57,750 --> 00:00:59,400
+cho bài thực hành này.
+
+28
+00:00:59,400 --> 00:01:02,310
+Tiếp theo có thể bật hoặc tắt backup tự động,
+
+29
+00:01:02,310 --> 00:01:04,950
+nhưng khuyến nghị để bật.
+
+30
+00:01:04,950 --> 00:01:06,690
+Tiếp theo là lifecycle management.
+
+31
+00:01:06,690 --> 00:01:08,670
+Đây là tính năng chuyển dữ liệu
+
+32
+00:01:08,670 --> 00:01:12,150
+qua các tầng lưu trữ khác nhau để tiết kiệm chi phí.
+
+33
+00:01:12,150 --> 00:01:13,980
+Bạn có thể chuyển sang
+
+34
+00:01:13,980 --> 00:01:18,690
+tầng Infrequent Access hoặc Archive rồi chuyển lại Standard.
+
+35
+00:01:18,690 --> 00:01:21,540
+Ví dụ nếu file không được truy cập
+
+36
+00:01:21,540 --> 00:01:24,360
+trong 30 ngày, giá trị này bạn có thể chỉnh,
+
+37
+00:01:24,360 --> 00:01:27,900
+thì chuyển nó sang tầng Infrequent Access,
+
+38
+00:01:27,900 --> 00:01:29,970
+lưu trữ ít truy cập
+
+39
+00:01:29,970 --> 00:01:30,960
+và sẽ rẻ hơn
+
+40
+00:01:30,960 --> 00:01:33,000
+trừ khi bạn truy cập lại file.
+
+41
+00:01:33,000 --> 00:01:34,110
+Nhưng khả năng là
+
+42
+00:01:34,110 --> 00:01:37,350
+sau 30 ngày bạn hiếm khi truy cập file đó.
+
+43
+00:01:37,350 --> 00:01:40,200
+Nếu file tiếp tục không được truy cập
+
+44
+00:01:40,200 --> 00:01:42,595
+trong 90 ngày kể từ lần truy cập cuối,
+
+45
+00:01:42,595 --> 00:01:46,200
+thì chuyển vào Archive, lớp lưu trữ còn rẻ hơn
+
+46
+00:01:46,200 --> 00:01:47,940
+so với các lớp khác.
+
+47
+00:01:47,940 --> 00:01:49,500
+Ngoài ra bạn có thể đặt rằng
+
+48
+00:01:49,500 --> 00:01:52,020
+khi file được truy cập lần đầu,
+
+49
+00:01:52,020 --> 00:01:54,720
+thì chuyển trở lại Standard
+
+50
+00:01:54,720 --> 00:01:56,970
+vì giả sử nó sẽ được dùng lại nhiều.
+
+51
+00:01:56,970 --> 00:01:59,220
+Đó chính là lifecycle management.
+
+52
+00:01:59,220 --> 00:02:01,770
+Tiếp theo là phần encryption, ta giữ nguyên.
+
+53
+00:02:01,770 --> 00:02:04,590
+Chúng ta để bật mã hóa, như vậy là hoàn hảo.
+
+54
+00:02:04,590 --> 00:02:06,870
+Sau đó là phần performance settings.
+
+55
+00:02:06,870 --> 00:02:09,210
+Ở đây có chế độ throughput,
+
+56
+00:02:09,210 --> 00:02:12,540
+và bạn sẽ thấy ba lựa chọn.
+
+57
+00:02:12,540 --> 00:02:14,160
+Enhanced chỉ là danh mục
+
+58
+00:02:14,160 --> 00:02:15,990
+để gom elastic và provisioned.
+
+59
+00:02:15,990 --> 00:02:18,450
+Vì vậy bạn có chế độ throughput Elastic,
+
+60
+00:02:18,450 --> 00:02:21,240
+và cả chế độ throughput Provisioned,
+
+61
+00:02:21,240 --> 00:02:23,820
+cũng như chế độ throughput Bursting.
+
+62
+00:02:23,820 --> 00:02:25,950
+Ta bắt đầu với Bursting.
+
+63
+00:02:25,950 --> 00:02:27,480
+Bursting cho phép thông lượng
+
+64
+00:02:27,480 --> 00:02:31,290
+tăng theo dung lượng lưu trữ bạn đang sử dụng
+
+65
+00:02:31,290 --> 00:02:33,330
+và còn vượt lên một chút,
+
+66
+00:02:33,330 --> 00:02:34,890
+vì thế mới gọi là bursting.
+
+67
+00:02:34,890 --> 00:02:36,720
+Nếu bạn có một gigabyte,
+
+68
+00:02:36,720 --> 00:02:37,980
+bạn nhận thông lượng dựa trên một gigabyte.
+
+69
+00:02:37,980 --> 00:02:40,290
+Nếu có một terabyte, bạn nhận thông lượng cao hơn
+
+70
+00:02:40,290 --> 00:02:42,270
+vì bạn dùng nhiều lưu trữ hơn.
+
+71
+00:02:42,270 --> 00:02:44,220
+Sau đó là chế độ Enhanced.
+
+72
+00:02:44,220 --> 00:02:45,570
+Giờ Elastic được khuyến nghị,
+
+73
+00:02:45,570 --> 00:02:48,330
+y nói rằng dù kích thước EFS của bạn ra sao,
+
+74
+00:02:48,330 --> 00:02:53,330
+chúng tôi sẽ cung cấp đủ I/O và tự động mở rộng,
+
+75
+00:02:53,580 --> 00:02:56,070
+bạn chỉ trả tiền cho phần sử dụng.
+
+76
+00:02:56,070 --> 00:02:57,510
+Điều này tốt nhất cho workload
+
+77
+00:02:57,510 --> 00:03:00,480
+có I/O khó đoán, ví dụ có thể tăng
+
+78
+00:03:00,480 --> 00:03:02,580
+từ 0 MB/s lên 100 MB/s ngay lập tức.
+
+79
+00:03:02,580 --> 00:03:05,880
+Đây là lý do nó được khuyến nghị
+
+80
+00:03:05,880 --> 00:03:07,800
+vì bạn không phải nghĩ về cấu hình.
+
+81
+00:03:07,800 --> 00:03:10,200
+Lựa chọn cuối cùng sau Bursting và Elastic
+
+82
+00:03:10,200 --> 00:03:11,850
+là Provisioned.
+
+83
+00:03:11,850 --> 00:03:13,380
+Chế độ này dùng khi bạn biết trước
+
+84
+00:03:13,380 --> 00:03:15,120
+mức throughput cần dùng.
+
+85
+00:03:15,120 --> 00:03:17,100
+Bạn nói rằng mình chắc chắn cần 100 MB/s,
+
+86
+00:03:17,100 --> 00:03:18,633
+và còn có giới hạn bursting
+
+87
+00:03:18,633 --> 00:03:19,920
+là 300 MB/s.
+
+88
+00:03:19,920 --> 00:03:23,070
+Vì bạn provision trước throughput nên phải trả tiền trước.
+
+89
+00:03:23,070 --> 00:03:24,330
+Elastic là thiết lập được khuyến nghị.
+
+90
+00:03:24,330 --> 00:03:25,163
+Nhìn vào thêm các tùy chọn,
+
+91
+00:03:25,163 --> 00:03:28,350
+chúng ta có General Purpose và Max I/O.
+
+92
+00:03:28,350 --> 00:03:30,690
+Với Elastic bạn nhận I/O cần thiết
+
+93
+00:03:30,690 --> 00:03:32,670
+dựa trên hiệu năng mong muốn,
+
+94
+00:03:32,670 --> 00:03:34,050
+nên General Purpose là lựa chọn duy nhất.
+
+95
+00:03:34,050 --> 00:03:37,050
+Nhưng nếu dùng Bursting hay Provisioned
+
+96
+00:03:37,050 --> 00:03:39,660
+bạn có hai lựa chọn.
+
+97
+00:03:39,660 --> 00:03:41,760
+General Purpose cho hiệu năng cao
+
+98
+00:03:41,760 --> 00:03:44,400
+và ứng dụng nhạy cảm độ trễ.
+
+99
+00:03:44,400 --> 00:03:47,640
+Nếu muốn lượng I/O tối đa thì dùng Max I/O,
+
+100
+00:03:47,640 --> 00:03:49,080
+phù hợp workload song song cao
+
+101
+00:03:49,080 --> 00:03:53,610
+và có thể chấp nhận độ trễ lớn hơn.
+
+102
+00:03:53,610 --> 00:03:56,820
+Đổi lại độ trễ cao hơn bạn có thêm I/O.
+
+103
+00:03:56,820 --> 00:03:58,650
+Điều này tốt cho môi trường big data,
+
+104
+00:03:58,650 --> 00:04:01,710
+nhưng thiết lập được AWS khuyến nghị hiện nay
+
+105
+00:04:01,710 --> 00:04:04,080
+là Enhanced với General Purpose và Elastic.
+
+106
+00:04:04,080 --> 00:04:05,880
+Đó là toàn bộ các tùy chọn,
+
+107
+00:04:05,880 --> 00:04:07,920
+hy vọng không quá khó hiểu.
+
+108
+00:04:07,920 --> 00:04:11,310
+Tôi không thích việc dưới Enhanced lại có Elastic và Provision,
+
+109
+00:04:11,310 --> 00:04:13,050
+thật ra chúng ta chỉ có ba lựa chọn:
+
+110
+00:04:13,050 --> 00:04:15,270
+Bursting, Elastic và Provisioned,
+
+111
+00:04:15,270 --> 00:04:16,740
+đó là điều bạn cần nhớ cho kỳ thi.
+
+112
+00:04:16,740 --> 00:04:19,740
+Được rồi, giờ hãy nhấn Next.
+
+113
+00:04:19,740 --> 00:04:22,590
+Tiếp theo là thiết lập truy cập mạng,
+
+114
+00:04:22,590 --> 00:04:24,420
+rất quan trọng, ta phải chọn VPC.
+
+115
+00:04:24,420 --> 00:04:27,660
+Tôi chọn VPC mặc định và tới phần mount targets.
+
+116
+00:04:27,660 --> 00:04:29,793
+Vì chọn kiểu file system Regional
+
+117
+00:04:29,793 --> 00:04:32,760
+nên có ba AZ cho chúng ta.
+
+118
+00:04:32,760 --> 00:04:35,190
+Mỗi AZ sẽ gắn với một subnet.
+
+119
+00:04:35,190 --> 00:04:37,290
+Tôi để mặc định là các subnet default.
+
+120
+00:04:37,290 --> 00:04:41,190
+IP để tự động và chúng ta cần gán security group.
+
+121
+00:04:40,890 --> 00:04:42,660
+Bây giờ hãy nhấn Next.
+
+122
+00:04:42,660 --> 00:04:45,750
+Tiếp theo là thiết lập truy cập mạng
+
+123
+00:04:45,750 --> 00:04:47,940
+rất quan trọng, ta phải chọn một VPC.
+
+124
+00:04:47,940 --> 00:04:50,880
+Tôi sẽ chọn VPC mặc định rồi tới mount targets.
+
+125
+00:04:50,880 --> 00:04:52,682
+Vì ta chọn kiểu file system Regional
+
+126
+00:04:52,682 --> 00:04:56,760
+nên có ba AZ sẵn có cho chúng ta.
+
+127
+00:04:56,760 --> 00:04:59,190
+Mỗi AZ sẽ gắn với một subnet.
+
+128
+00:04:59,190 --> 00:05:01,290
+Tôi để nguyên các subnet mặc định.
+
+129
+00:05:01,290 --> 00:05:05,190
+IP để tự động và ta cần gán security group.
+
+130
+00:05:05,190 --> 00:05:06,210
+Vì vậy ta phải
+
+131
+00:05:06,210 --> 00:05:10,890
+tạo một security group riêng cho EFS này.
+
+132
+00:05:10,890 --> 00:05:14,520
+Tôi vào EC2 console rồi vào Security Groups.
+
+133
+00:05:14,520 --> 00:05:16,410
+Tôi sẽ tạo một security group mới
+
+134
+00:05:16,410 --> 00:05:18,630
+và đặt tên sg-efs-demo.
+
+135
+00:05:18,630 --> 00:05:22,203
+Và tôi gọi nó là EFS Demo SG.
+
+136
+00:05:23,550 --> 00:05:27,480
+Hiện tại chúng ta không có inbound rule nào.
+
+137
+00:05:27,480 --> 00:05:30,420
+Nhấn Create Security Group và ta không thể có cái này,
+
+138
+00:05:30,420 --> 00:05:33,780
+nên chỉ cần tên EFS demo là đủ.
+
+139
+00:05:33,780 --> 00:05:37,560
+Được rồi, security group đã tạo thành công
+
+140
+00:05:37,560 --> 00:05:41,010
+và để nó hiện ra ở đây tôi cần refresh trang.
+
+141
+00:05:41,010 --> 00:05:43,309
+Vì vậy ta sẽ bắt đầu lại,
+
+142
+00:05:43,309 --> 00:05:45,570
+nhưng vẫn dùng các thiết lập mặc định,
+
+143
+00:05:45,570 --> 00:05:46,830
+rồi nhấn Next.
+
+144
+00:05:46,830 --> 00:05:50,040
+Giờ tôi bỏ các security group này
+
+145
+00:05:50,040 --> 00:05:51,990
+và chọn security group EFS demo
+
+146
+00:05:51,990 --> 00:05:55,050
+mà tôi vừa tạo trước đó.
+
+147
+00:05:55,050 --> 00:05:58,680
+Được rồi, chúng ta ổn.
+
+148
+00:05:58,680 --> 00:06:01,413
+Bây giờ cấu hình truy cập mạng đã xong.
+
+149
+00:06:04,920 --> 00:06:06,360
+Tôi sẽ nhấn Next.
+
+150
+00:06:06,360 --> 00:06:10,260
+Ở đây có file system policy tùy chọn
+
+151
+00:06:10,260 --> 00:06:11,790
+và ta sẽ không đụng tới.
+
+152
+00:06:11,790 --> 00:06:13,801
+Nó khá nâng cao và chưa cần bây giờ.
+
+153
+00:06:13,801 --> 00:06:15,270
+Vì vậy tôi bấm Next.
+
+154
+00:06:15,270 --> 00:06:18,030
+Tại đây ta xem lại các thiết lập file system
+
+155
+00:06:18,030 --> 00:06:19,590
+và nếu hài lòng thì
+
+156
+00:06:19,590 --> 00:06:20,460
+chúng ta bấm Create.
+
+157
+00:06:20,460 --> 00:06:22,920
+Khi hoàn tất tôi sẽ quay lại.
+
+158
+00:06:22,920 --> 00:06:23,970
+File system đã sẵn sàng
+
+159
+00:06:23,970 --> 00:06:26,580
+và nếu vào trong tôi thấy dung lượng 6 KB
+
+160
+00:06:26,580 --> 00:06:28,590
+đang được dùng.
+
+161
+00:06:28,590 --> 00:06:30,450
+Với EFS bạn chỉ trả tiền
+
+162
+00:06:30,450 --> 00:06:34,170
+cho phần lưu trữ bạn dùng, nên hiện tại chi phí là 0.
+
+163
+00:06:34,170 --> 00:06:36,810
+Như vậy file system đã tạo xong.
+
+164
+00:06:36,810 --> 00:06:38,160
+Giờ ta muốn mount nó
+
+165
+00:06:38,160 --> 00:06:41,820
+vào các EC2 instance, nên bước tiếp theo
+
+166
+00:06:41,820 --> 00:06:45,060
+là tạo EC2 instance.
+
+167
+00:06:45,060 --> 00:06:46,710
+Vậy hãy launch một instance.
+
+168
+00:06:46,710 --> 00:06:50,490
+Tôi sẽ gọi instance này là Instance A
+
+169
+00:06:50,490 --> 00:06:52,290
+vì nó sẽ ở subnet của AZ A.
+
+170
+00:06:52,290 --> 00:06:54,540
+Ta sẽ dùng Amazon Linux 2,
+
+171
+00:06:54,540 --> 00:06:56,463
+sử dụng t2.micro vì nằm trong free tier.
+
+172
+00:06:58,050 --> 00:07:00,450
+Chúng ta sẽ bỏ key pair,
+
+173
+00:07:00,450 --> 00:07:03,033
+dùng EC2 Instance Connect để kết nối.
+
+174
+00:07:04,380 --> 00:07:07,800
+Phần Network settings tôi để nguyên,
+
+175
+00:07:07,800 --> 00:07:09,390
+sẽ tạo security group mới
+
+176
+00:07:09,390 --> 00:07:11,160
+với các rule mặc định.
+
+177
+00:07:11,160 --> 00:07:13,230
+Cho phép SSH từ mọi nơi, rất tốt.
+
+178
+00:07:13,230 --> 00:07:14,893
+Ổ đĩa GP2 8 GB là đủ,
+
+179
+00:07:14,893 --> 00:07:16,830
+nhưng chúng ta muốn cấu hình lưu trữ
+
+180
+00:07:16,830 --> 00:07:19,950
+của EC2 sang Amazon EFS trực tiếp trong console.
+
+181
+00:07:19,950 --> 00:07:22,590
+và một security group mới sẽ được tạo
+
+182
+00:07:22,590 --> 00:07:24,300
+với các rule như thế này.
+
+183
+00:07:24,300 --> 00:07:28,500
+Nó cho phép SSH từ mọi nơi, điều này tốt.
+
+184
+00:07:28,500 --> 00:07:31,110
+Chúng ta có ổ GP2 8 GB.
+
+185
+00:07:31,110 --> 00:07:33,510
+Nhưng vì muốn cấu hình lưu trữ
+
+186
+00:07:33,510 --> 00:07:34,560
+của EC2 instance
+
+187
+00:07:34,560 --> 00:07:37,470
+với Amazon EFS, giờ ta có thể làm ngay
+
+188
+00:07:37,470 --> 00:07:40,230
+từ trong EC2 console, rất thú vị.
+
+189
+00:07:40,230 --> 00:07:41,610
+Để tôi cho bạn xem cách làm.
+
+190
+00:07:41,610 --> 00:07:43,320
+Trước đây ta phải chạy vài lệnh.
+
+191
+00:07:43,320 --> 00:07:46,920
+Giờ có 0 file system và ta bấm Edit
+
+192
+00:07:46,920 --> 00:07:49,620
+nó báo bạn không thể thêm file system
+
+193
+00:07:49,620 --> 00:07:52,110
+trước khi chọn subnet.
+
+194
+00:07:52,110 --> 00:07:55,800
+Vì vậy ta cuộn lên Network Settings và chỉnh sửa,
+
+195
+00:07:55,800 --> 00:08:00,060
+ở subnet tôi chọn eu-west-1a.
+
+196
+00:08:00,060 --> 00:08:03,240
+Khi subnet được chọn, tôi quay lại
+
+197
+00:08:03,240 --> 00:08:04,440
+phần file systems.
+
+198
+00:08:04,440 --> 00:08:07,440
+Bây giờ tôi có thể thêm EFS hoặc FSx.
+
+199
+00:08:07,440 --> 00:08:09,750
+Ta sẽ thêm một EFS file system,
+
+200
+00:08:09,750 --> 00:08:12,423
+rồi bấm Add Shared File System.
+
+201
+00:08:12,423 --> 00:08:16,050
+Nó sẽ liên kết với EFS của tôi.
+
+202
+00:08:16,050 --> 00:08:21,050
+Điểm mount là /mnt/efs/fs1, vậy là đủ.
+
+203
+00:08:22,290 --> 00:08:24,480
+EC2 sẽ tự tạo
+
+204
+00:08:24,480 --> 00:08:27,810
+và gắn security group cho chúng ta, rất hay.
+
+205
+00:08:27,810 --> 00:08:28,980
+Nó cũng tự động
+
+206
+00:08:28,980 --> 00:08:31,170
+mount file system chia sẻ
+
+207
+00:08:31,170 --> 00:08:33,960
+bằng cách thêm user data cần thiết.
+
+208
+00:08:33,960 --> 00:08:35,700
+Trước đây chúng ta phải
+
+209
+00:08:35,700 --> 00:08:38,520
+chạy thủ công trên EC2 hoặc tự viết user data.
+
+210
+00:08:38,520 --> 00:08:39,960
+Giờ EC2 console làm thay,
+
+211
+00:08:39,960 --> 00:08:42,030
+thật tuyệt.
+
+212
+00:08:42,030 --> 00:08:44,850
+Được rồi, tạo một instance và launch.
+
+213
+00:08:44,850 --> 00:08:48,843
+
+214
+00:08:53,940 --> 00:08:55,680
+Instance đã được launch.
+
+215
+00:08:55,680 --> 00:08:56,940
+Tôi xem tất cả instance
+
+216
+00:08:56,940 --> 00:08:58,560
+và sẽ launch thêm một cái nữa.
+
+217
+00:08:58,560 --> 00:09:03,180
+Tôi gọi nó là Instance B.
+
+218
+00:09:03,180 --> 00:09:06,330
+Sử dụng Amazon Linux 2, để nhanh tôi sẽ
+
+219
+00:09:06,330 --> 00:09:11,330
+không dùng key pair và chọn eu-west-1b.
+
+220
+00:09:14,070 --> 00:09:17,364
+Tôi có thể chọn security group launch-wizard-2
+
+221
+00:09:17,364 --> 00:09:19,500
+vừa tạo trước đó.
+
+222
+00:09:19,500 --> 00:09:21,750
+Và ta cần chỉnh sửa
+
+223
+00:09:21,750 --> 00:09:24,100
+để thêm file system loại EFS,
+
+224
+00:09:24,990 --> 00:09:27,690
+sử dụng cùng file system và mount point
+
+225
+00:09:27,690 --> 00:09:28,792
+như trước,
+
+226
+00:09:28,792 --> 00:09:31,713
+và giữ nguyên các tùy chọn.
+
+227
+00:09:32,700 --> 00:09:35,403
+Ổn rồi, launch instance.
+
+228
+00:09:37,890 --> 00:09:38,790
+Bây giờ hãy xem
+
+229
+00:09:38,790 --> 00:09:40,500
+những điều thú vị xảy ra.
+
+230
+00:09:40,500 --> 00:09:45,150
+Tôi lọc trạng thái instance là running
+
+231
+00:09:45,150 --> 00:09:48,240
+và refresh cho tới khi cả hai instance chạy.
+
+232
+00:09:48,240 --> 00:09:49,073
+Giờ cả hai đã chạy.
+
+233
+00:09:49,073 --> 00:09:50,790
+Điều thú vị là
+
+234
+00:09:50,790 --> 00:09:53,520
+nếu vào EFS console và tab network,
+
+235
+00:09:53,520 --> 00:09:56,430
+ta thấy mỗi AZ có nhiều security group.
+
+236
+00:09:56,430 --> 00:09:59,880
+Có EFS demo ta tạo trước,
+
+237
+00:09:59,880 --> 00:10:02,400
+và efs-sg-1, efs-sg-2 được EC2
+
+238
+00:10:02,400 --> 00:10:07,400
+tự động tạo và gắn vào EFS.
+
+239
+00:10:08,100 --> 00:10:10,530
+Nếu tôi vào EC2 instance
+
+240
+00:10:10,530 --> 00:10:12,510
+và xem security group, ví dụ efs-sg-2,
+
+241
+00:10:12,510 --> 00:10:15,660
+ta có thể xem inbound rules
+
+242
+00:10:15,660 --> 00:10:18,930
+nó cho phép giao thức NFS cổng 2049
+
+243
+00:10:18,930 --> 00:10:23,100
+và nguồn là chính security group này,
+
+244
+00:10:23,100 --> 00:10:27,127
+guồn đó gắn với EC2 instance B.
+
+245
+00:10:28,530 --> 00:10:30,750
+Điều này cho phép instance B truy cập EFS
+
+246
+00:10:30,750 --> 00:10:32,670
+vì security group efs-sg-2
+
+247
+00:10:32,670 --> 00:10:34,740
+được gắn vào EFS của tôi.
+
+248
+00:10:34,740 --> 00:10:35,820
+Tất cả cấu hình đã
+
+249
+00:10:35,820 --> 00:10:40,050
+được AWS làm sẵn, rất tuyệt.
+
+250
+00:10:40,050 --> 00:10:43,440
+Bây giờ tôi kết nối vào một instance
+
+251
+00:10:43,440 --> 00:10:46,890
+bằng EC2 Instance Connect
+
+252
+00:10:46,890 --> 00:10:49,860
+và cũng làm tương tự với instance B.
+
+253
+00:10:49,860 --> 00:10:53,940
+Ví dụ tôi kiểm tra bằng lệnh
+
+254
+00:10:53,940 --> 00:10:56,550
+ls /mnt/efs/fs1/ và thấy file system.
+
+255
+00:10:56,550 --> 00:11:00,190
+Giờ ta cần tạo file trong đó.
+
+256
+00:11:01,110 --> 00:11:05,400
+Để đơn giản tôi chuyển sang quyền root bằng sudo su
+
+257
+00:11:05,400 --> 00:11:10,263
+rồi chạy echo "hello world" > /mnt/efs/fs1/hello.txt
+
+258
+00:11:12,150 --> 00:11:16,170
+Chúng ta đã tạo file tên hello.txt.
+
+259
+00:11:16,170 --> 00:11:21,170
+Nếu tôi cat với tên file đầy đủ này
+
+260
+00:11:21,570 --> 00:11:23,340
+bạn sẽ thấy dòng hello world.
+
+261
+00:11:23,340 --> 00:11:25,680
+File này được tạo trong EFS
+
+262
+00:11:25,680 --> 00:11:27,900
+từ EC2 instance ở eu-west-1a.
+
+263
+00:11:27,900 --> 00:11:30,900
+Nhưng nếu tôi sang instance thứ hai và ls
+
+264
+00:11:30,900 --> 00:11:35,900
+cùng thư mục đó, chúng ta cũng thấy hello.txt.
+
+265
+00:11:36,900 --> 00:11:40,170
+Nếu tôi cat file hello.txt
+
+266
+00:11:40,170 --> 00:11:44,130
+nó cũng in ra hello world.
+
+267
+00:11:44,130 --> 00:11:46,350
+Vì vậy EFS đã được mount
+
+268
+00:11:46,350 --> 00:11:49,770
+như ổ mạng trên cả hai EC2
+
+269
+00:11:49,770 --> 00:11:54,300
+và chúng ở các AZ khác nhau nhưng chia sẻ chung EFS.
+
+270
+00:11:54,300 --> 00:11:58,260
+Thật tuyệt, đây là kiểu lưu trữ khác mà bạn vừa thấy demo.
+
+271
+00:11:58,260 --> 00:12:01,860
+Vậy là xong phần demo EFS, khá đầy đủ.
+
+272
+00:12:01,860 --> 00:12:06,267
+Để dọn dẹp, bạn có thể
+
+273
+00:12:06,267 --> 00:12:11,267
+terminate hai EC2 instance này.
+
+274
+00:12:11,940 --> 00:12:12,930
+Bạn cũng có thể
+
+275
+00:12:12,930 --> 00:12:16,290
+vào EFS và xóa file system
+
+276
+00:12:16,290 --> 00:12:20,340
+bằng cách nhập ID file system.
+
+277
+00:12:20,340 --> 00:12:22,380
+Khi mọi thứ đã xóa xong,
+
+278
+00:12:22,380 --> 00:12:23,940
+bạn quay lại security group
+
+279
+00:12:23,940 --> 00:12:26,700
+và xóa các security group tạo trong demo.
+
+280
+00:12:26,700 --> 00:12:29,190
+Vậy là kết thúc bài giảng.
+
+281
+00:12:29,190 --> 00:12:31,980
+Hy vọng bạn thích và hẹn gặp lại ở bài tiếp theo.
+
+282
+00:12:31,980 --> 00:12:34,320
+Bây giờ để dọn dẹp, bạn có thể
+
+283
+00:12:34,320 --> 00:12:37,560
+terminate hai EC2 instance này.
+
+284
+00:12:37,560 --> 00:12:40,773
+Bạn vào đây và terminate chúng.
+
+285
+00:12:42,990 --> 00:12:45,000
+Bạn cũng có thể
+
+286
+00:12:45,000 --> 00:12:48,540
+vào EFS và xóa file system
+
+287
+00:12:48,540 --> 00:12:50,493
+bằng cách nhập ID file system,
+
+288
+00:12:52,260 --> 00:12:55,140
+và khi mọi thứ đã bị xóa, bạn có thể
+
+289
+00:12:55,140 --> 00:12:56,760
+vào security groups của mình
+
+290
+00:12:56,760 --> 00:12:58,443
+và xóa các security group thừa
+
+291
+00:12:58,443 --> 00:13:00,510
+được tạo trong demo này.
+
+292
+00:13:00,510 --> 00:13:02,040
+Được rồi, bài giảng kết thúc tại đây.
+
+293
+00:13:02,040 --> 00:13:04,990
+Hy vọng bạn thích và hẹn gặp lại ở bài tiếp theo.
+
