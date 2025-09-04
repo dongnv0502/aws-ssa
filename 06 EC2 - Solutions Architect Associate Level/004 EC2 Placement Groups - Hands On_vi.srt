@@ -1,0 +1,180 @@
+1
+00:00:00,450 --> 00:00:01,283
+Hãy cùng thực hành
+
+2
+00:00:01,283 --> 00:00:03,270
+các placement group.
+
+3
+00:00:03,270 --> 00:00:04,950
+Ở bên trái,
+
+4
+00:00:04,950 --> 00:00:06,120
+tôi sẽ cuộn xuống
+
+5
+00:00:06,120 --> 00:00:08,280
+và tìm phần placement groups
+
+6
+00:00:08,280 --> 00:00:09,660
+trong Network & Security.
+
+7
+00:00:09,660 --> 00:00:11,760
+Sau đó tôi tạo một placement group.
+
+8
+00:00:11,760 --> 00:00:16,760
+Nhóm đầu tiên sẽ là my-high-performance-group.
+
+9
+00:00:16,770 --> 00:00:19,140
+Chiến lược placement của nhóm này
+
+10
+00:00:19,140 --> 00:00:20,880
+sẽ là cluster,
+
+11
+00:00:20,880 --> 00:00:22,050
+vì chúng ta muốn các instance
+
+12
+00:00:22,050 --> 00:00:23,910
+ở rất gần nhau
+
+13
+00:00:23,910 --> 00:00:26,913
+để có khả năng mạng tối đa.
+
+14
+00:00:27,870 --> 00:00:32,063
+Nhóm thứ hai sẽ là my-critical-group.
+
+15
+00:00:33,690 --> 00:00:34,890
+Với nhóm này,
+
+16
+00:00:34,890 --> 00:00:36,780
+chiến lược placement sẽ là spread,
+
+17
+00:00:36,780 --> 00:00:38,610
+vì chúng ta muốn các instance
+
+18
+00:00:38,610 --> 00:00:41,190
+được phân tán nhiều nhất có thể.
+
+19
+00:00:41,190 --> 00:00:42,720
+Bạn có thể đặt mức spread là rack,
+
+20
+00:00:42,720 --> 00:00:43,710
+mặc định,
+
+21
+00:00:43,710 --> 00:00:45,390
+hoặc host, chỉ dùng cho Outposts,
+
+22
+00:00:45,390 --> 00:00:46,290
+nhưng chúng ta không dùng Outposts.
+
+23
+00:00:46,290 --> 00:00:48,000
+Vì vậy tôi chọn rack,
+
+24
+00:00:48,000 --> 00:00:49,983
+đó là điều bạn cần biết.
+
+25
+00:00:51,120 --> 00:00:52,890
+Được rồi, nhóm critical đã xong
+
+26
+00:00:52,890 --> 00:00:57,890
+và cuối cùng là my-distributed-group.
+
+27
+00:00:58,380 --> 00:00:59,670
+Như bạn đoán,
+
+28
+00:00:59,670 --> 00:01:01,980
+nhóm này sẽ dùng kiểu partition.
+
+29
+00:01:01,980 --> 00:01:03,390
+Ở đây ta có thể chọn
+
+30
+00:01:03,390 --> 00:01:05,519
+từ một đến bảy partition.
+
+31
+00:01:05,519 --> 00:01:09,030
+Ví dụ tôi chọn bốn và tạo nhóm.
+
+32
+00:01:09,030 --> 00:01:11,130
+Ba nhóm đã được tạo.
+
+33
+00:01:11,130 --> 00:01:13,470
+Để khởi chạy instance trong nhóm,
+
+34
+00:01:13,470 --> 00:01:15,483
+bạn chọn Launch instances.
+
+35
+00:01:16,890 --> 00:01:20,490
+Khi cuộn xuống dưới cùng,
+
+36
+00:01:20,490 --> 00:01:24,120
+trong phần Advanced details bạn sẽ thấy
+
+37
+00:01:24,120 --> 00:01:28,650
+trường Placement group name,
+
+38
+00:01:28,650 --> 00:01:30,780
+bạn có thể chọn my-critical-group,
+
+39
+00:01:30,780 --> 00:01:31,800
+my-distributed-group
+
+40
+00:01:31,800 --> 00:01:33,780
+hoặc my-high-performance-group
+
+41
+00:01:33,780 --> 00:01:36,360
+tùy vào chiến lược của bạn.
+
+42
+00:01:36,360 --> 00:01:37,860
+Vậy thôi, bài giảng rất ngắn
+
+43
+00:01:37,860 --> 00:01:39,570
+nhưng giờ bạn biết vị trí của tùy chọn.
+
+44
+00:01:39,570 --> 00:01:40,680
+Hy vọng bạn thích.
+
+45
+00:01:40,680 --> 00:01:42,630
+Hẹn gặp lại bạn ở bài sau.
+

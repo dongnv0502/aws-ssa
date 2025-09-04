@@ -1,0 +1,528 @@
+1
+00:00:00,150 --> 00:00:00,983
+Hãy thực hành
+
+2
+00:00:00,983 --> 00:00:03,180
+về elastic network interface,
+
+3
+00:00:03,180 --> 00:00:05,510
+và để làm vậy chúng ta khởi chạy hai instance.
+
+4
+00:00:05,510 --> 00:00:07,190
+Tôi sẽ cuộn xuống,
+
+5
+00:00:07,190 --> 00:00:08,850
+chọn Amazon Linux 2, t2.micro.
+
+6
+00:00:08,850 --> 00:00:11,600
+Chọn bất kỳ key pair nào cũng được.
+
+7
+00:00:11,600 --> 00:00:12,433
+Ở phần cài đặt mạng,
+
+8
+00:00:12,433 --> 00:00:15,626
+tôi dùng một security group sẵn có
+
+9
+00:00:15,626 --> 00:00:17,126
+là launch-wizard-1.
+
+10
+00:00:17,982 --> 00:00:18,815
+Như vậy là được.
+
+11
+00:00:18,815 --> 00:00:21,500
+Sau đó tôi sẽ khởi chạy hai instance,
+
+12
+00:00:21,500 --> 00:00:24,340
+và bấm Launch instances.
+
+13
+00:00:24,340 --> 00:00:27,470
+Điều tôi muốn cho bạn thấy là từ các instance này
+
+14
+00:00:27,470 --> 00:00:31,440
+chúng ta sẽ có hai máy, và trong phần networking,
+
+15
+00:00:31,440 --> 00:00:32,363
+nếu cuộn xuống,
+
+16
+00:00:33,220 --> 00:00:36,341
+chúng ta sẽ xem các network interface.
+
+17
+00:00:36,341 --> 00:00:38,141
+Mỗi instance
+
+18
+00:00:38,141 --> 00:00:39,410
+sẽ có một network interface,
+
+19
+00:00:39,410 --> 00:00:40,910
+và có một interface ID.
+
+20
+00:00:40,910 --> 00:00:43,490
+Có một ENI và ID ngay đây.
+
+21
+00:00:43,490 --> 00:00:46,970
+Mỗi interface có một public IPv4,
+
+22
+00:00:46,970 --> 00:00:50,510
+một private IPv4 và private IPv4 DNS.
+
+23
+00:00:50,510 --> 00:00:52,150
+Như chúng ta thấy,
+
+24
+00:00:52,150 --> 00:00:53,960
+nếu đi sang bên trái,
+
+25
+00:00:53,960 --> 00:00:55,090
+trên hai instance,
+
+26
+00:00:55,090 --> 00:00:57,710
+chúng ta sẽ có hai network interface khác nhau.
+
+27
+00:00:57,710 --> 00:00:59,310
+Nếu bạn sang bên trái,
+
+28
+00:00:59,310 --> 00:01:01,460
+trong mục Network & Security,
+
+29
+00:01:01,460 --> 00:01:04,810
+cũng có mục network interfaces.
+
+30
+00:01:04,810 --> 00:01:07,060
+Ở đây chúng ta thấy hai ENI,
+
+31
+00:01:07,060 --> 00:01:08,810
+mỗi cái gắn
+
+32
+00:01:08,810 --> 00:01:10,320
+vào một EC2 instance,
+
+33
+00:01:10,320 --> 00:01:13,120
+và ta biết được bằng cách nhìn sang phải,
+
+34
+00:01:13,120 --> 00:01:14,750
+trạng thái là in-use,
+
+35
+00:01:14,750 --> 00:01:16,310
+và chúng ta thấy chúng liên kết
+
+36
+00:01:16,310 --> 00:01:18,263
+với các instance ID khác nhau.
+
+37
+00:01:19,621 --> 00:01:21,160
+Một việc chúng ta có thể làm
+
+38
+00:01:21,160 --> 00:01:23,860
+là tạo một network interface mới.
+
+39
+00:01:23,860 --> 00:01:28,228
+Trong bước này, ta đặt phần mô tả.
+
+40
+00:01:28,228 --> 00:01:29,630
+Ví dụ: demo ENI.
+
+41
+00:01:29,630 --> 00:01:32,490
+Chúng ta chọn subnet để ENI nằm trong.
+
+42
+00:01:32,490 --> 00:01:34,480
+Nó liên kết với một AZ cụ thể,
+
+43
+00:01:34,480 --> 00:01:35,990
+và tôi chọn AZ
+
+44
+00:01:35,990 --> 00:01:38,452
+nơi các EC2 instance đang ở,
+
+45
+00:01:38,452 --> 00:01:39,880
+tức us-east-2a.
+
+46
+00:01:39,880 --> 00:01:43,870
+Chọn... không phải cái này, mà cái này.
+
+47
+00:01:43,870 --> 00:01:47,342
+Sau đó chúng ta bật auto assign private IPv4,
+
+48
+00:01:47,342 --> 00:01:48,480
+nhưng cũng có thể tự chọn
+
+49
+00:01:48,480 --> 00:01:50,910
+địa chỉ IPv4 cụ thể trong subnet,
+
+50
+00:01:50,910 --> 00:01:53,170
+nên ở đây dùng auto assign.
+
+51
+00:01:53,170 --> 00:01:55,560
+Rồi gắn một security group cho ENI.
+
+52
+00:01:55,560 --> 00:02:00,560
+Chọn xong rồi tạo network interface.
+
+53
+00:02:00,620 --> 00:02:03,080
+Giờ chúng ta đã tạo một network interface mới
+
+54
+00:02:03,080 --> 00:02:06,900
+nó nằm đây, demo ENI, trạng thái available.
+
+55
+00:02:06,900 --> 00:02:10,320
+Như bạn thấy, chúng ta đã tạo về cơ bản
+
+56
+00:02:10,320 --> 00:02:12,693
+một private IPv4 thứ hai.
+
+57
+00:02:13,618 --> 00:02:16,250
+Chúng ta có thể gắn ENI này
+
+58
+00:02:16,250 --> 00:02:18,590
+vào instance bằng cách chọn Action,
+
+59
+00:02:18,590 --> 00:02:21,760
+Attach rồi chọn instance để gắn.
+
+60
+00:02:21,760 --> 00:02:24,323
+Tôi chọn instance này và attach.
+
+61
+00:02:27,420 --> 00:02:31,420
+Giờ nếu vào instance và refresh,
+
+62
+00:02:31,420 --> 00:02:35,390
+quay lại trang Instances và refresh.
+
+63
+00:02:35,390 --> 00:02:38,300
+Vào tab networking và cuộn xuống.
+
+64
+00:02:38,300 --> 00:02:39,800
+Instance này tôi gặp may.
+
+65
+00:02:39,800 --> 00:02:43,050
+Nó có hai network interface.
+
+66
+00:02:43,050 --> 00:02:44,750
+Một trong số đó là interface chính
+
+67
+00:02:44,750 --> 00:02:48,100
+cung cấp public IPv4 và private IPv4.
+
+68
+00:02:48,100 --> 00:02:53,100
+Còn demo ENI cung cấp private IPv4 thứ hai.
+
+69
+00:02:53,570 --> 00:02:55,010
+Vì sao chúng ta làm vậy?
+
+70
+00:02:55,010 --> 00:02:57,550
+Vì ENI này chúng ta kiểm soát được,
+
+71
+00:02:57,550 --> 00:02:59,190
+nên ta có thể lấy nó,
+
+72
+00:02:59,190 --> 00:03:00,320
+và thậm chí di chuyển
+
+73
+00:03:00,320 --> 00:03:02,300
+từ một EC2 instance sang instance khác,
+
+74
+00:03:02,300 --> 00:03:05,065
+giả sử hai EC2 instance
+
+75
+00:03:05,065 --> 00:03:05,960
+đang chạy cùng ứng dụng
+
+76
+00:03:05,960 --> 00:03:08,520
+và chúng ta muốn truy cập bằng private IPv4.
+
+77
+00:03:08,520 --> 00:03:10,340
+Khi đó ta có thể chuyển ENI.
+
+78
+00:03:10,340 --> 00:03:11,900
+Lý do làm vậy
+
+79
+00:03:11,900 --> 00:03:15,260
+là có thể failover mạng nhanh chóng
+
+80
+00:03:15,260 --> 00:03:18,770
+giữa hai instance bằng cách di chuyển ENI,
+
+81
+00:03:18,770 --> 00:03:22,621
+vì ta có thể gắn IPv4 từ instance này sang instance khác.
+
+82
+00:03:22,621 --> 00:03:25,490
+Hãy demo: tôi sẽ lấy ENI này.
+
+83
+00:03:25,490 --> 00:03:27,440
+Tôi sẽ detach nó.
+
+84
+00:03:27,440 --> 00:03:29,280
+Đồng ý, detach.
+
+85
+00:03:29,280 --> 00:03:33,560
+Sau vài giây khi nó tách ra
+
+86
+00:03:33,560 --> 00:03:37,560
+chúng ta có thể gắn vào instance còn lại,
+
+87
+00:03:37,560 --> 00:03:39,240
+và để làm vậy,
+
+88
+00:03:39,240 --> 00:03:41,380
+có thể detach như vậy gặp vấn đề.
+
+89
+00:03:41,380 --> 00:03:43,460
+Vì vậy tôi sẽ nhấp vào nó,
+
+90
+00:03:43,460 --> 00:03:46,660
+chọn Action rồi Force detach.
+
+91
+00:03:46,660 --> 00:03:48,013
+Xong.
+
+92
+00:03:50,810 --> 00:03:54,410
+Sau khi refresh, các thông báo lỗi đã biến mất.
+
+93
+00:03:54,410 --> 00:03:56,380
+Ta có thể chọn Action, Attach,
+
+94
+00:03:56,380 --> 00:03:59,293
+rồi chọn instance khác để gắn,
+
+95
+00:04:00,136 --> 00:04:01,240
+đảm bảo đúng instance kia.
+
+96
+00:04:01,240 --> 00:04:04,420
+Tôi sẽ attach vào instance còn lại
+
+97
+00:04:04,420 --> 00:04:05,500
+và bây giờ nó đang được gắn.
+
+98
+00:04:05,500 --> 00:04:08,160
+Như bạn thấy, khi refresh,
+
+99
+00:04:08,160 --> 00:04:11,950
+instance này từ hai interface còn một.
+
+100
+00:04:11,950 --> 00:04:14,590
+Và instance kia giờ có hai network interface.
+
+101
+00:04:14,590 --> 00:04:17,380
+Demo ENI đã chuyển sang instance kia,
+
+102
+00:04:17,380 --> 00:04:20,329
+nên chúng ta thấy cách failover
+
+103
+00:04:20,329 --> 00:04:21,740
+giữa các instance bằng ENI,
+
+104
+00:04:21,740 --> 00:04:23,150
+mà tôi thấy rất hay,
+
+105
+00:04:23,150 --> 00:04:24,230
+nhưng khá nâng cao.
+
+106
+00:04:24,230 --> 00:04:27,110
+Điều này bạn phải tự thực hành.
+
+107
+00:04:27,110 --> 00:04:31,060
+Cuối cùng, nếu chúng ta terminate các instance,
+
+108
+00:04:31,060 --> 00:04:33,333
+hãy terminate và xem chuyện gì xảy ra.
+
+109
+00:04:35,680 --> 00:04:37,130
+Chúng đang tắt,
+
+110
+00:04:37,130 --> 00:04:39,610
+và với ENI, bạn nghĩ sẽ ra sao?
+
+111
+00:04:39,610 --> 00:04:40,970
+Hiện có ba ENI,
+
+112
+00:04:40,970 --> 00:04:42,713
+hai cái tạo cùng EC2 instance,
+
+113
+00:04:42,713 --> 00:04:44,163
+và một cái tạo thủ công.
+
+114
+00:04:45,680 --> 00:04:46,670
+Có lẽ bạn đoán đúng?
+
+115
+00:04:46,670 --> 00:04:48,636
+Điều sẽ xảy ra là
+
+116
+00:04:48,636 --> 00:04:51,420
+ENI tạo thủ công sẽ vẫn còn.
+
+117
+00:04:51,420 --> 00:04:52,720
+Còn hai ENI
+
+118
+00:04:52,720 --> 00:04:54,770
+tạo cùng instance
+
+119
+00:04:54,770 --> 00:04:57,120
+sẽ bị xóa tự động.
+
+120
+00:04:57,120 --> 00:04:59,570
+Bằng cách tự tạo ENI,
+
+121
+00:04:59,570 --> 00:05:02,170
+bạn có nhiều quyền kiểm soát private IPv4,
+
+122
+00:05:02,170 --> 00:05:04,240
+và mạng của bạn.
+
+123
+00:05:04,240 --> 00:05:05,690
+Điều đó có thể hữu ích
+
+124
+00:05:05,690 --> 00:05:07,683
+trong một số trường hợp nâng cao.
+
+125
+00:05:08,590 --> 00:05:09,950
+Chúng ta thấy một ENI đã biến mất
+
+126
+00:05:09,950 --> 00:05:13,850
+và cái còn lại sẽ biến mất sớm.
+
+127
+00:05:13,850 --> 00:05:15,100
+Buổi thực hành đến đây là xong.
+
+128
+00:05:15,100 --> 00:05:17,230
+Bạn có thể giữ ENI lại nếu muốn,
+
+129
+00:05:17,230 --> 00:05:19,360
+hoặc xóa đi, không tốn chi phí.
+
+130
+00:05:19,360 --> 00:05:20,290
+Đó là hết phần thực hành này.
+
+131
+00:05:20,290 --> 00:05:21,210
+Hy vọng bạn thích.
+
+132
+00:05:21,210 --> 00:05:23,160
+Hẹn gặp bạn ở bài học tiếp theo.
+

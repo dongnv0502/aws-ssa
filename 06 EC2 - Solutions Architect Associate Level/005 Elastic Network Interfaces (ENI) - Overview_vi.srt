@@ -1,0 +1,216 @@
+1
+00:00:00,010 --> 00:00:02,318
+Bây giờ nói về
+
+2
+00:00:02,318 --> 00:00:03,800
+Elastic Network Interface hay ENI.
+
+3
+00:00:03,800 --> 00:00:05,950
+Tôi nói ENI tức là
+
+4
+00:00:05,950 --> 00:00:07,740
+Elastic Network Interface.
+
+5
+00:00:07,740 --> 00:00:10,310
+Đây là thành phần logic trong VPC
+
+6
+00:00:10,310 --> 00:00:13,260
+đại diện cho card mạng ảo.
+
+7
+00:00:13,260 --> 00:00:17,210
+Nó giúp EC2 instance kết nối mạng,
+
+8
+00:00:17,210 --> 00:00:19,730
+và cũng được dùng ngoài EC2
+
+9
+00:00:19,730 --> 00:00:21,660
+như ta sẽ thấy sau này.
+
+10
+00:00:21,660 --> 00:00:24,250
+Ví dụ chúng ta có một Availability Zone
+
+11
+00:00:24,250 --> 00:00:26,380
+và một EC2 instance
+
+12
+00:00:26,380 --> 00:00:30,870
+gắn ENI chính ở eth0
+
+13
+00:00:30,870 --> 00:00:34,510
+cung cấp kết nối mạng và private IP.
+
+14
+00:00:34,510 --> 00:00:36,870
+Mỗi ENI có các thuộc tính sau.
+
+15
+00:00:36,870 --> 00:00:39,930
+Nó có một IPv4 private chính
+
+16
+00:00:39,930 --> 00:00:43,210
+và có thể có IPv4 private phụ.
+
+17
+00:00:43,210 --> 00:00:46,950
+Trong ví dụ này tôi chỉ có một,
+
+18
+00:00:46,950 --> 00:00:49,940
+nhưng bạn có thể thêm ENI thứ hai
+
+19
+00:00:49,940 --> 00:00:54,270
+tạo eth1 và có thêm private IPv4.
+
+20
+00:00:54,270 --> 00:00:55,639
+Mỗi ENI cũng có thể có Elastic IPv4
+
+21
+00:00:55,639 --> 00:01:00,250
+cho từng private IPv4
+
+22
+00:01:00,250 --> 00:01:05,250
+hoặc một hay nhiều public IPv4.
+
+23
+00:01:06,060 --> 00:01:07,930
+Nó cung cấp cả private và public IP
+
+24
+00:01:07,930 --> 00:01:10,330
+như ta sẽ thấy trong phần thực hành.
+
+25
+00:01:10,330 --> 00:01:11,800
+Bạn có thể gắn một hay nhiều security group
+
+26
+00:01:11,800 --> 00:01:14,110
+cho ENI.
+
+27
+00:01:14,110 --> 00:01:15,400
+Nó có địa chỉ MAC
+
+28
+00:01:15,400 --> 00:01:17,390
+và những thứ khác,
+
+29
+00:01:17,390 --> 00:01:20,140
+nhưng đây là phần quan trọng nhất.
+
+30
+00:01:20,140 --> 00:01:22,640
+Bạn có thể tạo ENI độc lập
+
+31
+00:01:22,640 --> 00:01:25,660
+và gắn vào EC2 khi cần
+
+32
+00:01:25,660 --> 00:01:26,870
+hoặc chuyển giữa các instance
+
+33
+00:01:26,870 --> 00:01:28,160
+để failover.
+
+34
+00:01:28,160 --> 00:01:31,560
+Chúng ta xem nó trông ra sao.
+
+35
+00:01:31,560 --> 00:01:33,370
+ENI bị ràng buộc
+
+36
+00:01:33,370 --> 00:01:34,740
+với một Availability Zone.
+
+37
+00:01:34,740 --> 00:01:37,352
+Nếu tạo ENI ở một AZ,
+
+38
+00:01:37,352 --> 00:01:40,020
+bạn chỉ gắn nó trong AZ đó.
+
+39
+00:01:40,020 --> 00:01:42,610
+Đây là EC2 khác
+
+40
+00:01:42,610 --> 00:01:44,410
+có ENI khác gắn kèm.
+
+41
+00:01:44,410 --> 00:01:47,130
+Ta có thể chuyển eth1
+
+42
+00:01:47,130 --> 00:01:50,040
+từ instance đầu sang instance thứ hai
+
+43
+00:01:50,040 --> 00:01:53,740
+để chuyển private IP đó.
+
+44
+00:01:53,740 --> 00:01:55,650
+Tức là private IP sẽ rời
+
+45
+00:01:55,650 --> 00:01:58,170
+instance thứ nhất và gắn vào thứ hai.
+
+46
+00:01:58,170 --> 00:01:59,790
+Rất hữu ích cho failover.
+
+47
+00:01:59,790 --> 00:02:01,970
+Nếu instance được truy cập
+
+48
+00:02:01,970 --> 00:02:04,110
+bằng private static IP,
+
+49
+00:02:04,110 --> 00:02:07,070
+bạn có thể chuyển IP giữa hai máy
+
+50
+00:02:07,070 --> 00:02:09,229
+để failover.
+
+51
+00:02:09,229 --> 00:02:10,770
+Vậy hãy xem phần hands-on
+
+52
+00:02:10,770 --> 00:02:13,750
+để thấy rõ điều này.
+
+53
+00:02:13,750 --> 00:02:14,870
+Và bây giờ
+
+54
+00:02:14,870 --> 00:02:16,310
+chúng ta bắt đầu xem nó hoạt động ra sao.
+

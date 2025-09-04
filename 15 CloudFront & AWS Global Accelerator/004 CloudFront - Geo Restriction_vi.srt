@@ -1,0 +1,136 @@
+1
+00:00:00,150 --> 00:00:01,320
+Đây là bài giảng ngắn
+
+2
+00:00:01,320 --> 00:00:03,510
+về CloudFront Geo Restriction.
+
+3
+00:00:03,510 --> 00:00:06,180
+Bạn có thể giới hạn ai được truy cập distribution của mình
+
+4
+00:00:06,180 --> 00:00:08,220
+dựa trên quốc gia nơi họ cố gắng
+
+5
+00:00:08,220 --> 00:00:10,140
+truy cập distribution.
+
+6
+00:00:10,140 --> 00:00:12,900
+Bạn có thể tạo một allowlist để định nghĩa danh sách
+
+7
+00:00:12,900 --> 00:00:14,670
+các quốc gia được phép,
+
+8
+00:00:14,670 --> 00:00:18,030
+hoặc tạo một blocklist để lập danh sách
+
+9
+00:00:18,030 --> 00:00:19,920
+các quốc gia bị cấm.
+
+10
+00:00:19,920 --> 00:00:21,690
+Quốc gia được xác định
+
+11
+00:00:21,690 --> 00:00:24,810
+bằng cách dùng cơ sở dữ liệu Geo-IP của bên thứ ba để đối chiếu IP
+
+12
+00:00:24,810 --> 00:00:27,570
+của người dùng với quốc gia tương ứng.
+
+13
+00:00:27,570 --> 00:00:29,910
+Vì vậy, trường hợp sử dụng của geo restriction
+
+14
+00:00:29,910 --> 00:00:33,840
+là các luật bản quyền để kiểm soát truy cập nội dung.
+
+15
+00:00:33,840 --> 00:00:36,390
+Để bật giới hạn địa lý,
+
+16
+00:00:36,390 --> 00:00:38,310
+vào mục Security,
+
+17
+00:00:38,310 --> 00:00:39,930
+và dưới đó
+
+18
+00:00:39,930 --> 00:00:42,810
+bạn sẽ thấy mục CloudFront geographic restrictions,
+
+19
+00:00:42,810 --> 00:00:43,980
+và có phần countries.
+
+20
+00:00:43,980 --> 00:00:44,910
+Sau đó nhấn Edit.
+
+21
+00:00:44,910 --> 00:00:46,260
+Nó hơi bị ẩn,
+
+22
+00:00:46,260 --> 00:00:50,040
+nhưng dưới đó bạn có thể chọn allowlist hoặc blocklist.
+
+23
+00:00:50,040 --> 00:00:51,810
+Ví dụ chúng ta có thể thiết lập một allowlist
+
+24
+00:00:51,810 --> 00:00:54,960
+và liệt kê các quốc gia
+
+25
+00:00:54,960 --> 00:00:56,250
+luôn được phép,
+
+26
+00:00:56,250 --> 00:01:00,780
+còn lại sẽ bị CloudFront chặn.
+
+27
+00:01:00,780 --> 00:01:04,110
+Ở đây chúng ta nói rằng Ấn Độ và Hoa Kỳ
+
+28
+00:01:04,110 --> 00:01:06,750
+được phép trên CloudFront distribution của chúng ta.
+
+29
+00:01:06,750 --> 00:01:09,330
+Nếu hài lòng, chúng ta lưu thay đổi.
+
+30
+00:01:09,330 --> 00:01:11,970
+Và như bạn thấy, giờ loại là allowlist
+
+31
+00:01:11,970 --> 00:01:14,700
+và các quốc gia được liệt kê ở đây.
+
+32
+00:01:14,700 --> 00:01:15,630
+Vậy thôi.
+
+33
+00:01:15,630 --> 00:01:16,560
+Hy vọng bạn thích,
+
+34
+00:01:16,560 --> 00:01:18,753
+hẹn gặp bạn trong bài giảng tiếp theo.
+

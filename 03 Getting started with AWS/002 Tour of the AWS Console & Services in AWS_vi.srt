@@ -1,0 +1,411 @@
+1
+00:00:00,100 --> 00:00:02,620
+Chào mừng đến với trang chủ AWS Console.
+
+2
+00:00:02,620 --> 00:00:04,820
+Ở trang này, bạn có thể làm rất nhiều thứ.
+
+3
+00:00:04,820 --> 00:00:06,540
+Đầu tiên, hãy cùng xem
+
+4
+00:00:06,540 --> 00:00:08,590
+ở góc trên bên phải màn hình,
+
+5
+00:00:08,590 --> 00:00:10,840
+nơi đây gọi là bộ chọn vùng (region),
+
+6
+00:00:10,840 --> 00:00:12,930
+hiện tại tôi đang ở Northern Virginia,
+
+7
+00:00:12,930 --> 00:00:14,210
+khu vực US East 1.
+
+8
+00:00:14,210 --> 00:00:15,660
+Nhưng trong khóa học này, bạn nên
+
+9
+00:00:15,660 --> 00:00:18,910
+chọn một region gần vị trí địa lý của mình.
+
+10
+00:00:18,910 --> 00:00:21,850
+Vì tôi ở châu Âu nên tôi gần Ireland.
+
+11
+00:00:21,850 --> 00:00:24,020
+Vì vậy tôi có thể chọn EU West 1.
+
+12
+00:00:24,020 --> 00:00:25,987
+Nhưng nếu bạn ở nơi khác trên thế giới, ví dụ
+
+13
+00:00:25,987 --> 00:00:28,630
+nếu bạn ở châu Phi và gần Cape Town
+
+14
+00:00:28,630 --> 00:00:29,800
+thì hãy chọn region đó.
+
+15
+00:00:29,800 --> 00:00:31,492
+Dĩ nhiên bạn không nhất thiết phải ở
+
+16
+00:00:31,492 --> 00:00:33,551
+trong vùng đó mới sử dụng được nó, được chứ?
+
+17
+00:00:33,551 --> 00:00:34,630
+Bạn có thể, chẳng hạn,
+
+18
+00:00:34,630 --> 00:00:36,750
+chọn bất kỳ region nào phù hợp với bạn.
+
+19
+00:00:36,750 --> 00:00:38,660
+Hãy chọn region gần nhất
+
+20
+00:00:38,660 --> 00:00:41,840
+để có độ trễ thấp nhất.
+
+21
+00:00:41,840 --> 00:00:43,580
+Tiếp theo trong console, bạn sẽ thấy danh sách
+
+22
+00:00:43,580 --> 00:00:45,260
+các dịch vụ truy cập gần đây
+
+23
+00:00:45,260 --> 00:00:46,490
+và với bạn thì danh sách này có thể đang trống.
+
+24
+00:00:46,490 --> 00:00:47,340
+Tôi vừa thử một dịch vụ
+
+25
+00:00:47,340 --> 00:00:49,960
+nên nó hiện một dịch vụ ở đây.
+
+26
+00:00:49,960 --> 00:00:52,530
+Ở phía dưới bạn sẽ có một số thông tin về AWS.
+
+27
+00:00:52,530 --> 00:00:54,990
+Bạn thấy các sự cố sức khỏe hệ thống nếu có,
+
+28
+00:00:54,990 --> 00:00:57,370
+cũng như thông tin chi phí và mức sử dụng cho tài khoản
+
+29
+00:00:57,370 --> 00:01:00,600
+cùng các hướng dẫn xây dựng giải pháp và những nội dung khác.
+
+30
+00:01:00,600 --> 00:01:03,590
+Trang web này thay đổi khá nhiều theo thời gian
+
+31
+00:01:03,590 --> 00:01:05,480
+và trong hai năm qua đã thay đổi rất nhiều.
+
+32
+00:01:05,480 --> 00:01:08,170
+Vì vậy giao diện bạn thấy
+
+33
+00:01:08,170 --> 00:01:10,340
+nếu khác biệt rất nhiều so với tôi đang trình bày
+
+34
+00:01:10,340 --> 00:01:13,010
+thì tôi sẽ thu lại bài giảng này.
+
+35
+00:01:13,010 --> 00:01:14,900
+Được rồi, sau khi đã như vậy
+
+36
+00:01:14,900 --> 00:01:17,340
+chúng ta cần xem các dịch vụ của AWS.
+
+37
+00:01:17,340 --> 00:01:18,690
+Có hai cách:
+
+38
+00:01:18,690 --> 00:01:22,150
+cách thứ nhất là lên góc trên bên trái bấm vào Services
+
+39
+00:01:22,150 --> 00:01:24,200
+và bạn có thể xem các dịch vụ
+
+40
+00:01:24,200 --> 00:01:26,530
+theo thứ tự chữ cái, như bạn thấy
+
+41
+00:01:26,530 --> 00:01:29,450
+có rất nhiều dịch vụ trên AWS,
+
+42
+00:01:29,450 --> 00:01:31,790
+hoặc theo danh mục, ví dụ Compute
+
+43
+00:01:31,790 --> 00:01:34,070
+thì bạn sẽ thấy tất cả các dịch vụ thuộc nhóm này.
+
+44
+00:01:34,070 --> 00:01:35,240
+Nhưng đừng lo, theo thời gian
+
+45
+00:01:35,240 --> 00:01:37,110
+chúng ta sẽ học các dịch vụ này
+
+46
+00:01:37,110 --> 00:01:38,840
+và sẽ không cần phải duyệt trang này nữa.
+
+47
+00:01:38,840 --> 00:01:42,130
+Một tính năng khác tôi rất thích là thanh tìm kiếm.
+
+48
+00:01:42,130 --> 00:01:46,210
+Bạn có thể gõ tên dịch vụ, ví dụ Route 53
+
+49
+00:01:46,210 --> 00:01:47,830
+và nó sẽ trả về kết quả tìm kiếm.
+
+50
+00:01:47,830 --> 00:01:52,560
+Nó hiển thị bốn dịch vụ khớp với truy vấn này.
+
+51
+00:01:52,560 --> 00:01:53,930
+Và trong các dịch vụ đó,
+
+52
+00:01:53,930 --> 00:01:55,710
+ta cũng có thể xem các tính năng
+
+53
+00:01:55,710 --> 00:01:57,120
+và có 13 tính năng phù hợp.
+
+54
+00:01:57,120 --> 00:02:00,070
+Chúng ta có thể nhảy thẳng vào phần domain names
+
+55
+00:02:00,070 --> 00:02:03,750
+của dịch vụ Route 53 và đó là điều hữu ích.
+
+56
+00:02:03,750 --> 00:02:05,970
+Chúng ta cũng có thể xem blog, bài viết kiến thức
+
+57
+00:02:05,970 --> 00:02:08,020
+tài liệu và nhiều thứ khác.
+
+58
+00:02:08,020 --> 00:02:08,853
+Rất tiện lợi phải không.
+
+59
+00:02:08,853 --> 00:02:13,320
+Bây giờ hãy vào Route 53 để xem giao diện của nó.
+
+60
+00:02:13,320 --> 00:02:14,680
+Dịch vụ này khá đặc biệt vì
+
+61
+00:02:14,680 --> 00:02:17,140
+ở góc trên bên phải có chữ Global.
+
+62
+00:02:17,140 --> 00:02:18,810
+Điều đó có nghĩa là console này
+
+63
+00:02:18,810 --> 00:02:21,110
+không cần chọn region.
+
+64
+00:02:21,110 --> 00:02:23,310
+Đây là ngoại lệ hơn là quy tắc,
+
+65
+00:02:23,310 --> 00:02:25,680
+nhưng một số dịch vụ của AWS
+
+66
+00:02:25,680 --> 00:02:28,650
+được gọi là dịch vụ toàn cầu, dù bạn ở đâu
+
+67
+00:02:28,650 --> 00:02:31,010
+bạn cũng sẽ thấy cùng một giao diện.
+
+68
+00:02:31,010 --> 00:02:33,940
+Nhưng nếu bạn chuyển sang dịch vụ khác, ví dụ
+
+69
+00:02:33,940 --> 00:02:35,573
+EC2,
+
+70
+00:02:37,540 --> 00:02:39,170
+lúc này ở góc trên bên phải,
+
+71
+00:02:39,170 --> 00:02:40,590
+bạn sẽ thấy chữ Ireland
+
+72
+00:02:40,590 --> 00:02:42,950
+vì tôi đã chọn region Ireland.
+
+73
+00:02:42,950 --> 00:02:46,100
+Vì vậy nếu tôi chạy console này ở Ireland
+
+74
+00:02:46,100 --> 00:02:49,130
+hoặc ở một region khác, chẳng hạn Canada,
+
+75
+00:02:49,130 --> 00:02:50,780
+thì giao diện tôi thấy sẽ khác
+
+76
+00:02:50,780 --> 00:02:52,850
+về các tài nguyên hiển thị.
+
+77
+00:02:52,850 --> 00:02:54,820
+Do đó, quan trọng là bạn cần
+
+78
+00:02:54,820 --> 00:02:57,700
+ở cùng một region trong suốt
+
+79
+00:02:57,700 --> 00:03:00,440
+bài thực hành và khóa học.
+
+80
+00:03:00,440 --> 00:03:01,690
+Một thứ khác bạn có thể xem
+
+81
+00:03:01,690 --> 00:03:04,360
+là trang AWS Global Infrastructure
+
+82
+00:03:04,360 --> 00:03:05,980
+mà bạn có thể tìm trên Google.
+
+83
+00:03:05,980 --> 00:03:06,910
+Trang này cung cấp rất nhiều
+
+84
+00:03:06,910 --> 00:03:09,480
+thông tin liên quan đến các dịch vụ.
+
+85
+00:03:09,480 --> 00:03:11,700
+Một điều rất quan trọng cần xem
+
+86
+00:03:11,700 --> 00:03:14,320
+là danh sách dịch vụ theo region.
+
+87
+00:03:14,320 --> 00:03:17,757
+Nó liệt kê dịch vụ theo từng region.
+
+88
+00:03:17,757 --> 00:03:19,550
+Đây là một bảng,
+
+89
+00:03:19,550 --> 00:03:22,010
+ví dụ trong khóa học, nếu tôi
+
+90
+00:03:22,010 --> 00:03:24,340
+nhắc đến một dịch vụ và thực hành,
+
+91
+00:03:24,340 --> 00:03:26,560
+nhưng dịch vụ đó không có ở region của bạn,
+
+92
+00:03:26,560 --> 00:03:30,610
+bạn có thể kiểm tra tại đây để xem dịch vụ có sẵn hay không.
+
+93
+00:03:30,610 --> 00:03:32,030
+Ví dụ chúng ta có thể xem
+
+94
+00:03:32,030 --> 00:03:33,140
+region Cape Town
+
+95
+00:03:33,140 --> 00:03:36,280
+để biết những dịch vụ nào khả dụng.
+
+96
+00:03:36,280 --> 00:03:37,800
+Nếu bạn không thấy một dịch vụ
+
+97
+00:03:37,800 --> 00:03:39,750
+có thể bạn cần đổi sang region khác
+
+98
+00:03:39,750 --> 00:03:41,530
+trong console,
+
+99
+00:03:41,530 --> 00:03:42,740
+để truy cập dịch vụ đó
+
+100
+00:03:42,740 --> 00:03:46,913
+vì không phải dịch vụ AWS nào cũng có ở mọi region.
+
+101
+00:03:47,820 --> 00:03:49,490
+Vậy là xong bài học này,
+
+102
+00:03:49,490 --> 00:03:50,430
+hy vọng bạn thấy hữu ích
+
+103
+00:03:50,430 --> 00:03:52,380
+và hẹn gặp bạn ở bài học tiếp theo.

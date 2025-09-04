@@ -1,0 +1,380 @@
+1
+00:00:00,380 --> 00:00:02,300
+Hãy thực hành sử dụng
+
+2
+00:00:02,300 --> 00:00:04,210
+tính năng hibernate của EC2.
+
+3
+00:00:04,210 --> 00:00:06,290
+Hãy khởi chạy một instance.
+
+4
+00:00:06,290 --> 00:00:08,170
+Tôi chọn Amazon Linux 2.
+
+5
+00:00:08,170 --> 00:00:11,270
+Chọn t2.micro và một key pair.
+
+6
+00:00:11,270 --> 00:00:12,990
+Sau đó ở phần network security
+
+7
+00:00:12,990 --> 00:00:16,100
+tôi dùng security group có sẵn
+
+8
+00:00:16,100 --> 00:00:20,050
+là launch-wizard-1 và phần storage,
+
+9
+00:00:20,050 --> 00:00:20,883
+hiện tại ổn rồi.
+
+10
+00:00:20,883 --> 00:00:23,580
+Tôi sẽ cho bạn thấy vài thứ cần thiết lập
+
+11
+00:00:23,580 --> 00:00:28,570
+và tôi sẽ cuộn xuống tới phần stop hibernate behavior.
+
+12
+00:00:28,570 --> 00:00:30,110
+Chúng ta có thể bật nó.
+
+13
+00:00:30,110 --> 00:00:33,490
+Điều này cho phép bật hibernation
+
+14
+00:00:33,490 --> 00:00:35,360
+cho EC2 instance.
+
+15
+00:00:35,360 --> 00:00:36,680
+Có một cảnh báo.
+
+16
+00:00:36,680 --> 00:00:37,880
+Bạn không thể đọc rõ ở đây
+
+17
+00:00:37,880 --> 00:00:40,980
+nhưng nó nói rằng nếu bật hibernation
+
+18
+00:00:40,980 --> 00:00:43,900
+bạn phải đảm bảo root volume
+
+19
+00:00:43,900 --> 00:00:48,900
+có đủ dung lượng chứa RAM của EC2 instance.
+
+20
+00:00:50,180 --> 00:00:52,390
+Ngoài ra, EBS volume
+
+21
+00:00:52,390 --> 00:00:55,800
+root phải được mã hóa.
+
+22
+00:00:55,800 --> 00:00:57,230
+Trước hết về storage,
+
+23
+00:00:57,230 --> 00:01:00,040
+tôi vào Advanced, chọn EBS volume
+
+24
+00:01:00,040 --> 00:01:02,220
+và tôi sẽ mã hóa nó
+
+25
+00:01:02,220 --> 00:01:06,830
+bằng khóa AWS/EBS mặc định.
+
+26
+00:01:06,830 --> 00:01:09,660
+Bây giờ EBS volume đã được cấu hình đúng
+
+27
+00:01:09,660 --> 00:01:12,780
+và có dung lượng 8 GB.
+
+28
+00:01:12,780 --> 00:01:14,810
+Vậy dung lượng đó đủ
+
+29
+00:01:14,810 --> 00:01:17,900
+vì nếu xem t2.micro,
+
+30
+00:01:17,900 --> 00:01:20,760
+nó chỉ có 1 GB RAM.
+
+31
+00:01:20,760 --> 00:01:25,140
+Tất cả RAM đều vừa với đĩa nên ổn.
+
+32
+00:01:25,140 --> 00:01:26,380
+Chúng ta đã thiết lập mọi thứ
+
+33
+00:01:26,380 --> 00:01:29,300
+để bật hibernation.
+
+34
+00:01:29,300 --> 00:01:32,493
+Giờ tôi chỉ việc launch instance.
+
+35
+00:01:34,150 --> 00:01:36,680
+Instance đã được tạo
+
+36
+00:01:36,680 --> 00:01:40,270
+và đã bật hibernation cho hành vi khi start.
+
+37
+00:01:40,270 --> 00:01:42,840
+Làm sao chứng minh hibernation hoạt động?
+
+38
+00:01:42,840 --> 00:01:44,670
+Hãy kết nối vào instance
+
+39
+00:01:44,670 --> 00:01:48,050
+bằng EC2 Instance Connect
+
+40
+00:01:48,050 --> 00:01:50,420
+và tôi sẽ kết nối ngay.
+
+41
+00:01:50,420 --> 00:01:54,760
+Trở lại cửa sổ instance và đây rồi.
+
+42
+00:01:54,760 --> 00:01:56,940
+Chúng ta đã kết nối vào instance
+
+43
+00:01:56,940 --> 00:01:58,570
+bằng EC2 Instance Connect.
+
+44
+00:01:58,570 --> 00:02:01,920
+Có một lệnh đặc biệt gọi là uptime
+
+45
+00:02:01,920 --> 00:02:03,640
+vì uptime cho biết
+
+46
+00:02:03,640 --> 00:02:06,380
+instance đã chạy bao lâu.
+
+47
+00:02:06,380 --> 00:02:08,470
+Nếu chạy uptime,
+
+48
+00:02:08,470 --> 00:02:11,660
+nó báo rằng hiện đang chạy 0 phút.
+
+49
+00:02:11,660 --> 00:02:14,750
+Chúng ta chờ một chút rồi chạy lại uptime
+
+50
+00:02:14,750 --> 00:02:16,420
+để thấy thành 1 phút.
+
+51
+00:02:16,420 --> 00:02:20,240
+Ý tưởng là uptime cho biết
+
+52
+00:02:20,240 --> 00:02:24,253
+thời gian instance bật từ lần restart cuối.
+
+53
+00:02:25,560 --> 00:02:27,640
+Như bây giờ, chạy uptime
+
+54
+00:02:27,640 --> 00:02:30,550
+và nhận 1 phút uptime.
+
+55
+00:02:30,550 --> 00:02:32,900
+Nghĩa là instance đã chạy 1 phút.
+
+56
+00:02:32,900 --> 00:02:33,800
+Tuyệt.
+
+57
+00:02:33,800 --> 00:02:36,870
+Giờ ngắt kết nối khỏi instance
+
+58
+00:02:36,870 --> 00:02:38,560
+và chúng ta sẽ
+
+59
+00:02:38,560 --> 00:02:40,630
+hibernate instance này.
+
+60
+00:02:40,630 --> 00:02:42,650
+Để làm vậy chọn Instance state
+
+61
+00:02:42,650 --> 00:02:44,790
+rồi Hibernate instance,
+
+62
+00:02:44,790 --> 00:02:47,040
+điều này đảm bảo toàn bộ dữ liệu
+
+63
+00:02:47,040 --> 00:02:52,040
+trên RAM được lưu xuống EBS volume.
+
+64
+00:02:52,500 --> 00:02:54,420
+Chúng ta đang hibernate instance
+
+65
+00:02:54,420 --> 00:02:56,620
+và đợi nó chuyển sang trạng thái stopped.
+
+66
+00:02:57,490 --> 00:02:59,240
+Instance đã stop
+
+67
+00:02:59,240 --> 00:03:01,660
+và tôi sẽ start lại.
+
+68
+00:03:01,660 --> 00:03:04,180
+Giờ thử nghĩ một chút,
+
+69
+00:03:04,180 --> 00:03:06,470
+nếu không có hibernation
+
+70
+00:03:06,470 --> 00:03:08,840
+rồi stop instance,
+
+71
+00:03:08,840 --> 00:03:10,710
+và start lại,
+
+72
+00:03:10,710 --> 00:03:14,580
+thì lệnh uptime sẽ trả về 0 phút
+
+73
+00:03:14,580 --> 00:03:17,350
+rồi 1 phút, vì chúng ta đã stop
+
+74
+00:03:17,350 --> 00:03:19,040
+và start lại instance.
+
+75
+00:03:19,040 --> 00:03:22,760
+Nhưng chúng ta đã hibernate và start lại.
+
+76
+00:03:22,760 --> 00:03:24,350
+Vì vậy trong trường hợp này
+
+77
+00:03:24,350 --> 00:03:28,440
+uptime khi khởi động lại sẽ không bắt đầu từ 0,
+
+78
+00:03:28,440 --> 00:03:30,920
+mà có thể từ 3 hoặc 4 phút.
+
+79
+00:03:30,920 --> 00:03:33,460
+Hãy kết nối vào instance và chạy uptime.
+
+80
+00:03:33,460 --> 00:03:35,010
+Và đúng vậy, nó đang chạy 2 phút
+
+81
+00:03:35,010 --> 00:03:36,270
+vì tôi làm rất nhanh.
+
+82
+00:03:36,270 --> 00:03:38,870
+Ý tưởng là dù chúng ta đã dừng,
+
+83
+00:03:38,870 --> 00:03:41,270
+hay nói cách khác là dừng bằng hibernation,
+
+84
+00:03:41,270 --> 00:03:45,350
+và khởi động lại, nhưng với hệ điều hành
+
+85
+00:03:45,350 --> 00:03:46,810
+instance chưa từng bị tắt.
+
+86
+00:03:46,810 --> 00:03:47,760
+Nó chỉ hibernate.
+
+87
+00:03:47,760 --> 00:03:50,890
+Do đó lệnh uptime trả về 2
+
+88
+00:03:50,890 --> 00:03:53,650
+hay 3 phút vì nó chưa từng
+
+89
+00:03:53,650 --> 00:03:56,220
+bị dừng theo góc nhìn hệ điều hành
+
+90
+00:03:56,220 --> 00:03:58,860
+đó chính là ý nghĩa của hibernation.
+
+91
+00:03:58,860 --> 00:03:59,693
+Vậy là xong.
+
+92
+00:03:59,693 --> 00:04:01,310
+Tôi nghĩ đây là demo khá thú vị.
+
+93
+00:04:01,310 --> 00:04:02,460
+Để kết thúc phần thực hành,
+
+94
+00:04:02,460 --> 00:04:05,030
+hãy terminate instance.
+
+95
+00:04:05,030 --> 00:04:07,330
+Vậy thôi, hẹn gặp lại ở bài học tiếp theo.
+
