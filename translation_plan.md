@@ -65,6 +65,7 @@ Next text content
 3. **Đặt tên file dịch**: Thêm suffix `_vi` (ví dụ: `001_video_vi.srt`)
 4. **Quality check**: Kiểm tra sau mỗi file dịch
 5. **Progress tracking**: Cập nhật tiến độ trong file này
+6. **Đánh dấu module hoàn thành**: Tick `[x]` vào module đã dịch xong và liệt kê các file đã hoàn thành
 
 ## Tiến Độ Thực Hiện
 - [x] Module 01: 7/7 files ✅ 001, 003, 004, 005, 006, 006, 007
