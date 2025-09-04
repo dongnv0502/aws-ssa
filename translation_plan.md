@@ -1,7 +1,7 @@
 # Kế Hoạch Dịch Subtitle AWS SAA-C03
 
 ## Tổng Quan
-- **Số lượng file cần dịch**: 229 file .srt
+- **Số lượng file cần dịch**: 227 file .srt
 - **Ngôn ngữ**: Tiếng Anh → Tiếng Việt
 - **Mục tiêu**: Dịch toàn bộ subtitle với chất lượng cao, tuân thủ quy tắc chuyên môn
 
@@ -39,7 +39,7 @@ Next text content
 ## Danh Sách Module Cần Dịch
 1. **01 Introduction - AWS Certified Solutions Architect Associate** (12 files)
 2. **03 Getting started with AWS** (6 files)  
-3. **06 EC2 - Solutions Architect Associate Level** (9 files)
+3. **06 EC2 - Solutions Architect Associate Level** (7 files)
 4. **07 EC2 Instance Storage** (24 files)
 5. **08 High Availability and Scalability ELB & ASG** (30 files)
 6. **09 AWS Fundamentals RDS + Aurora + ElastiCache** (23 files)
@@ -69,7 +69,7 @@ Next text content
 ## Tiến Độ Thực Hiện
 - [x] Module 01: 7/7 files
 - [x] Module 03: 6/6 files
-- [ ] Module 06: 7/9 files
+- [x] Module 06: 7/7 files
 - [ ] Module 07: 2/24 files
 - [ ] Module 08: 0/30 files
 - [ ] Module 09: 0/23 files
@@ -89,7 +89,7 @@ Next text content
 - [ ] Module 29: 0/12 files
 - [ ] Module 30: 2/20 files
 
-**Tổng tiến độ: 38/229 files (16.6%)**
+**Tổng tiến độ: 38/227 files (16.7%)**
 
 ## Ghi Chú
 - Ưu tiên dịch các module cơ bản trước (01, 03, 06)
