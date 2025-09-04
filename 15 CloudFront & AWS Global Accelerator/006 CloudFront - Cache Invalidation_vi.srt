@@ -1,0 +1,235 @@
+1
+00:00:00,330 --> 00:00:02,590
+Bây giờ hãy nói về cache invalidation
+
+2
+00:00:02,590 --> 00:00:04,050
+trong CloudFront.
+
+3
+00:00:04,050 --> 00:00:06,360
+CloudFront có một origin ở phía backend,
+
+4
+00:00:06,360 --> 00:00:07,500
+tất nhiên.
+
+5
+00:00:07,500 --> 00:00:11,160
+Nếu bạn cập nhật origin backend,
+
+6
+00:00:11,160 --> 00:00:14,430
+các edge location của CloudFront sẽ không biết điều đó
+
+7
+00:00:14,430 --> 00:00:16,650
+và chỉ nhận nội dung được làm mới
+
+8
+00:00:16,650 --> 00:00:19,380
+từ origin backend của bạn, bản cập nhật bạn muốn,
+
+9
+00:00:19,380 --> 00:00:23,280
+khi TTL của cache hết hạn.
+
+10
+00:00:23,280 --> 00:00:27,360
+Nhưng có thể đó không phải hành vi bạn mong muốn
+
+11
+00:00:27,360 --> 00:00:31,050
+vì bạn muốn nội dung mới được phục vụ
+
+12
+00:00:31,050 --> 00:00:32,520
+càng sớm càng tốt.
+
+13
+00:00:32,520 --> 00:00:35,940
+Vì vậy, bạn có thể buộc
+
+14
+00:00:35,940 --> 00:00:38,310
+làm mới toàn bộ hoặc một phần cache.
+
+15
+00:00:38,310 --> 00:00:41,280
+Như vậy, bạn loại bỏ toàn bộ TTL hiện có
+
+16
+00:00:41,280 --> 00:00:42,660
+trong cache của mình.
+
+17
+00:00:42,660 --> 00:00:44,430
+Và để làm điều này, bạn
+
+18
+00:00:44,430 --> 00:00:47,460
+thực hiện cái gọi là CloudFront invalidation.
+
+19
+00:00:47,460 --> 00:00:49,830
+Bạn cần truyền vào một đường dẫn file.
+
+20
+00:00:49,830 --> 00:00:53,730
+Bạn có thể làm mất hiệu lực tất cả file bằng dấu sao
+
+21
+00:00:53,730 --> 00:00:56,280
+hoặc làm mất hiệu lực một đường dẫn cụ thể,
+
+22
+00:00:56,280 --> 00:00:59,683
+ví dụ, /images/*.
+
+23
+00:00:59,683 --> 00:01:01,350
+Vậy nó hoạt động ra sao?
+
+24
+00:01:01,350 --> 00:01:04,110
+Giả sử chúng ta có một CloudFront distribution,
+
+25
+00:01:04,110 --> 00:01:05,280
+hai edge location.
+
+26
+00:01:05,280 --> 00:01:07,890
+Mỗi edge location có cache riêng,
+
+27
+00:01:07,890 --> 00:01:12,540
+chứa index.html và hình ảnh trực tiếp
+
+28
+00:01:12,540 --> 00:01:16,170
+từ origin của bạn, là một S3 bucket.
+
+29
+00:01:16,170 --> 00:01:18,600
+Và giả sử
+
+30
+00:01:18,600 --> 00:01:22,350
+TTL cho các file này được đặt là một ngày.
+
+31
+00:01:22,350 --> 00:01:24,060
+Điều đó có nghĩa là sau một ngày,
+
+32
+00:01:24,060 --> 00:01:28,800
+các edge location sẽ tải lại các file này vào cache.
+
+33
+00:01:28,800 --> 00:01:30,180
+Bây giờ, với vai trò người dùng,
+
+34
+00:01:30,180 --> 00:01:32,850
+bạn là admin, bạn sẽ cập nhật các file
+
+35
+00:01:32,850 --> 00:01:34,050
+trong S3 bucket.
+
+36
+00:01:34,050 --> 00:01:37,080
+Bạn sẽ thêm hoặc thay đổi một số hình.
+
+37
+00:01:37,080 --> 00:01:40,380
+Và cũng thay đổi file index.html.
+
+38
+00:01:40,380 --> 00:01:42,990
+Bạn muốn những cập nhật này được phản ánh
+
+39
+00:01:42,990 --> 00:01:46,170
+tới người dùng trong CloudFront càng sớm càng tốt.
+
+40
+00:01:46,170 --> 00:01:47,670
+Vì vậy, bạn có thể
+
+41
+00:01:47,670 --> 00:01:50,580
+làm mất hiệu lực hai đường dẫn.
+
+42
+00:01:50,580 --> 00:01:53,670
+Đầu tiên là /index.html
+
+43
+00:01:53,670 --> 00:01:55,890
+để làm mất hiệu lực một file cụ thể.
+
+44
+00:01:55,890 --> 00:01:59,850
+Sau đó bạn làm mất hiệu lực /images/*
+
+45
+00:01:59,850 --> 00:02:02,160
+để xóa mọi hình ảnh khỏi cache
+
+46
+00:02:02,160 --> 00:02:03,900
+tại các edge location của bạn.
+
+47
+00:02:03,900 --> 00:02:06,840
+Sau đó CloudFront sẽ thông báo cho các edge location
+
+48
+00:02:06,840 --> 00:02:08,940
+làm mất hiệu lực các file này khỏi cache
+
+49
+00:02:08,940 --> 00:02:12,150
+và chúng sẽ bị xóa khỏi cache.
+
+50
+00:02:12,150 --> 00:02:15,030
+Lần tiếp theo người dùng yêu cầu,
+
+51
+00:02:15,030 --> 00:02:17,490
+ví dụ index.html,
+
+52
+00:02:17,490 --> 00:02:20,160
+CloudFront sẽ chuyển tiếp yêu cầu
+
+53
+00:02:20,160 --> 00:02:22,920
+tới edge location cụ thể, nơi nhận ra
+
+54
+00:02:22,920 --> 00:02:25,890
+file không còn trong cache.
+
+55
+00:02:25,890 --> 00:02:27,900
+Vì vậy, edge location sẽ gửi yêu cầu
+
+56
+00:02:27,900 --> 00:02:32,900
+tới origin của bạn và lấy index.html mới.
+
+57
+00:02:33,120 --> 00:02:36,630
+Vậy nên, bạn thấy giá trị của cache invalidation.
+
+58
+00:02:36,630 --> 00:02:37,463
+Vậy là xong.
+
+59
+00:02:37,463 --> 00:02:40,210
+Hy vọng bạn thích và hẹn gặp bạn ở bài học tiếp theo.

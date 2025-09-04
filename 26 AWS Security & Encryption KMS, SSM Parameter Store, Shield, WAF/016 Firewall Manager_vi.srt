@@ -1,0 +1,248 @@
+1
+00:00:00,510 --> 00:00:01,343
+Bây giờ hãy nói
+
+2
+00:00:01,343 --> 00:00:04,110
+về AWS Firewall Manager.
+
+3
+00:00:04,110 --> 00:00:07,530
+Đây là dịch vụ quản lý mọi quy tắc firewall
+
+4
+00:00:07,530 --> 00:00:10,680
+cho tất cả tài khoản trong một tổ chức AWS.
+
+5
+00:00:10,680 --> 00:00:12,450
+Ý tưởng là bạn có thể quản lý quy tắc
+
+6
+00:00:12,450 --> 00:00:14,760
+trên rất nhiều tài khoản cùng lúc.
+
+7
+00:00:14,760 --> 00:00:17,280
+Bạn có thể đặt một security policy,
+
+8
+00:00:17,280 --> 00:00:20,640
+tức tập các quy tắc bảo mật chung.
+
+9
+00:00:20,640 --> 00:00:23,370
+Đó có thể là quy tắc Web Application Firewall,
+
+10
+00:00:23,370 --> 00:00:26,487
+áp dụng cho ALB, API Gateway, CloudFront
+
+11
+00:00:26,487 --> 00:00:27,600
+và các dịch vụ khác.
+
+12
+00:00:27,600 --> 00:00:29,520
+Hoặc có thể là quy tắc Shield Advanced,
+
+13
+00:00:29,520 --> 00:00:33,930
+cho ALB, CLB, NLB, Elastic IP và CloudFront.
+
+14
+00:00:33,930 --> 00:00:37,440
+Cũng có thể là policy chuẩn hóa security group
+
+15
+00:00:37,440 --> 00:00:39,900
+cho EC2, Application Load Balancer,
+
+16
+00:00:39,900 --> 00:00:42,150
+và tài nguyên ENI trong VPC.
+
+17
+00:00:42,150 --> 00:00:43,740
+Ngoài ra còn có
+
+18
+00:00:43,740 --> 00:00:47,520
+quy tắc cho AWS Network Firewall ở cấp VPC
+
+19
+00:00:47,520 --> 00:00:49,290
+hoặc Amazon Route 53 Resolver DNS Firewall.
+
+20
+00:00:49,290 --> 00:00:53,010
+Firewall Manager cho phép bạn
+
+21
+00:00:53,010 --> 00:00:55,560
+quản lý tất cả firewall tại một nơi.
+
+22
+00:00:55,560 --> 00:00:58,260
+Các policy được tạo theo từng vùng,
+
+23
+00:00:58,260 --> 00:01:02,250
+sau đó áp dụng cho mọi tài khoản
+
+24
+00:01:02,250 --> 00:01:04,890
+trong tổ chức.
+
+25
+00:01:04,890 --> 00:01:06,870
+Thêm nữa,
+
+26
+00:01:06,870 --> 00:01:07,950
+nếu bạn tạo quy tắc WAF cho một ALB,
+
+27
+00:01:07,950 --> 00:01:10,020
+và có ALB mới được tạo,
+
+28
+00:01:10,020 --> 00:01:13,290
+Firewall Manager sẽ tự động
+
+29
+00:01:13,290 --> 00:01:15,330
+áp dụng quy tắc đó
+
+30
+00:01:15,330 --> 00:01:16,500
+cho ALB mới tạo.
+
+31
+00:01:16,500 --> 00:01:19,140
+Đó là tính năng của Firewall Manager.
+
+32
+00:01:19,140 --> 00:01:21,000
+Bạn có thể hỏi,
+
+33
+00:01:21,000 --> 00:01:23,070
+"Sự khác biệt giữa WAF,
+
+34
+00:01:23,070 --> 00:01:25,530
+Firewall Manager và Shield là gì?"
+
+35
+00:01:25,530 --> 00:01:26,363
+WAF, Shield và Firewall Manager
+
+36
+00:01:26,363 --> 00:01:27,810
+được dùng cùng nhau để bảo vệ toàn diện
+
+37
+00:01:27,810 --> 00:01:29,670
+tài khoản của bạn.
+
+38
+00:01:29,670 --> 00:01:32,040
+Đầu tiên bạn định nghĩa Web ACL trong WAF.
+
+39
+00:01:32,040 --> 00:01:34,590
+Nếu chỉ cần bảo vệ một lần,
+
+40
+00:01:34,590 --> 00:01:35,790
+thì WAF là lựa chọn phù hợp.
+
+41
+00:01:35,790 --> 00:01:40,110
+Nhưng nếu muốn dùng WAF trên nhiều tài khoản
+
+42
+00:01:40,110 --> 00:01:44,340
+và đẩy nhanh cấu hình WAF
+
+43
+00:01:44,340 --> 00:01:46,740
+và tự động bảo vệ tài nguyên mới,
+
+44
+00:01:46,740 --> 00:01:50,610
+bạn sẽ quản lý quy tắc WAF
+
+45
+00:01:50,610 --> 00:01:52,950
+bên trong Firewall Manager.
+
+46
+00:01:52,950 --> 00:01:55,860
+Firewall Manager sẽ áp dụng
+
+47
+00:01:55,860 --> 00:01:57,870
+mọi quy tắc đó cho tất cả tài khoản
+
+48
+00:01:57,870 --> 00:01:59,220
+và tài nguyên tự động.
+
+49
+00:01:59,220 --> 00:02:01,470
+Ngoài ra còn có Shield Advanced
+
+50
+00:02:01,470 --> 00:02:03,180
+giúp bạn chống lại tấn công DDoS.
+
+51
+00:02:03,180 --> 00:02:05,850
+Nó có thêm tính năng so với WAF
+
+52
+00:02:05,850 --> 00:02:08,039
+như hỗ trợ chuyên dụng
+
+53
+00:02:08,039 --> 00:02:11,250
+từ đội Shield Response Team (SRT),
+
+54
+00:02:11,250 --> 00:02:14,460
+báo cáo nâng cao,
+
+55
+00:02:14,460 --> 00:02:16,380
+và có thể tự tạo quy tắc WAF cho bạn.
+
+56
+00:02:16,380 --> 00:02:18,780
+Nếu bạn thường xuyên bị tấn công DDoS,
+
+57
+00:02:18,780 --> 00:02:20,190
+hãy cân nhắc mua Shield Advanced.
+
+58
+00:02:20,190 --> 00:02:24,300
+Firewall Manager cũng giúp triển khai Shield Advanced
+
+59
+00:02:24,300 --> 00:02:26,610
+trên toàn bộ tài khoản của bạn.
+
+60
+00:02:26,610 --> 00:02:27,990
+Hy vọng sự khác biệt giờ đã rõ ràng.
+
+61
+00:02:27,990 --> 00:02:30,600
+Tôi hy vọng bạn thích bài học này,
+
+62
+00:02:30,600 --> 00:02:32,310
+và hẹn gặp ở bài tiếp theo.
+

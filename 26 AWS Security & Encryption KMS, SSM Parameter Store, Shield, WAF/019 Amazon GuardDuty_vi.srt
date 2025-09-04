@@ -1,0 +1,243 @@
+1
+00:00:00,000 --> 00:00:02,610
+Giờ hãy nói về Amazon GuardDuty.
+
+2
+00:00:02,610 --> 00:00:05,939
+GuardDuty giúp bạn phát hiện mối đe dọa thông minh
+
+3
+00:00:05,939 --> 00:00:08,520
+để bảo vệ tài khoản AWS của bạn.
+
+4
+00:00:08,520 --> 00:00:09,600
+Nó làm điều đó như thế nào?
+
+5
+00:00:09,600 --> 00:00:12,570
+Nó sử dụng thuật toán machine learning, thực hiện phát hiện bất thường
+
+6
+00:00:12,570 --> 00:00:16,410
+và dùng dữ liệu bên thứ ba để tìm các mối đe dọa.
+
+7
+00:00:16,410 --> 00:00:18,210
+Để bật nó, chỉ cần một cú click.
+
+8
+00:00:18,210 --> 00:00:19,800
+Sau đó bạn có 30 ngày dùng thử.
+
+9
+00:00:19,800 --> 00:00:21,990
+Bạn không cần cài đặt phần mềm.
+
+10
+00:00:21,990 --> 00:00:24,540
+GuardDuty sẽ xem rất nhiều dữ liệu đầu vào,
+
+11
+00:00:24,540 --> 00:00:26,340
+như CloudTrail event logs
+
+12
+00:00:26,340 --> 00:00:28,500
+để tìm các API call bất thường
+
+13
+00:00:28,500 --> 00:00:30,180
+hoặc triển khai trái phép.
+
+14
+00:00:30,180 --> 00:00:32,460
+Nó sẽ xem các management event
+
+15
+00:00:32,460 --> 00:00:33,990
+và data event của bạn.
+
+16
+00:00:33,990 --> 00:00:36,270
+Ví dụ, ở phía management,
+
+17
+00:00:36,270 --> 00:00:39,000
+như sự kiện tạo VPC Subnet, v.v.
+
+18
+00:00:39,000 --> 00:00:41,010
+còn trên S3 data events
+
+19
+00:00:41,010 --> 00:00:43,890
+ví dụ get object, list objects, delete objects
+
+20
+00:00:43,890 --> 00:00:45,030
+v.v.
+
+21
+00:00:45,030 --> 00:00:46,685
+Với VPC flow logs, nó sẽ xem
+
+22
+00:00:46,685 --> 00:00:48,960
+lưu lượng internet bất thường.
+
+23
+00:00:48,960 --> 00:00:52,590
+Nó sẽ xem các IP bất thường.
+
+24
+00:00:52,590 --> 00:00:56,580
+DNS logs để xem EC2 instance gửi dữ liệu mã hóa
+
+25
+00:00:56,580 --> 00:01:00,090
+trong DNS query, có nghĩa là chúng bị xâm nhập
+
+26
+00:01:00,090 --> 00:01:03,120
+và các tính năng tùy chọn cho phép bạn phân tích, ví dụ
+
+27
+00:01:03,120 --> 00:01:06,090
+các nguồn dữ liệu khác như EKS audit logs,
+
+28
+00:01:06,090 --> 00:01:10,650
+RDS và Aurora login events, EBS, Lambda
+
+29
+00:01:10,650 --> 00:01:13,560
+và S3 data events của bạn.
+
+30
+00:01:13,560 --> 00:01:16,620
+Chúng ta cũng có thể thiết lập EventBridge rule để
+
+31
+00:01:16,620 --> 00:01:19,530
+được thông báo tự động khi có finding.
+
+32
+00:01:19,530 --> 00:01:21,780
+Các rule này có thể nhắm tới bất cứ thứ gì EventBridge
+
+33
+00:01:21,780 --> 00:01:25,803
+có thể nhắm tới, như AWS Lambda hoặc SNS topic.
+
+34
+00:01:27,034 --> 00:01:28,470
+Điều này cũng có thể xuất hiện trong kỳ thi.
+
+35
+00:01:28,470 --> 00:01:31,350
+GuardDuty là công cụ rất tốt bảo vệ bạn
+
+36
+00:01:31,350 --> 00:01:33,210
+khỏi các cuộc tấn công cryptocurrency
+
+37
+00:01:33,210 --> 00:01:35,190
+vì có finding dành riêng cho nó.
+
+38
+00:01:35,190 --> 00:01:37,860
+Nó biết cách phân tích tất cả dữ liệu đầu vào
+
+39
+00:01:37,860 --> 00:01:41,070
+và phát hiện có cuộc tấn công cryptocurrency.
+
+40
+00:01:41,070 --> 00:01:43,110
+Tóm lại, trong GuardDuty
+
+41
+00:01:43,110 --> 00:01:45,000
+chúng ta có nhiều dữ liệu đầu vào.
+
+42
+00:01:45,000 --> 00:01:46,530
+Chúng ta có VPC flow logs,
+
+43
+00:01:46,530 --> 00:01:49,080
+CloudTrail logs và DNS logs
+
+44
+00:01:49,080 --> 00:01:51,300
+mà chắc chắn sẽ được đưa vào GuardDuty
+
+45
+00:01:51,300 --> 00:01:53,760
+cũng như một số tính năng tùy chọn bạn có thể bật,
+
+46
+00:01:53,760 --> 00:01:55,830
+như S3 logs, EBS volumes,
+
+47
+00:01:55,830 --> 00:01:59,640
+Lambda network activity, RDS và Aurora login activity
+
+48
+00:01:59,640 --> 00:02:02,760
+và EKS logs cùng runtime monitoring
+
+49
+00:02:02,760 --> 00:02:05,460
+cũng như nhiều tính năng khác theo thời gian
+
+50
+00:02:05,460 --> 00:02:06,660
+mà tôi không liệt kê ở đây
+
+51
+00:02:06,660 --> 00:02:09,180
+vì bạn đã hiểu về các tính năng tùy chọn.
+
+52
+00:02:09,180 --> 00:02:11,190
+Từ tất cả những điều này,
+
+53
+00:02:11,190 --> 00:02:13,230
+GuardDuty có thể tạo ra các finding
+
+54
+00:02:13,230 --> 00:02:15,300
+và nếu các finding này được phát hiện,
+
+55
+00:02:15,300 --> 00:02:18,750
+một event được tạo trong Amazon EventBridge.
+
+56
+00:02:18,750 --> 00:02:20,850
+Và từ EventBridge, nhờ các rule,
+
+57
+00:02:20,850 --> 00:02:22,500
+chúng ta có thể kích hoạt automation, ví dụ
+
+58
+00:02:22,500 --> 00:02:23,850
+bằng Lambda function
+
+59
+00:02:23,850 --> 00:02:27,570
+hoặc gửi thông báo bằng SNS.
+
+60
+00:02:27,570 --> 00:02:28,650
+Vậy là hết bài này.
+
+61
+00:02:28,650 --> 00:02:31,893
+Hy vọng bạn thích và hẹn gặp bạn ở bài học tiếp theo.

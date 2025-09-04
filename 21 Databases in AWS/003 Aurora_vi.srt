@@ -1,0 +1,276 @@
+1
+00:00:00,300 --> 00:00:03,330
+Giờ hãy tổng kết về Amazon Aurora.
+
+2
+00:00:03,330 --> 00:00:06,330
+Aurora cung cấp API tương thích cho hai engine,
+
+3
+00:00:06,330 --> 00:00:08,730
+là PostgreSQL và MySQL.
+
+4
+00:00:08,730 --> 00:00:10,680
+Aurora là dịch vụ đặc biệt
+
+5
+00:00:10,680 --> 00:00:13,710
+vì tách biệt lưu trữ và tính toán.
+
+6
+00:00:13,710 --> 00:00:14,940
+Về lưu trữ,
+
+7
+00:00:14,940 --> 00:00:17,640
+dữ liệu được lưu thành sáu bản sao
+
+8
+00:00:17,640 --> 00:00:19,950
+trên ba Availability Zone mặc định,
+
+9
+00:00:19,950 --> 00:00:21,390
+bạn không thể thay đổi điều này,
+
+10
+00:00:21,390 --> 00:00:23,790
+nên Aurora có tính sẵn sàng cao.
+
+11
+00:00:23,790 --> 00:00:26,820
+Ngoài ra nếu có sự cố với lưu trữ,
+
+12
+00:00:26,820 --> 00:00:28,590
+quá trình tự phục hồi sẽ diễn ra phía sau,
+
+13
+00:00:28,590 --> 00:00:30,000
+và nếu muốn tăng dung lượng lưu trữ, không vấn đề,
+
+14
+00:00:30,000 --> 00:00:33,390
+có auto-scaling sẵn.
+
+15
+00:00:33,390 --> 00:00:35,760
+Đối với phần tính toán,
+
+16
+00:00:35,760 --> 00:00:36,780
+đây là các instance database thực tế,
+
+17
+00:00:36,780 --> 00:00:39,600
+chúng được tạo thành cụm,
+
+18
+00:00:39,600 --> 00:00:40,800
+và có thể nằm trên nhiều Availability Zone,
+
+19
+00:00:40,800 --> 00:00:43,110
+nếu bạn muốn.
+
+20
+00:00:43,110 --> 00:00:44,370
+Và nếu có read replica,
+
+21
+00:00:44,370 --> 00:00:45,870
+bạn cũng có thể tự động mở rộng chúng
+
+22
+00:00:45,870 --> 00:00:47,590
+để tăng khả năng khi tải tăng.
+
+23
+00:00:49,525 --> 00:00:52,410
+Vì bạn có cụm instance,
+
+24
+00:00:52,410 --> 00:00:56,250
+bạn cần endpoint riêng
+
+25
+00:00:56,250 --> 00:00:57,750
+để biết nơi ghi và đọc,
+
+26
+00:00:57,750 --> 00:00:59,700
+nên có writer endpoint
+
+27
+00:00:59,700 --> 00:01:01,860
+và reader endpoint.
+
+28
+00:01:01,860 --> 00:01:03,840
+Bạn có các tính năng bảo mật, giám sát,
+
+29
+00:01:03,840 --> 00:01:06,360
+và bảo trì giống như RDS
+
+30
+00:01:06,360 --> 00:01:08,130
+vì về cơ bản chúng dùng cùng engine.
+
+31
+00:01:08,130 --> 00:01:11,250
+Bạn cần biết các tùy chọn backup
+
+32
+00:01:11,250 --> 00:01:13,080
+và restore của Aurora,
+
+33
+00:01:13,080 --> 00:01:14,850
+không thể tóm tắt ở đây,
+
+34
+00:01:14,850 --> 00:01:15,990
+hãy quay lại bài giảng nếu cần.
+
+35
+00:01:15,990 --> 00:01:18,090
+nhưng tôi khuyên bạn quay lại bài giảng đó
+
+36
+00:01:18,090 --> 00:01:19,800
+nếu cần.
+
+37
+00:01:19,800 --> 00:01:22,890
+Bây giờ là một số tính năng bổ sung của Aurora.
+
+38
+00:01:22,890 --> 00:01:24,900
+Đầu tiên là Aurora Serverless.
+
+39
+00:01:24,900 --> 00:01:27,090
+Khi bạn có workload khó đoán
+
+40
+00:01:27,090 --> 00:01:28,710
+và gián đoạn,
+
+41
+00:01:28,710 --> 00:01:31,140
+bạn không cần lập kế hoạch dung lượng,
+
+42
+00:01:31,140 --> 00:01:33,750
+rất hữu ích trong trường hợp này.
+
+43
+00:01:33,750 --> 00:01:36,600
+Nếu muốn có database toàn cầu,
+
+44
+00:01:36,600 --> 00:01:38,580
+hãy dùng Aurora Global,
+
+45
+00:01:38,580 --> 00:01:42,480
+cho phép tối đa 16 instance đọc
+
+46
+00:01:42,480 --> 00:01:45,870
+ở mỗi vùng được sao chép.
+
+47
+00:01:45,870 --> 00:01:49,200
+Việc sao chép lưu trữ
+
+48
+00:01:49,200 --> 00:01:51,750
+diễn ra trong chưa đến một giây giữa các vùng,
+
+49
+00:01:51,750 --> 00:01:55,170
+điều này cần chú ý trong kỳ thi.
+
+50
+00:01:55,170 --> 00:01:57,960
+Nếu gặp sự cố ở vùng chính,
+
+51
+00:01:57,960 --> 00:01:59,820
+bạn có thể thăng cấp vùng phụ
+
+52
+00:01:59,820 --> 00:02:01,830
+thành vùng chính mới.
+
+53
+00:02:01,830 --> 00:02:03,990
+Nếu muốn áp dụng machine learning trên Aurora,
+
+54
+00:02:03,990 --> 00:02:06,180
+bạn có thể dùng module Aurora Machine Learning
+
+55
+00:02:06,180 --> 00:02:08,759
+với SageMaker và Comprehend.
+
+56
+00:02:08,759 --> 00:02:12,120
+Nếu cần cơ sở dữ liệu test
+
+57
+00:02:12,120 --> 00:02:13,500
+hoặc staging từ production,
+
+58
+00:02:13,500 --> 00:02:15,630
+bạn có thể dùng Aurora Database Cloning
+
+59
+00:02:15,630 --> 00:02:18,570
+để tạo cluster mới từ cluster hiện có,
+
+60
+00:02:18,570 --> 00:02:22,320
+nhanh hơn nhiều so với snapshot và restore.
+
+61
+00:02:22,320 --> 00:02:23,550
+và nó nhanh hơn nhiều
+
+62
+00:02:23,550 --> 00:02:26,640
+so với việc snapshot và khôi phục.
+
+63
+00:02:26,640 --> 00:02:29,730
+Các trường hợp sử dụng Aurora giống RDS,
+
+64
+00:02:29,730 --> 00:02:32,790
+nhưng ít bảo trì hơn, linh hoạt hơn,
+
+65
+00:02:32,790 --> 00:02:35,310
+hiệu năng cao hơn và nhiều tính năng sẵn có,
+
+66
+00:02:35,310 --> 00:02:37,350
+khiến Aurora trở thành lựa chọn tuyệt vời.
+
+67
+00:02:37,350 --> 00:02:38,183
+Được rồi, hết rồi.
+
+68
+00:02:38,183 --> 00:02:39,016
+Hy vọng bạn thích,
+
+69
+00:02:39,016 --> 00:02:40,950
+và hẹn gặp ở bài tiếp theo.
+

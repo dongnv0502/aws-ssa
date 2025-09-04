@@ -1,0 +1,239 @@
+1
+00:00:00,200 --> 00:00:01,450
+Bây giờ hãy nói về một tính năng
+
+2
+00:00:01,450 --> 00:00:02,700
+có thể xuất hiện trong kỳ thi,
+
+3
+00:00:02,700 --> 00:00:04,520
+được gọi là Connection Draining.
+
+4
+00:00:04,520 --> 00:00:06,530
+Thực ra nó có hai tên.
+
+5
+00:00:06,530 --> 00:00:08,620
+Nếu bạn dùng Classic Load Balancer,
+
+6
+00:00:08,620 --> 00:00:09,900
+nó được gọi là Connection Draining,
+
+7
+00:00:09,900 --> 00:00:11,930
+nhưng nếu bạn dùng Application Load Balancer
+
+8
+00:00:11,930 --> 00:00:13,890
+hoặc Network Load Balancer,
+
+9
+00:00:13,890 --> 00:00:16,360
+thì gọi là Deregistration Delay.
+
+10
+00:00:16,360 --> 00:00:18,650
+Ý tưởng đằng sau khái niệm này là
+
+11
+00:00:18,650 --> 00:00:21,530
+nó cho instance của bạn một khoảng thời gian
+
+12
+00:00:21,530 --> 00:00:24,680
+để hoàn thành các request đang diễn ra
+
+13
+00:00:24,680 --> 00:00:26,610
+khi instance đang bị deregister
+
+14
+00:00:26,610 --> 00:00:28,330
+hoặc bị đánh dấu là unhealthy.
+
+15
+00:00:28,330 --> 00:00:30,540
+Và khi một kết nối đang được drain,
+
+16
+00:00:30,540 --> 00:00:32,200
+tức là khi instance đang được drain,
+
+17
+00:00:32,200 --> 00:00:35,320
+ELB sẽ ngừng gửi request
+
+18
+00:00:35,320 --> 00:00:37,420
+đến EC2 instance đang được drain
+
+19
+00:00:37,420 --> 00:00:39,170
+trong lúc deregister.
+
+20
+00:00:39,170 --> 00:00:41,420
+Hãy xem sơ đồ để hiểu rõ hơn.
+
+21
+00:00:41,420 --> 00:00:44,150
+Chúng ta có ba EC2 instance
+
+22
+00:00:44,150 --> 00:00:46,830
+và một trong số đó sẽ được đặt ở chế độ draining.
+
+23
+00:00:46,830 --> 00:00:50,470
+Những người dùng đã kết nối tới EC2 instance đó
+
+24
+00:00:50,470 --> 00:00:52,440
+sẽ được cấp đủ thời gian,
+
+25
+00:00:52,440 --> 00:00:54,600
+đó chính là thời gian draining,
+
+26
+00:00:54,600 --> 00:00:56,480
+để hoàn thành kết nối hiện tại
+
+27
+00:00:56,480 --> 00:00:58,680
+và hoàn thành các request hiện tại.
+
+28
+00:00:58,680 --> 00:01:00,040
+Và khi mọi thứ hoàn tất,
+
+29
+00:01:00,040 --> 00:01:02,600
+tất cả kết nối sẽ bị đóng.
+
+30
+00:01:02,600 --> 00:01:05,440
+Nếu người dùng mới cố kết nối tới ELB,
+
+31
+00:01:05,440 --> 00:01:06,860
+ELB đủ thông minh để biết
+
+32
+00:01:06,860 --> 00:01:09,800
+rằng EC2 instance của chúng ta đang ở trạng thái draining,
+
+33
+00:01:09,800 --> 00:01:12,510
+nó chỉ thiết lập kết nối mới
+
+34
+00:01:12,510 --> 00:01:14,190
+với các EC2 instance khác, ví dụ
+
+35
+00:01:14,190 --> 00:01:18,140
+instance thứ hai hoặc thứ ba.
+
+36
+00:01:18,140 --> 00:01:19,610
+Bạn có thể cấu hình
+
+37
+00:01:19,610 --> 00:01:21,060
+các tham số Connection Draining.
+
+38
+00:01:21,060 --> 00:01:26,060
+Bạn có thể đặt từ 1 đến 3.600 giây.
+
+39
+00:01:26,460 --> 00:01:29,360
+Mặc định là 300 giây, tức năm phút,
+
+40
+00:01:29,360 --> 00:01:31,330
+và bạn có thể tắt hoàn toàn
+
+41
+00:01:31,330 --> 00:01:33,400
+nếu đặt giá trị bằng 0,
+
+42
+00:01:33,400 --> 00:01:36,060
+nghĩa là không có việc drain.
+
+43
+00:01:36,060 --> 00:01:39,790
+Nếu bạn đặt giá trị thấp, điều này tốt
+
+44
+00:01:39,790 --> 00:01:42,010
+khi request của bạn ngắn, ví dụ rất
+
+45
+00:01:42,010 --> 00:01:45,350
+ngắn, chẳng hạn dưới một giây,
+
+46
+00:01:45,350 --> 00:01:46,760
+thì nên đặt
+
+47
+00:01:46,760 --> 00:01:50,550
+tham số draining khoảng 30 giây,
+
+48
+00:01:50,550 --> 00:01:52,730
+vì như vậy EC2 instance
+
+49
+00:01:52,730 --> 00:01:56,170
+sẽ được drain rất nhanh và đưa offline,
+
+50
+00:01:56,170 --> 00:01:58,230
+có thể để thay thế hoặc tương tự.
+
+51
+00:01:58,230 --> 00:02:00,060
+Nếu request của bạn dài, ví dụ
+
+52
+00:02:00,060 --> 00:02:03,300
+nếu có upload hoặc request kéo dài,
+
+53
+00:02:03,300 --> 00:02:06,030
+thì bạn nên đặt giá trị cao,
+
+54
+00:02:06,030 --> 00:02:08,220
+nhưng đánh đổi là EC2 instance
+
+55
+00:02:08,220 --> 00:02:11,247
+sẽ không được tắt sớm nhất có thể,
+
+56
+00:02:11,247 --> 00:02:12,260
+nó phải chờ
+
+57
+00:02:12,260 --> 00:02:15,610
+cho đến khi thời gian Connection Draining kết thúc.
+
+58
+00:02:15,610 --> 00:02:18,450
+Đó là những gì bạn cần biết về thiết lập này
+
+59
+00:02:18,450 --> 00:02:19,283
+ở mức tổng quan.
+
+60
+00:02:19,283 --> 00:02:22,150
+Hy vọng bạn thích và hẹn gặp bạn ở bài học tiếp theo.
