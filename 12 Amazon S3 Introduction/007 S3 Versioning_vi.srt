@@ -1,0 +1,135 @@
+1
+00:00:00,270 --> 00:00:01,859
+Vậy bây giờ chúng ta cùng nói về versioning
+
+2
+00:00:01,859 --> 00:00:03,240
+trong Amazon S3.
+
+3
+00:00:03,240 --> 00:00:04,500
+Bởi vì chúng ta đã xem cách tạo một website,
+
+4
+00:00:04,500 --> 00:00:07,530
+nhưng sẽ tuyệt hơn nếu có thể cập nhật nó một cách an toàn.
+
+5
+00:00:07,530 --> 00:00:10,080
+Bạn có thể version các file của mình trong Amazon S3,
+
+6
+00:00:10,080 --> 00:00:11,670
+và đây là một thiết lập bạn phải bật
+
+7
+00:00:11,670 --> 00:00:13,350
+ở cấp độ bucket.
+
+8
+00:00:13,350 --> 00:00:15,960
+Vì vậy, bucket của tôi đã bật versioning.
+
+9
+00:00:15,960 --> 00:00:17,730
+Nên bất cứ khi nào người dùng upload một file,
+
+10
+00:00:17,730 --> 00:00:20,430
+nó sẽ tạo ra một phiên bản của file đó
+
+11
+00:00:20,430 --> 00:00:22,230
+tại key đã chọn.
+
+12
+00:00:22,230 --> 00:00:24,990
+Và nếu chúng ta upload lại cùng key đó,
+
+13
+00:00:24,990 --> 00:00:27,000
+nếu ghi đè file đó,
+
+14
+00:00:27,000 --> 00:00:29,400
+thì nó sẽ tạo ra phiên bản thứ hai,
+
+15
+00:00:29,400 --> 00:00:31,830
+rồi phiên bản thứ ba, v.v.
+
+16
+00:00:31,830 --> 00:00:34,830
+Vì vậy, tốt nhất là bạn nên bật versioning cho bucket.
+
+17
+00:00:34,830 --> 00:00:35,663
+Tại sao?
+
+18
+00:00:35,663 --> 00:00:36,990
+Điều đầu tiên là nó bảo vệ
+
+19
+00:00:36,990 --> 00:00:38,760
+khỏi việc xóa nhầm.
+
+20
+00:00:38,760 --> 00:00:41,310
+Ví dụ, nếu bạn xóa một phiên bản file,
+
+21
+00:00:41,310 --> 00:00:43,230
+thật ra bạn chỉ thêm một delete marker
+
+22
+00:00:43,230 --> 00:00:45,420
+và do đó bạn có thể khôi phục các phiên bản
+
+23
+00:00:45,420 --> 00:00:47,940
+đã tồn tại trước đó.
+
+24
+00:00:47,940 --> 00:00:50,700
+Bạn cũng có thể dễ dàng quay lại phiên bản trước.
+
+25
+00:00:50,700 --> 00:00:53,760
+Vì vậy, nếu bạn muốn quay lại những gì diễn ra hai ngày trước,
+
+26
+00:00:53,760 --> 00:00:56,220
+bạn chỉ cần lấy file và rollback.
+
+27
+00:00:56,220 --> 00:00:57,900
+Có một số lưu ý bạn cần biết.
+
+28
+00:00:57,900 --> 00:01:00,030
+Trước hết, bất kỳ file nào chưa được version
+
+29
+00:01:00,030 --> 00:01:03,180
+trước khi bật versioning sẽ có version là null.
+
+30
+00:01:03,180 --> 00:01:05,790
+Ngoài ra nếu bạn tạm dừng versioning,
+
+31
+00:01:05,790 --> 00:01:07,500
+nó không xóa các phiên bản trước,
+
+32
+00:01:07,500 --> 00:01:09,570
+vì vậy đây là thao tác an toàn.
+
+33
+00:01:09,570 --> 00:01:10,890
+Được rồi, bây giờ chúng ta vào console
+
+34
+00:01:10,890 --> 00:01:13,140
+và xem cách chúng ta sử dụng versioning.
