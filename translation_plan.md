@@ -60,12 +60,11 @@ Next text content
 21. **30 Other Services** (20 files)
 
 ## Quy Trình Thực Hiện
-1. **Backup file gốc**: Tạo thư mục `original_subtitles_backup`
-2. **Dịch từng module**: Bắt đầu từ module 01
-3. **Đặt tên file dịch**: Thêm suffix `_vi` (ví dụ: `001_video_vi.srt`)
-4. **Quality check**: Kiểm tra sau mỗi file dịch
-5. **Progress tracking**: Cập nhật tiến độ trong file này
-6. **Đánh dấu module hoàn thành**: Tick `[x]` vào module đã dịch xong và liệt kê các file đã hoàn thành
+1. **Dịch từng module**: Bắt đầu từ module 01
+2. **Đặt tên file dịch**: Thêm suffix `_vi` (ví dụ: `001_video_vi.srt`)
+3. **Quality check**: Kiểm tra sau mỗi file dịch
+4. **Progress tracking**: Cập nhật tiến độ trong file này
+5. **Đánh dấu module hoàn thành**: Tick `[x]` vào module đã dịch xong và liệt kê các file đã hoàn thành
 
 ## Tiến Độ Thực Hiện
 - [x] Module 01: 7/7 files ✅ 001, 003, 004, 005, 006, 006, 007
