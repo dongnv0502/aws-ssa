@@ -64,30 +64,30 @@ Next text content
 2. **Đặt tên file dịch**: Thêm suffix `_vi` (ví dụ: `001_video_vi.srt`)
 3. **Quality check**: Kiểm tra sau mỗi file dịch
 4. **Progress tracking**: Cập nhật tiến độ trong file này
-5. **Đánh dấu module hoàn thành**: Tick `[x]` vào module đã dịch xong và liệt kê các file đã hoàn thành
+5. **Đánh dấu module hoàn thành**: Tick `[x]` vào module đã dịch xong; không cần liệt kê các file đã hoàn thành
 
 ## Tiến Độ Thực Hiện
-- [x] Module 01: 7/7 files ✅ 001, 003, 004, 005, 006, 006, 007
-- [x] Module 03: 6/6 files ✅ 001 AWS Cloud Overview, 002 [Important], 002 Tour of the AWS Console & Services in AWS, 003 About the UI changes in the course, 003 Tour of the AWS Console & Services in AWS, 004 About the UI changes in the course
-- [ ] Module 06: 7/9 files ✅ 001 Private vs Public vs Elastic IP, 003 EC2 Placement Groups, 004 EC2 Placement Groups - Hands On, 005 Elastic Network Interfaces (ENI) - Overview, 006 Elastic Network Interfaces (ENI) - Hands On, 008 EC2 Hibernate, 009 EC2 Hibernate - Hands On
-- [ ] Module 07: 2/24 files ✅ 001 EBS Overview, 002 EBS Hands On
+- [x] Module 01: 7/7 files
+- [x] Module 03: 6/6 files
+- [ ] Module 06: 7/9 files
+- [ ] Module 07: 2/24 files
 - [ ] Module 08: 0/30 files
 - [ ] Module 09: 0/23 files
-- [ ] Module 11: 1/16 files ✅ 001 Solutions Architecture Discussions Overview
-- [ ] Module 12: 3/16 files ✅ 005 S3 Website Overview, 007 S3 Versioning, 010 S3 Replication Notes
-- [ ] Module 13: 2/24 files ✅ 003 S3 Requester Pays, 007 S3 Select & Glacier Select
-- [ ] Module 14: 1/31 files ✅ 004 S3 Default Encryption
-- [ ] Module 15: 2/20 files ✅ 003 CloudFront - ALB as an Origin, 004 CloudFront - Geo Restriction
+- [ ] Module 11: 1/16 files
+- [ ] Module 12: 3/16 files
+- [ ] Module 13: 2/24 files
+- [ ] Module 14: 1/31 files
+- [ ] Module 15: 2/20 files
 - [ ] Module 17: 0/7 files
 - [ ] Module 18: 0/16 files
 - [ ] Module 20: 0/10 files
-- [ ] Module 21: 2/25 files ✅ 007 DocumentDB, 009 Keyspaces
+- [ ] Module 21: 2/25 files
 - [ ] Module 22: 0/30 files
 - [ ] Module 25: 0/17 files
-- [ ] Module 26: 3/31 files ✅ 001 Section Intro, 007 Encrypted AMI Sharing, 021 Amazon Macie
+- [ ] Module 26: 3/31 files
 - [ ] Module 28: 0/10 files
 - [ ] Module 29: 0/12 files
-- [ ] Module 30: 2/20 files ✅ 001 Section Intro, 010 AWS Cost Anomaly Detection
+- [ ] Module 30: 2/20 files
 
 **Tổng tiến độ: 38/229 files (16.6%)**
 
