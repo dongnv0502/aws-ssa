@@ -1,0 +1,464 @@
+1
+00:00:00,083 --> 00:00:01,660
+Chào mừng bạn đến với phần này
+
+2
+00:00:01,660 --> 00:00:04,410
+nơi chúng ta sẽ xem các tùy chọn lưu trữ khác nhau
+
+3
+00:00:04,410 --> 00:00:06,270
+cho các EC2 instance.
+
+4
+00:00:06,270 --> 00:00:07,930
+Trước hết, những thứ quan trọng nhất
+
+5
+00:00:07,930 --> 00:00:11,120
+sẽ là EBS Volume, vậy hãy định nghĩa chúng.
+
+6
+00:00:11,120 --> 00:00:15,230
+EBS Volume là viết tắt của Elastic Block Store.
+
+7
+00:00:15,230 --> 00:00:18,400
+Đây là một ổ đĩa mạng bạn có thể gắn vào instance
+
+8
+00:00:18,400 --> 00:00:19,720
+khi chúng đang chạy,
+
+9
+00:00:19,720 --> 00:00:22,040
+và chúng ta đã sử dụng mà thậm chí không biết.
+
+10
+00:00:22,040 --> 00:00:25,980
+Vì vậy EBS Volume cho phép chúng ta giữ dữ liệu,
+
+11
+00:00:25,980 --> 00:00:28,890
+ngay cả khi instance bị terminate.
+
+12
+00:00:28,890 --> 00:00:30,500
+Và đó chính là mục đích,
+
+13
+00:00:30,500 --> 00:00:32,259
+chúng ta có thể tạo lại một instance
+
+14
+00:00:32,259 --> 00:00:34,670
+và gắn vào cùng EBS Volume trước đó
+
+15
+00:00:34,670 --> 00:00:36,560
+và chúng ta sẽ có lại dữ liệu.
+
+16
+00:00:36,560 --> 00:00:38,060
+Điều đó rất hữu ích.
+
+17
+00:00:38,060 --> 00:00:41,160
+Vậy những EBS Volume này, ở cấp CCP,
+
+18
+00:00:41,160 --> 00:00:45,160
+chỉ có thể gắn vào một instance tại một thời điểm, được chứ?
+
+19
+00:00:45,160 --> 00:00:47,250
+Và khi bạn tạo một EBS Volume,
+
+20
+00:00:47,250 --> 00:00:49,970
+nó sẽ gắn với một Availability Zone cụ thể.
+
+21
+00:00:49,970 --> 00:00:52,293
+Điều đó nghĩa là bạn không thể có một EBS Volume
+
+22
+00:00:52,293 --> 00:00:57,293
+được tạo ở ví dụ như us-east-1a
+
+23
+00:00:58,000 --> 00:00:59,990
+chúng ta sẽ thấy điều này trong sơ đồ ngay sau đây.
+
+24
+00:00:59,990 --> 00:01:02,170
+Vậy bạn nên hình dung EBS Volume như thế nào?
+
+25
+00:01:02,170 --> 00:01:05,590
+Bạn có thể nghĩ chúng giống như các USB kết nối qua mạng.
+
+26
+00:01:05,590 --> 00:01:09,040
+Tức là một USB bạn có thể lấy từ một máy tính
+
+27
+00:01:09,040 --> 00:01:10,440
+và cắm vào một máy khác
+
+28
+00:01:10,440 --> 00:01:13,080
+nhưng thực ra bạn không cần cắm vật lý vào máy.
+
+29
+00:01:13,080 --> 00:01:15,670
+Nó được gắn qua mạng.
+
+30
+00:01:15,670 --> 00:01:18,530
+Tính năng Free Tier cho chúng ta 30 GB bộ nhớ EBS miễn phí
+
+31
+00:01:18,530 --> 00:01:21,350
+thuộc loại General Purpose, SSD hoặc Magnetic mỗi tháng.
+
+32
+00:01:21,350 --> 00:01:23,210
+Và trong khóa học này, chúng ta sẽ dùng
+
+33
+00:01:23,210 --> 00:01:25,550
+GP2 đến GP3 Volume.
+
+34
+00:01:25,550 --> 00:01:26,540
+Giờ hãy xem chi tiết.
+
+35
+00:01:26,540 --> 00:01:28,070
+EBS Volume là các ổ đĩa mạng
+
+36
+00:01:28,070 --> 00:01:30,060
+không phải ổ vật lý, được chứ?
+
+37
+00:01:30,060 --> 00:01:33,750
+Vì vậy để giao tiếp giữa instance và EBS Volume,
+
+38
+00:01:33,750 --> 00:01:35,540
+nó sẽ sử dụng mạng.
+
+39
+00:01:35,540 --> 00:01:37,060
+Và vì dùng mạng,
+
+40
+00:01:37,060 --> 00:01:39,500
+sẽ có chút độ trễ từ một máy
+
+41
+00:01:39,500 --> 00:01:41,530
+để tới máy chủ khác.
+
+42
+00:01:41,530 --> 00:01:44,310
+EBS Volume vì là ổ đĩa mạng
+
+43
+00:01:44,310 --> 00:01:46,610
+nên có thể tách khỏi một EC2 instance
+
+44
+00:01:46,610 --> 00:01:49,380
+và gắn vào instance khác rất nhanh.
+
+45
+00:01:49,380 --> 00:01:51,320
+Điều đó khiến chúng cực kỳ tiện lợi
+
+46
+00:01:51,320 --> 00:01:53,830
+khi bạn muốn thực hiện failover chẳng hạn.
+
+47
+00:01:53,830 --> 00:01:57,460
+EBS Volume bị khóa theo một Availability Zone cụ thể,
+
+48
+00:01:57,460 --> 00:01:59,860
+tức là như tôi nói, nếu nó được tạo ở us-east-1a
+
+49
+00:01:59,860 --> 00:02:01,750
+thì không thể gắn sang us-east-1b
+
+50
+00:02:01,750 --> 00:02:05,630
+nhưng trong phần này ta sẽ thấy nếu tạo snapshot,
+
+51
+00:02:05,630 --> 00:02:08,389
+thì ta có thể chuyển volume
+
+52
+00:02:08,389 --> 00:02:10,350
+sang các Availability Zone khác.
+
+53
+00:02:10,350 --> 00:02:11,920
+Và cuối cùng, đó là một volume,
+
+54
+00:02:11,920 --> 00:02:14,440
+nên bạn phải cấp trước dung lượng.
+
+55
+00:02:14,440 --> 00:02:17,450
+Bạn cần nói trước muốn bao nhiêu GB
+
+56
+00:02:17,450 --> 00:02:21,050
+và IOPS, tức số I/O mỗi giây,
+
+57
+00:02:21,050 --> 00:02:23,660
+bạn đang xác định cơ bản cách bạn muốn
+
+58
+00:02:23,660 --> 00:02:25,560
+EBS Volume của mình hoạt động.
+
+59
+00:02:25,560 --> 00:02:28,780
+Bạn sẽ bị tính phí cho dung lượng đã cấp
+
+60
+00:02:28,780 --> 00:02:30,920
+và có thể tăng dung lượng theo thời gian
+
+61
+00:02:30,920 --> 00:02:33,750
+nếu bạn muốn hiệu năng tốt hơn hoặc nhiều dung lượng hơn.
+
+62
+00:02:33,750 --> 00:02:35,810
+Vậy trên sơ đồ thì nó trông thế nào?
+
+63
+00:02:35,810 --> 00:02:38,890
+Chúng ta có us-east-1a với một EC2 instance
+
+64
+00:02:38,890 --> 00:02:40,090
+và ta có thể gắn, ví dụ
+
+65
+00:02:40,090 --> 00:02:43,260
+một EBS Volume vào EC2 instance đó.
+
+66
+00:02:43,260 --> 00:02:45,630
+Nếu ta tạo thêm một EC2 instance khác,
+
+67
+00:02:45,630 --> 00:02:48,860
+như đã nói, một EBS Volume không thể gắn vào hai instance
+
+68
+00:02:48,860 --> 00:02:52,570
+cùng lúc ở cấp Certified Cloud Practitioner.
+
+69
+00:02:52,570 --> 00:02:54,740
+Vì vậy điều tôi muốn nói là
+
+70
+00:02:54,740 --> 00:02:56,900
+EC2 instance kia cần có
+
+71
+00:02:56,900 --> 00:02:59,300
+EBS Volume riêng gắn vào,
+
+72
+00:02:59,300 --> 00:03:03,120
+nhưng hoàn toàn có thể có hai EBS Volume
+
+73
+00:03:03,120 --> 00:03:04,810
+gắn vào một instance
+
+74
+00:03:04,810 --> 00:03:09,000
+hãy nghĩ như hai USB mạng cắm vào một máy
+
+75
+00:03:09,000 --> 00:03:10,490
+điều đó khá hợp lý.
+
+76
+00:03:10,490 --> 00:03:13,810
+EBS Volume được liên kết với một Availability Zone.
+
+77
+00:03:13,810 --> 00:03:16,490
+Như ta thấy, toàn bộ sơ đồ đến giờ đang dùng
+
+78
+00:03:16,490 --> 00:03:18,020
+us-east-1a.
+
+79
+00:03:18,020 --> 00:03:21,400
+Nếu bạn muốn có EBS Volume khác ở AZ khác
+
+80
+00:03:21,400 --> 00:03:24,510
+bạn phải tạo chúng riêng
+
+81
+00:03:24,510 --> 00:03:25,830
+tại Availability Zone kia.
+
+82
+00:03:25,830 --> 00:03:28,470
+Tương tự như EC2 instance của bạn
+
+83
+00:03:28,470 --> 00:03:32,730
+bị ràng buộc với một AZ, EBS Volume cũng vậy.
+
+84
+00:03:32,730 --> 00:03:35,970
+Cuối cùng, chúng ta có thể tạo EBS Volume
+
+85
+00:03:35,970 --> 00:03:37,600
+và để chúng chưa gắn
+
+86
+00:03:37,600 --> 00:03:39,260
+chúng không nhất thiết phải gắn
+
+87
+00:03:39,260 --> 00:03:41,800
+vào một EC2 instance, có thể gắn khi cần
+
+88
+00:03:41,800 --> 00:03:44,180
+và điều đó khiến chúng rất mạnh mẽ.
+
+89
+00:03:44,180 --> 00:03:48,650
+Cuối cùng, khi chúng ta tạo EBS Volume
+
+90
+00:03:48,650 --> 00:03:50,900
+qua EC2 instance, có một tuỳ chọn
+
+91
+00:03:50,900 --> 00:03:52,970
+gọi là thuộc tính Delete on Termination
+
+92
+00:03:52,970 --> 00:03:55,150
+và điều này có thể xuất hiện trong kỳ thi,
+
+93
+00:03:55,150 --> 00:03:57,750
+nếu bạn nhìn vào khi ta tạo
+
+94
+00:03:57,750 --> 00:04:02,750
+một EBS Volume trong console khi tạo EC2 instance
+
+95
+00:04:03,430 --> 00:04:05,290
+có cột áp chót
+
+96
+00:04:05,290 --> 00:04:07,280
+tên là Delete on Termination.
+
+97
+00:04:07,280 --> 00:04:09,960
+Mặc định nó được chọn cho Root Volume
+
+98
+00:04:09,960 --> 00:04:12,770
+và không được chọn cho EBS Volume mới.
+
+99
+00:04:12,770 --> 00:04:14,970
+Nó điều khiển hành vi của EBS
+
+100
+00:04:14,970 --> 00:04:17,839
+khi một EC2 instance bị terminate.
+
+101
+00:04:17,839 --> 00:04:21,000
+Vì vậy mặc định, như ta thấy, root EBS Volume
+
+102
+00:04:21,000 --> 00:04:24,450
+bị xoá cùng với instance khi terminate.
+
+103
+00:04:24,450 --> 00:04:25,700
+Nên nó được bật
+
+104
+00:04:25,700 --> 00:04:29,680
+và mặc định các EBS Volume khác gắn kèm sẽ không bị xoá
+
+105
+00:04:29,680 --> 00:04:31,740
+vì mặc định nó tắt.
+
+106
+00:04:31,740 --> 00:04:35,210
+Nhưng rõ ràng trong UI này, chúng ta có thể điều chỉnh
+
+107
+00:04:35,210 --> 00:04:38,730
+việc bật hay tắt delete on termination.
+
+108
+00:04:38,730 --> 00:04:40,810
+Và trường hợp sử dụng, ví dụ như
+
+109
+00:04:40,810 --> 00:04:43,370
+nếu bạn muốn giữ lại root volume,
+
+110
+00:04:43,370 --> 00:04:44,670
+khi instance bị terminate,
+
+111
+00:04:44,670 --> 00:04:46,850
+ví dụ để lưu dữ liệu
+
+112
+00:04:46,850 --> 00:04:48,830
+thì bạn có thể tắt delete on termination
+
+113
+00:04:48,830 --> 00:04:51,160
+cho root volume và thế là ổn
+
+114
+00:04:51,160 --> 00:04:54,400
+và đây có thể là tình huống trong kỳ thi.
+
+115
+00:04:54,400 --> 00:04:55,310
+Hy vọng bạn thích bài này.
+
+116
+00:04:55,310 --> 00:04:57,260
+Hẹn gặp bạn ở bài học tiếp theo.
+
