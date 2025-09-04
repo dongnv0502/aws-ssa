@@ -1,0 +1,207 @@
+1
+00:00:00,160 --> 00:00:02,240
+Bây giờ chúng ta nói về AWS Amplify
+
+2
+00:00:02,240 --> 00:00:03,645
+đây là một dịch vụ khá phức tạp,
+
+3
+00:00:03,645 --> 00:00:06,680
+nhưng cốt lõi hãy xem nó
+
+4
+00:00:06,680 --> 00:00:09,980
+như công cụ phát triển ứng dụng web và di động.
+
+5
+00:00:09,980 --> 00:00:14,172
+Amplify cho phép bạn tích hợp rất nhiều
+
+6
+00:00:14,172 --> 00:00:17,540
+thành phần trong stack AWS vào một nơi
+
+7
+00:00:17,540 --> 00:00:20,210
+để xây ứng dụng web và di động.
+
+8
+00:00:20,210 --> 00:00:21,750
+Bạn là một lập trình viên,
+
+9
+00:00:21,750 --> 00:00:23,000
+và bạn muốn làm nhiều thứ.
+
+10
+00:00:23,000 --> 00:00:25,390
+Trước hết bạn muốn tạo backend.
+
+11
+00:00:25,390 --> 00:00:27,320
+Bạn sẽ dùng Amplify CLI
+
+12
+00:00:27,320 --> 00:00:29,140
+để tạo một Amplify Backend.
+
+13
+00:00:29,140 --> 00:00:31,920
+Backend này sẽ dùng nội bộ rất nhiều
+
+14
+00:00:31,920 --> 00:00:33,800
+tài nguyên AWS mà chúng ta biết.
+
+15
+00:00:33,800 --> 00:00:35,620
+Amazon S3 để lưu trữ dữ liệu,
+
+16
+00:00:35,620 --> 00:00:37,500
+Amazon Cognito cho quản lý danh tính,
+
+17
+00:00:37,500 --> 00:00:39,020
+AppSync cho API,
+
+18
+00:00:39,020 --> 00:00:40,690
+API Gateway cũng cho API,
+
+19
+00:00:40,690 --> 00:00:42,440
+SageMaker cho machine learning,
+
+20
+00:00:42,440 --> 00:00:44,330
+Lex để nhận diện văn bản,
+
+21
+00:00:44,330 --> 00:00:46,250
+Lambda cho dịch vụ hàm,
+
+22
+00:00:46,250 --> 00:00:48,768
+DynamoDB cho dữ liệu, v.v.
+
+23
+00:00:48,768 --> 00:00:50,760
+Vì vậy nhờ Amplify,
+
+24
+00:00:50,760 --> 00:00:53,820
+chúng ta có một nơi cấu hình xác thực, lưu trữ,
+
+25
+00:00:53,820 --> 00:00:56,431
+API có thể là REST hoặc GraphQL,
+
+26
+00:00:56,431 --> 00:00:58,994
+CI/CD, PubSub, Analytics,
+
+27
+00:00:58,994 --> 00:01:02,280
+dự đoán AI/ML, giám sát, v.v.
+
+28
+00:01:02,280 --> 00:01:03,370
+Sau đó bạn kết nối mã nguồn.
+
+29
+00:01:03,370 --> 00:01:04,910
+Có thể từ GitHub,
+
+30
+00:01:04,910 --> 00:01:07,800
+CodeCommit trên AWS hoặc Bitbucket, GitLab,
+
+31
+00:01:07,800 --> 00:01:09,830
+hoặc tải mã trực tiếp.
+
+32
+00:01:09,830 --> 00:01:10,663
+Bạn sẽ tiếp tục
+
+33
+00:01:10,663 --> 00:01:12,890
+tích hợp trực tiếp tất cả dịch vụ backend
+
+34
+00:01:12,890 --> 00:01:14,080
+từ bên trong Amplify.
+
+35
+00:01:14,080 --> 00:01:16,950
+Sau đó bạn thêm các thư viện Frontend của Amplify
+
+36
+00:01:16,950 --> 00:01:19,180
+để kết nối tới Amplify Backend.
+
+37
+00:01:19,180 --> 00:01:22,120
+Có các thư viện frontend cho ứng dụng web,
+
+38
+00:01:22,120 --> 00:01:25,010
+ứng dụng di động và nhiều framework khác.
+
+39
+00:01:25,010 --> 00:01:26,400
+Cuối cùng, khi sẵn sàng,
+
+40
+00:01:26,400 --> 00:01:29,046
+bạn sẽ triển khai bằng Amplify Console
+
+41
+00:01:29,046 --> 00:01:32,220
+lên chính Amplify và Amazon CloudFront
+
+42
+00:01:32,220 --> 00:01:35,052
+để ứng dụng web hoặc di động sẵn sàng.
+
+43
+00:01:35,052 --> 00:01:37,070
+Nghe có vẻ nhiều
+
+44
+00:01:37,070 --> 00:01:38,525
+nhưng hãy xem Amplify
+
+45
+00:01:38,525 --> 00:01:42,960
+như Elastic Beanstalk dành cho ứng dụng web và di động.
+
+46
+00:01:42,960 --> 00:01:45,230
+Đây chỉ là tổng quan, nhưng bạn cần thấy
+
+47
+00:01:45,230 --> 00:01:48,437
+nó cho phép tích hợp mọi thứ của AWS
+
+48
+00:01:48,437 --> 00:01:51,780
+vào một nơi, như cửa hàng một điểm cho developer
+
+49
+00:01:51,780 --> 00:01:54,450
+để tạo ứng dụng web và di động.
+
+50
+00:01:54,450 --> 00:01:56,030
+Được rồi, đây là toàn bộ phần tổng quan,
+
+51
+00:01:56,030 --> 00:01:57,050
+hy vọng bạn thích
+
+52
+00:01:57,050 --> 00:01:59,000
+hẹn gặp bạn ở bài giảng tiếp theo.

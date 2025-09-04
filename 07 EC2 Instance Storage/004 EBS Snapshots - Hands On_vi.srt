@@ -1,0 +1,351 @@
+1
+00:00:00,270 --> 00:00:02,070
+Chúng ta có một volume 2 gigabyte,
+
+2
+00:00:02,070 --> 00:00:04,650
+volume EBS GP2 sẵn sàng cho chúng ta,
+
+3
+00:00:04,650 --> 00:00:06,689
+và chúng ta có thể tạo snapshot từ nó.
+
+4
+00:00:06,689 --> 00:00:10,470
+Nếu vào Actions, ta có thể chọn Create snapshot.
+
+5
+00:00:10,470 --> 00:00:13,270
+Chúng ta có thể thêm Description, ví dụ DemoSnapshots,
+
+6
+00:00:14,250 --> 00:00:16,800
+rồi nhấn Create snapshots.
+
+7
+00:00:16,800 --> 00:00:18,870
+Sau đó, ở menu bên trái,
+
+8
+00:00:18,870 --> 00:00:22,410
+thay vì Volumes, bạn có thể chọn Snapshots.
+
+9
+00:00:22,410 --> 00:00:23,610
+Mục Snapshots hiển thị danh sách
+
+10
+00:00:23,610 --> 00:00:25,170
+tất cả snapshot bạn đang có.
+
+11
+00:00:25,170 --> 00:00:27,270
+Như bạn thấy, chúng ta có một snapshot ngay đây.
+
+12
+00:00:27,270 --> 00:00:28,110
+Trạng thái là Completed.
+
+13
+00:00:28,110 --> 00:00:30,210
+Nó đang 100% Available.
+
+14
+00:00:30,210 --> 00:00:32,610
+Và chúng ta có một số thông tin về snapshot này.
+
+15
+00:00:32,610 --> 00:00:35,820
+Trước hết, chúng ta có thể Copy
+
+16
+00:00:35,820 --> 00:00:37,830
+snapshot này sang region khác.
+
+17
+00:00:37,830 --> 00:00:40,620
+Nếu bấm chuột phải và chọn Copy Snapshot,
+
+18
+00:00:40,620 --> 00:00:42,570
+như bạn thấy, bạn có thể sao chép snapshot
+
+19
+00:00:42,570 --> 00:00:45,540
+sang bất kỳ destination region nào bạn muốn.
+
+20
+00:00:45,540 --> 00:00:47,520
+Điều này rất hữu ích,
+
+21
+00:00:47,520 --> 00:00:49,050
+ví dụ nếu bạn muốn
+
+22
+00:00:49,050 --> 00:00:50,970
+xây dựng chiến lược Disaster Recovery,
+
+23
+00:00:50,970 --> 00:00:54,990
+đảm bảo dữ liệu được sao lưu ở region khác trên AWS.
+
+24
+00:00:54,990 --> 00:00:57,960
+Tôi sẽ không thực hiện, nhưng bạn hiểu ý tưởng.
+
+25
+00:00:57,960 --> 00:01:00,870
+Việc khác tôi có thể làm là lấy Snapshot,
+
+26
+00:01:00,870 --> 00:01:03,360
+và tạo lại một Volume từ snapshot đó.
+
+27
+00:01:03,360 --> 00:01:06,960
+Chọn Action, Create volume from snapshots.
+
+28
+00:01:06,960 --> 00:01:10,410
+Ta chọn volume GP2 dung lượng 2 gigabyte.
+
+29
+00:01:10,410 --> 00:01:15,360
+Target AZ không nhất thiết phải là eu-west-1a,
+
+30
+00:01:15,360 --> 00:01:18,180
+có thể là, chẳng hạn, eu-west-1b.
+
+31
+00:01:18,180 --> 00:01:20,400
+Bạn cũng có thể mã hóa các volume này nếu muốn
+
+32
+00:01:20,400 --> 00:01:21,750
+và thêm vài Tag.
+
+33
+00:01:21,750 --> 00:01:24,870
+Như vậy, khi bấm Create volume,
+
+34
+00:01:24,870 --> 00:01:27,210
+khi quay lại
+
+35
+00:01:27,210 --> 00:01:28,830
+mục Volumes,
+
+36
+00:01:28,830 --> 00:01:31,710
+bạn thấy bây giờ chúng ta có hai Volume.
+
+37
+00:01:31,710 --> 00:01:32,640
+Và một volume trong đó,
+
+38
+00:01:32,640 --> 00:01:36,690
+volume này được khôi phục từ Snapshot.
+
+39
+00:01:36,690 --> 00:01:39,150
+Và nó nằm ở eu-west-1b.
+
+40
+00:01:39,150 --> 00:01:40,680
+Ý tưởng là nhờ Snapshot
+
+41
+00:01:40,680 --> 00:01:44,220
+chúng ta có thể 'sao chép' các volume EBS
+
+42
+00:01:44,220 --> 00:01:46,500
+giữa các Availability Zone khác nhau.
+
+43
+00:01:46,500 --> 00:01:48,300
+Điều đó rất tiện lợi.
+
+44
+00:01:48,300 --> 00:01:50,550
+Quay lại tab Snapshots, chúng ta có thể xem
+
+45
+00:01:50,550 --> 00:01:53,280
+một mục gọi là Recycle Bin.
+
+46
+00:01:53,280 --> 00:01:55,590
+Recycle Bin là cách để bạn bảo vệ
+
+47
+00:01:55,590 --> 00:01:58,500
+EBS Snapshot khỏi bị xóa nhầm,
+
+48
+00:01:58,500 --> 00:02:02,220
+cũng như các Amazon Machine Image.
+
+49
+00:02:02,220 --> 00:02:05,824
+Chúng ta có thể tạo Retention Rule và đặt tên
+
+50
+00:02:05,824 --> 00:02:07,324
+DemoRetentionRule.
+
+51
+00:02:09,120 --> 00:02:11,580
+Tôi sẽ chọn EBS Snapshots.
+
+52
+00:02:11,580 --> 00:02:14,160
+Áp dụng cho tất cả resource và giữ lại
+
+53
+00:02:14,160 --> 00:02:15,900
+trong một ngày.
+
+54
+00:02:15,900 --> 00:02:18,480
+Ở phần Rule Lock Setting, tôi để unlock,
+
+55
+00:02:18,480 --> 00:02:20,820
+để có thể xóa rule này bất cứ lúc nào.
+
+56
+00:02:20,820 --> 00:02:23,493
+Sau đó nhấn Create Retention Rule.
+
+57
+00:02:24,870 --> 00:02:28,200
+Giờ trong tab Resources, chúng ta sẽ xem có Resource
+
+58
+00:02:28,200 --> 00:02:29,850
+nào trong Recycle Bin hay không.
+
+59
+00:02:29,850 --> 00:02:34,170
+Quay lại mục Snapshots trong EC2 Console.
+
+60
+00:02:34,170 --> 00:02:35,550
+Tôi sẽ vào EC2.
+
+61
+00:02:35,550 --> 00:02:37,620
+Đây rồi, mục Snapshots.
+
+62
+00:02:37,620 --> 00:02:39,150
+Lối tắt nhỏ.
+
+63
+00:02:39,150 --> 00:02:42,030
+Tôi sẽ chọn snapshot,
+
+64
+00:02:42,030 --> 00:02:43,320
+và trước khi xóa,
+
+65
+00:02:43,320 --> 00:02:44,610
+ tôi muốn chỉ cho bạn Storage Tiers.
+
+66
+00:02:44,610 --> 00:02:47,700
+Hiện tại nó thuộc Standard Storage Tier.
+
+67
+00:02:47,700 --> 00:02:49,530
+Nhưng bạn có thể chuyển Storage Tier
+
+68
+00:02:49,530 --> 00:02:51,360
+bằng cách Archive snapshot,
+
+69
+00:02:51,360 --> 00:02:53,520
+ tức là chuyển Storage Tier
+
+70
+00:02:53,520 --> 00:02:55,950
+sang mức giá khác.
+
+71
+00:02:55,950 --> 00:02:56,910
+Nhưng nếu muốn restore lại,
+
+72
+00:02:56,910 --> 00:02:59,850
+bạn phải đợi 24 đến 72 giờ.
+
+73
+00:02:59,850 --> 00:03:00,780
+Chỉ để minh họa thôi.
+
+74
+00:03:00,780 --> 00:03:02,910
+Nhưng dù sao, chúng ta hãy xóa snapshot.
+
+75
+00:03:02,910 --> 00:03:04,980
+Ta chọn Delete snapshot.
+
+76
+00:03:04,980 --> 00:03:06,210
+Như bạn thấy, nó đã biến mất.
+
+77
+00:03:06,210 --> 00:03:09,270
+Trước đây việc này sẽ xóa hoàn toàn snapshot,
+
+78
+00:03:09,270 --> 00:03:10,920
+và bạn không thể khôi phục.
+
+79
+00:03:10,920 --> 00:03:12,090
+Bạn thấy nó đã biến mất.
+
+80
+00:03:12,090 --> 00:03:14,460
+Nhưng giờ nhờ Recycle Bin,
+
+81
+00:03:14,460 --> 00:03:17,103
+nếu tôi refresh tab Resources,
+
+82
+00:03:18,870 --> 00:03:21,510
+ tôi thấy snapshot của mình xuất hiện tại đây.
+
+83
+00:03:21,510 --> 00:03:24,660
+Tôi có thể click vào và Recover.
+
+84
+00:03:24,660 --> 00:03:28,200
+Chọn Recover Resources, và voilà, nó đã trở lại
+
+85
+00:03:28,200 --> 00:03:31,110
+trong phần Snapshots của EC2 console.
+
+86
+00:03:31,110 --> 00:03:33,360
+Khá tuyệt phải không?
+
+87
+00:03:33,360 --> 00:03:35,040
+Như vậy là xong phần EBS Snapshots.
+
+88
+00:03:35,040 --> 00:03:38,040
+Hy vọng bạn thấy hữu ích, hẹn gặp lại ở bài tiếp theo.

@@ -1,0 +1,371 @@
+1
+00:00:00,090 --> 00:00:01,490
+Được rồi, cuối cùng hãy nói về
+
+2
+00:00:01,490 --> 00:00:02,420
+thao tác cuối cùng,
+
+3
+00:00:02,420 --> 00:00:05,160
+đó là cách mã hóa một EBS volume.
+
+4
+00:00:05,160 --> 00:00:08,039
+Khi bạn tạo một EBS volume được mã hóa,
+
+5
+00:00:08,039 --> 00:00:09,910
+ngay lập tức bạn có những điều sau: dữ liệu
+
+6
+00:00:09,910 --> 00:00:12,048
+lưu trữ sẽ được mã hóa trong volume,
+
+7
+00:00:12,048 --> 00:00:14,316
+tất cả dữ liệu truyền giữa instance
+
+8
+00:00:14,316 --> 00:00:16,170
+và volume đều được mã hóa,
+
+9
+00:00:16,170 --> 00:00:18,900
+mọi snapshot đều được mã hóa, và mọi volume
+
+10
+00:00:18,900 --> 00:00:20,520
+được tạo từ snapshot cũng được mã hóa.
+
+11
+00:00:20,520 --> 00:00:22,930
+Vì vậy việc mã hóa diễn ra ở mọi nơi,
+
+12
+00:00:22,930 --> 00:00:26,270
+và toàn bộ cơ chế mã hóa và giải mã
+
+13
+00:00:26,270 --> 00:00:28,040
+được xử lý minh bạch cho bạn.
+
+14
+00:00:28,040 --> 00:00:29,350
+Bạn không phải làm gì cả.
+
+15
+00:00:29,350 --> 00:00:32,780
+Mọi thứ được EC2 và EBS xử lý ở phía sau.
+
+16
+00:00:32,780 --> 00:00:35,530
+Tóm lại, bạn nên sử dụng mã hóa
+
+17
+00:00:35,530 --> 00:00:38,600
+vì nó gần như không ảnh hưởng đến độ trễ,
+
+18
+00:00:38,600 --> 00:00:41,980
+hầu như không, và nó dùng các key từ KMS,
+
+19
+00:00:41,980 --> 00:00:46,430
+tức AES-256, điều bạn nên biết.
+
+20
+00:00:46,430 --> 00:00:50,530
+Và khi bạn sao chép một snapshot chưa mã hóa,
+
+21
+00:00:50,530 --> 00:00:52,770
+bạn có thể bật mã hóa.
+
+22
+00:00:52,770 --> 00:00:55,390
+Hãy nói về một điều rất quan trọng,
+
+23
+00:00:55,390 --> 00:00:58,920
+đó là làm thế nào mã hóa một EBS volume chưa mã hóa.
+
+24
+00:00:58,920 --> 00:01:01,390
+Để mã hóa một EBS volume chưa mã hóa,
+
+25
+00:01:01,390 --> 00:01:03,930
+một câu khá khó nói,
+
+26
+00:01:03,930 --> 00:01:06,510
+bạn tạo một EBS snapshot của volume.
+
+27
+00:01:06,510 --> 00:01:09,910
+Sau đó bạn mã hóa snapshot này bằng chức năng copy.
+
+28
+00:01:09,910 --> 00:01:12,347
+Rồi tạo một EBS volume mới từ snapshot
+
+29
+00:01:12,347 --> 00:01:14,490
+và volume đó cũng sẽ được mã hóa,
+
+30
+00:01:14,490 --> 00:01:16,330
+và giờ ta có thể gắn volume đã mã hóa
+
+31
+00:01:16,330 --> 00:01:17,810
+vào instance ban đầu.
+
+32
+00:01:17,810 --> 00:01:20,490
+Hãy thực hành để bạn nhớ.
+
+33
+00:01:20,490 --> 00:01:22,930
+Ở đây chúng ta có một EC2 instance
+
+34
+00:01:22,930 --> 00:01:24,910
+với một volume chưa mã hóa.
+
+35
+00:01:24,910 --> 00:01:26,930
+Chúng ta sẽ tạo snapshot của nó.
+
+36
+00:01:26,930 --> 00:01:29,910
+Nó giờ nằm trong mục snapshot.
+
+37
+00:01:29,910 --> 00:01:32,910
+Sau đó ta sao chép snapshot và bật mã hóa
+
+38
+00:01:32,910 --> 00:01:35,330
+sử dụng một KMS key.
+
+39
+00:01:35,330 --> 00:01:38,470
+Từ snapshot đã mã hóa
+
+40
+00:01:38,470 --> 00:01:41,290
+chúng ta tạo một EBS volume mới,
+
+41
+00:01:41,290 --> 00:01:43,470
+và cuối cùng gắn EBS volume này
+
+42
+00:01:43,470 --> 00:01:45,770
+vào EC2 instance.
+
+43
+00:01:45,770 --> 00:01:48,070
+Đây là các bước.
+
+44
+00:01:48,070 --> 00:01:50,770
+Quy trình này rất quan trọng cho kỳ thi,
+
+45
+00:01:50,770 --> 00:01:53,390
+bạn có thể gặp câu hỏi về nó.
+
+46
+00:01:53,390 --> 00:01:55,590
+Hãy thực hành xem sao.
+
+47
+00:01:55,590 --> 00:01:58,820
+Trong phần đầu, tôi sẽ cho bạn thấy
+
+48
+00:01:58,820 --> 00:02:01,330
+cách mã hóa một EBS volume
+
+49
+00:02:01,330 --> 00:02:03,320
+theo quy trình này.
+
+50
+00:02:03,320 --> 00:02:05,950
+Hãy tạo snapshot của volume
+
+51
+00:02:05,950 --> 00:02:07,330
+của instance.
+
+52
+00:02:07,330 --> 00:02:09,800
+Vào Actions rồi chọn Create snapshot.
+
+53
+00:02:09,800 --> 00:02:12,000
+Mô tả: unencrypted snapshots.
+
+54
+00:02:12,000 --> 00:02:14,130
+Sau đó tạo snapshot.
+
+55
+00:02:14,130 --> 00:02:16,310
+Giờ hãy xem snapshot,
+
+56
+00:02:16,310 --> 00:02:18,700
+và như bạn thấy volume này chưa được mã hóa,
+
+57
+00:02:18,700 --> 00:02:21,180
+vì thế snapshot cũng chưa mã hóa
+
+58
+00:02:21,180 --> 00:02:24,110
+do được tạo từ volume chưa mã hóa.
+
+59
+00:02:24,110 --> 00:02:27,500
+Giờ lấy snapshot này,
+
+60
+00:02:27,500 --> 00:02:30,744
+và copy thành một snapshot mới đã mã hóa.
+
+61
+00:02:30,744 --> 00:02:34,620
+Vào Actions, chọn Copy,
+
+62
+00:02:34,620 --> 00:02:37,520
+tại đây bật Encryption
+
+63
+00:02:37,520 --> 00:02:40,710
+và chọn KMS key ngay đây.
+
+64
+00:02:40,710 --> 00:02:43,940
+Chúng ta sẽ copy snapshot này và xong.
+
+65
+00:02:43,940 --> 00:02:47,370
+Tiếp theo, từ snapshot đã mã hóa này
+
+66
+00:02:47,370 --> 00:02:51,390
+sau khi hoàn tất, tôi có thể tạo volume.
+
+67
+00:02:51,390 --> 00:02:54,700
+Chọn Action, Create volume from snapshot,
+
+68
+00:02:54,700 --> 00:02:57,180
+ta có thể tạo một EBS volume 1GB.
+
+69
+00:02:57,180 --> 00:03:00,520
+Và ở đây encryption được bật cho volume này
+
+70
+00:03:00,520 --> 00:03:01,410
+vì snapshot bên dưới đã mã hóa.
+
+71
+00:03:01,410 --> 00:03:04,770
+Vì vậy nếu tôi nhấn Create volume,
+
+72
+00:03:04,770 --> 00:03:07,390
+rồi xem danh sách volumes bên trái,
+
+73
+00:03:07,390 --> 00:03:08,223
+volume được tạo từ snapshot này
+
+74
+00:03:08,223 --> 00:03:10,410
+đã sẵn sàng và hiển thị encryption = encrypted.
+
+75
+00:03:10,410 --> 00:03:12,750
+Vậy là tốt.
+
+76
+00:03:12,750 --> 00:03:15,504
+Chúng ta đã thấy cách mã hóa một EBS volume như vậy,
+
+77
+00:03:15,504 --> 00:03:18,456
+bằng cách snapshot, copy và v.v.
+
+78
+00:03:18,456 --> 00:03:20,803
+Có một cách nhanh hơn.
+
+79
+00:03:20,803 --> 00:03:24,670
+Nếu bạn lấy snapshot chưa mã hóa,
+
+80
+00:03:24,670 --> 00:03:28,200
+ví dụ snapshot này chưa mã hóa,
+
+81
+00:03:28,200 --> 00:03:30,660
+khi bạn chọn snapshot này rồi vào Action,
+
+82
+00:03:30,660 --> 00:03:32,997
+Create volume from snapshot,
+
+83
+00:03:32,997 --> 00:03:36,260
+bạn có thể bật mã hóa trực tiếp
+
+84
+00:03:36,260 --> 00:03:38,830
+cho EBS volume tại đây và chọn KMS key,
+
+85
+00:03:38,830 --> 00:03:40,540
+và tạo được EBS volume đã mã hóa
+
+86
+00:03:40,540 --> 00:03:42,900
+từ một snapshot chưa mã hóa.
+
+87
+00:03:42,900 --> 00:03:44,290
+Được rồi, giả sử bạn đã thấy tất cả tùy chọn.
+
+88
+00:03:44,290 --> 00:03:47,290
+Trước khi kết thúc hãy nhớ xóa snapshot
+
+89
+00:03:47,290 --> 00:03:49,660
+bằng cách gõ delete rồi
+
+90
+00:03:49,660 --> 00:03:52,240
+thực hiện tương tự với các volume.
+
+91
+00:03:52,240 --> 00:03:54,800
+Chỉ cần xóa các EBS volume này.
+
+92
+00:03:54,800 --> 00:03:56,290
+Được rồi, vậy là xong.
+
+93
+00:03:56,290 --> 00:03:59,290
+Hy vọng bạn thích, hẹn gặp lại ở bài giảng sau.

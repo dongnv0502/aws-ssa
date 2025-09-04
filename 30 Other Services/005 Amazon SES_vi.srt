@@ -1,0 +1,129 @@
+1
+00:00:00,330 --> 00:00:03,390
+Đây là bài giảng nhanh về Amazon SES,
+
+2
+00:00:03,390 --> 00:00:06,120
+còn gọi là Simple Email Service.
+
+3
+00:00:06,120 --> 00:00:07,440
+Đây là dịch vụ được quản lý hoàn toàn,
+
+4
+00:00:07,440 --> 00:00:08,280
+như tên gọi đã nói,
+
+5
+00:00:08,280 --> 00:00:10,860
+cho phép bạn gửi email an toàn,
+
+6
+00:00:10,860 --> 00:00:12,840
+trên toàn cầu và với quy mô lớn.
+
+7
+00:00:12,840 --> 00:00:14,940
+Ý tưởng là ứng dụng của bạn
+
+8
+00:00:14,940 --> 00:00:18,540
+sử dụng SES API hoặc máy chủ SMTP
+
+9
+00:00:18,540 --> 00:00:22,050
+và Amazon SES sẽ gửi email hàng loạt tới người dùng.
+
+10
+00:00:22,050 --> 00:00:24,600
+Nó cho phép gửi và nhận email
+
+11
+00:00:24,600 --> 00:00:26,280
+nên bạn có thể nhận phản hồi,
+
+12
+00:00:26,280 --> 00:00:27,960
+và cung cấp bảng điều khiển reputation,
+
+13
+00:00:27,960 --> 00:00:29,910
+cho biết email có được mở hay không,
+
+14
+00:00:29,910 --> 00:00:30,930
+thông tin hiệu suất,
+
+15
+00:00:30,930 --> 00:00:32,880
+cũng như phản hồi chống spam,
+
+16
+00:00:32,880 --> 00:00:35,430
+xem người dùng có đánh dấu email là spam hay không.
+
+17
+00:00:35,430 --> 00:00:36,810
+Nó cung cấp thống kê email
+
+18
+00:00:36,810 --> 00:00:40,290
+như số lượng gửi thành công, bị trả lại, kết quả feedback loop,
+
+19
+00:00:40,290 --> 00:00:42,300
+và email có được mở hay không,
+
+20
+00:00:42,300 --> 00:00:43,950
+và hỗ trợ các tiêu chuẩn bảo mật
+
+21
+00:00:43,950 --> 00:00:45,690
+trong việc gửi email hiện nay,
+
+22
+00:00:45,690 --> 00:00:49,053
+như DKIM và SPF.
+
+23
+Có triển khai linh hoạt
+
+24
+nên bạn có thể dùng IP chia sẻ,
+
+25
+IP riêng,
+
+26
+hoặc IP thuộc sở hữu khách hàng.
+
+27
+Điều này cho phép gửi email từ một địa chỉ IP cụ thể,
+
+28
+và các API có thể truy cập từ console,
+
+29
+các AWS API chuyên biệt, hoặc giao thức SMTP.
+
+30
+Các trường hợp sử dụng Amazon SES
+
+31
+là email giao dịch,
+
+32
+email marketing,
+
+33
+và các email giao tiếp hàng loạt.
+
+34
+Đó là tất cả cho bài giảng này.
+
+35
+Hy vọng bạn thích,
+
+36
+hẹn gặp ở bài tiếp theo.

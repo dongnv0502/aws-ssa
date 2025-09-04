@@ -1,0 +1,148 @@
+1
+00:00:00,330 --> 00:00:01,530
+Nếu bạn vào console
+
+2
+00:00:01,530 --> 00:00:03,390
+và gõ directory service,
+
+3
+00:00:03,390 --> 00:00:05,430
+ta sẽ thấy các lựa chọn khác nhau được cung cấp.
+
+4
+00:00:05,430 --> 00:00:07,260
+Tôi sẽ điểm qua ở mức tổng quan
+
+5
+00:00:07,260 --> 00:00:10,440
+vì từng cái có thể khá phức tạp để cấu hình riêng.
+
+6
+00:00:10,440 --> 00:00:11,940
+Nhưng chúng ta có bốn lựa chọn
+
+7
+00:00:11,940 --> 00:00:14,190
+và thực ra lựa chọn thứ tư là Amazon Cognito User Pool,
+
+8
+00:00:14,190 --> 00:00:16,560
+nó chuyển bạn đến dịch vụ Cognito.
+
+9
+00:00:16,560 --> 00:00:19,680
+Vì vậy đừng tính nó vào Directory Services.
+
+10
+00:00:19,680 --> 00:00:22,200
+Vậy chúng ta có AWS Managed Microsoft AD
+
+11
+00:00:22,200 --> 00:00:24,150
+nơi ta có thể có một Active Directory
+
+12
+00:00:24,150 --> 00:00:26,310
+được tích hợp với AWS Cloud
+
+13
+00:00:26,310 --> 00:00:28,050
+và có thể thiết lập quan hệ tin cậy
+
+14
+00:00:28,050 --> 00:00:29,580
+với directory on-premises của bạn.
+
+15
+00:00:29,580 --> 00:00:32,460
+Để thiết lập, bạn thấy có hai phiên bản.
+
+16
+00:00:32,460 --> 00:00:35,160
+Standard Edition hỗ trợ tối đa 30.000 đối tượng
+
+17
+00:00:35,160 --> 00:00:38,460
+hoặc Enterprise Edition lên tới 500.000 đối tượng.
+
+18
+00:00:38,460 --> 00:00:40,020
+Nhiều hơn rất nhiều.
+
+19
+00:00:40,020 --> 00:00:42,420
+Rồi bạn phải cấu hình, nhưng tôi sẽ không đi sâu vào phần này
+
+20
+00:00:42,420 --> 00:00:43,800
+vì nó liên quan nhiều đến AD
+
+21
+00:00:43,800 --> 00:00:45,720
+và bạn không cần biết cho kỳ thi.
+
+22
+00:00:45,720 --> 00:00:47,610
+Lựa chọn tiếp theo là Simple AD
+
+23
+00:00:47,610 --> 00:00:50,130
+là một directory quản lý độc lập
+
+24
+00:00:50,130 --> 00:00:53,100
+có API tương thích Active Directory
+
+25
+00:00:53,100 --> 00:00:54,120
+nhưng không thể kết nối
+
+26
+00:00:54,120 --> 00:00:56,190
+với Active Directory on-premises của bạn.
+
+27
+00:00:56,190 --> 00:00:58,380
+Hoặc AD Connector, đóng vai trò proxy
+
+28
+00:00:58,380 --> 00:01:00,030
+để chuyển hướng các yêu cầu directory
+
+29
+00:01:00,030 --> 00:01:03,540
+tới Microsoft Active Directory on-premise hiện có.
+
+30
+00:01:03,540 --> 00:01:05,670
+Nó được thiết kế với hai mức.
+
+31
+00:01:05,670 --> 00:01:07,770
+Có connector dành cho tối đa 500 người dùng
+
+32
+00:01:07,770 --> 00:01:11,160
+hoặc connector tới 5.000 người dùng, được chứ?
+
+33
+00:01:11,160 --> 00:01:13,020
+Nhớ rằng loại đầu hỗ trợ MFA.
+
+34
+00:01:13,020 --> 00:01:14,340
+Loại thứ hai chỉ là độc lập
+
+35
+00:01:14,340 --> 00:01:16,440
+còn AD Connector là một proxy.
+
+36
+00:01:16,440 --> 00:01:17,730
+Được rồi, bài học này đến đây.
+
+37
+00:01:17,730 --> 00:01:19,480
+Hẹn gặp bạn ở bài học tiếp theo.
+

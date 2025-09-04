@@ -1,0 +1,475 @@
+1
+00:00:00,450 --> 00:00:02,790
+Bây giờ hãy nói về các EBS volume
+
+2
+00:00:02,790 --> 00:00:04,230
+và các loại volume khác nhau.
+
+3
+00:00:04,230 --> 00:00:06,300
+Hiện tại có sáu loại,
+
+4
+00:00:06,300 --> 00:00:08,670
+và ta có thể nhóm thành vài danh mục.
+
+5
+00:00:08,670 --> 00:00:11,070
+Đầu tiên là gp2, gp3,
+
+6
+00:00:11,070 --> 00:00:13,320
+là volume SSD general purpose
+
+7
+00:00:13,320 --> 00:00:15,120
+cân bằng giữa giá và hiệu năng
+
+8
+00:00:15,120 --> 00:00:17,580
+cho nhiều workload, và đây là loại
+
+9
+00:00:17,580 --> 00:00:19,590
+chúng ta dùng trong khóa học đến giờ.
+
+10
+00:00:19,590 --> 00:00:22,410
+Tiếp theo là io1 và io2 Block Express.
+
+11
+00:00:22,410 --> 00:00:24,540
+Đây là volume SSD hiệu năng cao nhất
+
+12
+00:00:24,540 --> 00:00:26,670
+ dùng cho workload quan trọng yêu cầu độ trễ thấp
+
+13
+00:00:26,670 --> 00:00:29,040
+và throughput cao.
+
+14
+00:00:29,040 --> 00:00:30,840
+Rồi đến volume st1,
+
+15
+00:00:30,840 --> 00:00:32,520
+là volume HDD chi phí thấp
+
+16
+00:00:32,520 --> 00:00:34,110
+thiết kế cho dữ liệu được truy cập thường xuyên
+
+17
+00:00:34,110 --> 00:00:35,940
+cần throughput lớn.
+
+18
+00:00:35,940 --> 00:00:37,770
+Có volume sc1,
+
+19
+00:00:37,770 --> 00:00:40,950
+HDD rẻ nhất, thiết kế
+
+20
+00:00:40,950 --> 00:00:43,470
+cho workload ít truy cập.
+
+21
+00:00:43,470 --> 00:00:45,870
+Vậy ta định nghĩa một EBS volume như thế nào?
+
+22
+00:00:45,870 --> 00:00:49,080
+Có nhiều yếu tố như kích thước,
+
+23
+00:00:49,080 --> 00:00:54,080
+throughput và IOPS (số thao tác I/O mỗi giây),
+
+24
+00:00:54,480 --> 00:00:55,980
+và hiển nhiên, nếu không chắc,
+
+25
+00:00:55,980 --> 00:00:58,470
+hãy xem tài liệu.
+
+26
+00:00:58,470 --> 00:01:01,320
+Đối với EC2 instance của bạn,
+
+27
+00:01:01,320 --> 00:01:04,290
+chỉ gp2, gp3, io1 và io2
+
+28
+00:01:04,290 --> 00:01:05,970
+mới dùng làm boot volume.
+
+29
+00:01:05,970 --> 00:01:10,110
+Tức là nơi hệ điều hành root chạy.
+
+30
+00:01:10,110 --> 00:01:11,850
+Giờ hãy đi sâu hơn
+
+31
+00:01:11,850 --> 00:01:15,060
+về gp2, gp3, io1, io2 và các loại khác,
+
+32
+00:01:15,060 --> 00:01:18,180
+nhưng gp2, loại general purpose và provisioned IOPS
+
+33
+00:01:18,180 --> 00:01:20,460
+sẽ quan trọng nhất cho kỳ thi.
+
+34
+00:01:20,460 --> 00:01:24,180
+gp2 là lưu trữ chi phí hiệu quả với độ trễ thấp,
+
+35
+00:01:24,180 --> 00:01:25,950
+ dùng cho boot volume hệ thống,
+
+36
+00:01:25,950 --> 00:01:28,350
+virtual desktop, môi trường development và test.
+
+37
+00:01:28,350 --> 00:01:31,560
+Kích thước từ 1 GB đến 16 TB,
+
+38
+00:01:31,560 --> 00:01:34,497
+gp2 khác gp3 ở vài điểm.
+
+39
+00:01:34,497 --> 00:01:37,620
+Gp3 là thế hệ volume mới hơn.
+
+40
+00:01:37,620 --> 00:01:40,500
+Gp3 cung cấp baseline 3000 IOPS
+
+41
+00:01:40,500 --> 00:01:43,530
+và throughput 125 MB/s,
+
+42
+00:01:43,530 --> 00:01:47,070
+và có thể tăng IOPS lên 16.000
+
+43
+00:01:47,070 --> 00:01:49,140
+và throughput lên 1.000 MB
+
+44
+00:01:49,140 --> 00:01:52,920
+mỗi giây một cách độc lập, tức là không liên kết.
+
+45
+00:01:52,920 --> 00:01:55,149
+Với gp2, là phiên bản cũ hơn,
+
+46
+00:01:55,149 --> 00:01:58,800
+các volume gp2 nhỏ có thể burst đến 3.000 IOPS,
+
+47
+00:01:58,800 --> 00:02:01,740
+và kích thước volume cùng IOPS liên quan nhau.
+
+48
+00:02:01,740 --> 00:02:04,320
+Nghĩa là khi tăng IOPS
+
+49
+00:02:04,320 --> 00:02:06,630
+bằng cách tăng dung lượng GB,
+
+50
+00:02:06,630 --> 00:02:08,850
+bạn sẽ nhận thêm 3 IOPS
+
+51
+00:02:08,850 --> 00:02:11,520
+tối đa 16.000 IOPS,
+
+52
+00:02:11,520 --> 00:02:15,870
+tức là nếu bạn có 5.334 GB,
+
+53
+00:02:15,870 --> 00:02:18,570
+bạn sẽ đạt 16.000 IOPS và chạm trần.
+
+54
+00:02:18,570 --> 00:02:20,460
+Vậy bạn cần nhớ gì từ slide này?
+
+55
+00:02:20,460 --> 00:02:22,770
+Hãy nhớ với gp2, gp3,
+
+56
+00:02:22,770 --> 00:02:25,650
+đây là lưu trữ chi phí hợp lý, độ trễ thấp,
+
+57
+00:02:25,650 --> 00:02:28,620
+gp3 cho phép đặt IOPS
+
+58
+00:02:28,620 --> 00:02:30,540
+và throughput độc lập, còn với gp2
+
+59
+00:02:30,540 --> 00:02:32,250
+chúng gắn liền với nhau.
+
+60
+00:02:32,250 --> 00:02:34,830
+Giờ nói về volume provisioned IOPS.
+
+61
+00:02:34,830 --> 00:02:38,190
+Chúng dùng cho ứng dụng doanh nghiệp quan trọng
+
+62
+00:02:38,190 --> 00:02:40,440
+cần duy trì hiệu năng IOPS
+
+63
+00:02:40,440 --> 00:02:42,420
+hoặc ứng dụng cần rất nhiều IOPS,
+
+64
+00:02:42,420 --> 00:02:44,640
+ví dụ hơn 16.000.
+
+65
+00:02:44,640 --> 00:02:46,440
+Trong kỳ thi,
+
+66
+00:02:46,440 --> 00:02:49,020
+khi thấy workload database
+
+67
+00:02:49,020 --> 00:02:51,570
+rất nhạy với hiệu năng lưu trữ
+
+68
+00:02:51,570 --> 00:02:54,900
+và tính nhất quán, thì volume provisioned
+
+69
+00:02:54,900 --> 00:02:55,733
+là lựa chọn tuyệt vời.
+
+70
+00:02:55,733 --> 00:02:57,840
+Có loại volume io1
+
+71
+00:02:57,840 --> 00:03:00,000
+từ 4 đến 16 TB,
+
+72
+00:03:00,000 --> 00:03:03,660
+và IOPS tối đa bạn có thể provision, gọi là PIOPS tối đa,
+
+73
+00:03:03,660 --> 00:03:07,050
+khoảng 64.000 cho một số EC2 nhất định
+
+74
+00:03:07,050 --> 00:03:09,780
+và 32.000 cho các instance còn lại,
+
+75
+00:03:09,780 --> 00:03:12,090
+và vì io1 cho phép,
+
+76
+00:03:12,090 --> 00:03:14,160
+chúng ta có thể tăng IOPS provisioned
+
+77
+00:03:14,160 --> 00:03:16,590
+độc lập với kích thước lưu trữ.
+
+78
+00:03:16,590 --> 00:03:20,310
+Nếu xem xét volume io2 Block Express,
+
+79
+00:03:20,310 --> 00:03:23,640
+bạn có thể lên đến 64 TB dữ liệu.
+
+80
+00:03:23,640 --> 00:03:25,860
+Độ trễ dưới một mili giây,
+
+81
+00:03:25,860 --> 00:03:30,000
+và IOPS tối đa rất lớn, như 256.000
+
+82
+00:03:30,000 --> 00:03:32,670
+với tỷ lệ 1.000 IOPS cho mỗi GB.
+
+83
+00:03:32,670 --> 00:03:33,930
+Vì vậy đây chắc chắn
+
+84
+00:03:33,930 --> 00:03:36,450
+là loại volume I/O hiệu năng rất cao,
+
+85
+00:03:36,450 --> 00:03:39,330
+và ngoài ra, các volume provisioned IOPS
+
+86
+00:03:39,330 --> 00:03:40,770
+mà ta sẽ thấy ở bài sau
+
+87
+00:03:40,770 --> 00:03:43,683
+hỗ trợ tính năng EBS Multi-Attach.
+
+88
+00:03:44,580 --> 00:03:48,870
+Giờ nói nhanh về st1 và sc1.
+
+89
+00:03:48,870 --> 00:03:50,220
+Chúng không thể làm boot volume.
+
+90
+00:03:50,220 --> 00:03:52,530
+Chỉ các loại trước mới làm được.
+
+91
+00:03:52,530 --> 00:03:55,440
+Dung lượng tối đa 16 TB,
+
+92
+00:03:55,440 --> 00:03:58,020
+và có hai loại volume ở đây.
+
+93
+00:03:58,020 --> 00:04:01,140
+Có throughput-optimized HDD, tức st1,
+
+94
+00:04:01,140 --> 00:04:02,250
+phù hợp cho big data,
+
+95
+00:04:02,250 --> 00:04:04,590
+data warehousing và xử lý log,
+
+96
+00:04:04,590 --> 00:04:07,290
+cho throughput tối đa 500 MB/s
+
+97
+00:04:07,290 --> 00:04:09,720
+và IOPS tối đa 500,
+
+98
+00:04:09,720 --> 00:04:13,650
+còn cold HDD tức sc1 dùng cho dữ liệu archive,
+
+99
+00:04:13,650 --> 00:04:16,290
+tức dữ liệu ít truy cập,
+
+100
+00:04:16,290 --> 00:04:17,820
+và đây là lúc bạn dùng nó
+
+101
+00:04:17,820 --> 00:04:19,980
+khi cần chi phí thấp nhất.
+
+102
+00:04:19,980 --> 00:04:23,220
+Ở đây throughput tối đa 250 MB/s,
+
+103
+00:04:23,220 --> 00:04:25,710
+và IOPS tối đa cũng 250.
+
+104
+00:04:25,710 --> 00:04:26,670
+Bạn không cần ghi nhớ
+
+105
+00:04:26,670 --> 00:04:28,500
+tất cả chi tiết này cho kỳ thi.
+
+106
+00:04:28,500 --> 00:04:29,820
+Chỉ cần hiểu sự khác nhau
+
+107
+00:04:29,820 --> 00:04:31,920
+ở mức độ khái quát giữa các volume.
+
+108
+00:04:31,920 --> 00:04:35,213
+Tức SSD general purpose so với SSD provisioned IOPS,
+
+109
+00:04:35,213 --> 00:04:39,291
+khi cần database, so với st1 và sc1,
+
+110
+00:04:39,291 --> 00:04:42,720
+khi cần throughput cao và chi phí thấp nhất,
+
+111
+00:04:42,720 --> 00:04:45,240
+bạn có thể xem tóm tắt những gì tôi nói
+
+112
+00:04:45,240 --> 00:04:47,640
+ở đường link này,
+
+113
+00:04:47,640 --> 00:04:49,260
+đây là ảnh chụp màn hình tôi vừa lấy.
+
+114
+00:04:49,260 --> 00:04:51,570
+Vì vậy không cần nhớ lại chi tiết,
+
+115
+00:04:51,570 --> 00:04:53,580
+nhưng hãy nhớ, nếu muốn có
+
+116
+00:04:53,580 --> 00:04:58,580
+trên 32.000 IOPS, bạn cần EC2 Nitro với io1 hoặc io2,
+
+117
+00:04:58,980 --> 00:05:00,750
+và đó là tất cả cho bài học này.
+
+118
+00:05:00,750 --> 00:05:01,620
+Hy vọng bạn thích,
+
+119
+00:05:01,620 --> 00:05:03,570
+hẹn gặp bạn ở bài tiếp theo.

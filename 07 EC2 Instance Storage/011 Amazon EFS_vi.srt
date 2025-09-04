@@ -1,0 +1,495 @@
+1
+00:00:00,120 --> 00:00:02,760
+Xin chào, chào mừng bạn đến với bài giảng về Amazon EFS,
+
+2
+00:00:02,760 --> 00:00:04,380
+Elastic File System.
+
+3
+00:00:04,380 --> 00:00:08,970
+EFS là dịch vụ NFS được quản lý, tức hệ thống file qua mạng.
+
+4
+00:00:08,970 --> 00:00:10,770
+Vì là hệ thống file qua mạng,
+
+5
+00:00:10,770 --> 00:00:14,010
+nó có thể được gắn lên nhiều EC2 instance,
+
+6
+00:00:14,010 --> 00:00:16,500
+và các EC2 instance này cũng có thể
+
+7
+00:00:16,500 --> 00:00:19,050
+ở các Availability Zone khác nhau,
+
+8
+00:00:19,050 --> 00:00:21,000
+đó chính là sức mạnh của EFS.
+
+9
+00:00:21,000 --> 00:00:22,170
+Nó có tính sẵn sàng cao,
+
+10
+00:00:22,170 --> 00:00:24,300
+rất khả mở, nhưng khá đắt.
+
+11
+00:00:24,300 --> 00:00:28,170
+Chi phí khoảng gấp ba lần một EBS GP2,
+
+12
+00:00:28,170 --> 00:00:29,160
+và bạn trả tiền theo mức sử dụng
+
+13
+00:00:29,160 --> 00:00:31,620
+nên không cần cấp trước dung lượng.
+
+14
+00:00:31,620 --> 00:00:32,640
+Để tôi giải thích.
+
+15
+00:00:32,640 --> 00:00:34,440
+Bạn có một EFS file system
+
+16
+00:00:34,440 --> 00:00:36,600
+được bảo vệ bởi một security group.
+
+17
+00:00:36,600 --> 00:00:39,720
+Sau đó bạn có thể có nhiều EC2 instance
+
+18
+00:00:39,720 --> 00:00:42,990
+ở AZ us-east-1A chẳng hạn,
+
+19
+00:00:42,990 --> 00:00:47,400
+hoặc EC2 instance ở AZ us-east-1B
+
+20
+00:00:47,400 --> 00:00:51,690
+hay us-east-1C cho các EC2 instance.
+
+21
+00:00:51,690 --> 00:00:54,120
+Và tất cả đều có thể kết nối cùng lúc
+
+22
+00:00:54,120 --> 00:00:58,470
+tới cùng một network file system thông qua EFS.
+
+23
+00:00:58,470 --> 00:01:01,620
+Các trường hợp sử dụng EFS gồm quản lý nội dung,
+
+24
+00:01:01,620 --> 00:01:04,590
+web serving, chia sẻ dữ liệu, WordPress.
+
+25
+00:01:04,590 --> 00:01:07,860
+Bên trong nó dùng giao thức NFS,
+
+26
+00:01:07,860 --> 00:01:10,410
+và để kiểm soát truy cập vào EFS,
+
+27
+00:01:10,410 --> 00:01:13,110
+bạn cần cấu hình security group.
+
+28
+00:01:13,110 --> 00:01:15,450
+Một điều rất quan trọng
+
+29
+00:01:15,450 --> 00:01:18,690
+là nó chỉ tương thích với AMI dựa trên Linux
+
+30
+00:01:18,690 --> 00:01:20,580
+chứ không hỗ trợ Windows.
+
+31
+00:01:20,580 --> 00:01:23,160
+Bạn có thể bật mã hóa khi lưu trữ cho ổ EFS
+
+32
+00:01:23,160 --> 00:01:24,810
+và mã hóa khi truyền dữ liệu,
+
+33
+00:01:24,810 --> 00:01:27,690
+rất hữu ích cho bảo mật.
+
+34
+00:01:27,690 --> 00:01:29,400
+Bây giờ nói về hiệu năng và các storage class.
+
+35
+00:01:29,400 --> 00:01:32,130
+Bạn có thể có EFS file system
+
+36
+00:01:32,130 --> 00:01:34,320
+được truy cập bởi một ứng dụng lớn.
+
+37
+00:01:34,320 --> 00:01:36,840
+Có thứ gọi là performance mode.
+
+38
+00:01:36,840 --> 00:01:39,330
+Bạn có General Purpose hoặc Max I/O.
+
+39
+00:01:39,330 --> 00:01:41,790
+General Purpose phù hợp cho nhiều mục đích,
+
+40
+00:01:41,790 --> 00:01:44,670
+như web server, CMS, v.v.
+
+41
+00:01:44,670 --> 00:01:46,890
+Còn Max I/O là thứ bạn dùng
+
+42
+00:01:46,890 --> 00:01:49,290
+khi muốn đạt throughput và IOPS cao nhất.
+
+43
+00:01:49,290 --> 00:01:51,780
+Về các storage class,
+
+44
+00:01:51,780 --> 00:01:54,450
+có hai loại chính: Standard và One Zone.
+
+45
+00:01:54,450 --> 00:01:56,511
+Standard là đa AZ,
+
+46
+00:01:56,511 --> 00:01:59,130
+còn One Zone là một AZ.
+
+47
+00:01:59,130 --> 00:02:02,100
+Trong đó mỗi loại có hai tầng lưu trữ phụ,
+
+48
+00:02:02,100 --> 00:02:04,560
+đó là Standard và Infrequent Access,
+
+49
+00:02:04,560 --> 00:02:06,750
+và One Zone cùng Infrequent Access.
+
+50
+00:02:06,750 --> 00:02:09,060
+Ngoài ra còn có một tầng nữa
+
+51
+00:02:09,060 --> 00:02:12,000
+gọi là lifecycle rules.
+
+52
+00:02:12,000 --> 00:02:13,590
+Chúng ta sẽ tìm hiểu chi tiết.
+
+53
+00:02:13,590 --> 00:02:15,660
+Nói về các tầng lưu trữ để tiết kiệm chi phí.
+
+54
+00:02:15,660 --> 00:02:18,120
+Mặc định khi dùng EFS file system,
+
+55
+00:02:18,120 --> 00:02:19,830
+bạn sử dụng EFS Standard.
+
+56
+00:02:19,830 --> 00:02:21,720
+Nó rất tốt vì hỗ trợ multi-AZ,
+
+57
+00:02:21,720 --> 00:02:24,990
+nhưng đây cũng là mức chi phí cao nhất của EFS,
+
+58
+00:02:24,990 --> 00:02:26,370
+mức giá cao nhất.
+
+59
+00:02:26,370 --> 00:02:28,710
+Nếu bạn muốn tối ưu chi phí,
+
+60
+00:02:28,710 --> 00:02:31,470
+và một số file ít được truy cập,
+
+61
+00:02:31,470 --> 00:02:33,540
+bạn có thể đưa chúng vào storage class Infrequent Access.
+
+62
+00:02:33,540 --> 00:02:35,730
+Dành cho file không được truy cập trong 30 ngày,
+
+63
+00:02:35,730 --> 00:02:37,980
+và dĩ nhiên rẻ hơn.
+
+64
+00:02:37,980 --> 00:02:40,440
+Nếu bạn xem các storage class của One Zone,
+
+65
+00:02:40,440 --> 00:02:42,990
+tương tự nhưng chỉ có một AZ.
+
+66
+00:02:42,990 --> 00:02:45,240
+Thường dùng cho môi trường dev hoặc test.
+
+67
+00:02:45,240 --> 00:02:47,760
+Và tương tự, có một storage class Infrequent Access
+
+68
+00:02:47,760 --> 00:02:49,500
+cho file không truy cập 30 ngày.
+
+69
+00:02:49,500 --> 00:02:51,390
+Nó sẽ rẻ hơn
+
+70
+00:02:51,390 --> 00:02:53,250
+nhưng độ sẵn sàng thấp hơn.
+
+71
+00:02:53,250 --> 00:02:55,530
+Về giá, với Standard,
+
+72
+00:02:55,530 --> 00:02:57,810
+đây là giá cao nhất,
+
+73
+00:02:57,810 --> 00:03:00,360
+còn Infrequent Access thấp hơn,
+
+74
+00:03:00,360 --> 00:03:02,400
+One Zone thấp hơn nữa,
+
+75
+00:03:02,400 --> 00:03:05,190
+và One Zone-IA có chi phí thấp nhất.
+
+76
+00:03:05,190 --> 00:03:08,400
+Vì vậy khi dùng tầng Infrequent Access,
+
+77
+00:03:08,400 --> 00:03:10,860
+bạn có thể tiết kiệm tới 92%.
+
+78
+00:03:10,860 --> 00:03:12,600
+Đó là con số rất lớn.
+
+79
+00:03:12,600 --> 00:03:14,520
+Bây giờ nói về lifecycle rules.
+
+80
+00:03:14,520 --> 00:03:17,010
+Bạn có thể định nghĩa lifecycle rules cho file system
+
+81
+00:03:17,010 --> 00:03:20,790
+để chuyển các file giữa các tầng lưu trữ.
+
+82
+00:03:20,790 --> 00:03:23,670
+Ví dụ một file đang ở EFS Standard,
+
+83
+00:03:23,670 --> 00:03:28,500
+sau 30 ngày không truy cập,
+
+84
+00:03:28,500 --> 00:03:31,620
+bạn có thể chuyển nó sang tầng Infrequent Access
+
+85
+00:03:31,620 --> 00:03:34,050
+và chi phí sẽ rẻ hơn
+
+86
+00:03:34,050 --> 00:03:35,700
+trừ khi bạn truy cập file.
+
+87
+00:03:35,700 --> 00:03:38,160
+Nhưng khả năng là
+
+88
+00:03:38,160 --> 00:03:40,200
+sau 30 ngày bạn hiếm khi truy cập file.
+
+89
+00:03:40,200 --> 00:03:42,595
+Nếu file không được truy cập
+
+90
+00:03:42,595 --> 00:03:46,200
+trong 90 ngày kể từ lần truy cập cuối,
+
+91
+00:03:46,200 --> 00:03:47,940
+hãy chuyển nó sang Archive, rẻ hơn nữa
+
+92
+00:03:47,940 --> 00:03:49,500
+như một storage class.
+
+93
+00:03:49,500 --> 00:03:52,020
+Ví dụ bạn cũng có thể đặt
+
+94
+00:03:52,020 --> 00:03:54,720
+rằng khi file được truy cập lần đầu,
+
+95
+00:03:54,720 --> 00:03:56,970
+nó sẽ chuyển ngược về Standard
+
+96
+00:03:56,970 --> 00:03:59,220
+vì giả sử nó sẽ được dùng lại nhiều.
+
+97
+00:03:59,220 --> 00:04:01,770
+Đây gọi là lifecycle management.
+
+98
+00:04:01,770 --> 00:04:04,590
+Ta có thể giữ nguyên phần encryption.
+
+99
+00:04:04,590 --> 00:04:06,870
+Giữ ở trạng thái bật, như vậy là ổn.
+
+100
+00:04:06,870 --> 00:04:09,210
+Tiếp theo là thiết lập hiệu năng.
+
+101
+00:04:09,210 --> 00:04:12,540
+Về hiệu năng, ta có throughput mode
+
+102
+00:04:12,540 --> 00:04:14,160
+và có ba lựa chọn.
+
+103
+00:04:14,160 --> 00:04:15,990
+Enhanced chỉ là một danh mục
+
+104
+00:04:15,990 --> 00:04:18,450
+gom nhóm Elastic và Provisioned.
+
+105
+00:04:18,450 --> 00:04:21,240
+Bạn có Elastic throughput mode,
+
+106
+00:04:21,240 --> 00:04:23,820
+Provisioned throughput mode
+
+107
+00:04:23,820 --> 00:04:25,950
+và Bursting throughput mode.
+
+108
+00:04:25,950 --> 00:04:27,480
+Bắt đầu với Bursting.
+
+109
+00:04:27,480 --> 00:04:31,290
+Bursting cho phép throughput mở rộng
+
+110
+00:04:31,290 --> 00:04:33,330
+theo lượng lưu trữ bạn đang dùng
+
+111
+00:04:33,330 --> 00:04:34,890
+và có thể vượt một chút,
+
+112
+00:04:34,890 --> 00:04:36,720
+nên gọi là bursting.
+
+113
+00:04:36,720 --> 00:04:37,980
+Nếu bạn có 1 GB,
+
+114
+00:04:37,980 --> 00:04:41,370
+throughput sẽ tăng khi bạn lưu trữ nhiều dữ liệu hơn,
+
+115
+00:04:41,370 --> 00:04:43,830
+khi bạn dùng nhiều storage.
+
+116
+00:04:43,830 --> 00:04:46,440
+Elastic throughput mode cơ bản cho phép bạn
+
+117
+00:04:46,440 --> 00:04:48,930
+nhận throughput tự động dựa trên workload.
+
+118
+00:04:48,930 --> 00:04:51,690
+Provisioned throughput mode
+
+119
+00:04:51,690 --> 00:04:55,160
+cho phép bạn đặt throughput cố định.
+
+120
+00:04:55,160 --> 00:04:59,160
+Tổng thể, dùng đúng EFS storage class
+
+121
+00:04:59,160 --> 00:05:02,040
+bạn có thể tiết kiệm tới 90% chi phí,
+
+122
+00:05:02,040 --> 00:05:05,060
+nên điều này rất hữu ích.
+
+123
+00:05:05,060 --> 00:05:07,500
+Vậy là hết bài giảng, hy vọng bạn thích,
+
+124
+00:05:07,500 --> 00:05:10,000
+hẹn gặp bạn ở bài giảng tiếp theo.

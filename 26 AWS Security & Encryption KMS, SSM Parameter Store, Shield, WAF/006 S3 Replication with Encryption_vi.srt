@@ -1,0 +1,152 @@
+1
+00:00:00,240 --> 00:00:02,430
+Giờ hãy nói về S3 Replication
+
+2
+00:00:02,430 --> 00:00:05,190
+và mối liên hệ với các object được mã hóa.
+
+3
+00:00:05,190 --> 00:00:09,360
+Nếu bạn bật S3 Replication từ một bucket sang bucket khác,
+
+4
+00:00:09,360 --> 00:00:11,340
+thì mọi object chưa mã hóa
+
+5
+00:00:11,340 --> 00:00:13,950
+và object mã hóa bằng SSE-S3
+
+6
+00:00:13,950 --> 00:00:16,200
+sẽ được nhân bản mặc định.
+
+7
+00:00:16,200 --> 00:00:19,050
+Các object mã hóa bằng SSE-C,
+
+8
+00:00:19,050 --> 00:00:20,850
+với khóa do khách hàng cung cấp,
+
+9
+00:00:20,850 --> 00:00:22,563
+cũng có thể được nhân bản,
+
+10
+00:00:23,550 --> 00:00:27,030
+và ta có object mã hóa bằng SSE-KMS.
+
+11
+00:00:27,030 --> 00:00:29,250
+Mặc định chúng không được nhân bản
+
+12
+00:00:29,250 --> 00:00:31,050
+nhưng ta phải bật tùy chọn
+
+13
+00:00:31,050 --> 00:00:33,960
+để thực sự nhân bản các object này.
+
+14
+00:00:33,960 --> 00:00:37,020
+Ta chỉ định KMS Key nào
+
+15
+00:00:37,020 --> 00:00:40,740
+để mã hóa object trong bucket đích,
+
+16
+00:00:40,740 --> 00:00:44,400
+và điều chỉnh KMS Key Policy cho khóa đích
+
+17
+00:00:44,400 --> 00:00:46,200
+và tạo một IAM Role
+
+18
+00:00:46,200 --> 00:00:49,530
+cho phép dịch vụ S3 Replication
+
+19
+00:00:49,530 --> 00:00:53,100
+giải mã dữ liệu ở bucket nguồn
+
+20
+00:00:53,100 --> 00:00:57,210
+rồi mã hóa lại ở bucket đích
+
+21
+00:00:57,210 --> 00:00:59,490
+bằng KMS Key đích.
+
+22
+00:00:59,490 --> 00:01:01,800
+Khi bạn làm vậy, việc nhân bản sẽ hoạt động
+
+23
+00:01:01,800 --> 00:01:03,540
+vì có nhiều bước mã hóa
+
+24
+00:01:03,540 --> 00:01:05,160
+và giải mã diễn ra.
+
+25
+00:01:05,160 --> 00:01:07,080
+Bạn có thể gặp lỗi KMS throttling,
+
+26
+00:01:07,080 --> 00:01:09,900
+khi đó bạn cần xin tăng hạn mức dịch vụ.
+
+27
+00:01:09,900 --> 00:01:11,820
+Câu hỏi đặt ra là
+
+28
+00:01:11,820 --> 00:01:15,630
+có nên dùng multi-region key với S3 Replication không?
+
+29
+00:01:15,630 --> 00:01:19,500
+Tài liệu nói bạn có thể dùng multi-region key
+
+30
+00:01:19,500 --> 00:01:21,900
+cho S3 Replication
+
+31
+00:01:21,900 --> 00:01:24,780
+nhưng hiện tại chúng được xem như các khóa độc lập
+
+32
+00:01:24,780 --> 00:01:26,730
+đối với dịch vụ Amazon S3,
+
+33
+00:01:26,730 --> 00:01:30,120
+do đó object vẫn sẽ bị giải mã
+
+34
+00:01:30,120 --> 00:01:32,640
+và được mã hóa lại bằng cùng khóa
+
+35
+00:01:32,640 --> 00:01:35,610
+dù khóa đó là multi-region, được chứ?
+
+36
+00:01:35,610 --> 00:01:37,560
+Bài học đến đây là hết,
+
+37
+00:01:37,560 --> 00:01:38,760
+hy vọng bạn thích,
+
+38
+00:01:38,760 --> 00:01:40,710
+và hẹn gặp lại trong bài tiếp theo.
+

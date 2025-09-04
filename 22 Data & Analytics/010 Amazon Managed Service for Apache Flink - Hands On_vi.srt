@@ -1,0 +1,224 @@
+1
+00:00:00,330 --> 00:00:02,940
+So here I am in the Amazon Kinesis service.
+
+2
+00:00:02,940 --> 00:00:04,770
+And I wanna show you just the options
+
+3
+00:00:04,770 --> 00:00:07,320
+for Kinesis data analytics.
+
+4
+00:00:07,320 --> 00:00:08,340
+So here it is.
+
+5
+00:00:08,340 --> 00:00:10,170
+So we have two different kinds of things.
+
+6
+00:00:10,170 --> 00:00:12,450
+You can either create a streaming application
+
+7
+00:00:12,450 --> 00:00:14,550
+or go into the studio.
+
+8
+00:00:14,550 --> 00:00:17,400
+The streaming application is actually just
+
+9
+00:00:17,400 --> 00:00:19,500
+all leveraging app Apache Flink.
+
+10
+00:00:19,500 --> 00:00:21,540
+This is the case analytics for Apache Flink.
+
+11
+00:00:21,540 --> 00:00:23,160
+You choose a runtime version
+
+12
+00:00:23,160 --> 00:00:25,380
+for Apache Flink that's supported
+
+13
+00:00:25,380 --> 00:00:28,050
+and then you can have the application name.
+
+14
+00:00:28,050 --> 00:00:29,130
+And then, at some point,
+
+15
+00:00:29,130 --> 00:00:31,530
+you need to enter your production information.
+
+16
+00:00:31,530 --> 00:00:34,260
+And this would create a streaming application
+
+17
+00:00:34,260 --> 00:00:35,910
+that you can use on AWS.
+
+18
+00:00:35,910 --> 00:00:38,520
+And so you would need to actually upload then
+
+19
+00:00:38,520 --> 00:00:39,993
+your application here.
+
+20
+00:00:40,830 --> 00:00:42,000
+As we see when we get there
+
+21
+00:00:42,000 --> 00:00:44,610
+and we don't have any Apache Flink application available
+
+22
+00:00:44,610 --> 00:00:46,590
+to us, because this is quite complex, right?
+
+23
+00:00:46,590 --> 00:00:49,290
+Then you can run and you can even monitor it
+
+24
+00:00:49,290 --> 00:00:51,330
+using the Apache Flink dashboard.
+
+25
+00:00:51,330 --> 00:00:54,210
+So this service is to create Apache Flink applications.
+
+26
+00:00:54,210 --> 00:00:56,880
+And actually, if you wanted to just do one of analysis
+
+27
+00:00:56,880 --> 00:00:59,010
+you can open a studio notebook
+
+28
+00:00:59,010 --> 00:01:01,050
+and this will just quickly create a notebook
+
+29
+00:01:01,050 --> 00:01:03,600
+where you can start running your streaming applications
+
+30
+00:01:03,600 --> 00:01:05,940
+again, leveraging Apache Flink.
+
+31
+00:01:05,940 --> 00:01:09,000
+Okay. So this I will not do.
+
+32
+00:01:09,000 --> 00:01:11,760
+And then where is the Apache,
+
+33
+00:01:11,760 --> 00:01:13,380
+where is the Amazon Kinesis data analytics
+
+34
+00:01:13,380 --> 00:01:14,550
+for SQL applications?
+
+35
+00:01:14,550 --> 00:01:16,200
+Well, it's on the left hand side
+
+36
+00:01:16,200 --> 00:01:17,340
+and this is where it would be.
+
+37
+00:01:17,340 --> 00:01:21,330
+So you would find it under the SQL applications legacy
+
+38
+00:01:21,330 --> 00:01:23,820
+and now they recommend that you use all the time
+
+39
+00:01:23,820 --> 00:01:27,270
+Kinesis data analytics studio and Apache Flink?
+
+40
+00:01:27,270 --> 00:01:29,310
+But if you wanted to, for example, read from
+
+41
+00:01:29,310 --> 00:01:31,860
+Kinesis Data Firehose, you would create a SQL applications
+
+42
+00:01:31,860 --> 00:01:34,680
+in the legacy form and you would enter actually
+
+43
+00:01:34,680 --> 00:01:37,410
+the application name and it did create one.
+
+44
+00:01:37,410 --> 00:01:40,920
+And then once you've define your application name,
+
+45
+00:01:40,920 --> 00:01:43,890
+you can actually go to realtime analytics
+
+46
+00:01:43,890 --> 00:01:46,710
+and write the kind of SQL you want to do
+
+47
+00:01:46,710 --> 00:01:48,810
+for this application, okay?
+
+48
+00:01:48,810 --> 00:01:49,890
+So it's just an overview.
+
+49
+00:01:49,890 --> 00:01:51,120
+You don't need to know anything
+
+50
+00:01:51,120 --> 00:01:53,580
+about Kinesis data analytics for this exam
+
+51
+00:01:53,580 --> 00:01:54,720
+but I wanna show you the options,
+
+52
+00:01:54,720 --> 00:01:56,130
+give you a quick introduction.
+
+53
+00:01:56,130 --> 00:01:59,370
+And so you could visualize it as well on the console.
+
+54
+00:01:59,370 --> 00:02:00,660
+So that's it for this lecture.
+
+55
+00:02:00,660 --> 00:02:01,680
+I hope you liked it.
+
+56
+00:02:01,680 --> 00:02:03,630
+And I will see you in the next lecture.
+

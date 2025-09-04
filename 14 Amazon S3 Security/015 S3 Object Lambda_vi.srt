@@ -1,0 +1,191 @@
+1
+00:00:00,150 --> 00:00:03,030
+Có một trường hợp khác cho S3 Access Points
+
+2
+00:00:03,030 --> 00:00:05,700
+gọi là S3 Object Lambda.
+
+3
+00:00:05,700 --> 00:00:08,280
+Bạn có một bucket S3,
+
+4
+00:00:08,280 --> 00:00:11,640
+nhưng muốn chỉnh sửa object
+
+5
+00:00:11,640 --> 00:00:15,990
+ngay trước khi ứng dụng lấy nó.
+
+6
+00:00:15,990 --> 00:00:17,850
+Thay vì
+
+7
+00:00:17,850 --> 00:00:20,910
+nhân đôi bucket để có phiên bản khác,
+
+8
+00:00:20,910 --> 00:00:24,750
+ta dùng S3 Object Lambda.
+
+9
+00:00:24,750 --> 00:00:28,530
+Và cần S3 access point đã nói ở trên.
+
+10
+00:00:28,530 --> 00:00:29,700
+Nó hoạt động ra sao?
+
+11
+00:00:29,700 --> 00:00:33,330
+Giả sử trên cloud có một bucket S3.
+
+12
+00:00:33,330 --> 00:00:36,210
+Ứng dụng thương mại sở hữu dữ liệu
+
+13
+00:00:36,210 --> 00:00:37,530
+trong bucket này
+
+14
+00:00:37,530 --> 00:00:40,620
+và truy cập trực tiếp để đọc ghi object gốc.
+
+15
+00:00:40,620 --> 00:00:44,520
+Nhưng ứng dụng phân tích chỉ muốn bản đã che bớt.
+
+16
+00:00:44,520 --> 00:00:47,910
+Tức là một số dữ liệu bị xóa.
+
+17
+00:00:47,910 --> 00:00:50,760
+Thay vì tạo bucket mới
+
+18
+00:00:50,760 --> 00:00:54,790
+ta tạo access point kết nối Lambda function.
+
+19
+00:00:54,790 --> 00:00:57,810
+Lambda cho phép chạy đoạn code trên cloud,
+
+20
+00:00:57,810 --> 00:01:00,930
+và sẽ che bớt object khi được lấy ra.
+
+21
+00:01:00,930 --> 00:01:04,860
+Trên Lambda đó ta tạo S3 Object Lambda access point
+
+22
+00:01:04,860 --> 00:01:06,600
+và ứng dụng phân tích
+
+23
+00:01:06,600 --> 00:01:09,390
+truy cập bucket qua access point này.
+
+24
+00:01:09,390 --> 00:01:10,950
+Tóm lại,
+
+25
+00:01:10,950 --> 00:01:15,570
+ứng dụng phân tích gọi access point, kích hoạt Lambda,
+
+26
+00:01:15,570 --> 00:01:17,370
+Lambda lấy dữ liệu từ bucket
+
+27
+00:01:17,370 --> 00:01:19,080
+và che bớt rồi trả về.
+
+28
+00:01:19,080 --> 00:01:22,920
+Nhờ đó ứng dụng phân tích nhận object đã che
+
+29
+00:01:22,920 --> 00:01:25,950
+cùng từ bucket mà ứng dụng thương mại dùng.
+
+30
+00:01:25,950 --> 00:01:27,750
+Ứng dụng marketing có thể muốn
+
+31
+00:01:27,750 --> 00:01:28,583
+object được làm giàu,
+
+32
+00:01:28,583 --> 00:01:31,890
+dựa trên cơ sở dữ liệu khách hàng thân thiết.
+
+33
+00:01:31,890 --> 00:01:35,520
+Thay vì tạo bucket mới và các object làm giàu,
+
+34
+00:01:35,520 --> 00:01:37,740
+ta dùng một Lambda khác
+
+35
+00:01:37,740 --> 00:01:41,250
+tra cứu dữ liệu và làm giàu đối tượng.
+
+36
+00:01:41,250 --> 00:01:44,010
+Ta tạo access point Object Lambda
+
+37
+00:01:44,010 --> 00:01:47,550
+để ứng dụng marketing lấy object đã làm giàu.
+
+38
+00:01:47,550 --> 00:01:49,443
+Như vậy chỉ cần một bucket
+
+39
+00:01:50,550 --> 00:01:53,550
+nhưng có thể tạo access point và Object Lambda
+
+40
+00:01:53,550 --> 00:01:56,490
+để chỉnh dữ liệu theo ý muốn.
+
+41
+00:01:56,490 --> 00:01:59,220
+Trường hợp dùng: che PII cho phân tích,
+
+42
+00:01:59,220 --> 00:02:03,600
+chuyển đổi XML sang JSON hoặc biến đổi dữ liệu khác,
+
+43
+00:02:03,600 --> 00:02:05,910
+thay đổi kích thước, đóng watermark ảnh
+
+44
+00:02:05,910 --> 00:02:09,330
+với watermark tùy người yêu cầu.
+
+45
+00:02:09,330 --> 00:02:10,550
+Đó là cách dùng thú vị
+
+46
+00:02:10,550 --> 00:02:14,340
+của S3 Object Lambda.
+
+47
+00:02:14,340 --> 00:02:16,390
+Hy vọng bạn thích,
+
+48
+00:02:16,390 --> 00:02:18,750
+hẹn gặp lại ở bài giảng tiếp theo.

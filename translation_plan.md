@@ -70,26 +70,26 @@ Next text content
 - [x] Module 01: 7/7 files
 - [x] Module 03: 6/6 files
 - [x] Module 06: 7/7 files
-- [ ] Module 07: 2/24 files
-- [ ] Module 08: 0/30 files
-- [ ] Module 09: 0/23 files
+- [ ] Module 07: 13/24 files
+- [ ] Module 08: 1/30 files
+- [ ] Module 09: 2/23 files
 - [ ] Module 11: 1/16 files
-- [ ] Module 12: 3/16 files
-- [ ] Module 13: 2/24 files
-- [ ] Module 14: 1/31 files
-- [ ] Module 15: 2/20 files
-- [ ] Module 17: 0/7 files
-- [ ] Module 18: 0/16 files
-- [ ] Module 20: 0/10 files
-- [ ] Module 21: 2/25 files
-- [ ] Module 22: 0/30 files
-- [ ] Module 25: 0/17 files
-- [ ] Module 26: 3/31 files
-- [ ] Module 28: 0/10 files
+- [ ] Module 12: 5/16 files
+- [ ] Module 13: 5/24 files
+- [ ] Module 14: 8/31 files
+- [ ] Module 15: 3/20 files
+- [ ] Module 17: 1/7 files
+- [ ] Module 18: 5/16 files
+- [ ] Module 20: 1/10 files
+- [ ] Module 21: 6/25 files
+- [ ] Module 22: 3/30 files
+- [ ] Module 25: 1/17 files
+- [ ] Module 26: 7/31 files
+- [ ] Module 28: 1/10 files
 - [ ] Module 29: 0/12 files
-- [ ] Module 30: 2/20 files
+- [ ] Module 30: 11/20 files
 
-**Tổng tiến độ: 38/227 files (16.7%)**
+**Tổng tiến độ: 94/227 files (41.4%)**
 
 ## Ghi Chú
 - Ưu tiên dịch các module cơ bản trước (01, 03, 06)

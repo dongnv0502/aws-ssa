@@ -1,0 +1,175 @@
+1
+00:00:00,510 --> 00:00:01,410
+Bây giờ hãy nói về
+
+2
+00:00:01,410 --> 00:00:05,160
+tính năng Multi-Attach của EBS volume.
+
+3
+00:00:05,160 --> 00:00:06,630
+Như tên gọi,
+
+4
+00:00:06,630 --> 00:00:08,730
+tính năng Multi-Attach cho phép bạn gắn
+
+5
+00:00:08,730 --> 00:00:13,170
+cùng một EBS volume vào nhiều EC2 instance
+
+6
+00:00:13,170 --> 00:00:15,660
+trong cùng một Availability Zone.
+
+7
+00:00:15,660 --> 00:00:16,493
+Điều đó nghĩa là gì?
+
+8
+00:00:16,493 --> 00:00:17,340
+Nghĩa là
+
+9
+00:00:17,340 --> 00:00:19,590
+chúng ta có nhiều EC2 instance,
+
+10
+00:00:19,590 --> 00:00:21,360
+và có một volume io2
+
+11
+00:00:21,360 --> 00:00:23,520
+đã bật tính năng Multi-Attach.
+
+12
+00:00:23,520 --> 00:00:25,440
+Sau đó volume này có thể được gắn
+
+13
+00:00:25,440 --> 00:00:28,620
+vào nhiều EC2 instance cùng lúc,
+
+14
+00:00:28,620 --> 00:00:31,740
+điều này chỉ khả dụng
+
+15
+00:00:31,740 --> 00:00:36,740
+đối với họ EBS volume io1 và io2.
+
+16
+00:00:36,960 --> 00:00:38,850
+Mỗi instance sẽ có
+
+17
+00:00:38,850 --> 00:00:41,250
+đầy đủ quyền đọc và ghi
+
+18
+00:00:41,250 --> 00:00:43,680
+trên volume hiệu năng cao này.
+
+19
+00:00:43,680 --> 00:00:44,880
+Vì vậy chúng
+
+20
+00:00:44,880 --> 00:00:46,740
+có thể đồng thời đọc và ghi.
+
+21
+00:00:46,740 --> 00:00:48,390
+Trường hợp sử dụng là
+
+22
+00:00:48,390 --> 00:00:51,120
+tăng tính sẵn sàng cho ứng dụng
+
+23
+00:00:51,120 --> 00:00:53,340
+khi dùng ứng dụng Linux dạng cluster,
+
+24
+00:00:53,340 --> 00:00:55,200
+ví dụ sử dụng Teradata,
+
+25
+00:00:55,200 --> 00:00:57,390
+hoặc khi ứng dụng của bạn phải quản lý
+
+26
+00:00:57,390 --> 00:00:59,370
+các thao tác ghi đồng thời.
+
+27
+00:00:59,370 --> 00:01:00,660
+Lưu ý rằng
+
+28
+00:01:00,660 --> 00:01:03,390
+tính năng Multi-Attach chỉ khả dụng
+
+29
+00:01:03,390 --> 00:01:07,200
+trong phạm vi một Availability Zone nhất định.
+
+30
+00:01:07,200 --> 00:01:09,900
+Nó không cho phép bạn gắn một EBS volume
+
+31
+00:01:09,900 --> 00:01:12,420
+từ AZ này sang AZ khác.
+
+32
+00:01:12,420 --> 00:01:14,850
+Một giới hạn khác của Multi-Attach là
+
+33
+00:01:14,850 --> 00:01:19,080
+tối đa 16 EC2 instance cùng lúc
+
+34
+00:01:19,080 --> 00:01:21,630
+có thể gắn vào cùng một volume.
+
+35
+00:01:21,630 --> 00:01:23,820
+Điều này bạn phải biết cho kỳ thi,
+
+36
+00:01:23,820 --> 00:01:26,910
+hãy nhớ con số 16 đó.
+
+37
+00:01:26,910 --> 00:01:28,800
+Cuối cùng, để hoạt động
+
+38
+00:01:28,800 --> 00:01:30,030
+bạn phải dùng hệ thống file
+
+39
+00:01:30,030 --> 00:01:31,920
+có khả năng nhận biết cluster.
+
+40
+00:01:31,920 --> 00:01:35,700
+Vì vậy nó khác với các file system như XFS hay EXT4.
+
+41
+00:01:35,700 --> 00:01:37,740
+Đây chỉ là một vài chi tiết thêm,
+
+42
+00:01:37,740 --> 00:01:41,040
+nhưng nếu bạn muốn dùng tính năng này thì giờ bạn đã biết.
+
+43
+00:01:41,040 --> 00:01:43,500
+Vậy là xong bài giảng, hy vọng bạn thích.
+
+44
+00:01:43,500 --> 00:01:45,650
+Hẹn gặp bạn ở bài giảng tiếp theo.

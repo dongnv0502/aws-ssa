@@ -1,0 +1,475 @@
+1
+00:00:00,330 --> 00:00:03,180
+Hãy thực hành sử dụng AMI.
+
+2
+00:00:03,180 --> 00:00:05,970
+Để làm điều này, tôi sẽ launch một instance,
+
+3
+00:00:05,970 --> 00:00:09,380
+và tôi sẽ dùng giao diện mới.
+
+4
+00:00:09,380 --> 00:00:11,140
+Tôi kéo xuống.
+
+5
+00:00:11,140 --> 00:00:13,650
+Chúng ta chọn Amazon Linux 2.
+
+6
+00:00:13,650 --> 00:00:15,290
+Tôi lại kéo xuống.
+
+7
+00:00:15,290 --> 00:00:16,420
+Chúng ta chọn loại t2.micro.
+
+8
+00:00:16,420 --> 00:00:19,300
+Tôi chọn key pair ec2,
+
+9
+00:00:19,300 --> 00:00:20,670
+nhưng điều đó không quan trọng.
+
+10
+00:00:20,670 --> 00:00:22,070
+Sau đó tôi kéo xuống.
+
+11
+00:00:22,070 --> 00:00:24,600
+Tôi sẽ chỉnh sửa network settings
+
+12
+00:00:24,600 --> 00:00:27,170
+và chọn một security group có sẵn
+
+13
+00:00:27,170 --> 00:00:29,733
+là launch-wizard-1 trước đó.
+
+14
+00:00:30,700 --> 00:00:33,340
+Phần storage giữ nguyên và trong Advanced details,
+
+15
+00:00:33,340 --> 00:00:36,520
+tôi kéo xuống tới phần user data,
+
+16
+00:00:36,520 --> 00:00:39,280
+nhưng lần này bạn sẽ copy mọi thứ
+
+17
+00:00:39,280 --> 00:00:41,070
+trừ dòng cuối.
+
+18
+00:00:41,070 --> 00:00:45,360
+Trong bốn dòng đầu, chúng ta cài đặt HTTPD
+
+19
+00:00:45,360 --> 00:00:47,140
+là Apache web server.
+
+20
+00:00:47,140 --> 00:00:49,650
+Ở dòng cuối, chúng ta tạo file index
+
+21
+00:00:49,650 --> 00:00:51,750
+nhưng hiện tại chúng ta không muốn tạo file index
+
+22
+00:00:51,750 --> 00:00:55,852
+mà chỉ muốn làm mọi thứ khác để tạo AMI từ đó.
+
+23
+00:00:55,852 --> 00:00:57,860
+Vậy chỉ cần copy tất cả.
+
+24
+00:00:57,860 --> 00:01:01,940
+Nhớ rằng dòng cuối là lệnh systemctl.
+
+25
+00:01:01,940 --> 00:01:04,163
+Rồi chúng ta launch instance.
+
+26
+00:01:05,370 --> 00:01:07,760
+Instance đã launch, và điều sẽ xảy ra là
+
+27
+00:01:07,760 --> 00:01:11,480
+instance sẽ khởi chạy ngay đây.
+
+28
+00:01:11,480 --> 00:01:13,270
+Sau đó nó sẽ chạy
+
+29
+00:01:13,270 --> 00:01:15,583
+trong EC2, sử dụng script
+
+30
+00:01:15,583 --> 00:01:19,330
+để cài Apache web server.
+
+31
+00:01:19,330 --> 00:01:20,870
+Nếu tôi quá nhanh
+
+32
+00:01:20,870 --> 00:01:24,890
+và thử mở địa chỉ IPv4 công khai ngay
+
+33
+00:01:24,890 --> 00:01:27,420
+và truy cập vào, như bạn thấy, nó chưa hoạt động.
+
+34
+00:01:27,420 --> 00:01:30,580
+Tôi sẽ nhận lỗi connection refused, v.v.
+
+35
+00:01:30,580 --> 00:01:33,200
+Tôi cũng phải đảm bảo dùng giao thức HTTP,
+
+36
+00:01:33,200 --> 00:01:35,910
+tất nhiên, nhưng nó vẫn chưa chạy.
+
+37
+00:01:35,910 --> 00:01:38,430
+Bởi vì cần chờ một chút.
+
+38
+00:01:38,430 --> 00:01:41,210
+Dù trạng thái 'running', bạn vẫn phải đợi
+
+39
+00:01:41,210 --> 00:01:45,830
+để script user data của EC2 chạy lần đầu.
+
+40
+00:01:45,830 --> 00:01:47,030
+Việc này có thể mất một phút.
+
+41
+00:01:47,030 --> 00:01:48,070
+Có thể mất hai phút.
+
+42
+00:01:48,070 --> 00:01:51,580
+Đừng vội; cứ chờ cho xong.
+
+43
+00:01:51,580 --> 00:01:53,660
+Rồi vào lúc nào đó khi bạn refresh
+
+44
+00:01:53,660 --> 00:01:54,730
+bạn sẽ thấy trang hiển thị.
+
+45
+00:01:54,730 --> 00:01:56,230
+Để tôi tạm dừng video.
+
+46
+00:01:56,230 --> 00:01:59,720
+Mất khoảng hai phút và giờ tôi đã có trang test
+
+47
+00:01:59,720 --> 00:02:03,310
+đây là trang mặc định của Apache web server.
+
+48
+00:02:03,310 --> 00:02:05,510
+Vậy là chúng ta đã sẵn sàng.
+
+49
+00:02:05,510 --> 00:02:07,280
+Giờ chúng ta sẽ
+
+50
+00:02:07,280 --> 00:02:10,900
+tạo một AMI để lưu trạng thái
+
+51
+00:02:10,900 --> 00:02:13,210
+của EC2 instance và tái sử dụng.
+
+52
+00:02:13,210 --> 00:02:17,010
+Tôi nhấp chuột phải, chọn Image and templates
+
+53
+00:02:17,010 --> 00:02:19,320
+rồi chọn Create image.
+
+54
+00:02:19,320 --> 00:02:22,370
+Chúng ta đặt tên là 'demo image'
+
+55
+00:02:22,370 --> 00:02:24,270
+và tạo AMI của riêng mình.
+
+56
+00:02:25,210 --> 00:02:27,470
+Chúng ta có các thiết lập ở đây.
+
+57
+00:02:27,470 --> 00:02:29,600
+Cứ để mặc định.
+
+58
+00:02:29,600 --> 00:02:32,210
+Chọn Create image.
+
+59
+00:02:32,210 --> 00:02:33,530
+Bây giờ sẽ xảy ra rằng
+
+60
+00:02:33,530 --> 00:02:35,180
+một AMI sẽ được tạo.
+
+61
+00:02:35,180 --> 00:02:38,660
+Nếu tôi vào menu bên trái và chọn AMIs,
+
+62
+00:02:38,660 --> 00:02:42,830
+ta thấy demo AMI đã được đăng ký.
+
+63
+00:02:42,830 --> 00:02:44,930
+Hiện trạng thái là pending
+
+64
+00:02:44,930 --> 00:02:47,020
+vì nó đang được tạo.
+
+65
+00:02:47,020 --> 00:02:49,765
+Vì vậy tôi cần kiên nhẫn
+
+66
+00:02:49,765 --> 00:02:52,950
+đợi tới khi trạng thái thành created.
+
+67
+00:02:52,950 --> 00:02:56,320
+AMIs của tôi đã được tạo.
+
+68
+00:02:56,320 --> 00:02:58,710
+Giờ tôi có thể launch instance
+
+69
+00:02:58,710 --> 00:03:01,090
+từ AMI này bằng cách click ở đây.
+
+70
+00:03:01,090 --> 00:03:03,410
+Hoặc nếu đang ở trang tạo instance,
+
+71
+00:03:03,410 --> 00:03:04,763
+chúng ta cũng có thể launch instance.
+
+72
+00:03:05,680 --> 00:03:08,128
+Chọn mục 'From AMI'.
+
+73
+00:03:08,128 --> 00:03:10,220
+Trong phần Quick Start
+
+74
+00:03:10,220 --> 00:03:11,790
+ta thấy các AMI quen thuộc,
+
+75
+00:03:11,790 --> 00:03:14,110
+nhưng bạn cũng có thể vào tab 'My AMIs'.
+
+76
+00:03:14,110 --> 00:03:16,791
+Ở đó có các AMI do tôi sở hữu
+
+77
+00:03:16,791 --> 00:03:19,250
+và có thể chọn demo image vừa tạo
+
+78
+00:03:19,250 --> 00:03:20,430
+lúc trước.
+
+79
+00:03:20,430 --> 00:03:22,850
+Khi đó bạn kéo xuống, chọn
+
+80
+00:03:22,850 --> 00:03:25,560
+có dùng key pair hay không tùy bạn.
+
+81
+00:03:25,560 --> 00:03:26,530
+Phần network settings,
+
+82
+00:03:26,530 --> 00:03:29,870
+chúng ta chỉnh và chọn security group sẵn có
+
+83
+00:03:29,870 --> 00:03:31,693
+là launch-wizard-1.
+
+84
+00:03:32,960 --> 00:03:35,450
+Ở phần Advanced,
+
+85
+00:03:35,450 --> 00:03:39,050
+tôi sẽ nhập một chút user data ở cuối.
+
+86
+00:03:39,050 --> 00:03:41,660
+Tôi copy ba dòng đầu tiên,
+
+87
+00:03:41,660 --> 00:03:43,680
+bắt đầu bằng dấu #.
+
+88
+00:03:43,680 --> 00:03:47,880
+Sau đó là dòng cuối echo trên dòng mới.
+
+89
+00:03:47,880 --> 00:03:51,125
+Vì vậy chúng ta chỉ tạo một file mới.
+
+90
+00:03:51,125 --> 00:03:53,950
+Không cần cài lại HTTPD
+
+91
+00:03:53,950 --> 00:03:56,890
+vì AMI này đã có HTTPD
+
+92
+00:03:56,890 --> 00:04:00,293
+nên thời gian boot sẽ nhanh hơn.
+
+93
+00:04:00,293 --> 00:04:02,580
+Đó là lý do tạo AMI.
+
+94
+00:04:02,580 --> 00:04:06,760
+Ta launch instance và nó đã chạy.
+
+95
+00:04:06,760 --> 00:04:08,530
+Tôi chỉ việc click vào.
+
+96
+00:04:08,530 --> 00:04:09,497
+Đây là instance từ AMI.
+
+97
+00:04:09,497 --> 00:04:13,123
+Cần đợi nó tạo xong hoàn toàn.
+
+98
+00:04:14,250 --> 00:04:16,720
+Instance từ AMI đã chạy.
+
+99
+00:04:16,720 --> 00:04:19,010
+Tôi lấy địa chỉ IP công khai
+
+100
+00:04:19,010 --> 00:04:21,820
+và thấy dòng 'Hello World' từ đó.
+
+101
+00:04:21,820 --> 00:04:23,580
+Như bạn thấy, việc này nhanh hơn nhiều
+
+102
+00:04:23,580 --> 00:04:26,940
+vì không phải cài HTTPD lần nữa.
+
+103
+00:04:26,940 --> 00:04:28,640
+Đó là sức mạnh của AMI.
+
+104
+00:04:28,640 --> 00:04:30,820
+Bạn có thể tưởng tượng nó còn làm được nhiều hơn.
+
+105
+00:04:30,820 --> 00:04:32,710
+Có thể là phần mềm bảo mật,
+
+106
+00:04:32,710 --> 00:04:34,840
+nhiều phần mềm phụ trợ, v.v.
+
+107
+00:04:34,840 --> 00:04:36,350
+bạn cài đặt, có thể mất
+
+108
+00:04:36,350 --> 00:04:37,560
+hai ba phút.
+
+109
+00:04:37,560 --> 00:04:39,440
+Rồi đóng gói thành AMI,
+
+110
+00:04:39,440 --> 00:04:41,350
+sau đó chỉ việc khởi tạo từ AMI,
+
+111
+00:04:41,350 --> 00:04:44,090
+và có thể chỉnh sửa thêm một chút
+
+112
+00:04:44,090 --> 00:04:46,430
+nhưng boot nhanh hơn nhiều.
+
+113
+00:04:46,430 --> 00:04:47,650
+Và bạn sẵn sàng.
+
+114
+00:04:47,650 --> 00:04:49,010
+Demo đến đây là hết.
+
+115
+00:04:49,010 --> 00:04:50,400
+Để dọn dẹp lại
+
+116
+00:04:50,400 --> 00:04:53,970
+bạn chọn hai instance
+
+117
+00:04:53,970 --> 00:04:55,795
+và terminate chúng.
+
+118
+00:04:55,795 --> 00:04:57,110
+Vậy là xong.
+
+119
+00:04:57,110 --> 00:04:58,860
+Hẹn gặp bạn ở bài tiếp theo.

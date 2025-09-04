@@ -1,0 +1,263 @@
+1
+00:00:00,196 --> 00:00:02,190
+Được rồi, bây giờ hãy nói về
+
+2
+00:00:02,190 --> 00:00:06,260
+một phát triển thú vị gọi là AWS Outposts.
+
+3
+00:00:06,260 --> 00:00:07,700
+Hybrid cloud là gì?
+
+4
+00:00:07,700 --> 00:00:10,870
+Các doanh nghiệp giữ hạ tầng on-premises
+
+5
+00:00:10,870 --> 00:00:12,840
+cùng với hạ tầng đám mây
+
+6
+00:00:12,840 --> 00:00:14,963
+được gọi là hybrid cloud.
+
+7
+00:00:16,140 --> 00:00:17,130
+Khi có mô hình này,
+
+8
+00:00:17,130 --> 00:00:20,130
+chúng ta có hai cách quản lý hệ thống IT.
+
+9
+00:00:20,130 --> 00:00:23,610
+Một là cho đám mây của AWS, ví dụ
+
+10
+00:00:23,610 --> 00:00:26,420
+dùng AWS console, CLI
+
+11
+00:00:26,420 --> 00:00:29,000
+và các API từ AWS,
+
+12
+00:00:29,000 --> 00:00:30,840
+nhưng cũng có một hệ thống khác
+
+13
+00:00:30,840 --> 00:00:34,100
+dành riêng cho hạ tầng on-premises.
+
+14
+00:00:34,100 --> 00:00:36,750
+Điều đó nghĩa là cần hai loại kỹ năng khác nhau,
+
+15
+00:00:36,750 --> 00:00:37,830
+hai loại API khác nhau,
+
+16
+00:00:37,830 --> 00:00:40,030
+và có thể gây phức tạp.
+
+17
+00:00:40,030 --> 00:00:42,270
+Vì vậy, AWS nói: "Chúng tôi nhận ra
+
+18
+00:00:42,270 --> 00:00:44,730
+một số công ty sẽ vận hành hybrid cloud
+
+19
+00:00:44,730 --> 00:00:47,330
+vậy hãy tạo Outposts."
+
+20
+00:00:47,330 --> 00:00:49,150
+Outposts là các tủ rack máy chủ
+
+21
+00:00:49,150 --> 00:00:51,610
+cung cấp hạ tầng AWS tương tự,
+
+22
+00:00:51,610 --> 00:00:53,400
+các dịch vụ, API và công cụ
+
+23
+00:00:53,400 --> 00:00:56,060
+để xây ứng dụng của bạn tại chỗ
+
+24
+00:00:56,060 --> 00:00:57,540
+giống như trên đám mây.
+
+25
+00:00:57,540 --> 00:00:58,720
+Điều này có nghĩa là
+
+26
+00:00:58,720 --> 00:01:00,680
+AWS sẽ đến và lắp đặt
+
+27
+00:01:00,680 --> 00:01:04,290
+và quản lý các rack Outposts là các máy chủ
+
+28
+00:01:04,290 --> 00:01:06,620
+trong hạ tầng on-prem của bạn.
+
+29
+00:01:06,620 --> 00:01:09,370
+Các máy chủ này được cài sẵn
+
+30
+00:01:09,370 --> 00:01:11,340
+các dịch vụ AWS
+
+31
+00:01:11,340 --> 00:01:13,710
+nhưng bạn sử dụng chúng ngay tại chỗ.
+
+32
+00:01:13,710 --> 00:01:16,150
+Như vậy trong data center doanh nghiệp của bạn
+
+33
+00:01:16,150 --> 00:01:20,170
+bạn sẽ có rack Outposts do AWS lắp đặt.
+
+34
+00:01:20,170 --> 00:01:22,370
+Điều này cho phép bạn mở rộng
+
+35
+00:01:22,370 --> 00:01:24,500
+các dịch vụ AWS trực tiếp
+
+36
+00:01:24,500 --> 00:01:26,390
+vào trung tâm dữ liệu on-prem của bạn
+
+37
+00:01:26,390 --> 00:01:28,680
+mà tôi nghĩ là cách mạng.
+
+38
+00:01:28,680 --> 00:01:31,020
+Nhưng sự khác biệt giữa EC2
+
+39
+00:01:31,020 --> 00:01:32,010
+chạy trên đám mây
+
+40
+00:01:32,010 --> 00:01:34,570
+và EC2 chạy tại data center của bạn
+
+41
+00:01:34,570 --> 00:01:38,340
+là giờ bạn chịu trách nhiệm bảo mật cho chúng,
+
+42
+00:01:38,340 --> 00:01:41,180
+bảo mật vật lý của chính rack
+
+43
+00:01:41,180 --> 00:01:44,133
+vì rack nằm trong data center của bạn.
+
+44
+00:01:45,550 --> 00:01:47,860
+Lợi ích của Outposts rất nhiều,
+
+45
+00:01:47,860 --> 00:01:49,960
+đầu tiên là truy cập độ trễ thấp
+
+46
+00:01:49,960 --> 00:01:51,590
+tới hệ thống on-premises,
+
+47
+00:01:51,590 --> 00:01:52,970
+bạn xử lý dữ liệu tại chỗ
+
+48
+00:01:52,970 --> 00:01:56,410
+nên dữ liệu có thể không rời khỏi hệ thống on-premises
+
+49
+00:01:56,410 --> 00:01:57,810
+và không lên đám mây,
+
+50
+00:01:57,810 --> 00:01:59,390
+đảm bảo lưu trú dữ liệu, nghĩa là
+
+51
+00:01:59,390 --> 00:02:00,980
+dữ liệu nằm trong data center của bạn.
+
+52
+00:02:00,980 --> 00:02:03,290
+Ví dụ, dễ dàng bắt đầu di chuyển
+
+53
+00:02:03,290 --> 00:02:05,420
+từ on-premise sang Outposts
+
+54
+00:02:05,420 --> 00:02:08,229
+và khi sẵn sàng thì từ Outposts lên cloud.
+
+55
+00:02:08,229 --> 00:02:09,259
+Đây là dịch vụ được quản lý hoàn toàn.
+
+56
+00:02:09,259 --> 00:02:11,680
+AWS sẽ quản lý dịch vụ cho bạn.
+
+57
+00:02:11,680 --> 00:02:13,480
+Hiện với Outposts,
+
+58
+00:02:13,480 --> 00:02:15,630
+bạn có thể chạy nhiều dịch vụ
+
+59
+00:02:15,630 --> 00:02:19,700
+như Amazon EC2, Amazon EBS, Amazon S3
+
+60
+00:02:19,700 --> 00:02:24,700
+Amazon EKS, Amazon ECS, Amazon RDS và Amazon EMR.
+
+61
+00:02:24,800 --> 00:02:28,190
+Vì vậy đây là cách tuyệt vời để mở rộng đám mây
+
+62
+00:02:28,190 --> 00:02:32,450
+vào hạ tầng on-premises của bạn,
+
+63
+00:02:32,450 --> 00:02:33,700
+điều này rất đột phá.
+
+64
+00:02:33,700 --> 00:02:35,260
+Nội dung này có thể xuất hiện trong kỳ thi.
+
+65
+00:02:35,260 --> 00:02:36,093
+Hy vọng bạn thích.
+
+66
+00:02:36,093 --> 00:02:38,020
+Hẹn gặp bạn ở bài giảng tiếp theo.

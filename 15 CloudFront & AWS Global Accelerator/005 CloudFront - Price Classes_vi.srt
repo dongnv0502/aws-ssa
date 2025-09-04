@@ -1,0 +1,224 @@
+1
+00:00:00,300 --> 00:00:02,910
+Let's explore some advanced options
+
+2
+00:00:02,910 --> 00:00:05,310
+for CloudFront that can come up in the exam.
+
+3
+00:00:05,310 --> 00:00:07,890
+So let's talk about pricing and price classes.
+
+4
+00:00:07,890 --> 00:00:10,200
+So we know that CloudFront edge locations
+
+5
+00:00:10,200 --> 00:00:11,940
+are all around the world,
+
+6
+00:00:11,940 --> 00:00:13,890
+but because they're all around the world,
+
+7
+00:00:13,890 --> 00:00:18,570
+the cost of data out per edge location will vary,
+
+8
+00:00:18,570 --> 00:00:20,220
+and so, here is a table.
+
+9
+00:00:20,220 --> 00:00:21,053
+So as you can see,
+
+10
+00:00:21,053 --> 00:00:23,640
+based on the continent or geographic region
+
+11
+00:00:23,640 --> 00:00:25,920
+that the edge location is in,
+
+12
+00:00:25,920 --> 00:00:27,810
+then you will have a different pricing.
+
+13
+00:00:27,810 --> 00:00:30,030
+So if you look at this table, you're going to see numbers,
+
+14
+00:00:30,030 --> 00:00:33,390
+but if you look at Mexico, United States, and Canada,
+
+15
+00:00:33,390 --> 00:00:34,440
+the first 10 terabytes
+
+16
+00:00:34,440 --> 00:00:38,610
+is going to cost $0.085 per gigabytes,
+
+17
+00:00:38,610 --> 00:00:41,370
+but if you have the same edge location as India,
+
+18
+00:00:41,370 --> 00:00:46,370
+it's going to be about twice the cost at $0.17 per gigabyte
+
+19
+00:00:46,440 --> 00:00:48,300
+of data transferred, and so on.
+
+20
+00:00:48,300 --> 00:00:51,240
+And the more data transferred out of CloudFront,
+
+21
+00:00:51,240 --> 00:00:53,130
+the lower the cost, so if you transfer
+
+22
+00:00:53,130 --> 00:00:56,160
+over five petabytes of data out of CloudFront,
+
+23
+00:00:56,160 --> 00:01:00,690
+you're only going to pay $0.02 out of the United States.
+
+24
+00:01:00,690 --> 00:01:02,850
+So, the idea is that from the left hand side
+
+25
+00:01:02,850 --> 00:01:05,670
+to the right hand side, you have a higher cost.
+
+26
+00:01:05,670 --> 00:01:08,130
+Which brings us to the price classes.
+
+27
+00:01:08,130 --> 00:01:10,140
+So you have a choice you can make,
+
+28
+00:01:10,140 --> 00:01:11,460
+and you can reduce the number
+
+29
+00:01:11,460 --> 00:01:14,370
+of edge locations around the world that is going to be used
+
+30
+00:01:14,370 --> 00:01:16,110
+for your CloudFront distribution
+
+31
+00:01:16,110 --> 00:01:18,300
+in order to do cost reduction.
+
+32
+00:01:18,300 --> 00:01:20,520
+And there are three price classes available,
+
+33
+00:01:20,520 --> 00:01:22,110
+there is the Price Class All,
+
+34
+00:01:22,110 --> 00:01:24,090
+which is giving you all regions,
+
+35
+00:01:24,090 --> 00:01:25,890
+and obviously, the best performance,
+
+36
+00:01:25,890 --> 00:01:27,480
+but it's going to cost you a little bit more money
+
+37
+00:01:27,480 --> 00:01:29,190
+because as you can see for example
+
+38
+00:01:29,190 --> 00:01:31,020
+an edge location in India will cost more
+
+39
+00:01:31,020 --> 00:01:33,150
+than an edge location in the United States.
+
+40
+00:01:33,150 --> 00:01:35,220
+You can do the Price Class 200,
+
+41
+00:01:35,220 --> 00:01:36,480
+which gives you most regions,
+
+42
+00:01:36,480 --> 00:01:39,510
+but excludes the most expensive regions,
+
+43
+00:01:39,510 --> 00:01:44,160
+and Price Class 100 to only get the least expensive regions,
+
+44
+00:01:44,160 --> 00:01:46,860
+and this is summarized in this table.
+
+45
+00:01:46,860 --> 00:01:48,750
+Now, the table is not really fun to look at,
+
+46
+00:01:48,750 --> 00:01:50,400
+so I made a little diagram.
+
+47
+00:01:50,400 --> 00:01:51,450
+Here is the world,
+
+48
+00:01:51,450 --> 00:01:53,910
+and we have a lot of edge locations around the world.
+
+49
+00:01:53,910 --> 00:01:57,480
+Now, the Price Class 100 is going to give us the America,
+
+50
+00:01:57,480 --> 00:01:59,460
+the North America, and Europe,
+
+51
+00:01:59,460 --> 00:02:02,880
+then Price Class 200 is going to add some of these regions,
+
+52
+00:02:02,880 --> 00:02:04,320
+and Price Class All
+
+53
+00:02:04,320 --> 00:02:07,410
+is going to have the entire world available
+
+54
+00:02:07,410 --> 00:02:10,259
+for the edge locations.
+
+55
+00:02:10,259 --> 00:02:12,330
+So that's it for this lecture, I hope you liked it,
+
+56
+00:02:12,330 --> 00:02:14,280
+and I will see you in the next lecture.
+

@@ -1,0 +1,131 @@
+1
+00:00:00,320 --> 00:00:02,400
+Giờ chúng ta hãy nói về Amazon AppFlow.
+
+2
+00:00:02,400 --> 00:00:05,350
+AppFlow là dịch vụ tích hợp được quản lý hoàn toàn
+
+3
+00:00:05,350 --> 00:00:07,280
+cho phép bạn chuyển dữ liệu
+
+4
+00:00:07,280 --> 00:00:11,270
+giữa các ứng dụng Software-as-a-Service và AWS.
+
+5
+00:00:11,270 --> 00:00:14,250
+Những tích hợp này khá khó viết,
+
+6
+00:00:14,250 --> 00:00:16,100
+nhưng với AppFlow thì rất dễ.
+
+7
+00:00:16,100 --> 00:00:18,120
+Nguồn dữ liệu có thể là, ví dụ,
+
+8
+00:00:18,120 --> 00:00:21,370
+Salesforce, SAP, Zendesk, Slack, ServiceNow
+
+9
+00:00:21,370 --> 00:00:24,180
+và Salesforce có thể xuất hiện trong bài thi.
+
+10
+00:00:24,180 --> 00:00:26,580
+Đích nhận dữ liệu có thể là
+
+11
+00:00:26,580 --> 00:00:29,310
+Amazon S3, Amazon Redshift,
+
+12
+00:00:29,310 --> 00:00:34,310
+hoặc các đích không thuộc AWS như SnowFlake và Salesforce.
+
+13
+00:00:34,510 --> 00:00:37,470
+Bạn có thể cấu hình tích hợp chạy theo lịch
+
+14
+00:00:37,470 --> 00:00:40,980
+hoặc phản hồi sự kiện cụ thể hoặc theo yêu cầu.
+
+15
+00:00:40,980 --> 00:00:42,760
+Ngay trong AppFlow, bạn có
+
+16
+00:00:42,760 --> 00:00:44,390
+các khả năng biến đổi dữ liệu
+
+17
+00:00:44,390 --> 00:00:46,540
+như lọc và xác thực.
+
+18
+00:00:46,540 --> 00:00:49,200
+Dữ liệu được mã hóa khi đi qua internet công cộng
+
+19
+00:00:49,200 --> 00:00:52,200
+hoặc bạn có thể truyền riêng qua PrivateLink.
+
+20
+00:00:52,200 --> 00:00:53,720
+Ý tưởng là với AppFlow,
+
+21
+00:00:53,720 --> 00:00:56,310
+bạn không phải tốn thời gian viết tích hợp,
+
+22
+00:00:56,310 --> 00:00:58,800
+chỉ cần dùng ngay các API này
+
+23
+00:00:58,800 --> 00:01:01,520
+và tận hưởng dữ liệu trong tài khoản của bạn.
+
+24
+00:01:01,520 --> 00:01:03,670
+Trong giao diện AppFlow, bạn sẽ có một nguồn
+
+25
+00:01:03,670 --> 00:01:05,940
+và có thể chọn nhiều nguồn khác nhau,
+
+26
+00:01:05,940 --> 00:01:07,870
+nhưng những nguồn quan trọng cần nhớ
+
+27
+00:01:07,870 --> 00:01:10,510
+là những gì tôi đã nói, bao gồm Salesforce.
+
+28
+00:01:10,510 --> 00:01:12,330
+Sau đó sử dụng AppFlow,
+
+29
+00:01:12,330 --> 00:01:15,100
+bạn có thể gửi dữ liệu này tới nhiều đích khác nhau
+
+30
+00:01:15,100 --> 00:01:18,360
+như bạn thấy, Redshift, S3, v.v.
+
+31
+00:01:18,360 --> 00:01:20,500
+Vậy là xong phần giới thiệu về AppFlow.
+
+32
+00:01:20,500 --> 00:01:21,380
+Hy vọng bạn thích nó.
+
+33
+00:01:21,380 --> 00:01:23,143
+Hẹn gặp bạn ở bài học tiếp theo.

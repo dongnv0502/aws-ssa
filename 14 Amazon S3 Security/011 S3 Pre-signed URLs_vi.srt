@@ -1,0 +1,168 @@
+1
+00:00:00,180 --> 00:00:01,170
+Giờ hãy nói về
+
+2
+00:00:01,170 --> 00:00:03,240
+Amazon S3 pre-signed URL.
+
+3
+00:00:03,240 --> 00:00:06,360
+Đây là các URL bạn tạo bằng S3 console,
+
+4
+00:00:06,360 --> 00:00:10,950
+CLI hoặc SDK, và URL có thời hạn.
+
+5
+00:00:10,950 --> 00:00:14,220
+Nếu dùng console, tối đa 12 giờ
+
+6
+00:00:14,220 --> 00:00:17,400
+còn CLI có thể tới 168 giờ.
+
+7
+00:00:17,400 --> 00:00:20,670
+Ý tưởng là khi tạo pre-signed URL,
+
+8
+00:00:20,670 --> 00:00:23,490
+người nhận URL sẽ thừa hưởng quyền
+
+9
+00:00:23,490 --> 00:00:27,480
+của người tạo URL cho thao tác GET hoặc PUT.
+
+10
+00:00:27,480 --> 00:00:28,680
+Vậy use case là gì?
+
+11
+00:00:28,680 --> 00:00:31,350
+Ví dụ bạn có S3 bucket riêng tư,
+
+12
+00:00:31,350 --> 00:00:33,690
+và muốn đưa cho ai đó ngoài AWS
+
+13
+00:00:33,690 --> 00:00:35,310
+truy cập một file.
+
+14
+00:00:35,310 --> 00:00:37,080
+Bạn không muốn file đó public.
+
+15
+00:00:37,080 --> 00:00:39,990
+Bạn không muốn theo cách nào
+
+16
+00:00:39,990 --> 00:00:41,700
+làm mất bảo mật, đúng không?
+
+17
+00:00:41,700 --> 00:00:44,100
+Vậy, bạn là chủ bucket hoặc user,
+
+18
+00:00:44,100 --> 00:00:48,750
+sẽ tạo pre-signed URL cho file đó,
+
+19
+00:00:48,750 --> 00:00:51,180
+S3 sẽ trả lại cho bạn URL.
+
+20
+00:00:51,180 --> 00:00:52,920
+URL đó được pre-signed,
+
+21
+00:00:52,920 --> 00:00:55,500
+nghĩa là mang theo credential của bạn
+
+22
+00:00:55,500 --> 00:00:58,680
+để truy cập file.
+
+23
+00:00:58,680 --> 00:01:02,250
+Sau đó bạn gửi URL cho người cần
+
+24
+00:01:02,250 --> 00:01:04,650
+mà bạn muốn cho truy cập
+
+25
+00:01:04,650 --> 00:01:06,330
+trong thời gian giới hạn.
+
+26
+00:01:06,330 --> 00:01:08,100
+Người đó sau đó
+
+27
+00:01:08,100 --> 00:01:11,010
+sẽ dùng URL truy cập file
+
+28
+00:01:11,010 --> 00:01:12,510
+trên S3 bucket.
+
+29
+00:01:12,510 --> 00:01:15,390
+Rồi họ nhận file từ S3,
+
+30
+00:01:15,390 --> 00:01:19,320
+và có thể tải xuống chẳng hạn.
+
+31
+00:01:19,320 --> 00:01:21,870
+Pre-signed URL là use case rất phổ biến
+
+32
+00:01:21,870 --> 00:01:25,440
+khi muốn truy cập tạm thời một file cụ thể
+
+33
+00:01:25,440 --> 00:01:27,660
+để tải xuống hoặc tải lên.
+
+34
+00:01:27,660 --> 00:01:30,690
+Ví dụ: chỉ cho người đã đăng nhập
+
+35
+00:01:30,690 --> 00:01:33,450
+tải video premium trong S3 bucket
+
+36
+00:01:33,450 --> 00:01:35,880
+hoặc cho danh sách người dùng thay đổi liên tục
+
+37
+00:01:35,880 --> 00:01:38,640
+tải file bằng URL được tạo động,
+
+38
+00:01:38,640 --> 00:01:41,700
+hoặc cho phép tạm thời người dùng tải file lên
+
+39
+00:01:41,700 --> 00:01:44,040
+đến vị trí cụ thể trong S3 bucket,
+
+40
+00:01:44,040 --> 00:01:46,710
+trong khi bucket vẫn private.
+
+41
+00:01:46,710 --> 00:01:48,210
+Bài học đến đây là hết,
+
+42
+00:01:48,210 --> 00:01:50,723
+hẹn gặp ở bài tiếp theo với phần thực hành.
+

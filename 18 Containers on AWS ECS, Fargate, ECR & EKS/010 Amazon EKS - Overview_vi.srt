@@ -1,0 +1,335 @@
+1
+00:00:00,300 --> 00:00:01,710
+Hãy nói về cách khác
+
+2
+00:00:01,710 --> 00:00:06,060
+để chạy container trên AWS, đó là dùng Amazon EKS.
+
+3
+00:00:06,060 --> 00:00:10,950
+Amazon EKS viết tắt của Amazon Elastic Kubernetes Service.
+
+4
+00:00:10,950 --> 00:00:13,290
+Đây là cách, như tên gọi,
+
+5
+00:00:13,290 --> 00:00:17,550
+để khởi chạy và quản lý cụm Kubernetes trên AWS.
+
+6
+00:00:17,550 --> 00:00:18,630
+Kubernetes là gì?
+
+7
+00:00:18,630 --> 00:00:19,530
+Đó là logo màu xanh
+
+8
+00:00:19,530 --> 00:00:21,390
+bạn thấy ở góc phải trên màn hình.
+
+9
+00:00:21,390 --> 00:00:23,760
+Kubernetes là hệ thống mã nguồn mở
+
+10
+00:00:23,760 --> 00:00:26,670
+để tự động triển khai, mở rộng và quản lý
+
+11
+00:00:26,670 --> 00:00:29,580
+các ứng dụng container hóa, thường là Docker.
+
+12
+00:00:29,580 --> 00:00:32,820
+Nó là lựa chọn thay thế cho ECS với mục tiêu tương tự
+
+13
+00:00:32,820 --> 00:00:36,657
+là chạy container nhưng API rất khác.
+
+14
+00:00:36,657 --> 00:00:40,110
+ECS rõ ràng không phải mã nguồn mở.
+
+15
+00:00:40,110 --> 00:00:41,820
+Trong khi Kubernetes mã nguồn mở
+
+16
+00:00:41,820 --> 00:00:45,060
+và được nhiều nhà cung cấp đám mây dùng
+
+17
+00:00:45,060 --> 00:00:47,400
+mang lại sự chuẩn hóa.
+
+18
+00:00:47,400 --> 00:00:50,400
+EKS hỗ trợ hai chế độ triển khai,
+
+19
+00:00:50,400 --> 00:00:53,040
+chế độ EC2 nếu bạn muốn triển khai
+
+20
+00:00:53,040 --> 00:00:55,770
+các worker là EC2,
+
+21
+00:00:55,770 --> 00:00:57,840
+hoặc chế độ Fargate nếu muốn triển khai
+
+22
+00:00:57,840 --> 00:01:00,810
+container serverless trong cụm EKS.
+
+23
+00:01:00,810 --> 00:01:03,780
+Trường hợp dùng EKS là khi công ty bạn
+
+24
+00:01:03,780 --> 00:01:06,060
+đã dùng Kubernetes on-premises,
+
+25
+00:01:06,060 --> 00:01:08,400
+hoặc trên đám mây khác,
+
+26
+00:01:08,400 --> 00:01:10,920
+hoặc chỉ muốn dùng API Kubernetes,
+
+27
+00:01:10,920 --> 00:01:13,800
+và muốn AWS quản lý cụm Kubernetes,
+
+28
+00:01:13,800 --> 00:01:16,380
+thì sẽ dùng Amazon EKS.
+
+29
+00:01:16,380 --> 00:01:19,260
+Trong kỳ thi, Kubernetes
+
+30
+00:01:19,260 --> 00:01:21,960
+độc lập nền tảng, có thể dùng trên bất kỳ cloud nào
+
+31
+00:01:21,960 --> 00:01:24,420
+như Azure, Google Cloud, v.v.
+
+32
+00:01:24,420 --> 00:01:26,400
+Vì vậy nếu bạn muốn di chuyển
+
+33
+00:01:26,400 --> 00:01:28,530
+giữa các đám mây hoặc container,
+
+34
+00:01:28,530 --> 00:01:32,250
+sử dụng Amazon EKS có thể đơn giản hơn nhiều.
+
+35
+00:01:32,250 --> 00:01:34,410
+Về sơ đồ, nó trông như thế này.
+
+36
+00:01:34,410 --> 00:01:37,110
+Chúng ta có VPC, 3 AZ tách biệt
+
+37
+00:01:37,110 --> 00:01:39,150
+thành subnet công khai và riêng tư.
+
+38
+00:01:39,150 --> 00:01:41,850
+Bạn sẽ tạo các EKS Worker Node
+
+39
+00:01:41,850 --> 00:01:44,220
+ví dụ là EC2 instance,
+
+40
+00:01:44,220 --> 00:01:47,940
+và mỗi node chạy các EKS Pod.
+
+41
+00:01:47,940 --> 00:01:50,250
+Chúng rất giống ECS task,
+
+42
+00:01:50,250 --> 00:01:52,140
+nhưng về thuật ngữ,
+
+43
+00:01:52,140 --> 00:01:56,820
+thấy 'pod' là liên quan Kubernetes.
+
+44
+00:01:56,820 --> 00:02:01,050
+Chúng ta có EKS Pod chạy trên EKS Node,
+
+45
+00:02:01,050 --> 00:02:04,050
+các node có thể được quản lý bởi Auto Scaling Group.
+
+46
+00:02:04,050 --> 00:02:06,600
+Tương tự ECS,
+
+47
+00:02:06,600 --> 00:02:10,919
+nếu bạn muốn expose EKS/Kubernetes Service,
+
+48
+00:02:10,919 --> 00:02:13,980
+ta có thể thiết lập load balancer nội bộ,
+
+49
+00:02:13,980 --> 00:02:17,700
+hoặc load balancer công khai để ra web.
+
+50
+00:02:17,700 --> 00:02:19,650
+Hãy tổng kết các loại node
+
+51
+00:02:19,650 --> 00:02:21,660
+trong Amazon EKS.
+
+52
+00:02:21,660 --> 00:02:23,700
+Bạn có Manage Node Group,
+
+53
+00:02:23,700 --> 00:02:26,940
+AWS sẽ tạo và quản lý các node,
+
+54
+00:02:26,940 --> 00:02:29,520
+tức các EC2 instance.
+
+55
+00:02:29,520 --> 00:02:31,860
+Các node này thuộc một Auto Scaling Group,
+
+56
+00:02:31,860 --> 00:02:34,320
+được dịch vụ EKS quản lý.
+
+57
+00:02:34,320 --> 00:02:38,190
+Hỗ trợ On-Demand và Spot Instance.
+
+58
+00:02:38,190 --> 00:02:39,630
+Bạn cũng có thể chọn
+
+59
+00:02:39,630 --> 00:02:42,180
+tự quản lý node nếu muốn
+
+60
+00:02:42,180 --> 00:02:44,190
+tùy chỉnh và kiểm soát nhiều hơn.
+
+61
+00:02:44,190 --> 00:02:46,740
+Khi đó bạn phải tự tạo node,
+
+62
+00:02:46,740 --> 00:02:49,950
+đăng ký chúng vào cụm EKS,
+
+63
+00:02:49,950 --> 00:02:53,010
+và quản lý chúng như một ASG.
+
+64
+00:02:53,010 --> 00:02:57,000
+Bạn vẫn có thể dùng AMI tối ưu sẵn của EKS
+
+65
+00:02:57,000 --> 00:02:58,770
+để tiết kiệm thời gian,
+
+66
+00:02:58,770 --> 00:03:02,130
+hoặc tự tạo AMI của bạn, phức tạp hơn.
+
+67
+00:03:02,130 --> 00:03:06,270
+Cách này cũng hỗ trợ On-Demand và Spot.
+
+68
+00:03:06,270 --> 00:03:08,910
+Cuối cùng, nếu bạn không muốn thấy node nào,
+
+69
+00:03:08,910 --> 00:03:12,630
+Amazon EKS hỗ trợ chế độ Fargate
+
+70
+00:03:12,630 --> 00:03:14,700
+không cần bảo trì,
+
+71
+00:03:14,700 --> 00:03:18,330
+không quản lý node, chỉ chạy container
+
+72
+00:03:18,330 --> 00:03:20,760
+trên Amazon EKS.
+
+73
+00:03:20,760 --> 00:03:24,390
+Bạn có thể gắn volume dữ liệu vào cụm EKS.
+
+74
+00:03:24,390 --> 00:03:27,990
+Bạn cần khai báo manifest StorageClass
+
+75
+00:03:27,990 --> 00:03:30,840
+trên cụm EKS, sử dụng
+
+76
+00:03:30,840 --> 00:03:35,220
+trình điều khiển CSI (Container Storage Interface).
+
+77
+00:03:35,220 --> 00:03:38,070
+Những từ khóa cần nhớ cho kỳ thi.
+
+78
+00:03:38,070 --> 00:03:40,620
+Có hỗ trợ Amazon EBS,
+
+79
+00:03:40,620 --> 00:03:43,590
+hỗ trợ Amazon EFS, và đây là loại duy nhất
+
+80
+00:03:43,590 --> 00:03:47,640
+kiểu lưu trữ hoạt động với Fargate.
+
+81
+00:03:47,640 --> 00:03:49,710
+Có Amazon FSx for Lustre
+
+82
+00:03:49,710 --> 00:03:53,070
+và Amazon FSx for NetApp ONTAP.
+
+83
+00:03:53,070 --> 00:03:55,050
+Đó là tất cả về Amazon EKS.
+
+84
+00:03:55,050 --> 00:03:58,000
+Hy vọng bạn thích, hẹn gặp lại ở bài giảng tiếp theo.

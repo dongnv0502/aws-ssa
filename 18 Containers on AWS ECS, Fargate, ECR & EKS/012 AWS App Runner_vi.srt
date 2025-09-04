@@ -1,0 +1,156 @@
+1
+00:00:00,300 --> 00:00:01,350
+Bây giờ hãy nói về
+
+2
+00:00:01,350 --> 00:00:03,540
+dịch vụ AWS App Runner.
+
+3
+00:00:03,540 --> 00:00:05,820
+Đây là dịch vụ fully managed giúp triển khai dễ dàng
+
+4
+00:00:05,820 --> 00:00:08,760
+ứng dụng web và API ở quy mô lớn
+
+5
+00:00:08,760 --> 00:00:11,700
+và với nó ai cũng có thể triển khai lên AWS.
+
+6
+00:00:11,700 --> 00:00:15,150
+Bạn không cần biết gì về hạ tầng,
+
+7
+00:00:15,150 --> 00:00:18,000
+container hay source code của mình.
+
+8
+00:00:18,000 --> 00:00:20,340
+Ý tưởng là bạn bắt đầu với source code
+
+9
+00:00:20,340 --> 00:00:22,650
+hoặc image Docker
+
+10
+00:00:22,650 --> 00:00:24,450
+rồi cấu hình các thiết lập.
+
+11
+00:00:24,450 --> 00:00:26,550
+Bạn chọn số vCPU muốn dùng,
+
+12
+00:00:26,550 --> 00:00:28,350
+bao nhiêu bộ nhớ cho container,
+
+13
+00:00:28,350 --> 00:00:30,840
+có autoscaling và vài health check hay không.
+
+14
+00:00:30,840 --> 00:00:33,960
+Một số thiết lập cơ bản để định nghĩa ứng dụng web
+
+15
+00:00:33,960 --> 00:00:37,500
+hoặc API, và sau đó xong,
+
+16
+00:00:37,500 --> 00:00:38,400
+nó sẽ bắt đầu build
+
+17
+00:00:38,400 --> 00:00:41,160
+và deploy ứng dụng bằng App Runner.
+
+18
+00:00:41,160 --> 00:00:44,130
+Container sẽ được tạo và triển khai,
+
+19
+00:00:44,130 --> 00:00:46,950
+và API hoặc web app của bạn được triển khai
+
+20
+00:00:46,950 --> 00:00:50,550
+và bạn truy cập ngay bằng URL
+
+21
+00:00:50,550 --> 00:00:53,520
+như bạn thấy, không cần hiểu gì
+
+22
+00:00:53,520 --> 00:00:55,620
+về bên dưới.
+
+23
+00:00:55,620 --> 00:00:59,460
+Bên dưới tất nhiên dùng các dịch vụ AWS, nhưng với người dùng,
+
+24
+00:00:59,460 --> 00:01:00,750
+bạn không phải quan tâm.
+
+25
+00:01:00,750 --> 00:01:01,830
+Rất nhanh.
+
+26
+00:01:01,830 --> 00:01:04,319
+Với App Runner bạn nhận được nhiều lợi ích,
+
+27
+00:01:04,319 --> 00:01:07,140
+có tự động mở rộng, độ sẵn sàng cao,
+
+28
+00:01:07,140 --> 00:01:08,460
+có load balancing,
+
+29
+00:01:08,460 --> 00:01:10,950
+có mã hóa và ứng dụng của bạn,
+
+30
+00:01:10,950 --> 00:01:13,867
+container còn truy cập được VPC.
+
+31
+00:01:13,867 --> 00:01:16,350
+Điều đó nghĩa là bạn kết nối được đến database,
+
+32
+00:01:16,350 --> 00:01:20,010
+cache và các dịch vụ message queue.
+
+33
+00:01:20,010 --> 00:01:23,460
+Trường hợp sử dụng là triển khai nhanh web app,
+
+34
+00:01:23,460 --> 00:01:27,210
+API, microservices và triển khai production nhanh
+
+35
+00:01:27,210 --> 00:01:31,680
+theo best practice, tất cả nhờ App Runner.
+
+36
+00:01:31,680 --> 00:01:33,000
+Đây là dịch vụ rất đơn giản.
+
+37
+00:01:33,000 --> 00:01:35,820
+Nó làm những việc đơn giản nhưng rất mạnh.
+
+38
+00:01:35,820 --> 00:01:37,620
+Vậy là xong, hy vọng bạn thích
+
+39
+00:01:37,620 --> 00:01:39,570
+và hẹn gặp lại ở bài kế tiếp.
+

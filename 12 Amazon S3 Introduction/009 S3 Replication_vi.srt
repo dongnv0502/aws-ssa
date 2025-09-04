@@ -1,0 +1,143 @@
+1
+00:00:00,210 --> 00:00:02,220
+Bây giờ hãy nói về Amazon S3 Replication,
+
+2
+00:00:02,220 --> 00:00:04,019
+và nó có hai dạng.
+
+3
+00:00:04,019 --> 00:00:07,170
+CRR là cross-region replication
+
+4
+00:00:07,170 --> 00:00:10,170
+và SRR là same-region replication.
+
+5
+00:00:10,170 --> 00:00:12,300
+Ý tưởng là chúng ta có một S3 Bucket ở một region
+
+6
+00:00:12,300 --> 00:00:15,240
+và một S3 Bucket đích ở region khác,
+
+7
+00:00:15,240 --> 00:00:18,990
+và muốn thiết lập replication bất đồng bộ
+
+8
+00:00:18,990 --> 00:00:21,000
+giữa hai bucket này.
+
+9
+00:00:21,000 --> 00:00:24,030
+Để làm vậy, trước tiên phải bật Versioning
+
+10
+00:00:24,030 --> 00:00:26,550
+cho cả bucket nguồn và đích.
+
+11
+00:00:26,550 --> 00:00:30,030
+Nếu dùng CRR, tức cross-region replication,
+
+12
+00:00:30,030 --> 00:00:31,560
+hai region phải khác nhau.
+
+13
+00:00:31,560 --> 00:00:35,160
+Nếu dùng SRR, hai region giống nhau.
+
+14
+00:00:35,160 --> 00:00:37,230
+Bạn có thể đặt các bucket này
+
+15
+00:00:37,230 --> 00:00:39,180
+ở các AWS account khác nhau
+
+16
+00:00:39,180 --> 00:00:41,340
+và việc sao chép diễn ra bất đồng bộ.
+
+17
+00:00:41,340 --> 00:00:43,710
+Cơ chế replication diễn ra phía sau,
+
+18
+00:00:43,710 --> 00:00:44,910
+trong nền.
+
+19
+00:00:44,910 --> 00:00:46,230
+Để replication hoạt động,
+
+20
+00:00:46,230 --> 00:00:48,480
+bạn phải cấp quyền IAM phù hợp
+
+21
+00:00:48,480 --> 00:00:50,580
+cho dịch vụ S3 để nó có quyền
+
+22
+00:00:50,580 --> 00:00:53,400
+đọc và ghi vào các bucket được chỉ định.
+
+23
+00:00:53,400 --> 00:00:56,100
+Có nhiều trường hợp sử dụng replication.
+
+24
+00:00:56,100 --> 00:00:59,160
+Nếu dùng cross-region replication,
+
+25
+00:00:59,160 --> 00:01:01,020
+nó hữu ích cho việc tuân thủ
+
+26
+00:01:01,020 --> 00:01:03,360
+hoặc cung cấp truy cập dữ liệu độ trễ thấp
+
+27
+00:01:03,360 --> 00:01:04,860
+vì dữ liệu ở region khác,
+
+28
+00:01:04,860 --> 00:01:07,620
+hoặc để sao chép dữ liệu giữa các account.
+
+29
+00:01:07,620 --> 00:01:10,530
+Với SRR hay same-region replication,
+
+30
+00:01:10,530 --> 00:01:12,960
+nó hữu ích để gom log
+
+31
+00:01:12,960 --> 00:01:14,640
+từ nhiều S3 Bucket
+
+32
+00:01:14,640 --> 00:01:16,530
+hoặc thực hiện replication trực tiếp
+
+33
+00:01:16,530 --> 00:01:18,870
+giữa account production và test,
+
+34
+00:01:18,870 --> 00:01:21,150
+để bạn có môi trường test riêng.
+
+35
+00:01:21,150 --> 00:01:23,160
+Được rồi, đó là tất cả về replication.
+
+36
+00:01:23,160 --> 00:01:25,810
+Hẹn gặp bạn ở bài học tiếp theo để thực hành.

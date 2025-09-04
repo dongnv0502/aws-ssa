@@ -1,0 +1,228 @@
+1
+00:00:00,180 --> 00:00:01,020
+So let's go ahead
+
+2
+00:00:01,020 --> 00:00:03,240
+and create a lifecycle rule for our buckets.
+
+3
+00:00:03,240 --> 00:00:06,750
+So let's go under management and create a lifecycle rule.
+
+4
+00:00:06,750 --> 00:00:10,140
+This one is going to be called demo rule, and we apply it
+
+5
+00:00:10,140 --> 00:00:13,890
+to all the objects in the buckets and I acknowledge it.
+
+6
+00:00:13,890 --> 00:00:17,700
+Okay, so we can see we have five different rule actions.
+
+7
+00:00:17,700 --> 00:00:19,740
+We can move current versions
+
+8
+00:00:19,740 --> 00:00:21,420
+of objects between storage classes,
+
+9
+00:00:21,420 --> 00:00:23,940
+non-current versions of objects between classes,
+
+10
+00:00:23,940 --> 00:00:25,350
+expired current versions of objects,
+
+11
+00:00:25,350 --> 00:00:27,630
+permanently delete non-current versions of objects,
+
+12
+00:00:27,630 --> 00:00:30,600
+and finally delete expired objects, delete markers
+
+13
+00:00:30,600 --> 00:00:32,759
+or incomplete multi-part upload.
+
+14
+00:00:32,759 --> 00:00:34,680
+So five different use cases.
+
+15
+00:00:34,680 --> 00:00:36,360
+Let's have a look at them one by one.
+
+16
+00:00:36,360 --> 00:00:39,420
+So to move current version objects between storage classes
+
+17
+00:00:39,420 --> 00:00:41,580
+that means that you have a version bucket, and
+
+18
+00:00:41,580 --> 00:00:44,760
+the current version is the version that is the most recent
+
+19
+00:00:44,760 --> 00:00:46,410
+the one displayed to the user.
+
+20
+00:00:46,410 --> 00:00:48,060
+So for example, we can transition
+
+21
+00:00:48,060 --> 00:00:50,550
+to standard IA after 30 days.
+
+22
+00:00:50,550 --> 00:00:53,580
+Then we can go into intelligent tier after 60 days.
+
+23
+00:00:53,580 --> 00:00:55,140
+Then we can go into
+
+24
+00:00:55,140 --> 00:01:00,140
+say glacier after 90 days for instant retrieval.
+
+25
+00:01:00,180 --> 00:01:03,060
+Then after 180 days flexible retrieval
+
+26
+00:01:03,060 --> 00:01:05,850
+and then maybe deep archive after 365 days.
+
+27
+00:01:05,850 --> 00:01:08,550
+So you can have a transition as much as you want.
+
+28
+00:01:08,550 --> 00:01:09,383
+Okay?
+
+29
+00:01:09,383 --> 00:01:11,550
+And we need to take this back to acknowledge what we do.
+
+30
+00:01:11,550 --> 00:01:13,320
+We can also, for example
+
+31
+00:01:13,320 --> 00:01:16,050
+move non-current versions so faster.
+
+32
+00:01:16,050 --> 00:01:18,870
+So this one, we want to move an object that is non-current
+
+33
+00:01:18,870 --> 00:01:21,480
+therefore an object that has been overridden
+
+34
+00:01:21,480 --> 00:01:24,030
+quote unquote by near one.
+
+35
+00:01:24,030 --> 00:01:25,590
+So we can say, okay, this one
+
+36
+00:01:25,590 --> 00:01:28,560
+we wanna move it into glacier flexible because we know
+
+37
+00:01:28,560 --> 00:01:31,680
+that after 90 days we won't need it for retrieval.
+
+38
+00:01:31,680 --> 00:01:33,930
+So this is perfect and we're good to go
+
+39
+00:01:33,930 --> 00:01:36,000
+but we could add more transitions.
+
+40
+00:01:36,000 --> 00:01:36,900
+And for example
+
+41
+00:01:36,900 --> 00:01:40,803
+we want to expire current versions of objects after,
+
+42
+00:01:42,000 --> 00:01:45,450
+and at the bottom you can set it up after 700 days.
+
+43
+00:01:45,450 --> 00:01:48,750
+And same for the non-current options.
+
+44
+00:01:48,750 --> 00:01:53,750
+We want to permanently delete them after 700 days as well.
+
+45
+00:01:54,210 --> 00:01:57,240
+Okay, so this is something we can do
+
+46
+00:01:57,240 --> 00:01:58,770
+and now we can have a look
+
+47
+00:01:58,770 --> 00:02:00,780
+at all these transitions and expiration actions.
+
+48
+00:02:00,780 --> 00:02:03,330
+So this is nice because it shows you a timeline
+
+49
+00:02:03,330 --> 00:02:05,460
+of what is going to happen to your current version
+
+50
+00:02:05,460 --> 00:02:07,680
+and your non-current versions of your objects.
+
+51
+00:02:07,680 --> 00:02:10,410
+So if we're happy with all of this, we can just go ahead
+
+52
+00:02:10,410 --> 00:02:12,720
+and create this role, and this role will act
+
+53
+00:02:12,720 --> 00:02:15,750
+in the background to do what it's supposed to be doing.
+
+54
+00:02:15,750 --> 00:02:16,583
+So that's it.
+
+55
+00:02:16,583 --> 00:02:18,750
+Now you know how to automate moving objects
+
+56
+00:02:18,750 --> 00:02:21,000
+in AWS free between different source classes.
+
+57
+00:02:21,000 --> 00:02:23,950
+I hope you liked it and I will see you in the next lecture.
+
