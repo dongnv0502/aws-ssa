@@ -1,0 +1,336 @@
+1
+00:00:00,270 --> 00:00:03,000
+Bây giờ nói về Amazon RDS Proxy.
+
+2
+00:00:03,000 --> 00:00:06,660
+Ta biết có thể triển khai RDS database trong VPC của mình,
+
+3
+00:00:06,660 --> 00:00:08,100
+và ta cũng có thể triển khai
+
+4
+00:00:08,100 --> 00:00:12,030
+một database proxy dạng fully managed cho RDS.
+
+5
+00:00:12,030 --> 00:00:12,863
+Bạn có thể hỏi:
+
+6
+00:00:12,863 --> 00:00:15,450
+"Ta có thể truy cập RDS trực tiếp,
+
+7
+00:00:15,450 --> 00:00:18,840
+vậy cần proxy để làm gì?"
+
+8
+00:00:18,840 --> 00:00:21,150
+Khi dùng RDS Proxy,
+
+9
+00:00:21,150 --> 00:00:23,610
+ứng dụng của bạn có thể pool và chia sẻ
+
+10
+00:00:23,610 --> 00:00:26,850
+các kết nối đến database
+
+11
+00:00:26,850 --> 00:00:28,230
+đã được thiết lập.
+
+12
+00:00:28,230 --> 00:00:31,050
+Thay vì từng ứng dụng kết nối
+
+13
+00:00:31,050 --> 00:00:33,660
+trực tiếp tới RDS database instance,
+
+14
+00:00:33,660 --> 00:00:36,150
+chúng sẽ kết nối tới proxy,
+
+15
+00:00:36,150 --> 00:00:38,730
+và proxy sẽ gộp các kết nối này lại
+
+16
+00:00:38,730 --> 00:00:42,180
+thành ít kết nối hơn tới RDS database instance.
+
+17
+00:00:42,180 --> 00:00:43,980
+Vì sao nên làm vậy?
+
+18
+00:00:43,980 --> 00:00:45,060
+Rất hợp lý khi bạn có
+
+19
+00:00:45,060 --> 00:00:46,410
+nhiều kết nối tới RDS,
+
+20
+00:00:46,410 --> 00:00:48,270
+vì nó cải thiện hiệu quả của database
+
+21
+00:00:48,270 --> 00:00:51,240
+bằng cách giảm tải tài nguyên (CPU, RAM),
+
+22
+00:00:51,240 --> 00:00:53,550
+đồng thời giảm số kết nối mở
+
+23
+00:00:53,550 --> 00:00:55,200
+và hạn chế timeout vào database.
+
+24
+00:00:55,200 --> 00:00:57,240
+Đây là điểm bạn nên lưu ý cho kỳ thi.
+
+25
+00:00:57,240 --> 00:01:00,000
+RDS Proxy là serverless, tự động scale,
+
+26
+00:01:00,000 --> 00:01:01,560
+bạn không cần quản lý capacity.
+
+27
+00:01:01,560 --> 00:01:03,240
+Nó cũng highly available,
+
+28
+00:01:03,240 --> 00:01:06,750
+chạy trên nhiều AZ.
+
+29
+00:01:06,750 --> 00:01:09,990
+Ví dụ khi xảy ra failover
+
+30
+00:01:09,990 --> 00:01:11,040
+trên RDS database instance —
+
+31
+00:01:11,040 --> 00:01:13,080
+từ primary qua standby —
+
+32
+00:01:13,080 --> 00:01:15,180
+thì nhờ RDS Proxy,
+
+33
+00:01:15,180 --> 00:01:18,750
+thời gian failover có thể giảm tới 66%.
+
+34
+00:01:18,750 --> 00:01:22,200
+Điều này đúng cho cả RDS và Aurora.
+
+35
+00:01:22,200 --> 00:01:24,480
+Thay vì mọi ứng dụng kết nối
+
+36
+00:01:24,480 --> 00:01:27,090
+trực tiếp vào RDS instance và tự xử lý failover,
+
+37
+00:01:27,090 --> 00:01:32,040
+chúng chỉ cần kết nối tới RDS Proxy (không bị failover),
+
+38
+00:01:32,040 --> 00:01:34,560
+và RDS Proxy sẽ tự xử lý failover
+
+39
+00:01:34,560 --> 00:01:36,960
+của RDS database instance,
+
+40
+00:01:36,960 --> 00:01:39,870
+giúp rút ngắn thời gian failover.
+
+41
+00:01:39,870 --> 00:01:42,390
+Đây cũng là điểm quan trọng cho kỳ thi.
+
+42
+00:01:42,390 --> 00:01:44,760
+RDS Proxy hỗ trợ MySQL, PostgreSQL, MariaDB,
+
+43
+00:01:44,760 --> 00:01:47,550
+Microsoft SQL Server,
+
+44
+00:01:47,550 --> 00:01:52,770
+và Aurora (MySQL, PostgreSQL).
+
+45
+00:01:52,770 --> 00:01:54,780
+Bạn không cần thay đổi code ứng dụng.
+
+46
+00:01:54,780 --> 00:01:58,410
+Thay vì kết nối tới RDS/Aurora trực tiếp,
+
+47
+00:01:58,410 --> 00:02:02,520
+chỉ cần kết nối tới RDS Proxy là xong.
+
+48
+00:02:02,520 --> 00:02:04,140
+Lợi ích thứ ba khi dùng RDS Proxy
+
+49
+00:02:04,140 --> 00:02:06,890
+là bắt buộc IAM authentication cho database,
+
+50
+00:02:06,890 --> 00:02:09,419
+đảm bảo mọi người chỉ kết nối
+
+51
+00:02:09,419 --> 00:02:12,060
+vào RDS instance thông qua IAM.
+
+52
+00:02:12,060 --> 00:02:15,660
+Thông tin xác thực (credentials) có thể lưu an toàn
+
+53
+00:02:15,660 --> 00:02:17,190
+trong AWS Secrets Manager.
+
+54
+00:02:17,190 --> 00:02:21,540
+Vì vậy, nếu cần bắt buộc IAM authentication cho database,
+
+55
+00:02:21,540 --> 00:02:22,373
+hãy nghĩ tới RDS Proxy.
+
+56
+00:02:22,373 --> 00:02:25,350
+Cuối cùng, RDS Proxy không public.
+
+57
+00:02:25,350 --> 00:02:27,930
+Chỉ truy cập được từ trong VPC của bạn.
+
+58
+00:02:27,930 --> 00:02:31,380
+Bạn không thể kết nối từ Internet vào RDS Proxy —
+
+59
+00:02:31,380 --> 00:02:33,180
+một lớp bảo mật tăng cường.
+
+60
+00:02:33,180 --> 00:02:36,030
+Một dịch vụ sẽ hưởng lợi rất nhiều từ RDS Proxy
+
+61
+00:02:36,030 --> 00:02:38,850
+là Lambda functions.
+
+62
+00:02:38,850 --> 00:02:41,370
+Lambda thực thi các đoạn code —
+
+63
+00:02:41,370 --> 00:02:43,410
+ta sẽ học sau trong khóa.
+
+64
+00:02:43,410 --> 00:02:45,060
+Giờ chưa cần biết chi tiết,
+
+65
+00:02:45,060 --> 00:02:47,100
+nhưng cần đề cập vì tính năng RDS Proxy.
+
+66
+00:02:47,100 --> 00:02:50,040
+Lambda có thể nhân số lượng rất lớn
+
+67
+00:02:50,040 --> 00:02:51,360
+và xuất hiện/biến mất rất nhanh.
+
+68
+00:02:51,360 --> 00:02:55,560
+Hãy tưởng tượng 100 hoặc 1,000 Lambda xuất hiện/biến mất,
+
+69
+00:02:55,560 --> 00:02:58,200
+mở kết nối tới RDS instance — sẽ là vấn đề lớn
+
+70
+00:02:58,200 --> 00:03:00,060
+do để lại kết nối mở, timeout, v.v.
+
+71
+00:03:00,060 --> 00:03:03,180
+Vì vậy, bạn dùng RDS Proxy để pool kết nối
+
+72
+00:03:03,180 --> 00:03:06,660
+cho Lambda functions.
+
+73
+00:03:06,660 --> 00:03:09,052
+Lambda có thể tạo tải lớn lên RDS Proxy —
+
+74
+00:03:09,052 --> 00:03:12,930
+điều đó là bình thường và được thiết kế để chịu tải.
+
+75
+00:03:12,930 --> 00:03:15,690
+RDS Proxy sẽ gộp các kết nối đó
+
+76
+00:03:15,690 --> 00:03:19,589
+thành ít kết nối hơn tới RDS instance, giải quyết vấn đề.
+
+77
+00:03:19,589 --> 00:03:22,920
+Vậy là xong bài này. Đừng lo, chúng ta sẽ ôn lại proxy
+
+78
+00:03:22,920 --> 00:03:26,400
+khi học phần Lambda.
+
+79
+00:03:26,400 --> 00:03:28,530
+Tóm lại, RDS Proxy dùng để giảm
+
+80
+00:03:28,530 --> 00:03:30,360
+và pool kết nối tới RDS instance,
+
+81
+00:03:30,360 --> 00:03:32,310
+giảm thời gian failover (tối đa 66%),
+
+82
+00:03:32,310 --> 00:03:36,000
+và enforce IAM authentication, lưu credential an toàn
+
+83
+00:03:36,000 --> 00:03:38,130
+trong Secrets Manager.
+
+84
+00:03:38,130 --> 00:03:40,050
+Hẹn gặp lại ở bài tiếp theo.
+

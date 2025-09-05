@@ -1,0 +1,460 @@
+1
+00:00:00,110 --> 00:00:02,370
+Giờ chúng ta tìm hiểu về load balancing.
+
+2
+00:00:02,370 --> 00:00:04,560
+Câu hỏi có thể là: load balancing là gì?
+
+3
+00:00:04,560 --> 00:00:08,420
+Load balancer là một máy chủ (hoặc cụm máy chủ)
+
+4
+00:00:08,420 --> 00:00:10,870
+chuyển tiếp lưu lượng nhận được
+
+5
+00:00:10,870 --> 00:00:13,900
+đến nhiều backend
+
+6
+00:00:13,900 --> 00:00:16,970
+hoặc các EC2 instance/servers phía sau.
+
+7
+00:00:16,970 --> 00:00:18,000
+Ví dụ:
+
+8
+00:00:18,000 --> 00:00:20,100
+chúng ta có ba EC2 instance
+
+9
+00:00:20,100 --> 00:00:21,400
+và chúng sẽ được đặt
+
+10
+00:00:21,400 --> 00:00:24,040
+đằng sau một Elastic Load Balancer,
+
+11
+00:00:24,040 --> 00:00:26,550
+vốn là một cụm máy chủ ẩn phía sau.
+
+12
+00:00:26,550 --> 00:00:28,060
+Khi có ba người dùng
+
+13
+00:00:28,060 --> 00:00:30,670
+kết nối trực tiếp tới Elastic Load Balancer của bạn
+
+14
+00:00:30,670 --> 00:00:32,330
+thì chuyện gì xảy ra?
+
+15
+00:00:32,330 --> 00:00:34,310
+Người đầu tiên sẽ được
+
+16
+00:00:34,310 --> 00:00:38,440
+chuyển lưu lượng sang một EC2 instance phía sau.
+
+17
+00:00:38,440 --> 00:00:40,100
+Và vì có load balancing nên
+
+18
+00:00:40,100 --> 00:00:43,710
+khi người dùng thứ hai kết nối vào ELB,
+
+19
+00:00:43,710 --> 00:00:46,960
+lưu lượng sẽ được chuyển sang một EC2 instance khác.
+
+20
+00:00:46,960 --> 00:00:48,040
+Và cuối cùng,
+
+21
+00:00:48,040 --> 00:00:49,930
+nếu người thứ ba kết nối vào
+
+22
+00:00:49,930 --> 00:00:51,330
+Elastic Load Balancer,
+
+23
+00:00:51,330 --> 00:00:53,270
+người đó lại được cân bằng tải
+
+24
+00:00:53,270 --> 00:00:55,540
+và chuyển tới EC2 instance thứ ba.
+
+25
+00:00:55,540 --> 00:00:57,490
+Càng nhiều người dùng
+
+26
+00:00:57,490 --> 00:00:59,960
+thì tải càng được dàn đều
+
+27
+00:00:59,960 --> 00:01:01,003
+trên nhiều EC2 instance.
+
+28
+00:01:01,003 --> 00:01:04,360
+Người dùng không biết mình đang kết nối
+
+29
+00:01:04,360 --> 00:01:06,600
+vào backend instance nào.
+
+30
+00:01:06,600 --> 00:01:09,120
+Họ chỉ cần kết nối tới
+
+31
+00:01:09,120 --> 00:01:10,430
+Elastic Load Balancer của bạn,
+
+32
+00:01:10,430 --> 00:01:14,020
+với một endpoint duy nhất.
+
+33
+00:01:14,020 --> 00:01:14,853
+Bây giờ,
+
+34
+00:01:14,853 --> 00:01:15,740
+vì sao nên dùng load balancer?
+
+35
+00:01:15,740 --> 00:01:17,640
+Vì bạn có thể dàn tải
+
+36
+00:01:17,640 --> 00:01:19,610
+trên nhiều instance phía sau,
+
+37
+00:01:19,610 --> 00:01:21,625
+đồng thời cung cấp một điểm truy cập duy nhất
+
+38
+00:01:21,625 --> 00:01:23,850
+cho ứng dụng như vừa nói.
+
+39
+00:01:23,850 --> 00:01:25,800
+Bạn xử lý mượt mà việc
+
+40
+00:01:25,800 --> 00:01:26,810
+instance phía sau bị lỗi
+
+41
+00:01:26,810 --> 00:01:28,370
+nhờ load balancer có
+
+42
+00:01:28,370 --> 00:01:29,750
+cơ chế health check
+
+43
+00:01:29,750 --> 00:01:31,790
+để biết instance nào được phép
+
+44
+00:01:31,790 --> 00:01:34,110
+nhận lưu lượng hoặc không.
+
+45
+00:01:34,110 --> 00:01:36,220
+Bạn có thể health check cho các instance.
+
+46
+00:01:36,220 --> 00:01:38,150
+Bạn có thể làm SSL termination.
+
+47
+00:01:38,150 --> 00:01:42,100
+Nếu website dùng HTTPS, bạn có thể dùng stickiness bằng cookie,
+
+48
+00:01:42,100 --> 00:01:44,270
+đảm bảo high availability giữa các zone,
+
+49
+00:01:44,270 --> 00:01:45,980
+và tách lưu lượng public
+
+50
+00:01:45,980 --> 00:01:47,600
+khỏi lưu lượng private trên cloud.
+
+51
+00:01:50,600 --> 00:01:54,490
+Những khái niệm này sẽ được đào sâu ở phần sau.
+
+52
+00:01:54,490 --> 00:01:59,050
+Elastic Load Balancer là load balancer dạng managed.
+
+53
+00:01:59,050 --> 00:01:59,903
+AWS quản lý nó,
+
+54
+00:01:59,903 --> 00:02:01,110
+đảm bảo nó luôn hoạt động.
+
+55
+00:02:01,110 --> 00:02:03,660
+AWS lo nâng cấp, bảo trì
+
+56
+00:02:03,660 --> 00:02:06,150
+và high availability.
+
+57
+00:02:06,150 --> 00:02:07,610
+Bạn có vài tham số cấu hình
+
+58
+00:02:07,610 --> 00:02:11,610
+để tinh chỉnh hành vi của load balancer.
+
+59
+00:02:11,610 --> 00:02:14,010
+Nói chung, dùng ELB là lựa chọn hiển nhiên
+
+60
+00:02:14,010 --> 00:02:16,250
+vì rẻ hơn tự dựng load balancer.
+
+61
+00:02:16,250 --> 00:02:17,083
+Hơn nữa,
+
+62
+00:02:17,083 --> 00:02:18,386
+nếu tự quản lý load balancer,
+
+63
+00:02:18,386 --> 00:02:20,570
+khả năng mở rộng sẽ là cơn ác mộng.
+
+64
+00:02:20,570 --> 00:02:22,600
+ELB còn tích hợp với rất nhiều
+
+65
+00:02:22,600 --> 00:02:25,800
+dịch vụ và tính năng của AWS.
+
+66
+00:02:25,800 --> 00:02:30,400
+Tích hợp với EC2, Auto Scaling Groups,
+
+67
+00:02:30,400 --> 00:02:31,970
+Amazon ECS, Certificate Manager,
+
+68
+00:02:31,970 --> 00:02:34,480
+CloudWatch, Route 53,
+
+69
+00:02:34,480 --> 00:02:35,360
+WAF, Global Accelerator,
+
+70
+00:02:35,360 --> 00:02:37,700
+và còn nhiều hơn theo thời gian.
+
+71
+00:02:37,700 --> 00:02:42,240
+Tóm lại, dùng load balancer trên AWS là lựa chọn rõ ràng.
+
+72
+00:02:42,240 --> 00:02:46,090
+Về health check: ELB kiểm tra xem EC2 instance
+
+73
+00:02:46,090 --> 00:02:48,160
+có hoạt động bình thường hay không,
+
+74
+00:02:48,160 --> 00:02:50,960
+để tránh gửi lưu lượng tới instance lỗi.
+
+75
+00:02:50,960 --> 00:02:52,760
+Health check là tối quan trọng
+
+76
+00:02:52,760 --> 00:02:55,670
+cho load balancer, cấu hình bằng
+
+77
+00:02:55,670 --> 00:02:58,520
+protocol/port/route.
+
+78
+00:02:58,520 --> 00:02:59,930
+Ví dụ:
+
+79
+00:02:59,930 --> 00:03:01,670
+protocol: HTTP, port: 4567,
+
+80
+00:03:01,670 --> 00:03:04,990
+endpoint: /health — ứng dụng dễ kiểm tra sức khỏe.
+
+81
+00:03:04,990 --> 00:03:06,896
+Nếu EC2 không phản hồi
+
+82
+00:03:06,896 --> 00:03:10,530
+với mã “healthy”, ELB sẽ ngừng gửi lưu lượng tới đó.
+
+83
+00:03:10,530 --> 00:03:14,030
+Hiện có bốn loại managed load balancer trên AWS.
+
+84
+00:03:14,030 --> 00:03:15,750
+Classic Load Balancer (CLB)
+
+85
+00:03:15,750 --> 00:03:17,980
+— thế hệ cũ (V1) từ 2009 —
+
+86
+00:03:17,980 --> 00:03:20,210
+hỗ trợ HTTP, HTTPS, TCP, SSL/TLS.
+
+87
+00:03:20,210 --> 00:03:22,250
+AWS không khuyến nghị dùng CLB nữa;
+
+88
+00:03:22,250 --> 00:03:24,390
+trên console sẽ hiển thị “deprecated”
+
+89
+00:03:24,390 --> 00:03:25,790
+nhưng vẫn có thể sử dụng.
+
+90
+00:03:25,790 --> 00:03:28,150
+Application Load Balancer (ALB) — 2016 —
+
+91
+00:03:28,150 --> 00:03:31,640
+hỗ trợ HTTP, HTTPS và WebSocket.
+
+92
+00:03:31,640 --> 00:03:44,390
+Network Load Balancer (NLB) — 2017 —
+
+93
+00:03:44,390 --> 00:03:49,210
+hỗ trợ TCP, TLS và UDP.
+
+94
+00:03:49,210 --> 00:03:50,420
+Gateway Load Balancer (GWLB) — 2020 —
+
+95
+00:03:50,420 --> 00:03:54,320
+hoạt động ở network layer (L3) với IP protocol.
+
+96
+00:03:54,320 --> 00:03:56,170
+Nên dùng các load balancer thế hệ mới
+
+97
+00:03:56,170 --> 00:04:00,010
+vì có nhiều tính năng hơn.
+
+98
+00:04:01,330 --> 00:04:03,110
+Load balancer có thể là internal (private)
+
+99
+00:04:03,110 --> 00:04:05,850
+cho truy cập nội bộ, hoặc external (public)
+
+100
+00:04:05,850 --> 00:04:07,260
+cho website/ứng dụng công khai.
+
+101
+00:04:07,260 --> 00:04:10,430
+Về bảo mật: người dùng truy cập load balancer
+
+102
+00:04:10,430 --> 00:04:12,230
+từ bất kỳ đâu qua HTTP/HTTPS.
+
+103
+00:04:12,230 --> 00:04:14,180
+Security group của load balancer
+
+104
+00:04:14,180 --> 00:04:15,940
+cho phép port 80 hoặc 443
+
+105
+00:04:15,940 --> 00:04:19,240
+với nguồn 0.0.0.0/0 (Anywhere).
+
+106
+00:04:19,240 --> 00:04:23,980
+Trong khi đó, EC2 instance chỉ nên cho phép lưu lượng
+
+107
+00:04:23,980 --> 00:04:27,591
+đến từ security group của load balancer.
+
+108
+00:04:27,591 --> 00:04:32,343
+Tức là inbound HTTP port 80, source là security group của ELB.
+
+109
+00:04:32,343 --> 00:04:36,253
+Như vậy, EC2 chỉ nhận lưu lượng nếu nguồn đến từ ELB —
+
+110
+00:04:36,253 --> 00:04:39,710
+một cơ chế bảo mật tăng cường.
+
+111
+00:04:39,710 --> 00:04:41,956
+Đó là phần tổng quan về load balancer.
+
+112
+00:04:41,956 --> 00:04:45,150
+Ở phần tiếp theo, chúng ta sẽ đi sâu vào
+
+113
+00:04:45,150 --> 00:04:46,540
+Classic, Application
+
+114
+00:04:46,540 --> 00:04:48,230
+và Network Load Balancer.
+
+115
+00:04:48,230 --> 00:04:51,220
+Hẹn gặp bạn ở bài tiếp theo.
+

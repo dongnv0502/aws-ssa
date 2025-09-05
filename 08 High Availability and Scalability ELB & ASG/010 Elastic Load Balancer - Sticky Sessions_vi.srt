@@ -1,0 +1,120 @@
+1
+00:00:00,150 --> 00:00:01,710
+Nói về Sticky Sessions (session affinity)
+
+2
+00:00:01,710 --> 00:00:03,420
+cho Elastic Load Balancer.
+
+3
+00:00:03,420 --> 00:00:06,180
+Stickiness nghĩa là client gửi nhiều request
+
+4
+00:00:06,180 --> 00:00:07,380
+đều được phục vụ bởi cùng một backend instance.
+
+5
+00:00:07,380 --> 00:00:09,420
+Ví dụ: ALB có 2 EC2, 3 client.
+
+6
+00:00:09,420 --> 00:00:11,010
+Client 1 đi vào instance A lần đầu,
+
+7
+00:00:11,010 --> 00:00:14,670
+lần sau vẫn được điều hướng tới A (thay vì phân tán đều).
+
+8
+00:00:14,670 --> 00:00:17,460
+Client 2 gắn với instance B; client 3 tương tự.
+
+9
+00:00:17,460 --> 00:00:18,600
+Tính năng này có trên CLB/ALB/NLB.
+
+10
+00:00:18,600 --> 00:00:20,558
+Cơ chế: cookie mang thông tin stickiness và thời hạn.
+
+11
+00:00:20,558 --> 00:00:23,610
+Cookie hết hạn có thể dẫn tới điều hướng sang instance khác.
+
+12
+00:00:23,610 --> 00:00:25,350
+Use case: đảm bảo người dùng luôn tới cùng backend
+
+13
+00:00:25,350 --> 00:00:27,630
+để không mất session (ví dụ thông tin đăng nhập).
+
+14
+00:00:27,630 --> 00:00:30,060
+Nhược điểm: có thể gây mất cân bằng tải nếu người dùng “rất dính”.
+
+15
+00:00:30,060 --> 00:00:33,390
+Các loại cookie:
+
+16
+00:00:33,390 --> 00:00:34,950
+1) Application‑based cookie: do ứng dụng sinh ra,
+
+17
+00:00:34,950 --> 00:00:37,200
+   tên cookie tự đặt (mỗi target group cấu hình riêng),
+
+18
+00:00:37,200 --> 00:00:39,990
+   không được dùng các tên dành riêng: AWSALB, AWSALBAPPOR,
+
+19
+00:00:39,990 --> 00:00:42,300
+   AWSALBTG. ALB cũng có thể sinh cookie app: AWSALBAPP.
+
+20
+00:00:42,300 --> 00:00:44,700
+2) Duration‑based cookie: do load balancer sinh,
+
+21
+00:00:44,700 --> 00:00:46,020
+   tên AWSALB (ALB) hoặc AWSELB (CLB),
+
+22
+00:00:46,020 --> 00:00:47,790
+   thời hạn do load balancer quy định.
+
+23
+00:00:47,790 --> 00:00:49,800
+Gợi ý ghi nhớ: có 2 nhóm — application‑based và duration‑based
+
+24
+00:00:49,800 --> 00:00:52,110
+với tên cookie đặc trưng; hữu ích khi kết hợp CloudFront.
+
+25
+00:00:52,110 --> 00:00:54,663
+Thao tác bật stickiness (demo): vào Target Group -> Actions ->
+
+26
+00:00:55,530 --> 00:00:58,020
+Edit attributes -> Stickiness -> Enable.
+
+27
+00:00:58,020 --> 00:00:59,610
+Chọn Load balancer generated cookie, TTL mặc định (1 ngày).
+
+28
+00:00:59,610 --> 00:01:01,920
+Lưu thay đổi và quan sát trong DevTools:
+
+29
+00:01:01,920 --> 00:01:04,830
+response set‑cookie (hết hạn ngày mai), request gửi lại cookie,
+
+30
+00:01:04,830 --> 00:01:06,480
+và các lần refresh đều trỏ về cùng một instance.
+

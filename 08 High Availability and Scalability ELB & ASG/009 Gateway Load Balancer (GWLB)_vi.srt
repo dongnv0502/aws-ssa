@@ -1,0 +1,108 @@
+1
+00:00:00,000 --> 00:00:02,530
+Giờ nói về loại load balancer mới: Gateway Load Balancer.
+
+2
+00:00:02,530 --> 00:00:04,410
+GWLB dùng để triển khai, scale, quản lý
+
+3
+00:00:04,410 --> 00:00:06,750
+các thiết bị mạng ảo (third‑party appliances) trên AWS.
+
+4
+00:00:06,750 --> 00:00:10,370
+Bạn dùng GWLB khi muốn toàn bộ lưu lượng mạng
+
+5
+00:00:10,370 --> 00:00:12,350
+đi qua firewall, IDS/IPS,
+
+6
+00:00:12,350 --> 00:00:15,330
+deep packet inspection, hoặc chỉnh sửa payload ở tầng mạng.
+
+7
+00:00:15,330 --> 00:00:18,310
+Mô hình: bình thường user -> ALB -> ứng dụng.
+
+8
+00:00:18,310 --> 00:00:22,110
+Với GWLB, bạn muốn mọi lưu lượng đi qua cụm “appliance” trước
+
+9
+00:00:22,110 --> 00:00:25,330
+(các EC2 chạy firewall/IDS) rồi mới vào ứng dụng.
+
+10
+00:00:25,330 --> 00:00:27,300
+GWLB giúp việc này đơn giản: bạn tạo GWLB,
+
+11
+00:00:27,300 --> 00:00:29,730
+route table VPC sẽ được cập nhật phù hợp.
+
+12
+00:00:29,730 --> 00:00:32,009
+Toàn bộ traffic tới trước hết vào GWLB,
+
+13
+00:00:32,009 --> 00:00:34,019
+GWLB phân phối đến target group của appliances.
+
+14
+00:00:34,019 --> 00:00:37,050
+Appliance phân tích/cho phép/chặn; nếu cho phép,
+
+15
+00:00:37,050 --> 00:00:41,220
+trả về GWLB và GWLB forward đến ứng dụng (minh bạch với app).
+
+16
+00:00:41,220 --> 00:00:45,010
+GWLB hoạt động ở Layer 3 (IP). Hai chức năng chính:
+
+17
+00:00:45,010 --> 00:00:49,010
+- Transparent network gateway: một điểm vào/ra duy nhất cho VPC.
+
+18
+00:00:49,010 --> 00:00:53,060
+- Load balancer: phân phối lưu lượng tới các appliances.
+
+19
+00:00:53,060 --> 00:00:57,520
+GWLB dùng giao thức GENEVE trên port 6081 để đóng gói traffic.
+
+20
+00:00:57,520 --> 00:01:01,270
+Gặp “GENEVE:6081” trong đề -> nghĩ tới GWLB.
+
+21
+00:01:01,270 --> 00:01:04,250
+Target group của GWLB: các thiết bị mạng ảo
+
+22
+00:01:04,250 --> 00:01:06,560
+— có thể là EC2 (đăng ký theo instance ID)
+
+23
+00:01:06,560 --> 00:01:09,020
+hoặc theo IP (phải là private IP; có thể là on‑prem).
+
+24
+00:01:09,020 --> 00:01:13,130
+Thực hành GWLB phức tạp nên không demo tại đây.
+
+25
+00:01:13,130 --> 00:01:16,800
+Điều quan trọng là nắm sơ đồ luồng lưu lượng qua GWLB.
+
+26
+00:01:16,800 --> 00:01:21,180
+Chỉ cần nhớ GWLB = Layer3, GENEVE:6081, appliances target group,
+
+27
+00:01:21,180 --> 00:01:23,720
+điều hướng toàn bộ traffic qua lớp bảo mật trước khi vào app.
+

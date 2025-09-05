@@ -1,0 +1,232 @@
+1
+00:00:00,000 --> 00:00:01,859
+Chúng ta sẽ thực hành tạo load balancer.
+
+2
+00:00:01,859 --> 00:00:03,450
+Nhưng trước hết cần có đích để gửi lưu lượng.
+
+3
+00:00:03,450 --> 00:00:05,670
+Vì vậy, ta sẽ khởi tạo các EC2 Instance.
+
+4
+00:00:05,670 --> 00:00:08,940
+Tôi chọn Launch instances và tạo hai instance.
+
+5
+00:00:08,940 --> 00:00:11,370
+Bên phải tôi đặt số lượng là 2,
+
+6
+00:00:11,370 --> 00:00:13,350
+tên là My First Instance.
+
+7
+00:00:13,350 --> 00:00:16,500
+Instance thứ hai sẽ đổi tên sau.
+
+8
+00:00:16,500 --> 00:00:18,870
+Chọn Amazon Linux 2.
+
+9
+00:00:18,870 --> 00:00:22,050
+Chọn loại t2.micro.
+
+10
+00:00:22,050 --> 00:00:25,650
+Tiếp tục không dùng key pair (không cần SSH),
+
+11
+00:00:25,650 --> 00:00:27,900
+cần thì dùng EC2 Instance Connect.
+
+12
+00:00:27,900 --> 00:00:29,520
+Network settings: chọn security group
+
+13
+00:00:29,520 --> 00:00:32,850
+Launch Wizard 1 (cho phép HTTP và SSH).
+
+14
+00:00:32,850 --> 00:00:36,030
+Dùng cấu hình storage mặc định.
+
+15
+00:00:36,030 --> 00:00:37,800
+Phần Advanced details: thêm
+
+16
+00:00:37,800 --> 00:00:41,130
+EC2 User Data (dán script sẵn có).
+
+17
+00:00:41,130 --> 00:00:44,610
+Script này khởi tạo EC2 như ta đã làm trước đó.
+
+18
+00:00:44,610 --> 00:00:47,820
+Khởi tạo hai instance và xem All instances.
+
+19
+00:00:47,820 --> 00:00:51,300
+Đổi tên instance thứ hai thành My Second Instance.
+
+20
+00:00:51,300 --> 00:00:52,133
+Chờ các instance sẵn sàng.
+
+21
+00:00:52,133 --> 00:00:54,150
+Khi đã sẵn sàng, copy IPv4 của instance đầu,
+
+22
+00:00:54,150 --> 00:00:57,210
+dán vào trình duyệt: thấy “hello world”.
+
+23
+00:00:57,210 --> 00:01:01,230
+Làm tương tự với instance thứ hai: cũng thấy “hello world”.
+
+24
+00:01:01,230 --> 00:01:04,349
+Giờ ta muốn chỉ một URL truy cập cả hai instance,
+
+25
+00:01:04,349 --> 00:01:05,670
+và cân bằng tải giữa chúng.
+
+26
+00:01:05,670 --> 00:01:08,520
+Vì vậy, dùng load balancer.
+
+27
+00:01:08,520 --> 00:01:10,680
+Đi tới Load balancers, Create load balancer.
+
+28
+00:01:10,680 --> 00:01:13,170
+Có nhiều loại: ở demo này dùng Application Load Balancer,
+
+29
+00:01:13,170 --> 00:01:15,010
+nhưng bạn cần phân biệt ALB, NLB, GWLB.
+
+30
+00:01:17,130 --> 00:01:20,130
+ALB dành cho HTTP/HTTPS.
+
+31
+00:01:20,130 --> 00:01:22,830
+NLB dành cho TCP/UDP hoặc TLS over TCP,
+
+32
+00:01:22,830 --> 00:01:27,210
+phù hợp hiệu năng cực cao (hàng triệu RPS, độ trễ cực thấp).
+
+33
+00:01:27,210 --> 00:01:30,510
+GWLB dùng cho bảo mật: IDS/IPS, firewall, phân tích lưu lượng.
+
+34
+00:01:30,510 --> 00:01:32,880
+CLB có thể đã bị loại bỏ ở thời điểm bạn xem.
+
+35
+00:01:32,880 --> 00:01:36,930
+Tập trung tạo ALB: đặt tên DemoALB.
+
+36
+00:01:36,930 --> 00:01:38,400
+Scheme: internet‑facing, Address type: IPv4.
+
+37
+00:01:38,400 --> 00:01:41,280
+Network mapping: chọn tất cả Availability Zone.
+
+38
+00:01:41,280 --> 00:01:45,030
+Chỉ định security group (tạo mới cho ALB).
+
+39
+00:01:45,030 --> 00:01:46,950
+Listeners & routing: route HTTP:80
+
+40
+00:01:46,950 --> 00:01:51,450
+tới một target group (nhóm các EC2 instance).
+
+41
+00:01:51,450 --> 00:01:53,580
+Tạo target group mới: demo-tg-alb,
+
+42
+00:01:53,580 --> 00:01:55,280
+Target type: Instances, Protocol: HTTP:80,
+
+43
+00:01:56,850 --> 00:01:59,610
+HTTP version 1, health check giữ mặc định.
+
+44
+00:01:59,610 --> 00:02:01,350
+Đăng ký cả hai EC2 trên port 80,
+
+45
+00:02:01,350 --> 00:02:03,270
+Add to registered targets và Create.
+
+46
+00:02:03,270 --> 00:02:06,060
+Chọn target group demo-tg-alb cho listener 80.
+
+47
+00:02:06,060 --> 00:02:09,540
+Tạo load balancer, chờ Provisioning -> Active.
+
+48
+00:02:09,540 --> 00:02:12,510
+Copy DNS name của ALB, mở trong tab mới => hello world.
+
+49
+00:02:12,510 --> 00:02:15,060
+Refresh liên tục: “target” thay đổi
+
+50
+00:02:15,060 --> 00:02:18,510
+vì ALB luân phiên giữa hai EC2.
+
+51
+00:02:18,510 --> 00:02:21,060
+Vào Target group -> Targets: cả hai “healthy”.
+
+52
+00:02:21,060 --> 00:02:23,640
+ALB sẽ gửi lưu lượng tới cả hai lần lượt.
+
+53
+00:02:23,640 --> 00:02:26,250
+Nếu dừng (Stop) instance thứ nhất,
+
+54
+00:02:26,250 --> 00:02:27,900
+nó sẽ trở thành “unhealthy/unused”
+
+55
+00:02:27,900 --> 00:02:31,290
+và ALB chỉ gửi tới instance còn chạy.
+
+56
+00:02:31,290 --> 00:02:34,173
+Khởi động lại instance: health chuyển từ initial -> healthy.
+
+57
+00:02:34,173 --> 00:02:37,290
+Refresh ALB: hello world đến từ cả hai instance.
+
+58
+00:02:37,290 --> 00:02:40,050
+Hoàn tất: ta đã tạo ALB và target group với 2 targets.
+

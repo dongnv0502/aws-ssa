@@ -1,0 +1,128 @@
+1
+00:00:01,470 --> 00:00:02,640
+Giờ chúng ta thực hành tạo Network Load Balancer.
+
+2
+00:00:02,640 --> 00:00:05,850
+Tạo một NLB và đặt tên DemoNLB.
+
+3
+00:00:05,850 --> 00:00:08,400
+Chọn Internet‑facing, địa chỉ IPv4.
+
+4
+00:00:08,400 --> 00:00:11,490
+Network mapping: chọn VPC hiện có và bật cả ba AZ.
+
+5
+00:00:11,490 --> 00:00:12,323
+Mỗi AZ sẽ có một subnet
+
+6
+00:00:12,323 --> 00:00:15,933
+và một địa chỉ IPv4 cố định (do AWS cấp).
+
+7
+00:00:16,830 --> 00:00:19,860
+Bạn cũng có thể gán Elastic IP cho từng AZ.
+
+8
+00:00:19,860 --> 00:00:23,400
+Gắn security group cho NLB (khuyến nghị).
+
+9
+00:00:23,400 --> 00:00:26,850
+Tạo security group mới: demo-sg-nlb, inbound HTTP:80 từ Anywhere.
+
+10
+00:00:26,850 --> 00:00:30,900
+Chọn `demo-sg-nlb` cho NLB và bỏ security group mặc định.
+
+11
+00:00:30,900 --> 00:00:33,600
+Listeners & routing: protocol TCP, port 80.
+
+12
+00:00:33,600 --> 00:00:36,240
+Tạo target group mới cho NLB: demo-tg-nlb.
+
+13
+00:00:36,240 --> 00:00:38,850
+Target type: Instances, protocol TCP:80, chọn VPC.
+
+14
+00:00:38,850 --> 00:00:42,390
+Health check: chọn HTTP (app backend là HTTP).
+
+15
+00:00:42,390 --> 00:00:44,340
+Advanced health check: healthy threshold = 2,
+
+16
+00:00:44,340 --> 00:00:46,770
+timeout = 2s, interval = 5s.
+
+17
+00:00:46,770 --> 00:00:49,770
+Đăng ký hai EC2 instances vào target group, Create.
+
+18
+00:00:49,770 --> 00:00:53,670
+Quay lại NLB, chọn demo-tg-nlb cho listener 80 và Create NLB.
+
+19
+00:00:53,670 --> 00:00:57,000
+Khi NLB Active, thử truy cập DNS của NLB.
+
+20
+00:00:57,000 --> 00:00:58,020
+Nếu chưa hoạt động,
+
+21
+00:00:58,020 --> 00:00:58,920
+kiểm tra target group.
+
+22
+00:00:58,920 --> 00:01:01,170
+Nếu targets ở trạng thái Initial/Unhealthy,
+
+23
+00:01:01,170 --> 00:01:05,310
+rất có thể do security group EC2 chưa cho phép NLB.
+
+24
+00:01:05,310 --> 00:01:06,690
+Vào security group của EC2,
+
+25
+00:01:06,690 --> 00:01:10,430
+thêm inbound HTTP:80 với Source = demo-sg-nlb (SG của NLB).
+
+26
+00:01:10,430 --> 00:01:13,623
+Chờ vài giây, targets chuyển sang Healthy.
+
+27
+00:01:14,520 --> 00:01:16,260
+Truy cập lại DNS NLB: thấy Hello World,
+
+28
+00:01:16,260 --> 00:01:18,090
+refresh vài lần IP backend sẽ thay đổi
+
+29
+00:01:18,090 --> 00:01:21,933
+— chứng tỏ đang cân bằng tải giữa hai instance.
+
+30
+00:01:24,120 --> 00:01:24,953
+Tóm lại: NLB có security group,
+
+31
+00:01:24,953 --> 00:01:27,300
+tương tự ALB; cần mở inbound trên EC2 cho SG của NLB.
+
+32
+00:01:27,300 --> 00:01:32,010
+Để tránh phát sinh chi phí, xóa DemoNLB và demo-tg-nlb khi xong.
+

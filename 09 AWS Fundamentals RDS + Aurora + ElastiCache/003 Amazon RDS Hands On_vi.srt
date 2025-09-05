@@ -1,0 +1,276 @@
+1
+00:00:00,300 --> 00:00:01,230
+Bây giờ hãy tạo RDS database đầu tiên.
+
+2
+00:00:01,230 --> 00:00:04,800
+Trong Databases (bên trái), chọn Create database.
+
+3
+00:00:04,800 --> 00:00:06,570
+Chọn database engine.
+
+4
+00:00:06,570 --> 00:00:08,853
+Có 6 loại engine và 2 cách tạo:
+
+5
+00:00:10,230 --> 00:00:11,820
+Standard Create hoặc Easy Create.
+
+6
+00:00:11,820 --> 00:00:14,670
+Để thấy đầy đủ tùy chọn (phục vụ ôn thi), chọn Standard Create.
+
+7
+00:00:14,670 --> 00:00:17,220
+Engine options: Aurora (sẽ học sau),
+
+8
+00:00:17,220 --> 00:00:18,840
+MySQL, MariaDB, PostgreSQL, Oracle,
+
+9
+00:00:18,840 --> 00:00:21,360
+Microsoft SQL Server. Ở đây dùng MySQL.
+
+10
+00:00:21,360 --> 00:00:22,950
+Giữ phiên bản mặc định (ví dụ 8.0.28).
+
+11
+00:00:22,950 --> 00:00:24,810
+Templates: Free tier / Dev‑test / Production.
+
+12
+00:00:24,810 --> 00:00:25,800
+Chọn Production để thấy đủ tùy chọn
+
+13
+00:00:25,800 --> 00:00:28,230
+nhưng sẽ chỉnh lại để nằm trong free tier.
+
+14
+00:00:28,230 --> 00:00:30,030
+Availability & durability:
+
+15
+00:00:30,030 --> 00:00:32,040
+Single DB instance / Multi‑AZ / Multi‑AZ DB cluster.
+
+16
+00:00:32,040 --> 00:00:34,770
+Chọn Single DB instance (free tier).
+
+17
+00:00:34,770 --> 00:00:36,840
+DB identifier: database-1.
+
+18
+00:00:36,840 --> 00:00:39,660
+Master username: admin; nhập mật khẩu.
+
+19
+00:00:39,660 --> 00:00:40,620
+Instance configuration:
+
+20
+00:00:40,620 --> 00:00:43,020
+Chọn lớp: Standard / Memory optimized / Burstable.
+
+21
+00:00:43,020 --> 00:00:45,660
+Để free tier: chọn Burstable, db.t3.micro.
+
+22
+00:00:45,660 --> 00:00:49,290
+Storage type: sản xuất dùng io1; ở đây dùng gp2,
+
+23
+00:00:49,290 --> 00:00:51,630
+allocate 10–20 GB.
+
+24
+00:00:51,630 --> 00:00:54,000
+Bật Storage autoscaling (tăng dung lượng EBS tự động),
+
+25
+00:00:54,000 --> 00:00:56,880
+đặt Max storage ví dụ 1000 GB.
+
+26
+00:00:56,880 --> 00:00:59,100
+Connectivity: tùy chọn “Connect to an EC2 compute resource”
+
+27
+00:00:59,100 --> 00:01:02,280
+để tự cấu hình mạng với một EC2 chỉ định (dành cho mới bắt đầu).
+
+28
+00:01:02,280 --> 00:01:05,519
+Ở đây chọn Don’t connect (tự cấu hình mạng).
+
+29
+00:01:05,519 --> 00:01:07,080
+Chọn VPC, Subnet group,
+
+30
+00:01:07,080 --> 00:01:10,650
+Public access: Yes (để kết nối từ máy cá nhân).
+
+31
+00:01:10,650 --> 00:01:11,483
+Security group: tạo mới
+
+32
+00:01:11,483 --> 00:01:14,460
+ví dụ demo-database-mysql, cho phép TCP 3306.
+
+33
+00:01:14,460 --> 00:01:17,520
+Additional configuration: Database name: mydb.
+
+34
+00:01:17,520 --> 00:01:18,390
+Authentication:
+
+35
+00:01:18,390 --> 00:01:20,130
+Password (hoặc IAM Database Authentication nếu cần).
+
+36
+00:01:20,130 --> 00:01:23,070
+Monitoring: có thể bật Enhanced monitoring (60s granularity),
+
+37
+00:01:23,070 --> 00:01:25,260
+ở đây tắt.
+
+38
+00:01:25,260 --> 00:01:28,080
+Backups: Automated backups, retention 1–35 ngày
+
+39
+00:01:28,080 --> 00:01:31,470
+(0 để tắt). Chọn backup window hoặc No preference.
+
+40
+00:01:31,470 --> 00:01:34,353
+Export logs: có thể export audit log sang CloudWatch Logs.
+
+41
+00:01:35,550 --> 00:01:38,790
+Maintenance window: chọn thời gian update minor version.
+
+42
+00:01:38,790 --> 00:01:40,470
+Deletion protection: bật để tránh xóa nhầm.
+
+43
+00:01:40,470 --> 00:01:44,100
+Chi phí hiển thị (ví dụ ~$17/tháng) có thể không phản ánh free tier;
+
+44
+00:01:44,100 --> 00:01:47,430
+với db.t2.micro hoặc t3.micro vẫn trong free tier.
+
+45
+00:01:47,430 --> 00:01:50,490
+Tạo database.
+
+46
+00:01:50,490 --> 00:01:54,660
+Trong lúc chờ, tải SQLectron (SQL client) và cài đặt.
+
+47
+00:01:54,660 --> 00:01:57,090
+Sau khi DB Available: xem Endpoint và port 3306,
+
+48
+00:01:57,090 --> 00:02:00,390
+kiểm tra Security group inbound TCP 3306 (từ IP của bạn).
+
+49
+00:02:00,390 --> 00:02:02,070
+Nếu không kết nối được, tạm mở Anywhere IPv4
+
+50
+00:02:02,070 --> 00:02:03,300
+(chỉ để thử, sau đó siết lại).
+
+51
+00:02:03,300 --> 00:02:04,890
+Kết nối bằng SQLectron:
+
+52
+00:02:04,890 --> 00:02:06,480
+Thêm connection MySQL, đặt tên RDSDemo,
+
+53
+00:02:06,480 --> 00:02:11,039
+server = endpoint RDS, port 3306, user = admin, DB = mydb.
+
+54
+00:02:12,960 --> 00:02:15,630
+Kết nối thành công: chạy vài lệnh SQL đơn giản để kiểm tra.
+
+55
+00:02:15,630 --> 00:02:17,730
+Từ console RDS, có thể tạo Read replica
+
+56
+00:02:17,730 --> 00:02:19,920
+để tăng năng lực đọc (giữ No cho Multi‑AZ trong ví dụ).
+
+57
+00:02:19,920 --> 00:02:21,750
+Monitoring: xem CPU utilization,
+
+58
+00:02:21,750 --> 00:02:26,750
+Database connections, và nhiều metric khác phục vụ scale.
+
+59
+00:02:27,270 --> 00:02:28,980
+Snapshots: chụp snapshot để restore,
+
+60
+00:02:28,980 --> 00:02:32,160
+khôi phục đến thời điểm (Point‑in‑Time Restore),
+
+61
+00:02:32,160 --> 00:02:35,670
+hoặc migrate snapshot sang Region khác.
+
+62
+00:02:35,670 --> 00:02:37,560
+Sức mạnh của RDS: managed database,
+
+63
+00:02:37,560 --> 00:02:40,473
+Read replicas, Multi‑AZ, thay đổi instance type linh hoạt.
+
+64
+00:05:17,610 --> 00:05:20,670
+Khi xong, nhớ xóa database để tránh phí.
+
+65
+00:05:20,670 --> 00:05:23,070
+Trước hết tắt Deletion protection (Modify -> Disable),
+
+66
+00:05:23,070 --> 00:05:26,970
+Apply immediately, sau đó Delete database.
+
+67
+00:05:26,970 --> 00:05:29,220
+Không cần Final snapshot (nếu không cần dữ liệu),
+
+68
+00:05:29,220 --> 00:05:31,380
+Xác nhận và Delete.
+
+69
+00:05:31,380 --> 00:05:34,590
+Xong bài thực hành, hẹn gặp ở bài tiếp theo.
+

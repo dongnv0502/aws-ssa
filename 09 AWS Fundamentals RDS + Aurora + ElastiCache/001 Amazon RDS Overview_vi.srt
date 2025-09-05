@@ -1,0 +1,376 @@
+1
+00:00:00,330 --> 00:00:01,200
+Chúng ta bắt đầu
+
+2
+00:00:01,200 --> 00:00:03,750
+với tổng quan về AWS RDS.
+
+3
+00:00:03,750 --> 00:00:07,620
+RDS là viết tắt của Relational Database Service,
+
+4
+00:00:07,620 --> 00:00:08,730
+nghĩa là
+
+5
+00:00:08,730 --> 00:00:11,940
+một dịch vụ cơ sở dữ liệu được quản lý cho các CSDL
+
+6
+00:00:11,940 --> 00:00:15,090
+sử dụng SQL làm ngôn ngữ truy vấn.
+
+7
+00:00:15,090 --> 00:00:17,790
+SQL là ngôn ngữ có cấu trúc để truy vấn CSDL.
+
+8
+00:00:17,790 --> 00:00:21,600
+Nó rất phổ biến và chạy trên nhiều engine.
+
+9
+00:00:21,600 --> 00:00:23,220
+Dịch vụ RDS cho phép bạn tạo CSDL
+
+10
+00:00:23,220 --> 00:00:24,750
+trên cloud,
+
+11
+00:00:24,750 --> 00:00:27,000
+và các CSDL này sẽ do AWS quản lý
+
+12
+00:00:27,000 --> 00:00:29,460
+với rất nhiều lợi ích mang lại.
+
+13
+00:00:29,460 --> 00:00:32,520
+Vậy AWS quản lý những database engine nào?
+
+14
+00:00:32,520 --> 00:00:34,470
+Đầu tiên là PostgreSQL,
+
+15
+00:00:34,470 --> 00:00:37,890
+tiếp theo là MySQL, MariaDB, Oracle,
+
+16
+00:00:37,890 --> 00:00:41,490
+Microsoft SQL Server, IBM DB2,
+
+17
+00:00:41,490 --> 00:00:45,120
+và Aurora — cơ sở dữ liệu do AWS phát triển
+
+18
+00:00:45,120 --> 00:00:46,770
+mà chúng ta sẽ học kỹ.
+
+19
+00:00:46,770 --> 00:00:49,020
+Bạn cần nhớ các engine
+
+20
+00:00:49,020 --> 00:00:51,450
+được Amazon RDS hỗ trợ.
+
+21
+00:00:51,450 --> 00:00:53,610
+Tại sao dùng RDS
+
+22
+00:00:53,610 --> 00:00:55,950
+thay vì tự triển khai CSDL
+
+23
+00:00:55,950 --> 00:00:58,260
+trên một EC2 instance?
+
+24
+00:00:58,260 --> 00:00:59,730
+Vì điều đó là làm được.
+
+25
+00:00:59,730 --> 00:01:01,710
+RDS là managed service —
+
+26
+00:01:01,710 --> 00:01:04,349
+AWS cung cấp rất nhiều tính năng
+
+27
+00:01:04,349 --> 00:01:06,720
+chứ không chỉ là một database trần.
+
+28
+00:01:06,720 --> 00:01:08,400
+Ví dụ, việc provisioning
+
+29
+00:01:08,400 --> 00:01:10,200
+database là hoàn toàn tự động,
+
+30
+00:01:10,200 --> 00:01:13,530
+OS bên dưới cũng được patch tự động.
+
+31
+00:01:13,530 --> 00:01:15,690
+Có backup liên tục
+
+32
+00:01:15,690 --> 00:01:19,050
+và bạn có thể restore về một thời điểm cụ thể
+
+33
+00:01:19,050 --> 00:01:21,390
+(Point-in-Time Restore).
+
+34
+00:01:21,390 --> 00:01:22,830
+Có dashboard theo dõi
+
+35
+00:01:22,830 --> 00:01:24,720
+để xem hiệu năng của database.
+
+36
+00:01:24,720 --> 00:01:25,980
+Có read replica,
+
+37
+00:01:25,980 --> 00:01:27,180
+và trong khóa học này có bài riêng
+
+38
+00:01:27,180 --> 00:01:28,680
+về read replica.
+
+39
+00:01:28,680 --> 00:01:31,590
+Để cải thiện hiệu năng đọc, bạn có thể bật Multi-AZ,
+
+40
+00:01:31,590 --> 00:01:33,840
+và chúng ta cũng có phần về Multi-AZ
+
+41
+00:01:33,840 --> 00:01:36,300
+hữu ích cho khôi phục thảm họa.
+
+42
+00:01:36,300 --> 00:01:38,910
+Có maintenance window cho nâng cấp,
+
+43
+00:01:38,910 --> 00:01:40,830
+và khả năng scale linh hoạt —
+
+44
+00:01:40,830 --> 00:01:43,860
+scale dọc bằng cách tăng loại instance,
+
+45
+00:01:43,860 --> 00:01:46,470
+scale ngang bằng cách thêm read replica.
+
+46
+00:01:46,470 --> 00:01:48,480
+Lưu trữ nền tảng dùng EBS,
+
+47
+00:01:48,480 --> 00:01:50,130
+điều này ta đã biết,
+
+48
+00:01:50,130 --> 00:01:52,200
+nhưng có một điều là
+
+49
+00:01:52,200 --> 00:01:56,760
+ta không thể SSH vào các RDS instance.
+
+50
+00:01:56,760 --> 00:01:58,379
+Bởi vì đây là managed service,
+
+51
+00:01:58,379 --> 00:02:00,030
+AWS cung cấp dịch vụ cho ta,
+
+52
+00:02:00,030 --> 00:02:03,720
+và ta không có quyền vào EC2 bên dưới.
+
+53
+00:02:03,720 --> 00:02:04,590
+Nhưng điều đó không sao,
+
+54
+00:02:04,590 --> 00:02:05,970
+vì chúng ta nhận được
+
+55
+00:02:05,970 --> 00:02:07,620
+tất cả những tính năng khác
+
+56
+00:02:07,620 --> 00:02:11,940
+nếu tự triển khai database engine trên EC2
+
+57
+00:02:11,940 --> 00:02:14,160
+thì phải tự làm.
+
+58
+00:02:14,160 --> 00:02:16,980
+Một tính năng có thể xuất hiện trong bài thi
+
+59
+00:02:16,980 --> 00:02:18,330
+là RDS Storage Auto Scaling.
+
+60
+00:02:18,330 --> 00:02:20,370
+Khi tạo RDS database,
+
+61
+00:02:20,370 --> 00:02:23,310
+bạn phải chọn dung lượng lưu trữ mong muốn,
+
+62
+00:02:23,310 --> 00:02:25,950
+ví dụ 20 GB.
+
+63
+00:02:25,950 --> 00:02:28,140
+Nếu bạn dùng cơ sở dữ liệu rất nhiều
+
+64
+00:02:28,140 --> 00:02:30,150
+và sắp hết không gian trống,
+
+65
+00:02:30,150 --> 00:02:31,890
+khi bật tính năng này —
+
+66
+00:02:31,890 --> 00:02:33,120
+RDS Storage Auto Scaling —
+
+67
+00:02:33,120 --> 00:02:35,580
+RDS sẽ phát hiện
+
+68
+00:02:35,580 --> 00:02:37,980
+và tự động tăng dung lượng lưu trữ cho bạn,
+
+69
+00:02:37,980 --> 00:02:41,220
+bạn không cần thao tác thủ công như dừng DB để mở rộng.
+
+70
+00:02:41,220 --> 00:02:42,750
+Ý tưởng là ứng dụng của bạn
+
+71
+00:02:42,750 --> 00:02:45,240
+đọc/ghi rất nhiều vào RDS,
+
+72
+00:02:45,240 --> 00:02:46,590
+và rồi tự động
+
+73
+00:02:46,590 --> 00:02:49,140
+với các ngưỡng (threshold) mà ta sẽ xem ngay.
+
+74
+00:02:49,140 --> 00:02:50,880
+Lưu trữ có thể tự scale,
+
+75
+00:02:50,880 --> 00:02:52,230
+đây là một tính năng của RDS.
+
+76
+00:02:52,230 --> 00:02:54,060
+Rất hữu ích.
+
+77
+00:02:54,060 --> 00:02:57,390
+Mục tiêu là giúp bạn tránh
+
+78
+00:02:57,390 --> 00:03:01,500
+phải thao tác thủ công để tăng dung lượng lưu trữ.
+
+79
+00:03:01,500 --> 00:03:04,410
+Bạn cần đặt ngưỡng dung lượng tối đa,
+
+80
+00:03:04,410 --> 00:03:06,900
+tức là giới hạn trên cho việc mở rộng,
+
+81
+00:03:06,900 --> 00:03:09,480
+vì có thể bạn không muốn nó tăng vô hạn.
+
+82
+00:03:09,480 --> 00:03:11,610
+Tự động tăng dung lượng sẽ diễn ra nếu
+
+83
+00:03:11,610 --> 00:03:14,100
+free storage còn dưới 10%
+
+84
+00:03:14,100 --> 00:03:15,990
+so với dung lượng đã cấp,
+
+85
+00:03:15,990 --> 00:03:17,520
+và trạng thái thiếu dung lượng
+
+86
+00:03:17,520 --> 00:03:19,170
+kéo dài hơn 5 phút,
+
+87
+00:03:19,170 --> 00:03:22,530
+và đã qua 6 giờ kể từ lần chỉnh sửa gần nhất.
+
+88
+00:03:22,530 --> 00:03:23,363
+Trong các điều kiện đó,
+
+89
+00:03:23,363 --> 00:03:25,980
+lưu trữ sẽ tự tăng (khi bạn bật tính năng).
+
+90
+00:03:25,980 --> 00:03:28,530
+Rất hữu ích cho ứng dụng
+
+91
+00:03:28,530 --> 00:03:31,110
+có workload khó dự đoán,
+
+92
+00:03:31,110 --> 00:03:34,320
+và hỗ trợ tất cả database engine của RDS.
+
+93
+00:03:34,320 --> 00:03:36,030
+Vậy là xong bài này, hy vọng bạn thích,
+
+94
+00:03:36,030 --> 00:03:37,980
+hẹn gặp lại ở bài tiếp theo.
+

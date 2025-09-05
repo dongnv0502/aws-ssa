@@ -1,0 +1,532 @@
+1
+00:00:00,200 --> 00:00:01,270
+Đây là một bài ngắn gọn,
+
+2
+00:00:01,270 --> 00:00:02,103
+để nhắc lại nhanh
+
+3
+00:00:02,103 --> 00:00:04,290
+khái niệm về scalability và high availability.
+
+4
+00:00:04,290 --> 00:00:05,350
+Mức này khá cơ bản,
+
+5
+00:00:05,350 --> 00:00:07,120
+nên nếu bạn đã rất tự tin về các khái niệm này
+
+6
+00:00:07,120 --> 00:00:09,450
+bạn có thể bỏ qua bài này.
+
+7
+00:00:09,450 --> 00:00:11,550
+Scalability nghĩa là hệ thống/ứng dụng của bạn
+
+8
+00:00:11,550 --> 00:00:14,650
+có thể xử lý tải lớn hơn bằng cách thích ứng.
+
+9
+00:00:14,650 --> 00:00:16,670
+Có hai kiểu scalability.
+
+10
+00:00:16,670 --> 00:00:18,740
+Đó là vertical scalability
+
+11
+00:00:18,740 --> 00:00:22,650
+hoặc horizontal scalability, còn gọi là elasticity.
+
+12
+00:00:22,650 --> 00:00:26,160
+Và scalability khác với high availability.
+
+13
+00:00:26,160 --> 00:00:28,520
+Chúng liên quan nhưng không giống nhau.
+
+14
+00:00:28,520 --> 00:00:31,340
+Tôi sẽ đi sâu vào các khác biệt này
+
+15
+00:00:31,340 --> 00:00:33,660
+và dùng ví dụ trung tâm cuộc gọi (call center)
+
+16
+00:00:33,660 --> 00:00:36,030
+để minh họa cách mọi thứ vận hành.
+
+17
+00:00:36,030 --> 00:00:38,470
+Đầu tiên, nói về vertical scalability.
+
+18
+00:00:38,470 --> 00:00:39,400
+Vertical scalability
+
+19
+00:00:39,400 --> 00:00:40,520
+nghĩa là bạn cần
+
+20
+00:00:40,520 --> 00:00:43,180
+tăng kích thước instance của mình.
+
+21
+00:00:43,180 --> 00:00:45,500
+Lấy ví dụ tổng đài viên.
+
+22
+00:00:45,500 --> 00:00:47,620
+Chúng ta có một nhân viên junior vừa tuyển.
+
+23
+00:00:47,620 --> 00:00:51,070
+Bạn ấy ổn nhưng chỉ xử lý được năm cuộc gọi mỗi phút.
+
+24
+00:00:51,070 --> 00:00:54,730
+Còn một nhân viên senior thì giỏi hơn nhiều.
+
+25
+00:00:54,730 --> 00:00:57,720
+Bạn ấy có thể xử lý đến mười cuộc gọi mỗi phút.
+
+26
+00:00:57,720 --> 00:01:00,760
+Về bản chất, chúng ta đã “nâng cấp” nhân viên junior
+
+27
+00:01:00,760 --> 00:01:03,830
+thành nhân viên senior — nhanh hơn và tốt hơn.
+
+28
+00:01:03,830 --> 00:01:05,290
+Đó là vertical scalability.
+
+29
+00:01:05,290 --> 00:01:07,630
+Như bạn thấy, nó là “tăng lên”.
+
+30
+00:01:07,630 --> 00:01:09,260
+Ví dụ trong EC2,
+
+31
+00:01:09,260 --> 00:01:11,360
+ứng dụng của ta đang chạy trên t2.micro
+
+32
+00:01:11,360 --> 00:01:13,210
+và ta muốn upscale ứng dụng đó,
+
+33
+00:01:13,210 --> 00:01:16,000
+nghĩa là chạy nó trên t2.large.
+
+34
+00:01:16,000 --> 00:01:19,090
+Vậy dùng vertical scalability khi nào?
+
+35
+00:01:19,090 --> 00:01:22,120
+Rất phổ biến với hệ thống không phân tán,
+
+36
+00:01:22,120 --> 00:01:23,510
+như cơ sở dữ liệu.
+
+37
+00:01:23,510 --> 00:01:25,650
+Khá thường gặp với cơ sở dữ liệu, chẳng hạn
+
+38
+00:01:25,650 --> 00:01:27,300
+trên RDS hoặc ElastiCache —
+
+39
+00:01:27,300 --> 00:01:30,660
+các dịch vụ này có thể scale theo chiều dọc
+
+40
+00:01:30,660 --> 00:01:33,073
+bằng cách nâng cấp loại instance bên dưới,
+
+41
+00:01:33,940 --> 00:01:35,180
+mặc dù thường sẽ có giới hạn
+
+42
+00:01:35,180 --> 00:01:37,710
+cho việc scale dọc
+
+43
+00:01:37,710 --> 00:01:39,280
+do phần cứng giới hạn.
+
+44
+00:01:39,280 --> 00:01:40,900
+Nhưng vertical scalability
+
+45
+00:01:40,900 --> 00:01:44,010
+vẫn phù hợp cho rất nhiều trường hợp.
+
+46
+00:01:44,010 --> 00:01:46,570
+Giờ nói về horizontal scalability.
+
+47
+00:01:46,570 --> 00:01:47,880
+Horizontal scalability nghĩa là
+
+48
+00:01:47,880 --> 00:01:50,970
+bạn tăng số lượng instance/hệ thống
+
+49
+00:01:50,970 --> 00:01:52,560
+cho ứng dụng của mình.
+
+50
+00:01:52,560 --> 00:01:54,420
+Quay lại ví dụ call center.
+
+51
+00:01:54,420 --> 00:01:57,450
+Ta có một tổng đài viên đang bị quá tải.
+
+52
+00:01:57,450 --> 00:01:59,150
+Tôi không muốn scale dọc nữa,
+
+53
+00:01:59,150 --> 00:02:01,250
+tôi muốn tuyển thêm tổng đài viên thứ hai
+
+54
+00:02:01,250 --> 00:02:02,900
+và như vậy tôi đã tăng gấp đôi công suất.
+
+55
+00:02:02,900 --> 00:02:05,140
+Thực ra, tôi sẽ tuyển thêm người thứ ba.
+
+56
+00:02:05,140 --> 00:02:05,973
+Bạn biết gì không?
+
+57
+00:02:05,973 --> 00:02:07,600
+Tôi sẽ tuyển thêm sáu người.
+
+58
+00:02:07,600 --> 00:02:11,020
+Tôi đã scale ngang (horizontally) call center của mình.
+
+59
+00:02:11,020 --> 00:02:12,770
+Khi bạn scale ngang,
+
+60
+00:02:12,770 --> 00:02:15,310
+điều đó ngụ ý bạn có hệ thống phân tán
+
+61
+00:02:15,310 --> 00:02:17,830
+— khá phổ biến với web application
+
+62
+00:02:17,830 --> 00:02:19,130
+hoặc ứng dụng hiện đại —
+
+63
+00:02:19,130 --> 00:02:19,963
+nhưng nhớ rằng
+
+64
+00:02:19,963 --> 00:02:23,280
+không phải ứng dụng nào cũng có thể phân tán.
+
+65
+00:02:23,280 --> 00:02:26,960
+Ngày nay scale ngang khá dễ nhờ dịch vụ đám mây
+
+66
+00:02:26,960 --> 00:02:29,850
+như Amazon EC2 —
+
+67
+00:02:29,850 --> 00:02:33,003
+chỉ cần vài cú nhấp chuột là xong,
+
+68
+00:02:34,130 --> 00:02:37,140
+đột nhiên ta có thêm một EC2 instance mới
+
+69
+00:02:37,140 --> 00:02:40,040
+và có thể scale ngang ứng dụng của mình.
+
+70
+00:02:40,040 --> 00:02:42,020
+Giờ nói về high availability.
+
+71
+00:02:42,020 --> 00:02:43,720
+High availability thường đi kèm
+
+72
+00:02:43,720 --> 00:02:46,270
+với scale ngang, nhưng không phải lúc nào cũng vậy.
+
+73
+00:02:46,270 --> 00:02:47,430
+High availability nghĩa là
+
+74
+00:02:47,430 --> 00:02:49,530
+bạn chạy ứng dụng/hệ thống của mình
+
+75
+00:02:49,530 --> 00:02:51,530
+ở ít nhất hai data center,
+
+76
+00:02:51,530 --> 00:02:54,410
+hoặc hai Availability Zone trong AWS.
+
+77
+00:02:54,410 --> 00:02:56,320
+Mục tiêu của high availability
+
+78
+00:02:56,320 --> 00:02:58,690
+là có thể sống sót khi một data center gặp sự cố,
+
+79
+00:02:58,690 --> 00:03:02,320
+nếu một nơi ngừng hoạt động, ta vẫn còn nơi khác chạy.
+
+80
+00:03:02,320 --> 00:03:04,430
+Quay lại ví dụ tổng đài viên.
+
+81
+00:03:04,430 --> 00:03:06,240
+Tôi có thể đặt ba người
+
+82
+00:03:06,240 --> 00:03:07,820
+ở tòa nhà thứ nhất tại New York,
+
+83
+00:03:07,820 --> 00:03:10,356
+và ba người còn lại
+
+84
+00:03:10,356 --> 00:03:11,189
+ở tòa nhà thứ hai
+
+85
+00:03:11,189 --> 00:03:14,230
+ở bờ bên kia nước Mỹ, tại San Francisco.
+
+86
+00:03:14,230 --> 00:03:16,130
+Nếu tòa nhà ở New York
+
+87
+00:03:16,130 --> 00:03:19,720
+mất kết nối Internet hoặc đường dây điện thoại,
+
+88
+00:03:19,720 --> 00:03:21,640
+thì cũng không sao, họ tạm thời không làm việc được
+
+89
+00:03:21,640 --> 00:03:23,520
+nhưng tòa nhà ở San Francisco
+
+90
+00:03:23,520 --> 00:03:26,370
+vẫn bình thường và vẫn nhận cuộc gọi.
+
+91
+00:03:26,370 --> 00:03:30,250
+Như vậy, call center của tôi là highly available.
+
+92
+00:03:30,250 --> 00:03:32,720
+High availability cũng có thể ở dạng passive,
+
+93
+00:03:32,720 --> 00:03:36,150
+ví dụ như RDS Multi AZ —
+
+94
+00:03:36,150 --> 00:03:38,870
+đó là dạng high availability thụ động;
+
+95
+00:03:38,870 --> 00:03:40,550
+nhưng cũng có thể là active
+
+96
+00:03:40,550 --> 00:03:42,600
+khi ta scale ngang.
+
+97
+00:03:42,600 --> 00:03:43,660
+Ví dụ như
+
+98
+00:03:43,660 --> 00:03:46,310
+tôi có các cuộc gọi được xử lý ở cả hai tòa nhà.
+
+99
+00:03:46,310 --> 00:03:48,190
+Họ đều xử lý cuộc gọi cùng lúc.
+
+100
+00:03:48,190 --> 00:03:49,890
+Vậy với EC2 thì sao?
+
+101
+00:03:49,890 --> 00:03:51,240
+Scale dọc vẫn là
+
+102
+00:03:51,240 --> 00:03:52,900
+tăng kích thước instance —
+
+103
+00:03:52,900 --> 00:03:54,740
+scale up hoặc scale down.
+
+104
+00:03:54,740 --> 00:03:56,960
+Ví dụ loại instance nhỏ nhất
+
+105
+00:03:56,960 --> 00:04:01,960
+trên AWS hiện nay là t2.nano (0.5 GB RAM, 1 vCPU),
+
+106
+00:04:02,160 --> 00:04:05,730
+còn lớn nhất là A u-t12tb1.metal,
+
+107
+00:04:05,730 --> 00:04:10,730
+có 12.3 TB RAM và 450 vCPU —
+
+108
+00:04:10,890 --> 00:04:12,210
+một instance rất lớn
+
+109
+00:04:12,210 --> 00:04:13,920
+và chắc chắn sẽ còn lớn hơn theo thời gian.
+
+110
+00:04:13,920 --> 00:04:15,130
+Bạn có thể scale dọc
+
+111
+00:04:15,130 --> 00:04:17,640
+từ cực nhỏ đến cực lớn.
+
+112
+00:04:17,640 --> 00:04:19,149
+Scale ngang nghĩa là bạn tăng
+
+113
+00:04:19,149 --> 00:04:21,519
+số lượng instance đang có.
+
+114
+00:04:21,519 --> 00:04:22,760
+Trong AWS, đó là scale out/in.
+
+115
+00:04:22,760 --> 00:04:26,170
+Out: tăng số lượng instance.
+
+116
+00:04:26,170 --> 00:04:28,600
+In: giảm số lượng instance —
+
+117
+00:04:28,600 --> 00:04:31,120
+áp dụng cho Auto Scaling Group hoặc Load Balancer.
+
+118
+00:04:31,120 --> 00:04:32,180
+Cuối cùng, high availability
+
+119
+00:04:32,180 --> 00:04:34,480
+là khi bạn chạy cùng ứng dụng
+
+120
+00:04:34,480 --> 00:04:36,020
+trên nhiều AZ (multi-AZ).
+
+121
+00:04:36,020 --> 00:04:38,220
+Ví dụ Auto Scaling Group
+
+122
+00:04:38,220 --> 00:04:40,590
+có bật multi-AZ,
+
+123
+00:04:40,590 --> 00:04:42,340
+hoặc Load Balancer cũng bật multi-AZ.
+
+124
+00:04:42,340 --> 00:04:43,810
+Vậy là xong.
+
+125
+00:04:43,810 --> 00:04:47,100
+Một lượt tóm tắt nhanh về high availability và scalability.
+
+126
+00:04:47,100 --> 00:04:47,933
+
+
+127
+00:04:47,933 --> 00:04:49,580
+Bạn cần nắm vững các khái niệm này
+
+128
+00:04:49,580 --> 00:04:51,880
+để làm bài thi vì đôi khi đề có “gài”.
+
+129
+00:04:51,880 --> 00:04:53,370
+Nhưng thực ra khá dễ nếu bạn hiểu bản chất.
+
+130
+00:04:53,370 --> 00:04:55,260
+Hãy nhớ ví dụ call center
+
+131
+00:04:55,260 --> 00:04:56,650
+khi gặp các câu hỏi này.
+
+132
+00:04:56,650 --> 00:04:58,470
+Được rồi, ổn rồi.
+
+133
+00:04:58,470 --> 00:05:00,040
+Hẹn gặp bạn ở bài tiếp theo.
+

@@ -1,0 +1,100 @@
+1
+00:00:00,510 --> 00:00:03,150
+Cross‑Zone Load Balancing (cân bằng tải xuyên AZ).
+
+2
+00:00:03,150 --> 00:00:06,060
+Ví dụ mất cân bằng: AZ1 có 2 EC2, AZ2 có 8 EC2.
+
+3
+00:00:06,060 --> 00:00:08,100
+Mỗi AZ có một instance của load balancer (ALB).
+
+4
+00:00:08,100 --> 00:00:10,110
+Với Cross‑Zone bật:
+
+5
+00:00:10,110 --> 00:00:11,850
+mỗi ALB instance phân phối đều
+
+6
+00:00:11,850 --> 00:00:13,167
+cho tất cả 10 EC2 ở mọi AZ.
+
+7
+00:00:13,167 --> 00:00:15,540
+Client gửi 50% tới ALB ở AZ1, 50% tới ALB ở AZ2,
+
+8
+00:00:15,540 --> 00:00:18,030
+nhưng mỗi ALB lại chia đều 10% cho từng EC2 (10 instance).
+
+9
+00:00:18,030 --> 00:00:19,770
+Kết quả: tải được dàn đều trên tất cả EC2.
+
+10
+00:00:19,770 --> 00:00:21,720
+Với Cross‑Zone tắt:
+
+11
+00:00:21,720 --> 00:00:25,080
+mỗi ALB chỉ gửi vào EC2 trong AZ của chính nó.
+
+12
+00:00:25,080 --> 00:00:28,950
+Client vẫn 50/50 theo AZ, nhưng trong AZ1 (2 EC2) mỗi EC2 nhận 25%,
+
+13
+00:00:28,950 --> 00:00:32,310
+trong AZ2 (8 EC2) mỗi EC2 nhận 6.25% — dễ mất cân bằng.
+
+14
+00:00:32,310 --> 00:00:35,520
+Không có đúng/sai tuyệt đối — tùy use case.
+
+15
+00:00:35,520 --> 00:00:39,270
+Mặc định và chi phí:
+
+16
+00:00:39,270 --> 00:00:42,450
+- ALB: Cross‑Zone bật mặc định; không tính phí inter‑AZ data.
+
+17
+00:00:42,450 --> 00:00:45,690
+- NLB/GWLB: Cross‑Zone tắt mặc định; bật lên sẽ phát sinh phí
+
+18
+00:00:45,690 --> 00:00:49,080
+  do lưu lượng đi giữa các AZ.
+
+19
+00:00:49,080 --> 00:00:52,590
+- CLB: tắt mặc định; bật lên không tính phí inter‑AZ data.
+
+20
+00:00:52,590 --> 00:00:55,320
+Demo nhanh:
+
+21
+00:00:55,320 --> 00:00:58,440
+- NLB: Attributes -> Cross‑Zone Load Balancing -> On (sẽ tính phí).
+
+22
+00:00:58,440 --> 00:01:01,140
+- ALB: Attributes -> luôn On; tại Target Group
+
+23
+00:01:01,140 --> 00:01:03,360
+  có thể Inherit/Force On/Off (tắt cho TG cụ thể).
+
+24
+00:01:03,360 --> 00:01:05,580
+CLB sắp ngừng; không cần thực hành.
+
+25
+00:01:05,580 --> 00:01:08,640
+Nhớ xóa load balancers sau khi thử để tránh phí.
+

@@ -1,0 +1,280 @@
+1
+00:00:00,070 --> 00:00:01,660
+Giờ đến loại load balancer thứ hai:
+
+2
+00:00:01,660 --> 00:00:03,080
+Application Load Balancer (ALB).
+
+3
+00:00:03,080 --> 00:00:05,230
+Đây là load balancer tầng 7 (layer 7) —
+
+4
+00:00:05,230 --> 00:00:07,700
+tức là HTTP.
+
+5
+00:00:07,700 --> 00:00:09,450
+ALB cho phép route
+
+6
+00:00:09,450 --> 00:00:10,810
+đến nhiều ứng dụng HTTP trên nhiều máy.
+
+7
+00:00:10,810 --> 00:00:13,930
+Các máy này được nhóm vào
+
+8
+00:00:13,930 --> 00:00:16,020
+thực thể gọi là target group.
+
+9
+00:00:16,020 --> 00:00:17,660
+Vào phần hands‑on bạn sẽ thấy rất rõ.
+
+10
+00:00:17,660 --> 00:00:18,760
+ALB cho phép load balance
+
+11
+00:00:18,760 --> 00:00:20,760
+đến nhiều ứng dụng trên cùng một EC2 instance
+
+12
+00:00:20,760 --> 00:00:22,520
+(dùng container và ECS).
+
+13
+00:00:22,520 --> 00:00:25,960
+Hỗ trợ HTTP/2 và WebSocket.
+
+14
+00:00:25,960 --> 00:00:28,770
+Hỗ trợ redirect (ví dụ HTTP -> HTTPS)
+
+15
+00:00:28,770 --> 00:00:32,880
+ở ngay tầng load balancer.
+
+16
+00:00:32,880 --> 00:00:34,170
+Hỗ trợ routing theo rule:
+
+17
+00:00:34,170 --> 00:00:35,460
+- Theo đường dẫn (path) của URL
+
+18
+00:00:35,460 --> 00:00:37,560
+  ví dụ example.com/users, example.com/posts.
+
+19
+00:00:37,560 --> 00:00:40,610
+- Theo host name, ví dụ one.example.com
+
+20
+00:00:40,610 --> 00:00:42,410
+  hoặc other.example.com.
+
+21
+00:00:42,410 --> 00:00:45,070
+- Theo query string và header,
+
+22
+00:00:45,070 --> 00:00:46,580
+  ví dụ example.com/reserves?
+
+23
+00:00:46,580 --> 00:00:49,670
+  id=123&order=false có thể route sang target group khác.
+
+24
+00:00:49,670 --> 00:00:54,670
+Tóm lại, ALB rất phù hợp cho microservices
+
+25
+00:00:54,740 --> 00:00:58,840
+và ứng dụng dùng container.
+
+26
+00:00:58,840 --> 00:01:00,770
+Khi học Docker và Amazon ECS,
+
+27
+00:01:00,770 --> 00:01:02,310
+ALB là lựa chọn mặc định
+
+28
+00:01:02,310 --> 00:01:04,069
+nhờ tính năng port mapping,
+
+29
+00:01:04,069 --> 00:01:06,650
+cho phép redirect tới dynamic port
+
+30
+00:01:06,650 --> 00:01:09,380
+trên ECS instance (chi tiết ở phần ECS).
+
+31
+00:01:09,380 --> 00:01:13,170
+So với Classic Load Balancer (CLB):
+
+32
+00:01:13,170 --> 00:01:15,970
+để đặt nhiều ứng dụng sau CLB,
+
+33
+00:01:15,970 --> 00:01:17,820
+bạn cần nhiều CLB (mỗi app một cái),
+
+34
+00:01:17,820 --> 00:01:19,610
+trong khi một ALB có thể đứng trước
+
+35
+00:01:19,610 --> 00:01:21,920
+nhiều ứng dụng.
+
+36
+00:01:21,920 --> 00:01:25,700
+Ví dụ minh họa: một ALB public-facing,
+
+37
+00:01:25,700 --> 00:01:27,330
+đằng sau là target group 1 (EC2)
+
+38
+00:01:27,330 --> 00:01:29,700
+phục vụ route /user, có health check.
+
+39
+00:01:29,700 --> 00:01:31,170
+Target group 2 (EC2)
+
+40
+00:01:31,170 --> 00:01:33,440
+phục vụ ứng dụng search, route /search.
+
+41
+00:01:33,440 --> 00:01:35,430
+Hai microservice độc lập (user, search)
+
+42
+00:01:35,430 --> 00:01:37,800
+đều đứng sau cùng một ALB,
+
+43
+00:01:37,800 --> 00:01:40,230
+và được route thông minh dựa trên URL.
+
+44
+00:01:40,230 --> 00:01:42,290
+Target group có thể là:
+
+45
+00:01:42,290 --> 00:01:44,400
+- EC2 (thường đi kèm Auto Scaling Group),
+
+46
+00:01:44,400 --> 00:01:46,630
+- ECS tasks (xem phần ECS),
+
+47
+00:01:46,630 --> 00:01:48,590
+- Lambda functions (ít người biết),
+
+48
+00:01:48,590 --> 00:01:51,350
+- Địa chỉ IP (phải là private IP).
+
+49
+00:01:51,350 --> 00:01:53,290
+ALB cũng hỗ trợ weighted target group —
+
+50
+00:01:53,290 --> 00:01:55,949
+giúp làm blue/green deployment (dịch dần lưu lượng).
+
+51
+00:02:00,190 --> 00:02:03,340
+Bạn có thể đăng ký private IP của servers
+
+52
+00:02:03,340 --> 00:02:06,320
+vào target group để phân phối.
+
+53
+00:02:06,320 --> 00:02:07,870
+Ví dụ, gửi lưu lượng mobile
+
+54
+00:02:07,870 --> 00:02:11,340
+đến target group 1, desktop đến target group 2
+
+55
+00:02:11,340 --> 00:02:14,130
+bằng routing theo query string/parameters:
+
+56
+00:02:14,130 --> 00:02:16,160
+?Platform=Mobile -> TG1,
+
+57
+00:02:16,160 --> 00:02:18,530
+?Platform=Desktop -> TG2.
+
+58
+00:02:18,530 --> 00:02:22,430
+Lưu ý trước khi hands‑on:
+
+59
+00:02:22,430 --> 00:02:26,560
+- ALB có host name cố định (giống CLB).
+
+60
+00:02:26,560 --> 00:02:28,130
+- Application servers không thấy IP
+
+61
+00:02:28,130 --> 00:02:30,262
+  thật của client trực tiếp.
+
+62
+00:02:30,262 --> 00:02:32,360
+  IP thật được chèn vào header X-Forwarded-For;
+
+63
+00:02:32,360 --> 00:02:34,730
+  port ở X-Forwarded-Port;
+
+64
+00:02:34,730 --> 00:02:37,130
+  protocol ở X-Forwarded-Proto.
+
+65
+00:02:37,130 --> 00:02:39,650
+Client nói chuyện với ALB; ALB thực hiện
+
+66
+00:02:39,650 --> 00:02:42,070
+connection termination rồi kết nối tới EC2
+
+67
+00:02:42,070 --> 00:02:44,210
+bằng IP riêng của ALB.
+
+68
+00:02:44,210 --> 00:02:46,137
+Muốn biết IP client, EC2 đọc
+
+69
+00:02:46,137 --> 00:02:48,340
+các header X‑Forwarded‑*.
+
+70
+00:02:48,340 --> 00:02:51,530
+Xong phần lý thuyết. Chuyển sang hands‑on tạo ALB đầu tiên.
+

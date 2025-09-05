@@ -1,0 +1,288 @@
+1
+00:00:00,180 --> 00:00:01,050
+Giờ chúng ta nói về
+
+2
+00:00:01,050 --> 00:00:03,510
+Network Load Balancer.
+
+3
+00:00:03,510 --> 00:00:05,520
+Đây là load balancer tầng 4 (layer 4),
+
+4
+00:00:05,520 --> 00:00:08,910
+nên nó xử lý được lưu lượng TCP
+
+5
+00:00:08,910 --> 00:00:10,620
+và UDP.
+
+6
+00:00:10,620 --> 00:00:13,950
+Tầng thấp hơn: layer 7 là HTTP,
+
+7
+00:00:13,950 --> 00:00:17,670
+còn layer 4 là TCP và UDP.
+
+8
+00:00:17,670 --> 00:00:21,000
+Đây là phạm vi của Network Load Balancer.
+
+9
+00:00:21,000 --> 00:00:24,390
+Vì vậy, khi đi thi mà thấy UDP,
+
+10
+00:00:24,390 --> 00:00:26,940
+hãy nghĩ đến Network Load Balancer, hoặc TCP.
+
+11
+00:00:26,940 --> 00:00:29,460
+Ngoài ra,
+
+12
+00:00:29,460 --> 00:00:31,140
+Network Load Balancer
+
+13
+00:00:31,140 --> 00:00:33,180
+có hiệu năng rất cao,
+
+14
+00:00:33,180 --> 00:00:36,930
+có thể xử lý hàng triệu request mỗi giây
+
+15
+00:00:36,930 --> 00:00:39,570
+với độ trễ cực thấp.
+
+16
+00:00:39,570 --> 00:00:43,530
+Một đặc điểm khác của Network Load Balancer
+
+17
+00:00:43,530 --> 00:00:48,060
+là mỗi Availability Zone chỉ có một static IP,
+
+18
+00:00:48,060 --> 00:00:52,530
+và bạn có thể gán Elastic IP cho từng AZ.
+
+19
+00:00:52,530 --> 00:00:53,460
+Điều này rất hữu ích
+
+20
+00:00:53,460 --> 00:00:55,800
+khi bạn cần công bố ứng dụng
+
+21
+00:00:55,800 --> 00:00:58,830
+với tập IP cố định (static IP),
+
+22
+00:00:58,830 --> 00:01:00,840
+có thể dùng Elastic IP.
+
+23
+00:01:00,840 --> 00:01:01,777
+Trong đề thi, nếu câu hỏi là:
+
+24
+00:01:01,777 --> 00:01:05,340
+"Ứng dụng của bạn chỉ được truy cập qua 1, 2
+
+25
+00:01:05,340 --> 00:01:06,780
+hoặc 3 địa chỉ IP",
+
+26
+00:01:06,780 --> 00:01:10,200
+thì hãy nghĩ đến Network Load Balancer
+
+27
+00:01:10,200 --> 00:01:11,700
+như một lựa chọn.
+
+28
+00:01:11,700 --> 00:01:16,700
+Tóm lại: hiệu năng cực cao với TCP/UDP, hoặc cần static IP
+
+29
+00:01:17,220 --> 00:01:19,200
+— hãy nghĩ đến Network Load Balancer.
+
+30
+00:01:19,200 --> 00:01:24,200
+Lưu ý: NLB không nằm trong AWS Free Tier.
+
+31
+00:01:24,330 --> 00:01:25,740
+Xem nó hoạt động thế nào nhé.
+
+32
+00:01:25,740 --> 00:01:30,390
+Nó hoạt động khá giống Application Load Balancer.
+
+33
+00:01:30,390 --> 00:01:32,400
+Ta tạo các target group,
+
+34
+00:01:32,400 --> 00:01:36,450
+và Network Load Balancer sẽ chuyển tiếp đến đó.
+
+35
+00:01:36,450 --> 00:01:41,010
+Ta có thể dùng lưu lượng TCP
+
+36
+00:01:41,010 --> 00:01:43,530
+hoặc backend là HTTP,
+
+37
+00:01:43,530 --> 00:01:45,513
+nhưng frontend vẫn dùng TCP.
+
+38
+00:01:47,160 --> 00:01:49,020
+Vậy còn target group thì sao?
+
+39
+00:01:49,020 --> 00:01:50,700
+Đây là phần quan trọng.
+
+40
+00:01:50,700 --> 00:01:53,640
+Target group có thể là EC2 instances.
+
+41
+00:01:53,640 --> 00:01:56,970
+Nghĩa là NLB có thể chuyển tiếp
+
+42
+00:01:56,970 --> 00:02:01,710
+TCP/UDP đến các EC2 instance của bạn.
+
+43
+00:02:01,710 --> 00:02:04,410
+Bạn cũng có thể đăng ký IP address,
+
+44
+00:02:04,410 --> 00:02:05,730
+và các IP này
+
+45
+00:02:05,730 --> 00:02:08,160
+khi khai báo tĩnh (hardcode) thì phải là private IP.
+
+46
+00:02:08,160 --> 00:02:10,139
+Vì sao làm vậy?
+
+47
+00:02:10,139 --> 00:02:11,070
+Bạn có thể dùng
+
+48
+00:02:11,070 --> 00:02:14,520
+private IP của EC2 instance do bạn sở hữu,
+
+49
+00:02:14,520 --> 00:02:16,950
+nhưng cũng có thể dùng private IP
+
+50
+00:02:16,950 --> 00:02:19,440
+của một server trong data center của bạn,
+
+51
+00:02:19,440 --> 00:02:22,170
+và cả hai đều có thể đứng sau
+
+52
+00:02:22,170 --> 00:02:24,960
+cùng một Network Load Balancer.
+
+53
+00:02:24,960 --> 00:02:27,273
+
+
+54
+00:02:28,200 --> 00:02:29,790
+Bạn cũng có thể đặt Network Load Balancer
+
+55
+00:02:29,790 --> 00:02:31,110
+ở trước Application Load Balancer.
+
+56
+00:02:31,110 --> 00:02:34,260
+Tức là NLB đứng trước ALB.
+
+57
+00:02:34,260 --> 00:02:38,370
+Vì sao cần cấu hình này?
+
+58
+00:02:38,370 --> 00:02:40,050
+Nhờ NLB, bạn có
+
+59
+00:02:40,050 --> 00:02:42,300
+được các địa chỉ IP cố định,
+
+60
+00:02:42,300 --> 00:02:45,660
+còn nhờ ALB, bạn có toàn bộ rule
+
+61
+00:02:45,660 --> 00:02:48,240
+để xử lý lưu lượng HTTP,
+
+62
+00:02:48,240 --> 00:02:50,370
+vậy nên đây là kết hợp hợp lệ.
+
+63
+00:02:50,370 --> 00:02:53,190
+Điểm cuối cùng cần biết cho kỳ thi:
+
+64
+00:02:53,190 --> 00:02:55,500
+health check của target group thuộc NLB
+
+65
+00:02:55,500 --> 00:02:57,300
+hỗ trợ ba giao thức.
+
+66
+00:02:57,300 --> 00:02:59,820
+Bao gồm TCP, HTTP
+
+67
+00:02:59,820 --> 00:03:02,700
+và HTTPS.
+
+68
+00:03:02,700 --> 00:03:06,120
+Nếu backend của bạn hỗ trợ HTTP
+
+69
+00:03:06,120 --> 00:03:10,380
+hoặc HTTPS, bạn hoàn toàn có thể định nghĩa health check
+
+70
+00:03:10,380 --> 00:03:12,810
+trên các giao thức này.
+
+71
+00:03:12,810 --> 00:03:16,290
+Vậy là xong phần Network Load Balancer.
+
+72
+00:03:16,290 --> 00:03:19,350
+Hẹn gặp bạn ở bài tiếp theo.
+

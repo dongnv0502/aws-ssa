@@ -1,0 +1,268 @@
+1
+00:00:00,090 --> 00:00:00,940
+Trong kỳ thi, cực kỳ quan trọng
+
+2
+00:00:00,940 --> 00:00:02,750
+là phân biệt RDS Read Replicas
+
+3
+00:00:02,750 --> 00:00:05,200
+và Multi-AZ, cũng như hiểu đúng use case của chúng.
+
+4
+00:00:05,200 --> 00:00:08,900
+Bài này dành riêng để giải thích Read Replicas và Multi-AZ.
+
+5
+00:00:08,900 --> 00:00:10,650
+Bắt đầu với Read Replicas.
+
+6
+00:00:10,650 --> 00:00:12,710
+Đúng như tên gọi, Read Replicas
+
+7
+00:00:12,710 --> 00:00:14,730
+giúp bạn scale các tác vụ đọc (reads).
+
+8
+00:00:14,730 --> 00:00:16,840
+Ví dụ: ứng dụng kết nối
+
+9
+00:00:16,840 --> 00:00:19,530
+với một RDS database instance, thực hiện đọc/ghi.
+
+10
+00:00:19,530 --> 00:00:20,850
+Nếu cần scale đọc
+
+11
+00:00:20,850 --> 00:00:22,390
+vì instance chính không đáp ứng kịp,
+
+12
+00:00:22,390 --> 00:00:24,490
+ta có thể tạo tối đa 15 Read Replicas.
+
+13
+00:00:24,490 --> 00:00:27,310
+Chúng có thể ở cùng AZ, khác AZ, hoặc khác Region.
+
+14
+00:00:27,310 --> 00:00:29,490
+Rất quan trọng để ghi nhớ.
+
+15
+00:00:29,490 --> 00:01:01,000
+Giữa instance chính và các Read Replica
+
+16
+00:01:01,000 --> 00:01:03,150
+là replication bất đồng bộ (asynchronous).
+
+17
+00:01:03,150 --> 00:01:05,019
+Vì bất đồng bộ nên dữ liệu ở replica
+
+18
+00:01:05,019 --> 00:01:06,040
+là eventually consistent.
+
+19
+00:01:06,040 --> 00:01:09,110
+Nếu ứng dụng đọc từ replica trước khi dữ liệu kịp sao chép,
+
+20
+00:01:09,110 --> 00:01:11,730
+bạn có thể nhận dữ liệu cũ — đó là bản chất của mô hình này.
+
+21
+00:01:11,730 --> 00:01:13,470
+Read Replica rất hữu ích để scale đọc,
+
+22
+00:01:13,470 --> 00:01:14,570
+và cũng có thể được
+
+23
+00:01:14,570 --> 00:01:18,560
+promote thành database độc lập (nhận ghi/đọc riêng).
+
+24
+00:01:18,560 --> 00:01:20,770
+Khi promote, nó rời khỏi cơ chế replication
+
+25
+00:01:20,770 --> 00:01:23,130
+và có vòng đời riêng.
+
+26
+00:01:23,130 --> 00:01:26,750
+Lưu ý: ứng dụng (client) cần cập nhật connection string
+
+27
+00:01:26,750 --> 00:01:28,320
+để tận dụng danh sách các Read Replica.
+
+28
+00:01:28,320 --> 00:01:30,570
+Use case điển hình:
+
+29
+00:01:30,570 --> 00:01:31,450
+Database production phục vụ bình thường.
+
+30
+00:01:31,450 --> 00:01:33,350
+Team khác muốn chạy reporting/analytics.
+
+31
+00:01:33,350 --> 00:01:36,750
+Nếu gắn ứng dụng reporting vào DB chính sẽ quá tải,
+
+32
+00:01:36,750 --> 00:01:40,090
+ảnh hưởng production — không mong muốn.
+
+33
+00:01:40,090 --> 00:01:42,630
+Giải pháp: tạo một Read Replica,
+
+34
+00:01:42,630 --> 00:01:45,240
+replication bất đồng bộ từ DB chính sang replica,
+
+35
+00:01:45,240 --> 00:01:47,370
+reporting chỉ thực hiện SELECT trên replica.
+
+36
+00:01:47,370 --> 00:01:49,880
+Production không bị ảnh hưởng.
+
+37
+00:01:49,880 --> 00:01:51,513
+Nhớ: Read Replica chỉ cho SELECT;
+
+38
+00:01:52,560 --> 00:01:53,713
+không dùng INSERT/UPDATE/DELETE.
+
+39
+00:01:54,630 --> 00:01:57,060
+Chi phí mạng của Read Replica:
+
+40
+00:01:57,060 --> 00:01:58,670
+trong cùng AZ hoặc cross‑AZ,
+
+41
+00:01:58,670 --> 00:02:01,050
+replication traffic được miễn phí vì RDS là managed.
+
+42
+00:02:01,050 --> 00:02:02,625
+Nhưng cross‑Region (ví dụ us‑east‑1
+
+43
+00:02:02,625 --> 00:02:03,840
+-> eu‑west‑1) sẽ tính phí network replication.
+
+44
+00:03:52,710 --> 00:03:55,360
+Bây giờ nói về RDS Multi‑AZ
+
+45
+00:03:55,360 --> 00:03:57,430
+— chủ yếu dùng cho Disaster Recovery.
+
+46
+00:03:59,450 --> 00:04:02,850
+Ứng dụng đọc/ghi vào Master DB ở AZ A.
+
+47
+00:04:02,850 --> 00:04:05,370
+Có synchronous replication sang Standby ở AZ B.
+
+48
+00:04:05,370 --> 00:04:08,620
+Mọi thay đổi trên Master phải được ghi đồng bộ sang Standby.
+
+49
+00:04:08,620 --> 00:04:11,900
+Bạn dùng một DNS name duy nhất để kết nối DB.
+
+50
+00:04:11,900 --> 00:04:14,770
+Khi Master gặp sự cố, failover tự động sang Standby
+
+51
+00:04:14,770 --> 00:04:18,903
+(nhờ DNS), tăng tính sẵn sàng (high availability).
+
+52
+00:05:18,360 --> 00:05:20,550
+Standby sẽ thành Master mới,
+
+53
+00:05:20,550 --> 00:05:22,420
+ứng dụng không cần can thiệp thủ công
+
+54
+00:05:22,420 --> 00:05:25,010
+miễn là tiếp tục kết nối tới endpoint đó.
+
+55
+00:05:25,010 --> 00:05:26,770
+Lưu ý: Multi‑AZ không dùng để scale.
+
+56
+00:05:26,770 --> 00:05:28,560
+Standby chỉ “đứng by”, không đọc/ghi,
+
+57
+00:05:28,560 --> 00:05:30,380
+chỉ để failover khi Master có vấn đề.
+
+58
+00:05:30,380 --> 00:05:33,750
+Câu hỏi: có thể cấu hình Read Replica cũng Multi‑AZ không?
+
+59
+00:05:33,750 --> 00:05:34,980
+Có — và đây là mẹo hay gặp trong đề.
+
+60
+00:05:34,980 --> 00:05:36,110
+Chuyển từ Single‑AZ sang Multi‑AZ
+
+61
+00:05:36,110 --> 00:05:38,800
+là thao tác zero‑downtime (không dừng DB).
+
+62
+00:05:38,800 --> 00:05:40,050
+Chỉ cần Modify database
+
+63
+00:05:40,050 --> 00:05:44,170
+và Enable Multi‑AZ; RDS sẽ tự thực hiện phía sau.
+
+64
+00:05:44,170 --> 00:05:47,130
+Hậu trường: RDS snapshot DB chính,
+
+65
+00:05:47,130 --> 00:05:50,120
+restore ra Standby, sau đó đồng bộ hóa (sync)
+
+66
+00:05:50,120 --> 00:05:53,200
+để Standby bắt kịp Master -> hoàn tất Multi‑AZ.
+
+67
+00:05:53,200 --> 00:05:54,200
+Xong, hẹn gặp ở bài sau.
+
