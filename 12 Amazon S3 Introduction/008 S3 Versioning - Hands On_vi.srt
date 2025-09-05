@@ -1,0 +1,136 @@
+1
+00:00:00,090 --> 00:00:02,400
+Giờ thực hành S3 Versioning.
+
+2
+00:00:02,400 --> 00:00:05,250
+Vào Properties của bucket và bật Versioning.
+
+3
+00:00:05,250 --> 00:00:07,410
+Chỉnh “Bucket versioning” → Enable.
+
+4
+00:00:07,410 --> 00:00:10,500
+Từ giờ, khi ghi đè file sẽ tạo thêm phiên bản (version) mới.
+
+5
+00:00:10,500 --> 00:00:12,480
+Quay lại tab Objects.
+
+6
+00:00:12,480 --> 00:00:14,870
+Giả sử cập nhật website.
+
+7
+00:00:14,870 --> 00:00:17,910
+Mở URL website để xem nội dung hiện tại.
+
+8
+00:00:17,910 --> 00:00:18,743
+Đang hiển thị “I love coffee”.
+
+9
+00:00:18,743 --> 00:00:20,100
+Sửa file thành “I REALLY love coffee”.
+
+10
+00:00:20,100 --> 00:00:22,380
+Lưu lại và upload đè (index.html).
+
+11
+00:00:22,380 --> 00:00:24,990
+Upload thành công.
+
+12
+00:00:24,990 --> 00:00:26,130
+Refresh trang web:
+
+13
+00:00:26,130 --> 00:00:27,540
+thấy “I REALLY love coffee”.
+
+14
+00:00:27,540 --> 00:00:31,530
+Bật “Show versions” để xem Version ID của file.
+
+15
+00:00:31,530 --> 00:00:34,830
+Các file tải lên trước khi bật versioning có Version ID = null.
+
+16
+00:00:34,830 --> 00:00:35,670
+index.html có 2 phiên bản:
+
+17
+00:00:35,670 --> 00:00:38,070
+phiên bản cũ (null) và phiên bản mới (có Version ID).
+
+18
+00:00:38,070 --> 00:00:39,420
+Có thể rollback về bản cũ:
+
+19
+00:00:39,420 --> 00:00:41,400
+chọn Version ID cũ và xoá phiên bản mới.
+
+20
+00:00:41,400 --> 00:00:45,960
+Xoá một Version ID cụ thể là xoá vĩnh viễn (permanent delete).
+
+21
+00:00:45,960 --> 00:00:49,020
+Gõ “permanently delete” để xác nhận.
+
+22
+00:00:49,020 --> 00:00:50,403
+Quay lại và refresh website:
+
+23
+00:00:51,240 --> 00:00:52,470
+trở về “I love coffee”.
+
+24
+00:00:52,470 --> 00:00:54,840
+Nếu tắt “Show versions” và xoá coffee.jpg
+
+25
+00:00:54,840 --> 00:00:57,960
+thì S3 sẽ thêm “delete marker” (không xoá dữ liệu gốc).
+
+26
+00:00:57,960 --> 00:01:00,570
+Bật lại “Show versions” sẽ thấy một delete marker
+
+27
+00:01:00,570 --> 00:01:03,210
+trên coffee.jpg; phiên bản thật vẫn còn phía dưới.
+
+28
+00:01:03,210 --> 00:01:04,860
+Trên website, ảnh sẽ “mất”.
+
+29
+00:01:04,860 --> 00:01:07,950
+Để khôi phục, xoá (permanently) delete marker đó
+
+30
+00:01:07,950 --> 00:01:11,070
+→ bản trước của object được “lộ” lại.
+
+31
+00:01:11,070 --> 00:01:12,360
+Refresh: coffee.jpg xuất hiện.
+
+32
+00:01:12,360 --> 00:01:14,610
+Bạn có thể thử thêm nhiều phiên bản
+
+33
+00:01:14,610 --> 00:01:17,130
+và thao tác xoá/khôi phục để hiểu cơ chế.
+
+34
+00:01:17,130 --> 00:01:18,780
+Hẹn gặp ở bài tiếp theo.
+

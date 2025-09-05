@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on Concurrency: quan sát concurrent executions, throttle, reserved/provisioned.
+
+2
+00:00:06,000 --> 00:00:16,000
+Tạo tải (Artillery/curl), xem CloudWatch metrics/logs, điều chỉnh concurrency & retry.
+

@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+SQS Standard Queue: hàng đợi phân tán, gần vô hạn thông lượng, at‑least‑once.
+
+2
+00:00:06,000 --> 00:00:16,000
+Đảm bảo: best‑effort ordering (có thể lệch thứ tự), thông điệp có thể trùng lặp.
+
+3
+00:00:16,000 --> 00:00:28,000
+Thành phần: Producer, Queue, Consumer; Visibility Timeout, DLQ, Long Polling.
+

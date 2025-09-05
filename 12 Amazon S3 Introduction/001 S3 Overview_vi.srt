@@ -1,0 +1,312 @@
+1
+00:00:00,360 --> 00:00:03,660
+Chào mừng bạn đến với phần Amazon S3.
+
+2
+00:00:03,660 --> 00:00:05,370
+Phần này rất quan trọng
+
+3
+00:00:05,370 --> 00:00:10,370
+vì Amazon S3 là một trong các khối xây dựng chính của AWS
+
+4
+00:00:10,440 --> 00:00:11,910
+và thường được mô tả là
+
+5
+00:00:11,910 --> 00:00:15,090
+dịch vụ lưu trữ có khả năng mở rộng “vô hạn”.
+
+6
+00:00:15,090 --> 00:00:16,590
+Thực tế thì
+
+7
+00:00:16,590 --> 00:00:19,800
+rất nhiều thành phần của web dựa vào Amazon S3.
+
+8
+00:00:19,800 --> 00:00:23,460
+Ví dụ, nhiều website dùng S3 như xương sống,
+
+9
+00:00:23,460 --> 00:00:27,180
+và nhiều dịch vụ AWS cũng tích hợp với S3.
+
+10
+00:00:27,180 --> 00:00:28,950
+Trong phần này, ta sẽ đi tuần tự
+
+11
+00:00:28,950 --> 00:00:32,159
+để học các tính năng chính của S3.
+
+12
+00:00:32,159 --> 00:00:34,950
+S3 có vô số trường hợp sử dụng
+
+13
+00:00:34,950 --> 00:00:36,600
+vì cốt lõi là lưu trữ.
+
+14
+00:00:36,600 --> 00:00:39,630
+S3 dùng cho sao lưu và lưu trữ dữ liệu,
+
+15
+00:00:39,630 --> 00:00:42,900
+cho file, cho “đĩa”, v.v.
+
+16
+00:00:42,900 --> 00:00:44,550
+Dùng cho khôi phục thảm hoạ (DR):
+
+17
+00:00:44,550 --> 00:00:46,860
+chuyển dữ liệu sang region khác.
+
+18
+00:00:46,860 --> 00:00:48,210
+Nếu một region gặp sự cố,
+
+19
+00:00:48,210 --> 00:00:50,670
+dữ liệu của bạn vẫn được sao lưu ở nơi khác.
+
+20
+00:00:50,670 --> 00:00:51,840
+Dùng cho lưu trữ dài hạn (archive):
+
+21
+00:00:51,840 --> 00:00:54,270
+đưa file vào S3 và khôi phục sau này
+
+22
+00:00:54,270 --> 00:00:55,620
+với chi phí rẻ hơn nhiều.
+
+23
+00:00:55,620 --> 00:00:57,900
+Cho mô hình hybrid: nếu bạn có lưu trữ on‑premises
+
+24
+00:00:57,900 --> 00:00:59,310
+và muốn mở rộng lên cloud,
+
+25
+00:00:59,310 --> 00:01:01,680
+S3 là lựa chọn phù hợp.
+
+26
+00:01:01,680 --> 00:01:03,660
+Để host ứng dụng, media (video, ảnh…),
+
+27
+00:01:03,660 --> 00:01:05,850
+để làm data lake (lưu trữ dữ liệu lớn)
+
+28
+00:01:05,850 --> 00:01:07,620
+và phân tích big data,
+
+29
+00:01:07,620 --> 00:01:09,660
+phân phối bản cập nhật phần mềm,
+
+30
+00:01:09,660 --> 00:01:13,890
+host website tĩnh, v.v.
+
+31
+00:01:13,890 --> 00:01:15,570
+Ví dụ: Nasdaq lưu trữ
+
+32
+00:01:15,570 --> 00:01:18,150
+7 năm dữ liệu trong S3 Glacier (dịch vụ lưu trữ lưu trữ/archival),
+
+33
+00:01:18,150 --> 00:01:21,120
+còn Sysco phân tích dữ liệu và rút ra insight từ S3.
+
+34
+00:01:21,120 --> 00:01:23,250
+S3 lưu file trong “bucket”.
+
+35
+00:01:23,250 --> 00:01:26,010
+Bucket giống như thư mục cấp cao nhất.
+
+36
+00:01:26,010 --> 00:01:28,920
+Các file trong S3 bucket được gọi là “object”.
+
+37
+00:01:28,920 --> 00:01:32,370
+Bucket được tạo trong tài khoản của bạn và phải có tên duy nhất toàn cầu.
+
+38
+00:01:32,370 --> 00:01:35,469
+Tức là tên phải duy nhất giữa mọi region trong tài khoản bạn
+
+39
+00:01:35,469 --> 00:01:38,100
+và giữa mọi tài khoản AWS khác.
+
+40
+00:01:38,100 --> 00:01:41,013
+Đây là thứ duy nhất cần “duy nhất toàn cầu” trong AWS.
+
+41
+00:01:42,060 --> 00:01:45,090
+Bucket được xác định theo region (mức vùng).
+
+42
+00:01:45,090 --> 00:01:48,570
+Mặc dù tên bucket duy nhất toàn cầu,
+
+43
+00:01:48,570 --> 00:01:50,220
+bucket vẫn được tạo ở một region cụ thể.
+
+44
+00:01:50,220 --> 00:01:53,430
+S3 trông như dịch vụ “toàn cầu”,
+
+45
+00:01:53,430 --> 00:01:56,790
+nhưng bucket thực chất nằm trong một region — điều này hay bị nhầm.
+
+46
+00:01:56,790 --> 00:01:59,280
+Quy tắc đặt tên bucket:
+
+47
+00:01:59,280 --> 00:02:01,080
+không chữ hoa, không gạch dưới (_),
+
+48
+00:02:01,080 --> 00:02:03,690
+độ dài 3–63 ký tự,
+
+49
+00:02:03,690 --> 00:02:07,620
+không được giống dạng địa chỉ IP,
+
+50
+00:02:07,620 --> 00:02:08,970
+bắt đầu bằng số/ chữ thường,
+
+51
+00:02:08,970 --> 00:02:11,940
+và một số ràng buộc về tiền tố (prefix).
+
+52
+00:02:11,940 --> 00:02:14,040
+Nói chung dùng chữ, số và dấu gạch nối (-) là ổn.
+
+53
+00:02:14,040 --> 00:02:16,320
+Về object: object là file
+
+54
+00:02:16,320 --> 00:02:18,360
+và có “key”.
+
+55
+00:02:18,360 --> 00:02:22,710
+Key là đường dẫn đầy đủ tới file (full path).
+
+56
+00:02:22,710 --> 00:02:24,750
+Ví dụ, trong bucket (thư mục gốc),
+
+57
+00:02:24,750 --> 00:02:26,940
+key của my-file.txt là “my-file.txt”.
+
+58
+00:02:26,940 --> 00:02:29,520
+Nếu lồng “thư mục”, key sẽ là đường dẫn đầy đủ:
+
+59
+00:02:29,520 --> 00:02:31,770
+my-folder-1/another-folder/my-file.txt
+
+60
+00:02:31,770 --> 00:02:33,990
+Vì vậy key gồm “prefix” và “object name”.
+
+61
+00:02:33,990 --> 00:02:37,260
+Từ ví dụ trên: prefix là “my-folder-1/another-folder”,
+
+62
+00:02:37,260 --> 00:02:40,680
+object name là “my-file.txt”.
+
+63
+00:02:40,680 --> 00:02:44,790
+S3 không có “thư mục” thật sự; UI khiến bạn nghĩ vậy,
+
+64
+00:02:44,790 --> 00:02:47,580
+nhưng mọi thứ trong S3 đều là key (chuỗi tên dài)
+
+65
+00:02:47,580 --> 00:02:48,600
+có dấu gạch chéo.
+
+66
+00:02:48,600 --> 00:02:50,670
+Key = prefix + object name.
+
+67
+00:02:50,670 --> 00:02:53,430
+Object có “value” là nội dung (body).
+
+68
+00:02:53,430 --> 00:02:56,790
+Bạn có thể tải lên hầu như bất cứ file gì vào S3.
+
+69
+00:02:56,790 --> 00:02:59,280
+Kích thước tối đa mỗi object là 5 TB (5,000 GB).
+
+70
+00:02:59,280 --> 00:03:02,520
+Nếu tệp lớn hơn 5 GB, bạn bắt buộc dùng
+
+71
+00:03:02,520 --> 00:03:04,830
+Multi‑Part Upload để tải theo nhiều phần.
+
+72
+00:03:04,830 --> 00:03:10,680
+Ví dụ tệp 5 TB có thể gồm ≥1,000 phần, mỗi phần 5 GB.
+
+73
+00:03:10,680 --> 00:03:14,640
+Object có thể có metadata (cặp key/value) do hệ thống hoặc người dùng đặt
+
+74
+00:03:14,640 --> 00:03:17,070
+để mô tả thêm về file.
+
+75
+00:03:17,070 --> 00:03:22,070
+Có “tags” (tối đa 10 cặp key/value Unicode) — hữu ích cho bảo mật/lifecycle,
+
+76
+00:03:23,550 --> 00:03:25,410
+và có “version ID” nếu bật versioning.
+
+77
+00:03:25,410 --> 00:03:29,010
+Đó là phần mở đầu về Amazon S3.
+
+78
+00:03:29,010 --> 00:03:33,360
+Giờ hãy vào console để thực hành.
+

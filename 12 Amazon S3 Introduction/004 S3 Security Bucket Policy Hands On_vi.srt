@@ -1,0 +1,92 @@
+1
+00:00:00,300 --> 00:00:03,420
+Giờ tạo Bucket Policy
+
+2
+00:00:03,420 --> 00:00:07,920
+để có thể truy cập file coffee qua public URL.
+
+3
+00:00:07,920 --> 00:00:11,010
+Vào tab Permissions.
+
+4
+00:00:11,010 --> 00:00:12,540
+Đầu tiên, cho phép public access
+
+5
+00:00:12,540 --> 00:00:15,480
+ở phần thiết lập của bucket (hiện đang bị chặn).
+
+6
+00:00:15,480 --> 00:00:17,760
+Chỉnh sửa và bỏ tick chặn public access.
+
+7
+00:00:17,760 --> 00:00:20,790
+Chỉ làm điều này khi bạn biết chắc sẽ đặt policy public.
+
+8
+00:00:20,790 --> 00:00:23,940
+Đây là thao tác rủi ro; xác nhận cảnh báo.
+
+9
+00:00:23,940 --> 00:00:25,770
+Nếu đưa dữ liệu công ty lên và bật public,
+
+10
+00:00:25,770 --> 00:00:27,990
+rò rỉ dữ liệu là rất nguy hiểm.
+
+11
+00:00:27,990 --> 00:00:30,480
+Sau khi bật, “Objects can be public”.
+
+12
+00:00:30,480 --> 00:00:31,770
+Tiếp theo, tạo Bucket policy.
+
+13
+00:00:31,770 --> 00:00:35,790
+Xem ví dụ policy trong tài liệu (nhiều use case tham khảo),
+
+14
+00:00:35,790 --> 00:00:39,000
+hoặc dùng AWS Policy Generator để tạo nhanh.
+
+15
+00:00:39,000 --> 00:00:41,550
+Chọn loại: S3 Bucket Policy.
+
+16
+00:00:41,550 --> 00:00:43,650
+Effect: Allow. Principal: * (mọi người).
+
+17
+00:00:43,650 --> 00:00:46,230
+Service: Amazon S3. Action: s3:GetObject.
+
+18
+00:00:46,230 --> 00:00:48,810
+ARN: arn của bucket + "/*" (mọi object trong bucket).
+
+19
+00:00:48,810 --> 00:00:50,220
+Lấy ARN bucket trong UI,
+
+20
+00:00:50,220 --> 00:00:54,930
+dán vào và thêm “/*” ở cuối.
+
+21
+00:00:54,930 --> 00:01:01,110
+Vì GetObject áp dụng cho object (sau dấu /), “*” đại diện mọi object.
+
+22
+00:01:01,110 --> 00:01:04,230
+Thêm statement và Generate Policy, rồi copy
+
+23
+00:01:04,230 --> 00:01:06,630
+dán vào phần Bucket policy trong console.
+

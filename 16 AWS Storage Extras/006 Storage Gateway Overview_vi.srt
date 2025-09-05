@@ -1,0 +1,24 @@
+1
+00:00:00,000 --> 00:00:05,000
+AWS Storage Gateway: kết nối on‑premises với lưu trữ AWS.
+
+2
+00:00:05,000 --> 00:00:16,000
+Các mode:
+
+3
+00:00:16,000 --> 00:00:28,000
+- File Gateway (NFS/SMB → S3 objects)
+
+4
+00:00:28,000 --> 00:00:38,000
+- Volume Gateway (cached/stored volumes, EBS snapshots)
+
+5
+00:00:38,000 --> 00:00:48,000
+- Tape Gateway (ảo hoá băng – VTL → S3/Glacier).
+
+6
+00:00:48,000 --> 00:00:58,000
+Benefit: mở rộng lưu trữ, backup/DR, tích hợp ứng dụng hiện có.
+

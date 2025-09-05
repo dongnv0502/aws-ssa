@@ -1,0 +1,276 @@
+1
+00:00:00,000 --> 00:00:01,220
+Giờ chúng ta sẽ
+
+2
+00:00:01,220 --> 00:00:02,060
+tạo các health check.
+
+3
+00:00:02,060 --> 00:00:03,400
+Ở thanh bên trái,
+
+4
+00:00:03,400 --> 00:00:05,730
+vào Health checks, và tạo health check
+
+5
+00:00:05,730 --> 00:00:08,039
+cho tất cả EC2 instances.
+
+6
+00:00:08,039 --> 00:00:09,800
+Ta sẽ tạo 3 health check.
+
+7
+00:00:09,800 --> 00:00:11,330
+Đầu tiên: cho instance ở us-east-1,
+
+8
+00:00:11,330 --> 00:00:15,900
+loại Endpoint.
+
+9
+00:00:15,900 --> 00:00:18,510
+Chỉ định IP hoặc domain; ta dùng IP.
+
+10
+00:00:18,510 --> 00:00:19,400
+
+
+11
+00:00:19,400 --> 00:00:21,170
+Instance ở us-east-1 ở đây; dán IP vào.
+
+12
+00:00:21,170 --> 00:00:24,020
+Chọn port 80 (HTTP).
+
+13
+00:00:27,540 --> 00:00:30,260
+Path để "/" (root). Với ứng dụng thực tế
+
+14
+00:00:30,260 --> 00:00:31,180
+thường có đường dẫn "/health" trả về trạng thái.
+
+15
+00:00:31,180 --> 00:00:33,800
+Ở đây ta bỏ "/health" và để "/".
+
+16
+00:00:36,030 --> 00:00:37,776
+Cấu hình nâng cao:
+
+17
+00:00:37,776 --> 00:00:39,420
+Chu kỳ chuẩn 30s hoặc nhanh 10s (tốn hơn).
+
+18
+00:00:39,420 --> 00:00:42,090
+Ta để chuẩn để tiết kiệm chi phí.
+
+19
+00:00:42,090 --> 00:00:42,923
+Bao nhiêu lần fail
+
+20
+00:00:42,923 --> 00:00:46,760
+thì tính là thất bại? (đặt số lần theo nhu cầu)
+
+21
+00:00:46,760 --> 00:00:48,790
+Có kiểm tra chuỗi trong 5,120 byte đầu không?
+
+22
+00:00:48,790 --> 00:00:50,850
+Có bật latency graph để theo dõi độ trễ?
+
+23
+00:00:50,850 --> 00:00:52,900
+Có đảo trạng thái (invert) không?
+
+24
+00:00:52,900 --> 00:00:54,600
+Có tắt (disable) không?
+
+25
+00:00:54,600 --> 00:00:55,800
+Tuỳ chỉnh khu vực health checker
+
+26
+00:00:55,800 --> 00:00:57,420
+hay dùng khuyến nghị (recommended)? Ta để mặc định.
+
+27
+00:00:57,420 --> 00:00:59,560
+Có tạo thông báo khi health check fail (alarm) không?
+
+28
+00:00:59,560 --> 00:01:01,130
+Tạm thời chọn No.
+
+29
+00:01:01,130 --> 00:01:02,290
+Health check đầu tiên đã tạo.
+
+30
+00:01:02,290 --> 00:01:05,459
+Tạo health check thứ hai cho AP Southeast-1
+
+31
+00:01:08,463 --> 00:01:10,780
+(ap-southeast-1), nhập IP (không phải hostname), Next, Create.
+
+32
+00:01:10,780 --> 00:01:12,960
+Health check thứ ba cho EU Central-1 (eu-central-1),
+
+33
+00:01:12,960 --> 00:01:17,934
+đặt tên, nhập IP, Next và Create.
+
+34
+00:01:17,934 --> 00:01:20,771
+Health check đã tạo xong.
+
+35
+00:01:20,771 --> 00:01:22,370
+Giờ tôi vào một instance, ví dụ ở Singapore,
+
+36
+00:01:22,370 --> 00:01:23,450
+và trong security group,
+
+37
+00:01:23,450 --> 00:01:25,780
+tôi sẽ chặn port 80 (xoá rule HTTP),
+
+38
+00:01:25,780 --> 00:01:26,613
+để health check đó báo fail.
+
+39
+00:01:26,613 --> 00:01:28,540
+Vào security group, Actions → Edit inbound rules,
+
+40
+00:01:28,540 --> 00:01:30,430
+xoá rule HTTP.
+
+41
+00:01:30,430 --> 00:01:32,940
+Đợi một lúc để health checker chạy,
+
+42
+00:01:32,940 --> 00:01:35,220
+rồi kiểm tra lại.
+
+43
+00:01:35,220 --> 00:01:37,170
+Bạn sẽ thấy 3 health check; một cái unhealthy
+
+44
+00:01:37,170 --> 00:01:38,770
+do tôi đã chặn bằng security group;
+
+45
+00:01:38,770 --> 00:01:40,200
+hai cái còn lại healthy.
+
+46
+00:01:40,200 --> 00:01:43,270
+Có thể xem chi tiết health checker (thời điểm kiểm tra…),
+
+47
+00:01:43,270 --> 00:01:48,270
+và xem lỗi của bản ghi unhealthy: View last failed check
+
+48
+00:01:48,370 --> 00:01:51,010
+sẽ thấy Connection timeout (bị firewall chặn),
+
+49
+00:01:51,010 --> 00:01:54,720
+ở đây firewall chính là security group. Hợp lý.
+
+50
+00:01:54,720 --> 00:01:58,320
+Tiếp theo, tạo Calculated health check
+
+51
+00:01:58,320 --> 00:02:01,560
+(kiểm tra trạng thái các health check khác).
+
+52
+00:02:01,560 --> 00:02:04,500
+Chọn các health check cần monitor,
+
+53
+00:02:04,500 --> 00:02:08,620
+đặt điều kiện: healthy khi 1/3, 2/3, hoặc tất cả đều healthy
+
+54
+00:02:08,620 --> 00:02:10,210
+(kiểu AND/OR tuỳ chọn).
+
+55
+00:02:10,210 --> 00:02:12,280
+Ở đây tôi để “healthy khi tất cả đều healthy”,
+
+56
+00:02:12,280 --> 00:02:15,070
+rồi Next, Next để tạo.
+
+57
+00:02:15,070 --> 00:02:15,903
+Cuối cùng, kiểu health check
+
+58
+00:02:15,903 --> 00:02:18,740
+monitor trạng thái CloudWatch Alarm.
+
+59
+00:02:18,740 --> 00:02:23,050
+Chọn Region của alarm; alarm này có thể theo dõi EC2 private.
+
+60
+00:02:23,050 --> 00:02:25,770
+Đây là cách liên kết “sức khỏe” của resource private
+
+61
+00:02:25,770 --> 00:02:27,990
+với Route 53 health check.
+
+62
+00:02:27,990 --> 00:02:31,070
+Hiện tôi chưa có alarm sẵn để tạo minh hoạ.
+
+63
+00:02:31,070 --> 00:02:33,660
+Calculated health check vừa tạo đang báo Unhealthy
+
+64
+00:02:33,660 --> 00:02:36,130
+vì một trong các health check con unhealthy,
+
+65
+00:02:36,130 --> 00:02:39,480
+đúng như điều kiện ta định nghĩa.
+
+66
+00:02:39,480 --> 00:02:41,320
+Qua đó bạn thấy sức mạnh của health checks.
+
+67
+00:02:41,320 --> 00:02:43,470
+Bài sau, ta sẽ dùng chúng cùng các record
+
+68
+00:02:43,470 --> 00:02:45,823
+trong Route 53.
+
+69
+00:02:45,823 --> 00:02:48,373
+Hẹn gặp bạn ở bài tiếp theo.
+

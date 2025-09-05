@@ -1,0 +1,32 @@
+1
+00:00:00,000 --> 00:00:02,200
+Routing Policy: IP‑based.
+
+2
+00:00:02,200 --> 00:00:06,000
+Định tuyến dựa trên dải IP nguồn (CIDR) của client.
+
+3
+00:00:06,000 --> 00:00:10,000
+Bạn khai báo nhiều bản ghi cùng name/type, mỗi bản ghi cấu hình
+
+4
+00:00:10,000 --> 00:00:14,000
+“Client IP address range” (ví dụ 203.0.113.0/24) và Value tương ứng.
+
+5
+00:00:14,000 --> 00:00:18,000
+Khi client có IP khớp dải nào, Route 53 trả về record của dải đó.
+
+6
+00:00:18,000 --> 00:00:22,000
+Có thể thêm một bản ghi mặc định (không khai CIDR) cho phần còn lại.
+
+7
+00:00:22,000 --> 00:00:26,000
+Use case: định tuyến theo ISP, theo mạng doanh nghiệp, hoặc đối tác.
+
+8
+00:00:26,000 --> 00:00:30,000
+Tùy chọn gắn Health Check cho từng record.
+

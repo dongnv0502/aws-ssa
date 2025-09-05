@@ -1,0 +1,340 @@
+1
+00:00:00,240 --> 00:00:01,230
+Bắt đầu nhé.
+
+2
+00:00:01,230 --> 00:00:03,390
+Trước khi dùng Route 53,
+
+3
+00:00:03,390 --> 00:00:05,850
+tôi sẽ tạo 3 EC2 instance ở các region khác nhau
+
+4
+00:00:05,850 --> 00:00:08,517
+và một Application Load Balancer (ALB).
+
+5
+00:00:08,517 --> 00:00:10,314
+Tại một region, tôi vào Instances
+
+6
+00:00:10,314 --> 00:00:13,530
+và Launch an instance.
+
+7
+00:00:13,530 --> 00:00:16,736
+Chọn Amazon Linux 2,
+
+8
+00:00:16,736 --> 00:00:20,250
+kiến trúc mặc định, loại T2.micro.
+
+9
+00:00:20,250 --> 00:00:22,770
+Không cần key pair, nếu cần tôi sẽ dùng
+
+10
+00:00:22,770 --> 00:00:25,039
+EC2 Instance Connect.
+
+11
+00:00:25,039 --> 00:00:26,580
+Ở Network settings,
+
+12
+00:00:26,580 --> 00:00:28,830
+tạo một security group.
+
+13
+00:00:28,830 --> 00:00:32,985
+Cho phép SSH và HTTP từ mọi nơi.
+
+14
+00:00:32,985 --> 00:00:36,630
+Trong Advanced details,
+
+15
+00:00:36,630 --> 00:00:39,630
+chỉ định script EC2 user data.
+
+16
+00:00:39,630 --> 00:00:43,620
+Vào phần Route 53 user script của bạn
+
+17
+00:00:43,620 --> 00:00:47,280
+và copy toàn bộ script.
+
+18
+00:00:47,280 --> 00:00:48,471
+Paste vào đây.
+
+19
+00:00:48,471 --> 00:00:50,280
+Script sẽ hiển thị “hello world” từ instance,
+
+20
+00:00:50,280 --> 00:00:52,590
+giống trước đó.
+
+21
+00:00:52,590 --> 00:00:54,357
+Nhưng giờ ta thêm AZ
+
+22
+00:00:54,357 --> 00:00:55,602
+nơi instance được khởi chạy,
+
+23
+00:00:55,602 --> 00:00:58,590
+qua biến môi trường EC2_AVAILABILITY_ZONE.
+
+24
+00:00:58,590 --> 00:01:01,169
+Vậy ta có thêm thông tin về instance.
+
+25
+00:01:01,169 --> 00:01:03,240
+Giờ tôi launch instance này.
+
+26
+00:01:03,240 --> 00:01:05,498
+
+
+27
+00:01:05,498 --> 00:01:08,943
+Instance đã được tạo và hiện ở đây.
+
+28
+00:01:10,029 --> 00:01:13,382
+Tốt. Tiếp theo tôi sang một region khác,
+
+29
+00:01:13,382 --> 00:01:14,880
+ví dụ N. Virginia (us-east-1).
+
+30
+00:01:14,880 --> 00:01:16,950
+Rồi launch một instance.
+
+31
+00:01:16,950 --> 00:01:21,300
+Cấu hình giống hệt.
+
+32
+00:01:21,300 --> 00:01:23,253
+Không cần key pair.
+
+33
+00:01:24,210 --> 00:01:26,190
+Cho phép HTTP.
+
+34
+00:01:26,190 --> 00:01:28,740
+Trong Advanced details, cung cấp
+
+35
+00:01:28,740 --> 00:01:30,158
+cùng script EC2 user data.
+
+36
+00:01:30,158 --> 00:01:33,240
+Launch instance và xong.
+
+37
+00:01:33,240 --> 00:01:35,670
+
+
+38
+00:01:35,670 --> 00:01:38,733
+Cuối cùng, tôi sang một region nữa, ví dụ Singapore.
+
+39
+00:01:39,870 --> 00:01:42,573
+Ở Singapore, tôi launch một instance,
+
+40
+00:01:46,230 --> 00:01:47,760
+để T2.micro,
+
+41
+00:01:47,760 --> 00:01:50,313
+không key pair,
+
+42
+00:01:51,690 --> 00:01:56,690
+cho phép HTTP từ mọi nơi,
+
+43
+00:02:00,870 --> 00:02:02,610
+paste user data và launch.
+
+44
+00:02:02,610 --> 00:02:04,534
+Như vậy ta có 3 instance
+
+45
+00:02:04,534 --> 00:02:07,560
+đang khởi chạy ở 3 region khác nhau:
+
+46
+00:02:07,560 --> 00:02:09,902
+Frankfurt, N. Virginia và Singapore.
+
+47
+00:02:11,220 --> 00:02:16,020
+Tiếp theo, tôi sẽ tạo một Load Balancer
+
+48
+00:02:16,020 --> 00:02:18,030
+ở Frankfurt.
+
+49
+00:02:18,030 --> 00:02:20,070
+Tạo Load balancer,
+
+50
+00:02:20,070 --> 00:02:22,740
+chọn Application Load Balancer (ALB), Create.
+
+51
+00:02:22,740 --> 00:02:25,140
+Đặt tên duy nhất: DemoRoute53ALB.
+
+52
+00:02:25,140 --> 00:02:26,280
+Internet-facing, IPv4.
+
+53
+00:02:26,280 --> 00:02:27,480
+Chọn 3 subnet để mapping.
+
+54
+00:02:27,480 --> 00:02:30,180
+Security group: chọn nhóm tôi đã tạo
+
+55
+00:02:30,180 --> 00:02:32,670
+trước đó có mở HTTP.
+
+56
+00:02:32,670 --> 00:02:35,760
+Listener port 80, forward tới một Target Group mới
+
+57
+00:02:35,760 --> 00:02:38,340
+dựa trên Instances.
+
+58
+00:02:38,340 --> 00:02:39,495
+Đặt tên: demo-tg-route53.
+
+59
+00:02:39,495 --> 00:02:43,053
+Đăng ký (register) instance vừa tạo.
+
+60
+00:02:44,850 --> 00:02:49,650
+Include as pending, Review targets có 1 target,
+
+61
+00:02:49,650 --> 00:02:54,650
+Create target group.
+
+62
+00:02:55,860 --> 00:02:58,260
+Quay lại Load balancers,
+
+63
+00:02:58,260 --> 00:03:01,170
+refresh và chọn demo-tg-route53.
+
+64
+00:03:01,170 --> 00:03:03,435
+Mọi thứ ổn, tạo Load Balancer
+
+65
+00:03:03,435 --> 00:03:06,488
+và mở trang xem LB.
+
+66
+00:03:06,488 --> 00:03:09,540
+Tóm lại, kiểm tra nhanh mọi thứ.
+
+67
+00:03:09,540 --> 00:03:11,970
+Chúng ta có một EC2 instance ở đây.
+
+68
+00:03:11,970 --> 00:03:14,160
+Lấy public IP, truy cập
+
+69
+00:03:14,160 --> 00:03:17,951
+và thấy “hello world …”.
+
+70
+00:03:17,951 --> 00:03:22,951
+Tôi lưu IP và region vào một file ghi chú:
+
+71
+00:03:22,994 --> 00:03:27,420
+eu-central-1 (hiển thị hello from AZ eu-central-1b).
+
+72
+00:03:27,420 --> 00:03:30,120
+Làm tương tự với instance ở us-east-1,
+
+73
+00:03:30,120 --> 00:03:32,670
+thấy “hello from us-east-1a”.
+
+74
+00:03:32,670 --> 00:03:35,100
+Và instance cuối cùng,
+
+75
+00:03:35,100 --> 00:03:37,950
+copy IPv4, truy cập
+
+76
+00:03:37,950 --> 00:03:41,370
+thấy “hello from ap-southeast-1b”.
+
+77
+00:03:41,370 --> 00:03:42,540
+Nó cũng hoạt động.
+
+78
+00:03:42,540 --> 00:03:44,100
+Cuối cùng, vào ALB,
+
+79
+00:03:44,100 --> 00:03:49,093
+lấy DNS name, refresh tới khi Provisioned,
+
+80
+00:03:51,210 --> 00:03:53,310
+rồi truy cập; vì ALB trỏ tới 1 instance,
+
+81
+00:03:53,310 --> 00:03:56,040
+nên thấy “hello from AZ eu-central-1b”.
+
+82
+00:03:56,040 --> 00:03:57,600
+Như vậy ta đã setup xong
+
+83
+00:03:57,600 --> 00:03:58,516
+các instance và ALB.
+
+84
+00:03:58,516 --> 00:04:00,720
+Giữ các thông tin này bên cạnh,
+
+85
+00:04:00,720 --> 00:04:02,280
+hẹn gặp lại ở bài tiếp theo.
+

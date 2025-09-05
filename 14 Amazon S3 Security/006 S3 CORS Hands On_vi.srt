@@ -1,0 +1,52 @@
+1
+00:00:00,120 --> 00:00:01,710
+Thực hành CORS.
+
+2
+00:00:01,710 --> 00:00:11,730
+Sửa `index.html`: bỏ comment phần demo CORS, thêm script fetch trang phụ.
+
+3
+00:00:23,100 --> 00:00:34,170
+Upload `extra-page.html` và `index.html` lên bucket website → tải được trong cùng origin.
+
+4
+00:01:31,890 --> 00:01:39,030
+Tạo bucket website thứ hai (khác region càng tốt), public và bật static website.
+
+5
+00:02:29,730 --> 00:03:07,803
+Thêm Bucket Policy public; upload `extra-page.html` lên bucket thứ hai.
+
+6
+00:03:23,700 --> 00:03:36,900
+Sửa `index.html` ở bucket thứ nhất để fetch URL đầy đủ của `extra-page.html` ở bucket thứ hai.
+
+7
+00:04:58,020 --> 00:05:32,400
+Mở DevTools: thấy lỗi “Cross‑Origin Request Blocked” do thiếu CORS.
+
+8
+00:05:42,630 --> 00:06:24,960
+Khắc phục: vào bucket thứ hai → Permissions → CORS → thêm JSON rule
+
+9
+00:06:03,420 --> 00:06:22,110
+`AllowedOrigins` = URL website của bucket thứ nhất (không dấu `/` cuối);
+
+10
+00:06:24,960 --> 00:06:56,100
+lưu cấu hình.
+
+11
+00:06:35,963 --> 00:07:03,780
+Refresh: trang phụ tải thành công; trong Network headers có
+
+12
+00:07:03,780 --> 00:07:06,210
+`Access-Control-Allow-Methods`, `Access-Control-Allow-Origin`.
+
+13
+00:07:08,250 --> 00:07:20,040
+Ghi nhớ: CORS ở mức trình duyệt; cấu hình ở bucket chứa tài nguyên cần truy cập.
+

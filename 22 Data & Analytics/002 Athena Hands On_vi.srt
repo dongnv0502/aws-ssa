@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on Athena: tạo database, bảng (DDL), truy vấn file trên S3.
+
+2
+00:00:06,000 --> 00:00:16,000
+Cấu hình kết quả truy vấn (S3), dùng phân vùng/định dạng cột để giảm chi phí.
+

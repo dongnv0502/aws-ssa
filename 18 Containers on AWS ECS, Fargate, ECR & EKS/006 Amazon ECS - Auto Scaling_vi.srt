@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+ECS Auto Scaling: co giãn số Task dựa trên CloudWatch metric/Target Tracking.
+
+2
+00:00:06,000 --> 00:00:16,000
+Mục tiêu thường dùng: CPU/Memory Utilization của service; hoặc SQS queue depth.
+
+3
+00:00:16,000 --> 00:00:28,000
+Với EC2 launch type: kết hợp ASG để scale instance + ECS Service scale Task.
+

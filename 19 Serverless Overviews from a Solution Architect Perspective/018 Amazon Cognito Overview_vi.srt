@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Cognito (bổ sung): bảo vệ API bằng JWT, tích hợp API Gateway/Lambda Authorizer.
+
+2
+00:00:06,000 --> 00:00:16,000
+Federation (Google/FB/SAML), nhóm/thuộc tính người dùng, bảo mật đa yếu tố (MFA).
+

@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Lambda SnapStart: giảm cold start cho Java bằng snapshot sau init.
+
+2
+00:00:06,000 --> 00:00:16,000
+Kích hoạt trên version/alias; xem log/metrics để đánh giá cải thiện latency.
+

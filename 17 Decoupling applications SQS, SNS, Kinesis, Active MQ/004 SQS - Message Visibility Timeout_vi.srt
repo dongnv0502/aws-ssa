@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+SQS Visibility Timeout: thời gian ẩn sau khi consumer nhận message.
+
+2
+00:00:06,000 --> 00:00:18,000
+Nếu xử lý xong → Delete; nếu quá timeout mà chưa xoá → message hiển thị lại (có thể xử lý trùng).
+
+3
+00:00:18,000 --> 00:00:28,000
+Chọn timeout phù hợp với thời gian xử lý; có thể ChangeMessageVisibility để gia hạn.
+

@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on: tạo Task Definition và Service triển khai container.
+
+2
+00:00:06,000 --> 00:00:18,000
+Định nghĩa container (image ECR/Docker Hub, CPU/Mem, Env, Port),
+
+3
+00:00:18,000 --> 00:00:28,000
+Service (Replica, ALB target, health check, Auto Scaling), deploy và kiểm thử.
+

@@ -1,0 +1,64 @@
+1
+00:00:00,350 --> 00:00:01,960
+Phân biệt Domain Registrar và DNS Service.
+
+2
+00:00:01,960 --> 00:00:05,370
+Bạn có thể mua domain ở bất kỳ registrar nào (trả phí hằng năm).
+
+3
+00:00:05,370 --> 00:00:07,680
+Trong khóa học, ta dùng Amazon Registrar qua Route 53,
+
+4
+00:00:07,680 --> 00:00:10,060
+nhưng bạn có thể dùng GoDaddy, Google Domains, v.v.
+
+5
+00:00:10,060 --> 00:00:11,930
+Thường khi đăng ký domain tại registrar,
+
+6
+00:00:11,930 --> 00:00:13,510
+họ cũng cung cấp DNS service để quản lý DNS records.
+
+7
+00:00:13,510 --> 00:00:15,490
+Khi đăng ký domain với Amazon,
+
+8
+00:00:15,490 --> 00:00:17,190
+ta có một Route 53 hosted zone để quản lý DNS.
+
+9
+00:00:17,190 --> 00:00:20,990
+Bạn vẫn có thể: đăng ký domain ở Amazon nhưng dùng DNS khác;
+
+10
+00:00:20,990 --> 00:00:22,470
+hoặc đăng ký domain ở GoDaddy nhưng dùng Route 53 làm DNS.
+
+11
+00:00:22,470 --> 00:00:24,530
+Đây là tổ hợp hợp lệ.
+
+12
+00:00:24,530 --> 00:00:27,010
+Cách cấu hình: tại GoDaddy, sau khi có domain,
+
+13
+00:00:27,010 --> 00:00:28,300
+vào phần Name Servers và chọn Custom Name Servers,
+
+14
+00:00:28,300 --> 00:00:30,500
+nhập các Name Server của Route 53 (lấy trong hosted zone: NS record).
+
+15
+00:00:30,500 --> 00:00:32,350
+Sau khi cập nhật, DNS của Route 53
+
+16
+00:00:32,350 --> 00:00:34,570
+sẽ là nguồn trả lời cho domain của bạn.
+

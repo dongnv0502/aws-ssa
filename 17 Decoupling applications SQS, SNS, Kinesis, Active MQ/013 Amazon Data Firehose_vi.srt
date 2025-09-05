@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Kinesis Data Firehose: ingest → transform (tùy chọn) → deliver (S3, OpenSearch, Redshift,...).
+
+2
+00:00:06,000 --> 00:00:16,000
+Fully managed, near‑real‑time, auto‑scaling; hỗ trợ Lambda transform, buffer size/interval.
+

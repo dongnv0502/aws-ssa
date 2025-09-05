@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Lambda trong VPC: gắn ENI vào subnet để truy cập tài nguyên private.
+
+2
+00:00:06,000 --> 00:00:18,000
+Lưu ý: cold start lâu hơn khi tạo ENI; dùng VPC endpoints (S3/DynamoDB), NAT khi cần Internet.
+

@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Thứ tự dữ liệu: Kinesis vs SQS FIFO.
+
+2
+00:00:06,000 --> 00:00:18,000
+Kinesis: ordering theo Partition Key trong Shard; nhiều shard → nhiều chuỗi thứ tự.
+
+3
+00:00:18,000 --> 00:00:28,000
+SQS FIFO: ordering theo Message Group ID; exactly‑once, loại bỏ trùng lặp.
+

@@ -1,0 +1,576 @@
+1
+00:00:00,480 --> 00:00:02,790
+Được rồi, trước khi nói về Route 53
+
+2
+00:00:02,790 --> 00:00:05,850
+chúng ta cần nói DNS là gì.
+
+3
+00:00:05,850 --> 00:00:08,550
+Đây là một bài giảng ở mức cơ bản,
+
+4
+00:00:08,550 --> 00:00:10,980
+nhưng sẽ giúp bạn hiểu cách DNS hoạt động.
+
+5
+00:00:10,980 --> 00:00:12,300
+Và đây là thứ bạn vẫn dùng
+
+6
+00:00:12,300 --> 00:00:13,530
+ở phía sau mỗi ngày
+
+7
+00:00:13,530 --> 00:00:15,360
+nhưng có thể chưa hiểu rõ về nó.
+
+8
+00:00:15,360 --> 00:00:16,560
+Vậy, hãy cùng xem.
+
+9
+00:00:16,560 --> 00:00:19,560
+DNS là hệ thống tên miền (Domain Name System), và nhiệm vụ của nó
+
+10
+00:00:19,560 --> 00:00:22,110
+là chuyển các hostname dễ đọc với con người
+
+11
+00:00:22,110 --> 00:00:25,500
+thành địa chỉ IP của máy chủ đích.
+
+12
+00:00:25,500 --> 00:00:27,660
+Ví dụ, khi bạn gõ trên trình duyệt,
+
+13
+00:00:27,660 --> 00:00:31,500
+www.google.com, cuối cùng nó sẽ
+
+14
+00:00:31,500 --> 00:00:35,010
+trả về cho bạn một địa chỉ IP và đó là địa chỉ
+
+15
+00:00:35,010 --> 00:00:36,840
+mà trình duyệt có thể dùng để truy cập
+
+16
+00:00:36,840 --> 00:00:40,680
+ở phía sau và lấy dữ liệu từ Google.
+
+17
+00:00:40,680 --> 00:00:42,810
+DNS là xương sống của Internet.
+
+18
+00:00:42,810 --> 00:00:44,670
+Đó là cách giúp bạn hiểu
+
+19
+00:00:44,670 --> 00:00:49,620
+cách chuyển các URL, các hostname này thành IP.
+
+20
+00:00:49,620 --> 00:00:53,040
+DNS có cấu trúc đặt tên phân cấp
+
+21
+00:00:53,040 --> 00:00:54,690
+và ý tưởng là ở gốc
+
+22
+00:00:54,690 --> 00:00:58,560
+của www.google.com, ví dụ, là .com,
+
+23
+00:00:58,560 --> 00:01:01,710
+rồi tới example.com, cụ thể hơn một chút.
+
+24
+00:01:01,710 --> 00:01:06,390
+Sau đó là www.example.com hoặc api.example.com.
+
+25
+00:01:06,390 --> 00:01:09,540
+Tất cả những cái này tạo thành hệ phân cấp
+
+26
+00:01:09,540 --> 00:01:10,683
+của tên miền.
+
+27
+00:01:11,670 --> 00:01:13,290
+Tiếp theo, ta cần làm rõ một chút
+
+28
+00:01:13,290 --> 00:01:15,990
+thuật ngữ liên quan đến DNS.
+
+29
+00:01:15,990 --> 00:01:17,910
+Có khái niệm domain registrar (nhà đăng ký tên miền).
+
+30
+00:01:17,910 --> 00:01:20,010
+Đây là nơi bạn đăng ký tên miền
+
+31
+00:01:20,010 --> 00:01:23,580
+có thể là Amazon Route 53, hoặc GoDaddy
+
+32
+00:01:23,580 --> 00:01:26,580
+hay bất kỳ nhà đăng ký nào khác trên mạng.
+
+33
+00:01:26,580 --> 00:01:28,650
+Sau đó là DNS record, và chúng có nhiều loại
+
+34
+00:01:28,650 --> 00:01:30,870
+chúng ta sẽ xem chi tiết trong phần này.
+
+35
+00:01:30,870 --> 00:01:34,740
+Ví dụ: A, AAAA, CNAME, NS, v.v.
+
+36
+00:01:34,740 --> 00:01:37,590
+Đừng lo, phần này sẽ giải thích kỹ.
+
+37
+00:01:37,590 --> 00:01:40,230
+Zone file chứa toàn bộ DNS record.
+
+38
+00:01:40,230 --> 00:01:42,000
+Tệp này dùng để ánh xạ các hostname
+
+39
+00:01:42,000 --> 00:01:44,340
+tới IP hay các địa chỉ.
+
+40
+00:01:44,340 --> 00:01:46,020
+Name server là các máy chủ
+
+41
+00:01:46,020 --> 00:01:48,240
+thực sự xử lý (resolve) truy vấn DNS.
+
+42
+00:01:48,240 --> 00:01:50,370
+Ta cũng sẽ xem chúng trong phần này.
+
+43
+00:01:50,370 --> 00:01:54,300
+Top-level domain (TLD) như .com, .us, .in, .gov, .org,
+
+44
+00:01:54,300 --> 00:01:55,620
+v.v.
+
+45
+00:01:55,620 --> 00:01:58,290
+Second-level domain như amazon.com và google.com.
+
+46
+00:02:01,620 --> 00:02:03,150
+Bạn thấy có hai phần, ngăn cách bởi dấu chấm.
+
+47
+00:02:03,150 --> 00:02:06,720
+Ví dụ, nếu ta nhìn vào
+
+48
+00:02:06,720 --> 00:02:11,720
+FQDN (Fully Qualified Domain Name),
+
+49
+00:02:12,720 --> 00:02:13,553
+ta có http://api.www.example.com.
+
+50
+00:02:13,553 --> 00:02:15,870
+Được chứ?
+
+51
+00:02:15,870 --> 00:02:18,660
+Dấu chấm cuối cùng được gọi là root
+
+52
+00:02:18,660 --> 00:02:20,340
+và là gốc của mọi tên miền.
+
+53
+00:02:20,340 --> 00:02:25,109
+Tiếp theo là .com,
+
+54
+00:02:25,109 --> 00:02:30,109
+.com là TLD, tức top-level domain.
+
+55
+00:02:31,110 --> 00:02:34,200
+example.com là second-level domain.
+
+56
+00:02:34,200 --> 00:02:36,240
+Rồi tới www.example.com.
+
+57
+00:02:36,240 --> 00:02:41,240
+Đó là subdomain.
+
+58
+00:02:41,520 --> 00:02:44,250
+api.www.example.com là FQDN,
+
+59
+00:02:44,250 --> 00:02:46,740
+tức fully qualified domain name.
+
+60
+00:02:46,740 --> 00:02:49,863
+HTTP là giao thức (protocol)
+
+61
+00:02:51,240 --> 00:02:53,550
+và tất cả hợp lại thành URL.
+
+62
+00:02:53,550 --> 00:02:55,980
+Giờ khi đã nắm sơ thuật ngữ,
+
+63
+00:02:55,980 --> 00:02:58,800
+hãy xem DNS hoạt động thế nào.
+
+64
+00:02:58,800 --> 00:03:00,810
+Giả sử ta có một web server,
+
+65
+00:03:00,810 --> 00:03:02,760
+với một IP, là public IP,
+
+66
+00:03:02,760 --> 00:03:06,900
+ví dụ có thể là một EC2 instance.
+
+67
+00:03:06,900 --> 00:03:09,060
+Public IP là 9.10.11.12
+
+68
+00:03:09,060 --> 00:03:11,700
+và ta muốn truy cập nó
+
+69
+00:03:11,700 --> 00:03:13,830
+bằng tên miền example.com.
+
+70
+00:03:13,830 --> 00:03:16,650
+Vì vậy ta sẽ đăng ký tên miền example.com
+
+71
+00:03:16,650 --> 00:03:19,320
+trên một máy chủ DNS của mình.
+
+72
+00:03:19,320 --> 00:03:22,080
+Nhưng hãy xem máy tính, trình duyệt của bạn
+
+73
+00:03:22,080 --> 00:03:25,170
+truy cập và nhận phản hồi thế nào.
+
+74
+00:03:25,170 --> 00:03:28,177
+Trình duyệt của bạn sẽ muốn truy cập example.com.
+
+75
+00:03:28,177 --> 00:03:30,780
+Để làm vậy, nó hỏi local DNS server của nó.
+
+76
+00:03:30,780 --> 00:03:33,180
+"Này, bạn có biết example.com là gì không?"
+
+77
+00:03:33,180 --> 00:03:35,430
+Local DNS server này thường được chỉ định
+
+78
+00:03:35,430 --> 00:03:38,250
+và quản lý bởi công ty bạn, hoặc được
+
+79
+00:03:38,250 --> 00:03:41,820
+ISP của bạn gán động.
+
+80
+00:03:41,820 --> 00:03:45,060
+Nếu local DNS server chưa từng thấy truy vấn này
+
+81
+00:03:45,060 --> 00:03:49,290
+nó sẽ hỏi root DNS server đầu tiên,
+
+82
+00:03:49,290 --> 00:03:52,740
+được ICANN (I‑C‑A‑N‑N) quản lý,
+
+83
+00:03:52,740 --> 00:03:55,080
+và hỏi: "Bạn có biết example.com không?"
+
+84
+00:03:55,080 --> 00:03:57,037
+Đây là máy chủ đầu tiên được hỏi.
+
+85
+00:03:57,037 --> 00:04:00,570
+Root DNS Server sẽ trả lời,
+
+86
+00:04:00,570 --> 00:04:04,710
+"Tôi chưa thấy, nhưng tôi biết .com."
+
+87
+00:04:04,710 --> 00:04:07,800
+Vậy .com có NS, tức NS record của name server,
+
+88
+00:04:07,800 --> 00:04:08,887
+hãy tới 1234, public IP này.
+
+89
+00:04:08,887 --> 00:04:10,200
+Tức là nói với local DNS rằng,
+
+90
+00:04:10,200 --> 00:04:12,750
+"Tôi không có câu trả lời
+
+91
+00:04:12,750 --> 00:04:14,757
+nhưng đưa bạn tiến gần hơn tới câu trả lời
+
+92
+00:04:14,757 --> 00:04:19,589
+vì tôi biết domain .com,
+
+93
+00:04:19,589 --> 00:04:21,990
+và name server của .com có IP 1234."
+
+94
+00:04:21,990 --> 00:04:24,360
+Local DNS server nói: "Được rồi.
+
+95
+00:04:24,360 --> 00:04:27,397
+Giờ tôi sẽ hỏi top-level domain."
+
+96
+00:04:27,397 --> 00:04:30,360
+Tức máy chủ .com tại 1234.
+
+97
+00:04:30,360 --> 00:04:34,830
+"Tôi sẽ hỏi câu trả lời cho truy vấn của mình."
+
+98
+00:04:34,830 --> 00:04:38,190
+Đây là một miền khác do IANA (I‑A‑N‑A) quản lý
+
+99
+00:04:38,190 --> 00:04:40,110
+và example.com sẽ tiếp tục được hỏi
+
+100
+00:04:40,110 --> 00:04:42,150
+đến DNS server này.
+
+101
+00:04:42,150 --> 00:04:43,747
+"Bạn có biết về example.com không?"
+
+102
+00:04:43,747 --> 00:04:46,017
+DNS server sẽ nói,
+
+103
+00:04:46,017 --> 00:04:49,290
+"Tôi biết example.com.
+
+104
+00:04:49,290 --> 00:04:50,580
+Tôi chưa có ngay câu trả lời cho truy vấn của bạn.
+
+105
+00:04:50,580 --> 00:04:54,030
+Tôi chưa biết record nào,
+
+106
+00:04:54,030 --> 00:04:57,990
+nhưng có một server cho example.com mà tôi biết
+
+107
+00:04:57,990 --> 00:05:01,500
+ở 5.6.7.8, đó là public IP
+
+108
+00:05:01,500 --> 00:05:05,070
+mà bạn nên hỏi để có câu trả lời."
+
+109
+00:05:05,070 --> 00:05:08,700
+Vì vậy local DNS server sẽ tới máy chủ cuối cùng
+
+110
+00:05:08,700 --> 00:05:11,010
+là DNS server của second-level domain
+
+111
+00:05:11,010 --> 00:05:12,510
+và máy chủ này được quản lý
+
+112
+00:05:12,510 --> 00:05:16,080
+bởi domain registrar của bạn.
+
+113
+00:05:16,080 --> 00:05:17,317
+Ví dụ có thể là Amazon Route 53, v.v.
+
+114
+00:05:17,317 --> 00:05:19,830
+DNS server sẽ hỏi rằng,
+
+115
+00:05:19,830 --> 00:05:22,980
+"Này, bạn có biết example.com không?"
+
+116
+00:05:22,980 --> 00:05:23,813
+DNS server sẽ có một mục cho example.com.
+
+117
+00:05:23,813 --> 00:05:25,710
+Và nó sẽ nói:
+
+118
+00:05:25,710 --> 00:05:27,210
+"Có, dĩ nhiên tôi biết example.com."
+
+119
+00:05:27,210 --> 00:05:29,250
+Và hoá ra example.com
+
+120
+00:05:29,250 --> 00:05:34,250
+là một A record
+
+121
+00:05:34,620 --> 00:05:36,900
+và kết quả là IP 9.10.11.12.
+
+122
+00:05:36,900 --> 00:05:39,660
+Vậy DNS server giờ đã có câu trả lời
+
+123
+00:05:39,660 --> 00:05:42,000
+bằng cách hỏi đệ quy các DNS server
+
+124
+00:05:42,000 --> 00:05:43,650
+và tìm tới máy chủ cụ thể nhất.
+
+125
+00:05:43,650 --> 00:05:46,140
+Rồi nó nói: "Được, vâng.
+
+126
+00:05:46,140 --> 00:05:47,490
+Tôi sẽ cache câu trả lời này ngay
+
+127
+00:05:47,490 --> 00:05:49,770
+vì tôi muốn
+
+128
+00:05:49,770 --> 00:05:52,890
+nếu ai đó lại hỏi example.com
+
+129
+00:05:52,890 --> 00:05:56,730
+tôi có thể trả lời ngay lập tức."
+
+130
+00:05:56,730 --> 00:05:58,080
+Nó sẽ gửi câu trả lời về cho trình duyệt của bạn
+
+131
+00:05:58,080 --> 00:06:00,120
+và trình duyệt giờ đã có câu trả lời
+
+132
+00:06:00,120 --> 00:06:03,630
+và dùng địa chỉ IP này
+
+133
+00:06:03,630 --> 00:06:04,950
+để truy cập web server của bạn.
+
+134
+00:06:04,950 --> 00:06:07,080
+Đó là cách DNS hoạt động.
+
+135
+00:06:07,080 --> 00:06:08,250
+Bạn đã dùng DNS ở phía sau
+
+136
+00:06:08,250 --> 00:06:10,770
+từ trước đến nay.
+
+137
+00:06:10,770 --> 00:06:12,660
+Ví dụ khi bạn truy cập www.google.com
+
+138
+00:06:12,660 --> 00:06:15,450
+hay bất kỳ website nào, bạn đều dùng DNS.
+
+139
+00:06:15,450 --> 00:06:16,800
+Giờ thì bạn đã thấy truy vấn DNS hoạt động ra sao.
+
+140
+00:06:16,800 --> 00:06:18,960
+Đây chỉ là kiến thức nền
+
+141
+00:06:18,960 --> 00:06:21,660
+vì tiếp theo ta sẽ vào Route 53
+
+142
+00:06:21,660 --> 00:06:22,493
+và học cách tự quản lý một DNS server.
+
+143
+00:06:22,493 --> 00:06:24,390
+Hy vọng bạn thích phần này
+
+144
+00:06:24,390 --> 00:06:26,000
+hẹn gặp bạn ở bài giảng tiếp theo.
+

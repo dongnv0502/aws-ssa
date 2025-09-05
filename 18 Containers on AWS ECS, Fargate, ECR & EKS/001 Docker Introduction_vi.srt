@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Giới thiệu Docker: container hoá ứng dụng, đóng gói cùng phụ thuộc.
+
+2
+00:00:06,000 --> 00:00:16,000
+Khái niệm: Image, Container, Registry (Docker Hub/ECR), Dockerfile, Build/Run/Push/Pull.
+
+3
+00:00:16,000 --> 00:00:26,000
+Lợi ích: tính nhất quán môi trường, khởi động nhanh, mật độ cao, dễ triển khai trên ECS/EKS.
+

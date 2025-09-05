@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on AWS App Runner: triển khai dịch vụ từ image/source.
+
+2
+00:00:06,000 --> 00:00:16,000
+Nguồn: ECR (image) hoặc GitHub (build). Cấu hình CPU/Mem, env, auto scaling, URL công khai.
+
+3
+00:00:16,000 --> 00:00:26,000
+Triển khai, xem logs, kiểm thử endpoint; bật HTTPS, IAM, VPC connector (nếu cần).
+

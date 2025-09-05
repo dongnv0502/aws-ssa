@@ -1,0 +1,236 @@
+1
+00:00:00,300 --> 00:00:03,120
+Giờ nói về bảo mật Amazon S3.
+
+2
+00:00:03,120 --> 00:00:04,530
+Thứ nhất: theo người dùng (User‑Based).
+
+3
+00:00:04,530 --> 00:00:07,800
+Người dùng có IAM policy
+
+4
+00:00:07,800 --> 00:00:10,050
+quy định các API được phép gọi cho IAM user đó.
+
+5
+00:00:10,050 --> 00:00:14,490
+Thứ hai: theo tài nguyên (Resource‑Based).
+
+6
+00:00:14,490 --> 00:00:16,950
+Ta dùng S3 Bucket Policy
+
+7
+00:00:16,950 --> 00:00:18,180
+(thiết lập phạm vi bucket)
+
+8
+00:00:18,180 --> 00:00:21,720
+gắn trực tiếp trong console S3.
+
+9
+00:00:21,720 --> 00:00:23,400
+Ví dụ: cho phép một user cụ thể,
+
+10
+00:00:23,400 --> 00:00:26,040
+hoặc user từ tài khoản khác (cross‑account)
+
+11
+00:00:26,040 --> 00:00:29,190
+truy cập bucket của bạn.
+
+12
+00:00:29,190 --> 00:00:31,110
+Đây cũng là cách biến bucket thành public
+
+13
+00:00:31,110 --> 00:00:32,520
+(sẽ demo ngay).
+
+14
+00:00:32,520 --> 00:00:34,380
+Object ACL (Access Control List)
+
+15
+00:00:34,380 --> 00:00:36,900
+chi tiết hơn và có thể tắt.
+
+16
+00:00:36,900 --> 00:00:38,850
+Bucket ACL cũng vậy (ít dùng) và có thể tắt.
+
+17
+00:00:38,850 --> 00:00:42,090
+Cách phổ biến hiện nay là dùng Bucket Policy.
+
+18
+00:00:42,090 --> 00:00:45,150
+Khi nào một principal (IAM) truy cập được S3 object?
+
+19
+00:00:45,150 --> 00:00:46,230
+Khi quyền IAM cho phép
+
+20
+00:00:46,230 --> 00:00:48,900
+hoặc resource policy cho phép,
+
+21
+00:00:48,900 --> 00:00:51,690
+và không có “explicit deny”.
+
+22
+00:00:51,690 --> 00:00:54,390
+Ta sẽ xem các tình huống cụ thể.
+
+23
+00:00:54,390 --> 00:00:58,080
+Một cách khác bảo mật S3 là mã hoá object bằng khoá.
+
+24
+00:01:00,840 --> 00:01:02,730
+Bucket Policy trông như thế nào?
+
+25
+00:01:02,730 --> 00:01:06,210
+Đó là tài liệu JSON (dễ đọc).
+
+26
+00:01:06,210 --> 00:01:09,000
+Có “Resource” xác định bucket/object áp dụng.
+
+27
+00:01:09,000 --> 00:01:12,450
+Ở đây áp dụng cho mọi object trong bucket example (dấu *).
+
+28
+00:01:12,450 --> 00:01:15,300
+“Effect”: Allow/Deny, với “Action” tương ứng.
+
+29
+00:01:15,300 --> 00:01:17,580
+Ví dụ Allow hành động s3:GetObject.
+
+30
+00:01:17,580 --> 00:01:20,760
+“Principal” xác định đối tượng áp dụng — * là mọi đối tượng.
+
+31
+00:01:20,760 --> 00:01:24,030
+Như vậy policy cho phép “ai cũng được” GetObject
+
+32
+00:01:24,030 --> 00:01:27,093
+trên mọi object trong bucket ví dụ.
+
+33
+00:01:27,930 --> 00:01:31,320
+Tức bucket đang cho phép đọc public với mọi object.
+
+34
+00:01:31,320 --> 00:01:34,770
+Ta có thể dùng Bucket Policy để:
+
+35
+00:01:34,770 --> 00:01:38,640
+- cấp quyền public;
+
+36
+00:01:38,640 --> 00:01:42,450
+- buộc object phải được mã hoá khi upload;
+
+37
+00:01:42,450 --> 00:01:44,700
+- cấp quyền cross‑account.
+
+38
+00:01:44,700 --> 00:01:47,460
+Ví dụ “Public Access”: người dùng Internet
+
+39
+00:01:47,460 --> 00:01:50,730
+truy cập file trong bucket qua Bucket Policy cho phép public.
+
+40
+00:01:50,730 --> 00:01:53,430
+Khi policy được gắn, có thể truy cập object bên trong.
+
+41
+00:01:53,430 --> 00:01:54,870
+Ngược lại, nếu là user trong tài khoản bạn
+
+42
+00:01:54,870 --> 00:01:57,060
+(IAM user) muốn truy cập S3,
+
+43
+00:01:57,060 --> 00:01:59,010
+hãy gán IAM policy phù hợp cho user đó
+
+44
+00:01:59,010 --> 00:02:01,710
+→ user truy cập được bucket.
+
+45
+00:02:01,710 --> 00:02:03,180
+Nếu là EC2 instance cần truy cập S3,
+
+46
+00:02:03,180 --> 00:02:05,820
+không dùng IAM user mà dùng IAM role.
+
+47
+00:02:05,820 --> 00:02:08,460
+Tạo EC2 instance role với quyền phù hợp
+
+48
+00:02:08,460 --> 00:02:10,490
+→ EC2 truy cập được S3.
+
+49
+00:02:10,490 --> 00:02:13,740
+Trường hợp Cross‑Account: dùng Bucket Policy
+
+50
+00:02:13,740 --> 00:02:15,930
+để cho phép IAM user ở tài khoản khác
+
+51
+00:02:15,930 --> 00:02:18,090
+gọi API vào bucket của bạn.
+
+52
+00:02:18,090 --> 00:02:22,458
+Thêm thiết lập bảo mật: “Block Public Access”.
+
+53
+00:02:22,458 --> 00:02:26,190
+Đây là lớp bảo vệ bổ sung AWS giới thiệu để chống rò rỉ dữ liệu.
+
+54
+00:02:26,190 --> 00:02:28,620
+Dù bạn đặt Bucket Policy là public,
+
+55
+00:02:28,620 --> 00:02:32,940
+nếu bật các tuỳ chọn “Block Public Access” thì bucket vẫn không public.
+
+56
+00:02:32,940 --> 00:02:36,060
+Nếu bucket của bạn không bao giờ được public, hãy bật các tuỳ chọn này
+
+57
+00:02:36,060 --> 00:02:38,130
+ở mức bucket hoặc toàn tài khoản
+
+58
+00:02:38,130 --> 00:02:39,900
+để tránh cấu hình sai.
+
+59
+00:02:39,900 --> 00:02:41,880
+Kết thúc phần bảo mật S3; tiếp theo là hands‑on.
+

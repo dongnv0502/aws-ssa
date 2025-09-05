@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:05,000
+Giới thiệu Messaging: tách rời (decouple) thành phần qua hàng đợi/sự kiện.
+
+2
+00:00:05,000 --> 00:00:15,000
+Lợi ích: chống quá tải, tăng độ bền, co giãn độc lập, làm mịn lưu lượng, retry.
+
+3
+00:00:15,000 --> 00:00:24,000
+Dịch vụ AWS: SQS (queue), SNS (pub/sub), Kinesis (stream), Amazon MQ (managed brokers).
+

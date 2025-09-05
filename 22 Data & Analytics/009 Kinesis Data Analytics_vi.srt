@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Kinesis Data Analytics (for Apache Flink): xử lý streaming bằng SQL/Apache Flink.
+
+2
+00:00:06,000 --> 00:00:18,000
+Nguồn: Kinesis Data Streams/Firehose/MSK; đích: KDS/Firehose/OpenSearch/S3,…; trạng thái, checkpointing.
+

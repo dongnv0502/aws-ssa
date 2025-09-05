@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+SQS FIFO: đảm bảo Exactly‑Once Processing và thứ tự (First‑In‑First‑Out).
+
+2
+00:00:06,000 --> 00:00:16,000
+Khái niệm: Message Group ID (thứ tự trong nhóm), Deduplication ID, throughput hạn chế hơn.
+

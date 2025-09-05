@@ -1,0 +1,200 @@
+1
+00:00:00,170 --> 00:00:02,200
+Giờ hãy xem sự khác nhau
+
+2
+00:00:02,200 --> 00:00:04,400
+giữa CNAME và Alias.
+
+3
+00:00:04,400 --> 00:00:06,340
+Khi bạn có một AWS resource
+
+4
+00:00:06,340 --> 00:00:08,280
+như Load Balancer hoặc CloudFront,
+
+5
+00:00:08,280 --> 00:00:09,980
+nó sẽ có một hostname.
+
+6
+00:00:09,980 --> 00:00:12,840
+Bạn thường muốn ánh xạ hostname đó
+
+7
+00:00:12,840 --> 00:00:13,820
+vào domain bạn sở hữu.
+
+8
+00:00:13,820 --> 00:00:15,710
+Ví dụ: ánh xạ Load Balancer
+
+9
+00:00:15,710 --> 00:00:17,980
+thành myapp.mydomain.com.
+
+10
+00:00:17,980 --> 00:00:19,250
+Có hai lựa chọn:
+
+11
+00:00:19,250 --> 00:00:20,710
+- CNAME record: cho phép trỏ
+
+12
+00:00:20,710 --> 00:00:21,610
+host name này sang host name khác.
+
+13
+00:00:21,610 --> 00:00:23,480
+Ví dụ app.mydomain.com → blabla.anything.com.
+
+14
+00:00:23,480 --> 00:00:26,400
+Chỉ dùng được với non-root domain (subdomain),
+
+15
+00:00:26,400 --> 00:00:27,460
+không dùng cho mydomain.com.
+
+16
+00:00:27,460 --> 00:00:30,030
+- Alias record (đặc thù Route 53): cho phép
+
+17
+00:00:30,030 --> 00:00:32,750
+trỏ hostname tới AWS resource cụ thể
+
+18
+00:00:32,750 --> 00:00:36,360
+(ví dụ …amazonaws.com).
+
+19
+00:00:36,360 --> 00:00:38,700
+Alias hoạt động cho cả root domain
+
+20
+00:00:38,700 --> 00:00:40,700
+và non-root domain (Zone Apex).
+
+21
+00:00:40,700 --> 00:00:42,400
+Alias còn miễn phí truy vấn
+
+22
+00:00:42,400 --> 00:00:44,070
+và có sẵn health check.
+
+23
+00:00:44,070 --> 00:00:47,060
+Alias chỉ map tới resource trong AWS.
+
+24
+00:00:47,060 --> 00:00:49,050
+Ví dụ, trong Route 53, tạo example.com
+
+25
+00:00:49,050 --> 00:00:51,390
+loại A (hoặc AAAA) làm alias,
+
+26
+00:00:51,390 --> 00:00:56,080
+giá trị là DNS name của Load Balancer.
+
+27
+00:00:56,080 --> 00:00:59,320
+Nếu IP của ALB đổi, alias tự nhận biết.
+
+28
+00:00:59,320 --> 00:01:03,540
+Khác với CNAME, alias dùng được cho Zone Apex
+
+29
+00:01:03,540 --> 00:01:06,010
+(ví dụ example.com).
+
+30
+00:01:06,010 --> 00:01:09,080
+Alias luôn là A hoặc AAAA; TTL của alias
+
+31
+00:01:09,080 --> 00:01:10,820
+do Route 53 tự đặt (không chỉnh tay).
+
+32
+00:01:10,820 --> 00:01:13,050
+Đích (target) alias có thể là:
+
+33
+00:01:13,050 --> 00:01:15,870
+ELB, CloudFront Distribution, API Gateway,
+
+34
+00:01:15,870 --> 00:01:17,600
+Elastic Beanstalk environment, S3 Website,
+
+35
+00:01:17,600 --> 00:01:21,200
+VPC Interface Endpoint, Global Accelerator,
+
+36
+00:01:21,200 --> 00:01:23,970
+và Route 53 record trong cùng hosted zone.
+
+37
+00:01:23,970 --> 00:01:26,620
+Lưu ý: không thể đặt alias tới EC2 DNS name.
+
+38
+00:01:26,620 --> 00:01:28,890
+Giờ xem thao tác trong Console.
+
+39
+00:01:28,890 --> 00:01:32,660
+Tạo record CNAME: myapp.stephanetheteacher.com
+
+40
+00:01:32,660 --> 00:01:37,660
+trỏ tới DNS name của ALB (copy/paste từ ALB).
+
+41
+00:01:37,660 --> 00:01:40,110
+Sau đó ở trình duyệt, truy cập myapp.…
+
+42
+00:01:40,110 --> 00:01:41,680
+và được redirect đúng đến ALB
+
+43
+00:01:41,680 --> 00:01:42,820
+(thấy trang Hello World).
+
+44
+00:01:42,820 --> 00:01:46,900
+Tiếp theo, tạo alias record: myalias.stephanetheteacher.com
+
+45
+00:01:46,900 --> 00:01:49,890
+Loại A (ALB chỉ IPv4), bật Alias,
+
+46
+00:01:49,890 --> 00:01:54,580
+chọn đích “Application and Classic Load Balancer”,
+
+47
+00:01:54,580 --> 00:01:57,590
+chọn region (eu-central-1) và LB tương ứng.
+
+48
+00:01:57,590 --> 00:02:00,870
+Bật Evaluate target health = Yes.
+
+49
+00:02:00,870 --> 00:02:05,460
+Tạo record; myalias.… sẽ miễn phí truy vấn.
+
+50
+00:02:05,460 --> 00:02:10,250
+Truy cập myalias.… và xác nhận hoạt động.
+

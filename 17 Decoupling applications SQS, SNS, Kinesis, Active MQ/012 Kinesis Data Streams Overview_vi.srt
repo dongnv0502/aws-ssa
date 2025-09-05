@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Tổng quan Kinesis Data Streams: sharding, partition key, consumer model.
+
+2
+00:00:06,000 --> 00:00:16,000
+Ordering trong shard, chịu lỗi qua checkpoint, retention cấu hình được.
+

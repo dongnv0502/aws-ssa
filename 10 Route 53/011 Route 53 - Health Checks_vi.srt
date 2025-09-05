@@ -1,0 +1,308 @@
+1
+00:00:00,200 --> 00:00:01,540
+Giờ nói về Health Checks
+
+2
+00:00:01,540 --> 00:00:02,940
+trong Route 53.
+
+3
+00:00:02,940 --> 00:00:05,140
+Health check giúp bạn kiểm tra “sức khỏe” của
+
+4
+00:00:05,140 --> 00:00:07,750
+các resource công khai là chính,
+
+5
+00:00:07,750 --> 00:00:09,040
+mặc dù vẫn có cách áp dụng cho resource private
+
+6
+00:00:09,040 --> 00:00:11,640
+(chúng ta sẽ xem trong bài này).
+
+7
+00:00:11,640 --> 00:00:12,640
+Ví dụ, ta có hai Load Balancer
+
+8
+00:00:12,640 --> 00:00:15,590
+ở hai region khác nhau (đều là public LB),
+
+9
+00:00:15,590 --> 00:00:17,920
+và ứng dụng chạy phía sau cả hai.
+
+10
+00:00:17,920 --> 00:00:18,753
+Chúng ta vận hành multi‑region
+
+11
+00:00:18,753 --> 00:00:20,670
+để có high availability ở cấp độ region.
+
+12
+00:00:20,670 --> 00:00:22,670
+Ta dùng Route 53 để tạo DNS record.
+
+13
+00:00:22,670 --> 00:00:24,690
+Khi người dùng truy cập URL, ví dụ mydomain.com,
+
+14
+00:00:24,690 --> 00:00:25,940
+họ sẽ được điều hướng tới
+
+15
+00:00:25,940 --> 00:00:29,690
+Load Balancer gần nhất (ví dụ dùng Latency record).
+
+16
+00:00:29,690 --> 00:00:32,051
+Nhưng nếu một region bị sự cố,
+
+17
+00:00:32,051 --> 00:00:35,860
+chúng ta không muốn gửi người dùng tới đó.
+
+18
+00:00:35,860 --> 00:00:38,040
+Vì vậy ta tạo các health check trong Route 53:
+
+19
+00:00:38,040 --> 00:00:41,510
+ví dụ một health check cho us-east-1,
+
+20
+00:00:41,510 --> 00:00:44,000
+và một cho eu-west-1.
+
+21
+00:00:44,000 --> 00:00:46,340
+Sau đó gắn các health check này
+
+22
+00:00:46,340 --> 00:00:47,410
+vào các Route 53 record,
+
+23
+00:00:47,410 --> 00:00:48,330
+để có Automated DNS Failover.
+
+24
+00:00:48,330 --> 00:00:50,970
+Có ba loại health check:
+
+25
+00:01:12,150 --> 00:01:14,160
+- Monitor một endpoint (public endpoint)
+
+26
+00:01:14,160 --> 00:01:16,450
+như ứng dụng, server, hoặc AWS resource khác.
+
+27
+00:01:16,450 --> 00:01:18,070
+- Monitor các health check khác
+
+28
+00:01:18,920 --> 00:01:20,640
+(calculated health check).
+
+29
+00:01:20,640 --> 00:01:22,850
+- Monitor một CloudWatch Alarm
+
+30
+00:01:22,850 --> 00:01:23,790
+để kiểm soát tốt hơn, hữu ích với tài nguyên private.
+
+31
+00:01:23,790 --> 00:01:25,550
+Các health check có metric riêng
+
+32
+00:01:25,550 --> 00:01:27,950
+và có thể xem trong CloudWatch Metrics.
+
+33
+00:01:30,070 --> 00:01:32,430
+Cách hoạt động khi monitor một endpoint cụ thể:
+
+34
+00:01:38,260 --> 00:01:41,860
+Giả sử có health check cho ALB ở eu-west-1.
+
+35
+00:01:41,860 --> 00:01:44,140
+Các health checker của AWS đến từ khắp thế giới,
+
+36
+00:01:44,140 --> 00:01:45,980
+thường khoảng 15 health checker.
+
+37
+00:01:49,940 --> 00:01:51,580
+Tất cả sẽ gửi request tới public endpoint của bạn
+
+38
+00:01:51,580 --> 00:01:55,020
+theo route bạn cấu hình.
+
+39
+00:01:55,020 --> 00:01:58,950
+Nếu nhận 200 OK (hoặc mã bạn định nghĩa), resource healthy.
+
+40
+00:02:01,140 --> 00:02:02,930
+Khoảng 15 health checker toàn cầu sẽ kiểm tra,
+
+41
+00:02:02,930 --> 00:02:04,310
+bạn đặt ngưỡng healthy/unhealthy,
+
+42
+00:02:04,310 --> 00:02:07,360
+đặt khoảng thời gian kiểm tra: 30s (chuẩn) hoặc 10s (nhanh hơn, tốn hơn).
+
+43
+00:02:16,490 --> 00:02:20,860
+Hỗ trợ HTTP/HTTPS/TCP.
+
+44
+00:02:20,860 --> 00:02:24,400
+Quy tắc: nếu hơn 18% health checker báo healthy,
+
+45
+00:02:24,400 --> 00:02:26,250
+Route 53 coi endpoint healthy, ngược lại là unhealthy.
+
+46
+00:02:30,670 --> 00:02:31,760
+Bạn có thể chọn
+
+47
+00:02:31,760 --> 00:02:34,380
+địa điểm health checker sử dụng.
+
+48
+00:02:34,380 --> 00:02:36,770
+Health check pass khi nhận mã 2xx hoặc 3xx từ LB.
+
+49
+00:02:42,660 --> 00:02:45,570
+Nếu response là text‑based, health checker có thể
+
+50
+00:02:45,570 --> 00:02:50,473
+kiểm tra 5,120 byte đầu để tìm chuỗi mong muốn.
+
+51
+00:02:53,910 --> 00:02:56,400
+Quan trọng về mạng: health checker phải truy cập được
+
+52
+00:02:56,400 --> 00:02:58,970
+ALB hoặc endpoint của bạn.
+
+53
+00:02:58,970 --> 00:03:01,880
+Vì vậy hãy cho phép IP range của Route 53 health checker
+
+54
+00:03:01,880 --> 00:03:04,340
+vào (ingress). Xem dải IP tại URL tài liệu.
+
+55
+00:03:14,840 --> 00:03:16,550
+Loại thứ hai: Calculated health check.
+
+56
+00:03:16,550 --> 00:03:18,430
+Kết hợp kết quả của nhiều health check
+
+57
+00:03:18,430 --> 00:03:20,100
+thành một health check cha (parent).
+
+58
+00:03:22,450 --> 00:03:24,160
+Ví dụ với ba EC2 instance, tạo ba child checks,
+
+59
+00:03:24,160 --> 00:03:25,320
+mỗi cái monitor một instance.
+
+60
+00:03:31,770 --> 00:03:33,930
+Sau đó định nghĩa parent check với điều kiện:
+
+61
+00:03:47,120 --> 00:03:49,240
+bao nhiêu child checks pass thì parent pass.
+
+62
+00:03:53,061 --> 00:03:54,660
+Use case: bảo trì website
+
+63
+00:03:54,660 --> 00:03:56,530
+mà không làm tất cả health check fail.
+
+64
+00:04:00,160 --> 00:04:03,700
+Monitor resource private như thế nào?
+
+65
+00:04:03,700 --> 00:04:06,897
+Các Route 53 health checker nằm ngoài VPC (public web),
+
+66
+00:04:06,897 --> 00:04:08,030
+không truy cập được endpoint private
+
+67
+00:04:08,030 --> 00:04:09,930
+(trong VPC private hay on‑premises).
+
+68
+00:04:18,019 --> 00:04:19,860
+Cách làm: tạo CloudWatch Metric,
+
+69
+00:04:19,860 --> 00:04:21,930
+tạo CloudWatch Alarm cho metric đó,
+
+70
+00:04:21,930 --> 00:04:24,200
+rồi gắn Alarm vào health checker.
+
+71
+00:04:28,700 --> 00:04:31,332
+Ta monitor EC2 trong private subnet bằng metric;
+
+72
+00:04:32,750 --> 00:04:34,810
+khi metric vi phạm, alarm chuyển sang trạng thái Alarm,
+
+73
+00:04:39,810 --> 00:04:41,500
+health checker tự động chuyển Unhealthy.
+
+74
+00:04:43,100 --> 00:04:45,310
+Như vậy ta có health check cho resource private
+
+75
+00:04:45,310 --> 00:04:48,140
+(cách làm phổ biến).
+
+76
+00:04:50,460 --> 00:04:51,770
+Kết thúc bài.
+
+77
+00:04:51,770 --> 00:04:54,720
+Hẹn gặp ở bài tiếp theo.
+

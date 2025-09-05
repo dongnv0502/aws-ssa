@@ -1,0 +1,136 @@
+1
+00:00:00,220 --> 00:00:01,940
+Tạo bucket mới
+
+2
+00:00:01,940 --> 00:00:06,623
+đặt tên “s3-storage-classes-demos-2022”.
+
+3
+00:00:07,800 --> 00:00:10,700
+Chọn region bất kỳ và tạo bucket.
+
+4
+00:00:10,700 --> 00:00:13,770
+Trong bucket, upload object (Add files).
+
+5
+00:00:13,770 --> 00:00:15,560
+Chọn coffee.jpg.
+
+6
+00:00:15,560 --> 00:00:19,010
+Ở Properties của object → Storage class: xem danh sách lớp.
+
+7
+00:00:19,010 --> 00:00:22,000
+Bạn thấy S3 Standard, Intelligent‑Tiering, Standard‑IA,
+
+8
+00:00:22,000 --> 00:00:23,860
+One‑Zone‑IA, Glacier tiers, v.v.
+
+9
+00:00:23,860 --> 00:00:25,250
+Thông tin hiển thị gồm số AZ,
+
+10
+00:00:25,250 --> 00:00:26,210
+thời gian lưu tối thiểu,
+
+11
+00:00:26,210 --> 00:00:29,030
+kích thước tính phí tối thiểu, phí giám sát/tự động tier.
+
+12
+00:00:29,030 --> 00:00:31,770
+Standard là mặc định; Intelligent‑Tiering khi không rõ mẫu truy cập;
+
+13
+00:00:31,770 --> 00:00:34,640
+Standard‑IA cho dữ liệu ít truy cập nhưng cần latency thấp;
+
+14
+00:00:34,640 --> 00:00:36,900
+One‑Zone‑IA lưu 1 AZ, chấp nhận rủi ro;
+
+15
+00:00:36,900 --> 00:00:38,600
+Glacier cho lưu trữ dài hạn.
+
+16
+00:00:38,600 --> 00:00:41,970
+Chọn Standard‑IA và upload.
+
+17
+00:00:41,970 --> 00:00:43,480
+Object hiển thị Storage class = Standard‑IA.
+
+18
+00:00:43,480 --> 00:00:45,500
+Có thể đổi storage class sau khi upload:
+
+19
+00:00:45,500 --> 00:00:47,420
+vào Properties → Edit storage class.
+
+20
+00:00:47,420 --> 00:00:50,320
+Đổi sang One‑Zone‑IA (lưu 1 AZ) → Save.
+
+21
+00:00:50,320 --> 00:00:52,190
+Xác nhận object đã chuyển lớp.
+
+22
+00:00:52,190 --> 00:00:55,580
+Có thể tiếp tục đổi sang Glacier Instant Retrieval
+
+23
+00:00:55,580 --> 00:00:56,800
+hoặc Intelligent‑Tiering, v.v.
+
+24
+00:00:56,800 --> 00:01:01,490
+Để tự động hoá, tạo Lifecycle Rule:
+
+25
+00:01:01,490 --> 00:01:03,880
+Management → Lifecycle rules → Create rule.
+
+26
+00:01:03,880 --> 00:01:04,879
+Đặt tên “DemoRule”,
+
+27
+00:01:04,879 --> 00:01:07,390
+áp dụng “All objects in the bucket”.
+
+28
+00:01:07,390 --> 00:01:10,290
+Cấu hình chuyển lớp (Transitions) cho “Current versions”:
+
+29
+00:01:10,290 --> 00:01:11,530
+• Sau 30 ngày → Standard‑IA
+
+30
+00:01:11,530 --> 00:01:14,150
+• Sau 60 ngày → Intelligent‑Tiering
+
+31
+00:01:14,150 --> 00:01:16,420
+• Sau 180 ngày → Glacier Flexible Retrieval
+
+32
+00:01:16,420 --> 00:01:19,260
+Xem lại các chuyển đổi rồi tạo rule.
+
+33
+00:01:19,260 --> 00:01:21,400
+Như vậy bạn có thể tự động di chuyển object giữa các lớp.
+
+34
+00:01:21,400 --> 00:01:24,490
+Kết thúc; hẹn gặp ở bài tiếp theo.
+

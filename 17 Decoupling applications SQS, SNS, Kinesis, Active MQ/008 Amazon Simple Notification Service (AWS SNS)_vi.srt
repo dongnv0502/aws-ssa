@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+AWS SNS: dịch vụ pub/sub; publisher gửi message đến Topic, nhiều subscriber nhận.
+
+2
+00:00:06,000 --> 00:00:16,000
+Protocol: HTTP/S, Email/SMS, Lambda, SQS, Kinesis Data Firehose,... Fan‑out, broadcast.
+
+3
+00:00:16,000 --> 00:00:24,000
+Bảo mật: Topic Policy, KMS SSE, filter policy theo thuộc tính message.
+

@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Tổng quan Firehose: thu nhận dữ liệu, đệm, biến đổi, ghi tới đích.
+
+2
+00:00:06,000 --> 00:00:16,000
+Không cần quản lý shard; cấu hình buffer, retry, logging, thất bại → S3 (backup).
+

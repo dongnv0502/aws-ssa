@@ -1,0 +1,16 @@
+1
+00:00:00,000 --> 00:00:06,000
+So sánh: SQS vs SNS vs Kinesis.
+
+2
+00:00:06,000 --> 00:00:18,000
+SQS: queue, pull, at‑least‑once, decouple workers.
+
+3
+00:00:18,000 --> 00:00:28,000
+SNS: pub/sub push, fan‑out, nhiều protocol.
+
+4
+00:00:28,000 --> 00:00:38,000
+Kinesis: streaming, nhiều consumer, ordering theo shard, lưu trữ tạm.
+

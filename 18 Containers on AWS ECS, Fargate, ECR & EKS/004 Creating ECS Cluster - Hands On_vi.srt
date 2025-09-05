@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on: tạo ECS Cluster (EC2 hoặc Fargate), cấu hình mạng.
+
+2
+00:00:06,000 --> 00:00:18,000
+Tạo VPC/Subnet/SG (hoặc dùng sẵn), Cluster, Capacity (EC2 Auto Scaling) hoặc Fargate.
+
+3
+00:00:18,000 --> 00:00:28,000
+Xác minh cluster hoạt động, agent/instance đăng ký (với EC2), quyền IAM cần thiết.
+

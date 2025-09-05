@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Lambda vào VPC: chọn subnet/SG; truy cập DB private/NLB nội bộ.
+
+2
+00:00:06,000 --> 00:00:16,000
+Tối ưu cold start: Provisioned Concurrency, giữ ENI ấm, dùng VPC endpoints.
+

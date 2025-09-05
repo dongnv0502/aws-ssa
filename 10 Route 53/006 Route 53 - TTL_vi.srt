@@ -1,0 +1,212 @@
+1
+00:00:00,330 --> 00:00:02,870
+Giờ hãy tìm hiểu TTL.
+
+2
+00:00:02,870 --> 00:00:05,689
+TTL (Time To Live) của một record là thời gian sống.
+
+3
+00:00:05,689 --> 00:00:08,160
+Ví dụ client truy cập Route 53 và web server của ta.
+
+4
+00:00:08,160 --> 00:00:10,840
+Ta gửi truy vấn DNS cho myapp.example.com,
+
+5
+00:00:10,840 --> 00:00:13,640
+và nhận câu trả lời từ DNS:
+
+6
+00:00:13,640 --> 00:00:15,670
+đây là A record,
+
+7
+00:00:15,670 --> 00:00:19,420
+địa chỉ IP là … và TTL là 300 giây (ví dụ).
+
+8
+00:00:19,420 --> 00:00:21,720
+TTL bảo client: hãy cache kết quả này
+
+9
+00:00:21,720 --> 00:00:24,310
+trong khoảng thời gian TTL.
+
+10
+00:00:24,310 --> 00:00:28,900
+Nên trong 300 giây, client sẽ cache kết quả.
+
+11
+00:00:28,900 --> 00:00:30,460
+Nếu client truy cập lại
+
+12
+00:00:30,460 --> 00:00:31,680
+cùng hostname trong thời gian này,
+
+13
+00:00:31,680 --> 00:00:34,450
+client sẽ không hỏi DNS nữa
+
+14
+00:00:34,450 --> 00:00:38,350
+vì đã có câu trả lời trong cache.
+
+15
+00:00:38,350 --> 00:00:41,480
+Mục tiêu là không truy vấn DNS quá thường xuyên
+
+16
+00:00:41,480 --> 00:00:42,330
+vì record thường không đổi nhiều;
+
+17
+00:00:42,330 --> 00:00:46,320
+client dùng kết quả đã có để gửi HTTP tới web server.
+
+18
+00:00:46,320 --> 00:00:48,380
+Hai thái cực:
+
+19
+00:00:48,380 --> 00:00:53,010
+- TTL cao (ví dụ 24h): ít traffic tới Route 53 hơn,
+
+20
+00:00:53,010 --> 00:00:57,520
+nhưng client có thể giữ record lỗi thời lâu hơn.
+
+21
+00:00:57,520 --> 00:00:59,910
+- TTL thấp (ví dụ 60s): nhiều traffic DNS hơn
+
+22
+00:00:59,910 --> 00:01:01,650
+(tốn thêm chi phí),
+
+23
+00:01:01,650 --> 00:01:03,210
+đổi record sẽ phản ánh nhanh hơn.
+
+24
+00:01:03,210 --> 00:01:05,720
+Bạn chọn TTL phù hợp theo nhu cầu.
+
+25
+00:01:05,720 --> 00:01:08,380
+Nếu dự định đổi record, một chiến lược là:
+
+26
+00:01:08,380 --> 00:01:12,180
+giảm TTL xuống thấp (ví dụ 60s) trong khoảng 24h,
+
+27
+00:01:12,180 --> 00:01:15,520
+đợi để client nhận TTL mới thấp,
+
+28
+00:01:15,520 --> 00:01:18,740
+rồi đổi giá trị record, sau đó tăng TTL lại.
+
+29
+00:01:18,740 --> 00:01:21,150
+TTL là bắt buộc với mọi record
+
+30
+00:01:21,150 --> 00:01:22,870
+trừ Alias record (sẽ học ở bài sau).
+
+31
+00:01:22,870 --> 00:01:25,230
+Giờ xem TTL hoạt động trong console.
+
+32
+00:01:25,230 --> 00:01:27,770
+Tạo record mới
+
+33
+00:01:27,770 --> 00:01:29,420
+demo.stephanetheteacher.com
+
+34
+00:01:29,420 --> 00:01:31,390
+trỏ tới IP của một EC2 instance
+
+35
+00:01:31,390 --> 00:01:32,980
+ở eu-central-1.
+
+36
+00:01:35,870 --> 00:01:37,610
+Paste IP vào value.
+
+37
+00:01:37,610 --> 00:01:39,490
+TTL đặt 2 phút (120 giây).
+
+38
+00:01:39,490 --> 00:01:42,610
+Tạo record.
+
+39
+00:01:42,610 --> 00:01:45,550
+Record A đã tạo, trỏ tới IP cụ thể
+
+40
+00:01:45,550 --> 00:01:47,073
+ở demo.stephanetheteacher.com.
+
+41
+00:01:48,190 --> 00:01:50,100
+Tôi sẽ chứng minh record hoạt động.
+
+42
+00:01:50,100 --> 00:01:52,970
+Firefox có thể không hợp tác, nên tôi dùng Chrome.
+
+43
+00:01:52,970 --> 00:01:56,070
+Mở demo.stephanetheteacher.com trên Chrome
+
+44
+00:01:56,070 --> 00:01:58,350
+và được chuyển tới instance eu-central-1.
+
+45
+00:01:58,350 --> 00:03:00,900
+Trong CloudShell, chạy dig cho domain này,
+
+46
+00:03:00,900 --> 00:03:36,905
+thấy TTL còn lại và giá trị A record tương ứng.
+
+47
+00:03:39,100 --> 00:03:42,100
+Nếu tôi đổi IP của record ngay lúc TTL còn ~98s,
+
+48
+00:03:42,100 --> 00:03:47,160
+CloudShell và Chrome vẫn hiện IP cũ cho đến khi TTL hết
+
+49
+00:03:47,160 --> 00:03:50,200
+vì kết quả đang được cache tại client.
+
+50
+00:03:50,200 --> 00:03:56,270
+Khi TTL hết hạn, trình duyệt/CLI mới hỏi lại Route 53,
+
+51
+00:03:56,270 --> 00:04:01,180
+và nhận IP mới (ví dụ ap-southeast-1b).
+
+52
+00:04:01,180 --> 00:04:05,370
+Lúc đó dig cũng hiển thị TTL mới (120s) và IP mới.
+
+53
+00:04:05,370 --> 00:04:08,580
+Demo TTL khá thú vị; hẹn bạn ở bài kế tiếp.
+

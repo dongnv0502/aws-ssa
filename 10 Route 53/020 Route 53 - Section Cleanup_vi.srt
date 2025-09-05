@@ -1,0 +1,32 @@
+1
+00:00:00,000 --> 00:00:02,500
+Dọn dẹp tài nguyên (Section Cleanup).
+
+2
+00:00:02,500 --> 00:00:06,000
+Chi phí: domain tối thiểu ~12 USD/năm (tuỳ TLD),
+
+3
+00:00:06,000 --> 00:00:10,000
+Hosted zone giữ lại sẽ tốn 0.50 USD/tháng. Nếu không dùng,
+
+4
+00:00:10,000 --> 00:00:12,000
+hãy xoá hosted zone sau khi xoá sạch các record.
+
+5
+00:00:12,000 --> 00:00:16,000
+Tiếp theo, xoá các EC2 instance ở các region đã tạo và ALB/Target Group
+
+6
+00:00:16,000 --> 00:00:20,000
+liên quan để ngừng phát sinh chi phí. Lặp lại ở mọi region (EU, US, APAC).
+
+7
+00:00:20,000 --> 00:00:24,000
+Sau khi dọn dẹp, bạn sẽ không còn chi phí từ phần thực hành này.
+
+8
+00:00:24,000 --> 00:00:28,000
+Cảm ơn bạn — hẹn gặp lại ở phần tiếp theo.
+

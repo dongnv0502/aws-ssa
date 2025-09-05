@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Amazon Redshift: kho dữ liệu (data warehouse) MPP, cột, SQL‑compatible.
+
+2
+00:00:06,000 --> 00:00:18,000
+Kiến trúc: Cluster/RA3, Spectrum (đọc S3), sort/distribution keys, công cụ nén.
+

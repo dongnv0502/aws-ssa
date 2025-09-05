@@ -1,0 +1,204 @@
+1
+00:00:00,150 --> 00:00:01,130
+Giờ nói về
+
+2
+00:00:01,130 --> 00:00:03,850
+các Storage Class của Amazon S3.
+
+3
+00:00:03,850 --> 00:00:06,840
+- S3 Standard (General Purpose)
+
+4
+00:00:06,840 --> 00:00:09,300
+- S3 Standard‑IA (Infrequent Access)
+
+5
+00:00:09,300 --> 00:00:12,120
+- S3 One Zone‑IA
+
+6
+00:00:12,120 --> 00:00:14,480
+- Glacier Instant Retrieval
+
+7
+00:00:14,480 --> 00:00:18,120
+- Glacier Flexible Retrieval
+
+8
+00:00:18,120 --> 00:00:21,030
+- Glacier Deep Archive
+
+9
+00:00:21,030 --> 00:00:22,800
+- S3 Intelligent‑Tiering.
+
+10
+00:00:22,800 --> 00:00:26,120
+Bạn phải nắm được các lớp này cho kỳ thi.
+
+11
+00:00:26,120 --> 00:00:29,140
+Khi tạo object, bạn chọn storage class;
+
+12
+00:00:29,140 --> 00:00:30,710
+có thể đổi thủ công
+
+13
+00:00:30,710 --> 00:00:33,440
+hoặc dùng Lifecycle để tự động chuyển lớp.
+
+14
+00:00:33,440 --> 00:00:34,530
+Khái niệm:
+
+15
+00:00:34,530 --> 00:00:37,410
+- Durability (độ bền): xác suất mất object.
+
+16
+00:00:37,410 --> 00:00:39,300
+S3 có durability rất cao: “11 số 9”
+
+17
+00:00:39,300 --> 00:00:41,920
+(99.999999999%).
+
+18
+00:00:41,920 --> 00:00:43,460
+Nếu lưu 10 triệu object,
+
+19
+00:00:43,460 --> 00:00:47,470
+trung bình 10,000 năm mới mất 1 object.
+
+20
+00:00:47,470 --> 00:00:50,400
+Durability như nhau ở mọi storage class.
+
+21
+00:00:50,400 --> 00:00:56,330
+- Availability (khả dụng): phụ thuộc storage class.
+
+22
+00:00:56,330 --> 00:00:59,490
+S3 Standard: 99.99% (≈53 phút/nghỉ mỗi năm).
+
+23
+00:00:59,490 --> 00:01:03,950
+Cần thiết kế ứng dụng để xử lý lỗi tạm thời.
+
+24
+00:01:10,110 --> 00:01:12,320
+S3 Standard: cho dữ liệu truy cập thường xuyên,
+
+25
+00:01:12,320 --> 00:01:15,520
+mặc định; độ trễ thấp, thông lượng cao; chịu được hỏng 2 AZ.
+
+26
+00:01:15,520 --> 00:01:20,140
+Use case: phân tích dữ liệu, mobile/gaming, phân phối nội dung.
+
+27
+00:01:22,370 --> 00:01:27,370
+S3 Standard‑IA: dữ liệu ít truy cập nhưng cần truy xuất nhanh;
+
+28
+00:01:27,670 --> 00:01:30,510
+chi phí lưu trữ thấp hơn Standard, có phí truy xuất;
+
+29
+00:01:30,510 --> 00:01:32,330
+availability 99.9%; dùng cho DR/backup.
+
+30
+00:02:28,110 --> 00:02:32,540
+S3 One Zone‑IA: lưu trong 1 AZ; mất dữ liệu nếu AZ hỏng;
+
+31
+00:02:32,540 --> 00:02:37,070
+availability 99.5%; dùng cho bản sao phụ, dữ liệu có thể tái tạo.
+
+32
+00:02:57,740 --> 00:03:05,070
+Glacier: lưu trữ chi phí thấp cho archive/backup; trả tiền lưu trữ
+
+33
+00:03:05,070 --> 00:03:09,890
+và trả phí truy xuất. Gồm:
+
+34
+00:03:12,850 --> 00:03:16,100
+- Glacier Instant Retrieval: truy xuất mili‑giây,
+
+35
+00:03:16,100 --> 00:03:19,460
+cho dữ liệu truy cập khoảng mỗi quý; thời gian lưu tối thiểu 90 ngày.
+
+36
+00:03:29,870 --> 00:03:38,950
+- Glacier Flexible Retrieval (trước đây là Glacier): các mức
+
+37
+00:03:40,720 --> 00:03:45,230
+  • Expedited: 1–5 phút
+
+38
+00:03:45,230 --> 00:03:50,150
+  • Standard: 3–5 giờ
+
+39
+00:03:50,150 --> 00:03:52,270
+  • Bulk: 5–12 giờ (rẻ)
+
+40
+00:03:52,270 --> 00:03:56,410
+- Glacier Deep Archive: rẻ nhất; truy xuất 12 giờ (standard)
+
+41
+00:03:56,410 --> 00:04:00,000
+hoặc 48 giờ (bulk). Lưu tối thiểu 180 ngày.
+
+42
+00:04:32,410 --> 00:04:43,150
+S3 Intelligent‑Tiering: tự động chuyển tier theo hành vi truy cập;
+
+43
+00:04:43,150 --> 00:04:46,130
+có phí giám sát/thay đổi tier nhỏ; không thu phí truy xuất.
+
+44
+00:04:46,130 --> 00:05:02,010
+Các tier: Frequent (mặc định), Infrequent (≥30 ngày không truy cập),
+
+45
+00:05:02,010 --> 00:05:07,000
+Archive Instant Access (≥90 ngày), Archive Access (tuỳ chọn 90–700+ ngày),
+
+46
+00:05:07,000 --> 00:05:13,800
+Deep Archive Access (tuỳ chọn 180–700+ ngày).
+
+47
+00:05:16,710 --> 00:05:22,630
+Intelligent‑Tiering giúp bạn “ngồi chơi”, S3 tự tối ưu chi phí.
+
+48
+00:05:24,410 --> 00:05:31,160
+Bảng so sánh: durability đều 11 số 9; availability và số AZ khác nhau;
+
+49
+00:05:31,160 --> 00:05:39,570
+có các ràng buộc như thời gian lưu tối thiểu. Hãy tham khảo để hiểu ý.
+
+50
+00:05:46,850 --> 00:05:53,930
+Giá tham khảo (us‑east‑1): không cần nhớ số, chỉ cần hiểu bản chất lớp.
+
+51
+00:06:06,850 --> 00:06:11,710
+Kết thúc phần tổng quan Storage Classes. Hẹn gặp bài tiếp theo.
+

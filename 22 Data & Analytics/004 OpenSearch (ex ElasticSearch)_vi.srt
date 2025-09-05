@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Amazon OpenSearch Service (ex Elasticsearch): tìm kiếm, phân tích log, dashboard (Kibana/OpenSearch Dashboards).
+
+2
+00:00:06,000 --> 00:00:18,000
+Khái niệm: Index/Shard/Replica, ingestion (Logstash/Firehose/Beats), query DSL, bảo mật/IAM/VPC.
+

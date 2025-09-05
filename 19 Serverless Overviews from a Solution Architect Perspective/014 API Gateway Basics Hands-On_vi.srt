@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on API Gateway: tạo REST API/HTTP API, tích hợp Lambda, test method.
+
+2
+00:00:06,000 --> 00:00:16,000
+Thiết lập stage, deployment, throttling, CORS; bảo mật bằng IAM/Cognito/Custom Authorizer.
+

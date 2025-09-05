@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Amazon DynamoDB: NoSQL key‑value/document, quản lý toàn phần, hiệu năng ổn định.
+
+2
+00:00:06,000 --> 00:00:18,000
+Bảng/Partition key/Sort key, RCU/WCU/On‑demand, GSI/LSI, TTL, Streams, DAX caching.
+

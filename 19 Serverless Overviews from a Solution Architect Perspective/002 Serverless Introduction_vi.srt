@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Giới thiệu Serverless: không quản lý server, trả tiền theo dùng, scale tự động.
+
+2
+00:00:06,000 --> 00:00:16,000
+Thành phần chính: AWS Lambda (compute), API Gateway (API), DynamoDB (DB), S3 (object), EventBridge/SQS/SNS (event).
+

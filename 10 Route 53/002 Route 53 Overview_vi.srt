@@ -1,0 +1,588 @@
+1
+00:00:00,540 --> 00:00:02,850
+Giờ khi đã biết DNS là gì,
+
+2
+00:00:02,850 --> 00:00:05,350
+hãy xem Amazon Route 53.
+
+3
+00:00:05,350 --> 00:00:07,300
+Đây là dịch vụ DNS sẵn sàng cao,
+
+4
+00:00:07,300 --> 00:00:10,940
+có khả năng mở rộng, được quản lý toàn phần và authoritative.
+
+5
+00:00:10,940 --> 00:00:12,440
+Authoritative nghĩa là gì?
+
+6
+00:00:12,440 --> 00:00:15,390
+Tức là khách hàng có thể cập nhật các DNS record,
+
+7
+00:00:15,390 --> 00:00:18,050
+nên bạn có toàn quyền kiểm soát DNS này.
+
+8
+00:00:18,050 --> 00:00:19,910
+Ý tưởng là: bạn có các client
+
+9
+00:00:19,910 --> 00:00:23,390
+và họ muốn truy cập EC2 Instance của bạn tại example.com
+
+10
+00:00:23,390 --> 00:00:27,020
+nhưng hiện EC2 Instance chỉ có public IP.
+
+11
+00:00:27,020 --> 00:00:28,170
+Vì vậy chúng ta sẽ làm
+
+12
+00:00:28,170 --> 00:00:30,900
+là ghi một số DNS record
+
+13
+00:00:30,900 --> 00:00:33,750
+vào Amazon Route 53, trong một hosted zone,
+
+14
+00:00:33,750 --> 00:00:36,260
+và khi client hỏi example.com,
+
+15
+00:00:36,260 --> 00:00:38,527
+thì dịch vụ Route 53 sẽ trả lời rằng,
+
+16
+00:00:38,527 --> 00:00:43,110
+"Bạn đang tìm IP 54.22.33.44,"
+
+17
+00:00:43,110 --> 00:00:45,530
+và sau đó client có thể kết nối trực tiếp
+
+18
+00:00:45,530 --> 00:00:47,580
+đến EC2 Instance của chúng ta.
+
+19
+00:00:47,580 --> 00:00:49,850
+Route 53 cũng là một domain registrar,
+
+20
+00:00:49,850 --> 00:00:52,360
+nên bạn có thể đăng ký tên miền của chính mình ở đó
+
+21
+00:00:52,360 --> 00:00:54,770
+như example.com, và chúng ta sẽ làm việc này
+
+22
+00:00:54,770 --> 00:00:56,860
+trong phần hands-on để bắt đầu
+
+23
+00:00:56,860 --> 00:00:58,390
+với dịch vụ này.
+
+24
+00:00:58,390 --> 00:01:00,590
+Chúng ta cũng có khả năng kiểm tra health
+
+25
+00:01:00,590 --> 00:01:02,090
+của các tài nguyên trong Route 53,
+
+26
+00:01:02,090 --> 00:01:03,590
+phần này sẽ được trình bày sau.
+
+27
+00:01:03,590 --> 00:01:05,022
+Và đây là dịch vụ duy nhất trên AWS
+
+28
+00:01:05,022 --> 00:01:08,910
+cung cấp SLA khả dụng 100%.
+
+29
+00:01:08,910 --> 00:01:11,540
+Cuối cùng, vì sao lại gọi là Route 53?
+
+30
+00:01:11,540 --> 00:01:14,990
+Vì 53 là cổng (port) truyền thống của DNS
+
+31
+00:01:14,990 --> 00:01:17,830
+được các dịch vụ DNS sử dụng, nên có tên như vậy.
+
+32
+00:01:17,830 --> 00:01:21,400
+Trong Route 53, bạn sẽ định nghĩa nhiều DNS record
+
+33
+00:01:21,400 --> 00:01:25,300
+và các record này quy định cách bạn định tuyến lưu lượng
+
+34
+00:01:25,300 --> 00:01:27,190
+đến một domain cụ thể.
+
+35
+00:01:27,190 --> 00:01:29,530
+Mỗi record sẽ chứa nhiều thông tin
+
+36
+00:01:29,530 --> 00:01:31,940
+như domain hoặc tên subdomain
+
+37
+00:01:31,940 --> 00:01:33,860
+ví dụ example.com.
+
+38
+00:01:33,860 --> 00:01:36,150
+Loại record; chúng ta sẽ xem các loại record
+
+39
+00:01:36,150 --> 00:01:39,490
+có sẵn, ví dụ có thể là A hoặc AAAA.
+
+40
+00:01:40,560 --> 00:01:42,830
+Sau đó là value, tức giá trị của record,
+
+41
+00:01:42,830 --> 00:01:46,620
+ví dụ 12.34.56.78
+
+42
+00:01:46,620 --> 00:01:47,790
+Routing policy,
+
+43
+00:01:47,790 --> 00:01:51,830
+tức cách Route 53 phản hồi truy vấn.
+
+44
+00:01:51,830 --> 00:01:53,530
+TTL, tức khoảng thời gian
+
+45
+00:01:53,530 --> 00:01:56,680
+record được cache tại DNS resolver,
+
+46
+00:01:56,680 --> 00:01:58,310
+còn gọi là time to live.
+
+47
+00:01:58,310 --> 00:02:01,960
+Và có rất nhiều loại record được hỗ trợ
+
+48
+00:02:01,960 --> 00:02:04,450
+trong Route 53.
+
+49
+00:02:04,450 --> 00:02:08,020
+Những loại bạn cần biết là A, AAAA,
+
+50
+00:02:08,020 --> 00:02:10,360
+CNAME và NS; ta sẽ thực hành chúng
+
+51
+00:02:10,360 --> 00:02:11,620
+trong phần hands-on.
+
+52
+00:02:11,620 --> 00:02:13,330
+Còn các record nâng cao mà bạn có thể đặt,
+
+53
+00:02:13,330 --> 00:02:15,580
+nhưng không cần cho kỳ thi,
+
+54
+00:02:15,580 --> 00:02:17,630
+là tất cả những cái tôi vừa liệt kê.
+
+55
+00:02:18,961 --> 00:02:21,340
+Giờ hãy học các loại record quan trọng
+
+56
+00:02:21,340 --> 00:02:23,660
+cần biết cho kỳ thi.
+
+57
+00:02:23,660 --> 00:02:25,430
+Record A rất đơn giản,
+
+58
+00:02:25,430 --> 00:02:27,903
+để ánh xạ một host name tới một địa chỉ IPv4.
+
+59
+00:02:29,640 --> 00:02:31,360
+Ví dụ, example.com
+
+60
+00:02:31,360 --> 00:02:33,863
+sẽ trỏ tới 1.2.3.4.
+
+61
+00:02:35,710 --> 00:02:36,840
+Rất tốt.
+
+62
+00:02:36,840 --> 00:02:38,450
+Tiếp theo là AAAA.
+
+63
+00:02:38,450 --> 00:02:39,740
+Tương tự A,
+
+64
+00:02:39,740 --> 00:02:41,770
+nhưng lần này ánh xạ host name
+
+65
+00:02:41,770 --> 00:02:44,230
+tới một địa chỉ IPv6.
+
+66
+00:02:44,230 --> 00:02:46,990
+Tiếp theo là CNAME, dùng để ánh xạ một host name
+
+67
+00:02:46,990 --> 00:02:49,140
+tới một host name khác.
+
+68
+00:02:49,140 --> 00:02:52,720
+Và host name đích dĩ nhiên có thể là A
+
+69
+00:02:52,720 --> 00:02:54,880
+hoặc AAAA.
+
+70
+00:02:54,880 --> 00:02:57,400
+Bạn không thể tạo CNAME trong Route 53
+
+71
+00:02:57,400 --> 00:03:00,540
+cho top node của không gian tên DNS (Zone Apex),
+
+72
+00:03:00,540 --> 00:03:03,510
+và chúng ta sẽ xem trong bài sau
+
+73
+00:03:03,510 --> 00:03:04,900
+để hiểu cách xử lý.
+
+74
+00:03:04,900 --> 00:03:08,440
+Ví dụ, bạn không thể tạo CNAME cho example.com,
+
+75
+00:03:08,440 --> 00:03:12,620
+nhưng có thể tạo CNAME cho www.example.com.
+
+76
+00:03:12,620 --> 00:03:16,230
+Chúng ta sẽ xem cách xử lý điều này ở bài sau.
+
+77
+00:03:16,230 --> 00:03:19,520
+Cuối cùng, NS là cho name server của hosted zone.
+
+78
+00:03:19,520 --> 00:03:23,370
+Chúng là các DNS name hoặc địa chỉ IP của máy chủ
+
+79
+00:03:23,370 --> 00:03:27,523
+có thể trả lời truy vấn DNS cho hosted zone của bạn,
+
+80
+00:03:28,360 --> 00:03:31,280
+và điều này kiểm soát cách định tuyến lưu lượng đến domain.
+
+81
+00:03:31,280 --> 00:03:34,950
+Giờ hãy xem hosted zone là gì.
+
+82
+00:03:34,950 --> 00:03:37,330
+Hosted zone là vùng chứa các record,
+
+83
+00:03:37,330 --> 00:03:38,800
+và chúng định nghĩa cách định tuyến lưu lượng
+
+84
+00:03:38,800 --> 00:03:40,390
+đến một domain và các subdomain của nó.
+
+85
+00:03:40,390 --> 00:03:41,830
+Có hai loại hosted zone:
+
+86
+00:03:41,830 --> 00:03:45,360
+public hosted zone và private hosted zone.
+
+87
+00:03:45,360 --> 00:03:47,470
+Khi bạn mua một public domain name,
+
+88
+00:03:47,470 --> 00:03:50,900
+ví dụ mypublicdomain.com, đây là public domain name
+
+89
+00:03:50,900 --> 00:03:53,960
+và do đó ta có thể tạo public hosted zone,
+
+90
+00:03:53,960 --> 00:03:56,687
+và public zone này có thể trả lời truy vấn rằng,
+
+91
+00:03:56,687 --> 00:04:01,610
+"Địa chỉ IP, IP nền của domain
+
+92
+00:04:01,610 --> 00:04:04,870
+application1.mypublicdomainname.com là gì?"
+
+93
+00:04:04,870 --> 00:04:06,750
+Ta cũng có private hosted zone.
+
+94
+00:04:06,750 --> 00:04:08,750
+Đây là cho các domain name
+
+95
+00:04:08,750 --> 00:04:11,010
+không công khai; chúng là private,
+
+96
+00:04:11,010 --> 00:04:15,150
+và chỉ bạn, trong Virtual Private Cloud (VPC) của mình,
+
+97
+00:04:15,150 --> 00:04:16,410
+có thể resolve URL này.
+
+98
+00:04:16,410 --> 00:04:19,829
+Ví dụ: application1.company.internal.
+
+99
+00:04:19,829 --> 00:04:21,089
+Bạn có thể từng thấy điều này nếu làm
+
+100
+00:04:21,089 --> 00:04:23,560
+cho công ty, đôi khi họ có các URL
+
+101
+00:04:23,560 --> 00:04:26,500
+mà bạn chỉ có thể truy cập từ mạng nội bộ công ty,
+
+102
+00:04:26,500 --> 00:04:29,290
+vì đó là URL private, là private
+
+103
+00:04:29,290 --> 00:04:32,360
+và phía sau là DNS record private.
+
+104
+00:04:32,360 --> 00:04:35,840
+Với mỗi hosted zone bạn tạo trong AWS
+
+105
+00:04:35,840 --> 00:04:38,000
+bạn sẽ trả 0.50 USD mỗi tháng,
+
+106
+00:04:38,000 --> 00:04:40,560
+vì vậy dùng Route 53 không phải miễn phí.
+
+107
+00:04:40,560 --> 00:04:42,900
+Và nếu bạn đăng ký một domain name,
+
+108
+00:04:42,900 --> 00:04:44,630
+như tôi sẽ làm trong phần hands-on,
+
+109
+00:04:44,630 --> 00:04:47,620
+thì tối thiểu tốn 12 USD mỗi năm.
+
+110
+00:04:47,620 --> 00:04:49,920
+Vậy nên lưu ý: phần này không miễn phí.
+
+111
+00:04:51,400 --> 00:04:54,490
+Public so với private hosted zone, để hiểu rõ hơn.
+
+112
+00:04:54,490 --> 00:04:57,050
+Public hosted zone có thể trả lời
+
+113
+00:04:57,050 --> 00:04:59,110
+truy vấn từ các public client.
+
+114
+00:04:59,110 --> 00:05:00,477
+Ví dụ khi trình duyệt của bạn nói,
+
+115
+00:05:00,477 --> 00:05:04,070
+"Hãy cho tôi example.com," và nhận lại một IP.
+
+116
+00:05:04,070 --> 00:05:07,110
+Ở phía còn lại là private hosted zone.
+
+117
+00:05:07,110 --> 00:05:09,630
+Chúng sống trong VPC của bạn.
+
+118
+00:05:09,630 --> 00:05:12,340
+Và chúng cho phép bạn định danh tài nguyên private
+
+119
+00:05:12,340 --> 00:05:14,640
+bằng các domain name private.
+
+120
+00:05:14,640 --> 00:05:16,970
+Ví dụ, ta có một EC2 Instance
+
+121
+00:05:16,970 --> 00:05:20,110
+muốn định danh bằng webapp.example.internal,
+
+122
+00:05:20,110 --> 00:05:22,330
+có EC2 Instance khác muốn định danh
+
+123
+00:05:22,330 --> 00:05:25,430
+bằng api.example.internal, và có một database
+
+124
+00:05:25,430 --> 00:05:29,120
+muốn định danh bằng database.example.internal.
+
+125
+00:05:29,120 --> 00:05:32,030
+Khi đó, ta sẽ đăng ký một private hosted zone,
+
+126
+00:05:32,030 --> 00:05:34,170
+và nếu EC2 Instance thứ nhất
+
+127
+00:05:34,170 --> 00:05:37,140
+truy vấn api.example.internal,
+
+128
+00:05:37,140 --> 00:05:39,660
+thì private hosted zone có câu trả lời cho nó,
+
+129
+00:05:39,660 --> 00:05:42,770
+đó là private IP 10.0.0.10.
+
+130
+00:05:42,770 --> 00:05:43,900
+Sau đó EC2 Instance sẽ kết nối
+
+131
+00:05:43,900 --> 00:05:45,220
+đến EC2 Instance thứ hai,
+
+132
+00:05:45,220 --> 00:05:46,530
+và có thể cần kết nối đến database.
+
+133
+00:05:46,530 --> 00:05:49,800
+Nó sẽ hỏi: "database.example.internal là gì?"
+
+134
+00:05:49,800 --> 00:05:51,087
+Và private hosted zone sẽ trả lời,
+
+135
+00:05:51,087 --> 00:05:52,970
+"Đây là private IP này."
+
+136
+00:05:52,970 --> 00:05:54,920
+Rồi EC2 Instance có thể kết nối trực tiếp
+
+137
+00:05:54,920 --> 00:05:56,280
+đến database.
+
+138
+00:05:56,280 --> 00:05:58,220
+Public hosted zone và private hosted zone
+
+139
+00:05:58,220 --> 00:06:00,780
+hoạt động giống hệt nhau, chỉ khác là public hosted zone
+
+140
+00:06:00,780 --> 00:06:03,300
+cho phép bất kỳ ai trên Internet truy vấn record của bạn,
+
+141
+00:06:03,300 --> 00:06:05,080
+đây là cho các record công khai,
+
+142
+00:06:05,080 --> 00:06:07,700
+còn private hosted zone chỉ được truy vấn
+
+143
+00:06:07,700 --> 00:06:11,350
+từ bên trong tài nguyên private của bạn, ví dụ VPC.
+
+144
+00:06:11,350 --> 00:06:12,610
+Lý thuyết tới đây là đủ,
+
+145
+00:06:12,610 --> 00:06:15,010
+giờ sang bài tiếp theo để đăng ký domain
+
+146
+00:06:15,010 --> 00:06:16,430
+và tạo một số record.
+
+147
+00:06:16,430 --> 00:06:18,330
+Hẹn gặp bạn ở bài giảng tiếp theo.
+

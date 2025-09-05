@@ -1,0 +1,80 @@
+1
+00:00:00,180 --> 00:00:01,890
+Giờ nói về CloudFront.
+
+2
+00:00:01,890 --> 00:00:04,920
+CloudFront là CDN (Content Delivery Network).
+
+3
+00:00:04,920 --> 00:00:08,520
+Nó cải thiện tốc độ đọc bằng cách cache nội dung
+
+4
+00:00:11,880 --> 00:00:14,940
+tại các Edge Location trên toàn cầu.
+
+5
+00:00:14,940 --> 00:00:19,560
+Người dùng ở mọi nơi sẽ có độ trễ thấp hơn → trải nghiệm tốt hơn.
+
+6
+00:00:23,520 --> 00:00:31,890
+CloudFront có hơn 200+ điểm hiện diện (PoP) và tiếp tục mở rộng.
+
+7
+00:00:38,160 --> 00:00:45,660
+Phân phối toàn cầu cũng giúp chống DDoS (kết hợp AWS Shield, AWS WAF).
+
+8
+00:01:03,180 --> 00:01:07,680
+Ví dụ: Website ở S3 (Australia), người dùng ở Mỹ
+
+9
+00:01:18,480 --> 00:01:24,660
+truy cập qua Edge tại Mỹ; lần đầu Edge lấy từ origin,
+
+10
+00:01:24,660 --> 00:01:31,350
+lần sau phục vụ trực tiếp từ cache (không quay về Australia).
+
+11
+00:01:45,600 --> 00:01:51,300
+Origin (nguồn) có thể là: S3 (qua OAC – Origin Access Control),
+
+12
+00:02:09,120 --> 00:02:14,940
+ALB/NLB/EC2 trong VPC (riêng tư), hoặc bất kỳ HTTP origin công khai.
+
+13
+00:02:42,930 --> 00:02:50,280
+Luồng tổng quát: Client → Edge; nếu cache miss → lấy từ Origin → cache lại.
+
+14
+00:02:54,090 --> 00:03:05,730
+Với S3 làm origin: S3 ở 1 region, Edge trên thế giới phục vụ nội dung đã cache.
+
+15
+00:04:19,170 --> 00:04:27,630
+Khác CloudFront vs S3 Cross‑Region Replication (CRR):
+
+16
+00:04:27,630 --> 00:04:35,520
+- CloudFront: dùng Global Edge Network, cache tại PoP theo TTL, cho nội dung tĩnh.
+
+17
+00:04:35,520 --> 00:04:53,640
+- S3 CRR: sao chép bucket giữa các region đã chỉ định, cập nhật gần thời gian thực,
+
+18
+00:04:53,640 --> 00:05:02,310
+không cache; phù hợp nội dung động cần cập nhật và truy cập cục bộ ở vài region.
+
+19
+00:05:03,990 --> 00:05:10,980
+Tóm lại: CloudFront = CDN để cache toàn cầu; S3 CRR = sao chép dữ liệu giữa region.
+
+20
+00:05:16,160 --> 00:05:23,990
+Tiếp theo: tạo CloudFront Distribution cho S3 trong phần thực hành.
+

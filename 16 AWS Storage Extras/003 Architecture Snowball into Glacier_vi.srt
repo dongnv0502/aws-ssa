@@ -1,0 +1,16 @@
+1
+00:00:00,000 --> 00:00:06,000
+Kiến trúc nhập dữ liệu từ Snowball vào S3 rồi lưu trữ Glacier.
+
+2
+00:00:06,000 --> 00:00:14,000
+Luồng: Nạp dữ liệu lên Snowball → AWS import vào S3 → Lifecycle chuyển lớp
+
+3
+00:00:14,000 --> 00:00:22,000
+đến Glacier/Deep Archive theo chính sách (tiết kiệm chi phí dài hạn).
+
+4
+00:00:22,000 --> 00:00:30,000
+Gắn KMS cho S3, theo dõi bằng Event/CloudWatch, kiểm soát truy cập bằng IAM/Bucket Policy.
+

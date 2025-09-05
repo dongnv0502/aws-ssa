@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+RDS → Lambda: kết nối qua EventBridge/SNS; ví dụ phản ứng khi snapshot/backup.
+
+2
+00:00:06,000 --> 00:00:16,000
+Thiết kế workflow: RDS event → EventBridge rule → Lambda (tự động hoá vận hành).
+

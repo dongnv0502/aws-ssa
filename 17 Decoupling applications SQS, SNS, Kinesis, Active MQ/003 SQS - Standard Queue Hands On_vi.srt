@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on: tạo SQS Standard, gửi/nhận/xoá message, thử Long Polling.
+
+2
+00:00:06,000 --> 00:00:16,000
+Thiết lập Visibility Timeout, Dead‑Letter Queue (DLQ), Message Retention, Delivery Delay.
+

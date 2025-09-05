@@ -1,0 +1,180 @@
+1
+00:00:00,240 --> 00:00:01,200
+Giờ nói về cách
+
+2
+00:00:01,200 --> 00:00:02,670
+di chuyển (transition) object
+
+3
+00:00:02,670 --> 00:00:04,410
+giữa các storage class khác nhau
+
+4
+00:00:04,410 --> 00:00:05,820
+và sơ đồ này cho thấy
+
+5
+00:00:05,820 --> 00:00:08,970
+các hướng chuyển đổi hợp lệ.
+
+6
+00:00:08,970 --> 00:00:09,803
+Bạn có thể chuyển từ
+
+7
+00:00:09,803 --> 00:00:11,880
+Standard → Standard‑IA → Intelligent‑Tiering → One‑Zone‑IA,
+
+8
+00:00:11,880 --> 00:00:16,140
+rồi từ One‑Zone‑IA sang Glacier Flexible Retrieval hoặc Deep Archive.
+
+9
+00:00:16,140 --> 00:00:17,910
+Mọi kết hợp hợp lệ đều được thể hiện.
+
+10
+00:00:17,910 --> 00:00:20,940
+Nếu object ít được truy cập, chuyển sang Standard‑IA.
+
+11
+00:00:20,940 --> 00:00:22,380
+Nếu cần lưu trữ dài hạn (archive),
+
+12
+00:00:22,380 --> 00:00:25,410
+chuyển sang Glacier/Deep Archive.
+
+13
+00:00:25,410 --> 00:00:27,270
+Có thể chuyển thủ công, nhưng tốt hơn là
+
+14
+00:00:27,270 --> 00:00:29,940
+tự động hoá bằng Lifecycle rules.
+
+15
+00:00:29,940 --> 00:00:31,770
+Lifecycle rule gồm:
+
+16
+00:00:31,770 --> 00:00:34,170
+- Transition action: chuyển storage class.
+
+17
+00:00:34,170 --> 00:00:35,520
+Ví dụ: chuyển sang Standard‑IA
+
+18
+00:00:35,520 --> 00:00:38,220
+sau 60 ngày; chuyển sang Glacier sau 6 tháng.
+
+19
+00:00:38,220 --> 00:00:40,800
+- Expiration action: tự xoá (expire) object
+
+20
+00:00:40,800 --> 00:00:44,430
+sau một thời gian, ví dụ xoá access log sau 365 ngày.
+
+21
+00:00:44,430 --> 00:00:47,310
+Cũng có thể xoá các phiên bản cũ (non‑current versions)
+
+22
+00:00:47,310 --> 00:00:49,890
+khi bật versioning, hoặc xoá multipart upload dở dang
+
+23
+00:00:49,890 --> 00:00:51,000
+quá 2 tuần.
+
+24
+00:00:51,000 --> 00:00:53,280
+Rule có thể áp dụng cho cả bucket,
+
+25
+00:00:53,280 --> 00:00:55,080
+cho một prefix cụ thể, hoặc theo object tag.
+
+26
+00:00:55,080 --> 00:00:58,950
+Ví dụ: chỉ áp dụng cho department=finance.
+
+27
+00:00:58,950 --> 00:01:03,540
+Scenario: Ứng dụng tạo thumbnails từ ảnh upload lên S3.
+
+28
+00:01:03,540 --> 00:01:05,940
+Thumbnail dễ tạo lại và chỉ cần giữ 60 ngày;
+
+29
+00:01:05,940 --> 00:01:07,980
+ảnh gốc phải truy xuất ngay trong 60 ngày,
+
+30
+00:01:07,980 --> 00:01:09,810
+sau đó người dùng có thể chờ đến 6 giờ.
+
+31
+00:01:09,810 --> 00:01:12,180
+Thiết kế: Ảnh gốc ở Standard, transition sang Glacier
+
+32
+00:01:12,180 --> 00:01:15,270
+sau 60 ngày. Thumbnail đặt dưới prefix riêng,
+
+33
+00:01:15,270 --> 00:01:16,770
+ở One‑Zone‑IA và expire sau 60 ngày.
+
+34
+00:01:16,770 --> 00:01:20,100
+Scenario khác: Có thể khôi phục object bị xoá ngay lập tức
+
+35
+00:01:20,100 --> 00:01:22,590
+trong 30 ngày; sau đó (tối đa 365 ngày)
+
+36
+00:01:22,590 --> 00:01:26,400
+khôi phục trong 48 giờ.
+
+37
+00:01:26,400 --> 00:01:28,950
+Giải pháp: Bật Versioning để xoá bằng delete marker
+
+38
+00:01:28,950 --> 00:01:31,170
+(có thể khôi phục). Transition các non‑current versions
+
+39
+00:01:31,170 --> 00:01:34,470
+sang Standard‑IA, rồi tiếp sang Glacier Deep Archive.
+
+40
+00:01:34,470 --> 00:01:37,110
+Tối ưu số ngày transition bằng S3 Analytics:
+
+41
+00:01:37,110 --> 00:01:38,850
+đưa ra khuyến nghị cho Standard/Standard‑IA
+
+42
+00:01:38,850 --> 00:01:42,510
+(không áp dụng cho One‑Zone‑IA/Glacier). Báo cáo CSV/Parquet
+
+43
+00:01:42,510 --> 00:01:46,260
+cập nhật hàng ngày; mất 24–48 giờ để có dữ liệu.
+
+44
+00:01:46,260 --> 00:01:48,450
+Đây là cơ sở để tạo/cải thiện lifecycle rules.
+
+45
+00:01:48,450 --> 00:01:51,930
+Kết thúc bài; hẹn bạn ở bài tiếp theo.
+

@@ -1,0 +1,36 @@
+1
+00:00:00,030 --> 00:00:03,240
+Giờ nói về AWS Snowball.
+
+2
+00:00:03,240 --> 00:00:06,150
+Thiết bị an toàn, di động để thu thập/xử lý dữ liệu ở Edge
+
+3
+00:00:06,150 --> 00:00:11,910
+và di chuyển dữ liệu vào/ra AWS (phù hợp cỡ petabyte).
+
+4
+00:00:11,910 --> 00:00:20,610
+Hai mẫu Snowball Edge: Storage Optimized (≈210 TB) và Compute Optimized (≈28 TB).
+
+5
+00:00:25,710 --> 00:00:32,310
+Tính thời gian truyền: 100 TB qua 1 Gbps ≈ 12 ngày → mạng chậm/đắt/không ổn định
+
+6
+00:00:44,550 --> 00:01:02,215
+→ nên dùng Snowball nếu truyền qua mạng > 1 tuần.
+
+7
+00:01:14,610 --> 00:01:21,210
+Cách dùng: nhận thiết bị Snowball vật lý, nạp dữ liệu tại chỗ,
+
+8
+00:01:21,210 --> 00:01:29,670
+gửi trả AWS để import vào S3 (hoặc dịch vụ đích khác).
+
+9
+00:01:48,990 --> 00:02:12,000
+Use case khác: Edge computing (xe tải, tàu biển, mỏ…) nơi thiếu mạng/compute.
+

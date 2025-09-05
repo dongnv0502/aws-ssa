@@ -1,0 +1,304 @@
+1
+00:00:00,140 --> 00:00:01,750
+Giờ nói về một routing policy
+
+2
+00:00:01,750 --> 00:00:03,140
+rất dễ hiểu:
+
+3
+00:00:03,140 --> 00:00:05,730
+Latency-based routing policy.
+
+4
+00:00:05,730 --> 00:00:06,563
+Được chứ.
+
+5
+00:00:06,563 --> 00:00:08,980
+Ý tưởng là bạn muốn điều hướng tới resource
+
+6
+00:00:08,980 --> 00:00:11,070
+có độ trễ (latency) thấp nhất.
+
+7
+00:00:11,070 --> 00:00:13,050
+Tức là nơi gần người dùng nhất,
+
+8
+00:00:13,050 --> 00:00:14,330
+rất hữu ích khi latency là mối quan tâm chính
+
+9
+00:00:14,330 --> 00:00:16,780
+cho website hay ứng dụng của bạn.
+
+10
+00:00:16,780 --> 00:00:18,730
+Latency được đo dựa trên tốc độ người dùng
+
+11
+00:00:18,730 --> 00:00:20,320
+kết nối tới AWS Region gần nhất
+
+12
+00:00:20,320 --> 00:00:23,730
+được xác định cho bản ghi đó.
+
+13
+00:00:28,470 --> 00:00:29,303
+Ví dụ,
+
+14
+00:00:29,303 --> 00:00:32,060
+nếu người dùng ở Đức nhưng có latency thấp nhất
+
+15
+00:00:32,060 --> 00:00:33,610
+tới một resource ở Mỹ,
+
+16
+00:00:33,610 --> 00:00:35,750
+thì họ sẽ được điều hướng về đó.
+
+17
+00:00:35,750 --> 00:00:38,110
+Cơ chế này có thể kết hợp với Health Check (bài sau).
+
+18
+00:00:39,370 --> 00:00:40,770
+Nhìn vào bản đồ thế giới để hình dung.
+
+19
+00:00:40,770 --> 00:00:41,603
+Giả sử ta triển khai ứng dụng
+
+20
+00:00:41,603 --> 00:00:42,920
+ở hai nơi: us-east-1 và ap-southeast-1.
+
+21
+00:00:47,810 --> 00:00:50,170
+Người dùng ở khắp nơi, và Route 53 sẽ
+
+22
+00:00:50,170 --> 00:00:53,970
+đánh giá latency.
+
+23
+00:00:53,970 --> 00:00:57,070
+Những người dùng có latency thấp nhất tới ALB ở us-east-1
+
+24
+00:00:57,070 --> 00:01:00,360
+sẽ được điều hướng về đó.
+
+25
+00:01:00,360 --> 00:01:02,110
+Những người dùng khác sẽ được điều hướng về
+
+26
+00:01:02,110 --> 00:01:03,590
+ap-southeast-1.
+
+27
+00:01:03,590 --> 00:01:06,780
+Giờ thực hành trên console.
+
+28
+00:01:06,780 --> 00:01:09,030
+Tạo các record mới.
+
+29
+00:01:09,030 --> 00:01:10,570
+Record name: latency.stephanetheteacher.com.
+
+30
+00:01:12,950 --> 00:01:15,050
+Value đầu tiên là IP ở ap-southeast-1.
+
+31
+00:01:16,480 --> 00:01:19,540
+Dán giá trị vào đây.
+
+32
+00:01:19,540 --> 00:01:22,580
+Routing policy: Latency.
+
+33
+00:01:22,580 --> 00:01:24,210
+Vì chúng ta nhập IP trực tiếp,
+
+34
+00:01:24,210 --> 00:01:26,300
+ta cần chỉ rõ Region cho bản ghi này.
+
+35
+00:01:26,300 --> 00:01:28,910
+Bản ghi này tương ứng ap-southeast-1 (Singapore).
+
+36
+00:01:36,993 --> 00:01:38,840
+Lý do: với IP thuần, Route 53 không tự biết
+
+37
+00:01:38,840 --> 00:01:40,100
+đó là IP của EC2 ở Singapore;
+
+38
+00:01:40,100 --> 00:01:43,240
+về lý thuyết nó có thể là IP ở bất cứ đâu.
+
+39
+00:01:46,580 --> 00:01:47,960
+Nên ta phải chỉ định rõ Region tương ứng.
+
+40
+00:01:47,960 --> 00:01:52,150
+Có thể gắn Health check và Record ID; tôi đặt ap-southeast-1.
+
+41
+00:02:00,360 --> 00:02:01,700
+Thêm một record nữa.
+
+42
+00:02:01,700 --> 00:02:04,440
+Record name vẫn là latency, value lần này
+
+43
+00:02:04,440 --> 00:02:06,310
+là IP ở us-east-1.
+
+44
+00:02:08,360 --> 00:02:09,930
+Routing policy là Latency (không phải Weighted),
+
+45
+00:02:14,030 --> 00:02:16,080
+Region: us-east-1. Record ID: us-east-1.
+
+46
+00:02:21,510 --> 00:02:26,060
+Cuối cùng thêm một record cho eu-central-1.
+
+47
+00:02:26,060 --> 00:02:28,330
+Copy IP, name giữ nguyên,
+
+48
+00:02:30,260 --> 00:02:31,900
+value là IP đó, policy: Latency,
+
+49
+00:02:33,480 --> 00:02:38,480
+Region: eu-central-1. Record ID đặt theo region.
+
+50
+00:02:39,353 --> 00:02:43,720
+Như vậy đã tạo xong ba record.
+
+51
+00:02:47,270 --> 00:02:48,810
+Giờ thử nghiệm.
+
+52
+00:02:48,810 --> 00:02:50,130
+Hiện tôi đang ở châu Âu.
+
+53
+00:02:50,130 --> 00:02:51,480
+Mở URL này,
+
+54
+00:02:51,480 --> 00:02:54,800
+tôi kỳ vọng chuyển tới instance ở châu Âu.
+
+55
+00:02:56,300 --> 00:02:58,050
+Nhận “Hello World” từ IP ở eu-central-1c.
+
+56
+00:03:01,270 --> 00:03:03,910
+Dùng CloudShell chạy dig cho domain này,
+
+57
+00:03:05,940 --> 00:03:08,520
+ta nhận về một giá trị (một IP) như trên.
+
+58
+00:03:13,280 --> 00:03:15,800
+Và nếu tôi refresh, do latency tới eu-central-1
+
+59
+00:03:16,938 --> 00:03:19,500
+không đổi, tôi sẽ luôn nhận cùng IP đó.
+
+60
+00:03:23,123 --> 00:03:24,800
+Vậy kiểm thử thế nào?
+
+61
+00:03:24,800 --> 00:03:26,780
+Tôi sẽ dùng VPN.
+
+62
+00:03:28,380 --> 00:03:31,410
+Chuyển vị trí sang Canada chẳng hạn.
+
+63
+00:03:31,410 --> 00:03:34,180
+Ở Canada, latency gần nhất là về U.S.
+
+64
+00:03:40,360 --> 00:03:43,310
+Refresh trang: thấy “Hello World” từ U.S.
+
+65
+00:03:43,310 --> 00:03:46,480
+Việc đổi vị trí qua VPN cũng khiến DNS cache (TTL)
+
+66
+00:03:46,480 --> 00:03:50,040
+trên máy tôi được làm mới, nên tôi nhận giá trị us-east-1a.
+
+67
+00:03:56,940 --> 00:03:59,720
+Nhưng CloudShell của tôi vẫn ở châu Âu.
+
+68
+00:04:02,030 --> 00:04:06,080
+Chạy dig tại đây sẽ vẫn trả về IP ở eu-central-1,
+
+69
+00:04:08,620 --> 00:04:10,960
+vì CloudShell đang ở Region đó.
+
+70
+00:04:16,060 --> 00:04:18,670
+Để kiểm AP Southeast, tôi chuyển VPN sang Hong Kong.
+
+71
+00:04:25,360 --> 00:04:26,820
+Tôi đang gần Singapore.
+
+72
+00:04:26,820 --> 00:04:28,650
+Refresh trang,
+
+73
+00:04:28,650 --> 00:04:31,460
+nhận “Hello World” từ ap-southeast-1b.
+
+74
+00:04:31,460 --> 00:04:33,210
+Các latency record hoạt động tốt,
+
+75
+00:04:33,210 --> 00:04:34,240
+rất phổ biến khi dùng thực tế.
+
+76
+00:04:36,550 --> 00:04:37,383
+Hẹn bạn ở bài tiếp theo.
+

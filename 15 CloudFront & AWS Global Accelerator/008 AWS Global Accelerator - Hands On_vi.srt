@@ -1,0 +1,36 @@
+1
+00:00:00,070 --> 00:00:05,770
+Thực hành Global Accelerator (có phí — cân nhắc trước khi làm).
+
+2
+00:00:16,210 --> 00:00:20,770
+GA là dịch vụ global (console tự về us‑west‑2 để cấu hình).
+
+3
+00:00:39,870 --> 00:00:55,220
+Chuẩn bị ứng dụng: tạo EC2 ở một region (ví dụ us‑east‑1), user‑data bật HTTP
+
+4
+00:01:14,120 --> 00:01:41,000
+và hiển thị thông tin region/hostname; mở Security Group cho HTTP (0.0.0.0/0).
+
+5
+00:01:48,750 --> 00:01:58,000
+Khởi tạo Accelerator: tạo Accelerator → Listener (TCP/80 hoặc theo ứng dụng),
+
+6
+00:01:58,000 --> 00:02:12,000
+Endpoint Group trỏ tới region, thêm Endpoint (ALB/NLB/EC2/EIP) đã chuẩn bị.
+
+7
+00:02:12,000 --> 00:02:28,020
+GA cấp 2 Anycast IP tĩnh. Truy cập IP đó → GA định tuyến tới endpoint khoẻ mạnh gần nhất.
+
+8
+00:02:28,020 --> 00:02:44,682
+Lưu ý: Health Check tự động; khi endpoint lỗi, lưu lượng failover < 1 phút.
+
+9
+00:02:44,682 --> 00:03:00,000
+Kết thúc: dọn dẹp tài nguyên để tránh chi phí (xoá Accelerator/Endpoint/EC2).
+

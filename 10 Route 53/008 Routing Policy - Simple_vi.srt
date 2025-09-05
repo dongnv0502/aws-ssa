@@ -1,0 +1,152 @@
+1
+00:00:00,120 --> 00:00:01,990
+Giờ nói về Routing Policy
+
+2
+00:00:01,990 --> 00:00:03,410
+trong Route 53.
+
+3
+00:00:03,410 --> 00:00:05,960
+Routing policy giúp Route 53 trả lời
+
+4
+00:00:05,960 --> 00:00:07,939
+các truy vấn DNS.
+
+5
+00:00:07,939 --> 00:00:11,000
+Đừng nhầm với “routing” của load balancer.
+
+6
+00:00:11,000 --> 00:00:13,720
+DNS không định tuyến lưu lượng ứng dụng;
+
+7
+00:00:13,720 --> 00:00:15,500
+nó chỉ trả lời truy vấn DNS,
+
+8
+00:00:15,500 --> 00:00:17,580
+để client biết phải gửi HTTP tới đâu.
+
+9
+00:00:17,580 --> 00:00:18,413
+Tức DNS dịch host name
+
+10
+00:00:18,413 --> 00:00:21,230
+thành endpoint mà client dùng được.
+
+11
+00:00:21,230 --> 00:00:24,300
+Route 53 hỗ trợ các policy: Simple, Weighted,
+
+12
+00:00:24,300 --> 00:00:26,330
+Failover, Latency-based, Geolocation,
+
+13
+00:00:26,330 --> 00:00:28,890
+Multi-Value Answer, Geoproximity.
+
+14
+00:00:28,890 --> 00:00:31,890
+Đầu tiên: Simple routing policy.
+
+15
+00:00:31,890 --> 00:00:35,700
+Thường dùng để trỏ tới một resource duy nhất.
+
+16
+00:00:35,700 --> 00:00:37,790
+Ví dụ: client hỏi foo.example.com,
+
+17
+00:00:37,790 --> 00:00:40,850
+Route 53 trả về một A record (một IP).
+
+18
+00:00:40,850 --> 00:00:44,440
+Có thể cấu hình nhiều giá trị trong cùng một record;
+
+19
+00:00:44,440 --> 00:00:47,740
+khi đó client sẽ chọn ngẫu nhiên một IP để dùng.
+
+20
+00:00:47,740 --> 00:00:51,350
+Nếu dùng Alias cùng Simple, chỉ chọn được 1 AWS resource
+
+21
+00:00:51,350 --> 00:00:53,360
+làm đích.
+
+22
+00:00:53,360 --> 00:00:55,010
+Vì Simple rất “đơn giản”,
+
+23
+00:00:55,010 --> 00:00:58,430
+nó không gắn được Health Check (sẽ học sau).
+
+24
+00:00:58,430 --> 00:01:00,840
+Thực hành: tạo record
+
+25
+00:01:00,840 --> 00:01:02,310
+simple.stephanetheteacher.com
+
+26
+00:01:02,310 --> 00:01:05,340
+loại A, value là IP của instance ap-southeast-1.
+
+27
+00:01:05,340 --> 00:01:06,173
+Đặt TTL thấp, ví dụ 20 giây.
+
+28
+00:01:06,173 --> 00:01:07,130
+Tạo record.
+
+29
+00:01:07,130 --> 00:01:09,900
+Mở simple.… sẽ thấy Hello World từ ap-southeast-1b.
+
+30
+00:01:09,900 --> 00:01:11,750
+Chạy dig sẽ thấy A record TTL 20s.
+
+31
+00:01:11,750 --> 00:01:13,190
+Chỉnh record để có nhiều IP:
+
+32
+00:01:13,190 --> 00:01:14,640
+ap-southeast-1 và us-east-1.
+
+33
+00:01:14,640 --> 00:01:17,520
+Khi TTL cũ hết, dig sẽ trả về 2 IP;
+
+34
+00:01:17,520 --> 00:01:19,130
+client chọn ngẫu nhiên một IP.
+
+35
+00:01:19,130 --> 00:01:22,950
+Refresh trang, bạn sẽ thấy lúc vào us-east-1,
+
+36
+00:01:22,950 --> 00:01:25,560
+lúc vào ap-southeast-1 tùy lần.
+
+37
+00:01:25,560 --> 00:01:26,610
+Đó là Simple routing.
+
+38
+00:01:26,610 --> 00:01:27,810
+Hẹn gặp ở bài tiếp theo.
+

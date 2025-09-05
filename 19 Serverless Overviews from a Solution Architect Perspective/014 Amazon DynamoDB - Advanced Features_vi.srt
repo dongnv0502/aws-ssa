@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+DynamoDB nâng cao (bổ sung): PITR/Backup/Restore, Streams + Lambda fan‑out.
+
+2
+00:00:06,000 --> 00:00:16,000
+Global Tables multi‑region active‑active; DAX giảm độ trễ micro‑giây.
+

@@ -1,0 +1,36 @@
+1
+00:00:00,000 --> 00:00:02,200
+Route 53 Resolvers & Hybrid DNS (tổng quan).
+
+2
+00:00:02,200 --> 00:00:06,000
+Resolver là thành phần xử lý truy vấn DNS (recursive resolver).
+
+3
+00:00:06,000 --> 00:00:10,000
+Trong môi trường hybrid (on‑premises + AWS), bạn có thể dùng
+
+4
+00:00:10,000 --> 00:00:14,000
+Route 53 Resolver inbound/outbound endpoints để phân giải chéo.
+
+5
+00:00:14,000 --> 00:00:18,000
+- Outbound endpoint: VPC gửi truy vấn sang DNS on‑premises (via Direct Connect/VPN).
+
+6
+00:00:18,000 --> 00:00:22,000
+- Inbound endpoint: On‑premises gửi truy vấn vào VPC để phân giải Private Hosted Zone.
+
+7
+00:00:22,000 --> 00:00:26,000
+Hỗ trợ rule‑based forwarding (DNS Firewall/Rules) để điều khiển đường đi.
+
+8
+00:00:26,000 --> 00:00:30,000
+Use case: tên miền nội bộ on‑premises cần phân giải trên VPC và ngược lại,
+
+9
+00:00:30,000 --> 00:00:34,000
+hoặc hợp nhất không gian tên trong kiến trúc hybrid.
+

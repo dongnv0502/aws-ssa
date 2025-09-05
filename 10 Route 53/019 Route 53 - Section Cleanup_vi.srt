@@ -1,0 +1,48 @@
+1
+00:00:11,854 --> 00:00:15,500
+Chi phí domain: có thể cao hơn nếu TLD đắt.
+
+2
+00:00:15,500 --> 00:00:17,810
+Hosted zone: nếu không dùng,
+
+3
+00:00:17,810 --> 00:00:18,700
+hãy xoá hosted zone (xoá record trước),
+
+4
+00:00:18,700 --> 00:00:20,620
+vì giữ lại sẽ tốn 0.50 USD/tháng.
+
+5
+00:00:20,620 --> 00:00:22,270
+Số lượng record bên trong không ảnh hưởng chi phí.
+
+6
+00:00:22,270 --> 00:00:25,020
+Tiếp theo, xoá các EC2 instance ở các region
+
+7
+00:00:25,020 --> 00:00:27,750
+và Application Load Balancer (nếu có).
+
+8
+00:00:27,750 --> 00:00:29,860
+Ví dụ: một ở Frankfurt (xoá luôn Load Balancer
+
+9
+00:00:29,860 --> 00:00:31,150
+và Target Group đi kèm),
+
+10
+00:00:31,150 --> 00:00:32,350
+rồi lặp lại ở us-east-1 và ap-southeast-1.
+
+11
+00:00:32,350 --> 00:00:35,640
+Sau khi dọn dẹp, bạn sẽ không còn phát sinh chi phí.
+
+12
+00:00:35,640 --> 00:00:38,320
+Hy vọng bạn thích phần này; hẹn gặp lại ở bài tiếp theo.
+

@@ -1,0 +1,16 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on FSx: tạo file system, gắn vào EC2/clients và kiểm thử.
+
+2
+00:00:06,000 --> 00:00:16,000
+Chọn loại FSx phù hợp (Windows/Lustre/ONTAP/OpenZFS), VPC/subnet, bảo mật, size/throughput.
+
+3
+00:00:16,000 --> 00:00:26,000
+Kết nối: Windows (SMB/AD), Linux (NFS), cấu hình mount, kiểm tra IO/hiệu năng.
+
+4
+00:00:26,000 --> 00:00:34,000
+Sao lưu/khôi phục, kiểm soát truy cập, mã hoá KMS.
+

@@ -1,0 +1,364 @@
+1
+00:00:00,030 --> 00:00:02,820
+Được rồi, chúng ta đang ở Route 53
+
+2
+00:00:02,820 --> 00:00:04,770
+và sẽ đăng ký domain.
+
+3
+00:00:04,770 --> 00:00:08,460
+Như bạn thấy, tôi có một hosted zone và một domain.
+
+4
+00:00:08,460 --> 00:00:09,480
+Hiện bạn có thể chưa có gì.
+
+5
+00:00:09,480 --> 00:00:11,730
+Chỉ vì tôi đã dùng tài khoản này trước đó.
+
+6
+00:00:11,730 --> 00:00:13,770
+Giờ hãy đi đăng ký một domain.
+
+7
+00:00:13,770 --> 00:00:14,910
+Ở thanh bên trái,
+
+8
+00:00:14,910 --> 00:00:16,830
+nhấn Register domains
+
+9
+00:00:16,830 --> 00:00:18,690
+và bạn sẽ thấy giao diện console mới.
+
+10
+00:00:18,690 --> 00:00:20,490
+Nếu chưa có, bạn có thể nhấn
+
+11
+00:00:20,490 --> 00:00:23,040
+để dùng console mới; tôi sẽ dùng giao diện này
+
+12
+00:00:23,040 --> 00:00:25,800
+vì đó là cách sẽ dùng về sau.
+
+13
+00:00:25,800 --> 00:00:27,510
+Đây là một domain name.
+
+14
+00:00:27,510 --> 00:00:29,070
+stephanetheteacher.com.
+
+15
+00:00:29,070 --> 00:00:31,530
+Tôi đã đăng ký nó từ trước
+
+16
+00:00:31,530 --> 00:00:32,910
+còn bạn thì chưa có gì.
+
+17
+00:00:32,910 --> 00:00:34,620
+Bắt đầu nhé, để làm việc với Route 53
+
+18
+00:00:34,620 --> 00:00:38,070
+ta cần đăng ký domain của chính mình.
+
+19
+00:00:38,070 --> 00:00:39,300
+Việc này sẽ tốn tiền,
+
+20
+00:00:39,300 --> 00:00:40,890
+nếu bạn không muốn trả
+
+21
+00:00:40,890 --> 00:00:43,830
+khoảng 12 USD mỗi năm cho một domain,
+
+22
+00:00:43,830 --> 00:00:47,040
+hãy bỏ qua thao tác và chỉ xem toàn bộ phần này.
+
+23
+00:00:47,040 --> 00:00:49,020
+Tôi sẽ làm theo các bước bạn sẽ làm.
+
+24
+00:00:49,020 --> 00:00:52,410
+Chọn Register domain và nhập domain name.
+
+25
+00:00:52,410 --> 00:00:57,410
+Hãy chọn một tên mà chưa ai dùng trước đó,
+
+26
+00:00:58,350 --> 00:00:59,183
+bất kỳ tên nào bạn muốn.
+
+27
+00:00:59,183 --> 00:01:00,840
+Ý tưởng là bạn chọn một domain name.
+
+28
+00:01:00,840 --> 00:01:03,360
+Hy vọng không ai đã đăng ký tên đó.
+
+29
+00:01:03,360 --> 00:01:04,349
+Tuyệt vời.
+
+30
+00:01:04,349 --> 00:01:08,220
+Tôi có thể mua nó với giá 13 USD/năm.
+
+31
+00:01:08,220 --> 00:01:10,560
+Tôi chọn nó và cho vào giỏ.
+
+32
+00:01:10,560 --> 00:01:13,320
+Tiếp tục tới bước thanh toán (checkout).
+
+33
+00:01:13,320 --> 00:01:14,850
+Đây là domain name của tôi.
+
+34
+00:01:14,850 --> 00:01:17,220
+Tôi có thể chọn thời hạn, ví dụ 1 năm
+
+35
+00:01:17,220 --> 00:01:19,980
+và bật/tắt tự động gia hạn (autorenew).
+
+36
+00:01:19,980 --> 00:01:21,780
+Nếu bạn định giữ domain lâu dài,
+
+37
+00:01:21,780 --> 00:01:23,790
+hãy để autorenew bật.
+
+38
+00:01:23,790 --> 00:01:25,590
+Nếu bạn không muốn sau một năm,
+
+39
+00:01:25,590 --> 00:01:27,780
+hãy tắt nó đi.
+
+40
+00:01:27,780 --> 00:01:29,130
+Nhưng tất nhiên, nếu bạn dùng domain,
+
+41
+00:01:29,130 --> 00:01:30,900
+tốt hơn là để autorenew bật.
+
+42
+00:01:30,900 --> 00:01:33,120
+Nếu không, người khác có thể mua domain
+
+43
+00:01:33,120 --> 00:01:34,170
+khi bạn mất nó.
+
+44
+00:01:34,170 --> 00:01:37,380
+Điều đó không tốt; quyết định là ở bạn.
+
+45
+00:01:37,380 --> 00:01:39,210
+Nếu bạn chỉ cần cho khoá học này,
+
+46
+00:01:39,210 --> 00:01:41,880
+thì có thể tắt autorenew.
+
+47
+00:01:41,880 --> 00:01:43,740
+Được rồi, nhấn Next.
+
+48
+00:01:43,740 --> 00:01:45,240
+Tiếp theo là thông tin liên hệ.
+
+49
+00:01:45,240 --> 00:01:48,479
+Đây là thông tin trong tài khoản của bạn
+
+50
+00:01:48,479 --> 00:01:51,600
+đã được điền sẵn.
+
+51
+00:01:51,600 --> 00:01:54,930
+Bạn có thể nhập thông tin của riêng mình nếu muốn.
+
+52
+00:01:54,930 --> 00:01:56,460
+Admin contact
+
+53
+00:01:56,460 --> 00:01:58,200
+và tech contact có thể trùng
+
+54
+00:01:58,200 --> 00:02:00,330
+với registrant contact.
+
+55
+00:02:00,330 --> 00:02:03,300
+Cuối cùng, bạn nên bật privacy protection
+
+56
+00:02:03,300 --> 00:02:04,590
+để tránh nhận spam.
+
+57
+00:02:04,590 --> 00:02:06,510
+Và để thông tin liên hệ thật sự của bạn
+
+58
+00:02:06,510 --> 00:02:09,240
+như địa chỉ, số điện thoại, v.v.
+
+59
+00:02:09,240 --> 00:02:11,730
+không bị lộ trên Internet.
+
+60
+00:02:11,730 --> 00:02:15,840
+Nhấn Next và bạn sẽ thấy trang Review.
+
+61
+00:02:15,840 --> 00:02:17,670
+Hãy đảm bảo mọi thứ chính xác
+
+62
+00:02:17,670 --> 00:02:19,410
+và đánh dấu đồng ý điều khoản.
+
+63
+00:02:19,410 --> 00:02:23,040
+Nếu bạn Submit, lưu ý là bạn sẽ trả 13 USD.
+
+64
+00:02:23,040 --> 00:02:24,240
+Vì vậy đừng làm bước này
+
+65
+00:02:24,240 --> 00:02:26,610
+nếu bạn không muốn trả khoản tiền đó.
+
+66
+00:02:26,610 --> 00:02:28,800
+Sau đó domain sẽ được đăng ký
+
+67
+00:02:28,800 --> 00:02:30,000
+sau một khoảng thời gian.
+
+68
+00:02:30,000 --> 00:02:32,490
+Có thể vài phút hoặc vài giờ,
+
+69
+00:02:32,490 --> 00:02:33,480
+rồi bạn sẽ sẵn sàng.
+
+70
+00:02:33,480 --> 00:02:36,480
+Để xác nhận mọi thứ, ở bên trái
+
+71
+00:02:36,480 --> 00:02:40,200
+vào Hosted zones rồi nhấn vào stefanetheteacher.com
+
+72
+00:02:40,200 --> 00:02:42,540
+hoặc domain mà bạn đăng ký.
+
+73
+00:02:42,540 --> 00:02:44,670
+Bạn sẽ thấy một vài record,
+
+74
+00:02:44,670 --> 00:02:46,350
+và bạn nên có 2 record.
+
+75
+00:02:46,350 --> 00:02:49,110
+Tôi có 4 vì đã dùng trước đó.
+
+76
+00:02:49,110 --> 00:02:53,760
+Nhưng bạn sẽ có record NS và record SOA.
+
+77
+00:02:53,760 --> 00:02:55,470
+Record NS chỉ ra rằng
+
+78
+00:02:55,470 --> 00:02:58,110
+bạn nên dùng AWS DNS
+
+79
+00:02:58,110 --> 00:02:59,760
+để xử lý các truy vấn DNS.
+
+80
+00:02:59,760 --> 00:03:01,710
+Đó chính là Route 53.
+
+81
+00:03:01,710 --> 00:03:04,170
+Điều này có nghĩa là khi đã có hosted zone,
+
+82
+00:03:04,170 --> 00:03:06,450
+mỗi lần ta thêm DNS record như
+
+83
+00:03:06,450 --> 00:03:07,920
+record này hay record kia,
+
+84
+00:03:07,920 --> 00:03:10,260
+và tôi sẽ hướng dẫn bạn trong bài sau.
+
+85
+00:03:10,260 --> 00:03:11,610
+Thì “nguồn sự thật” (source of truth)
+
+86
+00:03:11,610 --> 00:03:14,490
+cho các DNS record sẽ là chính Route 53.
+
+87
+00:03:14,490 --> 00:03:16,920
+Chúng ta cấu hình ngay tại đây, rất ổn.
+
+88
+00:03:16,920 --> 00:03:17,850
+Vậy là xong.
+
+89
+00:03:17,850 --> 00:03:18,720
+Chúng ta đã có domain name
+
+90
+00:03:18,720 --> 00:03:20,670
+và có thể bắt đầu phần hands-on.
+
+91
+00:03:20,670 --> 00:03:23,793
+Hy vọng bạn thích và hẹn gặp lại ở bài tiếp theo.
+

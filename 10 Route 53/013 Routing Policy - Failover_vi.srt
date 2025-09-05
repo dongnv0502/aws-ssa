@@ -1,0 +1,92 @@
+1
+00:00:00,260 --> 00:00:02,350
+Giờ nói về Routing Policy
+
+2
+00:00:02,350 --> 00:00:04,400
+Failover (chuyển đổi dự phòng).
+
+3
+00:00:04,400 --> 00:00:07,370
+Ta có Route 53 ở giữa và hai EC2 instance:
+
+4
+00:00:07,370 --> 00:00:08,890
+một primary, một secondary (DR).
+
+5
+00:00:08,890 --> 00:00:11,040
+Ta gắn Health Check cho bản ghi primary (bắt buộc).
+
+6
+00:00:11,040 --> 00:00:13,100
+Nếu Health Check thành Unhealthy,
+
+7
+00:00:13,100 --> 00:00:15,500
+Route 53 tự động failover sang secondary
+
+8
+00:00:15,500 --> 00:00:17,060
+và trả về kết quả từ secondary.
+
+9
+00:00:17,060 --> 00:00:19,740
+Secondary cũng có thể gắn Health Check nếu muốn,
+
+10
+00:00:19,740 --> 00:00:21,180
+nhưng luôn chỉ có 1 primary và 1 secondary.
+
+11
+00:00:21,180 --> 00:00:23,460
+Khi client truy vấn DNS, nó luôn nhận
+
+12
+00:00:23,460 --> 00:00:26,740
+resource đang được coi là Healthy.
+
+13
+00:00:26,740 --> 00:00:28,700
+Primary Healthy → trả về bản ghi primary.
+
+14
+00:00:28,700 --> 00:00:32,000
+Primary Unhealthy → trả về bản ghi secondary.
+
+15
+00:00:32,000 --> 00:00:34,512
+Giờ thực hành failover với Health Check.
+
+16
+00:00:58,840 --> 00:01:00,870
+Trong Hosted Zone, tạo bản ghi
+
+17
+00:01:00,870 --> 00:01:02,880
+failover.stephanetheteacher.com (A record),
+
+18
+00:01:05,810 --> 00:01:09,830
+Giá trị đầu tiên: IP primary, Routing policy = Failover,
+
+19
+00:01:09,830 --> 00:01:11,040
+chọn Role = Primary, gắn Health Check tương ứng.
+
+20
+00:01:11,040 --> 00:01:13,440
+Thêm bản ghi thứ hai cùng name/type,
+
+21
+00:01:13,440 --> 00:01:14,450
+Role = Secondary, trỏ tới IP dự phòng,
+
+22
+00:01:14,450 --> 00:01:18,000
+có thể gắn Health Check để chỉ trả về khi Healthy.
+
+23
+00:01:18,000 --> 00:01:21,500
+Khi primary fail (unhealthy), Route 53 trả về secondary.
+

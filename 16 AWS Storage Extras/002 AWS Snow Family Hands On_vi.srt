@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:05,000
+Hands‑on Snow Family: tạo job, chọn thiết bị, theo dõi vận chuyển.
+
+2
+00:00:05,000 --> 00:00:15,000
+Chọn loại job (Import vào S3 hoặc Export), chọn bucket đích, key prefix.
+
+3
+00:00:15,000 --> 00:00:25,000
+Thiết lập địa chỉ giao nhận, mã hoá & khóa (KMS), và vai trò IAM cần thiết.
+
+4
+00:00:25,000 --> 00:00:35,000
+Khi nhận thiết bị: cắm nguồn/mạng, cài Snowball client, copy dữ liệu.
+
+5
+00:00:35,000 --> 00:00:45,000
+Kết thúc: đóng gói gửi lại; AWS tự động import vào S3 và thông báo trạng thái job.
+

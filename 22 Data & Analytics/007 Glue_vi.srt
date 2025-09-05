@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+AWS Glue: ETL serverless, Data Catalog (schema), crawler, job, Glue Studio.
+
+2
+00:00:06,000 --> 00:00:18,000
+Transform: Spark/Scala/Python, Glue Job/Workflow/Trigger; tích hợp Athena/Redshift/S3.
+

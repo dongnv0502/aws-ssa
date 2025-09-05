@@ -1,0 +1,16 @@
+1
+00:00:00,000 --> 00:00:05,000
+Amazon FSx: dịch vụ file system được quản lý, hiệu năng cao.
+
+2
+00:00:05,000 --> 00:00:18,000
+Các tuỳ chọn: FSx for Windows File Server (SMB, AD), FSx for Lustre (HPC),
+
+3
+00:00:18,000 --> 00:00:28,000
+FSx for NetApp ONTAP (NFS/SMB/iSCSI, snapshot), FSx for OpenZFS.
+
+4
+00:00:28,000 --> 00:00:38,000
+Tích hợp VPC, bảo mật (IAM, KMS), backup, scale, hiệu năng theo workload.
+

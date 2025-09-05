@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on API Gateway (bổ sung): mapping template, request/response transform.
+
+2
+00:00:06,000 --> 00:00:16,000
+Tích hợp Lambda proxy/non‑proxy, cấu hình CORS, usage plan/ApiKey, deploy stage.
+

@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+API Gateway: front door cho API (REST/HTTP/WebSocket), tích hợp Lambda/ALB/Service.
+
+2
+00:00:06,000 --> 00:00:18,000
+Tính năng: auth (IAM/Cognito/Lambda Authorizer), throttling, caching, stage/version, mapping template.
+

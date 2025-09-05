@@ -1,0 +1,60 @@
+1
+00:00:00,330 --> 00:00:02,280
+Thực hành CloudFront với S3.
+
+2
+00:00:02,280 --> 00:00:07,530
+Tạo S3 bucket (ví dụ `demo-cloudfront-stephane-v4`) và upload
+
+3
+00:00:25,260 --> 00:00:31,800
+`index.html`, `beach.jpg`, `coffee.jpg`.
+
+4
+00:00:41,670 --> 00:00:48,720
+Object URL công khai sẽ “Access Denied” (không public);
+
+5
+00:00:48,720 --> 00:00:58,500
+Open trong console tạo Pre‑Signed URL (tạm thời truy cập được).
+
+6
+00:01:08,370 --> 00:01:15,753
+Mục tiêu: dùng CloudFront truy cập file mà không cần public bucket.
+
+7
+00:01:17,670 --> 00:01:26,010
+Mở CloudFront (dịch vụ global). Tạo Distribution:
+
+8
+00:01:27,960 --> 00:01:36,060
+- Origin Domain: chọn S3 bucket hoặc nhập origin HTTP tuỳ chỉnh.
+
+9
+00:01:45,090 --> 00:01:59,580
+- Origin Access: chọn OAC (Origin Access Control – cách khuyến nghị; thay OAI cũ).
+
+10
+00:02:06,180 --> 00:02:16,710
+Tạo OAC → CloudFront yêu cầu cập nhật Bucket Policy để cấp quyền cho OAC.
+
+11
+00:02:22,500 --> 00:02:31,950
+Cập nhật Bucket Policy theo gợi ý trong console (Allow CloudFront OAC đọc bucket).
+
+12
+00:02:31,950 --> 00:02:41,000
+Hoàn tất Distribution → đợi trạng thái “Deployed”.
+
+13
+00:02:41,000 --> 00:02:58,200
+Mở domain CloudFront (dxxxx.cloudfront.net)/index.html → trang tải qua CDN,
+
+14
+00:02:58,200 --> 00:03:11,973
+ảnh cũng hiển thị dù bucket không public (truy cập qua OAC).
+
+15
+00:03:12,840 --> 00:03:19,000
+Kết luận: CloudFront + OAC = bảo mật S3 origin và phân phối toàn cầu hiệu quả.
+

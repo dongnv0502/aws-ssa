@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:05,000
+AWS DataSync: dịch chuyển dữ liệu tự động, nhanh, bảo mật.
+
+2
+00:00:05,000 --> 00:00:16,000
+Nguồn/đích: on‑prem (NFS/SMB), S3, EFS, FSx; tăng tốc qua agent + tối ưu giao thức.
+
+3
+00:00:16,000 --> 00:00:26,000
+Lập lịch, lọc, mã hoá, kiểm tra toàn vẹn; theo dõi bằng CloudWatch/Event.
+

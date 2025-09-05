@@ -1,0 +1,36 @@
+1
+00:00:00,000 --> 00:00:02,200
+Routing Policy: Multi‑Value Answer.
+
+2
+00:00:02,200 --> 00:00:06,000
+Trả về nhiều bản ghi (tối đa 8) cho một truy vấn.
+
+3
+00:00:06,000 --> 00:00:10,000
+Mỗi record thường gắn Health Check; Route 53 chỉ trả về
+
+4
+00:00:10,000 --> 00:00:14,000
+những record đang Healthy. Client sẽ chọn một record để dùng.
+
+5
+00:00:14,000 --> 00:00:18,000
+Khác với Simple (nhiều giá trị): Simple không hỗ trợ Health Check,
+
+6
+00:00:18,000 --> 00:00:22,000
+nên có thể trả về endpoint Unhealthy. Multi‑Value an toàn hơn.
+
+7
+00:00:22,000 --> 00:00:26,000
+Thực hành: tạo name “multi.…”, policy = Multi‑Value,
+
+8
+00:00:26,000 --> 00:00:30,000
+thêm các value ở us‑east‑1, eu‑central‑1, ap‑southeast‑1,
+
+9
+00:00:30,000 --> 00:00:34,000
+gắn Health Check tương ứng, TTL 60s. Dùng dig/refresh để kiểm tra.
+

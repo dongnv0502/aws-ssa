@@ -1,0 +1,48 @@
+1
+00:00:00,000 --> 00:00:03,060
+S3 Storage Lens: dịch vụ phân tích/tối ưu lưu trữ
+
+2
+00:00:03,060 --> 00:00:05,250
+trên toàn AWS Organization.
+
+3
+00:00:05,250 --> 00:00:08,490
+Phát hiện bất thường, tối ưu chi phí, áp dụng bảo vệ dữ liệu.
+
+4
+00:00:08,490 --> 00:00:10,800
+Có metric hoạt động 30 ngày; gộp theo Org/Account/
+
+5
+00:00:10,800 --> 00:00:12,660
+Region/Bucket/Prefix; dashboard mặc định/tuỳ biến.
+
+6
+00:00:12,660 --> 00:00:14,400
+Xuất CSV/Parquet vào S3.
+
+7
+00:00:14,400 --> 00:00:18,540
+Tổng hợp dữ liệu → báo cáo → insight (summary, protection, cost)
+
+8
+00:00:18,540 --> 00:00:21,900
+để tối ưu sử dụng S3.
+
+9
+00:00:21,900 --> 00:00:26,760
+Dashboard mặc định: hiển thị đa region/account; không xoá, có thể tắt.
+
+10
+00:00:26,760 --> 00:00:30,450
+Cấu hình tập trung theo region/account/bucket/storage class.
+
+11
+00:00:30,450 --> 00:00:33,390
+Metric chính: storage bytes, object count, avg object size,
+
+12
+00:00:33,390 --> 00:00:40,890
+số bucket, số account; có chi tiết theo account/region.
+

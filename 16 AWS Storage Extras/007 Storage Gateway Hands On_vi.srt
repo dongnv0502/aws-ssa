@@ -1,0 +1,16 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on Storage Gateway: triển khai appliance (VM/EC2), kích hoạt, cấu hình.
+
+2
+00:00:06,000 --> 00:00:18,000
+File Gateway: tạo share NFS/SMB → map tới S3 bucket/prefix; kiểm thử đọc/ghi.
+
+3
+00:00:18,000 --> 00:00:28,000
+Volume Gateway: tạo volume, gắn iSCSI, snapshot lên EBS.
+
+4
+00:00:28,000 --> 00:00:38,000
+Tape Gateway: tạo tape ảo, mount vào phần mềm backup.
+

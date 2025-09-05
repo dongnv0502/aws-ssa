@@ -1,0 +1,36 @@
+1
+00:00:00,000 --> 00:00:02,200
+Routing Policy: Geoproximity.
+
+2
+00:00:02,200 --> 00:00:06,000
+Định tuyến theo “vùng lân cận” của resource và bias (độ thiên vị).
+
+3
+00:00:06,000 --> 00:00:10,000
+Yêu cầu Route 53 Traffic Flow (tính phí) và tạo policy trong Traffic Flow.
+
+4
+00:00:10,000 --> 00:00:14,000
+Bạn xác định các resource (ALB, EC2, NLB, CloudFront, v.v.) theo Region
+
+5
+00:00:14,000 --> 00:00:18,000
+và đặt Bias để mở rộng/thu hẹp vùng ảnh hưởng của từng resource.
+
+6
+00:00:18,000 --> 00:00:22,000
+Bias dương: nới rộng phạm vi (nhiều client hơn đến resource đó).
+
+7
+00:00:22,000 --> 00:00:26,000
+Bias âm: thu hẹp phạm vi (ít client hơn).
+
+8
+00:00:26,000 --> 00:00:30,000
+Use case: tinh chỉnh phân phối lưu lượng giữa nhiều region theo địa lý
+
+9
+00:00:30,000 --> 00:00:34,000
+và kiểm soát “vùng phủ” của từng backend.
+

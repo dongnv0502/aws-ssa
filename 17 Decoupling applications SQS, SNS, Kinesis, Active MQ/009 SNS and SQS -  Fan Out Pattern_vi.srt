@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Mẫu Fan‑out: SNS Topic → nhiều SQS Queue nhận cùng một message.
+
+2
+00:00:06,000 --> 00:00:16,000
+Ưu điểm: tách rời subscriber, retry độc lập, xử lý song song nhiều pipeline.
+
+3
+00:00:16,000 --> 00:00:24,000
+Cấu hình: subscribe queue vào topic; cấp quyền Topic Policy cho phép Publish.
+

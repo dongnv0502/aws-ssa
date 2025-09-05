@@ -1,0 +1,44 @@
+1
+00:00:00,000 --> 00:00:02,200
+Routing Policy: Geolocation.
+
+2
+00:00:02,200 --> 00:00:06,000
+Định tuyến dựa trên vị trí địa lý của client (quốc gia/lục địa).
+
+3
+00:00:06,000 --> 00:00:10,000
+Bạn cấu hình nhiều bản ghi cùng name/type, mỗi bản ghi chọn một location
+
+4
+00:00:10,000 --> 00:00:14,000
+(ví dụ North America, Europe, hoặc Country = Germany).
+
+5
+00:00:14,000 --> 00:00:18,000
+Client truy vấn sẽ nhận bản ghi ứng với vị trí của họ.
+
+6
+00:00:18,000 --> 00:00:22,000
+Nên dùng khi cần nội dung/endpoint theo khu vực, tuân thủ luật dữ liệu,
+
+7
+00:00:22,000 --> 00:00:26,000
+hoặc chuyển hướng tới region gần nhất theo địa lý (khác với Latency).
+
+8
+00:00:26,000 --> 00:00:30,000
+Có thể đặt một Default record để bắt mọi vị trí không khớp cụ thể.
+
+9
+00:00:30,000 --> 00:00:34,000
+Thực hành: tạo nhiều A record cùng name, Routing policy = Geolocation,
+
+10
+00:00:34,000 --> 00:00:38,000
+chọn Location lần lượt là North America, Europe, Asia, và một Default.
+
+11
+00:00:38,000 --> 00:00:42,000
+Tuỳ chọn gắn Health Check cho từng record để chỉ trả về endpoint healthy.
+

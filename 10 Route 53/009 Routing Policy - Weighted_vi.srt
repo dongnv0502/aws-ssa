@@ -1,0 +1,215 @@
+1
+00:00:00,210 --> 00:00:01,359
+Giờ nói về
+
+2
+00:00:01,359 --> 00:00:03,280
+Weighted routing policy.
+
+3
+00:00:03,280 --> 00:00:05,810
+Ý tưởng: bạn kiểm soát phần trăm truy vấn
+
+4
+00:00:05,810 --> 00:00:07,980
+đi tới từng resource nhờ trọng số (weight).
+
+5
+00:00:07,980 --> 00:00:09,040
+Minh hoạ: trong sơ đồ, ta có Route 53,
+
+6
+00:00:09,040 --> 00:00:10,280
+và ba EC2 instance
+
+7
+00:00:10,280 --> 00:00:11,827
+được gán các weight khác nhau:
+
+8
+00:00:11,827 --> 00:00:14,060
+70, 20 và 10.
+
+9
+00:00:14,060 --> 00:00:15,510
+Trong ví dụ này tổng bằng 100,
+
+10
+00:00:15,510 --> 00:00:17,480
+nhưng thực tế không bắt buộc phải vậy.
+
+11
+00:00:17,480 --> 00:00:20,020
+Tức là 70% phản hồi DNS từ Route 53
+
+12
+00:00:20,020 --> 00:00:22,300
+sẽ trỏ về EC2 thứ nhất,
+
+13
+00:00:22,300 --> 00:00:23,710
+20% về EC2 thứ hai và 10% về EC2 thứ ba.
+
+14
+00:00:23,710 --> 00:00:27,170
+Ta gán weight tương đối cho từng record.
+
+15
+00:00:27,170 --> 00:00:30,250
+Phần trăm lưu lượng tới mỗi record = weight của record
+
+16
+00:00:30,250 --> 00:00:33,700
+chia cho tổng weight của tất cả record cùng tên.
+
+17
+00:00:33,700 --> 00:00:36,950
+Weight không cần cộng thành 100; chỉ là tỷ lệ tương đối
+
+18
+00:00:36,950 --> 00:00:38,250
+so với các record khác.
+
+19
+00:00:38,250 --> 00:00:40,360
+Để hoạt động, các DNS record phải cùng name và type,
+
+20
+00:00:40,360 --> 00:00:43,900
+có thể gắn Health Check (ta sẽ học sớm).
+
+21
+00:00:43,900 --> 00:00:45,870
+Use case: cân bằng tải (giữa các region),
+
+22
+00:00:45,870 --> 00:00:49,140
+thử phiên bản mới bằng cách gửi ít lưu lượng (canary), v.v.
+
+23
+00:00:49,140 --> 00:00:50,530
+Đặt weight = 0 để tạm ngừng gửi lưu lượng
+
+24
+00:00:50,530 --> 00:00:52,630
+đến một resource; bạn có thể thay đổi weight theo thời gian.
+
+25
+00:00:52,630 --> 00:00:54,470
+Nếu mọi record cùng name đều có weight = 0,
+
+26
+00:00:54,470 --> 00:00:58,640
+thì tất cả record sẽ được trả về với tỉ lệ bằng nhau.
+
+27
+00:00:58,640 --> 00:00:59,750
+Giờ vào console để thực hành.
+
+28
+00:00:59,750 --> 00:01:02,720
+Tạo record mới: weighted.stephanetheteacher.com
+
+29
+00:01:02,720 --> 00:01:04,640
+loại A, Routing policy = Weighted.
+
+30
+00:01:04,640 --> 00:01:06,980
+Giá trị đầu tiên: IP ở ap-southeast-1,
+
+31
+00:01:06,980 --> 00:01:08,970
+gán weight = 10 (rất nhỏ).
+
+32
+00:01:08,970 --> 00:01:11,040
+TTL đặt rất thấp (ví dụ 3 giây) để dễ quan sát.
+
+33
+00:01:11,040 --> 00:01:13,640
+(Thực tế bạn không dùng TTL thấp như vậy.)
+
+34
+00:01:13,640 --> 00:01:16,590
+Có thể gắn Health Check và đặt Record ID (định danh bản ghi)
+
+35
+00:01:16,590 --> 00:01:19,190
+trong tập các weighted records; tôi đặt là “southeast”.
+
+36
+00:01:19,190 --> 00:01:20,023
+Thêm một record nữa
+
+37
+00:01:20,023 --> 00:01:22,120
+cùng name/type, policy = Weighted,
+
+38
+00:01:22,120 --> 00:01:23,610
+giá trị là IP ở us-east-1,
+
+39
+00:01:23,610 --> 00:01:26,850
+gán weight = 70, Record ID “us-east”. TTL 3 giây.
+
+40
+00:01:26,850 --> 00:01:29,840
+Thêm record thứ ba với IP eu-central-1,
+
+41
+00:01:29,840 --> 00:01:33,000
+gán weight = 20, Record ID “eu”.
+
+42
+00:01:33,000 --> 00:01:34,560
+Mở website và refresh mỗi 3 giây,
+
+43
+00:01:34,560 --> 00:01:36,130
+thường sẽ nhận phản hồi từ us-east-1a
+
+44
+00:01:36,130 --> 00:01:37,970
+(vì weight 70 là lớn nhất).
+
+45
+00:01:37,970 --> 00:01:39,310
+Đôi khi sẽ thấy vùng khác.
+
+46
+00:01:39,310 --> 00:01:41,790
+Chạy dig weighted.stephanetheteacher.com
+
+47
+00:01:41,790 --> 00:01:44,510
+sẽ thấy TTL = 3 và IP trả về thay đổi
+
+48
+00:01:44,510 --> 00:01:46,250
+theo trọng số đã cấu hình.
+
+49
+00:01:46,250 --> 00:01:48,480
+Ví dụ, thỉnh thoảng bạn sẽ nhận IP tương ứng weight 20
+
+50
+00:01:48,480 --> 00:01:51,450
+(eu-central-1), thể hiện cơ chế weighted hoạt động.
+
+51
+00:01:51,450 --> 00:01:53,390
+Tóm lại, phần lớn truy vấn sẽ trỏ đến record
+
+52
+00:01:53,390 --> 00:01:55,330
+có weight cao nhất, nhưng đôi lúc sẽ là record khác.
+
+53
+00:01:55,330 --> 00:01:57,360
+Bạn có thể tự thực nghiệm bằng trình duyệt/CLI.
+
+54
+00:01:57,360 --> 00:02:00,160
+Hẹn gặp bạn ở bài tiếp theo.

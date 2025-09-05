@@ -1,0 +1,116 @@
+1
+00:00:00,210 --> 00:00:02,370
+Giờ nói về mã hoá (encryption) object
+
+2
+00:00:02,370 --> 00:00:03,780
+trong Amazon S3.
+
+3
+00:00:03,780 --> 00:00:07,170
+Bạn có thể mã hoá object trong S3 bằng 1 trong 4 cách:
+
+4
+00:00:08,940 --> 00:00:12,420
+- Server‑Side Encryption (SSE) với các biến thể:
+
+5
+00:00:12,420 --> 00:00:13,800
+  • SSE‑S3: dùng khoá do S3 quản lý (mặc định bật)
+
+6
+00:00:13,800 --> 00:00:16,470
+  • SSE‑KMS: dùng khoá KMS (bạn kiểm soát)
+
+7
+00:00:16,470 --> 00:00:20,610
+  • SSE‑C: dùng khoá do khách hàng cung cấp
+
+8
+00:00:45,000 --> 00:00:47,610
+- Client‑Side Encryption: mã hoá ở phía client rồi mới upload.
+
+9
+00:00:52,050 --> 00:00:55,770
+Trong kỳ thi cần biết khi nào dùng loại nào. Đi sâu từng loại:
+
+10
+00:01:00,780 --> 00:01:08,520
+SSE‑S3: khoá do AWS sở hữu/quản lý; thuật toán AES‑256.
+
+11
+00:01:22,110 --> 00:01:28,890
+Khi tự chỉ định, đặt header `x-amz-server-side-encryption: AES256`;
+
+12
+00:01:34,680 --> 00:01:39,930
+hiện tại SSE‑S3 mặc định bật cho bucket/object mới.
+
+13
+00:01:41,010 --> 00:01:59,340
+Quy trình: bạn upload object (kèm header); S3 dùng khoá nội bộ
+
+14
+00:01:59,340 --> 00:02:07,350
+để mã hoá và lưu bản mã trong bucket.
+
+15
+00:02:07,350 --> 00:02:20,490
+SSE‑KMS: dùng khoá từ AWS KMS (bạn kiểm soát việc tạo/cho phép).
+
+16
+00:02:20,490 --> 00:02:29,490
+Ưu điểm: kiểm soát truy cập khoá, CloudTrail log mọi lần dùng khoá.
+
+17
+00:02:41,610 --> 00:02:48,360
+Đặt header `x-amz-server-side-encryption: aws:kms` (và khoá KMS nếu cần).
+
+18
+00:02:53,820 --> 00:03:17,070
+Đọc object cần quyền với object và quyền với KMS key → thêm lớp bảo mật.
+
+19
+00:03:30,390 --> 00:04:12,540
+Lưu ý hạn mức: dùng SSE‑KMS sẽ phát sinh gọi API KMS (GenerateDataKey/Decrypt)
+
+20
+00:04:12,540 --> 00:04:15,450
+→ bị ràng buộc bởi quota TPS của KMS (có thể tăng qua Service Quotas).
+
+21
+00:04:15,450 --> 00:04:17,750
+Bucket tải rất cao + SSE‑KMS có thể thành nút cổ chai.
+
+22
+00:05:41,700 --> 00:05:57,930
+Client‑Side Encryption: bạn tự mã hoá bằng khoá bên ngoài AWS,
+
+23
+00:05:57,930 --> 00:06:01,080
+rồi upload file đã mã hoá lên S3.
+
+24
+00:06:01,080 --> 00:06:12,030
+Mã hoá khi truyền (in‑transit): dùng HTTPS (SSL/TLS).
+
+25
+00:06:12,030 --> 00:06:18,780
+S3 có endpoint HTTP (không mã hoá) và HTTPS (mã hoá). Luôn dùng HTTPS;
+
+26
+00:06:36,900 --> 00:06:43,770
+SSE‑C bắt buộc dùng HTTPS.
+
+27
+00:06:51,390 --> 00:07:06,330
+Ép buộc HTTPS bằng Bucket Policy: Deny `s3:GetObject` khi
+
+28
+00:07:06,330 --> 00:07:14,610
+`aws:SecureTransport` = `false` (tức truy cập không dùng HTTPS).
+
+29
+00:07:26,130 --> 00:07:31,293
+Kết thúc phần Encryption; hẹn bạn ở bài tiếp theo.
+

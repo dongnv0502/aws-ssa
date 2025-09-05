@@ -1,0 +1,80 @@
+1
+00:00:00,180 --> 00:00:02,550
+Đây là Amazon S3; tôi sẽ tạo một bucket.
+
+2
+00:00:02,550 --> 00:00:05,820
+Chọn region mong muốn (ví dụ eu-north-1) rồi tạo.
+
+3
+00:00:05,820 --> 00:00:10,830
+Lưu ý: S3 hiển thị tất cả bucket trên mọi region của tài khoản.
+
+4
+00:00:10,830 --> 00:00:16,379
+Một số region có tuỳ chọn bucket type (General purpose / Directory).
+
+5
+00:00:16,379 --> 00:00:23,580
+Nếu có, chọn General purpose; nếu không thấy, mặc định là General purpose.
+
+6
+00:00:23,580 --> 00:00:31,380
+Directory bucket dành cho use case riêng (không thi), bỏ qua.
+
+7
+00:00:31,380 --> 00:00:41,190
+Đặt tên bucket: tên phải duy nhất toàn cục (mọi region, mọi tài khoản).
+
+8
+00:00:41,190 --> 00:00:48,480
+Nếu trùng, S3 báo lỗi “bucket already exists”; hãy đổi tên (ví dụ thêm hậu tố).
+
+9
+00:00:48,480 --> 00:00:59,910
+Object Ownership: để ACL disabled (khuyến nghị). Block Public Access: bật để chặn public.
+
+10
+00:00:59,910 --> 00:01:08,610
+Versioning: tạm thời disable (sẽ bật sau). Encryption: SSE-S3 (AWS managed key), bật Bucket Key.
+
+11
+00:01:08,610 --> 00:01:18,120
+Giữ mặc định các thiết lập khác. Tạo bucket → thành công.
+
+12
+00:01:18,120 --> 00:01:28,680
+Danh sách bucket hiển thị tất cả region. Tìm và mở bucket vừa tạo.
+
+13
+00:01:28,680 --> 00:01:40,860
+Upload object: nhấn Upload → Add files → chọn ảnh (coffee.jpg, beach.jpg) và index.html.
+
+14
+00:01:40,860 --> 00:01:52,470
+Xem thuộc tính object: ETag, kích thước, Storage class, Object URL, v.v.
+
+15
+00:01:52,470 --> 00:02:03,360
+Mở trực tiếp từ console (Open) sẽ xem được file vì bạn có quyền trong console.
+
+16
+00:02:03,360 --> 00:02:14,970
+Nhưng nếu mở Object URL công khai, sẽ nhận “Access Denied” (đang chặn public).
+
+17
+00:02:14,970 --> 00:02:23,490
+Sự khác nhau: URL dài có chữ ký là S3 Pre‑signed URL (kèm chữ ký/credential tạm thời).
+
+18
+00:02:23,490 --> 00:02:33,700
+Pre‑signed URL xác thực bạn là người yêu cầu nên truy cập được dù bucket không public.
+
+19
+00:02:33,700 --> 00:02:42,720
+Object URL công khai chỉ hoạt động khi bạn cho phép public (qua Bucket policy hoặc ACL).
+
+20
+00:02:42,720 --> 00:02:52,020
+Kết luận phần này: bạn đã tạo bucket, upload object, hiểu Object URL vs Pre‑signed URL.
+

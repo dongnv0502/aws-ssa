@@ -1,0 +1,88 @@
+1
+00:00:00,000 --> 00:00:03,240
+Giờ nói về S3 Event Notifications.
+
+2
+00:00:03,240 --> 00:00:04,920
+Sự kiện trong S3 gồm:
+
+3
+00:00:04,920 --> 00:00:07,230
+tạo object, xoá object, restore object,
+
+4
+00:00:07,230 --> 00:00:08,220
+replication, v.v.
+
+5
+00:00:08,220 --> 00:00:12,060
+Có thể lọc (filter) theo tiền tố/hậu tố, ví dụ đuôi .jpeg.
+
+6
+00:00:12,060 --> 00:00:15,420
+Use case: tự động phản ứng khi có sự kiện ở S3.
+
+7
+00:00:15,420 --> 00:00:17,760
+Ví dụ sinh thumbnail cho ảnh mới upload.
+
+8
+00:00:17,760 --> 00:00:19,080
+Đích nhận sự kiện có thể là:
+
+9
+00:00:19,080 --> 00:00:22,020
+SNS Topic, SQS Queue, hoặc Lambda Function.
+
+10
+00:00:22,020 --> 00:00:26,550
+Có thể tạo nhiều event rule và gửi đến nhiều đích.
+
+11
+00:00:26,550 --> 00:01:00,810
+Sự kiện thường đến trong vài giây (có thể lâu hơn ~1 phút).
+
+12
+00:01:00,810 --> 00:01:11,730
+Quyền (permissions): thay vì IAM role cho S3, ta gắn Resource Policy
+
+13
+00:01:11,730 --> 00:01:20,340
+vào tài nguyên đích:
+
+14
+00:01:20,340 --> 00:01:27,720
+- SNS Topic policy cho phép S3 publish vào SNS;
+
+15
+00:01:27,720 --> 00:01:36,270
+- SQS Queue policy cho phép S3 gửi message vào SQS;
+
+16
+00:01:36,270 --> 00:01:55,320
+- Lambda Resource policy cho phép S3 invoke Lambda.
+
+17
+00:01:55,320 --> 00:02:20,880
+Ngoài ra, tất cả sự kiện S3 cũng có trên Amazon EventBridge.
+
+18
+00:02:20,880 --> 00:02:31,680
+EventBridge cho phép rule nâng cao và chuyển tiếp đến >18 dịch vụ,
+
+19
+00:02:31,680 --> 00:02:36,450
+lọc theo metadata/kích thước/tên, gửi nhiều đích,
+
+20
+00:02:36,450 --> 00:02:43,110
+và có tính năng archive/replay, độ tin cậy cao hơn.
+
+21
+00:02:43,110 --> 00:03:05,760
+Tóm lại: đích sự kiện S3 có SQS, SNS, Lambda, và EventBridge.
+
+22
+00:03:05,760 --> 00:03:08,130
+Kết thúc; hẹn gặp bạn ở bài tiếp theo.
+

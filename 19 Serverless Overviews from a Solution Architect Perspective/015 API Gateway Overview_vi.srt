@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+API Gateway (tổng quan bổ sung): REST vs HTTP vs WebSocket API, chi phí/tính năng.
+
+2
+00:00:06,000 --> 00:00:16,000
+Chọn loại theo use case: HTTP API nhẹ/giá rẻ, REST API đầy đủ, WebSocket realtime.
+

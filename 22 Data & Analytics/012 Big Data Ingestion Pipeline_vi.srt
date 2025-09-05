@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Pipeline ingest dữ liệu lớn: thu nhận → xử lý → lưu trữ → phân tích.
+
+2
+00:00:06,000 --> 00:00:18,000
+Thu nhận: KDS/Firehose/MSK; xử lý: Lambda/Flink/EMR; lưu trữ: S3/Lake Formation;
+
+3
+00:00:18,000 --> 00:00:28,000
+Phân tích: Athena/Redshift/OpenSearch/QuickSight; giám sát/nhật ký: CloudWatch.
+

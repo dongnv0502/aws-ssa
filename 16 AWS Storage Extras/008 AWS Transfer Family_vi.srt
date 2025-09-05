@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:05,000
+AWS Transfer Family: SFTP/FTP/FTPS được quản lý, đích là S3/EFS.
+
+2
+00:00:05,000 --> 00:00:15,000
+Tạo server endpoint, định tuyến tới S3/EFS, quản lý người dùng (service‑managed/AD/Identity Provider).
+
+3
+00:00:15,000 --> 00:00:24,000
+Use case: thay thế máy chủ FTP on‑prem, tích hợp B2B, audit/CloudWatch.
+

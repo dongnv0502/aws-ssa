@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Amazon ECS: dịch vụ điều phối container (orchestrator) do AWS quản lý.
+
+2
+00:00:06,000 --> 00:00:18,000
+Thành phần: Cluster, Task Definition, Task/Service, Launch type (EC2/Fargate), Target Group/ALB.
+
+3
+00:00:18,000 --> 00:00:28,000
+Tích hợp: ECR, IAM, CloudWatch Logs/Metrics, Auto Scaling, Secrets/SSM Param Store.
+

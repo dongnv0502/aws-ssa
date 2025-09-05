@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+DynamoDB: NoSQL quản lý toàn phần, độ trễ mili‑giây, scale tự động.
+
+2
+00:00:06,000 --> 00:00:18,000
+Thiết kế khoá (PK/SK), GSI/LSI, Streams, DAX, TTL, On‑demand vs provisioned.
+

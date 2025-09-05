@@ -1,0 +1,45 @@
+1
+00:00:00,420 --> 00:00:03,150
+Demo MFA Delete trên S3 Versioning.
+
+2
+00:00:03,150 --> 00:00:09,600
+Tạo bucket (ví dụ `demo-stephane-mfa-delete-2020`, eu-west-1), bật Versioning.
+
+3
+00:00:22,160 --> 00:00:35,550
+Trong Console, mục Versioning hiển thị “MFA delete: Disabled” và không bật được qua UI.
+
+4
+00:00:42,490 --> 00:00:48,340
+Phải bật bằng AWS CLI và dùng MFA của Root account.
+
+5
+00:00:48,340 --> 00:01:20,800
+Tiền đề: trong IAM đã gán MFA (virtual/physical) cho Root; lưu ARN thiết bị.
+
+6
+00:01:20,800 --> 00:01:47,920
+Tạo tạm thời Access Key cho Root chỉ để bật MFA Delete (không khuyến nghị dùng cho việc khác).
+
+7
+00:01:47,920 --> 00:02:03,240
+Cấu hình CLI profile (ví dụ `root-mfa-delete-demo`).
+
+8
+00:02:03,240 --> 00:02:11,522
+Dùng script/lệnh trong tài liệu (`s3advanced.mfadelete.sh`) để
+
+9
+00:02:11,522 --> 00:02:27,300
+`aws s3api put-bucket-versioning --versioning-configuration Status=Enabled,MFADelete=Enabled \
+ --bucket <BUCKET> --mfa "<MFA-DEVICE-ARN> <OTP>" --profile <PROFILE>`
+
+10
+00:02:27,300 --> 00:02:39,760
+Sau khi bật, xoá phiên bản hoặc tắt versioning sẽ yêu cầu mã MFA → bảo vệ xoá nhầm/cố ý.
+
+11
+00:02:39,760 --> 00:02:46,069
+Lưu ý: thu hồi access keys root sau khi hoàn tất; không dùng root thường xuyên.
+

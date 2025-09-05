@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Lambda SnapStart (Java): chụp snapshot sau init, tái sử dụng để giảm cold start.
+
+2
+00:00:06,000 --> 00:00:16,000
+Phạm vi: runtime Java; cân nhắc trạng thái/entropy/ket nối; cấu hình theo version/alias.
+

@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+SQS Long Polling: chờ có message (giảm chi phí/độ trễ so với Short Poll).
+
+2
+00:00:06,000 --> 00:00:14,000
+Thiết lập `WaitTimeSeconds` ở ReceiveMessage (tối đa 20s) hoặc default ở queue.
+

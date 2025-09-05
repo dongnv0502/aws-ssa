@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Amazon MQ: broker được quản lý (ActiveMQ/RabbitMQ) cho ứng dụng dùng giao thức chuẩn.
+
+2
+00:00:06,000 --> 00:00:18,000
+Hỗ trợ: AMQP, MQTT, STOMP, OpenWire, JMS. Phù hợp khi cần tương thích hệ thống cũ.
+
+3
+00:00:18,000 --> 00:00:26,000
+So với SQS/SNS: ít “serverless” hơn, nhưng linh hoạt giao thức/kiểu hàng đợi/topic.
+

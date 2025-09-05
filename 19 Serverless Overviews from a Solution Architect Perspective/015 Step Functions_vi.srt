@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+AWS Step Functions: điều phối workflow (state machine) không máy chủ.
+
+2
+00:00:06,000 --> 00:00:18,000
+Kiểu: Standard/Express; tích hợp dịch vụ (Lambda, ECS, DynamoDB, Glue...), retry/catch, parallel/map.
+

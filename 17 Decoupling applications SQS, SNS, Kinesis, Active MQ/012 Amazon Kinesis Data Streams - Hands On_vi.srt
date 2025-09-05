@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on KDS: tạo Stream, ghi record, đọc bằng KCL/SDK.
+
+2
+00:00:06,000 --> 00:00:18,000
+Thiết lập Shard, Partition Key; quan sát CloudWatch metrics, scale shards khi cần.
+

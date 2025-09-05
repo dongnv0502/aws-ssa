@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on EKS: tạo Kubernetes cluster được quản lý trên AWS.
+
+2
+00:00:06,000 --> 00:00:18,000
+Tạo EKS Cluster (VPC/Subnet/SG/IAM), Node Group (EC2/Fargate), cấu hình `kubectl`/`aws eks update-kubeconfig`.
+
+3
+00:00:18,000 --> 00:00:28,000
+Triển khai workload (Deployment/Service), kiểm tra DNS/LoadBalancer, quan sát logs/metrics.
+

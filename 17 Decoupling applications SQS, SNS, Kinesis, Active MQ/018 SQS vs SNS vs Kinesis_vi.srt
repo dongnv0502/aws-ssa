@@ -1,0 +1,16 @@
+1
+00:00:00,000 --> 00:00:06,000
+Chọn dịch vụ:
+
+2
+00:00:06,000 --> 00:00:16,000
+- Cần queue, back‑pressure, retry → SQS (Standard/FIFO).
+
+3
+00:00:16,000 --> 00:00:26,000
+- Broadcast đến nhiều hệ → SNS (fan‑out). Có thể SNS → nhiều SQS.
+
+4
+00:00:26,000 --> 00:00:36,000
+- Phân tích dòng dữ liệu thời gian thực, nhiều consumer → Kinesis.
+

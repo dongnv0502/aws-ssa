@@ -1,0 +1,44 @@
+1
+00:00:00,000 --> 00:00:01,890
+Thực hành Encryption.
+
+2
+00:00:01,890 --> 00:00:07,383
+Tạo bucket `demo-encryption-stephane-v2`, bật Versioning.
+
+3
+00:00:18,210 --> 00:00:25,860
+Default encryption: chọn SSE‑S3 (sẽ xem SSE‑KMS/DSSE‑KMS sau).
+
+4
+00:00:33,150 --> 00:00:40,710
+Tải lên `coffee.jpg`, kiểm tra phần Server‑side encryption
+
+5
+00:01:00,660 --> 00:01:06,900
+→ thấy “SSE‑S3 (Amazon S3 managed keys)”.
+
+6
+00:01:06,900 --> 00:01:21,180
+Có thể đổi encryption cho 1 object (sẽ tạo version mới khi lưu).
+
+7
+00:01:27,840 --> 00:01:41,213
+Override default: chọn SSE‑KMS hoặc DSSE‑KMS (double encryption với KMS).
+
+8
+00:01:49,350 --> 00:01:58,530
+Chọn SSE‑KMS (đơn giản/không phát sinh phí khoá riêng).
+
+9
+00:02:01,200 --> 00:02:16,920
+Chỉ định KMS key: dùng key mặc định `aws/s3` (Default KMS key của S3),
+
+10
+00:02:18,780 --> 00:02:25,020
+hoặc chọn khoá tự tạo (tốn phí hàng tháng).
+
+11
+00:02:38,610 --> 00:02:49,140
+Lưu thay đổi → tab Versions hiển thị 2 version; bản hiện tại dùng SSE‑KMS.
+

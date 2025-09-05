@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+RDS kích hoạt Lambda: qua EventBridge/CloudWatch Events hoặc trigger gián tiếp.
+
+2
+00:00:06,000 --> 00:00:18,000
+Thông báo sự kiện RDS (sao lưu, failover) → SNS/EventBridge → Lambda xử lý tự động.
+

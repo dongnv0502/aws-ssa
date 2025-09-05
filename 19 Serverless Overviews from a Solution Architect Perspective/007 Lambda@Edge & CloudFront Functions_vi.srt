@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Lambda@Edge & CloudFront Functions: tuỳ biến request/response ở biên (Edge).
+
+2
+00:00:06,000 --> 00:00:18,000
+CloudFront Functions: nhẹ, mili‑giây, JavaScript, chạy ở viewer events.
+
+3
+00:00:18,000 --> 00:00:28,000
+Lambda@Edge: mạnh hơn (Node.js/Python), có network, chạy ở viewer/origin events.
+

@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Chọn cơ sở dữ liệu phù hợp: theo mô hình dữ liệu, truy cập, hiệu năng, chi phí.
+
+2
+00:00:06,000 --> 00:00:18,000
+Quan hệ (RDS/Aurora), Key‑value/NoSQL (DynamoDB), Cache (ElastiCache), Document (DocumentDB),
+
+3
+00:00:18,000 --> 00:00:30,000
+Đồ thị (Neptune), Chuỗi thời gian (Timestream), Ledger (QLDB), Columnar (Redshift – phân tích), Object (S3).
+

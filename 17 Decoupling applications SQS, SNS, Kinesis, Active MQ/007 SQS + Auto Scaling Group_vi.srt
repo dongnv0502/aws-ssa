@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+SQS + Auto Scaling Group (ASG): tự co giãn dựa trên độ sâu hàng đợi.
+
+2
+00:00:06,000 --> 00:00:16,000
+Metric: ApproximateNumberOfMessagesVisible/NotVisible; đặt scaling policy theo ngưỡng.
+
+3
+00:00:16,000 --> 00:00:24,000
+Mô hình: Producer → SQS → Consumers (EC2 trong ASG) xử lý và xoá message.
+

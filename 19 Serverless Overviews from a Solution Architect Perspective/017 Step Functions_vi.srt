@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Step Functions (bổ sung): thiết kế state machine bằng ASL (Amazon States Language).
+
+2
+00:00:06,000 --> 00:00:18,000
+States: Task, Choice, Parallel, Map, Wait, Succeed/Fail; giám sát Execution History.
+

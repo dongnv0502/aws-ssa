@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Lambda Concurrency: số phiên bản chạy đồng thời; giới hạn tài khoản/vùng.
+
+2
+00:00:06,000 --> 00:00:18,000
+Reserved Concurrency (giới hạn/đảm bảo), Provisioned Concurrency (khởi sẵn giảm cold start), burst behavior.
+

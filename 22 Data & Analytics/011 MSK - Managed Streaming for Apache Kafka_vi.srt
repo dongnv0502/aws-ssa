@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Amazon MSK: Kafka được quản lý (cluster, broker, storage, patching, monitoring).
+
+2
+00:00:06,000 --> 00:00:18,000
+Tương thích Kafka API/clients; tích hợp IAM/MSK IAM auth, Private VPC, CloudWatch, scaling.
+

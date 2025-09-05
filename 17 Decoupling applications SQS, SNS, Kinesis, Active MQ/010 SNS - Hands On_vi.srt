@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Hands‑on SNS: tạo Topic, subscribe (Email/SQS/Lambda), publish message.
+
+2
+00:00:06,000 --> 00:00:16,000
+Kích hoạt subscription (Email confirm), kiểm tra message đến từng đích; dùng Filter Policy nếu cần.
+

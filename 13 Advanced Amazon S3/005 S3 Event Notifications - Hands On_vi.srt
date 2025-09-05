@@ -1,0 +1,88 @@
+1
+00:00:00,080 --> 00:00:00,930
+Demo S3 Event Notifications.
+
+2
+00:00:00,930 --> 00:00:03,290
+Tạo bucket “stephane-v3-events-notifications”.
+
+3
+00:00:03,290 --> 00:00:04,980
+Mở bucket và cấu hình Event Notifications.
+
+4
+00:00:04,980 --> 00:00:09,543
+Trong Properties, phần Event notifications có 2 tuỳ chọn:
+
+5
+00:00:10,600 --> 00:00:12,060
+- Tạo Event notification (đơn giản),
+
+6
+00:00:12,060 --> 00:00:15,483
+- Bật tích hợp Amazon EventBridge (gửi mọi sự kiện lên EventBridge).
+
+7
+00:00:16,870 --> 00:00:18,200
+Ở đây dùng cách đơn giản: tạo event gửi đến SQS.
+
+8
+00:00:18,200 --> 00:00:21,600
+Đặt tên “DemoEventNotification”.
+
+9
+00:00:21,600 --> 00:00:26,100
+Chọn Event types: All object create events (có thể chi tiết hơn nếu muốn).
+
+10
+00:00:26,100 --> 00:00:34,690
+Destination: SQS Queue (cũng có thể là SNS hoặc Lambda).
+
+11
+00:00:34,690 --> 00:00:41,900
+Trước tiên tạo SQS queue “DemoS3Notification”.
+
+12
+00:00:41,900 --> 00:00:47,850
+Sau đó cần cấp quyền cho S3 gửi message vào queue (Queue Access Policy).
+
+13
+00:00:47,850 --> 00:00:54,980
+Nếu lưu ngay mà chưa cấp quyền, S3 báo lỗi “cannot validate destination configuration”.
+
+14
+00:00:54,980 --> 00:01:05,340
+Vào SQS → queue → Edit access policy, dùng Policy Generator tạo policy
+
+15
+00:01:05,340 --> 00:01:10,130
+cho phép s3:SendMessage vào ARN của queue (hoặc Principal cụ thể).
+
+16
+00:01:10,130 --> 00:01:18,829
+Lưu policy; quay lại S3, chọn queue và lưu Event notification.
+
+17
+00:01:18,829 --> 00:01:25,920
+SQS sẽ có một test message để kiểm tra kết nối; xoá message này.
+
+18
+00:01:25,920 --> 00:01:31,853
+Kiểm thử: upload coffee.jpg vào bucket.
+
+19
+00:01:32,770 --> 00:01:40,950
+Quay lại SQS → Poll for messages: thấy một message mới.
+
+20
+00:01:40,950 --> 00:01:47,200
+Trong body có eventName=ObjectCreated:Put, key=coffee.jpg, v.v.
+
+21
+00:01:47,200 --> 00:01:53,950
+Đây là sự kiện để các hệ thống downstream (Lambda, worker) xử lý tiếp (tạo thumbnail).
+
+22
+00:01:53,950 --> 00:02:00,620
+Xoá message để hoàn tất. Bạn đã thiết lập S3 Event Notifications → SQS.
+

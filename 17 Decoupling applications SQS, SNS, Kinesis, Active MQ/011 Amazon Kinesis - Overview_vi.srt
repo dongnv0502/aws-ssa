@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+Kinesis Overview: nền tảng streaming (real‑time) trên AWS.
+
+2
+00:00:06,000 --> 00:00:18,000
+Thành phần: Kinesis Data Streams (ingest), Data Firehose (delivery), Data Analytics (SQL streaming).
+
+3
+00:00:18,000 --> 00:00:28,000
+Use case: log/clickstream, IoT, telemetry, phân tích thời gian thực, ETL streaming.
+

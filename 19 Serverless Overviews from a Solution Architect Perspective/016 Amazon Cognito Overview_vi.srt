@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:06,000
+Amazon Cognito: xác thực/người dùng cho ứng dụng (User Pools, Federated Identities).
+
+2
+00:00:06,000 --> 00:00:18,000
+Tính năng: sign‑up/sign‑in/forgot password, hosted UI, social SSO, JWT, bảo mật API Gateway.
+
