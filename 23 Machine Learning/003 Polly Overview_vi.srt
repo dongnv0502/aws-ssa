@@ -1,0 +1,88 @@
+1
+00:00:00,000 --> 00:00:02,850
+Polly là “đảo ngược” của Transcribe:
+
+2
+00:00:02,850 --> 00:00:06,030
+biến văn bản thành giọng nói bằng deep learning.
+
+3
+00:00:06,030 --> 00:00:08,910
+Dùng để tạo ứng dụng biết “nói”.
+
+4
+00:00:08,910 --> 00:00:09,787
+Ví dụ:
+
+5
+00:00:09,787 --> 00:00:11,190
+“Hello, my name is Stephane
+
+6
+00:00:11,190 --> 00:00:13,380
+and this is a demo of Amazon Polly.”
+
+7
+00:00:13,380 --> 00:00:15,600
+Polly sinh file audio để phát lại.
+
+8
+00:00:15,600 --> 00:00:17,280
+(Giọng mẫu minh họa.)
+
+9
+00:00:17,280 --> 00:00:18,270
+
+
+10
+00:00:18,270 --> 00:00:22,050
+Ngoài cơ bản, Polly hỗ trợ Lexicon & SSML:
+
+11
+00:00:22,050 --> 00:00:23,790
+- Pronunciation lexicons: tùy biến cách phát âm
+
+12
+00:00:23,790 --> 00:00:26,070
+  (tên cách điệu, từ viết tắt). Ví dụ “AWS”
+
+13
+00:00:26,070 --> 00:00:29,010
+  có thể đọc “Amazon Web Services” thay vì “A‑W‑S”.
+
+14
+00:00:29,010 --> 00:00:30,630
+  Tải lexicon và dùng trong SynthesizeSpeech.
+
+15
+00:00:30,630 --> 00:00:32,820
+- SSML (Speech Synthesis Markup Language):
+
+16
+00:00:32,820 --> 00:00:36,090
+  điều khiển nhấn mạnh, phát âm theo phiên âm, chèn hiệu ứng
+
+17
+00:00:36,090 --> 00:00:39,270
+  (thở, thì thầm/whisper), hoặc kiểu đọc “newscaster”…
+
+18
+00:00:39,270 --> 00:00:42,690
+  Bạn đưa vào markup thay vì plain text để điều khiển giọng đọc.
+
+19
+00:00:42,690 --> 00:00:45,750
+Ghi nhớ:
+
+20
+00:00:45,750 --> 00:00:50,040
+- Từ cách điệu/viết tắt → dùng Pronunciation lexicons.
+
+21
+00:00:50,040 --> 00:00:52,050
+- Tùy biến phong phú (whisper, phiên âm, nhấn mạnh) → SSML.
+
+22
+00:00:52,050 --> 00:00:53,370
+Bạn có thể thử trực tiếp trên console.
+

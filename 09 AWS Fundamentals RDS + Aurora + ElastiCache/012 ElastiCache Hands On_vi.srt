@@ -1,0 +1,104 @@
+1
+00:00:00,120 --> 00:00:01,620
+Thực hành ElastiCache (Redis).
+
+2
+00:00:01,620 --> 00:00:03,030
+Chọn Redis (cũng có Memcached).
+
+3
+00:00:03,030 --> 00:00:04,500
+Tùy chọn:
+
+4
+00:00:04,500 --> 00:00:07,590
+- Serverless: tự scale, không quản lý server (đắt hơn, dễ vận hành).
+
+5
+00:00:07,590 --> 00:00:11,370
+- Tự thiết kế: dễ hiểu kiến trúc — chọn thiết kế thủ công.
+
+6
+00:00:11,370 --> 00:00:12,510
+Phương thức tạo: Easy create (prod/dev/test)
+
+7
+00:00:12,510 --> 00:00:14,370
+hoặc cấu hình đầy đủ.
+
+8
+00:00:14,370 --> 00:00:16,290
+Cluster mode: Disabled (1 shard: 1 primary, ≤5 replica).
+
+9
+00:00:16,290 --> 00:00:18,540
+Muốn nhiều shard -> bật cluster mode.
+
+10
+00:00:18,540 --> 00:00:20,520
+Đặt tên: DemoCluster. Location: AWS Cloud
+
+11
+00:00:20,520 --> 00:00:21,750
+(có thể on‑prem qua AWS Outposts).
+
+12
+00:00:21,750 --> 00:00:24,660
+Multi‑AZ (HA + failover): tắt để giảm phí (demo).
+
+13
+00:00:24,660 --> 00:00:27,150
+Engine version/port/parameter group: giữ mặc định.
+
+14
+00:00:27,150 --> 00:00:28,770
+Node type: chọn micro (t2/t3 free tier).
+
+15
+00:00:28,770 --> 00:00:30,090
+Replica count: 0 (demo, tiết kiệm phí).
+
+16
+00:00:30,090 --> 00:00:32,640
+Subnet group: tạo mới (chọn VPC + subnets).
+
+17
+00:00:32,640 --> 00:00:35,940
+AZ placement: bỏ qua nếu không Multi‑AZ.
+
+18
+00:00:35,940 --> 00:00:39,150
+Encryption: at rest (KMS key) / in transit (TLS) — nếu bật
+
+19
+00:00:39,150 --> 00:00:41,220
+thì có Access Control: Redis AUTH (token) hoặc User Group ACL.
+
+20
+00:00:41,220 --> 00:00:44,580
+Networking/Security: SG, preferred AZ, maintenance window,
+
+21
+00:00:44,580 --> 00:00:46,650
+CloudWatch Logs (slowlog/engine logs), tags.
+
+22
+00:00:46,650 --> 00:00:48,960
+Review và Create cluster.
+
+23
+00:00:48,960 --> 00:00:51,780
+Sau khi tạo: dùng Primary endpoint (và Reader endpoint nếu có)
+
+24
+00:00:51,780 --> 00:00:55,020
+trong code ứng dụng để kết nối Redis.
+
+25
+00:00:55,020 --> 00:00:57,030
+Từ console: xem nodes, metrics, logs, network, security,…
+
+26
+00:00:57,030 --> 00:05:00,150
+Cuối cùng: Action -> Delete cluster (không cần backup) để tránh phí.
+

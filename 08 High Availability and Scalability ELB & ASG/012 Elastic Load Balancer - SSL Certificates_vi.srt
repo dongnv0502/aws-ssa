@@ -1,0 +1,132 @@
+1
+00:00:00,300 --> 00:00:02,697
+Giờ nói về SSL/TLS Certificates.
+
+2
+00:00:02,697 --> 00:00:04,740
+Đây là phiên bản rút gọn dễ hiểu.
+
+3
+00:00:04,740 --> 00:00:08,700
+Mục tiêu: nắm khái niệm, SNI, và tích hợp với load balancer.
+
+4
+00:00:08,700 --> 00:00:11,760
+SSL certificate cho phép mã hóa lưu lượng client ↔ load balancer
+
+5
+00:00:11,760 --> 00:00:13,140
+trong quá trình truyền (in‑flight encryption).
+
+6
+00:00:13,140 --> 00:00:16,379
+SSL (Secure Sockets Layer) là chuẩn cũ; TLS (Transport Layer Security)
+
+7
+00:00:16,379 --> 00:00:17,790
+là chuẩn mới hơn và được dùng chủ yếu.
+
+8
+00:00:17,790 --> 00:00:21,750
+Trong thực tế ta vẫn quen gọi chung là “SSL certificate”.
+
+9
+00:00:21,750 --> 00:00:24,750
+Public SSL certificates do Certificate Authority (CA) cấp:
+
+10
+00:00:24,750 --> 00:00:27,300
+Comodo, Symantec, GoDaddy, GlobalSign, DigiCert,
+
+11
+00:00:27,300 --> 00:00:29,550
+Let’s Encrypt, v.v.
+
+12
+00:00:29,550 --> 00:00:31,650
+Gắn cert vào load balancer để mã hóa kết nối client → LB.
+
+13
+00:00:31,650 --> 00:00:33,900
+Trên trình duyệt, biểu tượng “ổ khóa” báo kết nối an toàn;
+
+14
+00:00:33,900 --> 00:00:36,840
+nếu báo “không an toàn”, không nên nhập thông tin nhạy cảm.
+
+15
+00:00:36,840 --> 00:00:42,840
+SSL/TLS certificate có hạn dùng và cần gia hạn định kỳ.
+
+16
+00:00:42,840 --> 00:00:45,000
+Mô hình với load balancer:
+
+17
+00:00:45,000 --> 00:00:48,420
+Client kết nối HTTPS (mã hóa) qua Internet đến LB.
+
+18
+00:00:48,420 --> 00:00:51,810
+LB “terminate” SSL/TLS; phía sau LB có thể nói chuyện HTTP
+
+19
+00:00:51,810 --> 00:00:53,400
+với EC2 qua VPC (mạng private).
+
+20
+00:00:53,400 --> 00:00:57,660
+LB nạp chứng chỉ X.509 (SSL/TLS server certificate).
+
+21
+00:00:57,660 --> 00:01:00,180
+Quản lý cert bằng AWS Certificate Manager (ACM)
+
+22
+00:01:00,180 --> 00:01:01,013
+hoặc upload cert của bạn vào ACM.
+
+23
+00:01:01,013 --> 00:01:02,970
+Tạo HTTPS listener: chỉ định default certificate,
+
+24
+00:01:02,970 --> 00:01:05,220
+có thể thêm nhiều cert để hỗ trợ nhiều domain.
+
+25
+00:01:05,220 --> 00:01:07,110
+Client dùng SNI (Server Name Indication)
+
+26
+00:01:07,110 --> 00:01:09,390
+để báo hostname muốn truy cập; LB chọn đúng cert.
+
+27
+00:01:09,390 --> 00:01:11,070
+SNI là tính năng mới hơn, không phải client nào cũng hỗ trợ;
+
+28
+00:01:11,070 --> 00:01:14,040
+hoạt động với ALB/NLB (thế hệ mới) và CloudFront;
+
+29
+00:01:14,040 --> 00:01:15,690
+không hỗ trợ trên CLB (thế hệ cũ).
+
+30
+00:01:15,690 --> 00:01:18,476
+Sơ đồ: ALB có 2 cert (www.mycorp.com, domain1.example.com)
+
+31
+00:01:18,476 --> 00:01:21,030
+và route đến các target group theo hostname.
+
+32
+00:01:21,030 --> 00:01:23,790
+Client gửi SNI “www.mycorp.com”; ALB chọn đúng cert,
+
+33
+00:01:23,790 --> 00:01:24,870
+mã hóa, rồi route theo rule.
+

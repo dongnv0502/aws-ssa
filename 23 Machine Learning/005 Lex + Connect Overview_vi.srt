@@ -1,0 +1,72 @@
+1
+00:00:00,360 --> 00:00:03,480
+Giới thiệu Amazon Lex và Amazon Connect.
+
+2
+00:00:03,480 --> 00:00:06,624
+Amazon Lex là công nghệ đứng sau các thiết bị Alexa.
+
+3
+00:00:06,624 --> 00:00:09,570
+Alexa là thiết bị bạn có thể hỏi (ví dụ thời tiết)
+
+4
+00:00:09,570 --> 00:00:12,690
+và nhận câu trả lời bằng giọng nói.
+
+5
+00:00:12,690 --> 00:00:13,807
+Với Lex, bạn có:
+
+6
+00:00:13,807 --> 00:00:15,900
+- ASR (Automatic Speech Recognition): chuyển giọng nói thành text.
+
+7
+00:00:15,900 --> 00:00:18,150
+- NLU (Natural Language Understanding): hiểu “intent”
+
+8
+00:00:18,150 --> 00:00:20,303
+  của câu nói/người gọi.
+
+9
+00:00:20,303 --> 00:00:22,535
+Dùng Lex để xây chatbot/call center bot.
+
+10
+00:00:22,535 --> 00:00:26,430
+Amazon Connect là contact center trên nền tảng đám mây:
+
+11
+00:00:26,430 --> 00:00:27,870
+nhận cuộc gọi, tạo contact flow,
+
+12
+00:00:27,870 --> 00:00:30,570
+tích hợp CRM và dịch vụ AWS; không phí đầu tư ban đầu,
+
+13
+00:00:30,570 --> 00:00:31,770
+chi phí rẻ hơn ~80% so với truyền thống.
+
+14
+00:00:31,770 --> 00:00:35,520
+Luồng tổng quát: Khách gọi số của Amazon Connect
+
+15
+00:00:35,520 --> 00:00:37,590
+để đặt lịch; Lex xử lý luồng thoại,
+
+16
+00:00:37,590 --> 00:00:39,510
+hiểu intent và gọi Lambda phù hợp
+
+17
+00:00:39,510 --> 00:00:41,160
+để thao tác với CRM (đặt lịch).
+
+18
+00:00:41,160 --> 00:00:44,940
+Ghi nhớ: Lex (ASR + NLU cho bot), Connect (contact center).
+

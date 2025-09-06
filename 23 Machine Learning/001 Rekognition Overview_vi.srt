@@ -1,0 +1,172 @@
+1
+00:00:00,600 --> 00:00:03,630
+Giờ nói về Amazon Rekognition.
+
+2
+00:00:03,630 --> 00:00:08,630
+Rekognition là dịch vụ tìm đối tượng, con người,
+
+3
+00:00:08,640 --> 00:00:13,640
+văn bản, bối cảnh trong ảnh và video bằng machine learning.
+
+4
+00:00:14,070 --> 00:00:16,110
+Có thể phân tích khuôn mặt
+
+5
+00:00:16,110 --> 00:00:18,840
+và tìm kiếm khuôn mặt để xác minh người dùng
+
+6
+00:00:18,840 --> 00:00:20,552
+và đếm số người xuất hiện
+
+7
+00:00:20,552 --> 00:00:23,100
+trong một bức ảnh chẳng hạn.
+
+8
+00:00:23,100 --> 00:00:26,790
+Bạn có thể tạo cơ sở dữ liệu khuôn mặt quen thuộc
+
+9
+00:00:26,790 --> 00:00:28,680
+hoặc so khớp với cơ sở dữ liệu
+
+10
+00:00:28,680 --> 00:00:31,620
+người nổi tiếng để nhận diện trong ảnh.
+
+11
+00:00:31,620 --> 00:00:35,250
+Use case: gắn nhãn (labeling) ảnh/video,
+
+12
+00:00:35,250 --> 00:00:37,830
+moderation nội dung, phát hiện văn bản,
+
+13
+00:00:37,830 --> 00:00:41,490
+phát hiện/phân tích khuôn mặt,
+
+14
+00:00:41,490 --> 00:00:43,050
+ví dụ xác định giới tính, nhóm tuổi,
+
+15
+00:00:43,050 --> 00:00:46,410
+cảm xúc trên khuôn mặt;
+
+16
+00:00:46,410 --> 00:00:49,290
+tìm/đối chiếu khuôn mặt, nhận diện người nổi tiếng,
+
+17
+00:00:49,290 --> 00:00:51,960
+và tracking đường di chuyển (pathing).
+
+18
+00:00:51,960 --> 00:00:54,060
+Ví dụ dùng cho phân tích trận thể thao trong video.
+
+19
+00:00:54,060 --> 00:00:55,230
+Tóm lại:
+
+20
+00:00:55,230 --> 00:00:58,020
+Rekognition dành cho ảnh và video.
+
+21
+00:01:00,900 --> 00:01:03,690
+Trên trang Rekognition bạn có thể thấy việc tự động
+
+22
+00:01:03,690 --> 00:01:05,129
+phân tích ảnh/video bằng ML.
+
+23
+00:01:05,129 --> 00:01:07,680
+Ví dụ ảnh này: nhận diện các thành phần
+
+24
+00:01:07,680 --> 00:01:08,760
+trong ảnh.
+
+25
+00:01:08,760 --> 00:01:09,720
+Có thể nhận ra
+
+26
+00:01:09,720 --> 00:01:11,370
+người, tảng đá, xe đạp địa hình,
+
+27
+00:01:11,370 --> 00:01:12,203
+sườn núi, ngoài trời.
+
+28
+00:01:12,203 --> 00:01:14,850
+Có thể gắn nhãn giống loài trong ảnh,
+
+29
+00:01:14,850 --> 00:01:17,370
+ví dụ golden retriever hoặc “dog”.
+
+30
+00:01:17,370 --> 00:01:18,783
+Moderation nội dung
+
+31
+00:01:19,903 --> 00:01:21,150
+đảm bảo phù hợp mọi lứa tuổi.
+
+32
+00:01:21,150 --> 00:01:23,550
+Phát hiện văn bản (text) — ví dụ trong một cuộc đua,
+
+33
+00:01:23,550 --> 00:01:25,950
+nhận số áo của các vận động viên.
+
+34
+00:01:25,950 --> 00:01:28,830
+Phát hiện/phân tích khuôn mặt —
+
+35
+00:01:28,830 --> 00:01:31,140
+người này có vẻ vui, đang cười,
+
+36
+00:01:31,140 --> 00:01:34,260
+mắt mở, và là nữ.
+
+37
+00:01:34,260 --> 00:01:35,910
+Tìm kiếm/xác minh khuôn mặt —
+
+38
+00:01:35,910 --> 00:01:37,590
+ví dụ ứng dụng an ninh.
+
+39
+00:01:37,590 --> 00:01:38,640
+Nhận diện người nổi tiếng —
+
+40
+00:01:38,640 --> 00:01:40,650
+chụp ảnh và hệ thống nhận ra
+
+41
+00:01:40,650 --> 00:01:42,060
+đây là CTO của AWS.
+
+42
+00:01:42,060 --> 00:01:44,550
+Pathing: theo dõi di chuyển trong trận bóng,
+
+43
+00:01:44,550 --> 00:01:46,560
+phục vụ phân tích thời gian thực.
+

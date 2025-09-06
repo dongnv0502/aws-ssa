@@ -1,0 +1,120 @@
+1
+00:00:00,000 --> 00:00:01,280
+Giờ nói về Auto Scaling Group (ASG).
+
+2
+00:00:01,280 --> 00:00:03,300
+Tải truy cập thay đổi theo thời gian; trên AWS
+
+3
+00:00:03,300 --> 00:00:05,939
+ta có thể tạo/hủy EC2 nhanh chóng bằng API.
+
+4
+00:00:05,939 --> 00:00:08,140
+Để tự động hóa, dùng ASG.
+
+5
+00:00:08,140 --> 00:00:11,130
+Mục tiêu: scale out (thêm EC2) khi tải tăng,
+
+6
+00:00:11,130 --> 00:00:13,260
+scale in (giảm EC2) khi tải giảm.
+
+7
+00:00:13,260 --> 00:00:15,200
+Kích thước ASG thay đổi theo thời gian;
+
+8
+00:00:15,200 --> 00:00:17,960
+đặt min/max instances để giới hạn biên.
+
+9
+00:00:17,960 --> 00:00:21,430
+Kết hợp với load balancer: các EC2 trong ASG tự động
+
+10
+00:00:21,430 --> 00:00:23,070
+được đăng ký vào LB.
+
+11
+00:00:23,070 --> 00:00:25,160
+Nếu một instance unhealthy, ASG sẽ terminate
+
+12
+00:00:25,160 --> 00:00:28,200
+và tạo instance mới thay thế.
+
+13
+00:00:28,200 --> 00:00:30,640
+ASG miễn phí; chỉ trả tiền tài nguyên bên dưới (EC2,...).
+
+14
+00:00:30,640 --> 00:00:33,680
+Cấu hình: min capacity, desired capacity, max capacity.
+
+15
+00:00:33,680 --> 00:00:37,210
+Tăng desired (≤ max) -> scale out (thêm EC2).
+
+16
+00:00:37,210 --> 00:00:39,520
+ASG + ELB: ELB phân phối lưu lượng
+
+17
+00:00:39,520 --> 00:00:41,310
+đến mọi instance đã đăng ký.
+
+18
+00:00:41,310 --> 00:00:43,240
+ELB health check có thể truyền sang ASG:
+
+19
+00:00:43,240 --> 00:00:45,010
+ASG terminate instance bị ELB đánh unhealthy.
+
+20
+00:00:45,010 --> 00:00:46,380
+Tăng EC2 -> ELB tự nhận và dàn tải.
+
+21
+00:00:46,380 --> 00:00:49,890
+Để tạo ASG cần Launch Template (thay Launch Configuration):
+
+22
+00:00:49,890 --> 00:00:51,840
+- AMI, instance type, EC2 User Data,
+
+23
+00:00:51,840 --> 00:00:53,680
+- EBS volumes, Security Groups, SSH key pair,
+
+24
+00:00:53,680 --> 00:00:56,920
+- IAM role, network/subnet, thông tin LB, v.v.
+
+25
+00:00:56,920 --> 00:01:00,230
+ASG còn có min/max/initial capacity và scaling policies.
+
+26
+00:01:00,230 --> 00:01:02,290
+Tích hợp CloudWatch Alarms để scale tự động:
+
+27
+00:01:02,290 --> 00:01:03,720
+Đặt ngưỡng trên metric (vd. Average CPU)
+
+28
+00:01:03,720 --> 00:01:07,430
+→ Alarm kích hoạt Scale out/in activities cho ASG.
+
+29
+00:01:07,430 --> 00:01:10,750
+Chính sách: Scale out (tăng số instance) / Scale in (giảm).
+
+30
+00:01:10,750 --> 00:01:12,860
+Đó là các thành phần cốt lõi của ASG.
+

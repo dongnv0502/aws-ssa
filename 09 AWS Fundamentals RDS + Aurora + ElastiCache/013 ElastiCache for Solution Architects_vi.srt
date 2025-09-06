@@ -1,0 +1,72 @@
+1
+00:00:00,000 --> 00:00:02,520
+Bảo mật và mẫu sử dụng ElastiCache (Solution Architects).
+
+2
+00:00:02,520 --> 00:00:06,689
+IAM authentication: chỉ hỗ trợ cho Redis (ở mức API/console);
+
+3
+00:00:06,689 --> 00:00:10,020
+truy cập dữ liệu vẫn dùng cơ chế riêng của engine.
+
+4
+00:00:10,020 --> 00:00:12,360
+Redis: Redis AUTH (mật khẩu/token),
+
+5
+00:00:12,360 --> 00:00:16,710
+Security Group, SSL/TLS in‑flight encryption.
+
+6
+00:00:16,710 --> 00:00:19,230
+Memcached: hỗ trợ SASL authentication.
+
+7
+00:00:19,230 --> 00:00:21,450
+Tóm tắt: EC2 client -> (Redis AUTH hoặc IAM auth)
+
+8
+00:00:21,450 --> 00:00:23,010
+-> Redis Cluster (bảo vệ SG, TLS).
+
+9
+00:00:23,010 --> 00:00:25,230
+Mẫu cache phổ biến:
+
+10
+00:00:25,230 --> 00:00:28,620
+- Lazy Loading: chỉ ghi vào cache khi cache miss (dữ liệu có thể cũ).
+
+11
+00:00:28,620 --> 00:00:31,980
+- Write‑Through: mỗi khi ghi DB thì ghi cache (ít stale dữ liệu).
+
+12
+00:00:31,980 --> 00:00:33,720
+- Session Store: lưu session + TTL.
+
+13
+00:00:33,720 --> 00:00:36,780
+Caching khó vì invalidation — lưu ý khi thiết kế.
+
+14
+00:00:36,780 --> 00:00:40,770
+Use case quan trọng (thi): Gaming Leaderboard.
+
+15
+00:00:40,770 --> 00:00:44,370
+Redis Sorted Sets: đảm bảo unique + có thứ tự; mỗi phần tử
+
+16
+00:00:44,370 --> 00:00:46,980
+được xếp hạng theo thời gian thực.
+
+17
+00:00:46,980 --> 00:00:49,080
+Dùng Sorted Sets để tạo bảng xếp hạng realtime
+
+18
+00:00:49,080 --> 00:00:51,330
+trên Redis; client đọc thẳng từ cache.
+

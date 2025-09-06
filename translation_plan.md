@@ -84,8 +84,8 @@ Next text content
 - [x] Module 05: 18/18 files
 - [x] Module 06: 8/8 files
 - [x] Module 07: 14/14 files
-- [ ] Module 08: 12/17 files
-- [ ] Module 09: 7/13 files
+- [x] Module 08: 17/17 files
+- [x] Module 09: 13/13 files
 - [x] Module 10: 21/21 files
 - [x] Module 11: 7/7 files
 - [x] Module 12: 13/13 files
@@ -99,7 +99,7 @@ Next text content
 - [x] Module 20: 4/4 files
 - [x] Module 21: 12/12 files
 - [x] Module 22: 14/14 files
-- [ ] Module 23: 0/17 files
+- [ ] Module 23: 6/17 files
 - [ ] Module 24: 0/17 files
 - [ ] Module 25: 1/9 files
 - [ ] Module 26: 10/21 files

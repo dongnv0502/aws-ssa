@@ -1,0 +1,96 @@
+1
+00:00:00,210 --> 00:00:02,100
+Các loại Scaling Policy cho ASG:
+
+2
+00:00:02,100 --> 00:00:03,180
+1) Dynamic Scaling:
+
+3
+00:00:03,180 --> 00:00:06,360
+- Target Tracking: đơn giản; chọn metric (vd. CPU Utilization)
+
+4
+00:00:06,360 --> 00:00:08,850
+  và đặt giá trị mục tiêu (vd. 40%). ASG tự scale in/out
+
+5
+00:00:08,850 --> 00:00:10,470
+  để giữ metric quanh 40%.
+
+6
+00:00:10,470 --> 00:00:13,080
+- Simple/Step Scaling: dùng CloudWatch Alarms để
+
+7
+00:00:13,080 --> 00:00:15,390
+  cộng/trừ số instance theo ngưỡng.
+
+8
+00:00:15,390 --> 00:00:18,720
+2) Scheduled Scaling: biết trước pattern (vd. thứ Sáu 5PM tăng tải)
+
+9
+00:00:18,720 --> 00:00:23,720
+   -> đặt lịch tăng min capacity.
+
+10
+00:00:24,150 --> 00:00:28,590
+3) Predictive Scaling: dự báo tải từ dữ liệu lịch sử và lập lịch
+
+11
+00:00:28,590 --> 00:00:30,990
+   scale trước (hữu ích với pattern lặp).
+
+12
+00:00:30,990 --> 00:00:33,270
+Chọn metric để scale phụ thuộc ứng dụng. Gợi ý:
+
+13
+00:00:33,270 --> 00:00:36,330
+- CPU Utilization (trung bình trên các instance): tăng -> scale out.
+
+14
+00:00:36,330 --> 00:00:39,210
+- RequestCountPerTarget (mức tối ưu theo tải kiểm thử
+
+15
+00:00:39,210 --> 00:00:41,910
+  vd. 1000 req/target) -> target tracking trên chỉ số này.
+
+16
+00:00:41,910 --> 00:00:43,830
+- Network In/Out (app nặng mạng): đạt ngưỡng -> scale.
+
+17
+00:00:43,830 --> 00:00:45,600
+- Custom metric đẩy lên CloudWatch.
+
+18
+00:00:45,600 --> 00:00:47,910
+Scaling Cooldown:
+
+19
+00:00:47,910 --> 00:00:49,590
+Sau mỗi hoạt động scale (add/remove instance),
+
+20
+00:00:49,590 --> 00:00:52,320
+ASG vào trạng thái cooldown (mặc định 300s) – không scale tiếp
+
+21
+00:00:52,320 --> 00:00:55,920
+để metric ổn định và instance mới sẵn sàng.
+
+22
+00:00:55,920 --> 00:01:00,630
+Khuyên dùng: AMI “sẵn sàng chạy” để giảm thời gian cấu hình,
+
+23
+00:01:00,630 --> 00:01:02,880
+giúp rút cooldown và scale nhịp nhàng hơn.
+
+24
+00:01:02,880 --> 00:01:06,180
+Bật Detailed Monitoring (1‑minute metrics) để phản ứng nhanh.
+

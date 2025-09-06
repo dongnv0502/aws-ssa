@@ -1,0 +1,132 @@
+1
+00:00:00,480 --> 00:00:01,589
+Các khái niệm Aurora nâng cao (quan trọng cho kỳ thi).
+
+2
+00:00:01,589 --> 00:00:03,180
+Replica Auto Scaling:
+
+3
+00:00:03,180 --> 00:00:05,250
+Khi Reader Endpoint nhận quá nhiều đọc (CPU tăng),
+
+4
+00:00:05,250 --> 00:00:07,650
+có thể bật auto‑scaling replica để tự thêm Aurora Replicas;
+
+5
+00:00:07,650 --> 00:00:09,330
+Reader Endpoint tự mở rộng ra các replica mới,
+
+6
+00:00:09,330 --> 00:00:12,330
+giảm tải và hạ CPU.
+
+7
+00:00:12,330 --> 00:00:15,630
+Custom Endpoints:
+
+8
+00:00:15,630 --> 00:00:17,430
+Khi có replica cấu hình phần cứng khác nhau
+
+9
+00:00:17,430 --> 00:00:19,560
+(vd. db.r3.large vs db.r5.2xlarge),
+
+10
+00:00:19,560 --> 00:00:22,140
+có thể tạo Custom Endpoint trỏ tới nhóm replica mạnh
+
+11
+00:00:22,140 --> 00:00:24,600
+để chạy analytical queries. Khi dùng Custom Endpoints,
+
+12
+00:00:24,600 --> 00:00:27,150
+thường không dùng Reader Endpoint chung nữa.
+
+13
+00:00:27,150 --> 00:00:29,460
+Có thể tạo nhiều Custom Endpoint cho từng workload.
+
+14
+00:00:29,460 --> 00:00:32,310
+Aurora Serverless:
+
+15
+00:00:32,310 --> 00:00:36,090
+Khởi tạo DB tự động và auto‑scale theo nhu cầu — phù hợp
+
+16
+00:00:36,090 --> 00:00:39,060
+workload gián đoạn/khó dự đoán, không cần capacity planning.
+
+17
+00:00:39,060 --> 00:00:41,670
+Tính phí theo giây (Aurora instance/ACU). Kiến trúc:
+
+18
+00:00:41,670 --> 00:00:44,550
+client nói chuyện với proxy fleet do Aurora quản lý,
+
+19
+00:00:44,550 --> 00:00:47,820
+phía sau tạo/thu hồi instance theo tải (serverless).
+
+20
+00:00:47,820 --> 00:00:50,640
+Aurora Global Database:
+
+21
+00:00:50,640 --> 00:00:55,110
+Thiết lập cross‑region đọc để DR và giảm độ trễ đọc.
+
+22
+00:00:55,110 --> 00:00:57,330
+Một region chính (read/write) + tối đa 5 region phụ (read‑only),
+
+23
+00:00:57,330 --> 00:01:01,650
+replication lag < 1s; tối đa 16 read replicas mỗi region phụ.
+
+24
+00:01:01,650 --> 00:01:03,750
+Nếu region chính sự cố: promote region phụ
+
+25
+00:01:03,750 --> 00:01:05,790
+thành read/write; RTO < 1 phút (ghi nhớ cho bài thi).
+
+26
+00:01:05,790 --> 00:01:07,620
+Ví dụ: us‑east‑1 (primary), eu‑west‑1 (secondary)
+
+27
+00:01:07,620 --> 00:01:11,700
+đọc‑only; sự cố us‑east‑1 -> promote eu‑west‑1 thành read/write.
+
+28
+00:01:11,700 --> 00:01:14,580
+Aurora Machine Learning:
+
+29
+00:01:14,580 --> 00:01:18,990
+Tích hợp ML qua SQL, đơn giản/secure. Hỗ trợ SageMaker (bất kỳ
+
+30
+00:01:18,990 --> 00:01:21,330
+model) và Comprehend (sentiment). Không cần chuyên môn ML.
+
+31
+00:01:21,330 --> 00:01:23,310
+Use case: fraud detection, ads targeting,
+
+32
+00:01:23,310 --> 00:01:26,910
+sentiment analysis, product recommendation. Ứng dụng gọi SQL,
+
+33
+00:01:26,910 --> 00:01:29,640
+Aurora gửi dữ liệu sang dịch vụ ML và trả kết quả.
+

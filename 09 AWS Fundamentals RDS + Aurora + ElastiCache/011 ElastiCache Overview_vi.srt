@@ -1,0 +1,104 @@
+1
+00:00:00,270 --> 00:00:02,490
+Tổng quan Amazon ElastiCache.
+
+2
+00:00:02,490 --> 00:00:04,320
+Tương tự RDS (DB quan hệ được quản lý), ElastiCache
+
+3
+00:00:04,320 --> 00:00:06,840
+cung cấp Redis/Memcached được quản lý (in‑memory cache).
+
+4
+00:00:06,840 --> 00:00:10,050
+Cache = in‑memory DB hiệu năng cao, độ trễ thấp,
+
+5
+00:00:10,050 --> 00:00:12,870
+giảm tải DB cho workload đọc nhiều (cache các truy vấn phổ biến).
+
+6
+00:00:12,870 --> 00:00:13,740
+Có thể lưu session trong cache để ứng dụng stateless.
+
+7
+00:00:13,740 --> 00:00:16,260
+ElastiCache là managed: OS/patching/monitoring/
+
+8
+00:00:16,260 --> 00:00:19,740
+failover/backup do AWS lo.
+
+9
+00:00:19,740 --> 00:00:22,590
+Lưu ý: cần chỉnh code ứng dụng để đọc/ghi cache hợp lý
+
+10
+00:00:22,590 --> 00:00:24,960
+(cache‑aside, write‑through, invalidation...).
+
+11
+00:00:24,960 --> 00:00:27,720
+Kiến trúc ví dụ (cache‑aside):
+
+12
+00:00:27,720 --> 00:00:30,420
+App hỏi cache; nếu cache hit -> trả kết quả ngay.
+
+13
+00:00:30,420 --> 00:00:33,420
+Nếu cache miss -> đọc DB, rồi ghi vào cache cho lần sau.
+
+14
+00:00:33,420 --> 00:00:34,710
+Phải có chiến lược invalidation để dữ liệu luôn mới.
+
+15
+00:00:34,710 --> 00:00:37,920
+Lưu session: app ghi session vào ElastiCache;
+
+16
+00:00:37,920 --> 00:00:39,570
+người dùng chuyển instance vẫn lấy được session.
+
+17
+00:00:39,570 --> 00:00:41,190
+Redis vs Memcached (khái quát):
+
+18
+00:00:41,190 --> 00:00:43,470
+- Redis: Multi‑AZ với auto‑failover, có read replicas
+
+19
+00:00:43,470 --> 00:00:45,450
+  (scale đọc/HA), AOF persistence, backup/restore,
+
+20
+00:00:45,450 --> 00:00:48,477
+  hỗ trợ cấu trúc dữ liệu nâng cao (sets/sorted sets...)
+
+21
+00:00:48,477 --> 00:00:52,560
+  → phù hợp leaderboard, counters, pub/sub, v.v.
+
+22
+00:00:52,560 --> 00:00:55,110
+- Memcached: Nhiều node shard dữ liệu (partitioning),
+
+23
+00:00:55,110 --> 00:00:58,320
+  không replication/HA (mất node có thể mất cache),
+
+24
+00:00:58,320 --> 00:01:00,210
+  multi‑thread, đơn giản, thông lượng cao.
+
+25
+00:01:00,210 --> 00:01:02,340
+Kỳ thi ít hỏi chọn Redis vs Memcached,
+
+26
+00:01:02,340 --> 00:01:05,459
+nhưng nên nắm đặc điểm để suy luận theo use case.
+

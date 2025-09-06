@@ -1,0 +1,108 @@
+1
+00:00:00,710 --> 00:00:01,960
+Thực hành Automatic Scaling cho ASG.
+
+2
+00:00:01,960 --> 00:00:03,573
+Ba nhóm: Dynamic Scaling, Predictive Scaling,
+
+3
+00:00:03,573 --> 00:00:05,860
+và Scheduled Actions.
+
+4
+00:00:05,860 --> 00:00:08,920
+- Scheduled Actions: đặt lịch thay đổi Desired/Min/Max capacity
+
+5
+00:00:08,920 --> 00:00:10,400
+  theo thời gian (ví dụ mỗi tuần, mỗi giờ),
+
+6
+00:00:10,400 --> 00:00:12,340
+  có Start/End time — dùng cho sự kiện dự đoán trước
+
+7
+00:00:12,340 --> 00:00:16,290
+  (vd. chạy promotion vào thứ Bảy).
+
+8
+00:00:16,290 --> 00:00:17,610
+- Predictive Scaling: dùng ML dự báo tải
+
+9
+00:00:17,610 --> 00:00:20,310
+  (CPU, Network In/Out, ALB RequestCount, custom metric),
+
+10
+00:00:20,310 --> 00:00:22,300
+  đặt target (vd. CPU 50%), hệ thống tự lập lịch scale.
+
+11
+00:00:22,300 --> 00:00:25,060
+  Cần thời gian thu thập dữ liệu nên không demo trực tiếp.
+
+12
+00:00:25,060 --> 00:00:27,500
+- Dynamic Scaling: tạo policy thực thi ngay.
+
+13
+00:00:27,500 --> 00:00:29,830
+  Tùy chọn: Target Tracking / Step / Simple Scaling.
+
+14
+00:00:29,830 --> 00:00:31,769
+  Simple Scaling: gắn CloudWatch Alarm, khi trigger
+
+15
+00:00:31,769 --> 00:00:34,890
+  thì cộng thêm N instance hoặc +% số lượng (hoặc scale in).
+
+16
+00:00:34,890 --> 00:00:36,890
+  Step Scaling: nhiều “bước” theo mức độ alarm
+
+17
+00:00:36,890 --> 00:00:38,050
+  (vd. rất cao +10, cao +1).
+
+18
+00:00:38,050 --> 00:00:41,683
+  Target Tracking: đặt mục tiêu (CPU 40%) — hệ thống tự tạo alarm
+
+19
+00:00:42,840 --> 00:00:45,150
+  và giữ CPU quanh mức đó.
+
+20
+00:00:45,150 --> 00:00:47,380
+Demo Target Tracking:
+
+21
+00:00:47,380 --> 00:00:49,830
+- Tạo policy: Average CPU target = 40.
+
+22
+00:00:49,830 --> 00:00:53,290
+- Đặt Max capacity > Min (vd. Min=1, Max=3).
+
+23
+00:00:53,290 --> 00:00:55,420
+- Dùng EC2 Instance Connect cài `stress` và chạy `stress -C 4`
+
+24
+00:00:55,420 --> 00:00:58,040
+  để đẩy CPU lên 100%.
+
+25
+00:00:58,040 --> 00:01:01,250
+- Quan sát Monitoring (ASG/EC2): CPU tăng mạnh;
+
+26
+00:01:01,250 --> 00:01:03,300
+  Activity history: alarm kích hoạt -> scale out từ 1 lên 2.
+
+27
+00:01:03,300 --> 00:01:05,000
+Instance management: thấy 2 EC2 sau khi scale.
+

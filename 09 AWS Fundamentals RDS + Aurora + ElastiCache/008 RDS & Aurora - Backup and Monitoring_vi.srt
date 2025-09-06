@@ -1,0 +1,104 @@
+1
+00:00:00,120 --> 00:00:02,340
+RDS Backup:
+
+2
+00:00:02,340 --> 00:00:04,680
+- Automated backups: full backup hằng ngày trong backup window
+
+3
+00:00:04,680 --> 00:00:07,140
+  + transaction logs mỗi 5 phút → Point‑in‑Time Restore
+
+4
+00:00:07,140 --> 00:00:10,890
+  về bất kỳ thời điểm “đến 5 phút trước hiện tại”.
+
+5
+00:00:10,890 --> 00:00:13,440
+  Retention 1–35 ngày; đặt 0 để tắt automated backups.
+
+6
+00:00:13,440 --> 00:00:15,840
+- Manual DB Snapshots: do người dùng tạo,
+
+7
+00:00:15,840 --> 00:00:19,320
+  giữ vô hạn (không tự hết hạn) → phù hợp lưu trữ dài hạn.
+
+8
+00:00:19,320 --> 00:00:22,350
+Mẹo tiết kiệm chi phí: nếu DB chỉ dùng vài giờ/tháng,
+
+9
+00:00:22,350 --> 00:00:24,750
+hãy chụp snapshot rồi xóa DB; khi cần thì restore lại
+
+10
+00:00:24,750 --> 00:00:27,390
+(snapshot rẻ hơn giữ DB dừng).
+
+11
+00:00:27,390 --> 00:00:29,580
+Aurora Backup:
+
+12
+00:00:29,580 --> 00:00:31,500
+- Automated backups 1–35 ngày (không tắt được),
+
+13
+00:00:31,500 --> 00:00:33,720
+  Point‑in‑Time Recovery trong khoảng đó.
+
+14
+00:00:33,720 --> 00:00:37,290
+- Manual snapshots: giữ vô hạn, như RDS.
+
+15
+00:00:37,290 --> 00:00:38,970
+Khôi phục (Restore):
+
+16
+00:00:38,970 --> 00:00:43,050
+- Restore automated backup hoặc snapshot -> tạo DB mới.
+
+17
+00:00:43,050 --> 00:00:46,770
+- RDS MySQL: có thể restore từ file backup ở Amazon S3
+
+18
+00:00:46,770 --> 00:00:48,630
+  (backup on‑prem lên S3, rồi RDS restore).
+
+19
+00:00:48,630 --> 00:00:50,640
+- Aurora MySQL: yêu cầu backup bằng Percona XtraBackup,
+
+20
+00:00:50,640 --> 00:00:53,340
+  upload S3, rồi restore thành Aurora cluster.
+
+21
+00:00:53,340 --> 00:01:01,560
+Aurora Cloning (sao chép nhanh):
+
+22
+00:01:01,560 --> 00:01:03,390
+Tạo bản clone của production để làm staging/test
+
+23
+00:01:03,390 --> 00:01:05,730
+— nhanh hơn snapshot/restore nhờ copy‑on‑write.
+
+24
+00:01:05,730 --> 00:01:08,790
+Ban đầu clone dùng chung data volume; khi có ghi trên
+
+25
+00:01:08,790 --> 00:01:11,790
+bất kỳ bên nào, Aurora mới cấp thêm storage và tách dữ liệu.
+
+26
+00:01:11,790 --> 00:01:15,180
+Kết quả: nhanh, tiết kiệm, không ảnh hưởng production.
+

@@ -1,0 +1,104 @@
+1
+00:00:00,210 --> 00:00:01,830
+Tạo Amazon Aurora database (lưu ý có thể phát sinh phí).
+
+2
+00:00:01,830 --> 00:00:03,690
+Standard Create, chọn Aurora MySQL‑compatible.
+
+3
+00:00:03,690 --> 00:00:05,939
+Giữ phiên bản mặc định (ví dụ 3.04.1).
+
+4
+00:00:05,939 --> 00:00:09,210
+Template: Production để thấy đủ tùy chọn (có tính phí).
+
+5
+00:00:09,210 --> 00:00:11,040
+DB cluster identifier: database-2.
+
+6
+00:00:11,040 --> 00:00:14,400
+Master username: admin; nhập mật khẩu.
+
+7
+00:00:14,400 --> 00:00:15,690
+Cluster storage configuration:
+
+8
+00:00:15,690 --> 00:00:17,160
+- Aurora Standard: tối ưu chi phí.
+
+9
+00:00:17,160 --> 00:00:20,070
+- IO‑Optimized: nhiều I/O (đọc/ghi) -> hiệu năng cao hơn.
+
+10
+00:00:20,070 --> 00:00:22,260
+Instance configuration: chọn lớp (vd. db.t3.medium).
+
+11
+00:00:22,260 --> 00:00:25,320
+Nếu phiên bản hỗ trợ, có Aurora Serverless v2 (ACU min/max).
+
+12
+00:00:25,320 --> 00:00:27,690
+Availability & Durability: thêm 1 Aurora Replica (reader)
+
+13
+00:00:27,690 --> 00:00:30,510
+ở AZ khác để tăng HA/đọc nhanh và failover nhanh (tốn phí).
+
+14
+00:00:30,510 --> 00:00:33,270
+Networking: IPv4, VPC mặc định, Subnet group mặc định.
+
+15
+00:00:33,270 --> 00:00:36,600
+Public access: Yes (để kết nối từ ngoài). Tạo SG mới
+
+16
+00:00:36,600 --> 00:00:38,550
+vd. demo-database-aurora cho phép port phù hợp.
+
+17
+00:00:38,550 --> 00:00:40,200
+Additional config: auth (Password/IAM/Kerberos),
+
+18
+00:00:40,200 --> 00:00:41,880
+Enhanced monitoring (có thể tắt),
+
+19
+00:00:41,880 --> 00:00:43,560
+Initial DB name: mydb, Backup retention: 1 day,
+
+20
+00:00:43,560 --> 00:00:46,560
+Encryption, Backtrack, Log exports, Deletion protection.
+
+21
+00:00:46,560 --> 00:00:50,220
+Kiểm tra ước tính chi phí rồi Create database.
+
+22
+00:00:50,220 --> 00:00:52,380
+Sau khi tạo: có cluster vùng (regional cluster)
+
+23
+00:00:52,380 --> 00:00:56,460
+với 1 writer và 1 reader ở các AZ khác nhau (HA + đọc nhanh).
+
+24
+00:00:56,460 --> 00:00:58,890
+Quan trọng: Aurora có 2 endpoint:
+
+25
+00:00:58,890 --> 00:01:01,440
+- Writer endpoint: luôn trỏ tới instance ghi hiện tại;
+
+26
+00:01:01,440 --> 00:01:03,450
+- Reader endpoint: cân bằng kết nối giữa các reader.
+

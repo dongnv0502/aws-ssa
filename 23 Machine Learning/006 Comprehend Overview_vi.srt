@@ -1,0 +1,64 @@
+1
+00:00:00,370 --> 00:00:01,530
+Amazon Comprehend (cho kỳ thi: rất thẳng).
+
+2
+00:00:01,530 --> 00:00:03,820
+Comprehend = dịch vụ NLP (Natural Language Processing).
+
+3
+00:00:03,820 --> 00:00:05,610
+Thấy “NLP” trong đề → nghĩ Comprehend.
+
+4
+00:00:05,610 --> 00:00:06,540
+Dịch vụ fully‑managed, serverless,
+
+5
+00:00:06,540 --> 00:00:09,928
+dùng ML để tìm insight và mối quan hệ trong văn bản.
+
+6
+00:00:09,928 --> 00:00:11,870
+Tính năng: nhận diện ngôn ngữ;
+
+7
+00:00:11,870 --> 00:00:14,020
+trích xuất key phrase, địa điểm, người, thương hiệu, sự kiện;
+
+8
+00:00:14,020 --> 00:00:17,830
+phân tích cảm xúc (sentiment: positive/negative);
+
+9
+00:00:17,830 --> 00:00:20,040
+phân tích token/part‑of‑speech; phân tích audio;
+
+10
+00:00:20,040 --> 00:00:22,840
+tự nhóm bộ sưu tập văn bản theo chủ đề (topic modeling).
+
+11
+00:00:22,840 --> 00:00:24,758
+Tóm lại: nhập text/unstructured data,
+
+12
+00:00:24,758 --> 00:00:27,490
+Comprehend “hiểu” và trích xuất cấu trúc/ý nghĩa.
+
+13
+00:00:27,490 --> 00:00:30,460
+Use case: phân tích tương tác khách hàng (email/chat)
+
+14
+00:00:30,460 --> 00:00:33,340
+để rút insight cải thiện dịch vụ;
+
+15
+00:00:33,340 --> 00:00:37,570
+tự nhóm bài viết theo chủ đề được phát hiện.
+
+16
+00:00:37,570 --> 00:00:41,320
+Ghi nhớ cho kỳ thi: Comprehend ↔ NLP.
+

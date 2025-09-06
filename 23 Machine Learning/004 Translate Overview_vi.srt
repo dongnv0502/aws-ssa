@@ -1,0 +1,36 @@
+1
+00:00:00,800 --> 00:00:02,560
+Giới thiệu Amazon Translate.
+
+2
+00:00:02,560 --> 00:00:04,260
+Translate cung cấp dịch máy tự nhiên, chính xác.
+
+3
+00:00:04,260 --> 00:00:07,110
+Hỗ trợ localize nội dung (website/ứng dụng)
+
+4
+00:00:07,110 --> 00:00:09,030
+cho người dùng quốc tế
+
+5
+00:00:09,030 --> 00:00:11,070
+và dịch khối lượng văn bản lớn hiệu quả.
+
+6
+00:00:11,070 --> 00:00:12,930
+Ví dụ câu “Hi, my name is Stephen”
+
+7
+00:00:12,930 --> 00:00:16,340
+có thể dịch sang nhiều ngôn ngữ (Pháp/Português/Hindi...).
+
+8
+00:00:16,340 --> 00:00:18,207
+Dịch vụ rất đơn giản để dùng.
+
+9
+00:00:18,207 --> 00:00:19,700
+Hẹn gặp lại ở bài tiếp theo.
+

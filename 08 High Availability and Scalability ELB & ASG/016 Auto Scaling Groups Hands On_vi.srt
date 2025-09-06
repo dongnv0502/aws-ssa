@@ -1,0 +1,92 @@
+1
+00:00:00,480 --> 00:00:02,280
+Thực hành Auto Scaling Group (ASG).
+
+2
+00:00:02,280 --> 00:00:03,113
+Trước tiên, terminate toàn bộ EC2
+
+3
+00:00:03,113 --> 00:00:05,040
+để số instance đang chạy = 0.
+
+4
+00:00:05,040 --> 00:00:07,650
+Tạo ASG mới: Auto Scaling Groups -> Create.
+
+5
+00:00:07,650 --> 00:00:11,760
+Đặt tên “Demo ASG”. Tạo Launch Template tham chiếu.
+
+6
+00:00:11,760 --> 00:00:14,280
+Launch Template: đặt tên (ví dụ my-demo-template), mô tả.
+
+7
+00:00:14,280 --> 00:00:17,280
+AMI: Quick Start -> Amazon Linux 2 (x86, free tier eligible).
+
+8
+00:00:17,280 --> 00:00:19,470
+Instance type: t2.micro (free tier).
+
+9
+00:00:19,470 --> 00:00:21,030
+Key pair, Security group: chọn sẵn (Launch Wizard 1).
+
+10
+00:00:21,030 --> 00:00:24,270
+EBS: 8GB gp2. Advanced details -> User Data: dán script web server.
+
+11
+00:00:24,270 --> 00:00:26,340
+Create Launch Template và chọn phiên bản v1.
+
+12
+00:00:26,340 --> 00:00:29,223
+Chọn Instance launch options: giữ nguyên theo template (t2.micro).
+
+13
+00:00:30,660 --> 00:00:31,680
+Network: chọn VPC và nhiều AZ (balanced best effort).
+
+14
+00:00:31,680 --> 00:00:32,610
+Tích hợp Load Balancer:
+
+15
+00:00:32,610 --> 00:00:35,680
+Attach to existing target group: chọn demo-tg-alb.
+
+16
+00:00:36,870 --> 00:00:40,800
+Health checks: bật EC2 và Load Balancer health checks.
+
+17
+00:00:40,800 --> 00:00:44,010
+Capacity: Desired = 1 (min 1, max 2 trong ví dụ), Create ASG.
+
+18
+00:00:44,010 --> 00:00:45,930
+Quan sát ASG -> Activity: thấy sự kiện Launching instance
+
+19
+00:00:45,930 --> 00:00:48,990
+để đạt Desired capacity.
+
+20
+00:00:48,990 --> 00:00:51,300
+Tab Instance management: một EC2 được tạo bởi ASG.
+
+21
+00:00:51,300 --> 00:00:54,933
+Target Groups -> demo‑tg‑alb -> Targets: EC2 đang được đăng ký
+
+22
+00:00:56,160 --> 00:00:58,650
+(initial/unhealthy trong vài phút, sau đó healthy).
+
+23
+00:00:58,650 --> 00:00:59,880
+Khi healthy, truy cập DNS ALB sẽ thấy “hello world”.
+
