@@ -1,0 +1,56 @@
+1
+00:00:00,280 --> 00:00:02,540
+Giới thiệu Amazon Kendra.
+
+2
+00:00:02,540 --> 00:00:03,920
+Dịch vụ tìm kiếm tài liệu (document search)
+
+3
+00:00:03,920 --> 00:00:06,720
+fully‑managed, dùng ML để trích xuất câu trả lời từ tài liệu.
+
+4
+00:00:06,720 --> 00:00:08,300
+Hỗ trợ nhiều định dạng: text, PDF, HTML,
+
+5
+00:00:08,300 --> 00:00:11,940
+PowerPoint, Word, FAQ, v.v.
+
+6
+00:00:11,940 --> 00:00:14,210
+Kendra lập chỉ mục từ nhiều nguồn dữ liệu
+
+7
+00:00:14,210 --> 00:00:17,480
+để xây “knowledge index” dựa trên ML.
+
+8
+00:00:17,480 --> 00:00:18,790
+Với người dùng cuối: tìm kiếm ngôn ngữ tự nhiên
+
+9
+00:00:18,790 --> 00:00:20,330
+(giống Google). Ví dụ hỏi “Phòng IT support ở đâu?”
+
+10
+00:00:20,330 --> 00:00:23,280
+Kendra trả lời “Tầng 1” dựa trên nội dung đã lập chỉ mục.
+
+11
+00:00:23,280 --> 00:00:26,570
+Kendra học dần từ tương tác (incremental learning)
+
+12
+00:00:26,570 --> 00:00:28,500
+để ưu tiên kết quả phù hợp hơn;
+
+13
+00:00:28,500 --> 00:00:31,270
+có thể tinh chỉnh theo độ quan trọng/tính mới/bộ lọc tuỳ chỉnh.
+
+14
+00:00:31,270 --> 00:00:33,930
+Ghi nhớ cho kỳ thi: cần “document search” → Amazon Kendra.
+

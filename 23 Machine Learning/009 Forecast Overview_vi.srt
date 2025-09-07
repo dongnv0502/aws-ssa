@@ -1,0 +1,52 @@
+1
+00:00:00,381 --> 00:00:02,640
+Giới thiệu Amazon Forecast.
+
+2
+00:00:02,640 --> 00:00:03,860
+Dịch vụ fully‑managed dùng ML
+
+3
+00:00:03,860 --> 00:00:06,080
+để dự báo (forecast) chính xác.
+
+4
+00:00:06,080 --> 00:00:07,630
+Ví dụ dự đoán doanh số áo mưa.
+
+5
+00:00:07,630 --> 00:00:08,750
+Chính xác hơn ~50% so với
+
+6
+00:00:08,750 --> 00:00:10,790
+phân tích dữ liệu thủ công; rút thời gian từ tháng xuống giờ.
+
+7
+00:00:10,790 --> 00:00:13,280
+Use case: demand planning, financial planning,
+
+8
+00:00:13,280 --> 00:00:14,510
+resource planning, v.v.
+
+9
+00:00:14,510 --> 00:00:16,660
+Cách dùng: lấy dữ liệu time‑series lịch sử + thuộc tính sản phẩm
+
+10
+00:00:16,660 --> 00:00:18,450
+(giá, khuyến mãi, traffic, địa điểm cửa hàng…),
+
+11
+00:00:18,450 --> 00:00:21,280
+upload lên S3, chạy Amazon Forecast để huấn luyện mô hình
+
+12
+00:00:21,280 --> 00:00:22,990
+và xuất dự báo (ví dụ doanh thu năm sau).
+
+13
+00:00:22,990 --> 00:00:24,330
+Ghi nhớ: thấy “forecast” → Amazon Forecast.
+

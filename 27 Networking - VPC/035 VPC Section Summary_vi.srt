@@ -1,0 +1,496 @@
+1
+00:00:00,000 --> 00:00:01,770
+Đây là một phần khá dài
+
+2
+00:00:01,770 --> 00:00:03,030
+và thú vị, mình hy vọng vậy,
+
+3
+00:00:03,030 --> 00:00:04,680
+và mong là bạn đã nắm được nội dung.
+
+4
+00:00:04,680 --> 00:00:07,770
+Nếu cần ôn lại, hãy xem lần thứ hai.
+
+5
+00:00:07,770 --> 00:00:10,140
+Có thể sau một tuần xem lại bạn sẽ thấy dễ hiểu hơn.
+
+6
+00:00:10,140 --> 00:00:12,990
+Mình biết VPC từng rất khó để học với mình.
+
+7
+00:00:12,990 --> 00:00:16,230
+Đó là mạng máy tính, mới mẻ, nhiều từ viết tắt mới,
+
+8
+00:00:16,230 --> 00:00:17,063
+nhiều khái niệm mới,
+
+9
+00:00:17,063 --> 00:00:18,900
+nên hãy cứ từ tốn, đừng lo lắng
+
+10
+00:00:18,900 --> 00:00:21,570
+nếu chưa hiểu hết, chỉ cần quay lại học.
+
+11
+00:00:21,570 --> 00:00:22,740
+Giờ hãy tổng kết những gì đã học.
+
+12
+00:00:22,740 --> 00:00:24,840
+CIDR là một dải địa chỉ IP.
+
+13
+00:00:24,840 --> 00:00:26,820
+VPC là Virtual Private Cloud,
+
+14
+00:00:26,820 --> 00:00:30,060
+hỗ trợ cả IPv4 và IPv6.
+
+15
+00:00:30,060 --> 00:00:32,070
+Subnet gắn với một AZ, trong đó ta định nghĩa CIDR
+
+16
+00:00:32,070 --> 00:00:34,290
+và có subnet public và subnet private.
+
+17
+00:00:34,290 --> 00:00:35,430
+Làm sao để có subnet public?
+
+18
+00:00:35,430 --> 00:00:37,440
+Ta gắn Internet Gateway (IGW)
+
+19
+00:00:37,440 --> 00:00:38,340
+và tạo một tuyến (route)
+
+20
+00:00:38,340 --> 00:00:40,110
+từ subnet public tới Internet Gateway.
+
+21
+00:00:40,110 --> 00:00:44,790
+Việc này cung cấp truy cập Internet cho IPv4/IPv6 (nếu bật).
+
+22
+00:00:44,790 --> 00:00:46,170
+Route table sẽ được chỉnh
+
+23
+00:00:46,170 --> 00:00:48,600
+để có route tới Internet Gateway,
+
+24
+00:00:48,600 --> 00:00:51,270
+VPC peering, VPC endpoints, v.v.
+
+25
+00:00:51,270 --> 00:00:52,920
+Chúng rất quan trọng để đảm bảo
+
+26
+00:00:52,920 --> 00:00:56,250
+luồng mạng trong VPC hoạt động đúng.
+
+27
+00:00:56,250 --> 00:00:58,350
+Bastion host là một EC2 instance public
+
+28
+00:00:58,350 --> 00:01:00,120
+mà ta có thể SSH vào.
+
+29
+00:01:00,120 --> 00:01:02,850
+Và instance này có thể SSH
+
+30
+00:01:02,850 --> 00:01:05,550
+tới các EC2 khác trong subnet private.
+
+31
+00:01:05,550 --> 00:01:07,140
+Đó là lý do gọi nó là bastion host.
+
+32
+00:01:07,140 --> 00:01:09,700
+NAT instance là một EC2 instance triển khai
+
+33
+00:01:11,556 --> 00:01:13,320
+trong subnet public để cấp truy cập Internet
+
+34
+00:01:13,320 --> 00:01:15,690
+cho EC2 ở subnet private.
+
+35
+00:01:15,690 --> 00:01:18,450
+Nó đã cũ, đang bị loại bỏ dần (deprecated),
+
+36
+00:01:18,450 --> 00:01:21,240
+và bạn phải tắt cờ source/destination check
+
+37
+00:01:21,240 --> 00:01:24,450
+để hoạt động, đồng thời chỉnh security group tương ứng.
+
+38
+00:01:24,450 --> 00:01:26,910
+Thay vào đó dùng NAT Gateway sẽ tốt hơn nhiều.
+
+39
+00:01:26,910 --> 00:01:28,410
+Nó do AWS quản lý.
+
+40
+00:01:28,410 --> 00:01:30,390
+Cung cấp truy cập Internet mở rộng
+
+41
+00:01:30,390 --> 00:01:32,040
+cho EC2 trong subnet private
+
+42
+00:01:32,040 --> 00:01:36,270
+khi đích đến là địa chỉ IPv4.
+
+43
+00:01:36,270 --> 00:01:37,140
+Tiếp theo là NACL.
+
+44
+00:01:37,140 --> 00:01:38,850
+Đây là bộ quy tắc tường lửa ở lớp mạng
+
+45
+00:01:38,850 --> 00:01:40,230
+để định nghĩa truy cập inbound/outbound
+
+46
+00:01:40,230 --> 00:01:43,800
+ở cấp độ subnet.
+
+47
+00:01:43,800 --> 00:01:46,560
+Đừng quên các cổng ephemeral khi cấu hình…
+
+48
+00:01:46,560 --> 00:01:47,430
+NACL là stateless,
+
+49
+00:01:47,430 --> 00:01:49,950
+nên inbound và outbound luôn được đánh giá riêng.
+
+50
+00:01:49,950 --> 00:01:52,290
+Trong khi security group là stateful.
+
+51
+00:01:52,290 --> 00:01:54,000
+Nghĩa là nếu inbound được cho phép,
+
+52
+00:01:54,000 --> 00:01:56,940
+thì outbound tự động được phép và ngược lại.
+
+53
+00:01:56,940 --> 00:01:59,010
+Security group áp dụng
+
+54
+00:01:59,010 --> 00:02:00,840
+ở cấp độ EC2 instance.
+
+55
+00:02:00,840 --> 00:02:04,170
+VPC peering giúp kết nối hai VPC với nhau
+
+56
+00:02:04,170 --> 00:02:06,930
+chỉ khi CIDR không bị chồng lấn.
+
+57
+00:02:06,930 --> 00:02:08,850
+Kết nối VPC peering là non‑transitive,
+
+58
+00:02:08,850 --> 00:02:11,340
+nên nếu cần nối ba VPC với nhau,
+
+59
+00:02:11,340 --> 00:02:14,100
+ta cần ba kết nối peering.
+
+60
+00:02:14,100 --> 00:02:16,800
+VPC Endpoints cho phép truy cập riêng tư
+
+61
+00:02:16,800 --> 00:02:20,528
+đến các dịch vụ AWS như Amazon S3, DynamoDB,
+
+62
+00:02:20,528 --> 00:02:23,220
+CloudFormation, SSM, v.v. trong VPC.
+
+63
+00:02:23,220 --> 00:02:24,930
+Có Gateway Endpoint
+
+64
+00:02:24,930 --> 00:02:26,790
+cho Amazon S3 và DynamoDB,
+
+65
+00:02:26,790 --> 00:02:29,520
+còn lại là Interface Endpoint.
+
+66
+00:02:29,520 --> 00:02:32,610
+VPC Flow Logs giúp thu thập metadata dạng log
+
+67
+00:02:32,610 --> 00:02:35,580
+về các gói tin trong VPC,
+
+68
+00:02:35,580 --> 00:02:36,960
+và có thông tin
+
+69
+00:02:36,960 --> 00:02:39,420
+về traffic bị chấp nhận hay bị từ chối.
+
+70
+00:02:39,420 --> 00:02:43,110
+VPC Flow Logs có thể tạo ở mức VPC, Subnet
+
+71
+00:02:43,110 --> 00:02:44,400
+hoặc ENI,
+
+72
+00:02:44,400 --> 00:02:47,280
+gửi tới Amazon S3 để phân tích bằng Athena,
+
+73
+00:02:47,280 --> 00:02:48,990
+hoặc gửi tới CloudWatch Logs
+
+74
+00:02:48,990 --> 00:02:50,610
+để phân tích bằng CloudWatch Log Insights.
+
+75
+00:02:50,610 --> 00:02:53,970
+Để kết nối VPC với data center của bạn,
+
+76
+00:02:53,970 --> 00:02:56,670
+có hai lựa chọn.
+
+77
+00:02:56,670 --> 00:02:57,503
+Đầu tiên là Site‑to‑Site VPN.
+
+78
+00:02:57,503 --> 00:02:59,970
+Site‑to‑Site VPN là kết nối VPN qua Internet công cộng,
+
+79
+00:02:59,970 --> 00:03:02,250
+trong đó ta tạo Virtual Private Gateway ở AWS
+
+80
+00:03:02,250 --> 00:03:03,720
+và Customer Gateway ở data center.
+
+81
+00:03:03,720 --> 00:03:07,350
+Sau đó thiết lập VPN connection.
+
+82
+00:03:07,350 --> 00:03:09,840
+Và nếu thiết lập nhiều VPN cùng một Virtual Private Gateway,
+
+83
+00:03:09,840 --> 00:03:12,330
+ta có thể dùng VPN CloudHub
+
+84
+00:03:12,330 --> 00:03:13,163
+để mô hình hub‑and‑spoke
+
+85
+00:03:13,163 --> 00:03:14,910
+kết nối các site với nhau.
+
+86
+00:03:14,910 --> 00:03:17,100
+Cách thứ hai để kết nối data center là Direct Connect.
+
+87
+00:03:17,100 --> 00:03:18,900
+Khi đó kết nối hoàn toàn riêng tư,
+
+88
+00:03:18,900 --> 00:03:22,620
+không qua Internet công cộng, nhưng mất thời gian triển khai.
+
+89
+00:03:22,620 --> 00:03:23,730
+Bạn cần kết nối
+
+90
+00:03:23,730 --> 00:03:25,800
+data center của mình tới địa điểm Direct Connect.
+
+91
+00:03:25,800 --> 00:03:28,230
+Phức tạp hơn, nhưng an toàn và ổn định hơn.
+
+92
+00:03:28,230 --> 00:03:30,210
+Direct Connect Gateway cho phép thiết lập Direct Connect
+
+93
+00:03:30,210 --> 00:03:32,670
+đến nhiều VPC ở các region khác nhau.
+
+94
+00:03:32,670 --> 00:03:35,160
+Ta cũng đã xem PrivateLink
+
+95
+00:03:35,160 --> 00:03:39,600
+(VPC Endpoint Services) để kết nối riêng tư từ VPC khách hàng
+
+96
+00:03:39,600 --> 00:03:41,100
+đến dịch vụ trong VPC của bạn.
+
+97
+00:03:41,100 --> 00:03:43,440
+Điểm hay là không cần VPC peering,
+
+98
+00:03:43,440 --> 00:03:45,990
+Internet công cộng, NAT Gateway hay route table phức tạp.
+
+99
+00:03:45,990 --> 00:03:49,560
+Thường dùng với Network Load Balancer và ENI.
+
+100
+00:03:49,560 --> 00:03:50,600
+Điều này cho phép công bố dịch vụ
+
+101
+00:03:50,600 --> 00:03:54,330
+trong VPC của bạn tới hàng trăm/hàng nghìn VPC khách hàng
+
+102
+00:03:54,330 --> 00:03:57,510
+mà không phơi bày mạng của bạn.
+
+103
+00:03:57,510 --> 00:03:58,860
+ClassicLink dùng để kết nối EC2‑Classic
+
+104
+00:03:58,860 --> 00:03:59,880
+riêng tư tới VPC, nhưng cũng sắp bị loại bỏ.
+
+105
+00:04:23,370 --> 00:04:26,310
+Transit Gateway cung cấp kết nối chuyển tiếp (transitive)
+
+106
+00:04:26,310 --> 00:04:29,220
+giữa các VPC, VPN và Direct Connect,
+
+107
+00:04:29,220 --> 00:04:32,100
+cho phép mọi thứ đi qua nó, khá tiện lợi.
+
+108
+00:04:32,100 --> 00:04:35,640
+Traffic Mirroring dùng để sao chép lưu lượng mạng
+
+109
+00:04:35,640 --> 00:04:38,940
+từ ENI của bạn tới nơi khác để phân tích sâu hơn.
+
+110
+00:04:38,940 --> 00:04:41,550
+Chúng ta cũng đã xem IPv6 trong VPC.
+
+111
+00:04:41,550 --> 00:04:42,540
+Cách bật IPv6,
+
+112
+00:04:42,540 --> 00:04:44,370
+và Internet Gateway chỉ‑thoát (egress‑only)
+
+113
+00:04:44,370 --> 00:04:46,290
+giống NAT Gateway
+
+114
+00:04:46,290 --> 00:04:47,850
+nhưng dành cho lưu lượng IPv6 ra Internet.
+
+115
+00:04:47,850 --> 00:04:51,360
+Như vậy là xong.
+
+116
+00:04:51,360 --> 00:04:52,590
+Đây là bài tổng kết khá dài,
+
+117
+00:04:52,590 --> 00:04:54,540
+nhưng hy vọng bạn đã học được nhiều điều.
+
+118
+00:04:54,540 --> 00:04:55,650
+Và mong là mọi thứ mình nói
+
+119
+00:04:55,650 --> 00:04:58,140
+đều dễ hiểu hoặc gợi nhớ cho bạn.
+
+120
+00:04:58,140 --> 00:04:58,973
+Nếu chưa, hãy xem lại phần này
+
+121
+00:04:58,973 --> 00:05:01,230
+và bạn sẽ nắm được thôi.
+
+122
+00:05:01,230 --> 00:05:02,490
+Mình xin dừng tại đây.
+
+123
+00:05:02,490 --> 00:05:03,323
+Hy vọng bạn thích phần này,
+
+124
+00:05:03,323 --> 00:05:04,200
+và hẹn gặp bạn ở bài tiếp theo.
+

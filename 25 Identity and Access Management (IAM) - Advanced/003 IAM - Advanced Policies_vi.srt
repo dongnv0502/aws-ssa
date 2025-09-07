@@ -1,0 +1,336 @@
+1
+00:00:00,300 --> 00:00:02,700
+Bây giờ, hãy nói về các IAM condition
+
+2
+00:00:02,700 --> 00:00:04,950
+và ý nghĩa của chúng đối với policy.
+
+3
+00:00:04,950 --> 00:00:08,070
+Chúng áp dụng cho các policy trong IAM,
+
+4
+00:00:08,070 --> 00:00:10,230
+có thể là policy cho user,
+
+5
+00:00:10,230 --> 00:00:12,660
+policy dạng resource policy,
+
+6
+00:00:12,660 --> 00:00:14,190
+ví dụ cho S3 bucket,
+
+7
+00:00:14,190 --> 00:00:16,740
+hoặc endpoint policy, v.v.
+
+8
+00:00:16,740 --> 00:00:18,300
+Nói chung là rất rộng.
+
+9
+00:00:18,300 --> 00:00:21,480
+Đầu tiên là aws:SourceIP.
+
+10
+00:00:21,480 --> 00:00:24,390
+Dùng để hạn chế IP client
+
+11
+00:00:24,390 --> 00:00:27,390
+từ đó các API call được thực hiện.
+
+12
+00:00:27,390 --> 00:00:29,340
+Ví dụ ở đây,
+
+13
+00:00:29,340 --> 00:00:32,070
+có Deny * trên mọi thứ
+
+14
+00:00:32,070 --> 00:00:34,440
+nếu không phải đến từ các IP cho phép.
+
+15
+00:00:34,440 --> 00:00:36,810
+Và ta có danh sách hai CIDR,
+
+16
+00:00:36,810 --> 00:00:38,610
+hai dải địa chỉ IP.
+
+17
+00:00:38,610 --> 00:00:43,420
+Nghĩa là trừ khi client gọi API
+
+18
+00:00:44,280 --> 00:00:46,650
+từ trong các dải IP này,
+
+19
+00:00:46,650 --> 00:00:48,570
+thì API call sẽ bị từ chối.
+
+20
+00:00:48,570 --> 00:00:49,890
+Cách này có thể dùng, ví dụ,
+
+21
+00:00:49,890 --> 00:00:54,060
+để giới hạn việc sử dụng AWS chỉ từ
+
+22
+00:00:54,060 --> 00:00:56,970
+mạng nội bộ công ty, nhờ đó đảm bảo
+
+23
+00:00:56,970 --> 00:01:00,180
+chỉ công ty bạn mới truy cập được môi trường AWS của mình.
+
+24
+00:01:00,180 --> 00:01:02,610
+Đó là một condition.
+
+25
+00:01:02,610 --> 00:01:05,700
+Tiếp theo là aws:RequestedRegion.
+
+26
+00:01:05,700 --> 00:01:07,470
+Đây là key ở phạm vi AWS (toàn cục)
+
+27
+00:01:07,470 --> 00:01:09,270
+và dùng để hạn chế region mà API gọi tới.
+
+28
+00:01:09,270 --> 00:01:12,420
+Trong ví dụ này, ta deny mọi thao tác trên EC2, RDS, DynamoDB
+
+29
+00:01:12,420 --> 00:01:17,040
+nếu region là eu-central-1 hoặc eu-west-1.
+
+30
+00:01:17,040 --> 00:01:22,040
+Tức là ta từ chối truy cập các dịch vụ này ở các region cụ thể.
+
+31
+00:01:22,080 --> 00:01:24,150
+Và có thể áp dụng rộng hơn
+
+32
+00:01:24,150 --> 00:01:25,500
+ở Organizations bằng SCP
+
+33
+00:01:25,500 --> 00:01:27,960
+để deny/allow chỉ một số region nhất định.
+
+34
+00:01:27,960 --> 00:01:31,260
+Tiếp theo là ec2:ResourceTag.
+
+35
+00:01:31,260 --> 00:01:35,640
+Như bạn thấy, tiền tố là EC2
+
+36
+00:01:35,640 --> 00:01:39,570
+nên điều này áp vào tag của EC2 instance.
+
+37
+00:01:39,570 --> 00:01:43,260
+Ở đây, ta allow Start/Stop instance
+
+38
+00:01:43,260 --> 00:01:47,490
+cho bất kỳ instance nào nếu ResourceTag/Project
+
+39
+00:01:47,490 --> 00:01:51,540
+bằng DataAnalytics.
+
+40
+00:01:51,540 --> 00:01:53,283
+Nghĩa là nếu EC2 instance có tag phù hợp
+
+41
+00:01:54,120 --> 00:01:57,270
+gồm Project: DataAnalytics thì được phép.
+
+42
+00:01:57,270 --> 00:02:00,690
+Ngoài ra có aws:PrincipalTag
+
+43
+00:02:00,690 --> 00:02:04,770
+áp vào tag của user (principal), không phải tag của EC2.
+
+44
+00:02:04,770 --> 00:02:07,440
+User của bạn cũng phải thuộc
+
+45
+00:02:07,440 --> 00:02:10,320
+department: data để thực hiện các action này.
+
+46
+00:02:10,320 --> 00:02:12,060
+Có aws:MultiFactorAuthPresent
+
+47
+00:02:12,060 --> 00:02:15,960
+để bắt buộc xác thực đa yếu tố (MFA).
+
+48
+00:02:15,960 --> 00:02:18,810
+Bạn có thể xem ví dụ: user có thể làm mọi thứ trên EC2,
+
+49
+00:02:18,810 --> 00:02:21,090
+nhưng chỉ được Stop/Terminate instance
+
+50
+00:02:21,090 --> 00:02:22,110
+nếu MFA hiện diện
+
+51
+00:02:22,110 --> 00:02:24,540
+(MultiFactorAuthenticationPresent),
+
+52
+00:02:24,540 --> 00:02:27,900
+nên ta có deny khi điều kiện này bằng false.
+
+53
+00:02:27,900 --> 00:02:30,240
+Giờ hãy xem một IAM policy cho S3 bucket.
+
+54
+00:02:30,240 --> 00:02:34,410
+Đây là bucket policy, với hai statement.
+
+55
+00:02:34,410 --> 00:02:38,220
+Statement đầu là ListBucket,
+
+56
+00:02:38,220 --> 00:02:42,360
+áp dụng cho ARN s3:::test ở đây.
+
+57
+00:02:42,360 --> 00:02:44,040
+Vì đây là quyền ở cấp bucket
+
+58
+00:02:44,040 --> 00:02:48,120
+nên ta phải chỉ định chính bucket đó.
+
+59
+00:02:48,120 --> 00:02:50,130
+Còn GetObject, PutObject,
+
+60
+00:02:50,130 --> 00:02:53,730
+DeleteObject áp dụng cho object trong bucket
+
+61
+00:02:53,730 --> 00:02:56,400
+nên ARN sẽ khác,
+
+62
+00:02:56,400 --> 00:03:00,780
+và bạn dùng /* để biểu diễn
+
+63
+00:03:00,780 --> 00:03:03,120
+tất cả object trong bucket.
+
+64
+00:03:03,120 --> 00:03:06,120
+Đây là lý do ARN khác nhau:
+
+65
+00:03:06,120 --> 00:03:08,250
+quyền ở cấp object.
+
+66
+00:03:08,250 --> 00:03:11,610
+Điều này có thể xuất hiện trong kỳ thi.
+
+67
+00:03:11,610 --> 00:03:14,040
+Giờ hãy xem resource policy
+
+68
+00:03:14,040 --> 00:03:16,920
+và aws:PrincipalOrgID.
+
+69
+00:03:16,920 --> 00:03:19,140
+Condition aws:PrincipalOrgID
+
+70
+00:03:19,140 --> 00:03:21,600
+có thể dùng để giới hạn resource policy
+
+71
+00:03:21,600 --> 00:03:25,800
+chỉ cho các tài khoản là thành viên của một AWS Organization.
+
+72
+00:03:25,800 --> 00:03:28,710
+Giả sử ta có một organization với nhiều tài khoản
+
+73
+00:03:28,710 --> 00:03:33,030
+và một S3 bucket có policy như thế này.
+
+74
+00:03:33,030 --> 00:03:35,130
+Policy cho phép PutObject hoặc GetObject
+
+75
+00:03:35,130 --> 00:03:38,400
+chỉ khi API call được thực hiện từ một tài khoản
+
+76
+00:03:38,400 --> 00:03:41,850
+có PrincipalOrgID tương ứng.
+
+77
+00:03:41,850 --> 00:03:45,270
+Vì vậy chỉ các member account trong organization của bạn
+
+78
+00:03:45,270 --> 00:03:48,000
+mới truy cập được S3 bucket;
+
+79
+00:03:48,000 --> 00:03:50,970
+mọi user bên ngoài organization sẽ bị từ chối
+
+80
+00:03:50,970 --> 00:03:53,520
+do bucket policy này.
+
+81
+00:03:53,520 --> 00:03:57,030
+Bạn vừa xem nhiều condition khác nhau trong IAM policy,
+
+82
+00:03:57,030 --> 00:04:01,110
+hy vọng đã rõ ràng và giúp bạn tinh chỉnh use case
+
+83
+00:04:01,110 --> 00:04:03,510
+để xây dựng các tình huống bảo mật nâng cao.
+
+84
+00:04:03,510 --> 00:04:06,930
+Vậy là xong. Hẹn gặp bạn ở bài tiếp theo.
+

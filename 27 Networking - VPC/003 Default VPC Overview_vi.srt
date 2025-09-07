@@ -1,0 +1,452 @@
+1
+00:00:00,170 --> 00:00:01,730
+Bây giờ hãy lướt nhanh qua
+
+2
+00:00:01,730 --> 00:00:03,930
+VPC được tạo sẵn cùng tài khoản của bạn,
+
+3
+00:00:03,930 --> 00:00:05,220
+gọi là default VPC (VPC mặc định).
+
+4
+00:00:05,220 --> 00:00:08,109
+Hiện nay mọi tài khoản AWS mới đều có một default VPC,
+
+5
+00:00:08,109 --> 00:00:10,130
+để bạn có thể bắt đầu sử dụng ngay.
+
+6
+00:00:10,130 --> 00:00:11,660
+Các EC2 instance mới được khởi chạy
+
+7
+00:00:11,660 --> 00:00:13,750
+vào default VPC nếu bạn không chỉ định subnet nào.
+
+8
+00:00:13,750 --> 00:00:16,900
+Và dĩ nhiên khi mới bắt đầu, bạn chỉ có một VPC.
+
+9
+00:00:16,900 --> 00:00:18,210
+Vì vậy, default VPC
+
+10
+00:00:18,210 --> 00:00:20,150
+theo mặc định có kết nối Internet,
+
+11
+00:00:21,331 --> 00:00:24,030
+đó là lý do instance của chúng ta có thể truy cập Internet
+
+12
+00:00:24,030 --> 00:00:24,947
+và mỗi EC2 instance trong đó
+
+13
+00:00:24,947 --> 00:00:28,690
+sẽ nhận một địa chỉ IPv4 công khai.
+
+14
+00:00:28,690 --> 00:00:30,370
+Đây là lý do chúng ta có thể kết nối
+
+15
+00:00:30,370 --> 00:00:32,090
+vào EC2 ngay khi tạo.
+
+16
+00:00:32,090 --> 00:00:34,960
+Chúng ta cũng nhận được cả tên DNS IPv4 công khai
+
+17
+00:00:34,960 --> 00:00:37,990
+và riêng tư cho các EC2 instance.
+
+18
+00:00:37,990 --> 00:00:39,790
+Bây giờ vào Console để xem default VPC này.
+
+19
+00:00:39,790 --> 00:00:40,640
+Tôi đang ở trong Console
+
+20
+00:00:40,640 --> 00:00:43,070
+và chúng ta sẽ xem dịch vụ VPC.
+
+21
+00:00:43,070 --> 00:00:45,090
+Lý do có default VPC là bởi nếu không có,
+
+22
+00:00:45,090 --> 00:00:46,900
+người mới dùng cloud sẽ rất khó
+
+23
+00:00:46,900 --> 00:00:48,600
+để bắt đầu sử dụng AWS, được chứ?
+
+24
+00:00:48,600 --> 00:00:50,020
+Nhưng best practice là nếu bạn đã biết
+
+25
+00:00:50,020 --> 00:00:52,560
+một chút về networking thì hãy tự tạo VPC riêng
+
+26
+00:00:52,560 --> 00:00:54,140
+trong các tài khoản production
+
+27
+00:00:54,140 --> 00:00:55,870
+thay vì dùng default VPC.
+
+28
+00:00:55,870 --> 00:00:58,300
+Đây là dashboard, bên trái là mục VPCs.
+
+29
+00:00:58,300 --> 00:00:59,310
+Như bạn thấy có một VPC đã được tạo,
+
+30
+00:00:59,310 --> 00:01:01,190
+không có tên, nhưng đó là default VPC
+
+31
+00:01:01,190 --> 00:01:03,890
+vì nó được tạo sẵn.
+
+32
+00:01:03,890 --> 00:01:05,700
+Như bạn thấy có một IPv4 CIDR block
+
+33
+00:01:05,700 --> 00:01:08,060
+được định nghĩa.
+
+34
+00:01:08,060 --> 00:01:10,120
+Tôi có thể vào trang web của mình
+
+35
+00:01:10,120 --> 00:01:12,130
+để tính toán dải này.
+
+36
+00:01:12,130 --> 00:01:15,330
+Như vậy ta thấy IP đầu tiên của dải ở đâu,
+
+37
+00:01:15,330 --> 00:01:16,310
+IP cuối ở đâu.
+
+38
+00:01:16,310 --> 00:01:18,750
+Với /16 nghĩa là hai octet cuối của IP
+
+39
+00:01:18,750 --> 00:01:20,310
+có thể thay đổi.
+
+40
+00:01:20,310 --> 00:01:22,670
+Tức là hai octet cuối có thể thay đổi tới .255.255
+
+41
+00:01:22,670 --> 00:01:23,780
+và có 65.536 IP trong dải.
+
+42
+00:01:23,780 --> 00:01:25,603
+Khá tiện.
+
+43
+00:01:25,603 --> 00:01:29,150
+Nhìn vào CIDR, chỉ có một IPv4 CIDR được tạo
+
+44
+00:01:29,150 --> 00:01:33,300
+và gắn với VPC đó. Không có IPv6 CIDR,
+
+45
+00:01:33,300 --> 00:01:38,120
+Flow Logs chưa bật và chưa có tag nào.
+
+46
+00:01:38,120 --> 00:01:39,520
+Ổn rồi.
+
+47
+00:01:39,520 --> 00:01:41,790
+Nhìn vào các tùy chọn, chúng ta thấy main route table,
+
+48
+00:01:41,790 --> 00:01:44,200
+main network ACL, v.v.; trong khóa học
+
+49
+00:01:44,200 --> 00:01:45,710
+chúng ta sẽ lần lượt tìm hiểu từng cái.
+
+50
+00:01:45,710 --> 00:01:48,660
+Giờ thì cứ khám phá menu trước đã.
+
+51
+00:01:48,660 --> 00:01:50,250
+Có sẵn ba subnet
+
+52
+00:01:50,250 --> 00:01:51,300
+và chúng thuộc về default VPC.
+
+53
+00:01:51,300 --> 00:01:52,980
+Mỗi subnet mặc định có
+
+54
+00:01:52,980 --> 00:01:55,380
+IPv4 CIDR riêng.
+
+55
+00:01:55,380 --> 00:01:56,610
+Nhìn sang bên phải là các AZ;
+
+56
+00:01:56,610 --> 00:01:58,420
+mỗi subnet nằm ở một AZ khác nhau.
+
+57
+00:01:58,420 --> 00:02:00,290
+Vì mặc định chúng ta có ba subnet trên ba AZ
+
+58
+00:02:00,290 --> 00:02:02,710
+để nếu cần có thể đạt kiến trúc HA.
+
+59
+00:02:02,710 --> 00:02:04,890
+Các subnet này có các IPv4 CIDR như hình.
+
+60
+00:02:04,890 --> 00:02:06,650
+Hãy xem một subnet, ví dụ như subnet này,
+
+61
+00:02:06,650 --> 00:02:08,240
+rồi tôi tính CIDR của nó.
+
+62
+00:02:08,240 --> 00:02:10,340
+Đây là IP đầu và đây là IP cuối.
+
+63
+00:02:10,340 --> 00:02:12,840
+Tổng số host là 4.096,
+
+64
+00:02:12,840 --> 00:02:15,670
+nhưng quay lại console của Subnets,
+
+65
+00:02:15,670 --> 00:02:17,570
+số IPv4 khả dụng lại là 4.091.
+
+66
+00:02:17,570 --> 00:02:19,370
+Chúng ta sẽ xem tại sao như vậy
+
+67
+00:02:19,370 --> 00:02:20,959
+— dĩ nhiên con số sẽ thấp hơn
+
+68
+00:02:20,959 --> 00:02:22,603
+nếu bạn đã dùng subnet này.
+
+69
+00:02:22,603 --> 00:02:27,310
+Ta sẽ hiểu lý do: có 5 IP bị giữ lại — sẽ học trong phần này.
+
+70
+00:02:27,310 --> 00:02:30,790
+Nhìn sang phải, mỗi subnet có một route table và network ACL.
+
+71
+00:02:30,790 --> 00:02:34,150
+Và có cờ “auto-assign public IPv4 = enabled”,
+
+72
+00:02:34,150 --> 00:02:37,033
+nghĩa là mọi EC2 tạo trong các default subnet này
+
+73
+00:02:37,884 --> 00:02:41,060
+sẽ nhận IPv4 công khai.
+
+74
+00:02:41,060 --> 00:02:44,640
+Bây giờ xem các thiết lập: Flow Logs cho subnet chưa bật.
+
+75
+00:02:44,640 --> 00:02:45,920
+Có một Route Table tồn tại,
+
+76
+00:02:45,920 --> 00:02:48,010
+chúng ta sẽ xem ngay sau đây.
+
+77
+00:02:48,010 --> 00:02:52,240
+Và có Network ACL — ta sẽ học chi tiết trong phần này.
+
+78
+00:02:52,240 --> 00:02:54,440
+Hiện tại mọi traffic trên mọi protocol
+
+79
+00:02:54,440 --> 00:02:55,950
+từ mọi nơi đều được phép inbound và outbound.
+
+80
+00:02:55,950 --> 00:02:58,940
+Tức là bất kỳ thứ gì khởi chạy trong các subnet này
+
+81
+00:02:58,940 --> 00:03:00,880
+đều có kết nối mạng, điều này tốt.
+
+82
+00:03:00,880 --> 00:03:02,950
+Không có CIDR reservation, không có sharing,
+
+83
+00:03:02,950 --> 00:03:04,070
+subnet không được chia sẻ và không có tag.
+
+84
+00:03:04,070 --> 00:03:05,930
+Giờ hãy xem Route Table.
+
+85
+00:03:05,930 --> 00:03:09,020
+Route Table giúp định tuyến traffic trong VPC của bạn.
+
+86
+00:03:09,020 --> 00:03:11,590
+Đây là default route table (main route table)
+
+87
+00:03:11,590 --> 00:03:14,530
+và có hai rule — ta sẽ xem ý nghĩa sau.
+
+88
+00:03:14,530 --> 00:03:16,770
+Rule này trỏ tới “mọi traffic”.
+
+89
+00:03:16,770 --> 00:03:20,770
+Mọi traffic bên ngoài CIDR này sẽ đi tới Internet Gateway.
+
+90
+00:03:20,770 --> 00:03:24,040
+Nếu nhấp vào Internet Gateway này ở menu bên trái,
+
+91
+00:03:24,040 --> 00:03:26,700
+ta thấy nó đang gắn với VPC của tôi
+
+92
+00:03:26,700 --> 00:03:28,440
+và nhờ vậy cấp quyền truy cập Internet
+
+93
+00:03:28,440 --> 00:03:30,280
+cho EC2 trong VPC.
+
+94
+00:03:30,280 --> 00:03:32,300
+Đó là lý do EC2 của chúng ta có Internet.
+
+95
+00:03:32,300 --> 00:03:35,490
+Chúng ta sẽ xem kỹ hơn ở phần sau.
+
+96
+00:03:35,490 --> 00:03:37,740
+Ở Subnet Associations, route table này
+
+97
+00:03:37,740 --> 00:03:40,930
+không được liên kết tường minh với subnet nào,
+
+98
+00:03:40,930 --> 00:03:44,990
+nhưng được liên kết ngầm vì các subnet kia
+
+99
+00:03:44,990 --> 00:03:46,280
+chưa có route table riêng.
+
+100
+00:03:46,280 --> 00:03:48,260
+Main Route Table sẽ mặc định
+
+101
+00:03:48,260 --> 00:03:51,530
+được gán cho chúng một cách ngầm định.
+
+102
+00:03:51,530 --> 00:03:52,610
+Vậy là xong phần này.
+
+103
+00:03:52,610 --> 00:03:54,090
+Chúng ta đã thấy VPC, Subnet, Route Table,
+
+104
+00:03:54,090 --> 00:03:57,490
+Internet Gateway ở mức tổng quan; hy vọng bạn hiểu hơn
+
+105
+00:03:57,490 --> 00:03:58,860
+tại sao ta khởi chạy được EC2,
+
+106
+00:03:58,860 --> 00:04:02,650
+tại sao chúng nhận những loại IP cụ thể, v.v.
+
+107
+00:04:02,650 --> 00:04:04,640
+Trong phần này, chúng ta sẽ dành thời gian
+
+108
+00:04:04,640 --> 00:04:07,330
+để nhìn vào mọi tùy chọn và tự dựng một VPC.
+
+109
+00:04:07,330 --> 00:04:08,840
+Chúng ta sẽ hiểu chính xác VPC, Subnet,
+
+110
+00:04:08,840 --> 00:04:10,230
+Route Table, Internet Gateway
+
+111
+00:04:10,230 --> 00:04:12,380
+và các thành phần khác thực sự là gì.
+
+112
+00:04:12,380 --> 00:04:13,790
+Hy vọng bạn đang háo hức
+
+113
+00:04:13,790 --> 00:04:17,360
+và hẹn gặp ở bài tiếp theo.
+

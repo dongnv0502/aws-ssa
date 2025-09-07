@@ -1,0 +1,32 @@
+1
+00:00:00,280 --> 00:00:02,540
+Giới thiệu Amazon Kendra (document search dùng ML).
+
+2
+00:00:02,540 --> 00:00:03,920
+Lập chỉ mục nhiều định dạng (text/PDF/HTML/PPT/Word/FAQ…)
+
+3
+00:00:03,920 --> 00:00:06,720
+và trích xuất câu trả lời từ nội dung.
+
+4
+00:00:06,720 --> 00:00:08,300
+Kendra xây “knowledge index” và cung cấp tìm kiếm
+
+5
+00:00:08,300 --> 00:00:11,940
+ngôn ngữ tự nhiên như Google. Ví dụ “IT support ở đâu?” → “Tầng 1”.
+
+6
+00:00:11,940 --> 00:00:14,210
+Học dần từ tương tác (incremental learning),
+
+7
+00:00:14,210 --> 00:00:17,480
+tinh chỉnh kết quả theo mức quan trọng/tính mới/bộ lọc.
+
+8
+00:00:17,480 --> 00:00:21,270
+Gợi ý thi: thấy yêu cầu “document search” → chọn Amazon Kendra.
+

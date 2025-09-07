@@ -1,0 +1,60 @@
+1
+00:00:00,180 --> 00:00:02,460
+CloudWatch Logs – nơi lưu log ứng dụng trên AWS.
+
+2
+00:00:02,460 --> 00:00:04,320
+- Log Group: nhóm logic (thường theo ứng dụng).
+
+3
+00:00:04,320 --> 00:00:06,393
+- Log Stream: luồng log trong một group (instance/logfile/container…).
+
+4
+00:00:07,440 --> 00:00:10,320
+Đặt chính sách lưu trữ (retention): vô hạn hoặc 1 ngày → 10 năm.
+
+5
+00:00:10,320 --> 00:00:11,520
+Có thể gửi log tới các đích:
+
+6
+00:00:11,520 --> 00:00:14,880
+- Export batch sang S3; stream tới Kinesis Data Streams/Firehose,
+
+7
+00:00:14,880 --> 00:00:18,150
+  AWS Lambda, Amazon OpenSearch.
+
+8
+00:00:18,150 --> 00:00:21,360
+Log mã hoá mặc định; có thể dùng KMS key riêng.
+
+9
+00:00:21,360 --> 00:00:25,350
+Nguồn gửi log vào CloudWatch Logs:
+
+10
+00:00:25,350 --> 00:00:27,510
+- SDK, CloudWatch Logs Agent/Unified Agent (khuyến nghị Unified Agent).
+
+11
+00:00:27,510 --> 00:00:29,940
+- Elastic Beanstalk (thu log app), ECS (log container),
+
+12
+00:00:29,940 --> 00:00:33,390
+  Lambda (log function), VPC Flow Logs, API Gateway, CloudTrail,
+
+13
+00:00:33,390 --> 00:00:36,210
+  Route 53 query logs.
+
+14
+00:00:36,210 --> 00:00:41,430
+Truy vấn log: CloudWatch Logs Insights – viết truy vấn, chọn timeframe,
+
+15
+00:00:41,430 --> 00:00:45,960
+xem kết quả dạng biểu đồ và chi tiết dòng log.
+

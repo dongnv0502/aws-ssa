@@ -1,0 +1,76 @@
+1
+00:00:00,350 --> 00:00:02,880
+Thực hành cấu hình AWS Config.
+
+2
+00:00:02,880 --> 00:00:05,320
+Get started → Record all resources (hoặc chọn loại cụ thể).
+
+3
+00:00:05,320 --> 00:00:09,560
+Có thể Include global resources (IAM users/groups/roles/policies).
+
+4
+00:00:09,560 --> 00:00:11,400
+Lưu ý chi phí tăng theo số resource ghi nhận.
+
+5
+00:00:11,400 --> 00:00:13,290
+Tạo service‑linked role cho Config.
+
+6
+00:00:13,290 --> 00:00:14,880
+Chọn S3 bucket để lưu cấu hình (có prefix).
+
+7
+00:00:14,880 --> 00:00:18,380
+Tuỳ chọn: stream thông báo thay đổi cấu hình sang SNS.
+
+8
+00:00:18,380 --> 00:00:21,000
+Bỏ qua Managed Rules (đặt sau) → Review → Confirm.
+
+9
+00:00:21,000 --> 00:00:24,030
+Config bắt đầu discover tài nguyên; xem Resources để thấy loại đã tìm được
+
+10
+00:00:24,030 --> 00:00:27,220
+(VPC/Subnet/Route Table/SG…).
+
+11
+00:00:27,220 --> 00:00:30,430
+Mở một Security Group → xem Rules/Configuration/Resource timeline
+
+12
+00:00:30,430 --> 00:00:33,610
+(hiện các sự kiện cấu hình và CloudTrail liên quan).
+
+13
+00:00:33,610 --> 00:00:37,050
+Tạo Rule Managed “restricted‑ssh” để cấm SSH từ Anywhere.
+
+14
+00:00:37,050 --> 00:00:39,150
+Trigger: khi SG thay đổi (hoặc định kỳ nếu muốn).
+
+15
+00:00:39,150 --> 00:00:42,460
+Add rule và chờ evaluate → SG compliant/non‑compliant hiển thị.
+
+16
+00:00:42,460 --> 00:00:46,790
+So sánh SG compliant (không có inbound 22) và non‑compliant (có 22/0.0.0.0/0).
+
+17
+00:00:46,790 --> 00:00:50,220
+Remediation: tại Rule → Actions → Manage remediation → chọn
+
+18
+00:00:50,220 --> 00:00:53,860
+SSM Automation Document (AWS‑managed hoặc custom), manual/automatic,
+
+19
+00:00:53,860 --> 00:00:57,480
+thiết lập số lần retry/interval và tham số cần thiết.
+

@@ -1,0 +1,36 @@
+1
+00:00:00,510 --> 00:00:03,240
+Thực hành CloudTrail.
+
+2
+00:00:03,240 --> 00:00:06,630
+CloudTrail ghi lại API calls/hoạt động người dùng trong tài khoản.
+
+3
+00:00:06,630 --> 00:00:09,810
+Event history hiển thị 90 ngày gần nhất (Management Events).
+
+4
+00:00:09,810 --> 00:00:13,260
+Ví dụ: vào EC2, terminate một instance demo.
+
+5
+00:00:13,260 --> 00:00:16,110
+Đợi vài phút, mở CloudTrail → Event history:
+
+6
+00:00:16,110 --> 00:00:17,850
+thấy API `TerminateInstances` xuất hiện.
+
+7
+00:00:17,850 --> 00:00:20,700
+Xem chi tiết: event source (ec2.amazonaws.com), access key,
+
+8
+00:00:20,700 --> 00:00:23,010
+region, và toàn bộ event JSON.
+
+9
+00:00:23,010 --> 00:00:26,532
+Đây là sức mạnh của CloudTrail để điều tra “ai làm gì, khi nào”.
+

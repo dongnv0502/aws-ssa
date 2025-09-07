@@ -1,0 +1,40 @@
+1
+00:00:02,160 --> 00:00:04,470
+Ứng dụng của chúng ta đang chạy trên cloud.
+
+2
+00:00:04,500 --> 00:00:05,520
+Mọi thứ ổn.
+
+3
+00:00:05,730 --> 00:00:09,990
+Rồi 2 giờ sáng, sếp gọi bảo “app không chạy nữa!”.
+
+4
+00:00:09,990 --> 00:00:10,580
+Chuyện gì xảy ra?
+
+5
+00:00:10,710 --> 00:00:14,290
+Ta đã deploy ứng dụng nhưng quên bật monitoring.
+
+6
+00:00:14,490 --> 00:00:19,160
+Monitoring cực kỳ quan trọng để đảm bảo ứng dụng chạy đúng.
+
+7
+00:00:19,350 --> 00:00:24,990
+Bạn cần xem log, metrics, tracing và audit (ai làm gì) trong hạ tầng AWS.
+
+8
+00:00:25,020 --> 00:00:26,340
+Phần này rất quan trọng: là developer,
+
+9
+00:00:26,670 --> 00:00:29,020
+tôi không bao giờ deploy app trên AWS mà không bật monitoring.
+
+10
+00:00:29,070 --> 00:00:33,680
+Sẵn sàng học monitoring chứ? Bắt đầu thôi!
+

@@ -1,0 +1,76 @@
+1
+00:00:00,670 --> 00:00:03,090
+CloudWatch Agent: đẩy log/metrics từ EC2 (hoặc on‑prem) lên CloudWatch.
+
+2
+00:00:03,090 --> 00:00:05,734
+Mặc định EC2 không gửi log lên CloudWatch.
+
+3
+00:00:05,734 --> 00:00:08,147
+Cài và chạy agent (chương trình nhỏ trên EC2)
+
+4
+00:00:08,147 --> 00:00:10,665
+để đẩy log/metrics bạn cần.
+
+5
+00:00:10,665 --> 00:00:13,329
+EC2 phải có IAM role cho phép PutLogEvents…
+
+6
+00:00:13,329 --> 00:00:16,760
+Agent cũng cài được trên máy on‑prem (VMware, server vật lý…),
+
+7
+00:00:16,760 --> 00:00:20,120
+log vẫn về CloudWatch Logs.
+
+8
+00:00:20,120 --> 00:00:23,290
+Hai loại agent:
+
+9
+00:00:23,290 --> 00:00:25,610
+- CloudWatch Logs Agent (cũ): chỉ gửi log → CloudWatch Logs.
+
+10
+00:00:25,610 --> 00:00:28,240
+- CloudWatch Unified Agent (mới): gửi log và thu thập thêm
+
+11
+00:00:28,240 --> 00:00:29,830
+  nhiều system metrics (RAM, process…),
+
+12
+00:00:29,830 --> 00:00:31,960
+  cấu hình tập trung qua SSM Parameter Store.
+
+13
+00:00:31,960 --> 00:00:33,732
+Unified Agent (khuyến nghị): metrics + logs.
+
+14
+00:00:33,732 --> 00:00:36,713
+Ví dụ metrics thu thập: CPU chi tiết (active/idle/system/user/steal…),
+
+15
+00:00:36,713 --> 00:00:39,221
+Disk (free/used/total), Disk IO (reads/writes/bytes/IOPS),
+
+16
+00:00:39,221 --> 00:00:41,880
+RAM (free/inactive/used/total/cached), Netstat (TCP/UDP, packets/bytes),
+
+17
+00:00:41,880 --> 00:00:44,080
+Process (running/sleep/blocked…), Swap (free/used/%).
+
+18
+00:00:44,080 --> 00:00:46,810
+Tóm lại: muốn độ chi tiết cao hơn mặc định của EC2
+
+19
+00:00:46,810 --> 00:00:47,960
+→ dùng CloudWatch Unified Agent.
+

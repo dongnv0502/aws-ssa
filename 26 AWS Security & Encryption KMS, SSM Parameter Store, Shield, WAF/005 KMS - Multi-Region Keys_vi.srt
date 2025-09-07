@@ -1,0 +1,448 @@
+1
+00:00:00,420 --> 00:00:04,050
+Bây giờ nói về KMS Multi‑Region keys.
+
+2
+00:00:04,050 --> 00:00:09,050
+Với KMS, ta có thể có một Multi‑Region key.
+
+3
+00:00:09,300 --> 00:00:11,940
+Nghĩa là bạn sẽ có khóa “primary”
+
+4
+00:00:11,940 --> 00:00:16,350
+ở một Region được chọn, ví dụ us‑east‑1.
+
+5
+00:00:16,350 --> 00:00:18,709
+Sau đó khóa này sẽ được sao chép
+
+6
+00:00:18,709 --> 00:00:20,130
+sang các Region khác.
+
+7
+00:00:20,130 --> 00:00:25,110
+Ví dụ us‑west‑2, eu‑west‑1 và ap‑southeast‑2.
+
+8
+00:00:25,110 --> 00:00:27,750
+Điểm tương đồng là
+
+9
+00:00:27,750 --> 00:00:30,060
+key material sẽ được sao chép.
+
+10
+00:00:30,060 --> 00:00:32,430
+Cùng một khóa sẽ tồn tại ở các Region khác.
+
+11
+00:00:32,430 --> 00:00:35,880
+Và key ID cũng sẽ giống hệt nhau.
+
+12
+00:00:35,880 --> 00:00:39,750
+Bạn thấy key ID bắt đầu bằng “mrk/…” và phần còn lại
+
+13
+00:00:39,750 --> 00:00:41,580
+giữ nguyên ở mọi Region.
+
+14
+00:00:41,580 --> 00:00:46,140
+Đây là nguyên lý đằng sau KMS Multi‑Region keys.
+
+15
+00:00:46,140 --> 00:00:48,090
+Vậy dùng để làm gì?
+
+16
+00:00:48,090 --> 00:00:50,280
+Đây là một tập KMS keys
+
+17
+00:00:50,280 --> 00:00:52,680
+bạn dùng ở các AWS Region khác nhau
+
+18
+00:00:52,680 --> 00:00:54,900
+và dùng thay thế cho nhau được.
+
+19
+00:00:54,900 --> 00:00:57,000
+Nghĩa là bạn có thể mã hóa ở một Region
+
+20
+00:00:57,000 --> 00:00:59,550
+và giải mã ở Region khác.
+
+21
+00:00:59,550 --> 00:01:01,860
+Multi‑Region keys khả thi
+
+22
+00:01:01,860 --> 00:01:05,310
+vì chúng có cùng key ID, cùng key material.
+
+23
+00:01:05,310 --> 00:01:07,620
+Và nếu bật automatic rotation cho khóa primary
+
+24
+00:01:07,620 --> 00:01:09,930
+và nó xoay vòng,
+
+25
+00:01:09,930 --> 00:01:13,800
+thì việc xoay đó cũng được sao chép sang các Region khác.
+
+26
+00:01:13,800 --> 00:01:16,770
+Với Multi‑Region key,
+
+27
+00:01:16,770 --> 00:01:18,960
+bạn có thể mã hóa ở một Region và giải mã
+
+28
+00:01:18,960 --> 00:01:21,870
+ở Region khác, và vì thế không cần
+
+29
+00:01:21,870 --> 00:01:23,280
+mã hóa lại dữ liệu
+
+30
+00:01:23,280 --> 00:01:25,200
+khi di chuyển giữa các Region;
+
+31
+00:01:25,200 --> 00:01:28,170
+cũng không cần gọi API cross‑Region.
+
+32
+00:01:28,170 --> 00:01:29,730
+Nhưng cần hiểu rằng
+
+33
+00:01:29,730 --> 00:01:33,300
+KMS Multi‑Region keys không phải “global”.
+
+34
+00:01:33,300 --> 00:01:36,480
+Bạn có một Primary và các Replica.
+
+35
+00:01:36,480 --> 00:01:38,040
+Mỗi Multi‑Region key
+
+36
+00:01:38,040 --> 00:01:40,299
+được quản lý độc lập
+
+37
+00:01:40,299 --> 00:01:43,620
+với key policy riêng, v.v.
+
+38
+00:01:43,620 --> 00:01:47,100
+Vì vậy không khuyến nghị dùng Multi‑Region key
+
+39
+00:01:47,100 --> 00:01:49,830
+trừ những use case rất cụ thể,
+
+40
+00:01:49,830 --> 00:01:52,123
+vì KMS ưa thích việc key gắn với một Region duy nhất.
+
+41
+00:01:52,123 --> 00:01:54,300
+Các use case phù hợp với Multi‑Region keys
+
+42
+00:01:54,300 --> 00:01:57,060
+là khi bạn muốn client‑side encryption mang tính “global”.
+
+43
+00:02:01,140 --> 00:02:03,720
+Ví dụ, mã hóa phía client ở một Region
+
+44
+00:02:03,720 --> 00:02:06,480
+và giải mã phía client ở Region khác;
+
+45
+00:02:06,480 --> 00:02:09,570
+hoặc mã hóa cho Global DynamoDB Tables
+
+46
+00:02:09,570 --> 00:02:11,340
+hoặc Global Aurora.
+
+47
+00:02:11,340 --> 00:02:13,350
+Ta sẽ xem ngay sau đây.
+
+48
+00:02:13,350 --> 00:02:15,210
+Vậy khi dùng
+
+49
+00:02:15,210 --> 00:02:18,960
+Global Tables trong DynamoDB và KMS Multi‑Region key
+
+50
+00:02:18,960 --> 00:02:21,090
+với client‑side encryption thì hoạt động ra sao?
+
+51
+00:02:21,090 --> 00:02:23,760
+Ý tưởng là bạn không chỉ muốn mã hóa
+
+52
+00:02:23,760 --> 00:02:25,320
+toàn bộ bảng (đó chỉ là at‑rest encryption),
+
+53
+00:02:25,320 --> 00:02:27,300
+mà muốn mã hóa các thuộc tính (attribute) cụ thể
+
+54
+00:02:27,300 --> 00:02:30,637
+trên bảng.
+
+55
+00:02:30,637 --> 00:02:34,290
+Và chỉ các client được phép mới đọc được.
+
+56
+00:02:34,290 --> 00:02:36,420
+Kể cả DBA cũng không đọc được.
+
+57
+00:02:36,420 --> 00:02:37,350
+Cho việc này, ta dùng
+
+58
+00:02:37,350 --> 00:02:39,720
+Amazon DynamoDB Encryption Client.
+
+59
+00:02:39,720 --> 00:02:42,570
+Giả sử ta có us‑east‑1
+
+60
+00:02:42,570 --> 00:02:44,700
+và ap‑southeast‑2.
+
+61
+00:02:44,700 --> 00:02:48,120
+Dịch vụ KMS có một Multi‑Region key
+
+62
+00:02:48,120 --> 00:02:50,550
+được sao chép sang Region kia
+
+63
+00:02:50,550 --> 00:02:52,860
+(ap‑southeast‑2).
+
+64
+00:02:52,860 --> 00:02:55,530
+Ứng dụng client muốn ghi dữ liệu
+
+65
+00:02:55,530 --> 00:02:57,540
+vào bảng DynamoDB.
+
+66
+00:02:57,540 --> 00:03:00,720
+Đầu tiên nó sẽ mã hóa thuộc tính
+
+67
+00:03:00,720 --> 00:03:02,490
+cần mã hóa
+
+68
+00:03:02,490 --> 00:03:04,890
+bằng Multi‑Region key “primary”.
+
+69
+00:03:04,890 --> 00:03:07,050
+Lưu ý: đa số field trên bảng DynamoDB
+
+70
+00:03:07,050 --> 00:03:10,950
+sẽ không được mã hóa phía client.
+
+71
+00:03:10,950 --> 00:03:12,660
+Nhưng một field, ví dụ
+
+72
+00:03:12,660 --> 00:03:15,693
+Số An Sinh Xã Hội (SSN), sẽ được mã hóa.
+
+73
+00:03:16,860 --> 00:03:18,660
+Điều này rất tốt vì
+
+74
+00:03:18,660 --> 00:03:20,520
+các DBA có quyền vào bảng DynamoDB
+
+75
+00:03:20,520 --> 00:03:23,010
+nếu họ không có quyền dùng KMS key
+
+76
+00:03:23,010 --> 00:03:25,080
+để giải mã thuộc tính đó (SSN),
+
+77
+00:03:25,080 --> 00:03:27,660
+thì họ cũng không đọc được nó.
+
+78
+00:03:27,660 --> 00:03:29,310
+Bạn được bảo vệ ngay cả
+
+79
+00:03:29,310 --> 00:03:31,110
+trước các DBA.
+
+80
+00:03:31,110 --> 00:03:32,670
+
+
+81
+00:04:26,160 --> 00:04:29,400
+Như vậy ta có thể bảo vệ các field/attribute cụ thể
+
+82
+00:04:29,400 --> 00:04:32,010
+và chỉ đảm bảo giải mã khi client của ta có quyền
+
+83
+00:04:32,010 --> 00:04:33,180
+gọi API.
+
+84
+00:04:33,180 --> 00:04:35,310
+Nhờ Global Tables,
+
+85
+00:04:35,310 --> 00:04:38,850
+ta bảo đảm dữ liệu và khóa mã hóa
+
+86
+00:04:38,850 --> 00:04:41,550
+cũng được sao chép đồng bộ.
+
+87
+00:04:41,550 --> 00:04:45,180
+Khái niệm tương tự áp dụng cho Global Aurora.
+
+88
+00:04:45,180 --> 00:04:46,680
+Tôi sẽ đi nhanh hơn phần này.
+
+89
+00:04:46,680 --> 00:04:49,950
+Lần này ta dùng AWS Encryption SDK.
+
+90
+00:04:49,950 --> 00:04:51,060
+Ta có hai Region
+
+91
+00:04:51,060 --> 00:04:53,850
+và một Multi‑Region key trong KMS
+
+92
+00:04:53,850 --> 00:04:55,800
+được sao chép giữa hai Region này.
+
+93
+00:04:55,800 --> 00:04:58,380
+Ứng dụng client muốn mã hóa một cột —
+
+94
+00:04:58,380 --> 00:05:00,810
+ví dụ cột SSN.
+
+95
+00:05:00,810 --> 00:05:04,560
+Lần này ta ghi dữ liệu vào Amazon Aurora
+
+96
+00:05:04,560 --> 00:05:05,580
+trong một bảng.
+
+97
+00:05:05,580 --> 00:05:09,120
+Toàn bộ dữ liệu trên hàng đó là không mã hóa,
+
+98
+00:05:09,120 --> 00:05:12,690
+ngoại trừ cột SSN — cột này được mã hóa
+
+99
+00:05:12,690 --> 00:05:16,195
+bằng Multi‑Region key (mrk).
+
+100
+00:05:16,195 --> 00:05:19,290
+Đây là một Global Database,
+
+101
+00:05:19,290 --> 00:05:21,570
+nên bảng sẽ được sao chép toàn cầu.
+
+102
+00:05:21,570 --> 00:05:23,340
+Vì vậy cùng dữ liệu cũng sẽ
+
+103
+00:05:23,340 --> 00:05:26,520
+có mặt ở ap‑southeast‑2.
+
+104
+00:05:26,520 --> 00:05:28,314
+Và vì có client ở ap‑southeast‑2,
+
+105
+00:05:28,314 --> 00:05:31,680
+họ sẽ đọc dữ liệu đã mã hóa này từ bảng của bạn.
+
+106
+00:05:31,680 --> 00:05:35,610
+Vì ta dùng Multi‑Region key,
+
+107
+00:05:35,610 --> 00:05:37,860
+họ có thể gọi API KMS cục bộ
+
+108
+00:05:37,860 --> 00:05:40,170
+để giải mã thuộc tính đó.
+
+109
+00:05:40,170 --> 00:05:42,030
+Nhờ vậy ta đạt được độ trễ thấp hơn.
+
+110
+00:05:42,030 --> 00:05:45,060
+Tóm lại, với client‑side encryption
+
+111
+00:05:45,060 --> 00:05:47,957
+ta có thể bảo vệ dữ liệu này
+
+112
+00:05:47,957 --> 00:05:50,067
+mà vẫn tận dụng khả năng sao chép toàn cầu.
+

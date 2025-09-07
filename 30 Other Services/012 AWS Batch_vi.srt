@@ -1,0 +1,164 @@
+1
+00:00:00,220 --> 00:00:02,820
+Bây giờ nói về dịch vụ đúng như tên gọi của nó: AWS Batch.
+
+2
+00:00:02,820 --> 00:00:05,400
+Batch là dịch vụ xử lý dạng batch được quản lý hoàn toàn
+
+3
+00:00:05,400 --> 00:00:08,350
+cho phép bạn chạy xử lý theo lô ở mọi quy mô.
+
+4
+00:00:08,350 --> 00:00:11,330
+Với Batch, bạn có thể chạy hàng trăm nghìn
+
+5
+00:00:11,330 --> 00:00:14,480
+batch job tính toán trên AWS một cách hiệu quả.
+
+6
+00:00:14,480 --> 00:00:18,010
+Batch job là công việc có thời điểm bắt đầu và kết thúc,
+
+7
+00:00:18,010 --> 00:00:21,060
+khác với job liên tục/streaming luôn chạy không dừng.
+
+8
+00:00:21,060 --> 00:00:25,370
+Ví dụ: chạy từ 1 giờ sáng đến 3 giờ sáng.
+
+9
+00:00:25,370 --> 00:00:28,210
+Batch sẽ tự động khởi tạo EC2 instance hoặc Spot Instance
+
+10
+00:00:28,210 --> 00:00:31,650
+để đáp ứng tải công việc của các batch job.
+
+11
+00:00:31,650 --> 00:00:34,470
+Batch sẽ cấp phát đúng tài nguyên CPU/RAM
+
+12
+00:00:34,470 --> 00:00:38,150
+để xử lý batch queue; bạn chỉ việc submit/lên lịch job,
+
+13
+00:00:38,150 --> 00:00:40,300
+phần còn lại Batch lo.
+
+14
+00:00:40,300 --> 00:00:44,060
+Định nghĩa một batch job: đó là một Docker image
+
+15
+00:00:44,060 --> 00:00:45,930
+và task definition chạy trên ECS.
+
+16
+00:00:45,930 --> 00:00:48,500
+Nói cách khác, thứ gì chạy được trên ECS
+
+17
+00:00:48,500 --> 00:00:51,690
+thì chạy được trên Batch.
+
+18
+00:00:51,690 --> 00:00:54,830
+Nhờ tự động scale số lượng EC2/Spot phù hợp,
+
+19
+00:00:54,830 --> 00:00:57,570
+bạn tối ưu chi phí và ít phải lo hạ tầng,
+
+20
+00:00:57,570 --> 00:01:01,580
+tập trung vào batch job của mình.
+
+21
+00:01:01,580 --> 00:01:03,050
+Ví dụ minh hoạ: xử lý ảnh
+
+22
+00:01:03,050 --> 00:01:05,470
+được người dùng tải lên Amazon S3 theo lô.
+
+23
+00:01:05,470 --> 00:01:08,550
+Khi ảnh được put vào S3, sẽ kích hoạt một batch job.
+
+24
+00:01:08,550 --> 00:01:10,760
+Batch vận hành một ECS cluster bằng EC2/Spot
+
+25
+00:01:10,760 --> 00:01:13,150
+và đảm bảo đủ số instance theo lượng job trong queue.
+
+26
+00:01:13,150 --> 00:01:15,200
+Các instance này chạy Docker image của bạn
+
+27
+00:01:15,200 --> 00:01:16,610
+để thực thi công việc,
+
+28
+00:01:16,610 --> 00:01:18,700
+ví dụ ghi đối tượng đã xử lý (thêm filter...)
+
+29
+00:01:18,700 --> 00:01:21,960
+vào một S3 bucket khác.
+
+30
+00:01:21,960 --> 00:01:23,260
+Khác biệt Batch và Lambda?
+
+31
+00:01:23,260 --> 00:01:25,450
+Lambda bị giới hạn thời gian (15 phút),
+
+32
+00:01:25,450 --> 00:01:27,860
+chỉ hỗ trợ vài ngôn ngữ, và dung lượng đĩa tạm ít,
+
+33
+00:01:27,860 --> 00:01:30,090
+lại ở mô hình serverless.
+
+34
+00:01:30,090 --> 00:01:32,280
+Còn Batch không giới hạn thời gian
+
+35
+00:01:32,280 --> 00:01:35,410
+vì dựa trên EC2; runtime tùy ý miễn là đóng gói Docker.
+
+36
+00:01:35,410 --> 00:01:38,710
+Về lưu trữ, bạn dùng storage đi kèm EC2 instance
+
+37
+00:01:38,710 --> 00:01:41,740
+như EBS hoặc Instance Store — nhiều hơn Lambda.
+
+38
+00:01:41,740 --> 00:01:44,960
+Batch không phải serverless; đó là managed service
+
+39
+00:01:44,960 --> 00:01:47,850
+dựa trên các EC2 instance thực tế.
+
+40
+00:01:47,850 --> 00:01:52,810
+Tuy vậy, AWS quản lý các EC2 này (auto scaling, v.v.) cho bạn.
+
+41
+00:01:52,810 --> 00:01:55,460
+Hy vọng hữu ích, hẹn gặp bạn ở bài tiếp theo.
+

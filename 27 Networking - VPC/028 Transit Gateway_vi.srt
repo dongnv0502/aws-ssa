@@ -1,0 +1,424 @@
+1
+00:00:00,720 --> 00:00:02,300
+Được rồi, nếu nhìn vào
+
+2
+00:00:02,300 --> 00:00:04,750
+các topology mạng phổ biến trên AWS
+
+3
+00:00:04,750 --> 00:00:06,610
+thì mọi thứ có thể khá phức tạp.
+
+4
+00:00:06,610 --> 00:00:08,440
+Ví dụ, bạn có rất nhiều VPC
+
+5
+00:00:08,440 --> 00:00:10,340
+và muốn peering chúng lại với nhau,
+
+6
+00:00:10,340 --> 00:00:12,650
+rồi muốn thiết lập một số kết nối VPN
+
+7
+00:00:12,650 --> 00:00:13,540
+và Direct Connect,
+
+8
+00:00:13,540 --> 00:00:15,980
+rồi có Direct Connect Gateway để kết nối
+
+9
+00:00:15,980 --> 00:00:18,480
+đồng thời tới nhiều VPC; như vậy
+
+10
+00:00:18,480 --> 00:00:21,740
+topology mạng sẽ cực kỳ phức tạp.
+
+11
+00:00:21,740 --> 00:00:24,500
+Vì thế AWS đưa ra Transit Gateway
+
+12
+00:00:24,500 --> 00:00:26,740
+để giải quyết vấn đề này; bạn sẽ có
+
+13
+00:00:26,740 --> 00:00:30,290
+kết nối chuyển tiếp (transitive) giữa hàng nghìn VPC,
+
+14
+00:00:30,290 --> 00:00:33,130
+data center on‑premises, Site‑to‑Site VPN,
+
+15
+00:00:33,130 --> 00:00:35,780
+Direct Connect theo mô hình hub‑and‑spoke (hình sao).
+
+16
+00:00:35,780 --> 00:00:37,150
+Hãy xem sơ đồ.
+
+17
+00:00:37,150 --> 00:00:39,180
+Ở trung tâm là Transit Gateway
+
+18
+00:00:39,180 --> 00:00:42,430
+và bạn có thể kết nối nhiều VPC
+
+19
+00:00:42,430 --> 00:00:43,570
+thông qua Transit Gateway.
+
+20
+00:00:43,570 --> 00:00:47,080
+Vậy nên, ta không cần peering trực tiếp giữa các VPC,
+
+21
+00:00:47,080 --> 00:00:50,870
+chúng được kết nối chuyển tiếp qua Transit Gateway.
+
+22
+00:00:50,870 --> 00:00:54,470
+Trong ví dụ này, tất cả VPC đều có thể nói chuyện với nhau.
+
+23
+00:00:54,470 --> 00:00:57,360
+Bạn cũng có thể kết nối Direct Connect Gateway
+
+24
+00:00:57,360 --> 00:00:58,430
+với Transit Gateway,
+
+25
+00:00:58,430 --> 00:01:00,560
+cho phép một kết nối Direct Connect
+
+26
+00:01:00,560 --> 00:01:02,880
+đi trực tiếp vào nhiều VPC khác nhau.
+
+27
+00:01:02,880 --> 00:01:05,650
+Hoặc nếu bạn thích Site‑to‑Site VPN,
+
+28
+00:01:05,650 --> 00:01:08,820
+bạn có thể nối Customer Gateway và VPN Connection
+
+29
+00:01:08,820 --> 00:01:11,290
+vào Transit Gateway của bạn.
+
+30
+00:01:11,290 --> 00:01:15,010
+Một lần nữa, điều này giúp truy cập tới tất cả VPC
+
+31
+00:01:15,010 --> 00:01:17,040
+thông qua Transit Gateway.
+
+32
+00:01:17,040 --> 00:01:19,600
+Vì vậy, nó giải quyết vấn đề mạng rất tốt.
+
+33
+00:01:19,600 --> 00:01:22,780
+Transit Gateway là tài nguyên cấp region, hỗ trợ cross‑region,
+
+34
+00:01:22,780 --> 00:01:25,050
+và có thể chia sẻ Transit Gateway giữa các account
+
+35
+00:01:25,050 --> 00:01:27,410
+qua Resource Access Manager.
+
+36
+00:01:27,410 --> 00:01:30,210
+Bạn cũng có thể peering giữa các Transit Gateway ở khác region.
+
+37
+00:01:30,210 --> 00:01:33,070
+Vậy xác định ai được nói chuyện với ai như thế nào?
+
+38
+00:01:33,070 --> 00:01:34,850
+Bạn cần tạo route table
+
+39
+00:01:34,850 --> 00:01:37,730
+cho Transit Gateway để giới hạn VPC nào
+
+40
+00:01:37,730 --> 00:01:39,960
+được nói chuyện với VPC nào, kết nối nào được phép
+
+41
+00:01:39,960 --> 00:01:40,910
+truy cập với nhau, v.v.
+
+42
+00:01:40,910 --> 00:01:44,900
+Bạn có toàn quyền điều khiển định tuyến trong Transit Gateway
+
+43
+00:01:44,900 --> 00:01:48,010
+để đảm bảo an toàn mạng.
+
+44
+00:01:48,010 --> 00:01:50,300
+Như đã nói, nó hoạt động với Direct Connect Gateway
+
+45
+00:01:50,300 --> 00:01:54,130
+và VPN Connection, và đây là dịch vụ duy nhất trên AWS
+
+46
+00:01:54,130 --> 00:01:57,530
+hỗ trợ IP multicast. Nếu thấy IP multicast trong đề thi,
+
+47
+00:01:57,530 --> 00:01:59,840
+hãy nhớ rằng bạn phải dùng Transit Gateway.
+
+48
+00:01:59,840 --> 00:02:01,130
+
+
+49
+00:02:01,130 --> 00:02:04,650
+Một use case khác: tăng băng thông Site‑to‑Site VPN
+
+50
+00:02:04,650 --> 00:02:07,430
+bằng ECMP.
+
+51
+00:02:07,430 --> 00:02:09,210
+Khá kỹ thuật, nhưng có thể vào đề thi.
+
+52
+00:02:09,210 --> 00:02:11,160
+ECMP là equal‑cost multi‑path routing
+
+53
+00:02:11,160 --> 00:02:12,040
+(định tuyến đa đường cùng chi phí).
+
+54
+00:02:12,040 --> 00:02:16,350
+Đây là chiến lược định tuyến cho phép chuyển tiếp gói tin
+
+55
+00:02:16,350 --> 00:02:19,110
+qua nhiều đường tốt nhất.
+
+56
+00:02:19,110 --> 00:02:21,160
+Use case: tạo nhiều kết nối Site‑to‑Site VPN
+
+57
+00:02:21,160 --> 00:02:23,450
+để tăng băng thông kết nối
+
+58
+00:02:23,450 --> 00:02:25,520
+tới AWS bằng Site‑to‑Site VPN.
+
+59
+00:02:25,520 --> 00:02:27,860
+Ví dụ này: có Transit Gateway
+
+60
+00:02:27,860 --> 00:02:30,760
+với bốn VPC gắn vào,
+
+61
+00:02:30,760 --> 00:02:33,190
+và corporate data center kết nối
+
+62
+00:02:33,190 --> 00:02:36,030
+vào Transit Gateway bằng Site‑to‑Site VPN.
+
+63
+00:02:36,030 --> 00:02:38,300
+Khi thiết lập một Site‑to‑Site VPN,
+
+64
+00:02:38,300 --> 00:02:41,720
+thực tế có hai tunnel, một đi và một về.
+
+65
+00:02:41,720 --> 00:02:44,770
+Khi nối VPN trực tiếp vào VPC,
+
+66
+00:02:44,770 --> 00:02:47,470
+hai tunnel này dùng cho một kết nối.
+
+67
+00:02:47,470 --> 00:02:48,710
+Nhưng với Transit Gateway,
+
+68
+00:02:48,710 --> 00:02:52,350
+có thể dùng hai tunnel đồng thời (nên sơ đồ có hai đường).
+
+69
+00:02:52,350 --> 00:02:55,020
+Hơn nữa, với Transit Gateway, bạn có thể có nhiều VPN,
+
+70
+00:02:55,020 --> 00:02:57,040
+ví dụ tạo thêm một VPN thứ hai
+
+71
+00:02:57,040 --> 00:02:58,600
+gắn vào Transit Gateway,
+
+72
+00:02:58,600 --> 00:03:01,000
+như vậy tổng cộng có bốn tunnel.
+
+73
+00:03:01,000 --> 00:03:02,340
+Khi có bốn tunnel VPN,
+
+74
+00:03:02,340 --> 00:03:04,420
+bạn tăng thông lượng (throughput) kết nối,
+
+75
+00:03:04,420 --> 00:03:07,430
+điều mà không thể làm nếu nối trực tiếp data center
+
+76
+00:03:07,430 --> 00:03:08,950
+vào một VPC.
+
+77
+00:03:08,950 --> 00:03:10,750
+Nếu bạn dùng VPN với Virtual Private Gateway,
+
+78
+00:03:10,750 --> 00:03:13,320
+…
+
+79
+00:03:13,320 --> 00:03:16,000
+thì hai tunnel sẽ được sử dụng
+
+80
+00:03:16,000 --> 00:03:18,260
+theo chiến lược đó.
+
+81
+00:03:18,260 --> 00:03:21,760
+Bạn cũng có thể thêm nhiều kết nối Site‑to‑Site VPN
+
+82
+00:03:21,760 --> 00:03:24,570
+vào Transit Gateway (ví dụ hai hoặc ba)
+
+83
+00:03:24,570 --> 00:03:27,680
+để nhân đôi hoặc nhân ba thông lượng
+
+84
+00:03:27,680 --> 00:03:29,930
+nhờ ECMP.
+
+85
+00:03:29,930 --> 00:03:31,850
+Đây là một câu hỏi có thể gặp trong đề thi.
+
+86
+00:03:31,850 --> 00:03:33,830
+Tất nhiên khi thiết lập như vậy,
+
+87
+00:03:33,830 --> 00:03:36,680
+bạn sẽ trả phí theo GB dữ liệu
+
+88
+00:03:36,680 --> 00:03:38,220
+đi qua Transit Gateway,
+
+89
+00:03:38,220 --> 00:03:42,090
+nên đây là bài toán đánh đổi chi phí để tối ưu hiệu năng.
+
+90
+00:03:42,090 --> 00:03:44,740
+Cuối cùng, bạn có thể chia sẻ kết nối Direct Connect
+
+91
+00:03:44,740 --> 00:03:47,370
+giữa nhiều account thông qua Transit Gateway.
+
+92
+00:03:47,370 --> 00:03:48,540
+Làm thế nào?
+
+93
+00:03:48,540 --> 00:03:51,560
+Ta thiết lập Direct Connect giữa data center
+
+94
+00:03:51,560 --> 00:03:53,350
+và địa điểm Direct Connect.
+
+95
+00:03:53,350 --> 00:03:56,330
+Sau đó cấu hình Transit Gateway
+
+96
+00:03:56,330 --> 00:03:58,790
+cho cả hai VPC ở hai account khác nhau.
+
+97
+00:03:58,790 --> 00:04:01,640
+Tiếp theo, kết nối địa điểm Direct Connect
+
+98
+00:04:01,640 --> 00:04:04,050
+với Direct Connect Gateway, rồi nối gateway đó
+
+99
+00:04:04,050 --> 00:04:06,010
+vào Transit Gateway.
+
+100
+00:04:06,010 --> 00:04:08,370
+Việc này cho phép chia sẻ một kết nối Direct Connect
+
+101
+00:04:08,370 --> 00:04:11,160
+giữa nhiều account và nhiều VPC, rất tiện
+
+102
+00:04:11,160 --> 00:04:13,790
+nhờ Transit Gateway.
+
+103
+00:04:13,790 --> 00:04:14,830
+Được chứ?
+
+104
+00:04:14,830 --> 00:04:17,680
+Những kiến trúc kiểu này có thể vào đề thi,
+
+105
+00:04:17,680 --> 00:04:19,220
+nên hãy hiểu cách chúng hoạt động.
+
+106
+00:04:19,220 --> 00:04:23,090
+Vậy là xong phần này, hẹn gặp bạn ở bài kế tiếp.
+

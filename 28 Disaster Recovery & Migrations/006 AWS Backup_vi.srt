@@ -1,0 +1,200 @@
+1
+00:00:00,000 --> 00:00:03,410
+Chào mừng bạn đến với bài giảng về AWS Backup.
+
+2
+00:00:03,410 --> 00:00:06,490
+AWS Backup là dịch vụ fully managed
+
+3
+00:00:06,490 --> 00:00:08,600
+cho phép bạn quản lý tập trung
+
+4
+00:00:08,600 --> 00:00:10,710
+và tự động hoá backup trên
+
+5
+00:00:10,710 --> 00:00:12,080
+toàn bộ dịch vụ AWS.
+
+6
+00:00:12,080 --> 00:00:13,910
+Danh sách dịch vụ hỗ trợ ngày càng mở rộng.
+
+7
+00:00:13,910 --> 00:00:14,880
+Ý tưởng là bạn có một nơi trung tâm,
+
+8
+00:00:14,880 --> 00:00:15,770
+không cần viết script tuỳ biến
+
+9
+00:00:15,770 --> 00:00:16,603
+hay thao tác thủ công.
+
+10
+00:00:16,603 --> 00:00:18,660
+Bạn có cái nhìn tập trung về chiến lược backup.
+
+11
+00:00:18,660 --> 00:00:20,480
+Các dịch vụ hỗ trợ rất rộng:
+
+12
+00:00:20,480 --> 00:00:21,750
+Amazon EC2, EBS, Amazon S3, RDS
+
+13
+00:00:21,750 --> 00:00:24,000
+(toàn bộ engine), Aurora, DynamoDB, DocumentDB,
+
+14
+00:00:24,000 --> 00:00:25,660
+Amazon Neptune, EFS, FSx (kể cả Lustre
+
+15
+00:00:25,660 --> 00:00:30,080
+và Windows File Server), AWS Storage Gateway (Volume Gateway), v.v.
+
+16
+00:00:30,080 --> 00:00:31,850
+Hỗ trợ cross-Region backup:
+
+17
+00:00:31,850 --> 00:00:36,090
+đẩy bản backup sang Region khác cho chiến lược DR.
+
+18
+00:00:36,090 --> 00:00:38,400
+Cũng hỗ trợ cross-account backup
+
+19
+00:00:38,400 --> 00:00:39,450
+nếu bạn dùng nhiều tài khoản AWS.
+
+20
+00:00:39,450 --> 00:00:40,723
+Hỗ trợ Point-in-Time Recovery
+
+21
+00:00:41,577 --> 00:00:42,520
+cho các dịch vụ phù hợp (ví dụ Aurora),
+
+22
+00:00:42,520 --> 00:00:44,180
+backup theo lịch (scheduled) và theo nhu cầu (on-demand),
+
+23
+00:00:44,180 --> 00:00:47,080
+chính sách backup theo tag (tag-based) —
+
+24
+00:00:47,080 --> 00:00:48,220
+chỉ backup tài nguyên có tag “production”,
+
+25
+00:00:48,220 --> 00:00:49,780
+v.v.
+
+26
+00:00:49,780 --> 00:00:50,613
+Bạn tạo Backup Plan
+
+27
+00:00:50,613 --> 00:00:52,990
+— định nghĩa tần suất (mỗi 12 giờ/tuần/tháng
+
+28
+00:00:52,990 --> 00:00:53,860
+hoặc cron), Backup Window,
+
+29
+00:00:53,860 --> 00:00:55,590
+chuyển backup sang Cold Storage (nếu muốn)
+
+30
+00:00:55,590 --> 00:00:57,310
+và thời hạn lưu trữ (Retention Period)
+
+31
+00:00:57,310 --> 00:00:59,140
+theo ngày, tuần, tháng, năm.
+
+32
+00:00:59,140 --> 00:01:00,660
+Nhìn tổng thể, đây là dịch vụ toàn diện,
+
+33
+00:01:00,660 --> 00:01:03,080
+hỗ trợ rất nhiều dịch vụ — một bổ sung hữu ích.
+
+34
+00:01:03,080 --> 00:01:04,890
+Quy trình: tạo Backup Plan, gán tài nguyên AWS
+
+35
+00:01:04,890 --> 00:01:05,960
+quan trọng cần backup.
+
+36
+00:01:05,960 --> 00:01:08,370
+Sau đó dữ liệu được backup vào Amazon S3
+
+37
+00:01:08,370 --> 00:01:10,750
+trong internal bucket dành riêng cho AWS Backup.
+
+38
+00:01:10,750 --> 00:01:12,540
+Một tính năng quan trọng: Vault Lock.
+
+39
+00:01:12,540 --> 00:01:14,180
+Áp dụng chính sách WORM (Write Once Read Many)
+
+40
+00:01:14,180 --> 00:01:16,060
+cho Backup Vault: backup không thể bị xoá.
+
+41
+00:01:16,060 --> 00:01:17,360
+Bạn có bằng chứng chắc chắn rằng
+
+42
+00:01:17,360 --> 00:01:19,539
+theo Vault Lock Policy, không thể xoá backup,
+
+43
+00:01:19,539 --> 00:01:22,020
+giúp phòng vệ trước xoá nhầm/ác ý hoặc
+
+44
+00:01:22,020 --> 00:01:23,388
+thay đổi rút ngắn thời hạn lưu trữ.
+
+45
+00:01:23,388 --> 00:01:25,057
+Kể cả root user cũng không thể xoá
+
+46
+00:01:25,057 --> 00:01:26,960
+khi Vault Lock được bật.
+
+47
+00:01:26,960 --> 00:01:29,080
+Vì vậy tính an toàn của backup được đảm bảo.
+
+48
+00:01:29,080 --> 00:01:30,160
+Đó là những gì bạn cần nắm
+
+49
+00:01:30,160 --> 00:01:31,880
+về AWS Backup. Hẹn gặp lại bạn
+
+50
+00:01:31,880 --> 00:01:33,980
+ở bài giảng tiếp theo.
+

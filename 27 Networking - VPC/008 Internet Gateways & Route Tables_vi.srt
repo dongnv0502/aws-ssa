@@ -1,0 +1,131 @@
+1
+00:00:00,010 --> 00:00:02,790
+Bây giờ chúng ta sẽ xem cách cấp
+
+2
+00:00:02,790 --> 00:00:04,240
+quyền truy cập Internet cho các subnet
+
+3
+00:00:04,240 --> 00:00:06,840
+vì hiện tại chúng ta chưa biết Subnet Public là gì
+
+4
+00:00:06,840 --> 00:00:08,680
+và Subnet Private là gì; và lúc này
+
+5
+00:00:08,680 --> 00:00:11,030
+cả hai subnet đều không có Internet.
+
+6
+00:00:11,030 --> 00:00:13,380
+Internet Gateway sẽ cho phép tài nguyên
+
+7
+00:00:13,380 --> 00:00:15,330
+trong VPC kết nối ra Internet,
+
+8
+00:00:15,330 --> 00:00:17,564
+có thể là EC2 instances, Lambda functions,
+
+9
+00:00:17,564 --> 00:00:18,397
+v.v.
+
+10
+00:00:18,397 --> 00:00:19,580
+Nó scale theo chiều ngang,
+
+11
+00:00:19,580 --> 00:00:21,610
+rất sẵn sàng và dư thừa.
+
+12
+00:00:21,610 --> 00:00:24,570
+Vậy nên đây là một tài nguyên managed rất hữu ích
+
+13
+00:00:24,570 --> 00:00:27,550
+và phải được tạo riêng, tách khỏi VPC.
+
+14
+00:00:27,550 --> 00:00:30,310
+Mỗi VPC chỉ gắn được với đúng một Internet Gateway
+
+15
+00:00:30,310 --> 00:00:33,270
+và ngược lại. Bản thân Internet Gateway
+
+16
+00:00:33,270 --> 00:00:35,110
+không tự cấp Internet.
+
+17
+00:00:35,110 --> 00:00:37,860
+Chúng ta còn phải chỉnh Route Table để hoạt động.
+
+18
+00:00:37,860 --> 00:00:38,880
+Chúng ta sẽ xem ngay sau đây.
+
+19
+00:00:38,880 --> 00:00:40,740
+Hiện tại ta có một VPC,
+
+20
+00:00:40,740 --> 00:00:42,470
+có hai subnet trong một AZ.
+
+21
+00:00:42,470 --> 00:00:44,270
+Tôi không vẽ hai subnet còn lại
+
+22
+00:00:44,270 --> 00:00:46,560
+để sơ đồ đơn giản nhất có thể.
+
+23
+00:00:46,560 --> 00:00:49,200
+Chúng ta sẽ tạo một Internet Gateway trong VPC này,
+
+24
+00:00:49,200 --> 00:00:52,250
+nhưng chỉ như vậy thì các subnet vẫn chưa có Internet.
+
+25
+00:00:52,250 --> 00:00:53,300
+Chúng ta cần
+
+26
+00:00:53,300 --> 00:00:55,930
+chỉnh sửa các Route Table nữa.
+
+27
+00:00:55,930 --> 00:00:59,450
+Ta sẽ tạo một EC2 public trong Public Subnet
+
+28
+00:00:59,450 --> 00:01:03,280
+rồi chỉnh Route Table để EC2 có thể kết nối tới Router,
+
+29
+00:01:03,280 --> 00:01:05,500
+rồi tới Internet Gateway,
+
+30
+00:01:05,500 --> 00:01:07,690
+và từ Internet Gateway ra Internet.
+
+31
+00:01:07,690 --> 00:01:10,740
+Hãy xem cách làm điều này
+
+32
+00:01:10,740 --> 00:01:12,220
+ở bài kế tiếp.
+
+33
+00:01:12,220 --> 00:01:13,220
+

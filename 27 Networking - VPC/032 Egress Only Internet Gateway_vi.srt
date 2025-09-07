@@ -1,0 +1,72 @@
+1
+00:00:00,000 --> 00:00:00,930
+Egress‑Only Internet Gateway (EIGW)
+
+2
+00:00:00,930 --> 00:00:02,870
+chỉ dùng cho lưu lượng IPv6 — tương tự NAT Gateway nhưng cho IPv6.
+
+3
+00:00:02,870 --> 00:00:05,610
+NAT Gateway áp dụng IPv4; EIGW áp dụng IPv6.
+
+4
+00:00:05,610 --> 00:00:07,130
+Chức năng: cho phép instance trong VPC
+
+5
+00:00:07,130 --> 00:00:08,550
+kết nối ra Internet bằng IPv6 (outbound),
+
+6
+00:00:08,550 --> 00:00:09,780
+nhưng chặn Internet khởi tạo kết nối vào (inbound) IPv6.
+
+7
+00:00:09,780 --> 00:00:12,500
+Cần cập nhật Route Table để trỏ ::/0 qua EIGW.
+
+8
+00:00:12,500 --> 00:00:13,333
+Ví dụ:
+
+9
+00:00:13,333 --> 00:00:16,780
+Trong public subnet + Internet Gateway, EC2 có thể
+
+10
+00:00:16,780 --> 00:00:18,880
+ra/vào Internet bằng IPv6 (bị truy cập từ Internet được).
+
+11
+00:00:18,880 --> 00:00:21,580
+Nếu chỉ muốn outbound, đặt EC2 trong private subnet
+
+12
+00:00:21,580 --> 00:00:23,870
+(không IGW) và tạo EIGW:
+
+13
+00:00:23,870 --> 00:00:24,885
+EC2 sẽ ra Internet qua EIGW (IPv6),
+
+14
+00:00:24,885 --> 00:00:25,718
+nhưng Internet không thể khởi tạo kết nối vào.
+
+15
+00:00:25,718 --> 00:00:28,750
+Tóm tắt định tuyến IPv6:
+
+16
+00:00:28,750 --> 00:00:31,150
+- Public subnet: route 0.0.0.0/0 và ::/0 → IGW;
+
+17
+00:00:31,150 --> 00:00:33,940
+- Private subnet: IPv4 dùng NAT Gateway → IGW;
+
+18
+00:00:33,940 --> 00:00:38,220
+  IPv6 dùng Egress‑Only Internet Gateway → Internet.
+

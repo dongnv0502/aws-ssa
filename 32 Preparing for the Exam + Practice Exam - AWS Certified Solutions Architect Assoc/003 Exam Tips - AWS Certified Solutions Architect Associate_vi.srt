@@ -1,0 +1,119 @@
+1
+00:00:00,030 --> 00:00:02,130
+Một vài mẹo thi để tăng cơ hội đỗ tối đa:
+
+2
+00:00:02,130 --> 00:00:04,430
+- Luyện tập là chìa khóa. Nếu bạn mới với AWS
+
+3
+00:00:04,430 --> 00:00:05,660
+  và thấy khối kiến thức hơi “ngợp”,
+
+4
+00:00:05,660 --> 00:00:07,020
+  hãy thực hành thêm với nội dung khóa học này.
+
+5
+00:00:07,020 --> 00:00:09,590
+  Đừng vội đăng ký thi — hãy cho mình thời gian.
+
+6
+00:00:09,590 --> 00:00:11,810
+  AWS khuyến nghị có ≥ 1 năm kinh nghiệm thực hành;
+
+7
+00:00:11,810 --> 00:00:12,643
+  điều này khó “đi tắt”.
+
+8
+00:00:12,643 --> 00:00:13,940
+- Khi làm câu hỏi, dùng phương pháp loại trừ.
+
+9
+00:00:13,940 --> 00:00:14,980
+  Câu hỏi thường theo tình huống (dài),
+
+10
+00:00:14,980 --> 00:00:17,640
+  hãy loại bỏ đáp án chắc chắn sai trước
+
+11
+00:00:17,640 --> 00:00:19,970
+  để thu hẹp còn 1–2 đáp án hợp lý.
+
+12
+00:00:19,970 --> 00:00:21,940
+  Đừng “over-think”: đáp án quá phức tạp
+
+13
+00:00:21,940 --> 00:00:23,670
+  thường là sai.
+
+14
+00:00:23,670 --> 00:00:24,540
+- Nếu chưa chắc, cứ chọn tạm và gắn cờ (flag)
+
+15
+00:00:24,540 --> 00:00:27,430
+  để quay lại xem sau khi có thêm thời gian suy nghĩ.
+
+16
+00:00:27,430 --> 00:00:30,377
+- Đọc/skim các whitepaper quan trọng:
+
+17
+00:00:30,377 --> 00:00:33,010
+  Architecting for the Cloud: AWS Best Practices;
+
+18
+00:00:33,010 --> 00:00:35,960
+  AWS Well-Architected Framework;
+
+19
+00:00:35,960 --> 00:00:37,520
+  AWS Disaster Recovery (link có thể khó tìm).
+
+20
+00:00:37,520 --> 00:00:39,960
+  Những tài liệu này giúp củng cố kiến thức đã học.
+
+21
+00:00:39,960 --> 00:00:41,450
+- Tra cứu FAQ của dịch vụ khi còn nghi ngờ.
+
+22
+00:00:41,450 --> 00:00:43,320
+  Nhiều câu trong đề thi xuất phát từ FAQ
+
+23
+00:00:43,320 --> 00:00:45,140
+  (ví dụ VPC FAQs: amazon.com/vpc/faqs).
+
+24
+00:00:45,140 --> 00:00:48,110
+- Tham gia cộng đồng: trả lời Hỏi‑Đáp, giúp người khác,
+
+25
+00:00:48,110 --> 00:00:50,490
+  đọc câu hỏi của người khác để học thêm.
+
+26
+00:00:50,490 --> 00:00:52,690
+  Làm Practice Test trong phần này để tự đánh giá.
+
+27
+00:00:52,690 --> 00:00:53,530
+- Theo dõi forum/blog/meetup địa phương,
+
+28
+00:00:53,530 --> 00:00:54,870
+  xem video AWS re:Invent trên YouTube
+
+29
+00:00:54,870 --> 00:00:57,910
+  để cập nhật kiến thức.
+
+30
+00:00:57,910 --> 00:01:00,600
+Chúc bạn sớm vượt qua kỳ thi. Hẹn gặp ở bài tiếp theo.

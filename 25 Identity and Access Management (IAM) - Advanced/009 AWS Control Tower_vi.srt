@@ -1,0 +1,292 @@
+1
+00:00:00,300 --> 00:00:01,133
+Bây giờ hãy nói
+
+2
+00:00:01,133 --> 00:00:03,719
+về dịch vụ AWS Control Tower.
+
+3
+00:00:03,719 --> 00:00:06,420
+Đây là cách rất dễ để thiết lập và quản trị
+
+4
+00:00:06,420 --> 00:00:09,960
+một môi trường AWS đa tài khoản an toàn và tuân thủ
+
+5
+00:00:09,960 --> 00:00:11,580
+dựa trên best practices.
+
+6
+00:00:11,580 --> 00:00:14,100
+Để tạo các tài khoản này,
+
+7
+00:00:14,100 --> 00:00:15,360
+Control Tower
+
+8
+00:00:15,360 --> 00:00:18,630
+điều phối dịch vụ AWS Organizations
+
+9
+00:00:18,630 --> 00:00:21,450
+và các tài khoản sẽ được tạo tự động,
+
+10
+00:00:21,450 --> 00:00:22,830
+và ở trang sau
+
+11
+00:00:22,830 --> 00:00:25,380
+ta sẽ xem cách đảm bảo an toàn và tuân thủ.
+
+12
+00:00:25,380 --> 00:00:27,450
+Lợi ích khi dùng Control Tower
+
+13
+00:00:27,450 --> 00:00:29,550
+là bạn tự động hóa việc thiết lập
+
+14
+00:00:29,550 --> 00:00:31,260
+môi trường chỉ với vài cú nhấp
+
+15
+00:00:31,260 --> 00:00:34,200
+và có sẵn toàn bộ cấu hình mong muốn.
+
+16
+00:00:34,200 --> 00:00:35,520
+Bạn cũng có thể tự động hóa
+
+17
+00:00:35,520 --> 00:00:37,560
+quản lý policy liên tục bằng guardrail.
+
+18
+00:00:37,560 --> 00:00:39,210
+Mình sẽ minh họa ở trang sau.
+
+19
+00:00:39,210 --> 00:00:41,370
+Bạn có thể phát hiện vi phạm policy
+
+20
+00:00:41,370 --> 00:00:43,500
+và tự động khắc phục,
+
+21
+00:00:43,500 --> 00:00:45,750
+và theo dõi mức độ tuân thủ tổng thể
+
+22
+00:00:45,750 --> 00:00:49,380
+cho tất cả tài khoản qua một dashboard tương tác.
+
+23
+00:00:49,380 --> 00:00:52,830
+Vì vậy đây là dịch vụ nằm trên Organizations.
+
+24
+00:00:52,830 --> 00:00:54,240
+Vậy guardrail là gì?
+
+25
+00:00:54,240 --> 00:00:57,450
+Giả sử bạn thiết lập nhiều tài khoản AWS,
+
+26
+00:00:57,450 --> 00:00:59,850
+và muốn hạn chế tất cả chúng cùng lúc
+
+27
+00:00:59,850 --> 00:01:00,900
+cho một số hành vi nhất định,
+
+28
+00:01:00,900 --> 00:01:02,460
+hoặc muốn giám sát mức tuân thủ
+
+29
+00:01:02,460 --> 00:01:04,379
+với những tiêu chí nhất định.
+
+30
+00:01:04,379 --> 00:01:05,550
+Nhờ các guardrail,
+
+31
+00:01:05,550 --> 00:01:08,310
+bạn có cơ chế quản trị liên tục cho mọi tài khoản
+
+32
+00:01:08,310 --> 00:01:10,620
+trong môi trường Control Tower.
+
+33
+00:01:10,620 --> 00:01:13,080
+Có hai loại guardrail.
+
+34
+00:01:13,080 --> 00:01:15,930
+Thứ nhất là preventive guardrail.
+
+35
+00:01:15,930 --> 00:01:19,200
+Mục tiêu là ngăn các tài khoản làm điều gì đó
+
+36
+00:01:19,200 --> 00:01:21,150
+vì vậy nó mang tính ràng buộc.
+
+37
+00:01:21,150 --> 00:01:25,020
+Ta sẽ dùng SCP (Service Control Policies)
+
+38
+00:01:25,020 --> 00:01:27,720
+của dịch vụ AWS Organizations
+
+39
+00:01:27,720 --> 00:01:29,430
+để áp dụng cho tất cả tài khoản.
+
+40
+00:01:29,430 --> 00:01:32,490
+Ví dụ, ta có thể tạo một preventive guardrail
+
+41
+00:01:32,490 --> 00:01:35,340
+để giới hạn region cho toàn bộ tài khoản, như
+
+42
+00:01:35,340 --> 00:01:38,670
+chỉ được vận hành ở us-east-1
+
+43
+00:01:38,670 --> 00:01:40,740
+và eu-west-2.
+
+44
+00:01:40,740 --> 00:01:42,330
+Vì thế phía sau hậu trường,
+
+45
+00:01:42,330 --> 00:01:46,560
+Control Tower sẽ yêu cầu Organizations dùng SCP.
+
+46
+00:01:46,560 --> 00:01:48,660
+Loại guardrail thứ hai
+
+47
+00:01:48,660 --> 00:01:50,610
+là detective guardrail.
+
+48
+00:01:50,610 --> 00:01:53,790
+Lần này ta chỉ muốn phát hiện sự không tuân thủ.
+
+49
+00:01:53,790 --> 00:01:55,860
+Vì nói đến tuân thủ (compliance),
+
+50
+00:01:55,860 --> 00:01:58,830
+đương nhiên dịch vụ dùng là AWS Config.
+
+51
+00:01:58,830 --> 00:02:02,550
+Ví dụ, ta muốn phát hiện các tài nguyên chưa được gắn tag
+
+52
+00:02:02,550 --> 00:02:03,690
+trong tài khoản.
+
+53
+00:02:03,690 --> 00:02:04,980
+Khi thiết lập detective guardrail
+
+54
+00:02:04,980 --> 00:02:07,710
+trong Control Tower,
+
+55
+00:02:07,710 --> 00:02:09,110
+nó sẽ sử dụng Config
+
+56
+00:02:09,110 --> 00:02:11,009
+và Config sẽ được triển khai
+
+57
+00:02:11,009 --> 00:02:12,870
+trên tất cả member account
+
+58
+00:02:12,870 --> 00:02:14,730
+và theo các rule,
+
+59
+00:02:14,730 --> 00:02:17,280
+giám sát mọi tài nguyên chưa gắn tag.
+
+60
+00:02:17,280 --> 00:02:19,110
+Nếu có gì không tuân thủ,
+
+61
+00:02:19,110 --> 00:02:21,180
+nó sẽ kích hoạt một SNS topic.
+
+62
+00:02:21,180 --> 00:02:24,150
+Quản trị viên có thể nhận thông báo
+
+63
+00:02:24,150 --> 00:02:27,960
+hoặc SNS topic có thể gọi một Lambda function.
+
+64
+00:02:27,960 --> 00:02:28,890
+Lambda function
+
+65
+00:02:28,890 --> 00:02:31,260
+có thể tự động khắc phục
+
+66
+00:02:31,260 --> 00:02:34,530
+và thêm tag cho các tài nguyên chưa có tag.
+
+67
+00:02:34,530 --> 00:02:35,580
+Chúng ta đã xem Control Tower,
+
+68
+00:02:35,580 --> 00:02:38,220
+cách tạo tài khoản mới
+
+69
+00:02:38,220 --> 00:02:39,570
+và cách áp guardrail,
+
+70
+00:02:39,570 --> 00:02:42,870
+loại preventive hoặc detective, để kiểm soát bảo mật
+
+71
+00:02:42,870 --> 00:02:45,450
+và tuân thủ cho môi trường của chúng ta.
+
+72
+00:02:45,450 --> 00:02:46,920
+Hy vọng bạn thích bài học này
+
+73
+00:02:46,920 --> 00:02:48,870
+và hẹn gặp bạn ở bài tiếp theo.
+

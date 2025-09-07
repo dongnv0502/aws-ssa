@@ -1,0 +1,708 @@
+1
+00:00:00,150 --> 00:00:01,740
+Khôi phục sau thảm họa (disaster recovery)
+
+2
+00:00:01,740 --> 00:00:04,730
+là cực kỳ quan trọng với một kiến trúc sư giải pháp.
+
+3
+00:00:04,730 --> 00:00:08,080
+Kỳ thi cũng kỳ vọng bạn nắm vững khôi phục sau thảm họa,
+
+4
+00:00:08,080 --> 00:00:10,080
+có một whitepaper về chủ đề này, bạn nên đọc,
+
+5
+00:00:10,080 --> 00:00:12,650
+nhưng tôi đã cố gắng tóm tắt mọi thứ thật rõ ràng
+
+6
+00:00:12,650 --> 00:00:14,830
+bằng đồ thị và sơ đồ trong bài giảng này
+
+7
+00:00:14,830 --> 00:00:17,070
+để nếu không muốn thì bạn cũng không cần phải đọc.
+
+8
+00:00:17,070 --> 00:00:19,010
+Nhìn chung, bạn có thể gặp vài câu hỏi
+
+9
+00:00:19,010 --> 00:00:21,460
+về khôi phục sau thảm họa, và là kiến trúc sư giải pháp
+
+10
+00:00:21,460 --> 00:00:23,920
+bạn vốn dĩ cũng cần hiểu chủ đề này.
+
+11
+00:00:23,920 --> 00:00:25,350
+Đừng lo, tôi đã cố gắng
+
+12
+00:00:25,350 --> 00:00:27,350
+làm nội dung đơn giản nhất có thể cho bạn.
+
+13
+00:00:27,350 --> 00:00:28,850
+Vậy “thảm họa” là gì?
+
+14
+00:00:28,850 --> 00:00:31,200
+Đó là bất kỳ sự kiện nào gây tác động tiêu cực
+
+15
+00:00:31,200 --> 00:00:34,250
+đến tính liên tục kinh doanh hoặc tài chính của công ty.
+
+16
+00:00:34,250 --> 00:00:37,010
+Khôi phục sau thảm họa là việc chuẩn bị
+
+17
+00:00:37,010 --> 00:00:39,070
+và phục hồi sau các thảm họa đó.
+
+18
+00:00:39,070 --> 00:00:40,840
+Vậy ta có thể làm khôi phục thảm họa
+
+19
+00:00:40,840 --> 00:00:43,780
+như thế nào trên AWS hoặc nói chung?
+
+20
+00:00:43,780 --> 00:00:46,260
+Ta có thể On-Premises sang On-Premises.
+
+21
+00:00:46,260 --> 00:00:48,890
+Tức là có data center thứ nhất, ví dụ ở California,
+
+22
+00:00:48,890 --> 00:00:50,980
+và một data center khác, ví dụ ở Seattle.
+
+23
+00:00:50,980 --> 00:00:53,040
+Đây là cách DR truyền thống
+
+24
+00:00:53,040 --> 00:00:55,180
+và thực sự là rất, rất tốn kém.
+
+25
+00:00:55,180 --> 00:00:56,720
+Hoặc ta có thể dùng cloud
+
+26
+00:00:56,720 --> 00:00:59,200
+với on-premise là data center chính
+
+27
+00:00:59,200 --> 00:01:01,450
+và khi xảy ra thảm họa thì dùng cloud.
+
+28
+00:01:01,450 --> 00:01:03,670
+Đây được gọi là hybrid recovery.
+
+29
+00:01:03,670 --> 00:01:05,870
+Hoặc nếu bạn chạy hoàn toàn trên cloud,
+
+30
+00:01:05,870 --> 00:01:08,820
+bạn có thể dùng AWS Region A sang Region B,
+
+31
+00:01:08,820 --> 00:01:12,050
+đó là kiểu DR thuần cloud.
+
+32
+00:01:12,050 --> 00:01:13,500
+Trước khi bàn về DR,
+
+33
+00:01:13,500 --> 00:01:14,860
+ta cần định nghĩa hai khái niệm chính
+
+34
+00:01:14,860 --> 00:01:17,490
+và bạn cần hiểu ở góc độ bài thi.
+
+35
+00:01:17,490 --> 00:01:20,940
+Thứ nhất là RPO (Recovery Point Objective – mục tiêu điểm khôi phục),
+
+36
+00:01:20,940 --> 00:01:25,190
+thứ hai là RTO (Recovery Time Objective – mục tiêu thời gian khôi phục).
+
+37
+00:01:25,190 --> 00:01:26,330
+Hãy nhớ hai thuật ngữ này,
+
+38
+00:01:26,330 --> 00:01:28,150
+tôi sẽ giải thích ngay bây giờ.
+
+39
+00:01:28,150 --> 00:01:30,410
+RPO và RTO là gì?
+
+40
+00:01:30,410 --> 00:01:33,470
+RPO – Recovery Point Objective –
+
+41
+00:01:33,470 --> 00:01:35,950
+về cơ bản là tần suất bạn thực hiện backup
+
+42
+00:01:35,950 --> 00:01:40,270
+và bạn có thể quay lại quá khứ xa tới mức nào để khôi phục.
+
+43
+00:01:40,270 --> 00:01:44,030
+Khi thảm họa xảy ra, khoảng thời gian giữa
+
+44
+00:01:44,030 --> 00:01:47,540
+RPO và thời điểm thảm họa chính là phần dữ liệu bị mất.
+
+45
+00:01:47,540 --> 00:01:51,040
+Ví dụ, nếu bạn backup dữ liệu mỗi giờ
+
+46
+00:01:51,040 --> 00:01:53,820
+và thảm họa xảy ra, bạn có thể quay lại
+
+47
+00:01:53,820 --> 00:01:57,280
+trước đó một giờ và sẽ mất một giờ dữ liệu.
+
+48
+00:01:57,280 --> 00:01:59,604
+RPO có thể là một giờ,
+
+49
+00:01:59,604 --> 00:02:01,170
+cũng có thể là một phút.
+
+50
+00:02:01,170 --> 00:02:02,650
+Phụ thuộc vào yêu cầu của bạn.
+
+51
+00:02:02,650 --> 00:02:05,260
+RPO là mức mất dữ liệu tối đa
+
+52
+00:02:05,260 --> 00:02:09,360
+bạn chấp nhận được khi thảm họa xảy ra.
+
+53
+00:02:09,360 --> 00:02:10,780
+Còn RTO
+
+54
+00:02:10,780 --> 00:02:13,800
+là thời gian bạn cần để khôi phục sau thảm họa.
+
+55
+00:02:13,800 --> 00:02:16,760
+Khoảng giữa thời điểm thảm họa và RTO
+
+56
+00:02:16,760 --> 00:02:19,550
+là thời gian downtime của ứng dụng.
+
+57
+00:02:19,550 --> 00:02:21,973
+Đôi khi chấp nhận được 24 giờ downtime,
+
+58
+00:02:21,973 --> 00:02:23,000
+dù tôi nghĩ không nên.
+
+59
+00:02:23,000 --> 00:02:25,160
+Đôi khi không thể, bạn chỉ chấp nhận
+
+60
+00:02:25,160 --> 00:02:27,630
+1 phút downtime chẳng hạn.
+
+61
+00:02:27,630 --> 00:02:30,630
+Tối ưu RPO và RTO sẽ ảnh hưởng
+
+62
+00:02:30,630 --> 00:02:33,300
+đến các quyết định kiến trúc giải pháp,
+
+63
+00:02:33,300 --> 00:02:35,900
+và càng muốn chúng nhỏ, chi phí càng cao.
+
+64
+00:02:35,900 --> 00:02:37,930
+Giờ nói về các chiến lược DR.
+
+65
+00:02:37,930 --> 00:02:40,660
+Đầu tiên là backup and restore.
+
+66
+00:02:40,660 --> 00:02:42,640
+Thứ hai là pilot light,
+
+67
+00:02:42,640 --> 00:02:44,420
+thứ ba là warm standby,
+
+68
+00:02:44,420 --> 00:02:45,890
+và thứ tư là hot site/multi site.
+
+69
+00:02:45,890 --> 00:02:49,250
+Nếu xếp hạng theo RTO, chúng khác nhau.
+
+70
+00:02:49,250 --> 00:02:53,780
+Backup and restore có RTO lớn nhất (khôi phục chậm nhất).
+
+71
+00:02:53,780 --> 00:02:56,330
+Rồi đến pilot light, warm standby và multi site;
+
+72
+00:02:56,330 --> 00:02:58,700
+chi phí tăng dần nhưng RTO nhanh hơn.
+
+73
+00:02:58,700 --> 00:03:02,080
+Tức là downtime giảm dần khi chi phí tăng.
+
+74
+00:03:02,080 --> 00:03:04,460
+Hãy xem từng cái một để hiểu
+
+75
+00:03:04,460 --> 00:03:07,430
+ý nghĩa kiến trúc của chúng.
+
+76
+00:03:07,430 --> 00:03:09,580
+Backup and restore có RPO cao.
+
+77
+00:03:09,580 --> 00:03:10,870
+Giả sử bạn có data center công ty,
+
+78
+00:03:10,870 --> 00:03:13,730
+đây là AWS Cloud với một S3 bucket.
+
+79
+00:03:13,730 --> 00:03:15,300
+Nếu muốn backup dữ liệu theo thời gian,
+
+80
+00:03:15,300 --> 00:03:18,180
+bạn có thể dùng Storage Gateway của AWS
+
+81
+00:03:18,180 --> 00:03:19,460
+và thiết lập Lifecycle Policy
+
+82
+00:03:19,460 --> 00:03:21,870
+để đưa dữ liệu vào Glacier nhằm tối ưu chi phí,
+
+83
+00:03:21,870 --> 00:03:24,510
+hoặc mỗi tuần gửi một lượng lớn dữ liệu
+
+84
+00:03:24,510 --> 00:03:26,920
+vào Glacier bằng AWS Snowball.
+
+85
+00:03:26,920 --> 00:03:30,110
+Nếu dùng Snowball, RPO sẽ khoảng một tuần
+
+86
+00:03:30,110 --> 00:03:33,250
+vì nếu data center bị cháy và mất hết dữ liệu,
+
+87
+00:03:33,250 --> 00:03:36,760
+bạn sẽ mất dữ liệu của một tuần (gửi Snowball mỗi tuần).
+
+88
+00:03:36,760 --> 00:03:38,420
+Còn nếu dùng AWS Cloud,
+
+89
+00:03:38,420 --> 00:03:40,530
+ví dụ EBS, Redshift, RDS,
+
+90
+00:03:40,530 --> 00:03:42,397
+và bạn lên lịch snapshot định kỳ
+
+91
+00:03:42,397 --> 00:03:44,690
+để backup, thì RPO có thể là 24 giờ
+
+92
+00:03:44,690 --> 00:03:47,800
+hoặc 1 giờ, tùy tần suất bạn tạo snapshot.
+
+93
+00:03:47,800 --> 00:03:49,920
+Khi thảm họa xảy ra và bạn cần
+
+94
+00:03:49,920 --> 00:03:52,310
+khôi phục toàn bộ dữ liệu,
+
+95
+00:03:52,310 --> 00:03:56,060
+bạn có thể dùng AMI để tạo lại EC2 instances
+
+96
+00:03:56,060 --> 00:03:59,780
+và khởi chạy ứng dụng, hoặc restore trực tiếp
+
+97
+00:03:59,780 --> 00:04:04,270
+từ snapshot để tạo lại RDS, EBS volume, Redshift, v.v.
+
+98
+00:04:04,270 --> 00:04:07,110
+Việc restore này cũng tốn khá nhiều thời gian
+
+99
+00:04:07,110 --> 00:04:09,920
+nên RTO cũng cao.
+
+100
+00:04:09,920 --> 00:04:13,350
+Lý do ta chọn cách này là vì chi phí khá rẻ.
+
+101
+00:04:13,350 --> 00:04:15,520
+Ta không vận hành hạ tầng thường trực,
+
+102
+00:04:15,520 --> 00:04:16,579
+chỉ dựng lại khi cần,
+
+103
+00:04:16,579 --> 00:04:18,700
+tức là khi có thảm họa, nên chi phí chủ yếu
+
+104
+00:04:18,700 --> 00:04:21,300
+là lưu trữ các bản backup.
+
+105
+00:04:21,300 --> 00:04:24,080
+Tóm lại: Backup and restore dễ làm, chi phí thấp,
+
+106
+00:04:24,080 --> 00:04:27,780
+đổi lại RPO cao, RTO cao.
+
+107
+00:04:27,780 --> 00:04:29,440
+Tiếp theo là pilot light.
+
+108
+00:04:29,440 --> 00:04:31,610
+Với pilot light, một phiên bản nhỏ của ứng dụng
+
+109
+00:04:31,610 --> 00:04:33,330
+luôn chạy trong cloud,
+
+110
+00:04:33,330 --> 00:04:35,840
+thường là các thành phần lõi, quan trọng.
+
+111
+00:04:35,840 --> 00:04:38,925
+Nó tương tự backup and restore nhưng nhanh hơn
+
+112
+00:04:38,925 --> 00:04:41,880
+vì hệ thống quan trọng luôn sẵn sàng,
+
+113
+00:04:41,880 --> 00:04:42,840
+khi khôi phục bạn chỉ cần
+
+114
+00:04:42,840 --> 00:04:45,389
+bổ sung các hệ thống còn lại ít quan trọng hơn.
+
+115
+00:04:45,389 --> 00:04:48,733
+Ví dụ: Data center của bạn có server và database,
+
+116
+00:04:49,680 --> 00:04:52,200
+trên AWS Cloud bạn thực hiện replication liên tục
+
+117
+00:04:52,200 --> 00:04:55,390
+từ database quan trọng sang RDS,
+
+118
+00:04:55,390 --> 00:04:57,580
+RDS này luôn chạy sẵn.
+
+119
+00:04:57,580 --> 00:05:00,080
+Khi cần khôi phục, bạn dựng thêm phần còn lại
+
+120
+00:05:00,080 --> 00:05:01,940
+để đạt đủ quy mô sản xuất.
+
+121
+00:05:01,940 --> 00:05:03,890
+Tiếp đến là warm standby.
+
+122
+00:05:03,890 --> 00:05:06,640
+Ở đây, một phiên bản thu nhỏ của toàn bộ hệ thống
+
+123
+00:05:06,640 --> 00:05:07,930
+luôn chạy ở AWS.
+
+124
+00:05:07,930 --> 00:05:10,050
+Khi failover, bạn mở rộng nhanh (auto scaling)
+
+125
+00:05:10,050 --> 00:05:13,880
+để đạt quy mô sản xuất đầy đủ.
+
+126
+00:05:13,880 --> 00:05:15,030
+Chi phí cao hơn pilot light
+
+127
+00:05:15,030 --> 00:05:17,890
+nhưng RTO/RPO thấp hơn.
+
+128
+00:05:17,890 --> 00:05:19,320
+Cuối cùng là multi site/hot site.
+
+129
+00:05:19,320 --> 00:05:22,340
+RTO rất thấp (tính bằng phút hoặc giây)
+
+130
+00:05:22,340 --> 00:05:24,750
+nhưng chi phí rất cao.
+
+131
+00:05:24,750 --> 00:05:26,290
+Bạn có hai môi trường sản xuất đầy đủ
+
+132
+00:05:26,290 --> 00:05:29,720
+chạy song song: On-Premises và AWS, với data replication.
+
+133
+00:05:29,720 --> 00:05:33,116
+Route 53 có thể phân giải theo kiểu active-active
+
+134
+00:05:33,116 --> 00:05:35,100
+đến cả hai nơi và failover rất nhanh.
+
+135
+00:05:35,100 --> 00:05:36,890
+Nếu muốn thuần cloud, kiến trúc tương tự
+
+136
+00:05:36,890 --> 00:05:38,980
+nhưng theo multi-region; ví dụ dùng Aurora
+
+137
+00:05:38,980 --> 00:05:40,559
+với Aurora Global Database:
+
+138
+00:05:40,559 --> 00:05:43,600
+master ở một region, bản sao (reader) ở region khác,
+
+139
+00:05:43,600 --> 00:05:45,740
+khi failover bạn có thể chạy full production
+
+140
+00:05:45,740 --> 00:05:48,950
+ở region còn lại.
+
+141
+00:05:48,950 --> 00:05:50,320
+Tóm lại, có nhiều chiến lược DR,
+
+142
+00:05:50,320 --> 00:05:51,420
+tuỳ yêu cầu mà chọn.
+
+143
+00:05:51,420 --> 00:05:54,140
+Trong kỳ thi, dựa trên tình huống, bạn cần khuyến nghị:
+
+144
+00:05:54,140 --> 00:05:55,790
+backup and restore, pilot light,
+
+145
+00:05:55,790 --> 00:05:57,300
+warm standby, hay multi/hot site?
+
+146
+00:05:57,300 --> 00:06:00,030
+Một vài mẹo thực tế cho DR:
+
+147
+00:06:00,030 --> 00:06:02,020
+Về backup: dùng EBS Snapshots,
+
+148
+00:06:02,020 --> 00:06:04,360
+RDS automated snapshots/backups, v.v.
+
+149
+00:06:04,360 --> 00:06:06,880
+Đẩy snapshot định kỳ vào S3, S3 IA, Glacier,
+
+150
+00:06:06,880 --> 00:06:08,450
+thiết lập Lifecycle Policy,
+
+151
+00:06:08,450 --> 00:06:10,714
+và dùng Cross-Region Replication nếu muốn
+
+152
+00:06:10,714 --> 00:06:12,690
+lưu ở nhiều region.
+
+153
+00:06:12,690 --> 00:06:14,695
+Chia sẻ dữ liệu từ On-Premises lên cloud:
+
+154
+00:06:14,695 --> 00:06:15,820
+dùng Snowball hoặc Storage Gateway.
+
+155
+00:06:15,820 --> 00:06:19,390
+Về High Availability: dùng Route 53 để chuyển DNS
+
+156
+00:06:19,390 --> 00:06:21,330
+và hỗ trợ failover; dùng health checks,
+
+157
+00:06:21,330 --> 00:06:22,830
+multi-AZ, multi-Region khi phù hợp.
+
+158
+00:06:22,830 --> 00:06:26,270
+Về automation: CloudFormation/Terraform để dựng hạ tầng tự động,
+
+159
+00:06:26,270 --> 00:06:28,880
+AWS Backup để quản lý backup tập trung,
+
+160
+00:06:28,880 --> 00:06:31,150
+CloudWatch để giám sát và tự phục hồi (recover/reboot)
+
+161
+00:06:31,150 --> 00:06:33,330
+EC2 khi có alarm; dùng AWS Lambda
+
+162
+00:06:33,330 --> 00:06:35,470
+để tự động hóa các quy trình DR.
+
+163
+00:06:35,470 --> 00:06:37,210
+Nếu tự động hóa được toàn bộ DR,
+
+164
+00:06:37,210 --> 00:06:39,790
+bạn đã sẵn sàng rất tốt cho thành công.
+
+165
+00:06:39,790 --> 00:06:42,950
+Về chaos testing: làm sao biết ta khôi phục tốt?
+
+166
+00:06:42,950 --> 00:06:44,800
+Hãy “tạo” thảm họa để thử nghiệm.
+
+167
+00:06:44,800 --> 00:06:47,250
+Ví dụ nổi tiếng: Netflix chạy trên AWS
+
+168
+00:06:47,250 --> 00:06:49,227
+và có “simian army”, ngẫu nhiên
+
+169
+00:06:49,227 --> 00:06:50,650
+terminate các EC2 instances,
+
+170
+00:06:50,650 --> 00:06:52,730
+thậm chí ngay trên production.
+
+171
+00:06:52,730 --> 00:06:56,030
+Mục tiêu là đảm bảo hạ tầng chịu lỗi tốt.
+
+172
+00:06:56,030 --> 00:06:57,680
+Họ chạy các “chaos monkey”
+
+173
+00:06:57,680 --> 00:11:00,290
+để ngẫu nhiên hạ các tài nguyên, đảm bảo hệ thống
+
+174
+00:11:00,290 --> 00:11:01,780
+vững chắc và sống sót trước mọi sự cố.
+
+175
+00:11:01,780 --> 00:11:03,760
+Đó là toàn bộ phần khôi phục sau thảm họa.
+
+176
+00:11:03,760 --> 00:11:05,560
+Hy vọng bạn thấy hữu ích, hẹn gặp lại
+
+177
+00:11:05,560 --> 00:11:06,660
+ở bài giảng tiếp theo.
+

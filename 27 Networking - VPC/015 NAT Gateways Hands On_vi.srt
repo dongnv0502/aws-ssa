@@ -1,0 +1,84 @@
+1
+00:00:00,690 --> 00:00:04,240
+Sau khi dừng/terminate NAT Instance, Private Subnet
+
+2
+00:00:04,240 --> 00:00:05,939
+không còn ra Internet (curl/ping thất bại).
+
+3
+00:00:05,939 --> 00:00:09,340
+Khắc phục bằng NAT Gateway.
+
+4
+00:00:09,340 --> 00:00:12,870
+Trong Private Route Table, route 0.0.0.0/0 hiện trỏ tới ENI
+
+5
+00:00:12,870 --> 00:00:15,423
+của NAT Instance sẽ thành “blackhole” (không còn hiệu lực).
+
+6
+00:00:17,760 --> 00:00:18,920
+Tạo NAT Gateway: đặt tên DemoNATGW,
+
+7
+00:00:18,920 --> 00:00:20,210
+đặt tại PublicSubnetA, Connectivity: Public,
+
+8
+00:00:20,210 --> 00:00:22,690
+Allocate một Elastic IP rồi Create NAT Gateway.
+
+9
+00:00:22,690 --> 00:00:24,990
+Trong lúc NAT Gateway khởi tạo, sửa Private Route Table:
+
+10
+00:00:24,990 --> 00:00:27,830
+Edit routes → thay 0.0.0.0/0 → đích là NAT Gateway mới.
+
+11
+00:00:27,830 --> 00:00:31,290
+Quay lại Bastion Host, SSH vào EC2 Private,
+
+12
+00:00:31,290 --> 00:00:33,920
+thử curl/ping google.com; khi NAT Gateway chuyển sang
+
+13
+00:00:33,920 --> 00:00:35,730
+trạng thái Available, các lệnh sẽ hoạt động.
+
+14
+00:00:35,730 --> 00:00:37,910
+Không cần cấu hình Security Group cho NAT Gateway,
+
+15
+00:00:38,950 --> 00:00:40,437
+chỉ cần đặt vào Public Subnet và cập nhật Route Table.
+
+16
+00:00:42,860 --> 00:00:44,300
+Tùy chọn HA: tạo NAT Gateway ở mỗi AZ
+
+17
+00:00:44,300 --> 00:00:45,410
+và cập nhật các Private Route Table tương ứng,
+
+18
+00:00:45,410 --> 00:00:46,320
+để chịu lỗi cả một AZ.
+
+19
+00:00:46,320 --> 00:00:47,960
+Kết luận: NAT Gateway đang hoạt động; EC2 Private
+
+20
+00:00:47,960 --> 00:00:50,400
+có thể cập nhật hệ điều hành (sudo yum update, v.v.)
+
+21
+00:00:51,530 --> 00:00:55,050
+mà không cần gán IP Public cho instance — an toàn hơn.
+

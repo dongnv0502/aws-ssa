@@ -1,0 +1,216 @@
+1
+00:00:00,300 --> 00:00:02,940
+Hãy nói về một số dịch vụ khác trong Systems Manager
+
+2
+00:00:02,940 --> 00:00:05,850
+đôi khi xuất hiện ở câu hỏi trong kỳ thi.
+
+3
+00:00:05,850 --> 00:00:08,370
+Nếu bạn không nắm hết chi tiết, hãy nhớ ý chính.
+
+4
+00:00:08,370 --> 00:00:09,960
+Đầu tiên là Run Command
+
+5
+00:00:09,960 --> 00:00:12,840
+dùng để thực thi một document (script hay một lệnh).
+
+6
+00:00:12,840 --> 00:00:14,910
+Các lệnh này được chạy trên nhiều instance
+
+7
+00:00:14,910 --> 00:00:16,770
+thông qua Resource Groups,
+
+8
+00:00:16,770 --> 00:00:19,080
+bao gồm EC2 instance hoặc máy chủ on‑premises
+
+9
+00:00:19,080 --> 00:00:22,290
+đã đăng ký với Systems Manager (có SSM Agent).
+
+10
+00:00:22,290 --> 00:00:23,280
+Khi chạy Run Command,
+
+11
+00:00:23,280 --> 00:00:27,720
+không cần SSH — cơ chế tương tự Session Manager:
+
+12
+00:00:27,720 --> 00:00:30,600
+lệnh được thực thi qua agent.
+
+13
+00:00:30,600 --> 00:00:33,060
+Output có thể gửi về S3 hoặc CloudWatch Logs.
+
+14
+00:00:33,060 --> 00:00:35,970
+Trạng thái lỗi/thành công/đang chạy có thể gửi tới SNS.
+
+15
+00:00:35,970 --> 00:00:37,950
+Tích hợp IAM (bảo mật) và CloudTrail
+
+16
+00:00:37,950 --> 00:00:39,870
+để biết ai chạy lệnh gì.
+
+17
+00:00:39,870 --> 00:00:42,330
+Có thể tự động hóa: EventBridge có thể kích hoạt Run Command.
+
+18
+00:00:42,330 --> 00:00:45,120
+Tổng quan: EC2/on‑prem server có SSM Agent;
+
+19
+00:00:45,120 --> 00:00:48,030
+chạy lệnh bằng Run Command (trong Session Manager),
+
+20
+00:00:48,030 --> 00:00:51,900
+output đẩy về S3/CloudWatch Logs; kích hoạt thủ công
+
+21
+00:00:51,900 --> 00:00:53,520
+hoặc tự động bằng EventBridge.
+
+22
+00:00:53,520 --> 00:00:56,220
+Tiếp theo là Patch Manager: tự động hoá
+
+23
+00:00:56,220 --> 00:00:59,130
+quy trình vá (patch) cho managed instance.
+
+24
+00:00:59,130 --> 00:01:01,920
+Dùng để áp cập nhật hệ điều hành, ứng dụng, bảo mật
+
+25
+00:01:01,920 --> 00:01:04,860
+cho EC2 và máy chủ on‑prem; hỗ trợ Linux/Mac/Windows.
+
+26
+00:01:04,860 --> 00:01:07,200
+Có thể patch on‑demand hoặc theo lịch
+
+27
+00:01:07,200 --> 00:01:10,890
+thông qua Maintenance Window.
+
+28
+00:01:10,890 --> 00:01:14,430
+Patch Manager cho phép scan và tạo báo cáo tuân thủ (compliance)
+
+29
+00:01:14,430 --> 00:01:16,980
+xem instance nào còn thiếu bản vá.
+
+30
+00:01:16,980 --> 00:01:20,250
+Từ Console/SDK/Maintenance Window, gọi Patch Manager
+
+31
+00:01:20,250 --> 00:01:23,310
+qua Run Command tên AWS-RunPatchBaseline
+
+32
+00:01:23,310 --> 00:01:26,310
+để vá EC2 và xem báo cáo trong Patch Manager.
+
+33
+00:01:26,310 --> 00:01:29,640
+Deep dive Maintenance Windows: định nghĩa lịch
+
+34
+00:01:29,640 --> 00:01:32,280
+thực hiện tác vụ trên instance (OS patch, update driver,
+
+35
+00:01:32,280 --> 00:01:34,593
+cài phần mềm, v.v.).
+
+36
+00:01:35,610 --> 00:01:37,260
+Bạn cấu hình: lịch chạy khi nào,
+
+37
+00:01:37,260 --> 00:01:39,240
+thời lượng bao lâu, áp cho instance nào,
+
+38
+00:01:39,240 --> 00:01:40,980
+và chạy những tác vụ gì.
+
+39
+00:01:40,980 --> 00:01:43,140
+Ví dụ: mỗi 24 giờ, chạy lệnh cập nhật/patch EC2.
+
+40
+00:01:43,140 --> 00:01:46,350
+Bạn có thể linh hoạt sáng tạo thêm.
+
+41
+00:01:46,350 --> 00:01:49,070
+Tiếp theo là Automation: đơn giản hóa các tác vụ
+
+42
+00:01:49,070 --> 00:01:52,050
+bảo trì và triển khai thường gặp trên EC2
+
+43
+00:01:52,050 --> 00:01:55,350
+hoặc tài nguyên AWS khác (restart nhiều instance,
+
+44
+00:01:55,350 --> 00:01:58,650
+tạo AMI, tạo EBS snapshot, v.v.).
+
+45
+00:01:58,650 --> 00:02:01,200
+Bạn dùng Automation Runbook (SSM Document)
+
+46
+00:02:01,200 --> 00:02:04,170
+chứa các hành động định nghĩa sẵn trên EC2/tài nguyên AWS.
+
+47
+00:02:04,170 --> 00:02:06,900
+SSM Automation dùng các runbook này để thực thi
+
+48
+00:02:06,900 --> 00:02:11,520
+hành động trên EC2 (ví dụ restart hàng loạt) hoặc tài nguyên khác
+
+49
+00:02:11,520 --> 00:02:13,170
+(ví dụ snapshot toàn bộ RDS).
+
+50
+00:02:13,170 --> 00:02:18,170
+Kích hoạt qua Console/SDK/CLI, EventBridge, Maintenance Windows,
+
+51
+00:02:18,959 --> 00:02:21,540
+hoặc AWS Config. Khi Config phát hiện
+
+52
+00:02:21,540 --> 00:02:23,700
+tài nguyên không tuân thủ, có thể tự động
+
+53
+00:02:23,700 --> 00:02:26,730
+gọi SSM Automation để khắc phục.
+
+54
+00:02:26,730 --> 00:02:29,310
+Vậy là xong bài này, hẹn gặp bạn ở bài tiếp theo.
+

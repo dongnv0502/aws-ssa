@@ -1,0 +1,300 @@
+1
+00:00:00,000 --> 00:00:00,870
+Hãy xem các tuỳ chọn
+
+2
+00:00:00,870 --> 00:00:02,220
+được cung cấp bởi AWS Database Migration Service (DMS).
+
+3
+00:00:02,220 --> 00:00:06,540
+Chúng ta sẽ bắt đầu và chọn loại migration phù hợp.
+
+4
+00:00:06,540 --> 00:00:08,250
+Đầu tiên là Discover & Assess
+
+5
+00:00:08,250 --> 00:00:09,930
+với AWS DMS Fleet Advisor
+
+6
+00:00:09,930 --> 00:00:13,290
+để kiểm kê các database on-premises của bạn
+
+7
+00:00:13,290 --> 00:00:16,470
+và xác định lộ trình migration phù hợp.
+
+8
+00:00:16,470 --> 00:00:20,010
+Công cụ này trả kết quả trong vài giờ, tiết kiệm
+
+9
+00:00:20,010 --> 00:00:22,290
+nhiều thời gian lập kế hoạch mà không cần
+
+10
+00:00:22,290 --> 00:00:24,810
+dùng công cụ bên thứ ba hoặc thuê chuyên gia.
+
+11
+00:00:24,810 --> 00:00:28,050
+Tuỳ chọn thứ hai là Convert với DMS Schema Conversion Tool
+
+12
+00:00:28,050 --> 00:00:30,870
+để chuyển đổi database schema
+
+13
+00:00:30,870 --> 00:00:34,680
+giữa các công nghệ database khác nhau.
+
+14
+00:00:34,680 --> 00:00:37,020
+Tiếp theo là Migration Options
+
+15
+00:00:37,020 --> 00:00:38,940
+— phần thực hiện migrate dữ liệu.
+
+16
+00:00:38,940 --> 00:01:00,690
+Có các kiểu migration: Homogeneous (cùng loại, ví dụ Oracle → Oracle),
+
+17
+00:01:00,690 --> 00:01:04,050
+và Heterogeneous (khác loại, ví dụ Oracle → Aurora/PostgreSQL).
+
+18
+00:01:04,050 --> 00:01:07,320
+Bạn có thể dùng serverless replication
+
+19
+00:01:07,320 --> 00:01:10,290
+hoặc instance-based migration.
+
+20
+00:01:10,290 --> 00:01:13,770
+Khác biệt là instance-based có một EC2 instance
+
+21
+00:01:13,770 --> 00:01:15,600
+đứng phía sau để thực thi migration
+
+22
+00:01:15,600 --> 00:01:17,670
+(DMS quản lý instance và nhiệm vụ),
+
+23
+00:01:17,670 --> 00:01:20,640
+còn serverless thì bạn không quản lý tài nguyên,
+
+24
+00:01:20,640 --> 00:01:24,210
+nhưng không hỗ trợ mọi engine.
+
+25
+00:01:24,210 --> 00:01:28,110
+Hãy thử serverless nếu công nghệ của bạn được hỗ trợ;
+
+26
+00:01:28,110 --> 00:01:30,450
+nếu không, dùng instance-based.
+
+27
+00:01:30,450 --> 00:01:34,440
+Tôi sẽ minh hoạ instance-based: tạo replication instance
+
+28
+00:01:34,440 --> 00:01:37,350
+và xem qua các tuỳ chọn cấu hình.
+
+29
+00:01:37,350 --> 00:01:40,050
+Đặt tên, mô tả, và cấu hình kích thước
+
+30
+00:01:40,050 --> 00:01:40,980
+tuỳ lượng dữ liệu truyền tải.
+
+31
+00:01:40,980 --> 00:01:43,560
+Có nhiều loại từ t3.micro
+
+32
+00:01:43,560 --> 00:01:45,060
+đến các instance rất lớn.
+
+33
+00:01:45,060 --> 00:01:48,810
+Chọn phiên bản DMS, xem release notes
+
+34
+00:01:48,810 --> 00:01:51,360
+để biết cập nhật theo từng phiên bản engine.
+
+35
+00:01:51,360 --> 00:01:54,780
+Chọn High Availability: nếu workload production,
+
+36
+00:01:54,780 --> 00:01:56,790
+nên dùng Multi-AZ để dự phòng.
+
+37
+00:01:56,790 --> 00:01:58,740
+Nếu chỉ dev/test đơn giản,
+
+38
+00:01:58,740 --> 00:02:03,300
+Single-AZ có thể đủ (và tránh cảnh báo cấu hình).
+
+39
+00:02:03,300 --> 00:02:05,070
+Cấu hình dung lượng storage
+
+40
+00:02:05,070 --> 00:02:07,740
+cho EC2 instance, network & security:
+
+41
+00:02:07,740 --> 00:02:11,310
+VPC, subnet group, IP, Publicly accessible hay không.
+
+42
+00:02:11,310 --> 00:02:14,430
+Có thêm Advanced settings và Maintenance window.
+
+43
+00:02:14,430 --> 00:02:17,310
+Xong thì Create replication instance (tôi không tạo
+
+44
+00:02:17,310 --> 00:02:20,280
+để tránh phát sinh chi phí — chỉ minh hoạ tuỳ chọn).
+
+45
+00:02:20,280 --> 00:02:21,840
+Tiếp theo là Endpoints:
+
+46
+00:02:21,840 --> 00:02:23,610
+định nghĩa vị trí các database.
+
+47
+00:02:23,610 --> 00:02:25,320
+Tạo endpoint cho nguồn (source)
+
+48
+00:02:25,320 --> 00:02:26,910
+hoặc đích (target).
+
+49
+00:02:26,910 --> 00:02:30,270
+Nếu database ở RDS, có trình chọn nhanh.
+
+50
+00:02:30,270 --> 00:02:33,600
+Nếu không, đặt endpoint identifier, chọn engine nguồn
+
+51
+00:02:33,600 --> 00:02:37,890
+hoặc đích từ danh sách hỗ trợ.
+
+52
+00:02:37,890 --> 00:02:40,230
+Chọn Endpoint settings: dùng Wizard
+
+53
+00:02:40,230 --> 00:02:44,370
+hoặc nhập JSON trực tiếp (các tham số kết nối cụ thể
+
+54
+00:02:44,370 --> 00:02:46,500
+tuỳ từng database, nên tôi không đi sâu).
+
+55
+00:02:46,500 --> 00:02:48,360
+Có thể Test connection
+
+56
+00:02:48,360 --> 00:02:50,400
+từ replication instance đã chọn.
+
+57
+00:02:50,400 --> 00:02:52,890
+Khi đã có source và target,
+
+58
+00:02:52,890 --> 00:02:54,570
+vào Database migration tasks.
+
+59
+00:02:54,570 --> 00:02:57,450
+Tạo task, chọn replication instance,
+
+60
+00:02:57,450 --> 00:05:12,360
+chọn endpoint nguồn/đích, và kiểu migration:
+
+61
+00:05:12,360 --> 00:05:15,270
+- Migrate existing data;
+
+62
+00:05:15,270 --> 00:05:17,340
+- Migrate existing data và replicate thay đổi liên tục;
+
+63
+00:05:17,340 --> 00:05:20,730
+- Chỉ replicate thay đổi dữ liệu.
+
+64
+00:05:20,730 --> 00:05:24,150
+Cấu hình bằng Wizard hoặc JSON (rất nhiều tham số),
+
+65
+00:05:24,150 --> 00:05:26,010
+đánh giá (assessment), rồi tạo task.
+
+66
+00:05:26,010 --> 00:05:27,570
+Tóm tắt quy trình:
+
+67
+00:05:27,570 --> 00:05:29,970
+Tạo replication instance → endpoints → tasks.
+
+68
+00:05:29,970 --> 00:05:33,660
+DMS đang tiến tới serverless replication:
+
+69
+00:05:33,660 --> 00:05:36,510
+replicate trực tiếp giữa databases, không cần
+
+70
+00:05:36,510 --> 00:05:38,370
+quản lý replication instance.
+
+71
+00:05:38,370 --> 00:05:42,030
+Ngoài ra có Schema Conversion, Fleet Advisor,
+
+72
+00:05:42,030 --> 00:05:44,460
+và homogeneous migrations tận dụng công cụ
+
+73
+00:05:44,460 --> 00:05:46,920
+bản địa của database để tăng tốc.
+
+74
+00:05:46,920 --> 00:05:51,450
+Vậy là xong phần tổng quan DMS — đủ cho kỳ thi.
+
+75
+00:05:51,450 --> 00:05:53,880
+Hẹn gặp bạn ở bài giảng tiếp theo.
+

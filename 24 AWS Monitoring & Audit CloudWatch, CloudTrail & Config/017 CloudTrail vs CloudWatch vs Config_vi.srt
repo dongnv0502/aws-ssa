@@ -1,0 +1,52 @@
+1
+00:00:00,100 --> 00:00:02,070
+Phân biệt CloudWatch vs CloudTrail vs Config (đề thường hỏi).
+
+2
+00:00:02,070 --> 00:00:05,720
+- CloudWatch: metrics (hiệu năng CPU/Network…), dashboards, events/alerts,
+
+3
+00:00:05,720 --> 00:00:07,680
+  log aggregation & analysis (Logs/Insights).
+
+4
+00:00:07,680 --> 00:00:10,300
+- CloudTrail: ghi API calls/hoạt động trong tài khoản (Console/SDK/CLI/
+
+5
+00:00:10,300 --> 00:00:11,650
+  services), tạo Trails theo region/toàn cục.
+
+6
+00:00:11,650 --> 00:00:14,230
+- Config: ghi thay đổi cấu hình, đánh giá tuân thủ theo rules,
+
+7
+00:00:14,230 --> 00:00:15,670
+  hiển thị timeline và compliance.
+
+8
+00:00:15,670 --> 00:00:17,050
+Ví dụ với ELB:
+
+9
+00:00:17,050 --> 00:00:20,250
+- CloudWatch: số kết nối vào, tỉ lệ lỗi theo thời gian, dashboard hiệu năng.
+
+10
+00:00:20,250 --> 00:00:22,120
+- Config: theo dõi rule SG của ELB, thay đổi cấu hình
+
+11
+00:00:22,120 --> 00:00:25,410
+  (ví dụ chứng chỉ SSL phải luôn tồn tại, cấm traffic không mã hoá).
+
+12
+00:00:25,410 --> 00:00:28,740
+- CloudTrail: ai đã đổi SG/SSL hay cấu hình nào của ELB (API call nào).
+
+13
+00:00:28,740 --> 00:00:31,070
+Các dịch vụ bổ trợ cho nhau; hiểu đúng use case sẽ “ăn điểm”.
+

@@ -1,0 +1,88 @@
+1
+00:00:00,510 --> 00:00:01,920
+Tổng hợp các cách bảo vệ mạng trên AWS đã học:
+
+2
+00:00:01,920 --> 00:00:03,690
+- Network ACLs, Security Groups;
+
+3
+00:00:03,690 --> 00:00:06,210
+- AWS WAF (chặn request độc hại ở HTTP cho các dịch vụ hỗ trợ);
+
+4
+00:00:06,210 --> 00:00:08,880
+- AWS Shield/Shield Advanced (chống DDoS);
+
+5
+00:00:08,880 --> 00:00:11,730
+- AWS Firewall Manager (quản trị tập trung WAF/Shield nhiều account).
+
+6
+00:00:11,730 --> 00:00:13,010
+Nếu muốn bảo vệ cả VPC ở mức cao hơn?
+
+7
+00:00:13,010 --> 00:00:16,680
+Giới thiệu AWS Network Firewall: tường lửa cho toàn bộ VPC.
+
+8
+00:00:16,680 --> 00:00:18,900
+Bảo vệ từ Layer 3 đến Layer 7, kiểm tra lưu lượng:
+
+9
+00:00:18,900 --> 00:00:21,270
+- VPC↔VPC; Outbound/Inbound Internet;
+
+10
+00:00:21,270 --> 00:00:22,890
+- Direct Connect; Site‑to‑Site VPN.
+
+11
+00:00:22,890 --> 00:00:25,110
+Bạn định nghĩa rule và kiểm soát traffic qua VPC.
+
+12
+00:00:25,110 --> 00:00:28,950
+Bên trong, dịch vụ dùng AWS Gateway Load Balancer; thay vì
+
+13
+00:00:28,950 --> 00:00:31,170
+tự dựng appliance bên thứ ba, AWS vận hành giúp.
+
+14
+00:00:31,170 --> 00:00:33,420
+Rule có thể quản trị tập trung qua Firewall Manager
+
+15
+00:00:33,420 --> 00:00:36,060
+cho nhiều account/nhiều VPC.
+
+16
+00:00:36,060 --> 00:00:38,040
+Khả năng kiểm soát chi tiết:
+
+17
+00:00:38,040 --> 00:00:41,850
+- Hàng nghìn rule ở cấp VPC; lọc theo IP/Port (hàng chục nghìn IP);
+
+18
+00:00:41,850 --> 00:00:45,120
+- Lọc theo Protocol (ví dụ chặn SMB outbound);
+
+19
+00:00:45,120 --> 00:00:46,620
+- Lọc theo Domain (chỉ cho phép đến domain nội bộ,
+
+20
+00:00:46,620 --> 00:00:49,230
+  repo bên thứ ba được phê duyệt);
+
+21
+00:00:49,230 --> 00:00:52,200
+- Pattern matching (regex); hành động Allow/Drop/Alert;
+
+22
+00:00:52,200 --> 00:00:55,320
+- Active flow inspection (Intrusion Prevention – IPS).
+

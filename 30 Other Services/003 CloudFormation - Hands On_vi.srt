@@ -1,0 +1,200 @@
+1
+00:00:00,180 --> 00:00:01,830
+Tôi sẽ giới thiệu nhanh CloudFormation
+
+2
+00:00:01,830 --> 00:00:04,170
+để bạn nắm cách hoạt động tổng quan.
+
+3
+00:00:04,170 --> 00:00:06,060
+Tạo một stack — lưu ý chuyển Region về
+
+4
+00:00:06,060 --> 00:00:09,120
+US East (N. Virginia) – us‑east‑1, vì template chỉ chạy ở đó.
+
+5
+00:00:09,120 --> 00:00:10,170
+Tôi sẽ giải thích lý do ngay sau.
+
+6
+00:00:10,170 --> 00:00:13,320
+Chọn Create stack và chuẩn bị template.
+
+7
+00:00:13,320 --> 00:00:15,840
+Có thể dùng template có sẵn, sample, hoặc Application Composer;
+
+8
+00:00:15,840 --> 00:00:17,760
+ở đây upload template file.
+
+9
+00:00:17,760 --> 00:00:18,870
+Trong mã nguồn khoá học, thư mục CloudFormation
+
+10
+00:00:18,870 --> 00:00:21,090
+có file 0-just-EC2.yaml — rất đơn giản:
+
+11
+00:00:21,090 --> 00:00:24,660
+Resources tạo một EC2 instance tên “MyInstance”,
+
+12
+00:00:24,660 --> 00:00:28,110
+Type: AWS::EC2::Instance, Properties gồm:
+
+13
+00:00:28,110 --> 00:00:30,900
+AvailabilityZone: us‑east‑1a (nên cần đúng region),
+
+14
+00:00:30,900 --> 00:00:34,320
+ImageId là một AMI cụ thể (AMI theo region), InstanceType: t2.micro.
+
+15
+00:00:34,320 --> 00:00:36,060
+Như vậy, file YAML định nghĩa cách launch EC2.
+
+16
+00:00:36,060 --> 00:00:38,610
+Upload file, có thể mở trong Application Composer
+
+17
+00:00:38,610 --> 00:00:40,470
+để xem trực quan (canvas, YAML/JSON switch).
+
+18
+00:00:40,470 --> 00:00:42,090
+Quay lại tạo stack, đặt tên (ví dụ DemoCFN),
+
+19
+00:00:42,090 --> 00:00:44,640
+template này không có Parameters nên bỏ qua.
+
+20
+00:00:44,640 --> 00:00:47,490
+Thêm tag thử: Name=CFDemo để minh hoạ.
+
+21
+00:00:47,490 --> 00:00:49,470
+Next → Review → Submit.
+
+22
+00:00:49,470 --> 00:00:52,260
+Stack tạo Events rất nhanh và tạo EC2 instance.
+
+23
+00:00:52,260 --> 00:00:53,580
+Đúng nghĩa “Infrastructure as Code”.
+
+24
+00:00:53,580 --> 00:00:56,310
+Trong EC2 console, xác nhận instance đang chạy,
+
+25
+00:00:56,310 --> 00:00:57,900
+loại t2.micro, AMI đúng như template.
+
+26
+00:00:57,900 --> 00:00:59,790
+Xem thẻ (Tags): CloudFormation tự gắn các tag
+
+27
+00:00:59,790 --> 00:01:01,470
+(StackName, LogicalID, StackID)
+
+28
+00:01:01,470 --> 00:01:03,990
+và cả tag CFDemo do ta chỉ định.
+
+29
+00:01:03,990 --> 00:01:06,450
+Giờ cập nhật stack với file nhiều thành phần hơn:
+
+30
+00:01:06,450 --> 00:01:09,330
+1-ec2-with-sg-eip.yaml.
+
+31
+00:01:09,330 --> 00:01:10,530
+Trong file này có Parameters
+
+32
+00:01:10,530 --> 00:01:13,200
+(mô tả Security Group), EC2 có nhiều thuộc tính hơn
+
+33
+00:01:13,200 --> 00:01:16,530
+(gắn 2 Security Group), một Elastic IP attach vào instance,
+
+34
+00:01:16,530 --> 00:01:19,140
+SG cho SSH (mở 22 từ IP cụ thể) và SG cho Server (mở 80 từ mọi nơi).
+
+35
+00:01:19,140 --> 00:01:22,020
+Áp template mới: nhập tham số (ví dụ mô tả SG), Next.
+
+36
+00:01:22,020 --> 00:01:24,570
+Xem Change Set: thấy tài nguyên mới (EIP, SGs)
+
+37
+00:01:24,570 --> 00:01:27,150
+và Instance sẽ bị “Replacement: true” (tạo instance mới).
+
+38
+00:01:27,150 --> 00:01:31,260
+Submit update: CloudFormation tạo SGs trước, rồi cập nhật EC2.
+
+39
+00:01:31,260 --> 00:01:35,210
+Trong EC2, thấy 2 instance (cũ và mới); instance mới sẽ chạy
+
+40
+00:01:35,210 --> 00:01:38,160
+rồi stack chuyển trạng thái UPDATE_COMPLETE; EIP được tạo/attach.
+
+41
+00:01:38,160 --> 00:01:41,700
+Ở tab Resources của stack, thấy toàn bộ tài nguyên được tạo.
+
+42
+00:01:41,700 --> 00:01:45,120
+Xem template trong Application Composer để thấy kiến trúc:
+
+43
+00:01:45,120 --> 00:01:48,200
+EC2 nối với EIP và 2 Security Group — rất trực quan.
+
+44
+00:01:48,200 --> 00:01:52,290
+Xoá tài nguyên: KHÔNG xoá thủ công trong console.
+
+45
+00:01:52,290 --> 00:01:54,750
+Hãy Update template hoặc Delete stack để CloudFormation
+
+46
+00:01:54,750 --> 00:01:57,780
+xoá đúng thứ tự các resource liên quan.
+
+47
+00:01:57,780 --> 00:02:00,960
+Kết luận: CloudFormation mạnh mẽ vì lập trình khai báo;
+
+48
+00:02:00,960 --> 00:02:03,960
+bạn nêu “muốn gì”, CFN lo “làm thế nào”. Kỹ năng
+
+49
+00:02:03,960 --> 00:02:07,260
+viết/đọc CloudFormation rất hữu ích trong AWS.
+
+50
+00:02:07,260 --> 00:02:09,840
+Hẹn gặp bạn ở bài tiếp theo.
+

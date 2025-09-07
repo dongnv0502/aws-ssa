@@ -1,0 +1,32 @@
+1
+00:00:02,630 --> 00:00:08,270
+Chào mừng bạn đến phần cuối của khóa học — chúng ta đã học hết phần kỹ thuật cần thiết.
+
+2
+00:00:08,270 --> 00:00:13,660
+Mình hy vọng đến lúc này bạn đã nắm rất nhiều dịch vụ AWS và cảm thấy tự tin về chúng.
+
+3
+00:00:13,700 --> 00:00:17,860
+Phần này sẽ tập trung hỗ trợ bạn vượt qua kỳ thi.
+
+4
+00:00:17,990 --> 00:00:20,240
+Mình sẽ chia sẻ một vài mẹo thực tế.
+
+5
+00:00:20,240 --> 00:00:21,740
+Và hướng dẫn bạn cách bài thi vận hành.
+
+6
+00:00:21,980 --> 00:00:26,710
+Cuối phần, bạn sẽ có một bài Practice Exam đầy đủ để tự đánh giá mức độ sẵn sàng.
+
+7
+00:00:27,200 --> 00:00:29,060
+Chúc bạn may mắn trong kỳ thi.
+
+8
+00:00:29,060 --> 00:00:29,690
+Hãy bắt đầu thôi.
+

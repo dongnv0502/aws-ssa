@@ -1,0 +1,80 @@
+1
+00:00:00,150 --> 00:00:02,820
+VPC Endpoint: truy cập dịch vụ AWS mà không qua Internet.
+
+2
+00:00:02,820 --> 00:00:05,380
+Hai loại chính:
+
+3
+00:00:05,380 --> 00:00:07,940
+- Interface Endpoint (AWS PrivateLink): tạo ENI (private IP)
+
+4
+00:00:07,940 --> 00:00:10,520
+  trong Subnet của bạn; SG kiểm soát truy cập; dùng cho SSM,
+
+5
+00:00:10,520 --> 00:00:12,900
+  API Gateway (PrivateLink), KMS, STS, nhiều dịch vụ khác.
+
+6
+00:00:12,900 --> 00:00:15,540
+- Gateway Endpoint: áp dụng cho S3 và DynamoDB;
+
+7
+00:00:15,540 --> 00:00:17,960
+  thêm đích đặc biệt vào Route Table (không tạo ENI).
+
+8
+00:00:17,960 --> 00:00:20,520
+Lợi ích:
+
+9
+00:00:20,520 --> 00:00:23,080
+- Không cần Internet Gateway/NAT/Firewall để ra dịch vụ AWS;
+
+10
+00:00:23,080 --> 00:00:25,520
+- Lưu lượng đi trong mạng AWS → bảo mật, tiết kiệm.
+
+11
+00:00:25,520 --> 00:00:27,980
+Interface Endpoint (PrivateLink):
+
+12
+00:00:27,980 --> 00:00:30,620
+- Triển khai per-subnet/AZ; có SG kiểm soát;
+
+13
+00:00:30,620 --> 00:00:33,260
+- Tên DNS riêng trỏ tới ENI endpoint;
+
+14
+00:00:33,260 --> 00:00:35,900
+- Truy cập dịch vụ của AWS hoặc dịch vụ riêng (NLB, SaaS).
+
+15
+00:00:35,900 --> 00:00:38,500
+Gateway Endpoint (S3/DynamoDB):
+
+16
+00:00:38,500 --> 00:00:41,020
+- Thêm route đặc biệt vào Route Table của Private Subnet;
+
+17
+00:00:41,020 --> 00:00:43,720
+- Có thể gắn Endpoint Policy để giới hạn bucket/table.
+
+18
+00:00:43,720 --> 00:00:46,200
+Ghi nhớ cho kỳ thi:
+
+19
+00:00:46,200 --> 00:00:48,660
+- S3/DynamoDB → Gateway Endpoint;
+
+20
+00:00:48,660 --> 00:00:51,160
+- Dịch vụ khác/PrivateLink/SaaS → Interface Endpoint.
+

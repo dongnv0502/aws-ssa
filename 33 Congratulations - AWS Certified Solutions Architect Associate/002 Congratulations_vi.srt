@@ -1,0 +1,140 @@
+1
+00:00:00,450 --> 00:00:02,190
+Xin chào, mình là Stephane Maarek
+
+2
+00:00:02,190 --> 00:00:05,250
+và mình muốn chúc mừng bạn đã hoàn thành khóa học.
+
+3
+00:00:05,250 --> 00:00:06,750
+Mình thật sự hy vọng bạn thích khóa học,
+
+4
+00:00:06,750 --> 00:00:09,660
+và chúc bạn vượt qua kỳ thi thật suôn sẻ.
+
+5
+00:00:09,660 --> 00:00:12,660
+Nếu chưa làm, mình rất mong nhận được đánh giá từ bạn.
+
+6
+00:00:12,660 --> 00:00:15,660
+Đánh giá giúp học viên tương lai đưa ra quyết định đúng đắn
+
+7
+00:00:15,660 --> 00:00:18,780
+và giúp khóa học của mình có thêm hiển thị.
+
+8
+00:00:18,780 --> 00:00:21,660
+Nếu bạn thấy hữu ích, hãy để lại vài lời nhận xét nhé.
+
+9
+00:00:21,660 --> 00:00:23,430
+Điều đó thực sự giúp mình rất nhiều.
+
+10
+00:00:23,430 --> 00:00:26,040
+Nếu chưa biết cách để lại đánh giá, rất đơn giản:
+
+11
+00:00:26,040 --> 00:00:27,900
+Cuối khóa sẽ hiện một cửa sổ popup
+
+12
+00:00:27,900 --> 00:00:29,190
+hỏi bạn chấm sao (5 là cao nhất),
+
+13
+00:00:29,190 --> 00:00:31,050
+bạn có thể viết nhận xét nếu muốn
+
+14
+00:00:31,050 --> 00:00:33,090
+và trả lời một vài câu hỏi tùy chọn.
+
+15
+00:00:33,090 --> 00:00:36,660
+Khi sẵn sàng, chỉ cần lưu và thoát.
+
+16
+00:00:36,660 --> 00:00:39,120
+Nếu không thấy popup hiện lên,
+
+17
+00:00:39,120 --> 00:00:41,130
+bạn có thể vào góc phải trên của trang khóa học
+
+18
+00:00:41,130 --> 00:00:42,840
+trên udemy.com để thêm/sửa/xóa đánh giá
+
+19
+00:00:42,840 --> 00:00:45,960
+và nhận cùng một lời nhắc tương tự.
+
+20
+00:00:45,960 --> 00:00:48,630
+Khi sẵn sàng, chỉ cần lưu và thoát.
+
+21
+00:00:48,630 --> 00:00:50,640
+Ngoài ra, nếu bạn đã đỗ kỳ thi,
+
+22
+00:00:50,640 --> 00:00:52,560
+mình sẽ rất vui nếu được biết.
+
+23
+00:00:52,560 --> 00:00:54,060
+Hãy đăng vào mục Hỏi & Đáp để động viên
+
+24
+00:00:54,060 --> 00:00:57,450
+các học viên khác, hoặc đăng lên LinkedIn kèm chứng chỉ,
+
+25
+00:00:57,450 --> 00:00:59,910
+tag mình, và mình sẽ cố gắng phản hồi chúc mừng bạn
+
+26
+00:00:59,910 --> 00:01:03,300
+nhanh nhất có thể, vì đó là một thành tựu lớn.
+
+27
+00:01:03,300 --> 00:01:04,560
+Mong rằng bạn thu được rất nhiều
+
+28
+00:01:04,560 --> 00:01:06,840
+từ khóa học này,
+
+29
+00:01:06,840 --> 00:01:09,360
+và hiểu biết về AWS của bạn đã tiến bộ đáng kể.
+
+30
+00:01:09,360 --> 00:01:11,040
+Với mình, đó là điều quan trọng nhất.
+
+31
+00:01:11,040 --> 00:01:13,230
+Nếu muốn luyện thêm, ở bài giảng tiếp theo
+
+32
+00:01:13,230 --> 00:01:16,290
+(Bonus Lecture) bạn sẽ thấy link các đề luyện tập
+
+33
+00:01:16,290 --> 00:01:19,050
+và các khóa học khác của mình kèm mã giảm giá.
+
+34
+00:01:19,050 --> 00:01:20,130
+Vậy nhé.
+
+35
+00:01:20,130 --> 00:01:23,490
+Hy vọng bạn thích khóa học, và hẹn gặp lại ở khóa tiếp theo.
+

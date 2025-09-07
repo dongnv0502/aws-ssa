@@ -1,0 +1,36 @@
+1
+00:00:00,080 --> 00:00:02,410
+Giới thiệu Amazon Textract.
+
+2
+00:00:02,410 --> 00:00:04,810
+Trích xuất text/chữ viết tay/dữ liệu từ tài liệu scan
+
+3
+00:00:04,810 --> 00:00:06,380
+bằng AI/ML.
+
+4
+00:00:06,380 --> 00:00:08,070
+Ví dụ: giấy phép lái xe → phân tích tự động,
+
+5
+00:00:08,070 --> 00:00:09,870
+trả về ngày sinh, số giấy tờ…
+
+6
+00:00:09,870 --> 00:00:11,180
+Hỗ trợ form/table, đọc PDF/ảnh.
+
+7
+00:00:11,180 --> 00:00:14,660
+Use case: tài chính (hóa đơn/báo cáo), y tế (hồ sơ/claim),
+
+8
+00:00:14,660 --> 00:00:16,980
+khu vực công (mẫu thuế/ID/passport).
+
+9
+00:00:16,980 --> 00:00:19,570
+Hẹn gặp lại ở bài tiếp theo.
+

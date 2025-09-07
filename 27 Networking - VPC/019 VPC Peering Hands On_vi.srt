@@ -1,0 +1,64 @@
+1
+00:00:00,140 --> 00:00:02,740
+Thực hành: tạo VPC Peering và cập nhật định tuyến.
+
+2
+00:00:02,740 --> 00:00:05,640
+1) Tạo hai VPC với CIDR không trùng nhau.
+
+3
+00:00:05,640 --> 00:00:08,060
+2) Tạo VPC Peering (pcx-...) giữa hai VPC
+
+4
+00:00:08,060 --> 00:00:10,600
+   (cùng/tách tài khoản; cùng/khác Region tùy chọn).
+
+5
+00:00:10,600 --> 00:00:12,980
+3) Chấp nhận (Accept) yêu cầu peering ở phía bên kia.
+
+6
+00:00:12,980 --> 00:00:15,560
+4) Cập nhật Route Table của VPC-A:
+
+7
+00:00:15,560 --> 00:00:18,080
+   thêm route tới CIDR của VPC-B → target = Peering.
+
+8
+00:00:18,080 --> 00:00:20,520
+5) Cập nhật Route Table của VPC-B tương tự
+
+9
+00:00:20,520 --> 00:00:22,120
+   tới CIDR của VPC-A.
+
+10
+00:00:22,120 --> 00:00:24,760
+6) Kiểm thử: EC2 ở VPC-A ping/curl Private IP của EC2
+
+11
+00:00:24,760 --> 00:00:26,520
+   ở VPC-B (SG/NACL phải cho phép).
+
+12
+00:00:26,520 --> 00:00:28,840
+Lưu ý quan trọng:
+
+13
+00:00:28,840 --> 00:00:31,400
+- Không có “transitive” (A↔B, B↔C ≠ A↔C);
+
+14
+00:00:31,400 --> 00:00:33,760
+- Không edge-to-edge qua VPN/Direct Connect;
+
+15
+00:00:33,760 --> 00:00:36,440
+- Cần chỉnh cả hai Route Table để thông.
+
+16
+00:00:36,440 --> 00:00:38,920
+Mẹo: đặt tên route table/subnet rõ ràng để tránh nhầm.
+

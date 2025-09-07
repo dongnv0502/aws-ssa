@@ -1,0 +1,68 @@
+1
+00:00:00,000 --> 00:00:00,833
+Ta đã nói nhiều về IPv4; giờ là IPv6.
+
+2
+00:00:00,833 --> 00:00:02,100
+Vì sao? IPv4 chỉ có ~4.3 tỷ địa chỉ
+
+3
+00:00:02,100 --> 00:00:03,960
+và sớm cạn kiệt.
+
+4
+00:00:03,960 --> 00:00:04,793
+IPv6 kế thừa IPv4
+
+5
+00:00:04,793 --> 00:00:06,150
+với 3.4 × 10^38 địa chỉ — gần như vô hạn.
+
+6
+00:00:06,150 --> 00:00:10,140
+Trên AWS, địa chỉ IPv6 là public và có thể định tuyến Internet.
+
+7
+00:00:10,140 --> 00:00:13,050
+Định dạng gồm 8 nhóm hex (0000…ffff) phân tách bằng dấu hai chấm.
+
+8
+00:00:13,050 --> 00:00:15,060
+Bạn không cần nhớ chi tiết, chỉ cần nhận diện IPv6.
+
+9
+00:00:15,060 --> 00:00:16,950
+Có thể bật hỗ trợ IPv6 cho VPC/Subnet.
+
+10
+00:00:16,950 --> 00:00:18,120
+Lưu ý: IPv4 không thể tắt;
+
+11
+00:00:18,120 --> 00:00:20,700
+bật thêm IPv6 (public) khi cần.
+
+12
+00:00:20,700 --> 00:00:24,150
+EC2 sẽ có IPv4 private và IPv6 public; truy cập Internet
+
+13
+00:00:24,150 --> 00:00:27,480
+qua Internet Gateway (hỗ trợ cả IPv4/IPv6).
+
+14
+00:00:27,480 --> 00:00:32,340
+Ví dụ: EC2 có IPv6 → truy cập Internet qua IGW; EC2 sẽ public‑reachable.
+
+15
+00:00:32,340 --> 00:00:35,040
+Tình huống thi: VPC đã bật IPv6 nhưng không launch được EC2.
+
+16
+00:00:35,040 --> 00:00:39,780
+Không phải thiếu IPv6 (không gian cực lớn) mà do hết IPv4 trong Subnet.
+
+17
+00:00:39,780 --> 00:00:41,820
+Giải pháp: cấp thêm IPv4 CIDR cho Subnet.
+

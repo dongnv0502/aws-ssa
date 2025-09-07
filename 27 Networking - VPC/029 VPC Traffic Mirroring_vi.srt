@@ -1,0 +1,88 @@
+1
+00:00:00,350 --> 00:00:02,870
+Đây là một tính năng bảo mật rất hay: VPC Traffic Mirroring.
+
+2
+00:00:02,870 --> 00:00:05,120
+Mục tiêu: thu thập/giám sát lưu lượng mạng trong VPC
+
+3
+00:00:05,120 --> 00:00:06,810
+theo cách “không xâm lấn” (non‑intrusive).
+
+4
+00:00:06,810 --> 00:00:09,280
+Ta sẽ sao chép traffic đến các security appliance do mình quản lý.
+
+5
+00:00:09,280 --> 00:00:12,160
+Định nghĩa nguồn (source ENI) cần mirror
+
+6
+00:00:12,160 --> 00:00:14,540
+và đích (target) gửi bản sao đến (ENI khác hoặc NLB).
+
+7
+00:00:14,540 --> 00:00:16,940
+Ví dụ: một EC2 có ENI, lưu lượng in/out qua ENI.
+
+8
+00:00:16,940 --> 00:00:18,700
+Ta đặt một Network Load Balancer phía sau
+
+9
+00:00:18,700 --> 00:00:19,920
+nhóm Auto Scaling các EC2
+
+10
+00:00:19,920 --> 00:00:21,610
+chạy phần mềm phân tích bảo mật.
+
+11
+00:00:21,610 --> 00:00:23,590
+Thiết lập Traffic Mirroring (có thể thêm filter)
+
+12
+00:00:23,590 --> 00:00:24,570
+để copy lưu lượng từ ENI nguồn
+
+13
+00:00:24,570 --> 00:00:27,280
+đến NLB, không làm gián đoạn nguồn.
+
+14
+00:00:27,280 --> 00:00:29,980
+EC2 nguồn vẫn hoạt động bình thường; traffic đồng thời
+
+15
+00:00:29,980 --> 00:00:30,813
+được mirror sang NLB để phân tích.
+
+16
+00:00:30,813 --> 00:00:32,840
+Có thể mirror từ nhiều nguồn (nhiều ENI) vào cùng NLB.
+
+17
+00:00:32,840 --> 00:00:34,610
+Yêu cầu: source và target cùng VPC,
+
+18
+00:00:34,610 --> 00:00:36,210
+hoặc khác VPC nhưng đã peering phù hợp.
+
+19
+00:00:36,210 --> 00:00:37,280
+Use case: content inspection,
+
+20
+00:00:37,280 --> 00:00:39,380
+threat monitoring, troubleshooting mạng, v.v.
+
+21
+00:00:39,380 --> 00:00:40,450
+Khó demo trực tiếp, nhưng sơ đồ này
+
+22
+00:00:40,450 --> 00:00:43,100
+đủ để bạn nắm ý tưởng. Hẹn gặp ở bài sau.
+

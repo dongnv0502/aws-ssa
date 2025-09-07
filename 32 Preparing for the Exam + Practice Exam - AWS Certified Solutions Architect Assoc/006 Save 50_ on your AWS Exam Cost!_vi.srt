@@ -1,0 +1,72 @@
+1
+00:00:00,090 --> 00:00:01,680
+Mình chia sẻ mẹo giúp bạn giảm 50% phí thi AWS
+
+2
+00:00:01,680 --> 00:00:05,640
+nếu trước đó bạn đã thi đậu một chứng chỉ AWS.
+
+3
+00:00:05,640 --> 00:00:08,340
+Ngay khi vượt qua kỳ thi, bạn sẽ nhận “token”
+
+4
+00:00:08,340 --> 00:00:12,450
+cho phép giảm 50% cho kỳ thi kế tiếp.
+
+5
+00:00:12,450 --> 00:00:14,670
+Các token chưa dùng (unclaimed) sẽ hiển thị là Unclaimed
+
+6
+00:00:14,670 --> 00:00:17,310
+và có ngày hết hạn.
+
+7
+00:00:17,310 --> 00:00:20,640
+Để sử dụng, nhấn “Claim Benefits”.
+
+8
+00:00:20,640 --> 00:00:22,170
+Sau khi claim, trạng thái là Claimed
+
+9
+00:00:22,170 --> 00:00:23,940
+và bạn nhận được một voucher code.
+
+10
+00:00:23,940 --> 00:00:26,100
+Sao chép code này — nó sẽ giảm 50%.
+
+11
+00:00:26,100 --> 00:00:28,710
+Cách áp dụng: khi tới trang thanh toán (cart),
+
+12
+00:00:28,710 --> 00:00:29,543
+nhấn Proceed to Checkout,
+
+13
+00:00:29,543 --> 00:00:31,440
+nhập thông tin thanh toán,
+
+14
+00:00:31,440 --> 00:00:33,510
+và điền voucher/promo code vào ô tương ứng.
+
+15
+00:00:33,510 --> 00:00:37,320
+Dán code vừa lấy và nhấn Apply.
+
+16
+00:00:37,320 --> 00:00:38,520
+Bạn sẽ thấy tổng chi phí được giảm.
+
+17
+00:00:38,520 --> 00:00:42,390
+Hy vọng mẹo này giúp bạn tiết kiệm đáng kể.
+
+18
+00:00:42,390 --> 00:00:43,890
+Hẹn gặp ở bài tiếp theo.
+

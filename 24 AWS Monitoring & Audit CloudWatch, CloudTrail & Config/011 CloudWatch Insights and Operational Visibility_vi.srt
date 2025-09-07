@@ -1,0 +1,96 @@
+1
+00:00:00,120 --> 00:00:03,120
+CloudWatch Insights & Operational Visibility.
+
+2
+00:00:03,120 --> 00:00:04,260
+1) Container Insights:
+
+3
+00:00:04,260 --> 00:00:08,070
+Thu thập/tổng hợp/tóm tắt metrics & logs từ containers (ECS, EKS,
+
+4
+00:00:08,070 --> 00:00:11,640
+Kubernetes trên EC2, Fargate). Trên Kubernetes, chạy agent dạng container
+
+5
+00:00:11,640 --> 00:00:14,970
+(CloudWatch agent) để tự khám phá container và gửi dữ liệu.
+
+6
+00:00:14,970 --> 00:00:16,980
+2) Lambda Insights:
+
+7
+00:00:16,980 --> 00:00:18,960
+Giám sát/khắc phục sự cố cho ứng dụng serverless (Lambda):
+
+8
+00:00:18,960 --> 00:00:22,650
+CPU time, memory, disk, network, cold starts, worker shutdown…
+
+9
+00:00:22,650 --> 00:00:25,650
+Cung cấp dưới dạng Lambda Layer; tạo dashboard chi tiết.
+
+10
+00:00:25,650 --> 00:00:29,580
+3) Contributor Insights:
+
+11
+00:00:29,580 --> 00:00:32,610
+Phân tích logs để tạo time series về “đóng góp” (top‑N, số lượng
+
+12
+00:00:32,610 --> 00:00:35,700
+unique contributor…). Dùng cho VPC Flow Logs/DNS Logs… tìm top talkers,
+
+13
+00:00:35,700 --> 00:00:38,490
+địa chỉ IP gây tải lớn hoặc URL nhiều lỗi.
+
+14
+00:00:38,490 --> 00:00:42,390
+Có thể dùng rule dựng sẵn của AWS hoặc tự viết; dựa trên CloudWatch Logs.
+
+15
+00:00:42,390 --> 00:00:43,410
+4) Application Insights:
+
+16
+00:00:43,410 --> 00:00:46,680
+Tự động tạo dashboard phát hiện vấn đề ứng dụng (EC2/Java/.NET/IIS/DB…)
+
+17
+00:00:46,680 --> 00:00:49,350
+liên kết các tài nguyên liên quan (EBS/RDS/ELB/ASG/Lambda/SQS/DynamoDB/S3/ECS/EKS/API GW).
+
+18
+00:00:49,350 --> 00:00:53,087
+Khi có sự cố, gợi ý nguyên nhân, tương quan chỉ số giữa tài nguyên; gửi cảnh báo
+
+19
+00:00:53,087 --> 00:00:57,480
+qua EventBridge/SSM OpsCenter để giảm MTTR.
+
+20
+00:00:57,480 --> 00:01:01,980
+Tóm tắt ghi nhớ:
+
+21
+00:01:01,980 --> 00:01:05,670
+- Container Insights: metrics/logs ECS/EKS/K8s/Fargate (cần agent trên K8s).
+
+22
+00:01:05,670 --> 00:01:08,970
+- Lambda Insights: chi tiết vận hành Lambda.
+
+23
+00:01:08,970 --> 00:01:12,540
+- Contributor Insights: top‑N/unique từ CloudWatch Logs.
+
+24
+00:01:12,540 --> 00:01:16,110
+- Application Insights: dashboard tự động cho ứng dụng + tài nguyên liên quan.
+

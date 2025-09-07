@@ -1,0 +1,64 @@
+1
+00:00:00,230 --> 00:00:01,380
+Phần này nói về các whitepaper
+
+2
+00:00:01,380 --> 00:00:03,520
+và một số tài liệu kiến trúc tham khảo.
+
+3
+00:00:03,520 --> 00:00:06,240
+Chúng không bắt buộc quá chặt cho kỳ thi,
+
+4
+00:00:06,240 --> 00:00:09,370
+nhưng bạn cần nắm khái quát về Well-Architected Framework,
+
+5
+00:00:09,370 --> 00:00:11,180
+Disaster Recovery và vài chủ đề khác.
+
+6
+00:00:11,180 --> 00:00:12,830
+Phần này sẽ bao quát các nội dung đó.
+
+7
+00:00:12,830 --> 00:00:15,270
+Ta sẽ xem whitepaper Well-Architected Framework
+
+8
+00:00:15,270 --> 00:00:17,460
+và Well-Architected Tool (cố gắng trình bày
+
+9
+00:00:17,460 --> 00:00:19,990
+đỡ khô khan nhất có thể), AWS Trusted Advisor,
+
+10
+00:00:19,990 --> 00:00:21,570
+một số nguồn kiến trúc tham khảo
+
+11
+00:00:21,570 --> 00:00:23,010
+(rất hữu ích cho thực tế),
+
+12
+00:00:23,010 --> 00:00:25,260
+và cuối cùng là whitepaper DR trên AWS.
+
+13
+00:00:25,260 --> 00:00:27,724
+DR có thể hơi “khó nuốt” nhưng rất quan trọng
+
+14
+00:00:27,724 --> 00:00:28,828
+cho kỳ thi; bạn sẽ thấy
+
+15
+00:00:28,828 --> 00:00:31,430
+nó thú vị hơn khi đi hết phần này.
+
+16
+00:00:31,430 --> 00:00:33,680
+Rồi, chúng ta bắt đầu nhé.
+

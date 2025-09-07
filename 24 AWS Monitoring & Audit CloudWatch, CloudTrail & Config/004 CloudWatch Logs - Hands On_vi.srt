@@ -1,0 +1,52 @@
+1
+00:00:00,500 --> 00:00:02,330
+Trong CloudWatch Logs: xem các Log Group hiện có.
+
+2
+00:00:02,330 --> 00:00:04,620
+Nhiều group được tạo bởi dịch vụ (Lambda, DataSync, Glue),
+
+3
+00:00:04,620 --> 00:00:05,453
+hoặc do ta tạo khi chạy SSM runCommand.
+
+4
+00:00:05,453 --> 00:00:07,150
+Mỗi Log Group có nhiều Log Stream –
+
+5
+00:00:07,150 --> 00:00:08,210
+đại diện instance/logfile/container.
+
+6
+00:00:08,210 --> 00:00:10,150
+Ví dụ: 6 log stream tương ứng 6 instance, cùng RunCommandId,
+
+7
+00:00:10,150 --> 00:00:10,983
+mỗi stream có stdout/stderr.
+
+8
+00:00:10,983 --> 00:00:13,280
+Mở stdout để xem dòng log sinh ra bởi lệnh.
+
+9
+00:00:13,280 --> 00:00:14,570
+Có thể tìm theo từ khóa (http/ installing…)
+
+10
+00:00:14,570 --> 00:00:17,390
+để lọc dòng log phù hợp.
+
+11
+00:00:17,390 --> 00:00:20,350
+Tạo Metric Filter: khai báo pattern (vd. "installing"),
+
+12
+00:00:20,350 --> 00:00:22,610
+chọn log stream để test, xem số match,
+
+13
+00:00:22,610 --> 00:00:24,560
+đặt tên filter/metric, namespace & metric name.
+

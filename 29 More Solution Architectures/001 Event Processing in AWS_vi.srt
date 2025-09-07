@@ -1,0 +1,112 @@
+1
+00:00:00,000 --> 00:00:03,120
+Hãy nói về xử lý sự kiện (event processing) trên AWS.
+
+2
+00:00:03,120 --> 00:00:04,830
+Ta có nhiều lựa chọn kèm các ràng buộc khác nhau.
+
+3
+00:00:08,039 --> 00:00:11,048
+Phương án 1: SQS + Lambda với hàng đợi SQS làm nguồn.
+
+4
+00:00:11,048 --> 00:00:15,480
+Sự kiện được đẩy vào SQS, Lambda chủ động poll và xử lý.
+
+5
+00:00:21,187 --> 00:00:27,480
+Nếu lỗi, thông điệp sẽ bị trả lại và Lambda sẽ thử lại.
+
+6
+00:00:29,370 --> 00:00:34,110
+Để tránh vòng lặp vô hạn, cấu hình Dead-Letter Queue (DLQ)
+
+7
+00:00:34,110 --> 00:00:42,480
+để sau số lần thất bại (ví dụ 5) chuyển message sang DLQ.
+
+8
+00:00:44,250 --> 00:00:50,970
+SQS FIFO + Lambda đảm bảo thứ tự (first-in, first-out).
+
+9
+00:00:50,970 --> 00:01:05,120
+Nếu một message lỗi sẽ chặn cả chuỗi; dùng DLQ để gỡ tắc.
+
+10
+00:01:16,320 --> 00:01:21,390
+Phương án 2: SNS + Lambda với gọi bất đồng bộ.
+
+11
+00:01:27,360 --> 00:01:36,240
+Lambda tự retry nội bộ 3 lần; không được thì loại bỏ
+
+12
+00:01:38,760 --> 00:01:47,250
+hoặc gửi về DLQ do Lambda cấu hình (ví dụ SQS).
+
+13
+00:01:59,250 --> 00:02:01,830
+Khác biệt: DLQ của SQS cấu hình ở SQS;
+
+14
+00:02:01,830 --> 00:02:04,350
+DLQ cho SNS→Lambda cấu hình ở Lambda.
+
+15
+00:02:04,350 --> 00:02:08,430
+Mẫu Fan-out: phát tán một thông điệp đến nhiều SQS.
+
+16
+00:02:08,430 --> 00:02:16,980
+Cách xấu: ứng dụng gọi từng SQS một — dễ không đồng bộ.
+
+17
+00:02:16,980 --> 00:02:23,430
+Cách tốt: dùng SNS topic ở giữa, các SQS subscribe.
+
+18
+00:02:23,430 --> 00:03:03,330
+Ứng dụng chỉ publish lên SNS; SNS fan-out tới mọi SQS.
+
+19
+00:03:25,254 --> 00:03:33,570
+S3 Event Notifications: phản ứng khi object tạo/xoá/restore,
+
+20
+00:03:33,570 --> 00:03:39,870
+v.v.; có thể gửi tới SNS, SQS hoặc Lambda, lọc theo tên.
+
+21
+00:04:19,529 --> 00:04:25,533
+EventBridge cho phép lọc mạnh hơn (metadata, kích thước,
+
+22
+00:04:26,689 --> 00:04:33,623
+tên, nhiều đích cùng lúc: Step Functions, Kinesis,
+
+23
+00:04:35,694 --> 00:04:43,620
+Data Firehose) và có archive, replay, giao phát tin cậy.
+
+24
+00:04:45,150 --> 00:04:51,720
+Có thể chặn các API call qua CloudTrail→EventBridge,
+
+25
+00:04:51,720 --> 00:05:12,960
+ví dụ phát hiện DeleteTable trên DynamoDB rồi cảnh báo SNS.
+
+26
+00:05:15,930 --> 00:05:26,010
+Sự kiện từ bên ngoài: API Gateway nhận request,
+
+27
+00:05:26,010 --> 00:05:31,980
+đẩy vào Kinesis Data Streams/Data Firehose rồi S3.
+
+28
+00:05:31,980 --> 00:05:39,813
+Tóm lại: chọn SQS/SNS/S3 Events/EventBridge phù hợp use case.
+

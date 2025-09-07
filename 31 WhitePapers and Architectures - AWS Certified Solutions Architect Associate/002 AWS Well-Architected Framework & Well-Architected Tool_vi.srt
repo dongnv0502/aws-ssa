@@ -1,0 +1,96 @@
+1
+00:00:00,290 --> 00:00:04,200
+Giới thiệu AWS Well-Architected Framework (và công cụ đi kèm).
+
+2
+00:00:04,200 --> 00:00:12,480
+Đây là bộ nguyên tắc + công cụ giúp xây dựng ứng dụng tốt trên AWS.
+
+3
+00:00:12,480 --> 00:00:20,960
+Whitepaper khá dài, tôi tóm tắt các ý chính: làm đúng best practice
+
+4
+00:00:20,960 --> 00:00:27,430
+sẽ cho ra kết quả tốt. Hướng dẫn chính:
+
+5
+00:00:27,430 --> 00:00:33,930
+- Đừng đoán dung năng: dùng Auto Scaling, v.v.
+
+6
+00:00:33,930 --> 00:00:42,920
+- Kiểm thử ở quy mô production (dễ dàng nhờ cloud, tạo/xoá nhanh).
+
+7
+00:00:42,920 --> 00:00:51,620
+- Tự động hoá để thử nghiệm kiến trúc dễ hơn (CloudFormation, v.v.).
+
+8
+00:00:51,620 --> 00:01:10,440
+- Kiến trúc tiến hoá theo thời gian: từ EC2/Load Balancer
+
+9
+00:01:10,440 --> 00:01:20,230
+đến serverless như API Gateway + Lambda khi phù hợp.
+
+10
+00:01:20,230 --> 00:01:29,640
+- Dựa trên dữ liệu để thiết kế; cải tiến qua “game days”
+
+11
+00:01:29,640 --> 00:01:37,780
+(giả lập ngày cao điểm như flash sale để thử sức kiến trúc).
+
+12
+00:01:37,780 --> 00:01:41,120
+Sáu trụ cột (cần nhớ tên):
+
+13
+00:01:41,120 --> 00:01:53,390
+Operational Excellence, Security, Reliability,
+
+14
+00:01:53,390 --> 00:02:02,050
+Performance Efficiency, Cost Optimization, Sustainability.
+
+15
+00:02:02,050 --> 00:02:11,580
+Các trụ cột bổ trợ nhau (không phải đánh đổi); cải thiện một mặt
+
+16
+00:02:11,580 --> 00:02:22,693
+thường kéo theo mặt khác tốt hơn (VD vận hành tốt → tối ưu chi phí).
+
+17
+00:02:26,530 --> 00:02:33,550
+Well-Architected Tool giúp rà soát kiến trúc theo 6 trụ cột
+
+18
+00:02:33,550 --> 00:02:43,330
+và đưa khuyến nghị. Cách dùng: chọn workload → trả lời câu hỏi
+
+19
+00:02:43,330 --> 00:02:52,170
+theo từng trụ cột → nhận lời khuyên, tài liệu, báo cáo, dashboard.
+
+20
+00:02:54,930 --> 00:03:23,320
+Khai báo workload (môi trường, region, owner, v.v.),
+
+21
+00:03:23,320 --> 00:03:43,150
+áp dụng “lenses”: Well-Architected (mặc định), FTR, Serverless, SaaS,
+
+22
+00:03:43,150 --> 00:04:06,863
+hoặc lens tuỳ biến. Bắt đầu review theo câu hỏi của từng lens.
+
+23
+00:04:08,780 --> 00:05:08,270
+Trả lời xong, công cụ hiển thị rủi ro (High/Medium), Improvement Plan
+
+24
+00:05:08,270 --> 00:05:25,270
+và gợi ý cải thiện theo trụ cột. Đủ để bạn nắm tinh thần cho kỳ thi.
+

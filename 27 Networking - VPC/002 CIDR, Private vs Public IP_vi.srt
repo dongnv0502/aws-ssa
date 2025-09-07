@@ -1,0 +1,144 @@
+1
+00:00:00,130 --> 00:00:03,130
+Được rồi, bây giờ hãy nói về CIDR
+
+2
+00:00:03,130 --> 00:00:06,590
+hay Classless Inter-Domain Routing.
+
+3
+00:00:06,590 --> 00:00:09,650
+Trong phần còn lại của khóa học, tôi sẽ gọi là CIDR.
+
+4
+00:00:09,650 --> 00:00:12,500
+Đây là phương pháp cấp phát địa chỉ IP
+
+5
+00:00:12,500 --> 00:00:14,310
+và chúng ta đã gặp nó trước đó trong khóa học,
+
+6
+00:00:14,310 --> 00:00:16,470
+vì khi xem các luật Security Group chẳng hạn
+
+7
+00:00:16,470 --> 00:00:19,230
+và networking trong AWS, ta thấy thứ như thế này.
+
+8
+00:00:19,230 --> 00:00:21,290
+Đây là các luật Security Group của tôi
+
+9
+00:00:21,290 --> 00:00:23,090
+và nếu nhìn vào cột nguồn (Source),
+
+10
+00:00:23,090 --> 00:00:26,780
+ta thấy một địa chỉ IP, dấu gạch chéo, rồi một con số
+
+11
+00:00:26,780 --> 00:00:29,880
+và đó là lần đầu ta chạm vào CIDR.
+
+12
+00:00:29,880 --> 00:00:31,880
+CIDR giúp xác định các dải IP
+
+13
+00:00:31,880 --> 00:00:33,990
+và chúng ta đã thấy vài ví dụ rất đơn giản.
+
+14
+00:00:33,990 --> 00:00:37,060
+Khi có một địa chỉ IP /32,
+
+15
+00:00:37,060 --> 00:00:39,460
+thì nó đại diện cho đúng một địa chỉ IP.
+
+16
+00:00:39,460 --> 00:00:42,830
+Còn khi thấy 0.0.0.0/0
+
+17
+00:00:42,830 --> 00:00:45,470
+thì điều đó đại diện cho tất cả IP,
+
+18
+00:00:45,470 --> 00:00:47,890
+nhưng còn rất nhiều khả năng khác.
+
+19
+00:00:47,890 --> 00:00:48,723
+Ví dụ,
+
+20
+00:00:48,723 --> 00:00:53,290
+nếu ta định nghĩa 192.168.0.0/26
+
+21
+00:00:53,290 --> 00:00:56,280
+thì nó đại diện cho một dải gồm 64 địa chỉ IP
+
+22
+00:00:56,280 --> 00:00:58,130
+như bạn thấy trên slide.
+
+23
+00:01:00,360 --> 00:01:01,980
+Vậy CIDR hoạt động thế nào?
+
+24
+00:01:01,980 --> 00:01:05,550
+CIDR có hai thành phần: địa chỉ IP gốc (base IP)
+
+25
+00:01:05,550 --> 00:01:06,383
+— một IP nằm trong dải —
+
+26
+00:01:06,383 --> 00:01:08,460
+thường là đầu dải, nhưng có thể chỉ là IP bất kỳ trong dải;
+
+27
+00:01:08,460 --> 00:01:10,660
+ví dụ 10.0.0.0 hoặc 192.168.0.0.
+
+28
+00:01:16,570 --> 00:01:18,640
+Thành phần còn lại là subnet mask
+
+29
+00:01:18,640 --> 00:01:20,870
+và nó xác định có bao nhiêu bit có thể thay đổi trong IP.
+
+30
+00:01:20,870 --> 00:01:22,830
+Chúng ta có các dạng /0, /24 đến /32
+
+31
+00:01:27,090 --> 00:01:29,340
+và có thể biểu diễn theo hai cách.
+
+32
+00:01:29,340 --> 00:01:31,830
+Ví dụ /8 tương đương subnet mask
+
+33
+00:01:31,830 --> 00:01:35,980
+255.0.0.0; /16 là 255.255.0.0,
+
+34
+00:01:35,980 --> 00:01:41,610
+vân vân.
+
+35
+00:01:47,700 --> 00:01:49,250
+Nhưng dạng phổ biến nhất bạn sẽ thấy trong khóa học
+
+36
+00:01:49,250 --> 00:01:49,250
+và trong AWS là dạng “/”.
+

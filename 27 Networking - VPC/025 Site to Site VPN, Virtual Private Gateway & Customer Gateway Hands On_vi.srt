@@ -1,0 +1,32 @@
+1
+00:00:00,180 --> 00:00:02,820
+Thực hành: cấu hình Site-to-Site VPN (VGW + CGW).
+
+2
+00:00:02,820 --> 00:00:05,520
+1) Tạo/đính Virtual Private Gateway (VGW) vào VPC.
+
+3
+00:00:05,520 --> 00:00:08,160
+2) Khai báo Customer Gateway (CGW): IP/ASN thiết bị on-prem.
+
+4
+00:00:08,160 --> 00:00:10,820
+3) Tạo VPN Connection: chọn VGW + CGW (tùy BGP/Static).
+
+5
+00:00:10,820 --> 00:00:13,380
+4) Tải cấu hình vendor (Cisco, Juniper, ...); triển khai on-prem.
+
+6
+00:00:13,380 --> 00:00:16,040
+5) Cập nhật Route Table của Private Subnet → đích VGW.
+
+7
+00:00:16,040 --> 00:00:18,720
+6) Xác minh: trạng thái tunnel Up, ping qua hai phía.
+
+8
+00:00:18,720 --> 00:00:21,360
+Mẹo: dùng hai tunnel cho HA; cân nhắc sửa MTU/health-check.
+

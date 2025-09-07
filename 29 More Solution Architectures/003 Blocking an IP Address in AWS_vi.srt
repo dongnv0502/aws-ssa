@@ -1,0 +1,68 @@
+1
+00:00:00,450 --> 00:00:05,610
+Chặn một địa chỉ IP trong AWS: các lớp phòng thủ mạng.
+
+2
+00:00:09,420 --> 00:00:23,400
+Lớp 1 (Public Subnet): Network ACL (NACL) — cho phép/ từ chối rõ ràng,
+
+3
+00:00:27,270 --> 00:00:34,620
+rẻ và đơn giản để block/allow IP theo rule số.
+
+4
+00:00:37,230 --> 00:00:43,980
+Lớp 2: Security Group (stateful) — chỉ có allow rules;
+
+5
+00:00:45,840 --> 00:00:54,180
+chỉ mở IP/port cần thiết đến EC2/ALB. Không có deny.
+
+6
+00:00:54,180 --> 00:01:06,210
+Lớp 3 (tuỳ chọn): Firewall phần mềm trên EC2 để lọc sâu gói tin;
+
+7
+00:01:06,210 --> 00:01:19,980
+linh hoạt nhưng tốn CPU/độ trễ hơn so với NACL/SG.
+
+8
+00:01:25,320 --> 00:01:34,470
+Mô hình với Application Load Balancer (ALB): EC2 ở private subnet,
+
+9
+00:01:34,470 --> 00:01:48,120
+SG của EC2 chỉ cho phép nguồn từ SG của ALB.
+
+10
+00:01:52,140 --> 00:02:07,110
+ALB kết thúc kết nối từ client; có thể quản lý bảo mật tại ALB
+
+11
+00:02:07,110 --> 00:02:24,450
+(SG, hoặc tích hợp AWS WAF để lọc IP, chặn tấn công web).
+
+12
+00:02:32,040 --> 00:02:41,340
+CloudFront phía trước ALB: lưu ý client không chạm VPC trực tiếp;
+
+13
+00:02:41,340 --> 00:02:50,910
+SG ALB nên chỉ allow dải IP public của CloudFront.
+
+14
+00:03:28,440 --> 00:03:35,910
+Có thể dùng CloudFront Geo Restriction để block theo quốc gia,
+
+15
+00:03:35,910 --> 00:03:43,440
+và/hoặc áp dụng WAF ở CloudFront để lọc IP/mẫu tấn công.
+
+16
+00:04:37,440 --> 00:04:58,260
+Tóm lại: vẽ luồng mạng để quyết định chặn/cho phép ở lớp phù hợp
+
+17
+00:04:58,260 --> 00:05:04,600
+(NACL, SG, ALB/NLB, CloudFront, WAF) nhằm đạt hiệu quả tối đa.
+

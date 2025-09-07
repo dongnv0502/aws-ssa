@@ -1,0 +1,76 @@
+1
+00:00:00,940 --> 00:00:02,700
+Chúng ta đã tạo khá nhiều tài nguyên trong phần này.
+
+2
+00:00:02,700 --> 00:00:04,260
+Hãy dọn dẹp để tránh phát sinh chi phí.
+
+3
+00:00:04,260 --> 00:00:06,000
+- EC2 instances: terminate hoặc stop.
+
+4
+00:00:06,000 --> 00:00:06,930
+  (Mình stop để còn demo tiếp; bạn có thể terminate.)
+
+5
+00:00:06,930 --> 00:00:08,189
+- Trong VPC: xóa lần lượt theo phụ thuộc.
+
+6
+00:00:08,189 --> 00:00:10,300
+  Trước khi xóa VPC, cần xóa Subnet, Route Table,
+
+7
+00:00:10,300 --> 00:00:13,060
+  tách/xóa Internet Gateway, Egress‑Only IGW.
+
+8
+00:00:13,060 --> 00:00:15,030
+- Elastic IP: rất quan trọng.
+
+9
+00:00:15,030 --> 00:00:17,552
+  Nếu đã gán cho NAT Gateway, sau khi xóa NAT GW
+
+10
+00:00:17,552 --> 00:00:18,710
+  nhớ “Release” Elastic IP để khỏi bị tính phí.
+
+11
+00:00:18,710 --> 00:00:20,900
+- VPC Endpoints: xóa vì có tính phí theo giờ.
+
+12
+00:00:20,900 --> 00:00:23,940
+- VPC Peering Connections: xóa nếu không dùng.
+
+13
+00:00:23,940 --> 00:00:26,110
+- Network ACL/Security Group: xóa khi cần (không tốn phí).
+
+14
+00:00:26,110 --> 00:00:29,270
+Cuối tháng, hãy kiểm tra Billing Dashboard để rà soát chi phí.
+
+15
+00:00:29,270 --> 00:00:31,510
+Ví dụ NAT Gateway có thể tiêu tốn đáng kể;
+
+16
+00:00:31,510 --> 00:00:34,890
+Route 53 hosted zone tính 0.5 USD/tháng — nhớ xóa nếu tạo thử.
+
+17
+00:00:34,890 --> 00:00:38,300
+VPC Reachability Analyzer cũng có thể phát sinh phí.
+
+18
+00:00:38,300 --> 00:00:40,280
+Tóm lại: dọn sạch tài nguyên lab để tránh “hóa đơn lạ”.
+
+19
+00:00:40,280 --> 00:00:43,060
+Hẹn gặp ở bài tiếp theo.
+

@@ -1,0 +1,156 @@
+1
+00:00:00,150 --> 00:00:01,950
+Bài tóm tắt nhanh về các cách
+
+2
+00:00:01,950 --> 00:00:04,260
+chuyển một lượng dữ liệu lớn vào AWS
+
+3
+00:00:04,260 --> 00:00:06,630
+và lựa chọn phù hợp dựa trên ràng buộc của bạn.
+
+4
+00:00:06,630 --> 00:00:09,330
+Ví dụ: cần chuyển 200 TB dữ liệu lên cloud,
+
+5
+00:00:09,330 --> 00:00:11,010
+đường truyền hiện tại 100 Mbps.
+
+6
+00:00:11,010 --> 00:00:12,060
+Phương án 1: dùng internet công cộng
+
+7
+00:00:12,060 --> 00:00:14,460
+hoặc Site-to-Site VPN (cũng chạy trên internet).
+
+8
+00:00:14,460 --> 00:00:15,630
+Ưu điểm: thiết lập ngay, dùng được liền.
+
+9
+00:00:15,630 --> 00:00:16,920
+Tính nhanh: 200 TB → GB → MB,
+
+10
+00:00:16,920 --> 00:00:20,430
+đổi sang megabit (x8), chia cho 100 Mbps
+
+11
+00:00:20,430 --> 00:00:22,470
+≈ 16 triệu giây ≈ 185 ngày.
+
+12
+00:00:22,470 --> 00:00:23,303
+Gần nửa năm — khá lâu.
+
+13
+00:00:23,303 --> 00:00:25,200
+Tùy kích thước dữ liệu mà phù hợp hay không;
+
+14
+00:00:25,200 --> 00:00:27,630
+với 200 TB thì không thực tế.
+
+15
+00:00:27,630 --> 00:00:29,850
+Phương án 2: AWS Direct Connect 1 Gbps.
+
+16
+00:00:29,850 --> 00:00:31,470
+Thiết lập ban đầu mất khoảng 1 tháng
+
+17
+00:00:31,470 --> 00:00:33,570
+nếu bạn chưa có kết nối sẵn.
+
+18
+00:00:33,570 --> 00:00:36,420
+Sau khi có đường 1 Gbps (nhanh gấp 10),
+
+19
+00:00:36,420 --> 00:00:38,490
+thời gian truyền còn ~18,5 ngày — nhanh hơn
+
+20
+00:00:38,490 --> 00:00:40,140
+đáng kể nhưng vẫn khá lâu.
+
+21
+00:00:40,140 --> 00:00:41,670
+Phương án 3: AWS Snowball.
+
+22
+00:00:41,670 --> 00:00:43,650
+Đặt thiết bị, nhận hàng, nạp dữ liệu,
+
+23
+00:00:43,650 --> 00:00:45,630
+gửi trả AWS và họ nhập dữ liệu lên —
+
+24
+00:00:45,630 --> 00:00:48,720
+mất khoảng 1 tuần end-to-end.
+
+25
+00:00:48,720 --> 00:00:51,210
+Nếu có database đi kèm, kết hợp DMS
+
+26
+00:00:51,210 --> 00:00:52,650
+để đồng bộ phần dữ liệu còn lại.
+
+27
+00:00:52,650 --> 00:00:54,720
+Đối với replication liên tục (không phải one-off),
+
+28
+00:00:54,720 --> 00:00:56,970
+có thể dùng Site-to-Site VPN, Direct Connect,
+
+29
+00:00:56,970 --> 00:00:58,410
+DMS, hoặc AWS DataSync,
+
+30
+00:00:58,410 --> 00:01:00,990
+tuỳ nhu cầu băng thông và tần suất.
+
+31
+00:01:00,990 --> 00:01:02,520
+Snowball phù hợp cho các lần
+
+32
+00:01:02,520 --> 00:01:03,353
+truyền rất lớn một lần (one-off),
+
+33
+00:01:03,353 --> 00:01:05,220
+giúp tăng tốc lần đẩy dữ liệu đầu tiên lên AWS.
+
+34
+00:01:05,220 --> 00:01:07,410
+Trong kỳ thi, bạn cần xác định
+
+35
+00:01:07,410 --> 00:01:09,930
+use case phù hợp và ràng buộc của từng phương án,
+
+36
+00:01:09,930 --> 00:01:13,860
+chọn cách dễ nhất/nhanh nhất/đáng tin cậy nhất
+
+37
+00:01:13,860 --> 00:01:14,693
+để đưa dữ liệu vào AWS
+
+38
+00:01:14,693 --> 00:01:16,830
+— dù là dữ liệu nhỏ hay rất lớn.
+
+39
+00:01:16,830 --> 00:01:18,960
+Hết bài. Hẹn gặp lại ở bài tiếp theo.
+

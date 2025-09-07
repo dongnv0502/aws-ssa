@@ -1,0 +1,148 @@
+1
+00:00:00,240 --> 00:00:01,890
+Hãy kiểm tra tiến độ học của chúng ta
+
+2
+00:00:01,890 --> 00:00:02,820
+và đối chiếu với Exam Guide.
+
+3
+00:00:02,820 --> 00:00:06,570
+Mở trang chứng chỉ AWS Certified Solutions Architect – Associate.
+
+4
+00:00:06,570 --> 00:00:08,970
+Kéo xuống để xem Exam Guide và Sample Questions.
+
+5
+00:00:08,970 --> 00:00:09,960
+Exam Guide là tài liệu ~17 trang
+
+6
+00:00:09,960 --> 00:00:13,860
+liệt kê những gì bạn cần biết trước khi thi.
+
+7
+00:00:13,860 --> 00:00:14,910
+Ta sẽ skim qua để tự đánh giá
+
+8
+00:00:14,910 --> 00:00:17,400
+và lưu ý phần phụ lục (appendix) “Services covered”.
+
+9
+00:00:17,400 --> 00:00:18,540
+Lưu ý: danh sách dịch vụ trong appendix
+
+10
+00:00:18,540 --> 00:00:20,670
+“có thể” xuất hiện trong đề thi.
+
+11
+00:00:20,670 --> 00:00:23,910
+Khóa học này tập trung vào những nội dung thực sự có trong đề.
+
+12
+00:00:23,910 --> 00:00:26,610
+Nếu bạn thấy dịch vụ không có trong khóa học, đừng lo.
+
+13
+00:00:26,610 --> 00:00:28,140
+Khi có phản hồi là nó xuất hiện trong đề,
+
+14
+00:00:28,140 --> 00:00:30,330
+chúng tôi sẽ bổ sung bài giảng.
+
+15
+00:00:30,330 --> 00:00:32,610
+Về yêu cầu kinh nghiệm: khuyến nghị ≥ 1 năm hands‑on.
+
+16
+00:00:32,610 --> 00:00:35,010
+Sau khóa học, bạn đã có đủ nền tảng để làm bài.
+
+17
+00:00:35,010 --> 00:00:38,790
+Dạng câu hỏi: multiple‑choice (1 đúng, 3 sai)
+
+18
+00:00:38,790 --> 00:00:42,270
+và multiple‑response (≥2 đúng trong 5 lựa chọn).
+
+19
+00:00:42,270 --> 00:00:46,050
+Bạn phải trả lời tất cả câu hỏi — không bị trừ điểm khi đoán.
+
+20
+00:00:46,050 --> 00:00:49,650
+Có 15 câu “không tính điểm” (unscored) để AWS thử nghiệm.
+
+21
+00:00:49,650 --> 00:00:51,630
+Bạn không biết đó là câu nào; điểm số tính trên 50/65 câu.
+
+22
+00:00:51,630 --> 00:00:58,650
+Thang điểm 100–1000; điểm đỗ tối thiểu 720.
+
+23
+00:00:58,650 --> 00:01:03,000
+Nội dung bài thi gồm 4 domain và tỷ trọng:
+
+24
+00:01:03,000 --> 00:01:05,580
+- Thiết kế kiến trúc an toàn: 30%
+
+25
+00:01:05,580 --> 00:01:08,670
+- Kiến trúc chịu lỗi/khả dụng cao: 26%
+
+26
+00:01:08,670 --> 00:01:12,150
+- Hiệu năng cao: 24%
+
+27
+00:01:12,150 --> 00:01:16,800
+- Tối ưu chi phí: 20%
+
+28
+00:01:16,800 --> 00:01:19,230
+Khi nhận kết quả, bạn sẽ thấy trạng thái Pass/Not Pass
+
+29
+00:01:19,230 --> 00:01:20,160
+theo từng domain (không có điểm từng domain)
+
+30
+00:01:20,160 --> 00:01:23,700
+và tổng điểm.
+
+31
+00:01:23,700 --> 00:01:25,590
+Nếu có phần chưa tự tin, hãy xem lại bài học tương ứng
+
+32
+00:01:25,590 --> 00:01:27,180
+hoặc tra cứu tài liệu chính thức của AWS.
+
+33
+00:01:27,180 --> 00:01:29,580
+Phần appendix liệt kê dịch vụ “có thể” xuất hiện,
+
+34
+00:01:29,580 --> 00:01:31,680
+nhưng nội dung khóa học đã đủ để vượt qua bài thi.
+
+35
+00:01:31,680 --> 00:01:34,470
+Nếu bạn gặp câu hỏi ngoài phạm vi khóa học,
+
+36
+00:01:34,470 --> 00:01:36,930
+hãy phản hồi để chúng tôi bổ sung.
+
+37
+00:01:36,930 --> 00:01:38,910
+Chúc bạn học tốt. Hẹn gặp ở bài tiếp theo.
+

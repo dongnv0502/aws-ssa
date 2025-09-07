@@ -1,0 +1,24 @@
+1
+00:00:00,240 --> 00:00:02,310
+Kiến trúc dự phòng: Direct Connect + Site-to-Site VPN.
+
+2
+00:00:02,310 --> 00:00:04,680
+- Kết nối chính: Direct Connect (ổn định nhưng đắt đỏ).
+
+3
+00:00:04,680 --> 00:00:07,860
+- Kết nối dự phòng: Site-to-Site VPN qua Internet.
+
+4
+00:00:07,860 --> 00:00:11,100
+Thiết lập định tuyến ưu tiên DX; khi DX lỗi, VPN “kích hoạt”.
+
+5
+00:00:11,100 --> 00:00:13,140
+Mẹo kỳ thi: thiết kế HA/hybrid nên có đường dự phòng,
+
+6
+00:00:13,140 --> 00:00:15,750
+điều chỉnh priority/AS-Path/metrics để failover mượt.
+

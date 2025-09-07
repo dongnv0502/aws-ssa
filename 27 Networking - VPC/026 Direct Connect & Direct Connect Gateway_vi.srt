@@ -1,0 +1,56 @@
+1
+00:00:00,160 --> 00:00:02,840
+AWS Direct Connect (DX): kết nối mạng chuyên dụng ↔ AWS.
+
+2
+00:00:02,840 --> 00:00:05,460
+- Ổn định, băng thông cao, độ trễ thấp hơn so với Internet.
+
+3
+00:00:05,460 --> 00:00:08,120
+Thành phần:
+
+4
+00:00:08,120 --> 00:00:10,760
+- DX Location/Partner, physical connection (1/10/100 Gbps).
+
+5
+00:00:10,760 --> 00:00:13,360
+- Virtual Interface (VIF):
+
+6
+00:00:13,360 --> 00:00:16,020
+  • Private VIF → kết nối tới VPC (qua Virtual Private Gateway/Direct Connect Gateway).
+
+7
+00:00:16,020 --> 00:00:18,680
+  • Public VIF → truy cập dịch vụ public AWS (S3, etc.).
+
+8
+00:00:18,680 --> 00:00:21,340
+- Direct Connect Gateway (DXGW): hub cho nhiều VPC/Region.
+
+9
+00:00:21,340 --> 00:00:24,000
+Kịch bản điển hình:
+
+10
+00:00:24,000 --> 00:00:26,660
+- On-prem ↔ DX ↔ DXGW ↔ VGW/VPC (Private VIF).
+
+11
+00:00:26,660 --> 00:00:29,320
+- Có thể kết hợp VPN (Site-to-Site) làm backup cho DX.
+
+12
+00:00:29,320 --> 00:00:31,980
+Lưu ý kỳ thi:
+
+13
+00:00:31,980 --> 00:00:34,640
+- CIDR không overlap; định tuyến qua BGP; HA: redundant links.
+
+14
+00:00:34,640 --> 00:00:37,300
+- DX không mã hóa mặc định; cần MACsec hoặc VPN over DX nếu cần.
+

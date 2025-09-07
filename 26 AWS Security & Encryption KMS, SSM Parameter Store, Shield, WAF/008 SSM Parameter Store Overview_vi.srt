@@ -1,0 +1,448 @@
+1
+00:00:00,210 --> 00:00:01,200
+Giờ hãy nói về
+
+2
+00:00:01,200 --> 00:00:02,969
+SSM Parameter Store.
+
+3
+00:00:02,969 --> 00:00:04,717
+Đây là nơi lưu trữ an toàn cho cấu hình
+
+4
+00:00:04,717 --> 00:00:06,540
+và secrets của bạn.
+
+5
+00:00:06,540 --> 00:00:07,373
+Tùy chọn thêm,
+
+6
+00:00:07,373 --> 00:00:09,510
+bạn có thể mã hóa các cấu hình này
+
+7
+00:00:09,510 --> 00:00:10,860
+để biến chúng thành secrets
+
+8
+00:00:10,860 --> 00:00:12,990
+bằng cách dùng dịch vụ KMS.
+
+9
+00:00:12,990 --> 00:00:14,640
+SSM Parameter Store là serverless,
+
+10
+00:00:14,640 --> 00:00:15,990
+khả năng mở rộng tốt, bền vững,
+
+11
+00:00:15,990 --> 00:00:17,730
+và SDK rất dễ dùng.
+
+12
+00:00:17,730 --> 00:00:20,760
+Khi bạn cập nhật tham số (parameter),
+
+13
+00:00:20,760 --> 00:00:23,280
+bạn có thể theo dõi version của chúng.
+
+14
+00:00:23,280 --> 00:00:25,731
+Bảo mật được cung cấp qua IAM,
+
+15
+00:00:25,731 --> 00:00:28,237
+và bạn nhận thông báo qua Amazon EventBridge
+
+16
+00:00:28,237 --> 00:00:30,600
+trong một số trường hợp.
+
+17
+00:00:30,600 --> 00:00:32,966
+Parameter Store tích hợp đầy đủ với CloudFormation.
+
+18
+00:00:32,966 --> 00:00:34,440
+CloudFormation có thể dùng các tham số
+
+19
+00:00:34,440 --> 00:00:38,280
+từ Parameter Store làm input cho stack của bạn.
+
+20
+00:00:38,280 --> 00:00:39,210
+Ví dụ nhé.
+
+21
+00:00:39,210 --> 00:00:40,560
+Ta có một ứng dụng
+
+22
+00:00:40,560 --> 00:00:42,870
+và SSM Parameter Store.
+
+23
+00:00:42,870 --> 00:00:45,720
+Ta có thể lưu cấu hình plain text theo cách này.
+
+24
+00:00:45,720 --> 00:00:47,760
+Sau đó IAM permissions của ứng dụng
+
+25
+00:00:47,760 --> 00:00:48,593
+sẽ được kiểm tra
+
+26
+00:00:48,593 --> 00:00:50,859
+(ví dụ role của EC2 instance),
+
+27
+00:00:50,859 --> 00:00:53,700
+hoặc bạn có thể lưu cấu hình đã mã hóa.
+
+28
+00:00:53,700 --> 00:00:54,660
+Trong trường hợp đó
+
+29
+00:00:54,660 --> 00:00:57,870
+SSM Parameter Store sẽ mã hóa bằng KMS.
+
+30
+00:00:57,870 --> 00:01:00,030
+Và dịch vụ KMS sẽ được dùng
+
+31
+00:01:00,030 --> 00:01:02,220
+cho cả mã hóa và giải mã.
+
+32
+00:01:02,220 --> 00:01:03,420
+Tất nhiên, bạn phải đảm bảo
+
+33
+00:01:03,420 --> 00:01:05,550
+ứng dụng có quyền truy cập
+
+34
+00:01:05,550 --> 00:01:08,700
+KMS key bên dưới để thực hiện mã hóa
+
+35
+00:01:08,700 --> 00:01:09,723
+và giải mã.
+
+36
+00:01:10,620 --> 00:01:13,204
+Bạn có thể lưu tham số trong Parameter Store
+
+37
+00:01:13,204 --> 00:01:14,820
+theo dạng phân cấp (hierarchy).
+
+38
+00:01:14,820 --> 00:01:16,890
+Ví dụ, bạn định nghĩa “my‑department”
+
+39
+00:01:16,890 --> 00:01:20,250
+làm một path, phía dưới là “my‑app”, rồi “dev”,
+
+40
+00:01:20,250 --> 00:01:22,950
+và trong đó có “dev DB‑URL”
+
+41
+00:01:22,950 --> 00:01:25,650
+và “DB‑password” trong thư mục đó.
+
+42
+00:01:25,650 --> 00:01:28,320
+Nghĩa là tham số của bạn đi sâu theo
+
+43
+00:01:28,320 --> 00:01:29,520
+cấu trúc phân cấp.
+
+44
+00:01:29,520 --> 00:01:32,010
+Ta có thể lên một mức và lưu tham số
+
+45
+00:01:32,010 --> 00:01:35,617
+cho “prod DB‑URL” và “prod DB‑password”,
+
+46
+00:01:35,617 --> 00:01:39,434
+rồi lên nữa cho app khác hoặc department khác.
+
+47
+00:01:39,434 --> 00:01:41,640
+Cách này giúp bạn tổ chức tham số
+
+48
+00:01:41,640 --> 00:01:43,980
+theo cấu trúc bạn mong muốn.
+
+49
+00:01:43,980 --> 00:01:47,670
+Và nó đơn giản hóa IAM policy để
+
+50
+00:01:47,670 --> 00:01:51,180
+cho phép ứng dụng truy cập toàn bộ một department,
+
+51
+00:01:51,180 --> 00:01:52,530
+hoặc toàn bộ một app,
+
+52
+00:01:52,530 --> 00:01:57,060
+hoặc chỉ một path cụ thể theo app/department/environment.
+
+53
+00:01:57,060 --> 00:01:58,590
+Bạn còn có thể
+
+54
+00:01:58,590 --> 00:02:01,029
+truy cập Secrets của Secrets Manager
+
+55
+00:02:01,029 --> 00:02:02,842
+thông qua Parameter Store
+
+56
+00:02:02,842 --> 00:02:05,250
+bằng cú pháp tham chiếu như ở đây.
+
+57
+00:02:05,250 --> 00:02:07,830
+Đây là mẹo nhỏ không nhiều người biết.
+
+58
+00:02:07,830 --> 00:02:10,620
+Cũng có “Public Parameters” do AWS công bố
+
+59
+00:02:10,620 --> 00:02:13,110
+để bạn dùng.
+
+60
+00:02:13,110 --> 00:02:16,500
+Ví dụ, để tìm AMI mới nhất
+
+61
+00:02:16,500 --> 00:02:19,410
+cho Amazon Linux 2 tại region của bạn.
+
+62
+00:02:19,410 --> 00:02:20,850
+Bạn có thể gọi API
+
+63
+00:02:20,850 --> 00:02:24,360
+trên Parameter Store để lấy thông tin này.
+
+64
+00:02:24,360 --> 00:02:25,470
+Nếu xét một ứng dụng,
+
+65
+00:02:25,470 --> 00:02:28,170
+ví dụ Lambda function cho môi trường Dev có
+
+66
+00:02:28,170 --> 00:02:30,630
+một IAM role cho phép truy cập
+
+67
+00:02:30,630 --> 00:02:34,020
+DB‑URL và DB‑password trong path Dev của my‑app.
+
+68
+00:02:34,020 --> 00:02:36,150
+Sau đó Lambda cho môi trường Prod,
+
+69
+00:02:36,150 --> 00:02:38,520
+nhờ một IAM policy khác
+
+70
+00:02:38,520 --> 00:02:40,200
+và có thể dùng biến môi trường,
+
+71
+00:02:40,200 --> 00:02:41,880
+có thể truy cập Prod DB‑URL
+
+72
+00:02:41,880 --> 00:02:44,688
+và Prod DB‑password ở path khác.
+
+73
+00:02:44,688 --> 00:02:45,521
+(tiếng click chuột)
+
+74
+00:02:45,521 --> 00:02:46,710
+Trong Systems Manager,
+
+75
+00:02:46,710 --> 00:02:49,260
+có hai cấp tham số (parameter tiers):
+
+76
+00:02:49,260 --> 00:02:51,480
+standard và advanced.
+
+77
+00:02:51,480 --> 00:02:54,510
+Khác biệt lớn là kích thước (4 KB so với 8 KB)
+
+78
+00:02:57,000 --> 00:03:00,570
+và việc có hỗ trợ parameter policy hay không.
+
+79
+00:03:00,570 --> 00:03:02,490
+Với standard thì không có; advanced thì có.
+
+80
+00:03:02,490 --> 00:03:03,540
+Tham số loại advanced
+
+81
+00:03:03,540 --> 00:03:05,610
+có phí 0,05 USD mỗi tháng.
+
+82
+00:03:05,610 --> 00:03:09,180
+Còn loại standard thì miễn phí.
+
+83
+00:03:09,180 --> 00:03:12,000
+Vậy parameter policies là gì?
+
+84
+00:03:12,000 --> 00:03:14,550
+Chỉ có cho tham số loại advanced.
+
+85
+00:03:14,550 --> 00:03:16,101
+
+
+86
+00:03:16,101 --> 00:03:16,934
+(tiếng click chuột)
+
+87
+00:03:16,934 --> 00:03:19,530
+Chúng cho phép bạn gán “time‑to‑live” (TTL)
+
+88
+00:03:19,530 --> 00:03:21,570
+cho tham số, tức ngày hết hạn.
+
+89
+00:03:21,570 --> 00:03:23,790
+Nhằm buộc người dùng cập nhật
+
+90
+00:03:23,790 --> 00:03:26,310
+hoặc xóa dữ liệu nhạy cảm như mật khẩu.
+
+91
+00:03:26,310 --> 00:03:28,389
+Bạn có thể gán nhiều policy cùng lúc.
+
+92
+00:03:28,389 --> 00:03:30,690
+Đây là ví dụ một policy.
+
+93
+00:03:30,690 --> 00:03:33,600
+Đây là expiration policy để xóa tham số —
+
+94
+00:03:33,600 --> 00:03:35,520
+bạn đặt: “Tại thời điểm này
+
+95
+00:03:35,520 --> 00:03:37,830
+phải xóa tham số này”.
+
+96
+00:03:37,830 --> 00:03:41,220
+Nhờ tích hợp EventBridge,
+
+97
+00:03:41,220 --> 00:03:43,410
+EventBridge sẽ nhận thông báo.
+
+98
+00:03:43,410 --> 00:03:47,160
+Trong ví dụ này, 15 ngày trước khi tham số hết hạn
+
+99
+00:03:47,160 --> 00:03:49,020
+ta sẽ nhận thông báo trên EventBridge,
+
+100
+00:03:49,020 --> 00:03:51,780
+đủ thời gian để cập nhật
+
+101
+00:03:51,780 --> 00:03:54,000
+và đảm bảo tham số không bị xóa
+
+102
+00:03:54,000 --> 00:03:55,710
+do TTL.
+
+103
+00:03:55,710 --> 00:03:58,470
+Hoặc đôi khi bạn muốn đảm bảo tham số
+
+104
+00:03:58,470 --> 00:03:59,730
+được thay đổi định kỳ.
+
+105
+00:03:59,730 --> 00:04:02,430
+Bạn có thể dùng “no‑change notification” trên EventBridge
+
+106
+00:04:02,430 --> 00:04:05,700
+để nếu tham số không được cập nhật trong 20 ngày,
+
+107
+00:04:05,700 --> 00:04:07,710
+bạn cũng sẽ được thông báo.
+
+108
+00:04:07,710 --> 00:04:09,420
+Bạn có thể sáng tạo khá thoải mái
+
+109
+00:04:09,420 --> 00:04:11,010
+với Parameter Store.
+
+110
+00:04:11,010 --> 00:04:13,170
+Nhưng giờ thì bạn đã nắm được ý tưởng chính.
+
+111
+00:04:13,170 --> 00:04:14,400
+Hy vọng bạn thích bài này
+
+112
+00:04:14,400 --> 00:04:16,350
+và hẹn gặp lại ở bài tiếp theo.
+

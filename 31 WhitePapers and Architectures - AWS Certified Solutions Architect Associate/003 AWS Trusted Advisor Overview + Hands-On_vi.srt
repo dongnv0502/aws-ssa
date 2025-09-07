@@ -1,0 +1,64 @@
+1
+00:00:00,180 --> 00:00:03,780
+Giới thiệu AWS Trusted Advisor.
+
+2
+00:00:03,780 --> 00:00:07,633
+Dịch vụ đánh giá tổng quan tài khoản (không cần cài đặt),
+
+3
+00:00:07,633 --> 00:00:12,252
+kiểm tra một số hạng mục và đưa khuyến nghị.
+
+4
+00:00:12,252 --> 00:00:21,270
+Ví dụ: EBS/RDS Public Snapshots, dùng root account, v.v.
+
+5
+00:00:21,270 --> 00:00:38,501
+Các hạng mục chia theo 6 nhóm: Cost Optimization, Performance,
+
+6
+00:00:38,501 --> 00:00:49,890
+Security, Fault Tolerance, Service Limits, Operational Excellence.
+
+7
+00:00:49,890 --> 00:01:05,753
+Có “core checks” (miễn phí giới hạn) và “full checks”
+
+8
+00:01:06,013 --> 00:01:12,000
+(cần Business/Enterprise Support). Hai plan này
+
+9
+00:01:12,000 --> 00:01:20,999
+cũng mở quyền truy cập lập trình qua AWS Support API.
+
+10
+00:01:23,506 --> 00:01:36,287
+Trong giao diện, bạn thấy khuyến nghị, điều tra, và các check khả dụng.
+
+11
+00:01:36,287 --> 00:01:45,620
+Ví dụ: S3 bucket public, Security Group mở port rộng — cần rà soát.
+
+12
+00:01:55,620 --> 00:02:26,400
+Các mục như Cost/Performance/FaultTolerance/Operational Excellence
+
+13
+00:02:26,400 --> 00:02:32,910
+cần nâng hạng Support để xem đầy đủ; Security có core checks.
+
+14
+00:02:32,910 --> 00:02:52,200
+Cũng có phần Service Limits để xem hạn mức (ASG, CFN, DynamoDB, v.v.).
+
+15
+00:02:58,778 --> 00:03:13,740
+Tóm lại: Trusted Advisor hữu ích hơn nhiều khi có Support Plan;
+
+16
+00:03:13,740 --> 00:03:18,183
+dù vậy bạn vẫn cần hiểu cách dùng và các nhóm kiểm tra cho kỳ thi.
+

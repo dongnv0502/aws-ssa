@@ -1,0 +1,48 @@
+1
+00:00:00,180 --> 00:00:02,820
+Thực hành: bật VPC Flow Logs và phân tích bằng Athena.
+
+2
+00:00:02,820 --> 00:00:05,520
+1) Bật Flow Logs tại VPC/Subnet/ENI:
+
+3
+00:00:05,520 --> 00:00:08,160
+- Chọn resource scope; đích: S3 (khuyến nghị) hoặc CW Logs;
+
+4
+00:00:08,160 --> 00:00:10,820
+- Chọn log format/version và IAM role phù hợp.
+
+5
+00:00:10,820 --> 00:00:13,380
+2) Tạo Glue Crawler cho prefix S3 chứa log → tạo bảng.
+
+6
+00:00:13,380 --> 00:00:16,040
+3) Dùng Amazon Athena truy vấn:
+
+7
+00:00:16,040 --> 00:00:18,720
+- Ví dụ: lọc action='REJECT', group by srcaddr/dstport;
+
+8
+00:00:18,720 --> 00:00:21,360
+- Tìm top nguồn gây lỗi hoặc port bị chặn nhiều.
+
+9
+00:00:21,360 --> 00:00:23,980
+4) Dùng kết quả để điều chỉnh SG/NACL/Route Table.
+
+10
+00:00:23,980 --> 00:00:26,660
+Mẹo:
+
+11
+00:00:26,660 --> 00:00:29,340
+- Partition S3 theo năm/tháng/ngày để truy vấn nhanh;
+
+12
+00:00:29,340 --> 00:00:31,940
+- Sử dụng CTAS/Parquet để tối ưu chi phí.
+

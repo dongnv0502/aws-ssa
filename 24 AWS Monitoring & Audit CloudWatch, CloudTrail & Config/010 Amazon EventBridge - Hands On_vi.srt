@@ -1,0 +1,64 @@
+1
+00:00:00,011 --> 00:00:02,480
+Xem UI CloudWatch Events (cũ) và EventBridge (mới).
+
+2
+00:00:02,480 --> 00:00:04,770
+CloudWatch Events sẽ biến mất; dùng Amazon EventBridge.
+
+3
+00:00:04,770 --> 00:00:06,350
+Event buses: có Default bus và có thể tạo custom bus
+
+4
+00:00:06,350 --> 00:00:07,580
+(ví dụ “central‑event‑bus”).
+
+5
+00:00:07,580 --> 00:00:09,360
+Tuỳ chọn: Archive sự kiện, Schema discovery, policy cross‑account.
+
+6
+00:00:09,360 --> 00:00:11,330
+Không có resource‑based policy → chỉ owner được gửi event.
+
+7
+00:00:11,330 --> 00:00:13,890
+Tạo Rule mới (ví dụ DemoRuleEventBridge) trên Default bus.
+
+8
+00:00:13,890 --> 00:00:17,130
+Rule có thể theo lịch (cron/rate) hoặc theo event pattern.
+
+9
+00:00:17,130 --> 00:00:21,570
+Nguồn sự kiện: AWS services / Other (custom/partner) / All events (cross‑account).
+
+10
+00:00:21,570 --> 00:00:24,850
+Sandbox: thử với sample events để xây pattern trước khi tạo rule.
+
+11
+00:00:24,850 --> 00:00:27,330
+Ví dụ: EC2 → State‑change Notification → chọn mẫu pending/running/…
+
+12
+00:00:27,330 --> 00:00:30,340
+Xây event pattern lọc trạng thái “stopped” hoặc “terminated”, test OK.
+
+13
+00:00:30,340 --> 00:00:33,120
+Target: SNS topic (gửi thông báo khi EC2 stop/terminate)
+
+14
+00:00:33,120 --> 00:00:34,500
+hoặc các đích khác (Lambda, SQS, ECS, Batch…).
+
+15
+00:00:34,500 --> 00:00:37,230
+Review & Create; có thể thử bằng cách stop/terminate EC2
+
+16
+00:00:37,230 --> 00:00:39,350
+để nhận thông báo.
+

@@ -1,0 +1,72 @@
+1
+00:00:00,500 --> 00:00:02,480
+Mình đang ở VPC và vào mục Egress Only Internet Gateways.
+
+2
+00:00:02,480 --> 00:00:05,010
+Tạo mới một cái, đặt tên DemoEIGW.
+
+3
+00:00:05,010 --> 00:00:06,560
+Gắn (attach) nó vào VPC của bạn — DemoVPC.
+
+4
+00:00:06,560 --> 00:00:08,563
+Tạo egress‑only internet gateway.
+
+5
+00:00:10,270 --> 00:00:11,740
+Gateway đã tạo và gắn xong.
+
+6
+00:00:11,740 --> 00:00:13,780
+Giờ cần cấu hình route table.
+
+7
+00:00:13,780 --> 00:00:16,000
+Chỉnh sửa route table của private subnets
+
+8
+00:00:16,000 --> 00:00:18,340
+(không áp dụng cho public subnets).
+
+9
+00:00:18,340 --> 00:00:19,480
+Vào route table của private subnets,
+
+10
+00:00:19,480 --> 00:00:20,980
+chỉnh sửa routes.
+
+11
+00:00:20,980 --> 00:00:23,450
+Thêm tuyến ::/0 (mọi IPv6)
+
+12
+00:00:23,450 --> 00:00:24,850
+trỏ về egress‑only internet gateway.
+
+13
+00:00:24,850 --> 00:00:26,400
+Lưu thay đổi.
+
+14
+00:00:26,400 --> 00:00:27,830
+Xong: EC2 trong private subnets
+
+15
+00:00:27,830 --> 00:00:29,490
+có thể truy cập internet qua IPv6
+
+16
+00:00:29,490 --> 00:00:32,710
+nhưng không thể bị truy cập từ ngoài vào.
+
+17
+00:00:32,710 --> 00:00:34,230
+Demo đơn giản, hy vọng hữu ích.
+
+18
+00:00:34,230 --> 00:00:35,080
+Hẹn gặp ở bài tiếp theo.
+

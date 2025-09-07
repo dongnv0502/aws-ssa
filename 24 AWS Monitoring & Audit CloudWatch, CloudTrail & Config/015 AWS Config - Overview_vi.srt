@@ -1,0 +1,80 @@
+1
+00:00:00,640 --> 00:00:03,660
+Tổng quan AWS Config.
+
+2
+00:00:03,660 --> 00:00:06,700
+Config phục vụ audit/ghi nhận tuân thủ cấu hình tài nguyên
+
+3
+00:00:06,700 --> 00:00:10,560
+dựa trên “rules” bạn đặt; ghi lại cấu hình và thay đổi theo thời gian
+
+4
+00:00:10,560 --> 00:00:12,990
+để điều tra/rollback khi cần.
+
+5
+00:00:12,990 --> 00:00:14,830
+Câu hỏi điển hình:
+
+6
+00:00:14,830 --> 00:00:16,660
+- SG có mở SSH từ Anywhere?
+
+7
+00:00:16,660 --> 00:00:18,450
+- S3 bucket có public access?
+
+8
+00:00:18,450 --> 00:00:21,610
+- Cấu hình ALB có đổi theo thời gian?
+
+9
+00:00:21,610 --> 00:00:24,460
+Vi phạm → có thể gửi alert qua SNS/EventBridge.
+
+10
+00:00:24,460 --> 00:00:28,160
+Config theo region; có thể aggregate đa region/account.
+
+11
+00:00:28,160 --> 00:00:30,800
+Ghi dữ liệu cấu hình vào S3, phân tích bằng Athena.
+
+12
+00:00:30,800 --> 00:00:34,910
+Rules: AWS‑managed (>75 rule) hoặc custom (Lambda đánh giá).
+
+13
+00:00:34,910 --> 00:00:38,030
+Kích hoạt theo thay đổi cấu hình hoặc theo lịch (định kỳ).
+
+14
+00:00:38,030 --> 00:00:42,240
+Rules chỉ đánh giá tuân thủ, không chặn hành động (không thay IAM).
+
+15
+00:00:42,240 --> 00:00:46,820
+Chi phí: trả theo config item ghi nhận và số lần rule evaluation.
+
+16
+00:00:46,820 --> 00:00:52,180
+Timeline tài nguyên: xem trạng thái compliant theo thời gian, cấu hình thay đổi,
+
+17
+00:00:52,180 --> 00:00:54,710
+liên kết CloudTrail để thấy API tương ứng.
+
+18
+00:00:54,710 --> 00:01:01,950
+Remediation: tự động/ thủ công qua SSM Automation Document (AWS‑managed
+
+19
+00:01:01,950 --> 00:01:04,319
+hoặc tự tạo) – ví dụ thu hồi credential IAM cũ.
+
+20
+00:01:04,319 --> 00:01:07,160
+Thông báo: EventBridge hoặc SNS (có thể lọc theo thuộc tính).
+

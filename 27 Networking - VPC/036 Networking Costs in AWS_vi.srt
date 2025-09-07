@@ -1,0 +1,679 @@
+1
+00:00:00,100 --> 00:00:02,270
+Giờ hãy nói về chi phí mạng
+
+2
+00:00:02,270 --> 00:00:04,019
+trên AWS theo mỗi gigabyte.
+
+3
+00:00:04,019 --> 00:00:06,050
+Đây là phiên bản giản lược
+
+4
+00:00:06,050 --> 00:00:07,750
+để mọi thứ dễ hiểu nhất
+
+5
+00:00:07,750 --> 00:00:10,760
+và giải thích vài khái niệm quan trọng cho bạn.
+
+6
+00:00:10,760 --> 00:00:13,670
+Chi phí mạng trên AWS có thể rất phức tạp,
+
+7
+00:00:13,670 --> 00:00:15,540
+nhưng đây là cái nhìn tổng quan
+
+8
+00:00:15,540 --> 00:00:17,180
+đủ giúp bạn đi thi.
+
+9
+00:00:17,180 --> 00:00:18,330
+Giả sử ta có một region
+
+10
+00:00:18,330 --> 00:00:22,720
+và hai Availability Zone (AZ) trong region đó.
+
+11
+00:00:22,720 --> 00:00:25,460
+Giả sử có một EC2 instance ở AZ thứ nhất.
+
+12
+00:00:25,460 --> 00:00:26,780
+Điều đầu tiên cần biết
+
+13
+00:00:26,780 --> 00:00:30,500
+là mọi lưu lượng đi vào EC2 instance của bạn
+
+14
+00:00:30,500 --> 00:00:31,610
+đều miễn phí.
+
+15
+00:00:31,610 --> 00:00:34,910
+Nói cách khác, inbound tới EC2 là free.
+
+16
+00:00:34,910 --> 00:00:37,530
+Giờ giả sử có instance EC2 thứ hai
+
+17
+00:00:37,530 --> 00:00:41,060
+và nó ở cùng một AZ, khi đó
+
+18
+00:00:41,060 --> 00:00:42,620
+do một AZ đại diện cho
+
+19
+00:00:42,620 --> 00:00:44,080
+nhiều data center gần nhau
+
+20
+00:00:44,080 --> 00:00:47,150
+về mặt địa lý,
+
+21
+00:00:47,150 --> 00:00:51,230
+nên mọi lưu lượng giữa hai EC2
+
+22
+00:00:51,230 --> 00:00:53,650
+sẽ miễn phí nếu chúng dùng
+
+23
+00:00:53,650 --> 00:00:55,760
+private IP để giao tiếp,
+
+24
+00:00:55,760 --> 00:00:58,410
+vì khi dùng private IP, lưu lượng sẽ đi qua mạng nội bộ
+
+25
+00:00:58,410 --> 00:01:00,470
+chúng đang kết nối.
+
+26
+00:01:00,470 --> 00:01:02,800
+Tới đây thì mọi thứ đều miễn phí.
+
+27
+00:01:02,800 --> 00:01:06,840
+Giờ thêm một EC2 ở AZ khác.
+
+28
+00:01:06,840 --> 00:01:10,160
+Và ta muốn hai EC2 này (ở hai AZ trong cùng region)
+
+29
+00:01:10,160 --> 00:01:12,350
+giao tiếp với nhau.
+
+30
+00:01:12,350 --> 00:01:14,800
+Một cách là dùng public IP
+
+31
+00:01:14,800 --> 00:01:17,530
+hoặc Elastic IP.
+
+32
+00:01:17,530 --> 00:01:18,680
+Nếu làm vậy, bạn sẽ trả
+
+33
+00:01:18,680 --> 00:01:23,100
+0,02 USD mỗi GB dữ liệu
+
+34
+00:01:23,100 --> 00:01:25,830
+nếu dùng public IP hoặc Elastic IP.
+
+35
+00:01:25,830 --> 00:01:26,663
+Tại sao?
+
+36
+00:01:26,663 --> 00:01:30,130
+Vì lưu lượng phải rời mạng AWS
+
+37
+00:01:30,130 --> 00:01:33,540
+rồi quay trở lại để hai instance giao tiếp,
+
+38
+00:01:33,540 --> 00:01:35,730
+nên AWS tính phí cho phần đó.
+
+39
+00:01:35,730 --> 00:01:38,880
+Thay vào đó, nếu dùng private IP,
+
+40
+00:01:38,880 --> 00:01:41,070
+thì phí chỉ còn một nửa,
+
+41
+00:01:41,070 --> 00:01:44,500
+vì ta dùng mạng nội bộ AWS
+
+42
+00:01:44,500 --> 00:01:48,090
+để đi giữa hai AZ.
+
+43
+00:01:48,090 --> 00:01:50,630
+Rút ra: nếu muốn
+
+44
+00:01:50,630 --> 00:01:54,230
+giao tiếp nhanh hơn
+
+45
+00:01:54,230 --> 00:01:55,940
+và rẻ hơn,
+
+46
+00:01:55,940 --> 00:01:59,410
+hãy ưu tiên dùng private IP
+
+47
+00:01:59,410 --> 00:02:01,420
+thay vì public IP.
+
+48
+00:02:01,420 --> 00:02:03,310
+Tiếp theo, xét một region khác
+
+49
+00:02:03,310 --> 00:02:05,070
+với một AZ khác.
+
+50
+00:02:05,070 --> 00:02:09,570
+Trong trường hợp lưu lượng đi từ region này sang region khác,
+
+51
+00:02:09,570 --> 00:02:14,020
+chi phí sẽ là 0,02 USD mỗi GB.
+
+52
+00:02:14,020 --> 00:02:16,040
+Nghĩa là lưu lượng xuyên region
+
+53
+00:02:16,040 --> 00:02:18,410
+có thể khá đắt.
+
+54
+00:02:18,410 --> 00:02:20,480
+Tóm lại, từ slide đơn giản này
+
+55
+00:02:20,480 --> 00:02:23,180
+ta rút ra điều gì?
+
+56
+00:02:23,180 --> 00:02:26,290
+Thứ nhất, nên dùng private IP
+
+57
+00:02:26,290 --> 00:02:27,940
+thay vì public IP
+
+58
+00:02:27,940 --> 00:02:30,360
+nếu muốn tiết kiệm chi phí
+
+59
+00:02:30,360 --> 00:02:31,820
+và có hiệu năng mạng tốt hơn,
+
+60
+00:02:31,820 --> 00:02:35,490
+vì bạn sẽ ở trong mạng riêng tư.
+
+61
+00:02:35,490 --> 00:02:38,780
+Thứ hai, không dùng public IP
+
+62
+00:02:38,780 --> 00:02:40,980
+để hai instance trong cùng region
+
+63
+00:02:40,980 --> 00:02:43,300
+nhưng khác AZ nói chuyện.
+
+64
+00:02:43,300 --> 00:02:45,780
+Thứ ba, nếu bạn có cụm tính toán
+
+65
+00:02:45,780 --> 00:02:47,030
+và cần rất nhiều giao tiếp
+
+66
+00:02:47,030 --> 00:02:49,080
+giữa các EC2 với nhau,
+
+67
+00:02:49,080 --> 00:02:52,000
+thì nên đặt cùng AZ
+
+68
+00:02:52,000 --> 00:02:55,300
+để tiết kiệm tối đa.
+
+69
+00:02:55,300 --> 00:02:58,360
+Tất nhiên sự tiết kiệm này phải đánh đổi
+
+70
+00:02:58,360 --> 00:03:01,300
+với tính sẵn sàng cao (HA).
+
+71
+00:03:01,300 --> 00:03:04,350
+Nếu AZ gặp sự cố, bạn sẽ không có phương án dự phòng.
+
+72
+00:03:04,350 --> 00:03:06,410
+Vì thế cần cân bằng
+
+73
+00:03:06,410 --> 00:03:08,620
+giữa HA và chi phí.
+
+74
+00:03:08,620 --> 00:03:10,060
+Trong đề thi, tùy câu hỏi
+
+75
+00:03:10,060 --> 00:03:12,780
+bạn sẽ phải chọn phương án phù hợp.
+
+76
+00:03:12,780 --> 00:03:15,210
+Ví dụ điển hình:
+
+77
+00:03:15,210 --> 00:03:16,950
+có một RDS và cần tạo read replica
+
+78
+00:03:16,950 --> 00:03:19,010
+để phân tích dữ liệu.
+
+79
+00:03:19,010 --> 00:03:20,870
+Làm thế nào để rẻ nhất?
+
+80
+00:03:20,870 --> 00:03:22,620
+Nếu tạo read replica cùng AZ,
+
+81
+00:03:22,620 --> 00:03:25,140
+bạn sẽ không bị tính phí transfer mạng
+
+82
+00:03:25,140 --> 00:03:26,430
+giữa hai DB.
+
+83
+00:03:26,430 --> 00:03:28,260
+Nhưng nếu tạo ở AZ khác,
+
+84
+00:03:28,260 --> 00:03:30,940
+bạn sẽ trả 0,01 USD mỗi GB
+
+85
+00:03:30,940 --> 00:03:33,710
+cho lưu lượng giữa hai DB.
+
+86
+00:03:33,710 --> 00:03:36,460
+Giờ hãy nói cách tối ưu chi phí mạng
+
+87
+00:03:36,460 --> 00:03:39,230
+bằng các quyết định kiến trúc thông minh.
+
+88
+00:03:39,230 --> 00:03:42,040
+Egress là lưu lượng outbound
+
+89
+00:03:42,040 --> 00:03:45,020
+từ AWS ra ngoài.
+
+90
+00:03:45,020 --> 00:03:46,140
+Ingress là inbound,
+
+91
+00:03:46,140 --> 00:03:47,830
+từ bên ngoài vào AWS.
+
+92
+00:03:47,830 --> 00:03:50,700
+Ingress thường miễn phí.
+
+93
+00:03:50,700 --> 00:03:53,390
+Gửi dữ liệu vào AWS thường free,
+
+94
+00:03:53,390 --> 00:03:55,990
+nhưng lấy dữ liệu ra khỏi AWS thì phải trả phí.
+
+95
+00:03:55,990 --> 00:03:58,620
+Mục tiêu của bạn là giữ càng nhiều
+
+96
+00:03:58,620 --> 00:04:01,060
+lưu lượng trên Internet ở trong AWS càng tốt
+
+97
+00:04:01,060 --> 00:04:02,550
+để giảm chi phí.
+
+98
+00:04:02,550 --> 00:04:05,120
+Giả sử có một cơ sở dữ liệu,
+
+99
+00:04:05,120 --> 00:04:08,640
+một người dùng tại data center của công ty,
+
+100
+00:04:08,640 --> 00:04:11,570
+và một ứng dụng chạy trong data center đó.
+
+101
+00:04:11,570 --> 00:04:13,350
+Ứng dụng gửi query tới DB
+
+102
+00:04:13,350 --> 00:04:16,300
+và lấy về 100 MB dữ liệu.
+
+103
+00:04:16,300 --> 00:04:17,980
+Sau đó tổng hợp, tính toán
+
+104
+00:04:17,980 --> 00:04:20,459
+và cuối cùng trả kết quả
+
+105
+00:04:20,459 --> 00:04:23,980
+chỉ 50 KB cho người dùng.
+
+106
+00:04:23,980 --> 00:04:26,360
+Khi đó egress sẽ rất lớn
+
+107
+00:04:26,360 --> 00:04:30,090
+và chi phí kèm theo cũng rất cao,
+
+108
+00:04:30,090 --> 00:04:32,840
+vì ta lấy 100 MB ra khỏi AWS
+
+109
+00:04:32,840 --> 00:04:34,630
+đưa về data center (có thể qua Internet).
+
+110
+00:04:34,630 --> 00:04:37,300
+Nếu ta chọn khôn ngoan hơn,
+
+111
+00:04:37,300 --> 00:04:38,360
+hãy chuyển ứng dụng lên AWS
+
+112
+00:04:38,360 --> 00:04:41,350
+chạy trên EC2.
+
+113
+00:04:41,350 --> 00:04:43,050
+Nếu khéo sắp xếp và giữ dữ liệu
+
+114
+00:04:43,050 --> 00:04:44,220
+trong cùng AZ,
+
+115
+00:04:44,220 --> 00:04:47,430
+thì dữ liệu query DB là miễn phí.
+
+116
+00:04:47,430 --> 00:04:49,930
+100 MB sẽ không bị tính phí.
+
+117
+00:04:49,930 --> 00:04:51,870
+Chỉ kết quả query 50 KB
+
+118
+00:04:51,870 --> 00:04:54,460
+gửi ra cho người dùng là mất chi phí thấp hơn nhiều.
+
+119
+00:04:54,460 --> 00:04:58,830
+Như vậy egress đã được tối thiểu.
+
+120
+00:04:58,830 --> 00:05:00,260
+Một điều nữa để giảm egress
+
+121
+00:05:00,260 --> 00:05:01,910
+là nếu dùng Direct Connect,
+
+122
+00:05:01,910 --> 00:05:04,480
+hãy chọn địa điểm Direct Connect cùng region AWS
+
+123
+00:05:04,480 --> 00:05:07,710
+để có chi phí egress thấp hơn.
+
+124
+00:05:07,710 --> 00:05:11,320
+Tiếp theo là giá data transfer của S3.
+
+125
+00:05:11,320 --> 00:05:12,910
+Phân tích cho khu vực USA.
+
+126
+00:05:12,910 --> 00:05:15,760
+Giả sử có một S3 bucket…
+
+127
+00:05:15,760 --> 00:05:17,640
+(phần này mô tả mức phí theo chiều hướng)
+
+128
+00:05:17,640 --> 00:05:21,340
+và chỉ số cụ thể có thể thay đổi theo thời gian/khu vực.
+
+129
+00:05:21,340 --> 00:05:22,290
+Ý chính cần nhớ:
+
+130
+00:05:22,290 --> 00:05:24,410
+CloudFront có giá truyền dữ liệu ra (egress)
+
+131
+00:05:24,410 --> 00:05:26,470
+thấp hơn một chút so với S3 trực tiếp,
+
+132
+00:05:26,470 --> 00:05:28,450
+và còn có bộ nhớ đệm (cache)
+
+133
+00:05:28,450 --> 00:05:31,170
+giúp giảm độ trễ truy cập dữ liệu.
+
+134
+00:05:31,170 --> 00:05:34,273
+Ngoài ra chi phí request qua CloudFront
+
+135
+00:05:35,460 --> 00:05:38,490
+rẻ hơn rất nhiều so với request trực tiếp vào S3
+
+136
+00:05:38,490 --> 00:05:40,670
+(ước chừng rẻ hơn khoảng 7 lần).
+
+137
+00:05:40,670 --> 00:05:42,210
+Vì vậy nếu phù hợp use case,
+
+138
+00:05:42,210 --> 00:05:45,630
+dùng CloudFront trước S3 sẽ tiết kiệm đáng kể.
+
+139
+00:05:45,630 --> 00:05:47,850
+Nếu bạn bật Cross‑Region Replication (CRR)
+
+140
+00:05:47,850 --> 00:05:50,580
+cho S3 bucket,
+
+141
+00:05:50,580 --> 00:05:52,930
+chi phí khoảng 0,02 USD mỗi GB.
+
+142
+00:05:52,930 --> 00:05:56,980
+Các con số có thể đổi theo thời gian và theo region của bạn,
+
+143
+00:05:56,980 --> 00:05:58,460
+nhưng điều cần nhớ là
+
+144
+00:05:58,460 --> 00:06:00,990
+một số dịch vụ sẽ phát sinh chi phí bổ sung
+
+145
+00:06:00,990 --> 00:06:05,080
+và cần hiểu chúng liên hệ thế nào với nhau.
+
+146
+00:06:05,080 --> 00:06:08,820
+Phân tích khác: dùng NAT Gateway
+
+147
+00:06:08,820 --> 00:06:10,500
+so với Gateway VPC Endpoint.
+
+148
+00:06:10,500 --> 00:06:14,000
+Có một VPC, hai subnet private
+
+149
+00:06:14,000 --> 00:06:15,560
+chạy các EC2 khác nhau
+
+150
+00:06:15,560 --> 00:06:19,020
+và cả hai cần truy cập dữ liệu trong S3 bucket.
+
+151
+00:06:19,020 --> 00:06:21,000
+Một cách là đi Internet công cộng:
+
+152
+00:06:21,000 --> 00:06:23,390
+ta có subnet public với NAT Gateway.
+
+153
+00:06:23,390 --> 00:06:26,450
+Để subnet thành public, cần route tới IGW.
+
+154
+00:06:26,450 --> 00:06:30,330
+Sau đó EC2 đi qua NAT Gateway → IGW → Internet
+
+155
+00:06:30,330 --> 00:06:33,550
+để truy cập dữ liệu trong S3.
+
+156
+00:06:33,550 --> 00:06:36,700
+Chi phí: 0,045 USD/giờ cho NAT Gateway,
+
+157
+00:06:36,700 --> 00:06:40,570
+0,045 USD/GB dữ liệu xử lý qua NAT Gateway,
+
+158
+00:06:40,570 --> 00:06:42,340
+và 0,09 USD/GB cho data transfer out
+
+159
+00:06:35,900 --> 00:06:38,710
+đến S3 cross‑region (0 USD nếu cùng region).
+
+160
+00:06:38,710 --> 00:06:40,930
+Nếu thay bằng VPC Endpoint
+
+161
+00:06:40,930 --> 00:06:43,780
+để truy cập S3 riêng tư,
+
+162
+00:06:43,780 --> 00:06:46,960
+chỉ cần thêm route tới Gateway Endpoint.
+
+163
+00:06:46,960 --> 00:06:48,770
+Lưu lượng đi từ subnet private
+
+164
+00:06:48,770 --> 00:06:51,030
+trực tiếp tới VPC Endpoint rồi S3.
+
+165
+00:06:51,030 --> 00:06:52,930
+Gateway Endpoint không tính phí theo giờ,
+
+166
+00:06:52,930 --> 00:06:56,980
+và trả 0,01 USD/GB dữ liệu in/out S3 (cùng region).
+
+167
+00:06:56,980 --> 00:06:58,460
+Vì vậy chi phí có thể thấp hơn đáng kể
+
+168
+00:06:58,460 --> 00:07:00,990
+khi dùng VPC Endpoint thay vì NAT Gateway.
+
+169
+00:07:00,990 --> 00:07:05,080
+Và đây là chủ đề có thể xuất hiện trong đề thi.
+
+170
+00:07:05,080 --> 00:07:08,820
+Hy vọng bạn thấy hữu ích, hẹn gặp ở bài giảng tiếp theo.

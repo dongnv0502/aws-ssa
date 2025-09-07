@@ -1,0 +1,144 @@
+1
+00:00:00,360 --> 00:00:01,500
+Bây giờ nói về Instance Scheduler on AWS.
+
+2
+00:00:01,500 --> 00:00:04,290
+Đây không phải là “dịch vụ” mà là một AWS Solution
+
+3
+00:00:04,290 --> 00:00:05,640
+được triển khai qua CloudFormation.
+
+4
+00:00:05,640 --> 00:00:09,360
+Kiến trúc khá đầy đủ và hơi phức tạp: bạn deploy stack
+
+5
+00:00:09,360 --> 00:00:11,370
+để có khả năng tự động Start/Stop
+
+6
+00:00:11,370 --> 00:00:13,200
+các dịch vụ AWS nhằm giảm chi phí (tới ~70%).
+
+7
+00:00:13,200 --> 00:00:15,810
+Ví dụ: tắt EC2 của công ty ngoài giờ làm việc
+
+8
+00:00:15,810 --> 00:00:19,050
+→ có thể dùng Instance Scheduler.
+
+9
+00:00:19,050 --> 00:00:22,260
+Hỗ trợ: EC2 instances, EC2 Auto Scaling Groups, RDS.
+
+10
+00:00:22,260 --> 00:00:26,340
+Lịch (schedule) được quản lý trong DynamoDB table.
+
+11
+00:00:26,340 --> 00:00:28,980
+Cách hoạt động: một Lambda tra cứu lịch trong DDB
+
+12
+00:00:28,980 --> 00:00:30,810
+rồi kích hoạt các Lambda khác để Start/Stop
+
+13
+00:00:30,810 --> 00:00:32,369
+các instance/dịch vụ tương ứng.
+
+14
+00:00:32,369 --> 00:00:35,070
+Giải pháp hỗ trợ cross‑account và cross‑region,
+
+15
+00:00:35,070 --> 00:00:37,350
+sẵn sàng cho production.
+
+16
+00:00:37,350 --> 00:00:40,920
+Trang solution cung cấp hướng dẫn triển khai, mã nguồn,
+
+17
+00:00:40,920 --> 00:00:44,040
+template CloudFormation, developer/operator guide.
+
+18
+00:00:44,040 --> 00:00:47,760
+Ý chính: bật/tắt tài nguyên để tiết kiệm chi phí.
+
+19
+00:00:47,760 --> 00:00:51,120
+Triển khai Quick Start: từ trang solution, chọn Launch Solution
+
+20
+00:00:51,120 --> 00:00:54,240
+→ vào CloudFormation với S3 URL template được điền sẵn.
+
+21
+00:00:54,240 --> 00:00:56,640
+Đặt tên stack (ví dụ InstanceScheduler) và Next.
+
+22
+00:00:56,640 --> 00:01:00,120
+Các tham số chính: chu kỳ kiểm tra (ví dụ 5 phút),
+
+23
+00:01:00,120 --> 00:01:04,950
+timezone mặc định, bật/tắt solution, chọn dịch vụ áp dụng:
+
+24
+00:01:04,950 --> 00:01:06,720
+EC2, RDS/RDS Cluster, Neptune, DocumentDB, Auto Scaling…
+
+25
+00:01:06,720 --> 00:01:08,400
+(quan trọng nhất: EC2 và RDS/Cluster).
+
+26
+00:01:08,400 --> 00:01:11,250
+Tagging: khi instance được Start/Stop, solution sẽ tự động
+
+27
+00:01:11,250 --> 00:01:12,600
+gắn tag mô tả hành động, thời gian, múi giờ.
+
+28
+00:01:12,600 --> 00:01:15,150
+Tùy chọn nâng cao: snapshot RDS khi Stop, xử lý ASG, v.v.
+
+29
+00:01:15,150 --> 00:01:16,500
+Khi create stack xong, xem Outputs/Resources
+
+30
+00:01:16,500 --> 00:01:19,290
+để thấy các tài nguyên được tạo; chuyển qua DynamoDB
+
+31
+00:01:19,290 --> 00:01:23,220
+để cấu hình lịch trong bảng config (begin/end time, mô tả,
+
+32
+00:01:23,220 --> 00:01:24,780
+office hours, working days, lịch theo thứ tự,…).
+
+33
+00:01:24,780 --> 00:01:28,470
+Trong Lambda console, nhiều hàm Lambda đảm nhiệm lịch trình.
+
+34
+00:01:28,470 --> 00:01:31,713
+Không cần đi quá sâu vào kiến trúc; nắm được ý tưởng là đủ.
+
+35
+00:01:32,580 --> 00:01:34,893
+Khi thử xong, xoá stack để dọn dẹp.
+
+36
+00:01:36,090 --> 00:01:37,710
+Vậy là xong.
+

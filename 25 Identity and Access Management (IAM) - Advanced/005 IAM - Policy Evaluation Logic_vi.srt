@@ -1,0 +1,324 @@
+1
+00:00:00,000 --> 00:00:02,290
+Hãy tìm hiểu về IAM Permission Boundaries.
+
+2
+00:00:02,290 --> 00:00:03,920
+Permission Boundary được hỗ trợ cho user và role
+
+3
+00:00:03,920 --> 00:00:05,850
+và không áp dụng cho group (hãy nhớ điều này).
+
+4
+00:00:05,850 --> 00:00:08,760
+Đây là tính năng nâng cao cho phép xác định
+
+5
+00:00:08,760 --> 00:00:10,220
+“mức quyền tối đa” mà một IAM entity có thể có.
+
+6
+00:00:10,220 --> 00:00:13,350
+Ví dụ: ta có một IAM permission boundary
+
+7
+00:00:13,350 --> 00:00:15,110
+trông giống hệt một IAM policy.
+
+8
+00:00:15,110 --> 00:00:16,560
+Nó allow mọi thứ trên S3, CloudWatch, EC2.
+
+9
+00:00:16,560 --> 00:00:18,720
+Ta gắn boundary này vào một IAM user chẳng hạn.
+
+10
+00:00:18,720 --> 00:00:19,770
+Đó là permission boundary của user.
+
+11
+00:00:19,770 --> 00:00:24,750
+Nghĩa là user chỉ có thể làm các việc trong S3, CloudWatch, EC2.
+
+12
+00:00:24,750 --> 00:00:27,430
+Sau đó, bạn vẫn cần gắn thêm IAM policy (quyền cụ thể).
+
+13
+00:00:27,430 --> 00:00:29,030
+Ví dụ, ta gắn cho cùng user
+
+14
+00:00:29,030 --> 00:00:31,120
+quyền allow iam:CreateUser trên resource *.
+
+15
+00:00:31,120 --> 00:00:33,440
+Vậy kết quả cuối cùng là gì?
+
+16
+00:00:33,440 --> 00:00:36,360
+Không có quyền nào hiệu lực cả,
+
+17
+00:00:36,360 --> 00:00:39,320
+vì IAM policy này nằm ngoài permission boundary.
+
+18
+00:00:39,320 --> 00:00:42,430
+User không được phép tạo IAM user khác
+
+19
+00:00:42,430 --> 00:00:45,270
+do hành động đó không nằm trong boundary của user.
+
+20
+00:00:45,270 --> 00:00:46,440
+Giờ tôi chỉ cho bạn
+
+21
+00:00:46,440 --> 00:00:49,090
+nơi tạo và gán permission boundary.
+
+22
+00:00:49,090 --> 00:00:52,580
+Tạo user mới tên John, cấp programmatic access,
+
+23
+00:00:52,580 --> 00:00:54,600
+để trống phần quyền lúc đầu, thêm tags,
+
+24
+00:00:54,600 --> 00:00:56,270
+review và Create user.
+
+25
+00:00:56,270 --> 00:00:59,080
+Ta đã tạo John và sẽ gán permission boundary cho John.
+
+26
+00:00:59,080 --> 00:01:02,750
+Giả sử John là developer và cần một số quyền nhất định,
+
+27
+00:01:02,750 --> 00:01:06,080
+nhưng ta muốn chắc chắn có boundary bao quanh.
+
+28
+00:01:06,080 --> 00:01:06,920
+Ta có thể gán policy,
+
+29
+00:01:06,920 --> 00:01:08,910
+ví dụ attach AdministratorAccess cho John.
+
+30
+00:01:08,910 --> 00:01:10,570
+Có vẻ John làm được mọi thứ — super user.
+
+31
+00:01:10,570 --> 00:01:12,900
+Nhưng đồng thời ta đặt permission boundary cho John
+
+32
+00:01:12,900 --> 00:01:15,820
+và nói rằng John chỉ được AmazonS3FullAccess.
+
+33
+00:01:17,010 --> 00:01:18,620
+Như vậy boundary của John
+
+34
+00:01:18,620 --> 00:01:19,790
+là managed policy AWS S3 Full Access.
+
+35
+00:01:19,790 --> 00:01:21,820
+Dù John có AdministratorAccess,
+
+36
+00:01:21,820 --> 00:01:23,560
+khi đăng nhập, John chỉ làm được trên S3
+
+37
+00:01:23,560 --> 00:01:25,990
+vì S3 là phạm vi boundary.
+
+38
+00:01:25,990 --> 00:01:28,300
+Tức boundary mang tính ràng buộc hơn policy đính kèm.
+
+39
+00:01:28,300 --> 00:01:29,890
+Permission Boundary có thể dùng
+
+40
+00:01:29,890 --> 00:01:32,210
+kết hợp với AWS Organizations SCP.
+
+41
+00:01:32,210 --> 00:01:34,350
+Hiệu lực cuối cùng nằm giữa 3 lớp:
+
+42
+00:01:34,350 --> 00:01:35,340
+identity‑based policy (gắn vào user/group),
+
+43
+00:01:35,340 --> 00:01:38,699
+permission boundary (chỉ áp cho user/role, không áp cho group),
+
+44
+00:01:38,699 --> 00:01:41,030
+và organization SCP (áp cho mọi entity trong account).
+
+45
+00:01:41,030 --> 00:01:43,880
+Một số use case của permission boundary:
+
+46
+00:01:43,880 --> 00:01:45,600
+- Ủy quyền cho non‑admin trong boundary của họ
+
+47
+00:01:45,600 --> 00:01:49,070
+  (ví dụ được tạo IAM user mới);
+
+48
+00:01:49,070 --> 00:01:50,630
+- Cho phép developer tự gán/quản lý quyền
+
+49
+00:01:50,630 --> 00:01:52,060
+  nhưng không thể tự nâng quyền thành admin;
+
+50
+00:01:52,060 --> 00:01:53,980
+- Hạn chế một user cụ thể trong tổ chức
+
+51
+00:01:53,980 --> 00:01:56,957
+  thay vì áp một SCP rộng cho cả account.
+
+52
+00:01:58,150 --> 00:02:00,190
+Giờ xem IAM Policy Evaluation Logic.
+
+53
+00:02:00,190 --> 00:02:02,530
+Biểu đồ này mô tả cách AWS đánh giá quyền mỗi hành động.
+
+54
+00:02:02,530 --> 00:02:07,530
+Bạn không cần học thuộc, chỉ cần hiểu luồng đánh giá.
+
+55
+00:02:07,640 --> 00:02:10,539
+Ở mỗi bước đều có evaluate: explicit deny,
+
+56
+00:02:10,539 --> 00:02:15,270
+Organizations SCP, resource‑based policy, identity‑based policy,
+
+57
+00:02:15,270 --> 00:02:17,460
+IAM permission boundary, session policies, v.v.
+
+58
+00:02:17,460 --> 00:02:18,450
+Ví dụ resource‑based policy
+
+59
+00:02:18,450 --> 00:02:20,100
+áp cho S3 bucket, SQS, v.v.
+
+60
+00:02:20,100 --> 00:02:21,890
+Kiểm tra có policy không, có allow không.
+
+61
+00:02:21,890 --> 00:02:25,000
+Tiếp đến identity‑based policy: có allow không.
+
+62
+00:02:25,000 --> 00:02:27,110
+Rồi đến IAM permission boundary.
+
+63
+00:02:27,110 --> 00:02:30,360
+Cuối cùng là session policy (liên quan đến STS nhiều hơn).
+
+64
+00:02:30,360 --> 00:02:32,730
+Lưu ý: tất cả các lớp này đều được xét,
+
+65
+00:02:32,730 --> 00:02:34,970
+và chỉ khi không có deny nào chặn,
+
+66
+00:02:34,970 --> 00:02:38,460
+và có đủ allow cần thiết, bạn mới được phép hành động.
+
+67
+00:02:38,460 --> 00:02:41,350
+Ví dụ chính sách sau để cụ thể hóa:
+
+68
+00:02:41,350 --> 00:02:43,360
+- Deny sqs:* trên resource *
+
+69
+00:02:43,360 --> 00:02:46,750
+- Allow sqs:DeleteQueue trên resource *
+
+70
+00:02:46,750 --> 00:02:48,740
+Câu hỏi 1: có thực hiện được sqs:CreateQueue không?
+
+71
+00:02:48,740 --> 00:02:51,910
+Không, vì có Deny sqs:* chặn hành động này.
+
+72
+00:02:51,910 --> 00:02:55,710
+Câu hỏi 2: có thực hiện được sqs:DeleteQueue không?
+
+73
+00:02:55,710 --> 00:02:58,950
+Trên có deny, dưới có allow — xung đột.
+
+74
+00:02:58,950 --> 00:03:01,470
+Nhưng hễ có explicit deny thì kết quả là Deny.
+
+75
+00:03:01,470 --> 00:03:04,210
+Vì sqs:* bị deny, DeleteQueue thuộc sqs:*,
+
+76
+00:03:04,210 --> 00:03:06,550
+nên vẫn bị Deny dù có allow riêng.
+
+77
+00:03:06,550 --> 00:03:08,730
+Câu hỏi 3: ec2:DescribeInstances thì sao?
+
+78
+00:03:08,730 --> 00:03:10,070
+Policy này không đề cập EC2,
+
+79
+00:03:10,070 --> 00:03:12,760
+không có explicit allow hay deny cho EC2,
+
+80
+00:03:12,760 --> 00:03:15,420
+vậy theo nguyên tắc default deny, hành động không được phép.
+
+81
+00:03:15,420 --> 00:03:18,840
+Hy vọng bạn đã nắm rõ hơn. Hẹn gặp lại ở bài tiếp theo.
+

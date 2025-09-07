@@ -1,0 +1,76 @@
+1
+00:00:00,150 --> 00:00:02,040
+Giới thiệu Amazon CloudWatch – CloudWatch Metrics.
+
+2
+00:00:02,040 --> 00:00:04,110
+CloudWatch cung cấp metrics cho hầu hết dịch vụ AWS,
+
+3
+00:00:04,110 --> 00:00:06,630
+giúp bạn giám sát mọi thứ trong tài khoản.
+
+4
+00:00:06,630 --> 00:00:08,160
+Metric là biến cần theo dõi:
+
+5
+00:00:08,160 --> 00:00:11,550
+EC2: CPUUtilization, NetworkIn…; S3: BucketSize…
+
+6
+00:00:11,550 --> 00:00:13,980
+Metrics thuộc “namespace” (mỗi dịch vụ thường là 1 namespace).
+
+7
+00:00:13,980 --> 00:00:15,600
+Dimension là thuộc tính của metric
+
+8
+00:00:15,600 --> 00:00:18,360
+(ví dụ CPUUtilization theo InstanceId/Environment…),
+
+9
+00:00:18,360 --> 00:00:20,100
+tối đa 30 dimension/metric.
+
+10
+00:00:20,100 --> 00:00:23,940
+Metrics theo thời gian (có timestamp). Bạn có thể tạo Dashboard
+
+11
+00:00:23,940 --> 00:00:27,270
+để quan sát nhiều metric cùng lúc.
+
+12
+00:00:27,270 --> 00:00:30,000
+Custom Metrics: tự đẩy metric của bạn lên CloudWatch
+
+13
+00:00:30,000 --> 00:00:32,729
+(ví dụ Memory usage của EC2) – use case phổ biến.
+
+14
+00:00:32,729 --> 00:00:35,910
+Metric Streams: stream metrics gần realtime ra bên ngoài
+
+15
+00:00:35,910 --> 00:00:37,260
+với độ trễ thấp.
+
+16
+00:00:37,260 --> 00:00:39,300
+Đích đến: Amazon Kinesis Data Firehose (từ đó đẩy đi),
+
+17
+00:00:39,300 --> 00:00:42,420
+hoặc thẳng tới đối tác (Datadog, Dynatrace, New Relic, Splunk, Sumo…).
+
+18
+00:00:42,420 --> 00:00:45,600
+Luồng: Metrics → Kinesis Data Firehose (đã cấu hình)
+
+19
+00:00:45,600 --> 00:00:51,090
+→ S3/Kinesis Data Streams/đối tác, phục vụ phân tích/archiving.
+

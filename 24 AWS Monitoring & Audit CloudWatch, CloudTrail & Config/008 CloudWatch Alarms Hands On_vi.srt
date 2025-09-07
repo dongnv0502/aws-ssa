@@ -1,0 +1,52 @@
+1
+00:00:00,610 --> 00:00:02,440
+Thực hành tạo CloudWatch Alarm.
+
+2
+00:00:02,440 --> 00:00:04,540
+Tạo nhanh một EC2 t2.micro và đặt alarm trên CPUUtilization
+
+3
+00:00:04,540 --> 00:00:06,870
+(ví dụ hành động: terminate khi CPU quá cao).
+
+4
+00:00:06,870 --> 00:00:11,430
+Chọn metric: EC2 → Per‑instance metrics → CPUUtilization.
+
+5
+00:00:11,430 --> 00:00:15,410
+Chọn thống kê (Average/Max…), Period 5 phút (phù hợp basic monitoring).
+
+6
+00:00:15,410 --> 00:00:19,180
+Điều kiện: Static threshold, Greater than 95%, 3/3 evaluation periods
+
+7
+00:00:19,180 --> 00:00:21,000
+(tức 15 phút liên tục vượt ngưỡng).
+
+8
+00:00:21,000 --> 00:00:25,040
+Action: EC2 action → Terminate instance khi In‑ALARM.
+
+9
+00:00:25,040 --> 00:00:30,340
+Đặt tên, review và tạo. Ban đầu trạng thái INSUFFICIENT_DATA → chờ dữ liệu.
+
+10
+00:00:30,340 --> 00:00:33,950
+Để kiểm thử nhanh, dùng CLI `set-alarm-state` để ép In‑ALARM
+
+11
+00:00:33,950 --> 00:00:37,080
+và quan sát hành động được kích hoạt (instance bị terminate).
+
+12
+00:00:37,080 --> 00:00:41,993
+Kiểm tra Alarm history hiển thị chuyển trạng thái OK → ALARM
+
+13
+00:00:41,993 --> 00:00:47,890
+và action thực thi thành công. EC2 Instances: trạng thái shutting‑down/terminated.
+

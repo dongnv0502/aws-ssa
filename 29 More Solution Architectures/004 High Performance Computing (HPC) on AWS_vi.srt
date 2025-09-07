@@ -1,0 +1,76 @@
+1
+00:00:00,350 --> 00:00:08,810
+High Performance Computing (HPC) trên AWS — khái niệm và dịch vụ.
+
+2
+00:00:08,810 --> 00:00:20,740
+Cloud rất phù hợp: tạo nhiều tài nguyên nhanh, mở rộng để rút ngắn
+
+3
+00:00:20,740 --> 00:00:28,050
+thời gian xử lý, dùng đến đâu trả tiền đến đó, huỷ xong là hết phí.
+
+4
+00:00:44,800 --> 00:01:00,430
+Use case: genomics, hoá tính toán, tài chính, thời tiết, ML/DL, xe tự hành.
+
+5
+00:01:00,430 --> 00:01:17,841
+Nhập dữ liệu: Direct Connect (đường riêng tốc độ cao),
+
+6
+00:01:17,841 --> 00:01:25,040
+Snowball/Snowmobile (PB — chuyển một lần lớn), DataSync (NFS/SMB→S3/EFS/FSx).
+
+7
+00:01:40,580 --> 00:02:12,930
+Tính toán & mạng: EC2 (CPU/GPU optimized), Spot/Fleet, Auto Scaling,
+
+8
+00:02:12,930 --> 00:02:21,310
+Placement Group kiểu cluster để có băng thông/thời gian trễ tốt nhất.
+
+9
+00:02:28,510 --> 00:03:00,440
+Enhanced Networking: ENA (SR-IOV) tới 100 Gbps, PPS cao, latency thấp;
+
+10
+00:03:00,440 --> 00:03:23,960
+tuỳ dòng máy; EFA (Elastic Fabric Adapter) cho MPI/HPC hiệu năng cao.
+
+11
+00:04:16,810 --> 00:04:22,480
+Hãy phân biệt ENI (card mạng ảo), ENA (enhanced), EFA (HPC/MPI).
+
+12
+00:04:22,480 --> 00:05:04,530
+Lưu trữ: EBS (io2 Block Express, đến 256K IOPS), Instance Store (IOPS rất cao),
+
+13
+00:05:04,530 --> 00:05:11,380
+S3 (đối tượng lớn), EFS (chia sẻ, IOPS theo dung lượng; provisioned mode),
+
+14
+00:05:11,380 --> 00:05:20,930
+FSx for Lustre (tối ưu HPC, triệu IOPS, tích hợp S3).
+
+15
+00:05:23,130 --> 00:06:06,430
+Tự động hoá/Điều phối: AWS Batch (multi-node parallel jobs),
+
+16
+00:06:06,430 --> 00:06:15,130
+AWS ParallelCluster (OSS) — định nghĩa bằng file, tạo VPC/Subnet/Cluster;
+
+17
+00:06:15,130 --> 00:06:25,703
+có thể bật EFA trong cấu hình để tăng hiệu năng mạng của cụm HPC.
+
+18
+00:06:27,543 --> 00:06:45,860
+Tóm lại: HPC không phải một dịch vụ, là tổ hợp nhiều dịch vụ tuỳ bài toán;
+
+19
+00:06:45,860 --> 00:06:45,860
+hiểu rõ để tối đa hoá năng lực tính toán trên AWS.
+

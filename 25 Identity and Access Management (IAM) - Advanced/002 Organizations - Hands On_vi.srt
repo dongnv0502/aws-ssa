@@ -1,0 +1,312 @@
+1
+00:00:00,400 --> 00:00:01,970
+Rồi, giờ chúng ta thực hành với AWS Organizations.
+
+2
+00:00:01,970 --> 00:00:03,760
+Tôi sẽ vào dịch vụ Organizations
+
+3
+00:00:03,760 --> 00:00:06,720
+và bắt đầu cấu hình.
+
+4
+00:00:06,720 --> 00:00:08,620
+Trong ví dụ này,
+
+5
+00:00:08,620 --> 00:00:11,550
+Organizations là dịch vụ global
+
+6
+00:00:11,550 --> 00:00:13,300
+vì liên quan đến tài khoản
+
+7
+00:00:13,300 --> 00:00:15,000
+và gom nhóm chúng lại, OK?
+
+8
+00:00:15,000 --> 00:00:17,550
+Tôi cũng đã tạo một bộ tài khoản mới cho demo này:
+
+9
+00:00:17,550 --> 00:00:18,870
+“AWS course master account”
+
+10
+00:00:18,870 --> 00:00:20,410
+và cửa sổ khác là
+
+11
+00:00:20,410 --> 00:00:22,860
+“AWS course child account”.
+
+12
+00:00:22,860 --> 00:00:26,553
+Tôi không dùng account chính, và muốn demo với hai account riêng.
+
+13
+00:00:26,553 --> 00:00:28,257
+Nếu muốn làm theo,
+
+14
+00:00:28,257 --> 00:00:30,830
+bạn hãy tạo hai account mới,
+
+15
+00:00:30,830 --> 00:00:32,270
+đặt tên tùy ý để có một master
+
+16
+00:00:32,270 --> 00:00:34,600
+và một child trong Organization.
+
+17
+00:00:34,600 --> 00:00:37,090
+Từ master account, tôi sẽ tạo một organization.
+
+18
+00:00:37,090 --> 00:00:40,000
+Trong organization, ta sẽ định nghĩa các account.
+
+19
+00:00:40,000 --> 00:00:41,110
+Việc tạo rất nhanh;
+
+20
+00:00:41,110 --> 00:00:44,750
+organization đã có và có root Organizational Unit (OU).
+
+21
+00:00:44,750 --> 00:00:46,420
+Bên trong có “AWS course master account”
+
+22
+00:00:46,420 --> 00:00:48,350
+là master account (management account).
+
+23
+00:00:48,350 --> 00:00:50,060
+Bây giờ, ta muốn thêm một AWS account thứ hai.
+
+24
+00:00:50,060 --> 00:00:52,790
+Chọn Add an account. Có hai cách:
+
+25
+00:00:52,790 --> 00:00:56,320
+- Tạo account mới: nhập tên, email chủ sở hữu,
+
+26
+00:00:56,320 --> 00:00:59,760
+  và một IAM role sẽ được tạo ở tài khoản đích
+
+27
+00:00:59,760 --> 00:01:00,860
+  để cho phép Organizations quản lý;
+
+28
+00:01:00,860 --> 00:01:04,349
+- Hoặc mời (invite) một AWS account sẵn có:
+
+29
+00:01:04,349 --> 00:01:05,610
+  cung cấp email hoặc Account ID của tài khoản đó.
+
+30
+00:01:05,610 --> 00:01:07,060
+Tôi sẽ nhập email tài khoản con:
+
+31
+00:01:07,060 --> 00:01:09,520
+aws-child-account@stephanemaarek.com
+
+32
+00:01:09,520 --> 00:01:11,790
+và gửi lời mời (invitation).
+
+33
+00:01:11,790 --> 00:01:14,730
+Bạn có thể kèm tin nhắn, thêm tag nếu muốn.
+
+34
+00:01:14,730 --> 00:01:15,790
+Lời mời đã được gửi.
+
+35
+00:01:15,790 --> 00:01:17,340
+Bạn có thể xem các lời mời đang chờ
+
+36
+00:01:17,340 --> 00:01:19,120
+trong giao diện này; lời mời sẽ hết hạn
+
+37
+00:01:19,120 --> 00:01:20,810
+nếu sau hai tuần không được chấp nhận.
+
+38
+00:01:20,810 --> 00:01:23,010
+Chuyển sang child account, mục Invitations ở bên trái,
+
+39
+00:01:23,010 --> 00:01:24,460
+refresh và chấp nhận lời mời.
+
+40
+00:01:24,460 --> 00:01:27,220
+Giờ child account đã gia nhập Organization.
+
+41
+00:01:27,220 --> 00:01:30,330
+Ta thấy Organization ID và feature set.
+
+42
+00:01:30,330 --> 00:01:32,730
+Account cũng có thể rời Organization nếu được phép.
+
+43
+00:01:32,730 --> 00:01:36,610
+Quay lại Organizations, vào AWS accounts:
+
+44
+00:01:36,610 --> 00:01:40,980
+trong root hiện có hai account: master và child.
+
+45
+00:01:40,980 --> 00:01:43,482
+Ta có thể tổ chức các account bằng Organizational Unit (OU).
+
+46
+00:01:43,482 --> 00:01:47,680
+Chọn Actions → Create new OU: tạo dev, test, prod…
+
+47
+00:01:47,680 --> 00:01:48,770
+Trong prod có thể tạo các OU con
+
+48
+00:01:48,770 --> 00:01:51,000
+theo phòng ban như HR, finance, v.v.
+
+49
+00:01:51,000 --> 00:01:52,440
+Bạn có thể lồng OU nhiều cấp.
+
+50
+00:01:52,440 --> 00:01:54,410
+Khi xem lại cấu trúc, ta có root, dev (chưa có account),
+
+51
+00:01:54,410 --> 00:01:58,067
+prod (bên trong có finance, HR), và test.
+
+52
+00:01:58,067 --> 00:02:02,700
+Mục đích tổ chức theo OU là để áp Service Control Policies (SCP).
+
+53
+00:02:02,700 --> 00:02:03,950
+Ví dụ, ta di chuyển child account
+
+54
+00:02:03,950 --> 00:02:04,783
+vào OU finance trong prod.
+
+55
+00:02:04,783 --> 00:02:07,390
+Chọn tài khoản → Move → chọn OU finance (thuộc prod).
+
+56
+00:02:07,390 --> 00:02:08,850
+Best practice thường để management account
+
+57
+00:02:08,850 --> 00:02:11,009
+ở root OU, nhưng cũng có thể di chuyển nếu muốn.
+
+58
+00:02:11,009 --> 00:02:13,230
+Bật Service Control Policies
+
+59
+00:02:13,230 --> 00:02:14,570
+để hạn chế những gì child account được làm.
+
+60
+00:02:14,570 --> 00:02:16,120
+Trong Policies, có bốn loại policy
+
+61
+00:02:16,120 --> 00:02:20,970
+(ban đầu bị tắt). Bật “Service control policies”.
+
+62
+00:02:20,970 --> 00:02:23,770
+Các loại khác như Backup policy (triển khai kế hoạch backup
+
+63
+00:02:23,770 --> 00:02:26,010
+toàn Organization), Tag policies (chuẩn hóa cách dùng tag)…
+
+64
+00:02:26,962 --> 00:02:27,800
+Trong phạm vi hands‑on và kỳ thi,
+
+65
+00:02:27,800 --> 00:02:29,480
+thường tập trung vào SCP, nhưng bạn nên biết
+
+66
+00:02:29,480 --> 00:02:31,740
+có thể áp backup/tag policy cho toàn bộ account.
+
+67
+00:02:31,740 --> 00:02:33,360
+Sau khi bật SCP, tạo/đính kèm SCP:
+
+68
+00:02:33,360 --> 00:02:35,210
+ví dụ “DenyAccessS3” cho OU finance.
+
+69
+00:02:35,210 --> 00:02:37,350
+Khi xem Policies của child account,
+
+70
+00:02:37,350 --> 00:02:39,630
+thấy SCP này được “inherited” từ finance OU.
+
+71
+00:02:39,630 --> 00:02:40,570
+Kiểm chứng: mở S3 Console
+
+72
+00:02:40,570 --> 00:02:43,640
+trong child account, bạn sẽ không có quyền list buckets
+
+73
+00:02:43,640 --> 00:02:48,000
+và không thể dùng Amazon S3 — do SCP áp ở OU.
+
+74
+00:02:48,000 --> 00:02:49,060
+Điều này rất mạnh:
+
+75
+00:02:49,060 --> 00:02:50,440
+ta hạn chế được những gì một account làm,
+
+76
+00:02:50,440 --> 00:02:53,590
+kể cả khi đang đăng nhập bằng root user của account đó.
+
+77
+00:02:53,590 --> 00:02:56,470
+Bạn vẫn không truy cập được Amazon S3.
+
+78
+00:02:56,470 --> 00:03:00,650
+Đó là cách SCP hoạt động. Hẹn gặp lại ở bài tiếp theo.
+

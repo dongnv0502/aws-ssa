@@ -1,0 +1,692 @@
+1
+00:00:00,270 --> 00:00:02,580
+Giờ hãy nói về AWS KMS,
+
+2
+00:00:02,580 --> 00:00:05,640
+dịch vụ quản lý khóa (Key Management Service) của AWS.
+
+3
+00:00:05,640 --> 00:00:08,010
+Chúng ta đã dùng nó rất nhiều mà không để ý,
+
+4
+00:00:08,010 --> 00:00:10,320
+bởi vì cứ khi nào bạn nghe tới “mã hóa”
+
+5
+00:00:10,320 --> 00:00:12,360
+trong bối cảnh một dịch vụ AWS,
+
+6
+00:00:12,360 --> 00:00:15,090
+thì rất có thể đó là mã hóa bằng KMS.
+
+7
+00:00:15,090 --> 00:00:17,580
+Mục tiêu của KMS là AWS sẽ quản lý
+
+8
+00:00:17,580 --> 00:00:20,370
+các khóa mã hóa thay cho chúng ta.
+
+9
+00:00:20,370 --> 00:00:21,203
+Điều đó rất tuyệt
+
+10
+00:00:21,203 --> 00:00:23,520
+vì nghĩa là ta phải làm ít việc hơn.
+
+11
+00:00:23,520 --> 00:00:25,290
+Tất nhiên, KMS được
+
+12
+00:00:25,290 --> 00:00:28,620
+tích hợp đầy đủ với IAM để ủy quyền.
+
+13
+00:00:28,620 --> 00:00:32,280
+Và nó cung cấp cách rất dễ để kiểm soát truy cập
+
+14
+00:00:32,280 --> 00:00:35,190
+vào dữ liệu nếu dữ liệu đó được mã hóa bằng KMS.
+
+15
+00:00:35,190 --> 00:00:38,070
+Điểm mạnh của AWS KMS là bạn có thể
+
+16
+00:00:38,070 --> 00:00:42,480
+audit mọi lệnh gọi API dùng khóa của bạn
+
+17
+00:00:42,480 --> 00:00:43,740
+thông qua CloudTrail,
+
+18
+00:00:43,740 --> 00:00:46,800
+và đây là điều bài thi có thể hỏi bạn.
+
+19
+00:00:46,800 --> 00:00:47,850
+Ngoài ra,
+
+20
+00:00:47,850 --> 00:00:52,470
+KMS còn có thể tích hợp liền mạch vào hầu hết dịch vụ AWS.
+
+21
+00:00:52,470 --> 00:00:55,650
+Ví dụ, nếu bạn muốn mã hóa dữ liệu khi lưu trữ
+
+22
+00:00:55,650 --> 00:00:58,920
+trong một EBS volume, chỉ cần bật tích hợp KMS.
+
+23
+00:00:58,920 --> 00:01:01,560
+Tương tự với S3, RDS, SSM,
+
+24
+00:01:01,560 --> 00:01:04,410
+và hầu như mọi dịch vụ
+
+25
+00:01:04,410 --> 00:01:06,270
+cần đến mã hóa.
+
+26
+00:01:06,270 --> 00:01:09,000
+Bạn cũng có thể tự dùng KMS trực tiếp.
+
+27
+00:01:09,000 --> 00:01:11,310
+Và nếu bạn có dữ liệu nhạy cảm (secrets),
+
+28
+00:01:11,310 --> 00:01:13,770
+đừng bao giờ lưu chúng ở dạng plain text
+
+29
+00:01:13,770 --> 00:01:15,360
+(nguyên văn, không mã hóa),
+
+30
+00:01:15,360 --> 00:01:17,040
+đặc biệt là trong mã nguồn.
+
+31
+00:01:17,040 --> 00:01:18,597
+Nếu bạn muốn dùng KMS,
+
+32
+00:01:18,597 --> 00:01:21,570
+bạn có thể gọi KMS qua API.
+
+33
+00:01:21,570 --> 00:01:24,960
+Bạn có thể dùng AWS CLI hoặc SDK.
+
+34
+00:01:24,960 --> 00:01:27,000
+Điều này cho phép bạn mã hóa
+
+35
+00:01:27,000 --> 00:01:30,900
+bất cứ điều gì là “bí mật” bằng một KMS key.
+
+36
+00:01:30,900 --> 00:01:33,390
+Và các secrets đã mã hóa này, ví dụ,
+
+37
+00:01:33,390 --> 00:01:36,390
+có thể lưu trong mã nguồn hoặc biến môi trường.
+
+38
+00:01:36,390 --> 00:01:38,250
+Đó là một mẫu (pattern) tốt hơn nhiều.
+
+39
+00:01:38,250 --> 00:01:39,870
+Bây giờ hãy nói về các loại
+
+40
+00:01:39,870 --> 00:01:42,210
+KMS key mà bạn có.
+
+41
+00:01:42,210 --> 00:01:44,010
+Giờ ta gọi chung là KMS key.
+
+42
+00:01:44,010 --> 00:01:45,180
+Trước đây nó từng được gọi là
+
+43
+00:01:45,180 --> 00:01:48,600
+Customer Master Key (CMK), nhưng tên đó gây nhầm lẫn
+
+44
+00:01:48,600 --> 00:01:51,060
+vì còn có “customer managed keys”
+
+45
+00:01:51,060 --> 00:01:52,380
+như ta sẽ thấy ngay.
+
+46
+00:01:52,380 --> 00:01:55,500
+Vì vậy giờ ta chỉ nói “KMS keys”.
+
+47
+00:01:55,500 --> 00:01:57,600
+Có hai loại KMS key.
+
+48
+00:01:57,600 --> 00:02:00,090
+Đầu tiên là symmetric KMS keys
+
+49
+00:02:00,090 --> 00:02:03,300
+— chỉ có một khóa duy nhất
+
+50
+00:02:03,300 --> 00:02:06,060
+dùng cho cả mã hóa và giải mã dữ liệu.
+
+51
+00:02:06,060 --> 00:02:09,030
+Bất kỳ dịch vụ AWS nào tích hợp với KMS
+
+52
+00:02:09,030 --> 00:02:12,030
+đều dùng symmetric keys.
+
+53
+00:02:12,030 --> 00:02:16,500
+Khi tạo hoặc dùng một symmetric KMS key,
+
+54
+00:02:16,500 --> 00:02:19,560
+ta không bao giờ được truy cập trực tiếp vào khóa, được chứ?
+
+55
+00:02:19,560 --> 00:02:22,590
+Ta chỉ gọi các API của KMS
+
+56
+00:02:22,590 --> 00:02:25,350
+để tận dụng và sử dụng khóa đó.
+
+57
+00:02:25,350 --> 00:02:28,260
+Loại thứ hai trên KMS
+
+58
+00:02:28,260 --> 00:02:30,390
+là asymmetric keys.
+
+59
+00:02:30,390 --> 00:02:31,830
+Nghĩa là bạn có hai khóa:
+
+60
+00:02:31,830 --> 00:02:34,860
+một public key để mã hóa dữ liệu,
+
+61
+00:02:34,860 --> 00:02:37,980
+và một private key để giải mã dữ liệu.
+
+62
+00:02:37,980 --> 00:02:40,500
+Loại này dùng khi bạn có thao tác encrypt/decrypt
+
+63
+00:02:40,500 --> 00:02:43,020
+hoặc sign/verify (ký/xác minh).
+
+64
+00:02:43,020 --> 00:02:43,853
+Trong trường hợp này,
+
+65
+00:02:43,853 --> 00:02:46,650
+bạn có thể tải public key ra khỏi KMS,
+
+66
+00:02:46,650 --> 00:02:49,530
+nhưng private key thì không thể truy cập trực tiếp.
+
+67
+00:02:49,530 --> 00:02:50,700
+Bạn chỉ có thể gọi API
+
+68
+00:02:50,700 --> 00:02:53,010
+để sử dụng private key mà thôi.
+
+69
+00:02:53,010 --> 00:02:56,460
+Use case cho asymmetric key
+
+70
+00:02:56,460 --> 00:02:59,760
+là khi bạn muốn việc mã hóa diễn ra bên ngoài
+
+71
+00:02:59,760 --> 00:03:02,760
+đám mây AWS, bởi những người dùng không thể
+
+72
+00:03:02,760 --> 00:03:06,330
+hoặc không có quyền truy cập API của KMS.
+
+73
+00:03:06,330 --> 00:03:08,250
+Khi đó họ sẽ dùng public key
+
+74
+00:03:08,250 --> 00:03:09,840
+để mã hóa dữ liệu,
+
+75
+00:03:09,840 --> 00:03:11,220
+rồi gửi cho bạn.
+
+76
+00:03:11,220 --> 00:03:12,330
+Còn trong tài khoản của bạn,
+
+77
+00:03:12,330 --> 00:03:16,200
+bạn sẽ dùng private key trong AWS để giải mã dữ liệu đó.
+
+78
+00:03:16,200 --> 00:03:18,030
+Trong thế giới KMS keys,
+
+79
+00:03:18,030 --> 00:03:20,250
+bạn còn có các “loại” KMS key khác nhau.
+
+80
+00:03:20,250 --> 00:03:23,280
+Đầu tiên là AWS owned keys.
+
+81
+00:03:23,280 --> 00:03:26,880
+Chúng miễn phí, và là loại bạn dùng
+
+82
+00:03:26,880 --> 00:03:30,210
+khi chọn mã hóa kiểu SSE-S3,
+
+83
+00:03:30,210 --> 00:03:33,510
+hoặc trong DynamoDB có tùy chọn, ví dụ,
+
+84
+00:03:33,510 --> 00:03:36,540
+chọn khóa do DynamoDB sở hữu.
+
+85
+00:03:36,540 --> 00:03:37,890
+Chúng không hẳn là KMS
+
+86
+00:03:37,890 --> 00:03:39,210
+vì bạn không thấy chúng trực tiếp,
+
+87
+00:03:39,210 --> 00:03:41,793
+nhưng chúng là các loại khóa mã hóa trong AWS.
+
+88
+00:03:42,690 --> 00:03:46,620
+Tiếp theo là AWS managed keys — cũng miễn phí,
+
+89
+00:03:46,620 --> 00:03:47,880
+và bạn sẽ nhận ra chúng
+
+90
+00:03:47,880 --> 00:03:51,750
+vì tên bắt đầu bằng AWS/ rồi đến tên dịch vụ.
+
+91
+00:03:51,750 --> 00:03:55,230
+Ví dụ: AWS/RDS hay AWS/EBS,
+
+92
+00:03:55,230 --> 00:03:58,650
+hoặc trong ví dụ này là AWS/DynamoDB.
+
+93
+00:03:58,650 --> 00:04:01,350
+Chúng miễn phí và bạn dùng được ngay theo nhu cầu,
+
+94
+00:04:01,350 --> 00:04:05,100
+nhưng chỉ trong phạm vi dịch vụ được gán cho khóa đó.
+
+95
+00:04:05,100 --> 00:04:07,710
+Cuối cùng là customer managed keys của riêng bạn
+
+96
+00:04:07,710 --> 00:04:10,800
+(khóa do khách hàng quản lý) — loại tùy biến, phí $1/tháng.
+
+97
+00:04:10,800 --> 00:04:13,320
+Bạn cũng có thể import khóa vào —
+
+98
+00:04:13,320 --> 00:04:15,570
+và mức phí vẫn là $1/tháng.
+
+99
+00:04:15,570 --> 00:04:17,850
+KMS còn tính phí theo số lệnh gọi API
+
+100
+00:04:17,850 --> 00:04:20,850
+gửi tới dịch vụ KMS,
+
+101
+00:04:20,850 --> 00:04:24,123
+khoảng 0,03 USD cho 10.000 lần gọi API.
+
+102
+00:04:24,990 --> 00:04:27,180
+KMS hỗ trợ tự động xoay vòng khóa (key rotation).
+
+103
+00:04:27,180 --> 00:04:30,030
+Nếu là AWS managed KMS key,
+
+104
+00:04:30,030 --> 00:04:32,070
+thì tự động mỗi 1 năm.
+
+105
+00:04:32,070 --> 00:04:34,110
+Nếu là customer managed key,
+
+106
+00:04:34,110 --> 00:04:37,110
+bạn có thể bật tự động xoay vòng và đặt chu kỳ,
+
+107
+00:04:37,110 --> 00:04:40,230
+và cũng có thể xoay vòng theo yêu cầu (on‑demand).
+
+108
+00:04:40,230 --> 00:04:42,510
+Nếu là imported KMS key,
+
+109
+00:04:42,510 --> 00:04:44,640
+thì chỉ xoay vòng thủ công.
+
+110
+00:04:44,640 --> 00:04:47,013
+Và để làm vậy, bạn cần tận dụng alias.
+
+111
+00:04:47,970 --> 00:04:50,880
+KMS keys có phạm vi theo từng region.
+
+112
+00:04:50,880 --> 00:04:53,460
+Nghĩa là nếu bạn có một EBS volume được mã hóa
+
+113
+00:04:53,460 --> 00:04:57,690
+bằng một KMS key trong một region, ví dụ eu-south-2,
+
+114
+00:04:57,690 --> 00:05:00,420
+và muốn sao chép nó sang region khác,
+
+115
+00:05:00,420 --> 00:05:02,280
+ta phải thực hiện một vài bước.
+
+116
+00:05:02,280 --> 00:05:06,210
+Trước hết, chụp một snapshot của EBS volume này.
+
+117
+00:05:06,210 --> 00:05:08,880
+Nếu snapshot được tạo từ một volume đã mã hóa,
+
+118
+00:05:08,880 --> 00:05:11,250
+thì chính snapshot đó cũng sẽ được mã hóa
+
+119
+00:05:11,250 --> 00:05:13,200
+bằng cùng KMS key.
+
+120
+00:05:13,200 --> 00:05:16,710
+Khi sao chép snapshot sang region khác,
+
+121
+00:05:16,710 --> 00:05:19,200
+ta cần mã hóa lại snapshot đó bằng
+
+122
+00:05:19,200 --> 00:05:20,880
+một KMS key khác.
+
+123
+00:05:20,880 --> 00:05:23,430
+AWS sẽ thực hiện điều này cho bạn,
+
+124
+00:05:23,430 --> 00:05:27,000
+nhưng cùng một KMS key thì không thể tồn tại ở hai region.
+
+125
+00:05:27,000 --> 00:05:28,890
+Như vậy ta có một EBS snapshot,
+
+126
+00:05:28,890 --> 00:05:31,590
+được mã hóa bằng KMS với một key khác,
+
+127
+00:05:31,590 --> 00:05:33,390
+và ở một region khác.
+
+128
+00:05:33,390 --> 00:05:35,100
+Giờ ta khôi phục snapshot đó
+
+129
+00:05:35,100 --> 00:05:38,250
+thành một EBS volume với KMS,
+
+130
+00:05:38,250 --> 00:05:42,393
+với KMS key B trong region ap-southeast-2.
+
+131
+00:05:42,393 --> 00:05:45,500
+Một chủ đề quan trọng khác của KMS là key policy.
+
+132
+00:05:45,500 --> 00:05:47,520
+Đây là tài liệu chính sách đính kèm với key
+
+133
+00:05:47,520 --> 00:05:49,650
+để xác định ai có thể dùng key đó
+
+134
+00:05:49,650 --> 00:05:51,540
+và ai có thể quản trị key.
+
+135
+00:05:51,540 --> 00:05:54,870
+Theo mặc định, khi bạn tạo một KMS key,
+
+136
+00:05:54,870 --> 00:05:57,060
+AWS đề xuất một key policy mặc định.
+
+137
+00:05:57,060 --> 00:05:59,940
+Key policy này sẽ ủy quyền cho Root user
+
+138
+00:05:59,940 --> 00:06:02,280
+trong tài khoản AWS của bạn quyền toàn phần
+
+139
+00:06:02,280 --> 00:06:05,490
+và ủy quyền cho tài khoản AWS của bạn (Principal: Account)
+
+140
+00:06:05,490 --> 00:06:07,620
+quyền sử dụng key thông qua IAM.
+
+141
+00:06:07,620 --> 00:06:10,110
+Nói cách khác, mặc định thì mọi thực thể trong tài khoản
+
+142
+00:06:10,110 --> 00:06:13,950
+có thể được cấp quyền truy cập key này qua IAM.
+
+143
+00:06:13,950 --> 00:06:17,430
+Tức là nếu bạn có một IAM policy cho phép một user
+
+144
+00:06:17,430 --> 00:06:20,190
+hoặc role truy cập theo key policy này, là ổn.
+
+145
+00:06:20,190 --> 00:06:23,400
+Nhưng nếu bạn muốn kiểm soát chi tiết hơn,
+
+146
+00:06:23,400 --> 00:06:26,520
+bạn có thể dùng một KMS key policy tùy biến.
+
+147
+00:06:26,520 --> 00:06:28,230
+Trong đó bạn định nghĩa những user,
+
+148
+00:06:28,230 --> 00:06:31,080
+những role nào được truy cập KMS key của bạn.
+
+149
+00:06:31,080 --> 00:06:33,180
+Và định nghĩa ai có thể quản trị key.
+
+150
+00:06:33,180 --> 00:06:34,920
+Điều này đặc biệt hữu ích
+
+151
+00:06:34,920 --> 00:06:38,700
+khi bạn muốn chia sẻ key giữa các tài khoản (cross‑account),
+
+152
+00:06:38,700 --> 00:06:42,420
+vì ta có thể ủy quyền cho tài khoản khác dùng KMS key của ta.
+
+153
+00:06:42,420 --> 00:06:43,860
+Vậy khi nào ta dùng cách này?
+
+154
+00:06:43,860 --> 00:06:44,880
+Ví dụ như khi
+
+155
+00:06:44,880 --> 00:06:48,690
+ta muốn sao chép các snapshot đã mã hóa giữa các tài khoản.
+
+156
+00:06:48,690 --> 00:06:51,930
+Ta tạo một snapshot được mã hóa bằng KMS key của ta,
+
+157
+00:06:51,930 --> 00:06:53,400
+đó là một customer managed key.
+
+158
+00:06:53,400 --> 00:06:55,333
+Phải là loại này vì ta cần
+
+159
+00:06:55,333 --> 00:06:56,850
+gắn một custom key policy.
+
+160
+00:06:56,850 --> 00:06:59,310
+Rồi ta gắn một KMS key policy
+
+161
+00:06:59,310 --> 00:07:01,950
+để ủy quyền truy cập cross‑account.
+
+162
+00:07:01,950 --> 00:07:03,480
+Trông nó sẽ như thế này.
+
+163
+00:07:03,480 --> 00:07:06,150
+Sau đó ta chia sẻ snapshot đã mã hóa
+
+164
+00:07:06,150 --> 00:07:08,190
+với tài khoản đích.
+
+165
+00:07:08,190 --> 00:07:10,320
+Rồi trong tài khoản đích,
+
+166
+00:07:10,320 --> 00:07:12,840
+ta tạo một bản sao snapshot
+
+167
+00:07:12,840 --> 00:07:15,840
+và mã hóa nó bằng một customer managed key khác
+
+168
+00:07:15,840 --> 00:07:17,850
+trong tài khoản đích đó.
+
+169
+00:07:17,850 --> 00:07:19,700
+Sau đó ta có thể tạo volume từ snapshot
+
+170
+00:07:19,700 --> 00:07:22,500
+trong tài khoản đích, và hoàn tất.
+
+171
+00:07:22,500 --> 00:07:24,570
+Vậy là khá nhiều thông tin về KMS rồi,
+
+172
+00:07:24,570 --> 00:07:25,920
+giờ hãy chuyển sang phần thực hành
+
+173
+00:07:25,920 --> 00:07:28,203
+để hiểu rõ hơn nữa nhé.
+

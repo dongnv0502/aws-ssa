@@ -1,0 +1,52 @@
+1
+00:00:00,350 --> 00:00:02,410
+Giới thiệu Amazon Personalize.
+
+2
+00:00:02,410 --> 00:00:05,330
+Dịch vụ ML fully‑managed để xây khuyến nghị cá nhân hóa realtime.
+
+3
+00:00:05,330 --> 00:00:08,100
+Ví dụ: đề xuất sản phẩm, re‑ranking, chiến dịch marketing cá nhân hoá.
+
+4
+00:00:08,100 --> 00:00:09,260
+Cùng công nghệ dùng trên Amazon.com
+
+5
+00:00:09,260 --> 00:00:11,880
+(đề xuất dựa trên hành vi tìm kiếm/mua hàng, sở thích…).
+
+6
+00:00:11,880 --> 00:00:14,320
+Luồng: đọc dữ liệu đầu vào từ S3 (tương tác người dùng…)
+
+7
+00:00:14,320 --> 00:00:17,410
+hoặc đẩy realtime qua Personalize API;
+
+8
+00:00:17,410 --> 00:00:19,470
+Personalize cung cấp API khuyến nghị cho web/mobile,
+
+9
+00:00:19,470 --> 00:00:23,700
+đồng thời có thể tích hợp SMS/email.
+
+10
+00:00:23,700 --> 00:00:25,820
+Thời gian triển khai tính bằng ngày (không phải tháng),
+
+11
+00:00:25,820 --> 00:00:28,160
+không cần tự build/train/deploy mô hình.
+
+12
+00:00:28,160 --> 00:00:30,330
+Use case: bán lẻ, media, giải trí.
+
+13
+00:00:30,330 --> 00:00:32,729
+Ghi nhớ thi: cần khuyến nghị/personalization → Personalize.
+

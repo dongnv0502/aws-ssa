@@ -1,0 +1,100 @@
+1
+00:00:00,120 --> 00:00:02,300
+Thực hành: cấu hình NACL và Security Group.
+
+2
+00:00:02,300 --> 00:00:05,020
+Mục tiêu: minh họa stateless của NACL và stateful của SG.
+
+3
+00:00:05,020 --> 00:00:07,420
+1) Tạo NACL mới cho Public Subnet:
+
+4
+00:00:07,420 --> 00:00:10,230
+- Inbound ALLOW 80/443 từ 0.0.0.0/0;
+
+5
+00:00:10,230 --> 00:00:12,610
+- Outbound ALLOW 1024-65535 tới 0.0.0.0/0;
+
+6
+00:00:12,610 --> 00:00:14,780
+- Gán NACL này cho các Public Subnet.
+
+7
+00:00:14,780 --> 00:00:17,560
+2) Tạo NACL cho Private Subnet (App/DB):
+
+8
+00:00:17,560 --> 00:00:20,440
+- Inbound: ALLOW từ dải Subnet nguồn tương ứng (Web/App),
+
+9
+00:00:20,440 --> 00:00:23,140
+  theo port ứng dụng/DB; Outbound: ALLOW ephemeral ports.
+
+10
+00:00:23,140 --> 00:00:25,520
+3) Kiểm thử với Security Group:
+
+11
+00:00:25,520 --> 00:00:28,260
+- SG-Web cho phép 80/443 từ Internet;
+
+12
+00:00:28,260 --> 00:00:30,820
+- SG-App cho phép từ SG-Web (theo port app);
+
+13
+00:00:30,820 --> 00:00:33,380
+- SG-DB cho phép từ SG-App (3306/5432...).
+
+14
+00:00:33,380 --> 00:00:36,020
+4) Chứng minh stateful của SG:
+
+15
+00:00:36,020 --> 00:00:38,820
+- Chỉ cần inbound ALLOW tới EC2; outbound auto cho phép
+
+16
+00:00:38,820 --> 00:00:41,040
+  chiều phản hồi (không cần rule outbound tương ứng).
+
+17
+00:00:41,040 --> 00:00:43,740
+5) Chứng minh stateless của NACL:
+
+18
+00:00:43,740 --> 00:00:46,600
+- Nếu inbound ALLOW nhưng outbound DENY (ephemeral ports),
+
+19
+00:00:46,600 --> 00:00:49,220
+  kết nối sẽ thất bại (không có chiều về).
+
+20
+00:00:49,220 --> 00:00:51,820
+6) Quan sát hiệu ứng thứ tự rule (Rule number):
+
+21
+00:00:51,820 --> 00:00:54,620
+- Tạo một rule DENY có số nhỏ hơn → chặn trước;
+
+22
+00:00:54,620 --> 00:00:57,000
+- Sau đó ALLOW với số lớn hơn → không có tác dụng.
+
+23
+00:00:57,000 --> 00:01:00,120
+7) Kiểm tra bằng VPC Flow Logs để thấy ACCEPT/REJECT.
+
+24
+00:01:00,120 --> 00:01:03,140
+Kết luận: dùng NACL để chặn/dẫn hướng ở mức Subnet;
+
+25
+00:01:03,140 --> 00:01:05,440
+SG để xác thực nguồn/port ở mức Instance.
+

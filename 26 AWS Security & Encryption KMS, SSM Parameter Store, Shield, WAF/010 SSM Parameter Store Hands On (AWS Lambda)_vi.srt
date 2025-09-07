@@ -1,0 +1,440 @@
+1
+00:00:00,000 --> 00:00:01,432
+Ta đã xem cách dùng CLI để lấy tham số,
+
+2
+00:00:01,432 --> 00:00:02,430
+nhưng thử dùng Lambda
+
+3
+00:00:02,430 --> 00:00:03,670
+cho thú vị và dùng SDK thì sao?
+
+4
+00:00:03,670 --> 00:00:05,870
+Đây là một use case đáng biết,
+
+5
+00:00:05,870 --> 00:00:07,670
+nên ta sẽ làm vì cũng khá vui.
+
+6
+00:00:07,670 --> 00:00:10,000
+Ta sẽ tạo một function,
+
+7
+00:00:10,000 --> 00:00:11,730
+đặt tên là hello-world-ssm,
+
+8
+00:00:11,730 --> 00:00:16,203
+hoặc tương tự.
+
+9
+00:00:17,050 --> 00:00:21,340
+Runtime tôi chọn Python 3.7,
+
+10
+00:00:21,340 --> 00:00:23,350
+bạn có thể chọn bất kỳ bản Python 3.x.
+
+11
+00:00:23,350 --> 00:00:25,980
+Về quyền hạn, ta cần một IAM role cho Lambda.
+
+12
+00:00:25,980 --> 00:00:27,910
+Tôi sẽ tạo execution role mới,
+
+13
+00:00:27,910 --> 00:00:29,890
+với quyền cơ bản (basic) cho Lambda,
+
+14
+00:00:29,890 --> 00:00:32,790
+rồi bấm Create function.
+
+15
+00:00:32,790 --> 00:00:34,230
+Thao tác này sẽ tạo role
+
+16
+00:00:34,230 --> 00:00:37,420
+tên hello-world-ssm-role (hoặc tương tự),
+
+17
+00:00:37,420 --> 00:00:39,490
+với quyền ghi log vào CloudWatch Logs.
+
+18
+00:00:39,490 --> 00:00:42,670
+Sau đó ta sẽ thêm quyền
+
+19
+00:00:42,670 --> 00:00:44,580
+để đọc/ghi Parameter Store.
+
+20
+00:00:44,580 --> 00:00:46,150
+Kéo xuống dưới
+
+21
+00:00:46,150 --> 00:00:48,250
+ta sẽ sửa phần code của Lambda function.
+
+22
+00:00:48,250 --> 00:01:00,930
+Vì đây là AWS nên ta import boto3
+
+23
+00:01:00,930 --> 00:01:03,550
+để dùng SDK.
+
+24
+00:01:03,550 --> 00:01:07,580
+Tạo client: ssm = boto3.client('ssm',
+
+25
+00:01:07,580 --> 00:01:11,260
+region_name='eu-west-3') — tôi dùng Paris; bạn chọn vùng bạn dùng.
+
+26
+00:01:11,260 --> 00:01:15,700
+Chú ý tôi định nghĩa client ở ngoài hàm Lambda.
+
+27
+00:01:15,700 --> 00:01:17,270
+Tiếp theo, ta cần lấy DB URL
+
+28
+00:01:17,270 --> 00:01:19,760
+và DB password,
+
+29
+00:01:19,760 --> 00:01:22,270
+rồi in chúng ra console,
+
+30
+00:01:22,270 --> 00:01:26,260
+và trả về chuỗi "worked".
+
+31
+00:01:26,260 --> 00:01:28,370
+Giờ dùng SSM API nhé.
+
+32
+00:01:28,370 --> 00:01:31,610
+Để lấy DB URL: ssm.get_parameters(
+
+33
+00:01:31,610 --> 00:01:33,840
+    Names=['/my-app/dev/db-url']
+
+34
+00:01:33,840 --> 00:01:37,720
+)
+
+35
+00:01:37,720 --> 00:01:39,770
+Với DB password cũng tương tự,
+
+36
+00:01:39,770 --> 00:01:42,200
+chỉ thay tên tham số thành /my-app/dev/db-password.
+
+37
+00:01:42,200 --> 00:01:46,203
+Nhìn ổn rồi — thử chạy để xem sao.
+
+38
+00:01:47,496 --> 00:01:51,449
+Tôi bấm Test, tạo event tên helloworld,
+
+39
+00:01:51,449 --> 00:01:54,440
+và chạy thử.
+
+40
+00:01:54,440 --> 00:01:56,840
+Ta gặp lỗi đầu tiên:
+
+41
+00:01:56,840 --> 00:02:00,170
+unable to import module — không có module "boto".
+
+42
+00:02:00,170 --> 00:02:02,220
+Do tôi gõ nhầm — phải là boto3,
+
+43
+00:02:02,220 --> 00:02:07,220
+không phải boto.
+
+44
+00:02:09,830 --> 00:02:12,060
+Lưu lại, test lại — gặp lỗi khác:
+
+45
+00:02:12,060 --> 00:02:14,100
+AccessDenied khi gọi GetParameters.
+
+46
+00:02:14,100 --> 00:02:19,100
+Role Lambda của tôi chưa được phép gọi SSM:GetParameters,
+
+47
+00:02:21,870 --> 00:02:26,210
+vì ta chưa cấp quyền IAM — sửa ngay.
+
+48
+00:02:26,210 --> 00:02:30,400
+Vào IAM Roles, tìm role hello-world-ssm,
+
+49
+00:02:30,400 --> 00:02:31,790
+thêm một inline policy.
+
+50
+00:02:31,790 --> 00:02:34,610
+Chọn service: Systems Manager.
+
+51
+00:02:34,610 --> 00:02:37,480
+Chọn action (Read): GetParameters
+
+52
+00:02:37,480 --> 00:02:39,950
+và GetParametersByPath.
+
+53
+00:02:39,950 --> 00:02:42,990
+Phần Resource: chọn Specific và Add ARN.
+
+54
+00:02:42,990 --> 00:02:47,017
+Region và Account để Any cũng được,
+
+55
+00:02:51,000 --> 00:02:52,860
+nhưng tên tham số đủ định danh (fully-qualified)
+
+56
+00:02:52,860 --> 00:02:56,090
+ta giới hạn theo cây: /my-app/*.
+
+57
+00:02:56,090 --> 00:02:57,570
+Nhờ cấu trúc cây,
+
+58
+00:02:57,570 --> 00:03:00,470
+policy này chỉ cho phép đọc mọi tham số dưới /my-app/.
+
+59
+00:03:00,470 --> 00:03:01,910
+Đặt tên policy: "SSM access for my-app",
+
+60
+00:03:01,910 --> 00:03:05,850
+tạo policy, quay lại Lambda Console.
+
+61
+00:03:05,850 --> 00:03:08,820
+Refresh trang — ta thấy trong Designer
+
+62
+00:03:08,820 --> 00:03:11,320
+đã có quyền tới AWS Systems Manager.
+
+63
+00:03:11,320 --> 00:03:13,850
+Test lại — vẫn lỗi ủy quyền.
+
+64
+00:03:13,850 --> 00:03:15,680
+Đôi khi IAM bị cache hoặc
+
+65
+00:03:15,680 --> 00:03:17,330
+chưa áp dụng ngay cho function —
+
+66
+00:03:17,330 --> 00:03:19,070
+đợi vài phút.
+
+67
+00:03:19,070 --> 00:03:22,190
+Sau khoảng 5 phút, test lại — thấy "worked"
+
+68
+00:03:22,190 --> 00:03:25,900
+vì IAM đã cho phép như mong muốn.
+
+69
+00:03:25,900 --> 00:03:29,000
+Kéo xuống xem tham số: có dev URL là
+
+70
+00:03:29,000 --> 00:03:30,600
+dev.database.stephanetheteacher.com,
+
+71
+00:03:30,600 --> 00:03:35,420
+còn dev password là SecureString — giá trị đang mã hóa.
+
+72
+00:03:35,420 --> 00:03:39,600
+Ta muốn giải mã nó, nên thêm cờ
+
+73
+00:03:39,600 --> 00:03:41,210
+WithDecryption=True vào lời gọi API.
+
+74
+00:03:41,210 --> 00:03:44,163
+Tức là: lấy DB password kèm giải mã.
+
+75
+00:03:45,090 --> 00:03:46,860
+Lưu, test lại —
+
+76
+00:03:46,860 --> 00:03:51,860
+và lần này ta lại gặp AccessDenied.
+
+77
+00:03:52,350 --> 00:03:53,950
+Lý do: role chưa có quyền KMS
+
+78
+00:03:54,970 --> 00:03:57,790
+để giải mã secret (dùng CMK của ta).
+
+79
+00:03:57,790 --> 00:04:01,710
+Điều này chứng minh: dù tôi đọc được tham số,
+
+80
+00:04:01,710 --> 00:04:04,200
+nhưng nếu không có quyền với KMS key,
+
+81
+00:04:04,200 --> 00:04:06,320
+tôi không thể giải mã — mật khẩu vẫn an toàn.
+
+82
+00:04:06,320 --> 00:04:09,150
+Để sửa, vào IAM, thêm inline policy mới.
+
+83
+00:04:09,150 --> 00:04:10,670
+Service: KMS.
+
+84
+00:04:10,670 --> 00:04:13,080
+Action (Write): Decrypt —
+
+85
+00:04:13,080 --> 00:04:15,597
+ta chỉ cần quyền này để giải mã secret.
+
+86
+00:04:15,597 --> 00:04:19,209
+Resource: giới hạn theo một key cụ thể (Specific key).
+
+87
+00:04:19,209 --> 00:04:22,400
+Region/Account có thể để Any; Key ID —
+
+88
+00:04:22,400 --> 00:04:25,900
+ta cần lấy từ KMS.
+
+89
+00:04:25,900 --> 00:04:29,870
+Mở KMS, vào đúng region, chọn khóa "tutorial",
+
+90
+00:04:29,870 --> 00:04:48,240
+copy Key ID và dán vào policy.
+
+91
+00:04:53,790 --> 00:04:56,370
+Đặt tên policy: "KMS decrypt tutorial key" và tạo.
+
+92
+00:04:56,370 --> 00:04:59,910
+Bây giờ role đã có quyền KMS cần thiết.
+
+93
+00:04:59,910 --> 00:05:02,460
+Quay lại Lambda, test — thấy "worked".
+
+94
+00:05:02,460 --> 00:05:04,113
+Kéo xuống xem log —
+
+95
+00:05:05,240 --> 00:05:06,730
+ta thấy giá trị đã được giải mã.
+
+96
+00:05:06,730 --> 00:05:09,710
+Bước cuối, ta thêm khả năng chuyển dev/prod.
+
+97
+00:05:09,710 --> 00:05:11,600
+Vào Environment variables,
+
+98
+00:05:11,600 --> 00:05:14,870
+thêm biến DEV_OR_PROD=dev (ví dụ),
+
+99
+00:05:14,870 --> 00:05:17,890
+và trong code đọc os.environ để quyết định
+
+100
+00:05:17,890 --> 00:05:22,150
+tham chiếu tới tham số /my-app/dev/... hay /my-app/prod/...
+
+101
+00:05:22,150 --> 00:05:25,060
+Lưu, test — đang ở dev nên lấy tham số dev.
+
+102
+00:05:25,060 --> 00:05:27,400
+Đổi biến môi trường sang prod,
+
+103
+00:05:27,400 --> 00:05:29,810
+lưu và test lại — ta thấy
+
+104
+00:05:29,810 --> 00:05:31,880
+đã truy xuất /my-app/prod/db-url
+
+105
+00:05:31,880 --> 00:05:34,450
+và prod DB password (prodpassword).
+
+106
+00:05:34,450 --> 00:05:37,520
+Chỉ với một biến môi trường đơn giản,
+
+107
+00:05:37,520 --> 00:05:39,280
+Lambda đã trỏ đúng tới tham số SSM tương ứng.
+
+108
+00:05:39,280 --> 00:05:41,350
+Vậy là xong — tôi muốn minh họa nhanh
+
+109
+00:05:41,350 --> 00:05:43,800
+CLI trước, rồi tới Lambda.
+
+110
+00:05:43,800 --> 00:05:47,150
+Hy vọng bạn thấy hữu ích, hẹn gặp lại ở bài tiếp theo.
+

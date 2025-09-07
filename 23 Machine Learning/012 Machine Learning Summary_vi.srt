@@ -1,0 +1,52 @@
+1
+00:00:00,360 --> 00:00:01,193
+Tóm tắt dịch vụ Machine Learning trên AWS.
+
+2
+00:00:01,193 --> 00:00:03,600
+Ghi nhớ cho kỳ thi:
+
+3
+00:00:03,600 --> 00:00:05,939
+- Rekognition: nhận diện khuôn mặt, gắn nhãn, người nổi tiếng.
+
+4
+00:00:05,939 --> 00:00:09,030
+- Transcribe: chuyển audio → text (phụ đề, transcript).
+
+5
+00:00:09,030 --> 00:00:11,910
+- Polly: chuyển text → giọng nói.
+
+6
+00:00:11,910 --> 00:00:14,910
+- Translate: dịch ngôn ngữ.
+
+7
+00:00:14,910 --> 00:00:17,700
+- Lex: chatbot/voice bot; kết hợp Connect → cloud contact center.
+
+8
+00:00:17,700 --> 00:00:19,440
+- Comprehend: NLP.
+
+9
+00:00:19,440 --> 00:00:22,650
+- SageMaker: nền tảng ML đầy đủ cho dev/data scientist.
+
+10
+00:00:22,650 --> 00:00:24,780
+- Kendra: tìm kiếm tài liệu dùng ML.
+
+11
+00:00:24,780 --> 00:00:27,390
+- Personalize: khuyến nghị cá nhân hóa realtime.
+
+12
+00:00:27,390 --> 00:00:30,660
+- Textract: trích xuất text/dữ liệu từ tài liệu (form/table/PDF).
+
+13
+00:00:30,660 --> 00:00:33,480
+Nhớ danh sách này để ăn điểm trong bài thi nhé.
+

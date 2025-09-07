@@ -1,0 +1,92 @@
+1
+00:00:00,090 --> 00:00:02,250
+Bây giờ nói về VPC Peering.
+
+2
+00:00:02,250 --> 00:00:03,930
+Bạn có thể có nhiều VPC ở các region/account khác nhau
+
+3
+00:00:03,930 --> 00:00:05,700
+và muốn kết nối chúng qua mạng của AWS.
+
+4
+00:00:05,700 --> 00:00:09,960
+Mục tiêu: cho phép các VPC giao tiếp như cùng một mạng.
+
+5
+00:00:09,960 --> 00:00:10,793
+Lưu ý quan trọng:
+
+6
+00:00:10,793 --> 00:00:12,240
+CIDR của các VPC phải không trùng lặp.
+
+7
+00:00:12,240 --> 00:00:13,860
+Nếu CIDR overlaps, sẽ không định tuyến được.
+
+8
+00:00:13,860 --> 00:00:15,120
+VPC Peering là kết nối point‑to‑point, không “bắc cầu”.
+
+9
+00:00:15,120 --> 00:00:17,010
+Không có tính chất transitive:
+
+10
+00:00:17,010 --> 00:00:19,170
+VPC nào muốn nói chuyện với nhau phải peering trực tiếp.
+
+11
+00:00:19,170 --> 00:00:20,100
+Ví dụ A‑B peering, B‑C peering
+
+12
+00:00:20,100 --> 00:00:22,620
+thì A không tự động nói chuyện được với C;
+
+13
+00:00:22,620 --> 00:00:25,260
+cần thêm peering A‑C.
+
+14
+00:00:25,260 --> 00:00:27,300
+Sau khi peering, nhớ cập nhật route table
+
+15
+00:00:27,300 --> 00:00:28,620
+ở các subnet liên quan để định tuyến qua peering.
+
+16
+00:00:28,620 --> 00:00:30,900
+VPC Peering có thể:
+
+17
+00:00:30,900 --> 00:00:34,260
+- Trong cùng account hoặc giữa các account khác nhau;
+
+18
+00:00:34,260 --> 00:00:35,880
+- Cùng region hoặc khác region.
+
+19
+00:00:35,880 --> 00:00:37,500
+Về Security Group: có thể tham chiếu SG
+
+20
+00:00:37,500 --> 00:00:39,480
+từ VPC được peered (cross‑account, cùng region),
+
+21
+00:00:39,480 --> 00:00:41,340
+giúp không phải mở theo CIDR mà theo SG.
+
+22
+00:00:41,340 --> 00:00:44,520
+Trong sơ đồ, ta thêm VPC Peering để nối VPC với VPC khác.
+
+23
+00:00:44,520 --> 00:00:47,280
+Hẹn gặp ở bài hands‑on tiếp theo.
+

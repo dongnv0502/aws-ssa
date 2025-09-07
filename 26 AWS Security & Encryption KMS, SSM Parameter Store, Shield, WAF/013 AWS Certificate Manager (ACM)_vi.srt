@@ -1,0 +1,256 @@
+1
+00:00:00,300 --> 00:00:01,260
+Bây giờ nói về
+
+2
+00:00:01,260 --> 00:00:05,939
+AWS Certificate Manager (ACM).
+
+3
+00:00:05,939 --> 00:00:08,189
+Với ACM, bạn có thể cấp phát, quản lý
+
+4
+00:00:08,189 --> 00:00:13,189
+và triển khai chứng chỉ TLS trên AWS một cách dễ dàng.
+
+5
+00:00:13,500 --> 00:00:15,210
+Chứng chỉ TLS dùng để làm gì?
+
+6
+00:00:15,210 --> 00:00:17,070
+Đôi khi còn gọi là SSL.
+
+7
+00:00:17,070 --> 00:00:18,630
+Chúng dùng để cung cấp
+
+8
+00:00:18,630 --> 00:00:20,760
+mã hóa khi truyền (in‑flight) cho website.
+
+9
+00:00:20,760 --> 00:00:23,010
+Khi bạn truy cập website và thấy
+
+10
+00:00:23,010 --> 00:00:26,670
+HTTPS — chữ S là Secure —
+
+11
+00:00:26,670 --> 00:00:28,620
+điều đó cho thấy có chứng chỉ TLS
+
+12
+00:00:28,620 --> 00:00:32,460
+tham gia trong phiên giao dịch.
+
+13
+00:00:32,460 --> 00:00:34,380
+Hoạt động thế nào? Ví dụ bạn có một ALB
+
+14
+00:00:34,380 --> 00:00:36,480
+kết nối với Auto Scaling group
+
+15
+00:00:36,480 --> 00:00:39,510
+và muốn xuất bản endpoint HTTPS.
+
+16
+00:00:39,510 --> 00:00:41,220
+Bạn sẽ tích hợp với ACM
+
+17
+00:00:41,220 --> 00:00:42,630
+để cấp phát và duy trì
+
+18
+00:00:42,630 --> 00:00:44,940
+chứng chỉ TLS trực tiếp trên ALB,
+
+19
+00:00:44,940 --> 00:00:46,590
+để người dùng truy cập website/API
+
+20
+00:00:46,590 --> 00:00:49,050
+qua giao thức HTTPS.
+
+21
+00:00:49,050 --> 00:00:51,840
+ACM hỗ trợ cả chứng chỉ công khai và riêng tư
+
+22
+00:00:51,840 --> 00:00:54,360
+và chứng chỉ công khai (public) là miễn phí.
+
+23
+00:01:00,480 --> 00:01:02,430
+ACM có tính năng tự động gia hạn chứng chỉ,
+
+24
+00:01:02,430 --> 00:01:04,860
+và tích hợp với nhiều dịch vụ AWS.
+
+25
+00:01:04,860 --> 00:01:05,910
+Bạn có thể nạp chứng chỉ TLS
+
+26
+00:01:05,910 --> 00:01:07,710
+lên Elastic Load Balancer (CLB/ALB/NLB),
+
+27
+00:01:07,710 --> 00:01:10,410
+tích hợp với CloudFront, API Gateway,
+
+28
+00:01:10,410 --> 00:01:14,190
+v.v., và ACM sẽ đảm nhận phần gia hạn giúp bạn.
+
+29
+00:01:14,190 --> 00:01:17,730
+Về giám sát/gia hạn: ACM tự gửi email cảnh báo
+
+30
+00:01:17,730 --> 00:01:20,400
+trước khi chứng chỉ hết hạn.
+
+31
+00:01:20,400 --> 00:01:22,590
+Bạn có thể dùng Amazon EventBridge
+
+32
+00:01:22,590 --> 00:01:24,750
+với rule "ACM Certificate Approaching Expiration"
+
+33
+00:01:24,750 --> 00:01:27,420
+để nhận sự kiện và kích hoạt Lambda/SNS/SQS
+
+34
+00:01:27,420 --> 00:01:31,560
+khi chứng chỉ sắp hết hạn (cấu hình số ngày tùy ý).
+
+35
+00:01:31,560 --> 00:01:33,660
+Ngoài ra, AWS Config có managed rule
+
+36
+00:01:33,660 --> 00:01:35,340
+ACM-certificate-expiration-check
+
+37
+00:01:35,340 --> 00:01:38,790
+để phát hiện chứng chỉ sắp/đã hết hạn,
+
+38
+00:01:38,790 --> 00:01:42,213
+gửi sự kiện không tuân thủ sang EventBridge
+
+39
+00:01:43,320 --> 00:01:47,460
+— bạn lại có thể kích hoạt Lambda/SNS/SQS.
+
+40
+00:01:47,460 --> 00:01:49,230
+Tích hợp với ALB:
+
+41
+00:01:49,230 --> 00:01:51,390
+ta cấp phát và gắn chứng chỉ TLS qua ACM.
+
+42
+00:01:51,390 --> 00:01:54,420
+Bạn có thể đặt rule chuyển hướng (redirect)
+
+43
+00:01:54,420 --> 00:01:56,730
+từ HTTP sang HTTPS trên ALB.
+
+44
+00:01:56,730 --> 00:01:59,910
+Khi người dùng vào HTTP, ALB sẽ trả redirect
+
+45
+00:01:59,910 --> 00:02:04,910
+để buộc chuyển sang HTTPS, khi đó TLS certificate
+
+46
+00:02:05,700 --> 00:02:07,946
+được sử dụng để mã hóa kết nối.
+
+47
+00:02:07,946 --> 00:02:11,160
+Yêu cầu HTTPS sau đó được chuyển tới Auto Scaling group.
+
+48
+00:02:11,160 --> 00:02:13,770
+Tích hợp với API Gateway:
+
+49
+00:02:13,770 --> 00:02:16,920
+nhớ rằng có hai kiểu endpoint — Edge‑optimized
+
+50
+00:02:16,920 --> 00:02:19,860
+và Regional.
+
+51
+00:02:19,860 --> 00:02:22,080
+Với Edge‑optimized (client toàn cầu),
+
+52
+00:02:22,080 --> 00:02:23,267
+yêu cầu đi qua CloudFront,
+
+53
+00:02:23,267 --> 00:02:27,360
+và TLS certificate gắn vào CloudFront distribution —
+
+54
+00:02:27,360 --> 00:02:31,320
+chứng chỉ phải được tạo ở us‑east‑1 (N. Virginia).
+
+55
+00:02:31,320 --> 00:02:35,100
+API Gateway có thể ở bất kỳ vùng nào, nhưng certificate
+
+56
+00:02:35,100 --> 00:02:38,130
+phục vụ CloudFront phải nằm ở us‑east‑1.
+
+57
+00:02:38,130 --> 00:02:40,620
+Bạn sẽ tạo Custom Domain Name trên API Gateway
+
+58
+00:02:40,620 --> 00:02:44,310
+và trỏ DNS (CNAME/alias) trong Route 53.
+
+59
+00:02:44,310 --> 00:02:45,990
+Với Regional endpoint (client cùng vùng
+
+60
+00:02:45,990 --> 00:02:49,200
+với API Gateway), chứng chỉ TLS được import/gắn
+
+61
+00:02:49,200 --> 00:02:51,840
+trực tiếp vào API Gateway trong đúng region của stage,
+
+62
+00:02:51,840 --> 00:02:55,290
+và bạn cấu hình CNAME/alias trên Route 53 tương ứng.
+
+63
+00:02:55,290 --> 00:02:56,790
+Vậy là xong phần ACM.
+
+64
+00:02:56,790 --> 00:02:59,790
+Hy vọng bạn thấy hữu ích — hẹn gặp lại ở bài sau.
+

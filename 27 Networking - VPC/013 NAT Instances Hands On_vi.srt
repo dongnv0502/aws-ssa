@@ -1,0 +1,128 @@
+1
+00:00:00,200 --> 00:00:01,033
+Giờ hãy tạo một NAT Instance
+
+2
+00:00:01,033 --> 00:00:03,770
+để cấp quyền truy cập Internet cho các Private Subnet.
+
+3
+00:00:03,770 --> 00:00:05,660
+Trong EC2, chọn Launch instance,
+
+4
+00:00:05,660 --> 00:00:07,000
+tìm từ khóa “NAT”.
+
+5
+00:00:07,000 --> 00:00:09,850
+Mở Community AMIs, chọn AMI của AWS
+
+6
+00:00:09,850 --> 00:00:11,110
+loại “Amazon AMI VPC NAT 2018”
+
+7
+00:00:11,110 --> 00:00:14,230
+kiến trúc x86_64 (bản càng mới càng tốt).
+
+8
+00:00:14,230 --> 00:00:18,740
+Chọn loại máy t2.micro là đủ (NAT Instance đã lỗi thời).
+
+9
+00:00:18,740 --> 00:00:20,830
+Đặt Instance này ở Public Subnet của DemoVPC,
+
+10
+00:00:20,830 --> 00:00:23,163
+gắn Elastic IP cố định cho NAT Instance.
+
+11
+00:00:24,540 --> 00:00:26,123
+Quan trọng: tắt “Source/Destination check”
+
+12
+00:00:27,250 --> 00:00:28,440
+trên EC2 là NAT Instance,
+
+13
+00:00:28,440 --> 00:00:32,162
+vì NAT sẽ ghi lại (rewrite) địa chỉ nguồn/đích của gói tin.
+
+14
+00:00:32,162 --> 00:00:33,560
+Security Group cho NAT Instance:
+
+15
+00:00:34,450 --> 00:00:38,920
+- Inbound: cho phép HTTP/HTTPS từ các Private Subnet;
+
+16
+00:00:38,920 --> 00:00:43,263
+- (tùy chọn) SSH từ IP của bạn để quản trị;
+
+17
+00:00:44,640 --> 00:00:46,380
+- Outbound: cho phép Internet.
+
+18
+00:00:46,380 --> 00:00:48,420
+Tiếp theo, sửa Private Route Table:
+
+19
+00:00:48,420 --> 00:00:52,660
+thêm route 0.0.0.0/0 trỏ tới ENI của NAT Instance.
+
+20
+00:00:52,660 --> 00:00:55,910
+Như vậy lưu lượng từ Private Subnet
+
+21
+00:00:55,910 --> 00:00:56,960
+sẽ đi qua NAT Instance → Internet Gateway → Internet.
+
+22
+00:00:56,960 --> 00:00:58,070
+Kiểm thử:
+
+23
+00:00:58,070 --> 00:01:00,990
+- Từ Bastion Host, SSH vào EC2 trong Private Subnet;
+
+24
+00:01:00,990 --> 00:01:02,703
+- Chạy ping/curl ra ngoài (google.com, etc.).
+
+25
+00:01:03,950 --> 00:01:05,319
+Nếu nhận được phản hồi → cấu hình hoạt động.
+
+26
+00:01:05,319 --> 00:01:08,020
+Lưu ý:
+
+27
+00:01:08,020 --> 00:01:09,990
+- Dừng NAT Instance → Private Subnet mất Internet
+
+28
+00:01:09,990 --> 00:01:12,069
+(route tới ENI sẽ thành “blackhole”);
+
+29
+00:01:12,069 --> 00:01:13,460
+- NAT Instance không HA sẵn,
+
+30
+00:01:13,460 --> 00:01:16,930
+phải tự triển khai đa AZ/ASG, băng thông tùy instance type.
+
+31
+00:01:16,930 --> 00:01:18,700
+Kết luận: NAT Instance dùng được để minh họa cơ chế NAT,
+
+32
+00:01:18,700 --> 00:01:20,540
+nhưng khuyến nghị sản xuất là NAT Gateway.
+

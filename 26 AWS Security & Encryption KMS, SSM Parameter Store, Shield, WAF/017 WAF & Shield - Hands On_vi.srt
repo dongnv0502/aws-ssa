@@ -1,0 +1,188 @@
+1
+00:00:00,660 --> 00:00:03,030
+Mình sẽ demo nhanh WAF, Shield
+
+2
+00:00:03,030 --> 00:00:04,620
+và Firewall Manager.
+
+3
+00:00:04,620 --> 00:00:08,760
+Trong console, tìm “WAF and Shield” để vào giao diện này.
+
+4
+00:00:08,760 --> 00:00:10,320
+Bên trái là WAF, bên cạnh là Shield
+
+5
+00:00:10,320 --> 00:00:12,120
+và có Firewall Manager.
+
+6
+00:00:12,120 --> 00:00:15,660
+WAF giúp bảo vệ ứng dụng web khỏi các tấn công phổ biến
+
+7
+00:00:15,660 --> 00:00:18,030
+ở layer 7: cho Amazon API Gateway,
+
+8
+00:00:18,030 --> 00:00:21,480
+CloudFront distribution hoặc Application Load Balancer.
+
+9
+00:00:21,480 --> 00:00:23,430
+Bạn sẽ tạo một Web ACL.
+
+10
+00:00:23,430 --> 00:00:24,720
+Đặt tên “Demo Web ACL”,
+
+11
+00:00:24,720 --> 00:00:27,420
+chọn loại resource: Regional (ALB, API Gateway, …)
+
+12
+00:00:27,420 --> 00:00:28,350
+hoặc CloudFront (Global, quản trị ở us‑east‑1).
+
+13
+00:00:28,350 --> 00:00:31,380
+Chọn Regional, ví dụ Region EU (Ireland),
+
+14
+00:00:31,380 --> 00:00:34,437
+tên vẫn là “Demo Web ACL”.
+
+15
+00:00:35,670 --> 00:00:38,670
+Có thể associate resource để bảo vệ (ALB/API Gateway…),
+
+16
+00:00:38,670 --> 00:00:41,340
+nhấn Add và chọn resource phù hợp.
+
+17
+00:00:41,340 --> 00:00:43,290
+Tiếp theo, thêm Rule.
+
+18
+00:00:43,290 --> 00:00:45,840
+Bạn có thể thêm Managed Rule groups hoặc tự tạo rule.
+
+19
+00:00:45,840 --> 00:00:48,570
+Managed Rules có từ AWS và từ đối tác.
+
+20
+00:00:48,570 --> 00:00:50,760
+Ví dụ: Bot Control để chặn bot;
+
+21
+00:00:50,760 --> 00:00:53,608
+Amazon IP reputation list để chỉ cho phép IP uy tín;
+
+22
+00:00:53,608 --> 00:00:56,190
+chặn Anonymous IP (VPN/proxy, …) — thêm rule này;
+
+23
+00:00:56,190 --> 00:01:00,420
+chặn Known Bad Inputs (đầu vào xấu) — cũng thêm.
+
+24
+00:01:00,420 --> 00:01:02,070
+Mỗi rule có “capacity”; tổng tối đa 1500
+
+25
+00:01:02,070 --> 00:01:04,743
+để tránh quá nhiều rule trên một Web ACL.
+
+26
+00:01:04,743 --> 00:01:07,140
+Giờ Web ACL đã chặn Anonymous IP và Bad Inputs.
+
+27
+00:01:07,140 --> 00:01:10,410
+Default action: nếu không khớp rule nào thì Allow,
+
+28
+00:01:10,410 --> 00:01:12,210
+ngược lại bị Block.
+
+29
+00:01:12,210 --> 00:01:13,560
+Chọn Next: sắp xếp độ ưu tiên rule
+
+30
+00:01:13,560 --> 00:01:17,850
+(Bad Inputs trước hay Anonymous IP trước), cấu hình metrics,
+
+31
+00:01:17,850 --> 00:01:19,260
+và tạo Web ACL.
+
+32
+00:01:19,260 --> 00:01:22,200
+Sau khi tạo, associate với ALB, API Gateway, …
+
+33
+00:01:22,200 --> 00:01:25,380
+Bạn cũng có thể tạo IP Set (mỗi dòng một IP/CIDR)
+
+34
+00:01:25,380 --> 00:01:28,380
+để allow/block theo danh sách.
+
+35
+00:01:28,380 --> 00:01:30,300
+Tiếp theo là Shield.
+
+36
+00:01:30,300 --> 00:01:32,670
+Shield cung cấp DDoS protection.
+
+37
+00:01:32,670 --> 00:01:36,240
+Shield Advanced có phí ~$3,000/tháng nên ta không bật ở đây;
+
+38
+00:01:36,240 --> 00:01:39,510
+chỉ cần nhớ Shield dùng để chống DDoS.
+
+39
+00:01:39,510 --> 00:01:42,390
+Cuối cùng là Firewall Manager: quản trị bảo mật tập trung.
+
+40
+00:01:42,390 --> 00:01:45,570
+Tạo Policy (mất phí ~$100/tháng/policy) để áp quy tắc
+
+41
+00:01:45,570 --> 00:01:47,160
+cho toàn bộ account trong Organization.
+
+42
+00:01:47,160 --> 00:01:49,920
+Policy có thể dành cho WAF, Shield Advanced,
+
+43
+00:01:49,920 --> 00:01:52,980
+Security Groups, Network Firewall, …; chọn Region áp dụng
+
+44
+00:01:52,980 --> 00:01:54,540
+(ví dụ Ireland),
+
+45
+00:01:54,540 --> 00:01:57,450
+và định nghĩa rule để áp trên tất cả account trong Region đó.
+
+46
+00:01:57,450 --> 00:02:00,380
+Hy vọng bạn thấy cách 3 dịch vụ này bổ trợ nhau.
+
+47
+00:02:00,380 --> 00:02:02,943
+Hẹn gặp bạn ở bài tiếp theo.
+

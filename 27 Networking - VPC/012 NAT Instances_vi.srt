@@ -1,0 +1,371 @@
+1
+00:00:00,090 --> 00:00:02,050
+Bây giờ hãy nói về NAT Instance,
+
+2
+00:00:02,050 --> 00:00:03,390
+thực ra đã lỗi thời.
+
+3
+00:00:03,390 --> 00:00:05,180
+Giải pháp tốt hơn là NAT Gateway
+
+4
+00:00:05,180 --> 00:00:07,860
+ở bài sau, nhưng đề thi vẫn có thể hỏi về NAT Instance.
+
+5
+00:00:07,860 --> 00:00:09,390
+Vậy chúng ta vẫn cần xem qua.
+
+6
+00:00:09,390 --> 00:00:12,550
+NAT là Network Address Translation.
+
+7
+00:00:12,550 --> 00:00:15,420
+NAT Instance cho phép EC2 trong private subnet
+
+8
+00:00:15,420 --> 00:00:18,200
+kết nối ra Internet.
+
+9
+00:00:18,200 --> 00:00:20,290
+Để làm được, NAT Instance phải đặt
+
+10
+00:00:20,290 --> 00:00:23,060
+trong public subnet và “nối” public subnet
+
+11
+00:00:23,060 --> 00:00:24,550
+với các private subnet.
+
+12
+00:00:24,550 --> 00:00:26,180
+Có một thiết lập cần tắt
+
+13
+00:00:26,180 --> 00:00:27,570
+(sẽ thấy trong phần hands-on)
+
+14
+00:00:27,570 --> 00:00:29,310
+gọi là source/destination check;
+
+15
+00:00:29,310 --> 00:00:31,180
+tôi sẽ giải thích ngay vì sao.
+
+16
+00:00:31,180 --> 00:00:32,680
+Ngoài ra, NAT Instance phải
+
+17
+00:00:32,680 --> 00:00:34,640
+được gắn một Elastic IP cố định.
+
+18
+00:00:34,640 --> 00:00:36,060
+Hãy xem luồng hoạt động.
+
+19
+00:00:36,060 --> 00:00:37,140
+Giả sử có một server
+
+20
+00:00:37,140 --> 00:00:41,410
+public với IP 50.60.4.10,
+
+21
+00:00:41,410 --> 00:00:44,940
+và ta muốn truy cập từ private subnet.
+
+22
+00:00:44,940 --> 00:00:47,410
+Làm sao kết nối từ private subnet
+
+23
+00:00:47,410 --> 00:00:48,410
+đến server này?
+
+24
+00:00:48,410 --> 00:00:51,020
+Chúng ta sẽ khởi chạy một NAT Instance
+
+25
+00:00:51,020 --> 00:00:53,872
+với Security Group riêng trong public subnet,
+
+26
+00:00:53,872 --> 00:00:56,780
+rồi gắn một Elastic IP cho NAT Instance,
+
+27
+00:00:56,780 --> 00:00:58,350
+
+28
+00:00:58,350 --> 00:01:00,730
+sau đó chỉnh Route Table
+
+29
+00:01:00,730 --> 00:01:03,420
+để từ private subnet có thể gửi traffic
+
+30
+00:01:03,420 --> 00:01:06,460
+từ các EC2 đi qua giữa hai subnet tới NAT Instance.
+
+31
+00:01:06,460 --> 00:01:08,830
+
+32
+00:01:08,830 --> 00:01:13,460
+Tiếp theo, khi EC2 muốn truy cập server,
+
+33
+00:01:13,460 --> 00:01:14,570
+server ở ngoài public,
+
+34
+00:01:14,570 --> 00:01:16,670
+thì bắt buộc đi qua NAT Instance.
+
+35
+00:01:16,670 --> 00:01:20,530
+Gói tin đi có source IP là 10.0.0.20
+
+36
+00:01:20,530 --> 00:01:22,970
+(đúng, đó là private IP)
+
+37
+00:01:22,970 --> 00:01:27,470
+và destination là 50.60.4.10; NAT Instance
+
+38
+00:01:27,470 --> 00:01:29,280
+nhận ra bạn đang gửi traffic ra ngoài
+
+39
+00:01:29,280 --> 00:01:30,690
+và chuyển gói tin đến server đó.
+
+40
+00:01:30,690 --> 00:01:34,110
+Nhưng phía server sẽ thấy khác một chút:
+
+41
+00:01:34,110 --> 00:01:36,600
+destination vẫn là IP ở trên,
+
+42
+00:01:36,600 --> 00:01:38,960
+nhưng source IP trở thành 12.34.56.78,
+
+43
+00:01:38,960 --> 00:01:43,730
+là public IP của NAT Instance.
+
+44
+00:01:43,730 --> 00:01:46,000
+Tức là NAT Instance đã “ghi lại” (rewrite)
+
+45
+00:01:46,000 --> 00:01:49,190
+gói tin mạng — NAT chính là làm việc đó —
+
+46
+00:01:49,190 --> 00:01:51,080
+và source IP đã bị thay đổi.
+
+47
+00:01:51,080 --> 00:01:52,550
+Server bây giờ biết cách hồi đáp
+
+48
+00:01:52,550 --> 00:01:54,920
+vì source là chính nó, còn destination
+
+49
+00:01:54,920 --> 00:01:57,040
+là public IP của NAT Instance.
+
+50
+00:01:57,040 --> 00:01:58,850
+Sau đó NAT Instance sẽ chuyển tiếp phản hồi
+
+51
+00:01:58,850 --> 00:02:01,670
+về EC2 thích hợp, nó đủ “thông minh” để biết
+
+52
+00:02:01,670 --> 00:02:04,270
+phải trả cho EC2 nào, với source là public server
+
+53
+00:02:04,270 --> 00:02:06,680
+và destination là private IP của bạn.
+
+54
+00:02:06,680 --> 00:02:09,610
+Đây là lý do
+
+55
+00:02:09,610 --> 00:02:11,900
+ta phải tắt “source/destination check”
+
+56
+00:02:11,900 --> 00:02:13,040
+trên EC2 là NAT Instance,
+
+57
+00:02:13,040 --> 00:02:15,710
+do IP nguồn/đích bị ghi lại.
+
+58
+00:02:15,710 --> 00:02:19,670
+Đó là cách NAT Instance hoạt động ở mức tổng quan.
+
+59
+00:02:19,670 --> 00:02:23,900
+Tóm lại, chúng ta tạo NAT Instance trong public subnet,
+
+60
+00:02:23,900 --> 00:02:26,330
+gắn một Elastic IP cho nó,
+
+61
+00:02:26,330 --> 00:02:28,920
+rồi cấu hình Route Table
+
+62
+00:02:28,920 --> 00:02:31,810
+để các instance ở private có thể đi
+
+63
+00:02:31,810 --> 00:02:35,330
+qua NAT Instance, tới Internet Gateway, v.v.
+
+64
+00:02:35,330 --> 00:02:36,990
+Vài ghi chú về NAT Instance:
+
+65
+00:02:36,990 --> 00:02:38,290
+có sẵn một Amazon Linux AMI cấu hình sẵn,
+
+66
+00:02:38,290 --> 00:02:40,660
+nhưng bản đó đã hết hỗ trợ chuẩn
+
+67
+00:02:40,660 --> 00:02:42,220
+vào 31/12/2020.
+
+68
+00:02:42,220 --> 00:02:45,370
+Vì vậy hiện nay khuyến nghị dùng NAT Gateway;
+
+69
+00:02:45,370 --> 00:02:48,940
+NAT Instance không đảm bảo High Availability.
+
+70
+00:02:48,940 --> 00:02:50,630
+Mặc định chúng cũng không “resilient”; bạn sẽ cần
+
+71
+00:02:50,630 --> 00:02:52,070
+tạo nhiều instance ở nhiều AZ,
+
+72
+00:02:52,070 --> 00:02:54,110
+có thể dùng ASG, user-data script bền vững —
+
+73
+00:02:54,110 --> 00:02:56,920
+khá phức tạp.
+
+74
+00:02:56,920 --> 00:02:59,130
+Nếu chọn instance nhỏ, băng thông
+
+75
+00:02:59,130 --> 00:03:02,010
+sẽ thấp hơn so với instance lớn.
+
+76
+00:03:02,010 --> 00:03:04,950
+Bạn cũng phải tự quản lý Security Group và rules
+
+77
+00:03:04,950 --> 00:03:06,120
+trên instance.
+
+78
+00:03:06,120 --> 00:03:08,303
+Inbound: cho phép HTTP/HTTPS
+
+79
+00:03:08,303 --> 00:03:09,620
+từ các private subnet,
+
+80
+00:03:09,620 --> 00:03:11,440
+cho phép SSH từ mạng nhà bạn (nếu cần).
+
+81
+00:03:11,440 --> 00:03:13,410
+Outbound: cũng cần cho phép các traffic cần thiết.
+
+82
+00:03:13,410 --> 00:03:14,243
+
+83
+00:03:14,243 --> 00:03:17,530
+NAT Instance vẫn dùng được; phần này để bạn hiểu
+
+84
+00:03:17,530 --> 00:03:18,800
+NAT hoạt động ra sao ở mức tổng quan.
+
+85
+00:03:18,800 --> 00:03:21,220
+Ở bài kế tiếp, ta sẽ cấu hình một NAT Instance,
+
+86
+00:03:21,220 --> 00:03:24,330
+nhưng hãy nhớ chúng dần bị thay thế và đề thi
+
+87
+00:03:24,330 --> 00:03:26,180
+có thể yêu cầu bạn chọn giữa NAT Instance
+
+88
+00:03:26,180 --> 00:03:28,760
+(vừa xem) và NAT Gateway (bài sau).
+
+89
+00:03:28,760 --> 00:03:30,030
+Hẹn gặp ở bài tiếp theo.
+
+90
+00:03:30,030 --> 00:03:32,210
+
+91
+00:03:32,210 --> 00:03:34,820
+
+92
+00:03:34,820 --> 00:03:35,860
+
+93
+00:03:35,860 --> 00:03:37,740
+
+94
+00:03:37,740 --> 00:03:39,120
+
+95
+00:03:39,120 --> 00:03:41,020
+

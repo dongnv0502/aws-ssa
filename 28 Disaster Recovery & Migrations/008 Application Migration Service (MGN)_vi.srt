@@ -1,0 +1,152 @@
+1
+00:00:00,360 --> 00:00:01,710
+Khi lên cloud có hai tình huống:
+
+2
+00:00:01,710 --> 00:00:02,610
+Một là bắt đầu mới hoàn toàn
+
+3
+00:00:02,610 --> 00:00:04,200
+và khai thác cloud trực tiếp (không cần migration).
+
+4
+00:00:04,200 --> 00:00:06,360
+Hai là bạn có servers/data center on-premises
+
+5
+00:00:06,360 --> 00:00:08,880
+và muốn migrate lên cloud — cần lập kế hoạch.
+
+6
+00:00:08,880 --> 00:00:12,240
+Một cách là dùng AWS Application Discovery Service
+
+7
+00:00:12,240 --> 00:00:14,370
+để quét servers, thu thập thông tin
+
+8
+00:00:14,370 --> 00:00:17,130
+về mức sử dụng và dependency mapping,
+
+9
+00:00:17,130 --> 00:00:20,070
+từ đó hiểu cách migrate và ưu tiên thứ tự.
+
+10
+00:00:20,070 --> 00:00:23,760
+Có hai kiểu discovery: Agentless (dùng Connector)
+
+11
+00:00:23,760 --> 00:00:26,880
+— thu thập thông tin VM, cấu hình, lịch sử hiệu năng
+
+12
+00:00:26,880 --> 00:00:28,590
+(CPU, RAM, disk),
+
+13
+00:00:28,590 --> 00:00:31,590
+hoặc cài Application Discovery Agent trong VM
+
+14
+00:00:31,590 --> 00:00:33,510
+— thu thập sâu hơn: cấu hình hệ thống,
+
+15
+00:00:33,510 --> 00:00:35,310
+process đang chạy, chi tiết kết nối mạng
+
+16
+00:00:35,310 --> 00:00:36,930
+giữa các hệ thống (để vẽ dependency).
+
+17
+00:00:36,930 --> 00:00:39,270
+Kết quả được xem trong AWS Migration Hub.
+
+18
+00:00:39,270 --> 00:00:42,600
+Sau khi hiểu hệ thống và quan hệ giữa các thành phần,
+
+19
+00:00:42,600 --> 00:00:45,270
+ta cần thực sự di chuyển.
+
+20
+00:00:45,270 --> 00:00:47,310
+Cách đơn giản nhất từ on-premises lên AWS
+
+21
+00:00:47,310 --> 00:00:32,010
+là dùng AWS Application Migration Service (MGN)
+
+22
+00:01:32,010 --> 00:01:33,930
+(trước đây là CloudEndure Migration).
+
+23
+00:01:33,930 --> 00:01:36,240
+Với MGN, bạn làm rehost (lift-and-shift):
+
+24
+00:01:36,240 --> 00:01:39,090
+chuyển hệ thống vật lý/ảo hoặc từ cloud khác
+
+25
+00:01:39,090 --> 00:01:41,160
+để chạy native trên AWS.
+
+26
+00:01:41,160 --> 00:01:44,520
+Cách hoạt động: tại data center có OS/app/database
+
+27
+00:01:44,520 --> 00:01:48,600
+chạy trên đĩa; bạn cài replication agent của MGN
+
+28
+00:01:48,600 --> 00:01:51,720
+để replicate liên tục dữ liệu đĩa
+
+29
+00:01:51,720 --> 00:01:56,850
+sang các EC2 instance chi phí thấp và EBS volume ở AWS.
+
+30
+00:01:56,850 --> 00:01:57,840
+Khi sẵn sàng cutover,
+
+31
+00:01:57,840 --> 00:01:59,910
+bạn chuyển từ staging sang production,
+
+32
+00:01:59,910 --> 00:02:03,720
+chọn EC2 kích thước phù hợp, EBS với hiệu năng mong muốn.
+
+33
+00:02:03,720 --> 00:02:05,910
+Tóm lại: replicate dữ liệu liên tục,
+
+34
+00:02:05,910 --> 00:02:08,310
+đến thời điểm thì cutover — cách đơn giản nhất.
+
+35
+00:02:08,310 --> 00:02:10,620
+MGN hỗ trợ nhiều nền tảng, hệ điều hành,
+
+36
+00:02:10,620 --> 00:02:13,260
+database, cho downtime tối thiểu và giảm chi phí
+
+37
+00:02:13,260 --> 00:02:17,520
+do không cần đội ngũ kỹ sư phức tạp — dịch vụ lo phần lớn.
+
+38
+00:02:17,520 --> 00:02:21,090
+Hết bài. Hẹn gặp lại bạn ở bài tiếp theo.
+

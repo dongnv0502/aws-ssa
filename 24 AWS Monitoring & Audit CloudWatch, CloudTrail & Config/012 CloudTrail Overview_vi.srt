@@ -1,0 +1,76 @@
+1
+00:00:00,690 --> 00:00:02,430
+Tổng quan AWS CloudTrail.
+
+2
+00:00:02,430 --> 00:00:04,650
+CloudTrail phục vụ governance/compliance/audit cho tài khoản AWS.
+
+3
+00:00:04,650 --> 00:00:08,130
+Bật mặc định: ghi lại lịch sử sự kiện/API call từ Console/SDK/CLI/
+
+4
+00:00:08,130 --> 00:00:10,680
+các dịch vụ AWS. Có thể gửi log sang CloudWatch Logs hoặc S3.
+
+5
+00:00:10,680 --> 00:00:13,560
+Trail áp dụng 1 region hoặc all regions (gom lịch sử về 1 S3 bucket).
+
+6
+00:00:13,560 --> 00:00:17,880
+Điều tra “ai làm gì, khi nào” (ví dụ ai terminate EC2) bằng CloudTrail.
+
+7
+00:00:17,880 --> 00:00:21,960
+Events >90 ngày: xuất sang CloudWatch Logs/S3 để lưu lâu dài.
+
+8
+00:00:21,960 --> 00:00:25,006
+3 loại sự kiện:
+
+9
+00:00:25,006 --> 00:00:27,330
+- Management Events: thao tác quản trị tài nguyên (mặc định ghi).
+
+10
+00:00:27,330 --> 00:00:31,050
+  Phân tách Read‑only (List/Describe) và Write (Create/Update/Delete).
+
+11
+00:00:31,050 --> 00:00:33,120
+- Data Events (không ghi mặc định do lớn):
+
+12
+00:00:33,120 --> 00:00:34,650
+  hoạt động mức object S3 (Get/Put/DeleteObject),
+
+13
+00:00:34,650 --> 00:00:37,080
+  và Invoke của Lambda (tần suất cao).
+
+14
+00:00:37,080 --> 00:00:39,270
+- CloudTrail Insights Events: phát hiện bất thường
+
+15
+00:00:39,270 --> 00:00:42,150
+  trong Management Events (đột biến API, vượt limit, lỗ hổng vận hành…).
+
+16
+00:00:42,150 --> 00:00:44,820
+CloudTrail Insights: học hành vi “bình thường”,
+
+17
+00:00:44,820 --> 00:00:49,080
+phát hiện lệch chuẩn → tạo Insights Event (hiển thị Console, gửi S3,
+
+18
+00:00:49,080 --> 00:00:51,390
+phát EventBridge để tự động hoá, ví dụ gửi email).
+
+19
+00:00:51,390 --> 00:00:56,220
+Retention: CloudTrail giữ 90 ngày; muốn lâu hơn → log to S3 và dùng Athena phân tích.
+

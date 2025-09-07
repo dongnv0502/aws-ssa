@@ -1,0 +1,76 @@
+1
+00:00:00,210 --> 00:00:01,800
+CloudWatch Alarms.
+
+2
+00:00:01,800 --> 00:00:03,360
+Alarm dùng để kích hoạt hành động/thông báo
+
+3
+00:00:03,360 --> 00:00:06,000
+từ bất kỳ metric; hỗ trợ thống kê (avg/max/p99…), sampling.
+
+4
+00:00:06,000 --> 00:00:07,920
+Trạng thái: OK, INSUFFICIENT_DATA, ALARM.
+
+5
+00:00:07,920 --> 00:00:11,160
+Period: cửa sổ đánh giá (hỗ trợ high‑resolution: 10s/30s/…60s).
+
+6
+00:00:11,160 --> 00:00:13,110
+Đích hành động:
+
+7
+00:00:13,110 --> 00:00:14,430
+- EC2 action: stop/terminate/reboot/recover.
+
+8
+00:00:14,430 --> 00:00:16,350
+- Auto Scaling: scale out/in.
+
+9
+00:00:16,350 --> 00:00:18,180
+- SNS: gửi thông báo; từ SNS có thể gọi Lambda.
+
+10
+00:00:18,180 --> 00:00:20,250
+Composite Alarms: kết hợp trạng thái nhiều alarm
+
+11
+00:00:20,250 --> 00:00:23,580
+(mỗi alarm có thể gắn với metric khác nhau), dùng điều kiện AND/OR
+
+12
+00:00:23,580 --> 00:00:26,130
+để giảm “noise”. Ví dụ chỉ cảnh báo khi CPU cao AND IOPS cao.
+
+13
+00:00:26,130 --> 00:00:29,730
+EC2 Instance Recovery: tạo alarm trên status checks
+
+14
+00:00:29,730 --> 00:00:32,700
+(Instance/System/EBS). Khi vi phạm, kích hoạt recover
+
+15
+00:00:32,700 --> 00:00:35,730
+để di chuyển instance sang host khác; IP/metadata/placement giữ nguyên;
+
+16
+00:00:35,730 --> 00:00:37,170
+gửi SNS thông báo.
+
+17
+00:00:37,170 --> 00:00:42,330
+Alarm từ Logs: Metric Filter → Alarm → SNS (ví dụ từ khoá “error”).
+
+18
+00:00:42,330 --> 00:00:45,180
+Kiểm thử Alarm: dùng CLI set‑alarm‑state để ép trạng thái
+
+19
+00:00:45,180 --> 00:00:47,970
+và xác minh hành động được kích hoạt đúng.
+

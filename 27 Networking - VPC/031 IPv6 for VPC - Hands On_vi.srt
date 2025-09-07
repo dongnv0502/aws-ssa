@@ -1,0 +1,76 @@
+1
+00:00:00,260 --> 00:00:02,650
+Thực hành kích hoạt và sử dụng IPv6.
+
+2
+00:00:02,650 --> 00:00:06,910
+Trong VPC (DemoVPC), thêm IPv6 CIDR cho VPC:
+
+3
+00:00:06,910 --> 00:00:08,550
+Edit CIDRs → Add IPv6 CIDR block
+
+4
+00:00:08,550 --> 00:00:10,980
+(chọn Amazon‑provided CIDR, theo region quảng bá).
+
+5
+00:00:10,980 --> 00:00:12,890
+Gán IPv6 CIDR cho Subnet:
+
+6
+00:00:12,890 --> 00:00:14,400
+chọn Subnet public A → Edit IPv6 CIDRs
+
+7
+00:00:14,400 --> 00:00:16,550
+(ví dụ block ::/64 với hậu tố 00) → Save.
+
+8
+00:00:16,550 --> 00:00:19,280
+Trong Subnet Settings, bật Auto‑assign IPv6.
+
+9
+00:00:19,280 --> 00:00:21,280
+Với EC2: Networking → Manage IP addresses
+
+10
+00:00:21,280 --> 00:00:23,193
+→ Add new IPv6 address (Auto‑assign) → Save.
+
+11
+00:00:24,136 --> 00:00:26,450
+EC2 (BastionHost) sẽ nhận địa chỉ IPv6.
+
+12
+00:00:26,450 --> 00:00:28,490
+Để SSH bằng IPv6, chỉnh Security Group:
+
+13
+00:00:28,490 --> 00:00:30,483
+Inbound → thêm SSH từ Anywhere‑IPv6 (::/0).
+
+14
+00:00:30,483 --> 00:00:33,083
+Máy bạn cũng cần có IPv6 (kiểm tra tại Test‑IPv6).
+
+15
+00:00:34,270 --> 00:00:36,568
+Nếu ISP chưa cấp IPv6, bạn không thể thử ngay —
+
+16
+00:00:36,568 --> 00:00:39,620
+chờ nhà mạng nâng cấp.
+
+17
+00:00:39,620 --> 00:00:42,710
+Cuối cùng, xem Route Table: public route table
+
+18
+00:00:42,710 --> 00:00:43,550
+có route 0.0.0.0/0 và ::/0 → IGW;
+
+19
+00:00:43,550 --> 00:00:46,550
+private route table dùng NAT GW cho IPv4 và EIGW cho IPv6.
+

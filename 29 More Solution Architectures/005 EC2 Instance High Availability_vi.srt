@@ -1,0 +1,52 @@
+1
+00:00:00,090 --> 00:00:07,920
+Làm thế nào để một EC2 trở nên “highly available”.
+
+2
+00:00:12,780 --> 00:00:19,370
+EC2 mặc định ở một AZ nên không HA; ta có thể thiết kế để đạt HA.
+
+3
+00:00:27,880 --> 00:00:43,360
+Cách 1: EC2 chính + Standby EC2; người dùng truy cập qua Elastic IP.
+
+4
+00:00:43,360 --> 00:01:12,070
+Giám sát bằng CloudWatch Event/Alarm (ví dụ terminate, CPU 100%).
+
+5
+00:01:43,300 --> 00:02:06,530
+Khi sự cố, Lambda được kích hoạt: khởi động Standby (nếu cần),
+
+6
+00:02:06,530 --> 00:02:13,250
+gắn Elastic IP sang Standby; EC2 cũ có thể bị huỷ.
+
+7
+00:02:21,120 --> 00:02:29,670
+Người dùng không bị ảnh hưởng vì luôn vào Elastic IP.
+
+8
+00:02:33,690 --> 00:02:41,440
+Cách 2: Auto Scaling Group (ASG) trên 2 AZ, min=1, max=1, desired=1.
+
+9
+00:02:52,360 --> 00:03:09,980
+Chỉ có 1 EC2 chạy; nếu AZ gặp sự cố, ASG tự thay EC2 ở AZ khác.
+
+10
+00:03:11,730 --> 00:03:32,610
+User Data gắn Elastic IP dựa trên Tag; luôn chỉ 1 EC2 hoạt động.
+
+11
+00:04:19,720 --> 00:04:34,690
+EC2 cần Instance Role để có quyền gọi API gắn Elastic IP.
+
+12
+00:04:34,690 --> 00:04:55,650
+Có thể mở rộng mẫu cho EC2 stateful (EBS) với thao tác gắn volume.
+
+13
+00:04:55,650 --> 00:04:55,650
+Tóm lại: dùng CloudWatch+Lambda hoặc ASG để đạt HA cho EC2.
+

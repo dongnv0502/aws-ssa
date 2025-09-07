@@ -1,0 +1,164 @@
+1
+00:00:00,030 --> 00:00:01,200
+Bây giờ cùng thảo luận về tính năng
+
+2
+00:00:01,200 --> 00:00:04,830
+SSM Session Manager của Systems Manager.
+
+3
+00:00:04,830 --> 00:00:06,930
+Tính năng này cho phép bạn mở một secure shell
+
+4
+00:00:06,930 --> 00:00:09,660
+vào EC2 instance hoặc máy chủ on‑premises
+
+5
+00:00:09,660 --> 00:00:13,080
+mà không cần SSH, bastion host hay SSH key.
+
+6
+00:00:13,080 --> 00:00:14,820
+Tức là cổng 22 trên EC2 có thể đóng,
+
+7
+00:00:14,820 --> 00:00:17,220
+không cần SSH để có shell an toàn trên instance.
+
+8
+00:00:17,220 --> 00:00:19,800
+Bảo mật tốt hơn.
+
+9
+00:00:19,800 --> 00:00:23,610
+Cách hoạt động: EC2 instance có SSM Agent
+
+10
+00:00:23,610 --> 00:00:25,620
+kết nối tới dịch vụ Session Manager.
+
+11
+00:00:25,620 --> 00:00:27,030
+Người dùng truy cập qua Session Manager
+
+12
+00:00:27,030 --> 00:00:28,080
+đến instance và thực thi lệnh.
+
+13
+00:00:28,080 --> 00:00:30,120
+Hỗ trợ Linux, macOS, Windows;
+
+14
+00:00:30,120 --> 00:00:32,430
+log có thể gửi về S3 hoặc CloudWatch Logs.
+
+15
+00:00:32,430 --> 00:00:35,970
+Giờ thực hành: trước hết khởi chạy một EC2 instance.
+
+16
+00:00:35,970 --> 00:00:38,070
+Chọn Amazon Linux 2 AMI, t2.micro,
+
+17
+00:00:38,070 --> 00:00:41,100
+không dùng key pair và tắt SSH traffic.
+
+18
+00:00:41,100 --> 00:00:43,170
+Security group không mở inbound nào (HTTP/HTTPS/SSH đều không),
+
+19
+00:00:43,170 --> 00:00:45,780
+nhưng ta vẫn dùng được Session Manager shell.
+
+20
+00:00:45,780 --> 00:00:49,380
+Cần gắn IAM Instance Profile cho EC2 để nói chuyện với SSM.
+
+21
+00:00:49,380 --> 00:00:50,940
+Tạo một IAM role mới dành cho EC2,
+
+22
+00:00:50,940 --> 00:00:52,080
+gán policy “AmazonSSMManagedInstanceCore”,
+
+23
+00:00:52,080 --> 00:00:54,300
+đặt tên “demo-ec2-role-for-ssm”.
+
+24
+00:00:54,300 --> 00:00:57,960
+Gắn role này khi khởi chạy instance để SSM quản lý được.
+
+25
+00:00:57,960 --> 00:01:00,480
+Sau khi instance chạy, vào Systems Manager → Fleet Manager.
+
+26
+00:01:00,480 --> 00:01:03,300
+Các EC2 đã đăng ký SSM sẽ hiện là “Managed nodes”.
+
+27
+00:01:03,300 --> 00:01:04,890
+Khi SSM Agent online, bạn sẽ thấy
+
+28
+00:01:04,890 --> 00:01:08,820
+nền tảng (Amazon Linux 2), phiên bản agent và link EC2.
+
+29
+00:01:08,820 --> 00:01:11,430
+Tiếp theo vào Session Manager, Start session,
+
+30
+00:01:11,430 --> 00:01:14,250
+chọn instance (dù security group không mở inbound),
+
+31
+00:01:14,250 --> 00:01:18,120
+khởi động phiên — bạn sẽ có một secure shell ngay trong trình duyệt.
+
+32
+00:01:18,120 --> 00:01:21,510
+Bạn có thể kiểm tra private IP của instance trong mục Networking.
+
+33
+00:01:21,510 --> 00:01:26,010
+Tóm tắt ba cách truy cập EC2:
+
+34
+00:01:26,010 --> 00:01:28,140
+1) Mở cổng 22 và dùng SSH key qua terminal.
+
+35
+00:01:28,140 --> 00:01:31,560
+2) EC2 Instance Connect: không cần có sẵn SSH key cục bộ,
+
+36
+00:01:31,560 --> 00:01:35,160
+   nhưng vẫn cần mở cổng 22 trên security group.
+
+37
+00:01:35,160 --> 00:01:38,580
+3) Session Manager: không cần mở cổng 22 hay SSH key;
+
+38
+00:01:38,580 --> 00:01:41,670
+   yêu cầu EC2 có IAM role cho phép truy cập Systems Manager.
+
+39
+00:01:41,670 --> 00:01:45,090
+Kết thúc phiên, lịch sử (logs) phiên làm việc được lưu lại.
+
+40
+00:01:45,090 --> 00:01:48,060
+Cuối cùng, đừng quên terminate instance demo.
+
+41
+00:01:48,060 --> 00:01:49,020
+Hoàn tất.
+

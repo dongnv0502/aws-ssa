@@ -1,0 +1,168 @@
+1
+00:00:00,360 --> 00:00:01,410
+Chào mừng đến với phần
+
+2
+00:00:01,410 --> 00:00:04,440
+Triển khai & Quản lý Hạ tầng ở Quy mô Lớn.
+
+3
+00:00:04,440 --> 00:00:05,970
+Phần này sẽ điểm qua các cách
+
+4
+00:00:05,970 --> 00:00:08,550
+triển khai workload của bạn lên AWS.
+
+5
+00:00:08,550 --> 00:00:10,710
+Công nghệ đầu tiên: CloudFormation.
+
+6
+00:00:10,710 --> 00:00:12,210
+CloudFormation rất quan trọng trong AWS
+
+7
+00:00:12,210 --> 00:00:15,630
+vì nó là cách khai báo (declarative) để mô tả hạ tầng AWS
+
+8
+00:00:15,630 --> 00:00:17,100
+cho hầu hết mọi tài nguyên (đa số được hỗ trợ).
+
+9
+00:00:17,100 --> 00:00:20,220
+Ví dụ, trong CloudFormation bạn nói:
+
+10
+00:00:20,220 --> 00:00:22,170
+“Tôi cần một Security Group,
+
+11
+00:00:22,170 --> 00:00:23,760
+hai EC2 instance dùng security group đó,
+
+12
+00:00:23,760 --> 00:00:26,940
+một S3 bucket, và một Load Balancer ở phía trước.”
+
+13
+00:00:26,940 --> 00:00:28,770
+CloudFormation sẽ tự tạo tất cả
+
+14
+00:00:28,770 --> 00:00:30,690
+theo đúng thứ tự và cấu hình bạn chỉ định.
+
+15
+00:00:30,690 --> 00:00:32,640
+Lợi ích của CloudFormation:
+
+16
+00:00:32,640 --> 00:00:35,850
+- Hạ tầng dưới dạng mã (Infrastructure as Code – IaC):
+
+17
+00:00:35,850 --> 00:00:37,980
+  không tạo thủ công; mọi thay đổi đều qua code review.
+
+18
+00:00:37,980 --> 00:00:40,590
+- Lợi ích chi phí: mọi tài nguyên trong một stack
+
+19
+00:00:40,590 --> 00:00:43,260
+  sẽ được gắn tag đồng nhất, dễ theo dõi chi phí;
+
+20
+00:00:43,260 --> 00:00:46,410
+  có thể ước tính chi phí từ template.
+
+21
+00:00:46,410 --> 00:00:50,130
+- Chiến lược tiết kiệm: tự động xoá stack lúc 17:00
+
+22
+00:00:50,130 --> 00:00:50,963
+  (xóa mọi tài nguyên đi kèm)
+
+23
+00:00:50,963 --> 00:00:53,280
+  và tạo lại an toàn lúc 8–9 giờ sáng hôm sau
+
+24
+00:00:53,280 --> 00:00:56,310
+  để tiết kiệm chi phí ngoài giờ.
+
+25
+00:00:56,310 --> 00:00:58,680
+- Năng suất: tạo/xoá hạ tầng nhanh chóng;
+
+26
+00:00:58,680 --> 00:01:01,590
+  có sơ đồ trực quan từ template;
+
+27
+00:01:01,590 --> 00:01:04,500
+  lập trình khai báo — không cần tự tính thứ tự phụ thuộc.
+
+28
+00:01:04,500 --> 00:01:07,470
+- Tái sử dụng: tận dụng template sẵn có, tài liệu hướng dẫn;
+
+29
+00:01:07,470 --> 00:01:11,550
+  CloudFormation hỗ trợ gần như toàn bộ dịch vụ AWS.
+
+30
+00:01:11,550 --> 00:01:14,310
+Nếu có tài nguyên chưa hỗ trợ, dùng Custom Resource.
+
+31
+00:01:14,310 --> 00:01:17,130
+CloudFormation là nền tảng IaC trên AWS.
+
+32
+00:01:17,130 --> 00:01:20,760
+Bạn có thể trực quan hoá template bằng Infrastructure Composer
+
+33
+00:01:20,760 --> 00:01:22,500
+để xem một WordPress stack,
+
+34
+00:01:22,500 --> 00:01:24,630
+gồm ALB Listener, Security Group, cơ sở dữ liệu,
+
+35
+00:01:24,630 --> 00:01:26,340
+Launch Configuration, Application Load Balancer, v.v.
+
+36
+00:01:26,340 --> 00:01:29,310
+Quan trọng hơn, bạn thấy được mối liên hệ giữa các thành phần,
+
+37
+00:01:29,310 --> 00:01:32,070
+rất hữu ích khi đọc sơ đồ kiến trúc.
+
+38
+00:01:32,070 --> 00:01:35,100
+Trong kỳ thi, CloudFormation được dùng khi cần IaC,
+
+39
+00:01:35,100 --> 00:01:37,590
+lặp lại kiến trúc ở nhiều môi trường/region
+
+40
+00:01:37,590 --> 00:01:39,450
+hoặc nhiều AWS account khác nhau.
+
+41
+00:01:39,450 --> 00:01:40,710
+Hẹn gặp bạn ở bài kế tiếp
+
+42
+00:01:40,710 --> 00:01:42,360
+để thực hành nhanh với CloudFormation.
+

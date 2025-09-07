@@ -1,0 +1,80 @@
+1
+00:00:00,180 --> 00:00:02,880
+Thực hành: tạo VPC Endpoint cho S3 và dịch vụ Interface.
+
+2
+00:00:02,880 --> 00:00:05,520
+1) Gateway Endpoint cho S3:
+
+3
+00:00:05,520 --> 00:00:08,160
+- Chọn dịch vụ S3, VPC và Route Table của Private Subnet;
+
+4
+00:00:08,160 --> 00:00:10,820
+- (Tùy chọn) Endpoint Policy giới hạn bucket/operation;
+
+5
+00:00:10,820 --> 00:00:13,380
+- Lưu: Route Table có entry đặc biệt tới S3.
+
+6
+00:00:13,380 --> 00:00:16,040
+Kiểm thử: trên EC2 Private, gán IAM Role phù hợp,
+
+7
+00:00:16,040 --> 00:00:18,720
+chạy `aws s3 ls`/`curl` tới S3 endpoint — hoạt động
+
+8
+00:00:18,720 --> 00:00:21,360
+mà không cần NAT/Internet.
+
+9
+00:00:21,360 --> 00:00:23,980
+2) Interface Endpoint (PrivateLink) ví dụ: SSM/STS/KMS
+
+10
+00:00:23,980 --> 00:00:26,660
+- Chọn dịch vụ, AZ/Subnet, gán Security Group;
+
+11
+00:00:26,660 --> 00:00:29,340
+- Endpoint tạo ENI (private IP) trong Subnet của bạn;
+
+12
+00:00:29,340 --> 00:00:31,940
+- Bật “Private DNS” để ứng dụng dùng tên dịch vụ chuẩn.
+
+13
+00:00:31,940 --> 00:00:34,580
+Kiểm thử: gọi API qua SDK/CLI từ EC2 Private →
+
+14
+00:00:34,580 --> 00:00:37,280
+lưu lượng đi qua ENI endpoint (không qua Internet).
+
+15
+00:00:37,280 --> 00:00:39,860
+3) Quan sát CloudWatch/VPC Flow Logs để xác nhận đường đi.
+
+16
+00:00:39,860 --> 00:00:42,520
+Lưu ý:
+
+17
+00:00:42,520 --> 00:00:45,180
+- Gateway Endpoint: không có SG, cấu hình ở Route Table;
+
+18
+00:00:45,180 --> 00:00:47,900
+- Interface Endpoint: có SG, per-Subnet/AZ.
+
+19
+00:00:47,900 --> 00:00:50,540
+Kết luận: VPC Endpoint giúp EC2 Private truy cập
+
+20
+00:00:50,540 --> 00:00:53,180
+dịch vụ AWS an toàn, không cần Internet/NAT.
+

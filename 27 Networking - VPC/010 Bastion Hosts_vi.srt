@@ -1,0 +1,246 @@
+1
+00:00:00,000 --> 00:00:02,280
+Bây giờ hãy nói về Bastion Host
+
+2
+00:00:02,280 --> 00:00:04,207
+với bối cảnh là người dùng của chúng ta
+
+3
+00:00:04,207 --> 00:00:07,590
+muốn truy cập một EC2 instance
+
+4
+00:00:07,590 --> 00:00:10,271
+đang ở trong private subnet, còn chúng ta thì
+
+5
+00:00:10,271 --> 00:00:13,740
+đang dùng máy tính của mình trên Internet công cộng.
+
+6
+00:00:13,740 --> 00:00:15,960
+Rõ ràng vì EC2 instance của chúng ta
+
+7
+00:00:15,960 --> 00:00:17,190
+ở private subnet
+
+8
+00:00:17,190 --> 00:00:19,980
+chúng ta không thể truy cập thẳng từ Internet.
+
+9
+00:00:19,980 --> 00:00:21,556
+Một mẹo (rất phổ biến)
+
+10
+00:00:21,556 --> 00:00:23,516
+là dùng Bastion Host.
+
+11
+00:00:23,516 --> 00:00:26,580
+Bastion Host là một EC2 instance
+
+12
+00:00:26,580 --> 00:00:28,800
+được đặt tên là “bastion host”.
+
+13
+00:00:28,800 --> 00:00:31,080
+EC2 này đặc biệt ở chỗ
+
+14
+00:00:31,080 --> 00:00:33,540
+nó nằm trong public subnet.
+
+15
+00:00:33,540 --> 00:00:35,730
+Nó có Security Group riêng gọi là
+
+16
+00:00:35,730 --> 00:00:37,830
+bastion host security group,
+
+17
+00:00:37,830 --> 00:00:40,260
+và dĩ nhiên EC2 trong private subnet
+
+18
+00:00:40,260 --> 00:00:44,190
+cũng có Security Group của riêng nó.
+
+19
+00:00:44,190 --> 00:00:46,620
+Ý tưởng là EC2 trong public subnet
+
+20
+00:00:46,620 --> 00:00:48,458
+tức bastion host,
+
+21
+00:00:48,458 --> 00:00:52,620
+sẽ có thể truy cập EC2 trong private subnet
+
+22
+00:00:52,620 --> 00:00:53,453
+vì tất cả đều trong cùng VPC.
+
+23
+00:00:53,453 --> 00:00:58,453
+Vậy để truy cập EC2 trong private subnet,
+
+24
+00:00:58,980 --> 00:01:01,140
+ta sẽ SSH trước
+
+25
+00:01:01,140 --> 00:01:03,780
+vào bastion host,
+
+26
+00:01:03,780 --> 00:01:05,542
+rồi từ bastion host SSH tiếp
+
+27
+00:01:05,542 --> 00:01:10,542
+vào các EC2 trong private subnet.
+
+28
+00:01:11,100 --> 00:01:12,300
+Có thể là một
+
+29
+00:01:12,300 --> 00:01:15,240
+hoặc nhiều EC2 instance.
+
+30
+00:01:15,240 --> 00:01:17,598
+Tóm lại, Bastion Host cho phép chúng ta
+
+31
+00:01:17,598 --> 00:01:21,030
+SSH vào các EC2 private.
+
+32
+00:01:21,030 --> 00:01:24,123
+Và Bastion Host bắt buộc đặt trong public subnet.
+
+33
+00:01:25,020 --> 00:01:27,090
+Về Security Group rules,
+
+34
+00:01:27,090 --> 00:01:28,890
+đây là thứ có thể xuất hiện trong đề thi;
+
+35
+00:01:28,890 --> 00:01:31,320
+ta cần hiểu mình sẽ cấu hình gì.
+
+36
+00:01:31,320 --> 00:01:33,660
+Với Bastion Host,
+
+37
+00:01:33,660 --> 00:01:36,054
+Security Group của nó phải cho phép truy cập
+
+38
+00:01:36,054 --> 00:01:38,520
+từ Internet.
+
+39
+00:01:38,520 --> 00:01:41,070
+Nhưng thay vì mở cho “mọi nơi”,
+
+40
+00:01:41,070 --> 00:01:42,240
+vì sẽ rủi ro bảo mật,
+
+41
+00:01:42,240 --> 00:01:44,640
+hãy giới hạn, ví dụ chỉ cho phép
+
+42
+00:01:44,640 --> 00:01:46,440
+từ public CIDR của công ty bạn
+
+43
+00:01:46,440 --> 00:01:50,700
+hoặc mạng Internet của bạn, v.v.
+
+44
+00:01:50,700 --> 00:01:52,800
+Nói cách khác, cần thắt chặt Security Group
+
+45
+00:01:52,800 --> 00:01:57,060
+của bastion host hết mức để chỉ vài IP được phép truy cập,
+
+46
+00:01:57,060 --> 00:01:59,790
+vì nếu kẻ tấn công lạ truy cập được
+
+47
+00:01:59,790 --> 00:02:02,610
+EC2 là bastion host của ta,
+
+48
+00:02:02,610 --> 00:02:05,912
+đó sẽ là rủi ro bảo mật cho hạ tầng.
+
+49
+00:02:05,912 --> 00:02:08,910
+Với Security Group của các EC2 trong private subnet,
+
+50
+00:02:08,910 --> 00:02:12,750
+chúng phải cho phép SSH (port 22)
+
+51
+00:02:12,750 --> 00:02:15,150
+từ private IP của bastion host
+
+52
+00:02:15,150 --> 00:02:18,030
+hoặc từ Security Group của bastion host (tương đương).
+
+53
+00:02:18,030 --> 00:02:20,730
+Vì traffic mà các EC2 này thấy
+
+54
+00:02:20,730 --> 00:02:25,140
+đều bắt nguồn từ bastion host.
+
+55
+00:02:25,140 --> 00:02:25,973
+
+56
+00:02:25,973 --> 00:02:28,350
+
+57
+00:02:28,350 --> 00:02:29,370
+
+58
+00:02:29,370 --> 00:02:30,873
+
+59
+00:02:30,873 --> 00:02:34,590
+
+60
+00:02:34,590 --> 00:02:36,362
+
+61
+00:02:36,362 --> 00:02:37,830
+Hết bài này,
+
+62
+00:02:37,830 --> 00:02:38,970
+hy vọng bạn thấy hữu ích
+
+63
+00:02:38,970 --> 00:02:40,920
+và hẹn gặp ở bài kế tiếp.
+

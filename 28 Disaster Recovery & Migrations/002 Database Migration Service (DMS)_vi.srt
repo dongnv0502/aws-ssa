@@ -1,0 +1,220 @@
+1
+00:00:00,120 --> 00:00:02,640
+Giả sử bạn muốn migrate một cơ sở dữ liệu
+
+2
+00:00:02,640 --> 00:00:06,090
+từ hệ thống on-premises của mình lên AWS Cloud.
+
+3
+00:00:06,090 --> 00:00:07,490
+Khi đó, bạn nên dùng DMS
+
+4
+00:00:07,490 --> 00:00:09,240
+(Database Migration Service).
+
+5
+00:00:09,240 --> 00:00:12,360
+Đây là dịch vụ di chuyển cơ sở dữ liệu nhanh và an toàn,
+
+6
+00:00:12,360 --> 00:00:13,980
+cho phép bạn migrate cơ sở dữ liệu
+
+7
+00:00:13,980 --> 00:00:16,440
+từ on-premises lên AWS; điểm hay là
+
+8
+00:00:16,440 --> 00:00:19,050
+nó có khả năng chịu lỗi và tự phục hồi.
+
+9
+00:00:19,050 --> 00:00:20,520
+Trong suốt quá trình migration,
+
+10
+00:00:20,520 --> 00:00:22,440
+database nguồn vẫn khả dụng.
+
+11
+00:00:22,440 --> 00:00:24,870
+DMS hỗ trợ nhiều loại engine,
+
+12
+00:00:24,870 --> 00:00:26,490
+bao gồm di chuyển đồng nhất (homogeneous),
+
+13
+00:00:26,490 --> 00:00:30,330
+ví dụ Oracle → Oracle, hoặc Postgres → Postgres,
+
+14
+00:00:30,330 --> 00:00:32,490
+và cả di chuyển khác hệ (heterogeneous).
+
+15
+00:00:32,490 --> 00:00:33,600
+Ví dụ, migrate
+
+16
+00:00:33,600 --> 00:00:36,540
+từ Microsoft SQL Server sang Aurora,
+
+17
+00:00:36,540 --> 00:00:39,780
+và hỗ trợ đồng bộ dữ liệu liên tục bằng CDC
+
+18
+00:00:39,780 --> 00:00:41,910
+(Change Data Capture).
+
+19
+00:00:41,910 --> 00:00:43,650
+Khi dùng DMS, bạn cần tạo một EC2
+
+20
+00:00:43,650 --> 00:00:46,860
+instance; chính EC2 instance này thực thi
+
+21
+00:00:46,860 --> 00:00:49,260
+các tác vụ replication cho bạn.
+
+22
+00:00:49,260 --> 00:00:52,110
+Đơn giản là: nguồn có thể ở on-premises,
+
+23
+00:00:52,110 --> 00:00:53,760
+bạn chạy một EC2 instance
+
+24
+00:00:53,760 --> 00:00:55,560
+cài DMS software,
+
+25
+00:00:55,560 --> 00:00:57,990
+nó sẽ liên tục lấy dữ liệu từ nguồn
+
+26
+00:00:57,990 --> 00:01:02,190
+và đẩy sang database đích (target).
+
+27
+00:01:02,190 --> 00:01:03,180
+Câu hỏi là:
+
+28
+00:01:03,180 --> 00:01:05,580
+nguồn và đích có thể là gì?
+
+29
+00:01:05,580 --> 00:01:07,200
+Bạn không cần nhớ hết,
+
+30
+00:01:07,200 --> 00:01:08,610
+chỉ cần nắm khái niệm chính
+
+31
+00:01:08,610 --> 00:01:11,130
+để hiểu cách DMS hoạt động.
+
+32
+00:01:11,130 --> 00:01:14,250
+Nguồn có thể là database on-premises
+
+33
+00:01:14,250 --> 00:01:16,103
+hoặc database chạy trên EC2,
+
+34
+00:01:16,103 --> 00:01:20,077
+như Oracle, Microsoft SQL Server, MySQL,
+
+35
+00:01:20,077 --> 00:01:24,780
+MariaDB, PostgreSQL, MongoDB, SAP, DB2.
+
+36
+00:01:24,780 --> 00:01:28,830
+Cũng có thể là Azure SQL Database.
+
+37
+00:01:28,830 --> 00:01:32,460
+Hoặc Amazon RDS (bao gồm Aurora).
+
+38
+00:01:32,460 --> 00:01:36,000
+Hoặc Amazon S3 và DocumentDB.
+
+39
+00:01:36,000 --> 00:01:37,710
+Về phía đích (target),
+
+40
+00:01:37,710 --> 00:01:39,660
+cũng có nhiều lựa chọn.
+
+41
+00:01:39,660 --> 00:01:42,810
+On-premises hoặc database trên EC2:
+
+42
+00:01:42,810 --> 00:01:46,400
+Oracle, Microsoft SQL Server, MySQL,
+
+43
+00:01:46,400 --> 00:01:49,140
+MariaDB, PostgreSQL, SAP.
+
+44
+00:01:49,140 --> 00:01:52,020
+Hoặc bất kỳ database nào trên Amazon RDS.
+
+45
+00:01:52,020 --> 00:01:55,020
+Redshift, DynamoDB, Amazon S3,
+
+46
+00:01:55,020 --> 00:01:57,870
+OpenSearch Service, Kinesis Data Streams,
+
+47
+00:01:57,870 --> 00:02:01,350
+Apache Kafka, DocumentDB, Amazon Neptune,
+
+48
+00:02:01,350 --> 00:02:03,720
+cũng như Redis và Babelfish.
+
+49
+00:02:03,720 --> 00:02:05,940
+Bạn không cần thuộc lòng danh sách này;
+
+50
+00:02:05,940 --> 00:02:08,820
+ý chính là DMS giúp bạn lấy một database
+
+51
+00:02:08,820 --> 00:02:12,300
+— ví dụ database on-premises —
+
+52
+00:02:12,300 --> 00:02:17,300
+và xuất/di chuyển nó sang một đích, về cơ bản, là
+
+53
+00:02:17,340 --> 00:02:22,020
+bất kỳ database nào mà AWS hỗ trợ.
+
+54
+00:02:22,020 --> 00:02:23,250
+Nếu hiểu như vậy
+
+55
+00:02:23,250 --> 00:02:26,700
+là bạn đã nắm ý tưởng tổng quát về DMS.
+

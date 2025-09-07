@@ -1,0 +1,404 @@
+1
+00:00:00,560 --> 00:00:01,620
+Trong bài học này,
+
+2
+00:00:01,620 --> 00:00:03,680
+nếu bạn chưa quen với cách mã hóa hoạt động,
+
+3
+00:00:03,680 --> 00:00:05,480
+mình sẽ cung cấp cho bạn một vài chi tiết
+
+4
+00:00:05,480 --> 00:00:06,550
+về cách nó hoạt động ở mức tổng quan.
+
+5
+00:00:06,550 --> 00:00:10,210
+Đầu tiên, nói về mã hóa khi truyền (encryption in flight),
+
+6
+00:00:10,210 --> 00:00:13,990
+thường được gọi là TLS hoặc SSL.
+
+7
+00:00:13,990 --> 00:00:15,700
+TLS là phiên bản mới hơn của SSL.
+
+8
+00:00:15,700 --> 00:00:19,100
+Ý tưởng là dữ liệu sẽ được mã hóa
+
+9
+00:00:19,100 --> 00:00:21,300
+trước khi gửi đi.
+
+10
+00:00:21,300 --> 00:00:23,750
+Và sẽ được giải mã sau khi nhận về.
+
+11
+00:00:23,750 --> 00:00:24,950
+Đây là cho việc giao tiếp
+
+12
+00:00:24,950 --> 00:00:28,050
+giữa client và server qua mạng.
+
+13
+00:00:28,050 --> 00:00:29,630
+Và điều sẽ xảy ra là
+
+14
+00:00:29,630 --> 00:00:31,420
+để mã hóa dữ liệu,
+
+15
+00:00:31,420 --> 00:00:33,690
+chúng ta dùng chứng chỉ TLS.
+
+16
+00:00:33,690 --> 00:00:36,020
+Đó là thứ bạn thấy khi truy cập website
+
+17
+00:00:36,020 --> 00:00:38,450
+và thấy HTTPS — nghĩa là kết nối
+
+18
+00:00:38,450 --> 00:00:39,530
+giữa bạn và server
+
+19
+00:00:39,530 --> 00:00:42,180
+được mã hóa bằng chứng chỉ TLS.
+
+20
+00:00:42,180 --> 00:00:43,870
+Tại sao cần mã hóa khi truyền?
+
+21
+00:00:43,870 --> 00:00:46,380
+Vì chúng ta gửi dữ liệu qua mạng,
+
+22
+00:00:46,380 --> 00:00:47,817
+đôi khi là mạng công cộng,
+
+23
+00:00:47,817 --> 00:00:50,830
+và dữ liệu đi qua rất nhiều máy chủ trung gian.
+
+24
+00:00:50,830 --> 00:00:54,210
+Ta không muốn bị tấn công “man‑in‑the‑middle”,
+
+25
+00:00:54,210 --> 00:00:57,070
+nơi một máy chủ ở giữa nhận dữ liệu
+
+26
+00:00:57,070 --> 00:01:01,321
+và lén quan sát các gói tin ta gửi tới server.
+
+27
+00:01:01,321 --> 00:01:04,890
+Với HTTPS hay TLS/SSL,
+
+28
+00:01:04,890 --> 00:01:07,750
+ta biết chỉ máy chủ đích
+
+29
+00:01:07,750 --> 00:01:10,260
+mới có thể giải mã dữ liệu đã mã hóa ta gửi.
+
+30
+00:01:10,260 --> 00:01:11,210
+Ví dụ nhé.
+
+31
+00:01:11,210 --> 00:01:12,980
+Ta có một client và một server,
+
+32
+00:01:12,980 --> 00:01:15,040
+và muốn đăng nhập an toàn
+
+33
+00:01:15,040 --> 00:01:18,970
+vào server bằng username và password.
+
+34
+00:01:18,970 --> 00:01:22,200
+Và chỉ máy chủ đích mới được nhận chúng.
+
+35
+00:01:22,200 --> 00:01:24,650
+Vì vậy ta có username và password,
+
+36
+00:01:24,650 --> 00:01:27,020
+và cơ chế mã hóa TLS sẽ tự động
+
+37
+00:01:27,020 --> 00:01:29,090
+được áp dụng ở phía client.
+
+38
+00:01:29,090 --> 00:01:31,810
+Dữ liệu được mã hóa rồi gửi qua mạng.
+
+39
+00:01:31,810 --> 00:01:35,280
+Không máy chủ trung gian nào có thể giải mã dữ liệu,
+
+40
+00:01:35,280 --> 00:01:37,160
+chỉ máy chủ đích
+
+41
+00:01:37,160 --> 00:01:40,250
+mới dùng cơ chế giải mã TLS
+
+42
+00:01:40,250 --> 00:01:42,000
+để giải mã gói tin
+
+43
+00:01:42,000 --> 00:01:45,110
+và thấy rằng ta đã gửi username và password.
+
+44
+00:01:45,110 --> 00:01:47,580
+Từ đó xác nhận ta đã đăng nhập an toàn.
+
+45
+00:01:47,580 --> 00:01:49,550
+Đó là về mã hóa khi truyền.
+
+46
+00:01:49,550 --> 00:01:52,940
+Tiếp theo là mã hóa phía server khi lưu trữ (at rest).
+
+47
+00:01:52,940 --> 00:01:55,270
+Ý tưởng là dữ liệu sẽ được mã hóa
+
+48
+00:01:55,270 --> 00:01:57,310
+sau khi server nhận được
+
+49
+00:01:57,310 --> 00:01:59,240
+để lưu trữ an toàn.
+
+50
+00:01:59,240 --> 00:02:00,360
+Và sẽ được giải mã
+
+51
+00:02:00,360 --> 00:02:02,600
+trước khi gửi trả về cho client.
+
+52
+00:02:02,600 --> 00:02:04,480
+Dữ liệu sẽ được lưu ở dạng mã hóa
+
+53
+00:02:04,480 --> 00:02:07,550
+nhờ một khóa — thường gọi là data key.
+
+54
+00:02:07,550 --> 00:02:09,729
+Và toàn bộ việc quản lý những khóa dùng để
+
+55
+00:02:09,729 --> 00:02:11,290
+mã hóa và giải mã
+
+56
+00:02:11,290 --> 00:02:12,880
+phải diễn ra ở đâu đó,
+
+57
+00:02:12,880 --> 00:02:15,750
+và server phải có quyền truy cập các khóa này.
+
+58
+00:02:15,750 --> 00:02:16,640
+Lấy ví dụ một dịch vụ
+
+59
+00:02:16,640 --> 00:02:18,100
+như Amazon S3.
+
+60
+00:02:18,100 --> 00:02:20,550
+Ta gửi một object qua HTTP,
+
+61
+00:02:20,550 --> 00:02:23,370
+thậm chí là HTTPS cho mã hóa khi truyền.
+
+62
+00:02:23,370 --> 00:02:27,720
+Dịch vụ nhận object của ta, ở dạng đã giải mã.
+
+63
+00:02:27,720 --> 00:02:30,360
+Sau đó dịch vụ dùng một data key,
+
+64
+00:02:30,360 --> 00:02:32,900
+và với data key cùng object đã giải mã,
+
+65
+00:02:32,900 --> 00:02:36,240
+ta có thể mã hóa object đó khi lưu trữ.
+
+66
+00:02:36,240 --> 00:02:39,220
+Khi cần gửi trả object đó
+
+67
+00:02:39,220 --> 00:02:42,140
+cho client, object đã mã hóa và data key
+
+68
+00:02:42,140 --> 00:02:44,420
+sẽ được dùng chung để giải mã.
+
+69
+00:02:44,420 --> 00:02:46,530
+Ta sẽ có object ở dạng đã giải mã,
+
+70
+00:02:46,530 --> 00:02:49,440
+và object đó sẽ được gửi qua HTTPS
+
+71
+00:02:49,440 --> 00:02:50,580
+trở lại client.
+
+72
+00:02:50,580 --> 00:02:52,710
+Ta nhận được object đã giải mã như vậy.
+
+73
+00:02:52,710 --> 00:02:54,130
+Trong trường hợp này,
+
+74
+00:02:54,130 --> 00:02:55,700
+đó là mã hóa phía server
+
+75
+00:02:55,700 --> 00:02:57,810
+vì mọi thao tác mã hóa/giải mã
+
+76
+00:02:57,810 --> 00:03:00,320
+đều diễn ra ở phía server.
+
+77
+00:03:00,320 --> 00:03:03,280
+Cuối cùng, nói về mã hóa phía client (client‑side).
+
+78
+00:03:03,280 --> 00:03:04,690
+Lần này, dữ liệu được mã hóa
+
+79
+00:03:04,690 --> 00:03:08,750
+và giải mã ngay tại phía client.
+
+80
+00:03:08,750 --> 00:03:11,840
+Server không bao giờ có thể giải mã dữ liệu
+
+81
+00:03:11,840 --> 00:03:14,390
+vì ta không tin tưởng server trong trường hợp này.
+
+82
+00:03:14,390 --> 00:03:16,340
+Để làm vậy, ta có thể tận dụng
+
+83
+00:03:16,340 --> 00:03:17,180
+các cơ chế mã hóa.
+
+84
+00:03:17,180 --> 00:03:18,460
+Ví dụ nhé.
+
+85
+00:03:18,460 --> 00:03:20,320
+Client có một object
+
+86
+00:03:20,320 --> 00:03:22,670
+và data key lần này nằm ở phía client.
+
+87
+00:03:22,670 --> 00:03:25,920
+Sau khi mã hóa, ta thu được object đã mã hóa.
+
+88
+00:03:25,920 --> 00:03:28,800
+Object đã mã hóa đó có thể được gửi an toàn
+
+89
+00:03:28,800 --> 00:03:31,000
+đến bất kỳ dịch vụ lưu trữ nào: máy chủ FTP,
+
+90
+00:03:31,000 --> 00:03:32,703
+Amazon S3, EBS volume, v.v.
+
+91
+00:03:33,606 --> 00:03:35,380
+Và chúng sẽ được lưu ở dạng mã hóa.
+
+92
+00:03:35,380 --> 00:03:39,110
+Toàn bộ phía server thậm chí không thể giải mã nội dung.
+
+93
+00:03:39,110 --> 00:03:40,620
+Khi ta lấy nội dung về,
+
+94
+00:03:40,620 --> 00:03:43,340
+ta nhận trực tiếp object đã mã hóa.
+
+95
+00:03:43,340 --> 00:03:46,260
+Và nếu vẫn còn quyền truy cập data key ở phía client,
+
+96
+00:03:46,260 --> 00:03:49,240
+ta có thể thực hiện giải mã
+
+97
+00:03:49,240 --> 00:03:52,000
+và nhận lại object đã giải mã.
+
+98
+00:03:52,000 --> 00:03:54,560
+Đó là ba cơ chế mã hóa
+
+99
+00:03:54,560 --> 00:03:56,710
+thường thấy trên Cloud.
+
+100
+00:03:56,710 --> 00:03:57,543
+Hy vọng bạn thấy hữu ích.
+
+101
+00:03:57,543 --> 00:03:59,440
+Hẹn gặp bạn ở bài học tiếp theo.
+

@@ -1,0 +1,188 @@
+1
+00:00:00,230 --> 00:00:02,870
+Lại là một bài lý thuyết,
+
+2
+00:00:02,870 --> 00:00:04,230
+nhưng tôi muốn đề cập vì nó rất quan trọng cho kỳ thi.
+
+3
+00:00:04,230 --> 00:00:06,700
+Bạn cần biết các dịch vụ AWS ở mức rất cao,
+
+4
+00:00:06,700 --> 00:00:08,430
+ít nhất nghe qua một lần,
+
+5
+00:00:08,430 --> 00:00:11,060
+để xây dựng chiến lược on-premises với cloud.
+
+6
+00:00:11,060 --> 00:00:13,490
+Bạn có thể tải Amazon Linux 2 AMI
+
+7
+00:00:13,490 --> 00:00:16,309
+dưới dạng máy ảo (ISO image).
+
+8
+00:00:16,309 --> 00:00:20,130
+Nạp ISO này vào các phần mềm tạo VM phổ biến
+
+9
+00:00:20,130 --> 00:00:23,330
+như VMWare, KVM, VirtualBox (Oracle VM), Microsoft Hyper-V.
+
+10
+00:00:23,330 --> 00:00:25,560
+Bạn sẽ chạy Amazon Linux 2
+
+11
+00:00:25,560 --> 00:00:28,470
+trên hạ tầng on-premises bằng VM đó,
+
+12
+00:00:28,470 --> 00:00:31,480
+có thể dùng user data, v.v. — khá thú vị.
+
+13
+00:00:31,480 --> 00:00:34,740
+Tiếp theo là VM Import/Export:
+
+14
+00:00:34,740 --> 00:00:35,620
+di chuyển các VM/ứng dụng hiện có
+
+15
+00:00:35,620 --> 00:00:39,050
+lên EC2, và cũng có thể export ngược về on-premises.
+
+16
+00:00:39,050 --> 00:00:40,290
+Bạn có thể xây một kho DR
+
+17
+00:00:40,290 --> 00:00:41,870
+để backup nhiều VM on-premises vào cloud.
+
+18
+00:00:41,870 --> 00:00:43,620
+AWS Application Discovery Service
+
+19
+00:00:43,620 --> 00:00:45,220
+giúp thu thập thông tin về servers on-premises
+
+20
+00:00:45,220 --> 00:00:48,220
+và lập kế hoạch migration (utilization, dependency map).
+
+21
+00:00:48,220 --> 00:00:49,580
+Bạn theo dõi toàn bộ migration
+
+22
+00:00:49,580 --> 00:00:52,830
+qua AWS Migration Hub.
+
+23
+00:00:52,830 --> 00:00:55,180
+AWS Database Migration Service (DMS)
+
+24
+00:00:55,180 --> 00:00:57,450
+cho phép replicate: on-premises ↔ AWS, AWS ↔ AWS.
+
+25
+00:00:57,450 --> 00:01:00,030
+Ví dụ bạn có MySQL/Postgres on-premises
+
+26
+00:01:00,030 --> 00:01:01,860
+và muốn dần chuyển workload lên AWS,
+
+27
+00:01:01,860 --> 00:01:04,430
+dùng DMS để replicate trong lúc chuyển đổi,
+
+28
+00:01:04,430 --> 00:01:06,940
+đến khi sẵn sàng thì chạy hoàn toàn trên AWS.
+
+29
+00:01:06,940 --> 00:01:09,080
+DMS hỗ trợ nhiều công nghệ:
+
+30
+00:01:09,080 --> 00:01:11,570
+Oracle, MySQL, DynamoDB, v.v.,
+
+31
+00:01:11,570 --> 00:01:13,260
+cho phép các use case thú vị
+
+32
+00:01:13,260 --> 00:01:16,100
+như migrate dữ liệu từ MySQL sang DynamoDB.
+
+33
+00:01:16,100 --> 00:01:17,304
+Cuối cùng là
+
+34
+00:01:17,304 --> 00:01:19,070
+AWS Server Migration Service (SMS):
+
+35
+00:01:19,070 --> 00:01:21,890
+replicate gia tăng (incremental) các live server
+
+36
+00:01:21,890 --> 00:01:22,980
+từ on-premises lên AWS
+
+37
+00:01:22,980 --> 00:01:25,800
+(replicate trực tiếp các volumes).
+
+38
+00:01:25,800 --> 00:01:27,090
+Dùng cho bài toán replicate liên tục.
+
+39
+00:01:27,090 --> 00:01:28,640
+Tóm lại, có khá nhiều dịch vụ;
+
+40
+00:01:28,640 --> 00:01:31,330
+hãy nhớ tên ở mức khái quát:
+
+41
+00:01:31,330 --> 00:01:33,130
+VM Import/Export, Application Discovery Service,
+
+42
+00:01:33,130 --> 00:01:35,280
+AWS Migration Hub, Database Migration Service (DMS),
+
+43
+00:01:35,280 --> 00:01:38,170
+Server Migration Service (SMS).
+
+44
+00:01:38,170 --> 00:01:41,400
+Nhìn thấy các tên này trong đề thi, bạn sẽ không bất ngờ
+
+45
+00:01:41,400 --> 00:01:43,859
+và biết chúng liên quan đến on-premises.
+
+46
+00:01:43,859 --> 00:01:44,692
+Hết phần lý thuyết ngắn này,
+
+47
+00:01:44,692 --> 00:01:47,090
+hẹn gặp lại ở bài giảng tiếp theo.
+

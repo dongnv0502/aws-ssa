@@ -1,0 +1,176 @@
+1
+00:00:00,070 --> 00:00:02,290
+Giờ đến bài dài về Security Group và Network ACL (NACL).
+
+2
+00:00:02,290 --> 00:00:05,510
+Ví dụ một Subnet có EC2 Instance gắn Security Group (SG),
+
+3
+00:00:05,510 --> 00:00:07,380
+nhưng Subnet còn có một lớp bảo vệ nữa: NACL.
+
+4
+00:00:07,380 --> 00:00:10,860
+Luồng vào: request đến VPC → đi qua NACL (inbound rules)
+
+5
+00:00:10,860 --> 00:00:13,410
+→ nếu bị chặn thì dừng, nếu cho phép thì vào Subnet
+
+6
+00:00:13,410 --> 00:00:16,950
+→ tiếp tục qua Security Group (inbound) của EC2.
+
+7
+00:00:16,950 --> 00:00:18,320
+Khác biệt cốt lõi:
+
+8
+00:00:18,320 --> 00:00:21,820
+- NACL: stateless (không ghi trạng thái). Cần khai báo
+
+9
+00:00:21,820 --> 00:00:24,450
+  cả inbound và outbound cho cùng một luồng.
+
+10
+00:00:24,450 --> 00:00:26,720
+- Security Group: stateful. Chỉ cần khai báo chiều đi (inbound
+
+11
+00:00:26,720 --> 00:00:29,990
+  hoặc outbound); chiều ngược lại tự được cho phép.
+
+12
+00:00:29,990 --> 00:00:32,200
+Mặc định:
+
+13
+00:00:32,200 --> 00:00:34,610
+- SG: mặc định deny-all; bạn chỉ định rule cho phép.
+
+14
+00:00:34,610 --> 00:00:36,570
+- NACL: có ACL mặc định cho mỗi VPC (allow-all in/out).
+
+15
+00:00:36,570 --> 00:00:38,640
+  Khi tạo NACL mới: mặc định deny-all.
+
+16
+00:00:38,640 --> 00:00:41,810
+NACL áp dụng trên Subnet (tất cả ENI trong Subnet chịu ảnh hưởng).
+
+17
+00:00:41,810 --> 00:00:45,670
+SG áp dụng trên ENI/Instance cụ thể (mức tài nguyên).
+
+18
+00:00:45,670 --> 00:00:47,660
+NACL có “Rule number” (thứ tự ưu tiên nhỏ trước).
+
+19
+00:00:47,660 --> 00:00:50,180
+Khi match một rule (ALLOW/DENY), dừng đánh giá.
+
+20
+00:00:50,180 --> 00:00:52,000
+Tình huống điển hình khi dùng NACL:
+
+21
+00:00:52,000 --> 00:00:52,940
+- Chặn một dải IP “xấu” toàn Subnet.
+
+22
+00:00:52,940 --> 00:00:54,040
+- Cho phép/giới hạn port tầng mạng theo Subnet.
+
+23
+00:00:54,040 --> 00:00:57,590
+Ví dụ minh họa: Web Tier (80/443) ở Public Subnet,
+
+24
+00:00:57,590 --> 00:00:58,980
+App Tier (port riêng) ở Private Subnet,
+
+25
+00:00:58,980 --> 00:01:00,458
+DB Tier (3306, 5432, ...) ở Private Subnet khác.
+
+26
+00:01:00,458 --> 00:01:03,000
+- SG Web cho phép 80/443 từ Internet, egress tới App SG.
+
+27
+00:01:03,000 --> 00:01:05,030
+- SG App cho phép từ Web SG, egress tới DB SG.
+
+28
+00:01:05,030 --> 00:01:07,670
+- SG DB chỉ cho phép từ App SG.
+
+29
+00:01:07,670 --> 00:01:10,340
+- NACL Public cho phép 80/443 inbound từ 0.0.0.0/0,
+
+30
+00:01:10,340 --> 00:01:12,840
+  outbound ephemeral ports (1024-65535).
+
+31
+00:01:12,840 --> 00:01:15,670
+- NACL Private-App cho phép từ dải Subnet Web (ports ứng dụng).
+
+32
+00:01:15,670 --> 00:01:17,570
+- NACL Private-DB cho phép từ dải Subnet App (DB ports).
+
+33
+00:01:17,570 --> 00:01:19,370
+Mẹo thi SAA:
+
+34
+00:01:19,370 --> 00:01:20,959
+- SG là stateful; NACL là stateless.
+
+35
+00:01:20,959 --> 00:01:22,603
+- NACL có số thứ tự rule; SG thì không.
+
+36
+00:01:22,603 --> 00:01:27,310
+- Chặn IP/dải IP: nghĩ đến NACL. Cho phép theo nguồn là SG.
+
+37
+00:01:27,310 --> 00:01:30,790
+Khắc phục sự cố:
+
+38
+00:01:30,790 --> 00:01:34,150
+- Ping/SSH không vào được: kiểm tra SG inbound và NACL inbound.
+
+39
+00:01:34,150 --> 00:01:37,033
+- Kết nối ra (yum update, curl): kiểm tra SG outbound
+
+40
+00:01:37,884 --> 00:01:41,060
+  và NACL outbound (ephemeral ports) + Route Table/NAT.
+
+41
+00:01:41,060 --> 00:01:44,640
+Thực hành điển hình: tạo NACL tuỳ lớp, gán Subnet;
+
+42
+00:01:44,640 --> 00:01:45,920
+kiểm tra log bằng VPC Flow Logs.
+
+43
+00:01:45,920 --> 00:01:48,010
+Kết luận: SG kiểm soát ở mức ENI (stateful),
+
+44
+00:01:48,010 --> 00:01:52,240
+NACL kiểm soát ở mức Subnet (stateless). Dùng kết hợp để an toàn.
+

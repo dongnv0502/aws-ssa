@@ -1,0 +1,88 @@
+1
+00:00:00,000 --> 00:00:02,307
+Bây giờ nói về VPC Flow Logs.
+
+2
+00:00:02,307 --> 00:00:04,620
+Flow Logs thu thập thông tin lưu lượng IP vào/ra interface
+
+3
+00:00:04,620 --> 00:00:07,050
+ở cấp VPC, Subnet, hoặc ENI.
+
+4
+00:00:07,050 --> 00:00:10,170
+Giúp giám sát và xử lý sự cố kết nối trong VPC.
+
+5
+00:00:10,170 --> 00:00:13,050
+Đích lưu: Amazon S3, CloudWatch Logs, Kinesis Data Firehose.
+
+6
+00:00:13,050 --> 00:00:15,390
+Có thể ghi cả lưu lượng của interface do AWS quản lý
+
+7
+00:00:15,390 --> 00:00:16,890
+(ELB, RDS, ElastiCache, Redshift, WorkSpaces,
+
+8
+00:00:16,890 --> 00:00:20,430
+NAT Gateway, Transit Gateway, …).
+
+9
+00:00:20,430 --> 00:00:23,040
+Bản ghi Flow Log gồm: version, accountId, interfaceId,
+
+10
+00:00:23,040 --> 00:00:25,470
+srcaddr, dstaddr, srcport, dstport, protocol,
+
+11
+00:00:25,470 --> 00:00:26,850
+packets, bytes, start, end, action, logStatus.
+
+12
+00:00:26,850 --> 00:00:31,500
+Một số trường hữu ích:
+
+13
+00:00:31,500 --> 00:00:34,500
+- srcaddr/dstaddr: tìm IP gây lỗi/bị chặn lặp lại;
+
+14
+00:00:34,500 --> 00:00:36,240
+- srcport/dstport: phát hiện port gây vấn đề;
+
+15
+00:00:36,240 --> 00:00:39,330
+- action: ACCEPT/REJECT (do SG hay NACL);
+
+16
+00:00:39,330 --> 00:00:41,520
+- logStatus: ghi log thành công/giới hạn.
+
+17
+00:00:41,520 --> 00:00:44,460
+Phân tích: Athena trên S3 (batch) hoặc CloudWatch Logs Insights (streaming).
+
+18
+00:00:44,460 --> 00:00:46,140
+Troubleshoot SG/NACL:
+
+19
+00:00:46,140 --> 00:00:48,480
+- Inbound REJECT: có thể do NACL hoặc SG chặn.
+
+20
+00:00:48,480 --> 00:00:51,930
+- Inbound ACCEPT nhưng Outbound REJECT: chỉ có thể do NACL,
+
+21
+00:00:51,930 --> 00:00:54,060
+  vì Security Group là stateful: inbound được phép → outbound reply tự cho phép.
+
+22
+00:00:54,060 --> 00:00:59,250
+Ứng dụng: phân tích usage pattern, phát hiện hành vi bất thường, quét cổng, …
+

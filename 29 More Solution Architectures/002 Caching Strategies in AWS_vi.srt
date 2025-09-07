@@ -1,0 +1,60 @@
+1
+00:00:00,140 --> 00:00:02,240
+Chiến lược caching trên AWS và tác động của chúng.
+
+2
+00:00:02,240 --> 00:00:06,860
+Ví dụ kiến trúc: CloudFront → API Gateway → App (EC2/Lambda)
+
+3
+00:00:18,713 --> 00:00:25,860
+App truy cập database và cache nội bộ (Redis/Memcached/DAX);
+
+4
+00:00:27,600 --> 00:00:35,590
+Nội dung tĩnh: CloudFront phục vụ từ S3; nội dung động qua app.
+
+5
+00:00:42,490 --> 00:00:50,440
+Caching tại CloudFront (edge): rất gần người dùng → cực nhanh,
+
+6
+00:00:50,440 --> 00:01:05,410
+nhưng có nguy cơ lỗi thời; điều chỉnh TTL/invalidations phù hợp.
+
+7
+00:01:11,590 --> 00:01:18,130
+Cân bằng lượng cache ở edge vs. trong app để phù hợp dữ liệu.
+
+8
+00:01:20,547 --> 00:01:27,252
+API Gateway cũng có cache (mức Regional, không cần CloudFront).
+
+9
+00:01:32,350 --> 00:01:38,574
+Cache trúng tại API Gateway vẫn qua mạng từ client đến Gateway.
+
+10
+00:01:38,574 --> 00:01:51,750
+App layer thường dùng cache chung (Redis/Memcached/DAX cho DynamoDB)
+
+11
+00:01:51,750 --> 00:02:08,169
+để giảm tải DB, lưu kết quả truy vấn thường xuyên/phức tạp.
+
+12
+00:02:11,470 --> 00:02:19,210
+Database/S3 không có cache tích hợp; đi xa nguồn → trễ và tốn chi phí.
+
+13
+00:02:25,140 --> 00:02:34,320
+Không có một “chuẩn” duy nhất; tuỳ mục tiêu và thiết kế hệ thống.
+
+14
+00:02:34,320 --> 00:02:45,920
+Câu hỏi chính: cache ở đâu, thế nào, bao lâu, nội dung nào,
+
+15
+00:02:45,920 --> 00:03:03,040
+đổi lại độ trễ/nhất quán nào? Hãy chọn phù hợp từng scenario.
+

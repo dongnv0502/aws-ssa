@@ -1,0 +1,520 @@
+1
+00:00:00,210 --> 00:00:03,030
+Hãy cùng xem dịch vụ KMS.
+
+2
+00:00:03,030 --> 00:00:04,050
+Trước hết, ở cột bên trái
+
+3
+00:00:04,050 --> 00:00:06,840
+tôi muốn xem các khóa do AWS quản lý (AWS managed keys).
+
+4
+00:00:06,840 --> 00:00:09,810
+Bạn có thể thấy, nếu tôi đã dùng KMS để mã hóa
+
+5
+00:00:09,810 --> 00:00:12,090
+xuyên suốt khóa học này, thì những khóa đó
+
+6
+00:00:12,090 --> 00:00:13,500
+sẽ hiện ra ngay tại đây.
+
+7
+00:00:13,500 --> 00:00:17,040
+Ví dụ, ta có thể xem AWS/EBS.
+
+8
+00:00:17,040 --> 00:00:18,750
+Đây là một khóa do AWS quản lý
+
+9
+00:00:18,750 --> 00:00:21,360
+vì nó thuộc về dịch vụ EBS.
+
+10
+00:00:21,360 --> 00:00:23,730
+Ta có thể xem nó đang được sử dụng thế nào.
+
+11
+00:00:23,730 --> 00:00:25,950
+Ở đây có một key policy,
+
+12
+00:00:25,950 --> 00:00:29,790
+và policy phức tạp này định nghĩa ai có thể truy cập key.
+
+13
+00:00:29,790 --> 00:00:33,180
+Và dĩ nhiên vì đây là khóa AWS cho EBS,
+
+14
+00:00:33,180 --> 00:00:35,400
+bạn sẽ thấy các action cho phép
+
+15
+00:00:35,400 --> 00:00:38,640
+từ mọi nơi, thực hiện một số hành động nhất định.
+
+16
+00:00:38,640 --> 00:00:41,910
+Nhưng điều kiện là tài khoản gọi (caller account)
+
+17
+00:00:41,910 --> 00:00:44,250
+phải là tài khoản của tôi, và ViaService
+
+18
+00:00:44,250 --> 00:00:45,450
+phải là dịch vụ EC2,
+
+19
+00:00:45,450 --> 00:00:49,140
+vốn là lớp dịch vụ ở trên EBS, được chứ?
+
+20
+00:00:49,140 --> 00:00:53,100
+Nếu tôi xem một khóa do AWS quản lý khác,
+
+21
+00:00:53,100 --> 00:00:55,230
+ví dụ khóa của SQS,
+
+22
+00:00:55,230 --> 00:00:59,100
+rồi xem key policy, thì điều kiện ViaService
+
+23
+00:00:59,100 --> 00:01:03,390
+trong KMS key policy của tôi là dịch vụ SQS,
+
+24
+00:01:03,390 --> 00:01:07,963
+do đó chỉ cho phép truy cập từ SQS vào khóa này.
+
+25
+00:01:09,690 --> 00:01:12,000
+Ta cũng có thể xem cấu hình mật mã (cryptographic config),
+
+26
+00:01:12,000 --> 00:01:15,570
+cho thấy khóa này là symmetric, origin là KMS
+
+27
+00:01:15,570 --> 00:01:18,810
+và nó được dùng để mã hóa/giải mã dữ liệu.
+
+28
+00:01:18,810 --> 00:01:19,643
+Được rồi.
+
+29
+00:01:19,643 --> 00:01:22,230
+Vậy đó là các KMS key do AWS quản lý,
+
+30
+00:01:22,230 --> 00:01:23,790
+nhưng còn những loại khác nữa.
+
+31
+00:01:23,790 --> 00:01:25,950
+Ta có customer managed keys
+
+32
+00:01:25,950 --> 00:01:27,900
+và cả custom key store.
+
+33
+00:01:27,900 --> 00:01:30,990
+Custom key store là khi ta muốn dùng CloudHSM,
+
+34
+00:01:30,990 --> 00:01:34,020
+nhưng phần này nằm ngoài phạm vi kỳ thi.
+
+35
+00:01:34,020 --> 00:01:35,430
+Nên ta sẽ không đi sâu,
+
+36
+00:01:35,430 --> 00:01:38,310
+mà chỉ tập trung vào customer managed key.
+
+37
+00:01:38,310 --> 00:01:41,340
+Đây là khi ta muốn tạo khóa của riêng mình trong KMS
+
+38
+00:01:41,340 --> 00:01:43,830
+thay vì dùng khóa do AWS quản lý.
+
+39
+00:01:43,830 --> 00:01:45,600
+Hãy tạo một key — lưu ý nếu làm vậy
+
+40
+00:01:45,600 --> 00:01:48,420
+thì sẽ tốn $1 mỗi tháng.
+
+41
+00:01:48,420 --> 00:01:51,240
+Nếu bạn không muốn trả phí, đừng thực hiện bước này.
+
+42
+00:01:51,240 --> 00:01:53,190
+Về loại key, ta có nhiều lựa chọn:
+
+43
+00:01:53,190 --> 00:01:56,280
+symmetric hoặc asymmetric.
+
+44
+00:01:56,280 --> 00:01:59,220
+Nếu chọn asymmetric, ta có thể dùng cho encrypt/decrypt
+
+45
+00:01:59,220 --> 00:02:02,550
+hoặc sign/verify (ký/xác minh).
+
+46
+00:02:02,550 --> 00:02:04,230
+Nhưng phần này ngoài phạm vi bài học,
+
+47
+00:02:04,230 --> 00:02:07,500
+tôi sẽ dùng loại symmetric KMS key,
+
+48
+00:02:07,500 --> 00:02:09,990
+với tùy chọn encrypt và decrypt.
+
+49
+00:02:09,990 --> 00:02:13,410
+Đây là lựa chọn cơ bản nhất tôi muốn minh họa.
+
+50
+00:02:13,410 --> 00:02:17,370
+Ở tùy chọn nâng cao, key origin sẽ là KMS
+
+51
+00:02:17,370 --> 00:02:19,590
+vì ta muốn KMS tạo khóa này cho ta.
+
+52
+00:02:19,590 --> 00:02:20,760
+Nếu muốn import một khóa,
+
+53
+00:02:20,760 --> 00:02:24,330
+ta chọn key origin là external
+
+54
+00:02:24,330 --> 00:02:26,670
+hoặc custom key store nếu muốn dùng CloudHSM,
+
+55
+00:02:26,670 --> 00:02:28,170
+nhưng phần này cũng ngoài phạm vi.
+
+56
+00:02:28,170 --> 00:02:29,520
+Vì vậy ta dùng KMS.
+
+57
+00:02:29,520 --> 00:02:32,460
+Về phạm vi region, có single‑region key
+
+58
+00:02:32,460 --> 00:02:33,990
+và multi‑region key.
+
+59
+00:02:33,990 --> 00:02:36,720
+Ở đây ta chỉ xét single‑region key
+
+60
+00:02:36,720 --> 00:02:38,880
+vì đây là lựa chọn lâu đời và phổ biến nhất cho KMS.
+
+61
+00:02:38,880 --> 00:02:42,210
+Chọn single‑region key rồi bấm Next.
+
+62
+00:02:42,210 --> 00:02:45,210
+Tiếp theo là alias cho key,
+
+63
+00:02:45,210 --> 00:02:46,410
+tôi đặt là “tutorial”.
+
+64
+00:02:46,410 --> 00:02:48,693
+
+
+65
+00:02:50,010 --> 00:02:51,090
+Bấm Next.
+
+66
+00:02:51,090 --> 00:02:54,300
+Tại đây ta có thể chỉ định key administrators.
+
+67
+00:02:54,300 --> 00:02:56,730
+Nếu tôi không chỉ định, ta sẽ dùng
+
+68
+00:02:56,730 --> 00:03:00,030
+default KMS key policy — đó cũng là điều tôi muốn.
+
+69
+00:03:00,030 --> 00:03:02,010
+Nhưng nếu bạn muốn chỉ rõ
+
+70
+00:03:02,010 --> 00:03:04,980
+ai có thể dùng key và ai có thể quản trị nó,
+
+71
+00:03:04,980 --> 00:03:06,960
+thì cấu hình ở đây.
+
+72
+00:03:06,960 --> 00:03:09,510
+Hiện tại tôi sẽ không chọn gì,
+
+73
+00:03:09,510 --> 00:03:10,860
+và bấm Next.
+
+74
+00:03:10,860 --> 00:03:12,510
+Tiếp theo, ai có thể dùng key này?
+
+75
+00:03:12,510 --> 00:03:15,060
+Phần này chính là KMS key policy của bạn.
+
+76
+00:03:15,060 --> 00:03:17,880
+Cụ thể, hiện tại tôi muốn cho mọi người dùng
+
+77
+00:03:17,880 --> 00:03:20,970
+nếu họ có quyền IAM phù hợp.
+
+78
+00:03:20,970 --> 00:03:23,490
+Nhưng nếu bạn muốn tăng cường bảo mật,
+
+79
+00:03:23,490 --> 00:03:26,490
+bạn có thể nói: chỉ “Stephane” mới dùng được key này —
+
+80
+00:03:26,490 --> 00:03:30,210
+như vậy KMS sẽ tạo một key policy tùy biến.
+
+81
+00:03:30,210 --> 00:03:32,130
+Trong ví dụ này, tôi không cần.
+
+82
+00:03:32,130 --> 00:03:33,810
+Và như bạn thấy phía dưới
+
+83
+00:03:33,810 --> 00:03:37,710
+tôi có thể cho phép các tài khoản AWS khác truy cập key.
+
+84
+00:03:37,710 --> 00:03:39,660
+Ví dụ nếu bạn có use case
+
+85
+00:03:39,660 --> 00:03:42,713
+chia sẻ một EBS snapshot đã mã hóa,
+
+86
+00:03:42,713 --> 00:03:44,760
+bạn sẽ thêm tài khoản kia vào để cấp quyền dùng key.
+
+87
+00:03:44,760 --> 00:03:48,933
+
+
+88
+00:03:50,430 --> 00:03:53,790
+Tóm lại: ta tạo một symmetric key,
+
+89
+00:03:53,790 --> 00:03:55,200
+và đây là key policy —
+
+90
+00:03:55,200 --> 00:03:57,870
+chính là default key policy tôi nói tới.
+
+91
+00:03:57,870 --> 00:03:59,700
+Policy này bật quyền cho IAM users,
+
+92
+00:03:59,700 --> 00:04:03,300
+nên cho phép hành động trên mọi tài nguyên KMS
+
+93
+00:04:03,300 --> 00:04:05,100
+miễn là họ có quyền IAM phù hợp.
+
+94
+00:04:05,100 --> 00:04:07,080
+Giờ thì hoàn tất.
+
+95
+00:04:07,080 --> 00:04:09,060
+Key của tôi đã được tạo
+
+96
+00:04:09,060 --> 00:04:10,830
+và tôi có thể bấm View Key.
+
+97
+00:04:10,830 --> 00:04:12,513
+
+
+98
+00:04:13,530 --> 00:04:15,120
+Khi key đã tạo xong,
+
+99
+00:04:15,120 --> 00:04:17,579
+tôi có thể xem key policy.
+
+100
+00:04:17,579 --> 00:04:20,820
+Key policy trông như thế này —
+
+101
+00:04:20,820 --> 00:04:22,950
+về bản chất là một IAM policy cho key.
+
+102
+00:04:22,950 --> 00:04:24,600
+Bạn có thể chuyển sang Default view
+
+103
+00:04:24,600 --> 00:04:27,210
+để xem tóm tắt dễ hiểu hơn:
+
+104
+00:04:27,210 --> 00:04:29,130
+ai là key administrator,
+
+105
+00:04:29,130 --> 00:04:30,420
+có cho phép xóa key không,
+
+106
+00:04:30,420 --> 00:04:31,830
+ai là key user,
+
+107
+00:04:31,830 --> 00:04:34,170
+và tài khoản khác có thể truy cập không.
+
+108
+00:04:34,170 --> 00:04:35,460
+Tôi sẽ không chỉnh phần này.
+
+109
+00:04:35,460 --> 00:04:38,100
+Bạn cũng có thể xem cấu hình mật mã.
+
+110
+00:04:38,100 --> 00:04:39,270
+Tôi cũng không chỉnh.
+
+111
+00:04:39,270 --> 00:04:40,680
+Tags không cần thiết.
+
+112
+00:04:40,680 --> 00:04:44,340
+Về key rotation, ta có thể bật tự động xoay vòng
+
+113
+00:04:44,340 --> 00:04:46,770
+bằng cách chỉnh ở đây và bật “Enabled”,
+
+114
+00:04:46,770 --> 00:04:49,590
+và đặt chu kỳ xoay từ 90 ngày
+
+115
+00:04:49,590 --> 00:04:52,800
+đến tối đa 2.560 ngày.
+
+116
+00:04:52,800 --> 00:04:54,120
+Ở đây là 1 năm,
+
+117
+00:04:54,120 --> 00:04:56,190
+nhưng bạn có thể tùy chỉnh.
+
+118
+00:04:56,190 --> 00:04:59,460
+Nếu bật, bạn sẽ thấy ngày xoay tiếp theo.
+
+119
+00:04:59,460 --> 00:05:00,540
+Và ví dụ,
+
+120
+00:05:00,540 --> 00:05:03,390
+bạn có thể chủ động xoay key (on‑demand)
+
+121
+00:05:03,390 --> 00:05:05,130
+bằng cách bấm nút này.
+
+122
+00:05:05,130 --> 00:05:07,830
+Mỗi khi bạn xoay key — tự động hoặc theo yêu cầu —
+
+123
+00:05:07,830 --> 00:05:09,720
+nó sẽ xuất hiện trong lịch sử xoay key.
+
+124
+00:05:09,720 --> 00:05:11,550
+Các tùy chọn này có sẵn
+
+125
+00:05:11,550 --> 00:05:13,110
+vì ta tạo key trực tiếp trong KMS.
+
+126
+00:05:13,110 --> 00:05:17,190
+Và cuối cùng, alias của key là gì?
+
+127
+00:05:17,190 --> 00:05:20,130
+Nó tên “tutorial”, vậy tôi có thể tham chiếu bằng
+
+128
+00:05:20,130 --> 00:05:22,560
+alias ARN,
+
+129
+00:05:22,560 --> 00:05:23,580
+giúp mọi thứ đơn giản hơn một chút.
+
+130
+00:05:23,580 --> 00:05:26,250
+
+

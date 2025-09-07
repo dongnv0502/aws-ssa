@@ -1,0 +1,524 @@
+1
+00:00:00,000 --> 00:00:00,990
+Giờ hãy nói về Microsoft Active Directory và AWS Directory Services.
+
+2
+00:00:00,990 --> 00:00:05,700
+Microsoft Active Directory (Microsoft AD) và AWS Directory Services.
+
+3
+00:00:05,700 --> 00:00:08,039
+Nếu bạn chưa biết Microsoft AD là gì,
+
+4
+00:00:08,039 --> 00:00:09,750
+đó là phần mềm có trên
+
+5
+00:00:09,750 --> 00:00:13,170
+bất kỳ Windows Server nào có AD Domain Services.
+
+6
+00:00:13,170 --> 00:00:14,700
+Đây là cơ sở dữ liệu các object,
+
+7
+00:00:14,700 --> 00:00:17,190
+gồm tài khoản người dùng, máy tính, máy in,
+
+8
+00:00:17,190 --> 00:00:18,660
+chia sẻ file, security group.
+
+9
+00:00:18,660 --> 00:00:20,040
+Toàn bộ người dùng trong
+
+10
+00:00:20,040 --> 00:00:22,770
+hệ sinh thái Microsoft on‑premises của bạn
+
+11
+00:00:22,770 --> 00:00:25,320
+sẽ được quản lý bởi Microsoft Active Directory.
+
+12
+00:00:25,320 --> 00:00:27,450
+Bạn có cơ chế quản trị bảo mật tập trung:
+
+13
+00:00:27,450 --> 00:00:29,850
+thêm tài khoản, gán quyền, v.v.
+
+14
+00:00:29,850 --> 00:00:32,759
+Mọi object được tổ chức theo cấu trúc cây (tree),
+
+15
+00:00:32,759 --> 00:00:34,680
+và nhóm các tree gọi là forest.
+
+16
+00:00:34,680 --> 00:00:36,450
+Đó là vài thuật ngữ cơ bản.
+
+17
+00:00:36,450 --> 00:00:38,970
+Ví dụ: ta có một domain controller
+
+18
+00:00:38,970 --> 00:00:41,280
+và sẽ tạo một tài khoản trên đó.
+
+19
+00:00:41,280 --> 00:00:42,900
+Ta tạo tài khoản username là John,
+
+20
+00:00:42,900 --> 00:00:44,550
+password là Password.
+
+21
+00:00:44,550 --> 00:00:45,450
+Ý tưởng là
+
+22
+00:00:45,450 --> 00:00:48,420
+tất cả máy Windows khác trong mạng của ta
+
+23
+00:00:48,420 --> 00:00:51,420
+sẽ được nối vào domain controller.
+
+24
+00:00:51,420 --> 00:00:53,760
+Khi đăng nhập dùng tài khoản John
+
+25
+00:00:53,760 --> 00:00:55,020
+trên máy đầu tiên,
+
+26
+00:00:55,020 --> 00:00:57,270
+máy sẽ tra cứu ở controller và xác nhận
+
+27
+00:00:57,270 --> 00:00:58,710
+rằng có tài khoản đó.
+
+28
+00:00:58,710 --> 00:01:00,810
+Rồi cho phép bạn đăng nhập vào máy đó.
+
+29
+00:01:00,810 --> 00:01:02,970
+Tất cả các máy sẽ kết nối
+
+30
+00:01:02,970 --> 00:01:05,190
+với domain controller, nhờ đó
+
+31
+00:01:05,190 --> 00:01:08,640
+người dùng có thể đăng nhập trên bất kỳ máy nào.
+
+32
+00:01:08,640 --> 00:01:11,040
+Đó là ý tưởng tổng quan của Active Directory
+
+33
+00:01:11,040 --> 00:01:12,960
+ở mức rất cao.
+
+34
+00:01:12,960 --> 00:01:15,030
+Bây giờ đến AWS Directory Services,
+
+35
+00:01:15,030 --> 00:01:16,320
+dịch vụ cung cấp cho bạn
+
+36
+00:01:16,320 --> 00:01:19,050
+cách tạo một Active Directory trên AWS.
+
+37
+00:01:19,050 --> 00:01:21,270
+Có ba biến thể (flavor).
+
+38
+00:01:21,270 --> 00:01:22,740
+Ta không cần đi quá sâu,
+
+39
+00:01:22,740 --> 00:01:24,150
+nhưng cần hiểu sự khác nhau
+
+40
+00:01:24,150 --> 00:01:25,950
+giữa ba biến thể này.
+
+41
+00:01:25,950 --> 00:01:28,890
+Đầu tiên là AWS Managed Microsoft AD
+
+42
+00:01:28,890 --> 00:01:31,440
+để tạo Active Directory riêng của bạn trên AWS.
+
+43
+00:01:31,440 --> 00:01:33,270
+Bạn có thể quản lý user tại chỗ (locally)
+
+44
+00:01:33,270 --> 00:01:36,090
+và hỗ trợ xác thực đa yếu tố (MFA).
+
+45
+00:01:36,090 --> 00:01:39,150
+Với AD độc lập này, bạn cũng có thể tạo
+
+46
+00:01:39,150 --> 00:01:41,220
+quan hệ trust (trust relationship)
+
+47
+00:01:41,220 --> 00:01:42,960
+với AD on‑premises
+
+48
+00:01:42,960 --> 00:01:45,030
+nơi bạn có sẵn người dùng.
+
+49
+00:01:45,030 --> 00:01:48,630
+Nghĩa là AD trên AWS có thể thiết lập trust với AD on‑prem.
+
+50
+00:01:48,630 --> 00:01:50,160
+AWS tin cậy AD on‑premises
+
+51
+00:01:50,160 --> 00:01:51,597
+và AD on‑premises tin cậy AWS.
+
+52
+00:01:51,597 --> 00:01:53,850
+Nhờ đó, nếu người dùng của bạn
+
+53
+00:01:53,850 --> 00:01:55,200
+đăng nhập ở phía phải màn hình,
+
+54
+00:01:55,200 --> 00:01:56,850
+bằng tài khoản không do AWS quản lý,
+
+55
+00:01:56,850 --> 00:02:00,390
+hệ thống có thể tra cứu tài khoản đó
+
+56
+00:02:00,390 --> 00:02:02,190
+trong Active Directory on‑premises.
+
+57
+00:02:02,190 --> 00:02:04,320
+Tương tự, nếu user on‑premises
+
+58
+00:02:04,320 --> 00:02:07,740
+đăng nhập vào AD on‑prem theo các tài khoản AWS,
+
+59
+00:02:07,740 --> 00:02:10,830
+hệ thống có thể tin cậy và tra cứu.
+
+60
+00:02:10,830 --> 00:02:13,110
+Như vậy người dùng có thể được chia sẻ
+
+61
+00:02:13,110 --> 00:02:14,880
+giữa AD on‑premises và AWS.
+
+62
+00:02:14,880 --> 00:02:19,020
+Hơi phức tạp nếu bạn mới, nhưng hy vọng dễ hiểu.
+
+63
+00:02:19,020 --> 00:02:20,550
+AD Connector thì khác đôi chút.
+
+64
+00:02:20,550 --> 00:02:21,990
+Đây là cổng proxy/gateway trực tiếp
+
+65
+00:02:21,990 --> 00:02:24,060
+để chuyển hướng đến AD on‑premises,
+
+66
+00:02:24,060 --> 00:02:28,830
+hỗ trợ MFA và user chỉ được quản lý tại AD on‑premises.
+
+67
+00:02:28,830 --> 00:02:33,300
+Ví dụ: AD Connector chỉ đóng vai trò proxy.
+
+68
+00:02:33,300 --> 00:02:36,450
+Khi user xác thực qua AD Connector,
+
+69
+00:02:36,450 --> 00:02:41,790
+nó sẽ proxy yêu cầu về AD on‑prem để tra cứu.
+
+70
+00:02:41,790 --> 00:02:44,673
+Trong phương án Managed Microsoft AD,
+
+71
+00:02:44,673 --> 00:02:46,620
+ta có user nằm trong AWS Managed AD
+
+72
+00:02:46,620 --> 00:02:49,830
+và user nằm trong AD on‑premises.
+
+73
+00:02:49,830 --> 00:02:51,120
+Còn với AD Connector,
+
+74
+00:02:51,120 --> 00:02:54,450
+nó “kết nối” và proxy các truy vấn, yêu cầu kết nối
+
+75
+00:02:54,450 --> 00:02:58,230
+về lại Active Directory on‑premises.
+
+76
+00:02:58,230 --> 00:03:00,360
+Nơi duy nhất quản lý user
+
+77
+00:03:00,360 --> 00:03:02,610
+là AD on‑premises.
+
+78
+00:03:02,610 --> 00:03:04,320
+Cuối cùng là Simple AD.
+
+79
+00:03:04,320 --> 00:03:06,480
+Đây là managed directory tương thích AD trên AWS,
+
+80
+00:03:06,480 --> 00:03:08,460
+không dùng Microsoft Directory,
+
+81
+00:03:08,460 --> 00:03:10,470
+và không thể join với AD on‑premises.
+
+82
+00:03:10,470 --> 00:03:13,200
+Tức là nếu bạn không có AD on‑premises
+
+83
+00:03:13,200 --> 00:03:15,000
+nhưng cần AD cho AWS Cloud,
+
+84
+00:03:15,000 --> 00:03:18,060
+thì dùng Simple AD như một hệ thống độc lập.
+
+85
+00:03:18,060 --> 00:03:20,250
+Với Active Directory, bạn có thể tạo EC2 instance
+
+86
+00:03:20,250 --> 00:03:22,710
+và join chúng vào domain, dùng Group Policy,
+
+87
+00:03:22,710 --> 00:03:25,830
+quản lý user, máy, group, và cấp quyền truy cập
+
+88
+00:03:25,830 --> 00:03:28,860
+đến tài nguyên, ứng dụng trong mạng doanh nghiệp.
+
+89
+00:03:28,860 --> 00:03:32,760
+Bạn cũng có thể cấp quyền truy cập RDP
+
+90
+00:03:32,760 --> 00:03:35,040
+đến các EC2 instance chạy Windows.
+
+91
+00:03:35,040 --> 00:03:36,600
+Hy vọng điều này rõ ràng.
+
+92
+00:03:36,600 --> 00:03:38,640
+Trong kỳ thi có thể có câu hỏi cấp cao như:
+
+93
+00:03:38,640 --> 00:03:41,140
+“Muốn proxy người dùng về on‑premises”
+
+94
+00:03:41,140 --> 00:03:42,850
+→ chọn AD Connector;
+
+95
+00:03:42,850 --> 00:03:44,560
+“Muốn quản lý user trên AWS Cloud
+
+96
+00:03:44,560 --> 00:03:47,200
+và có MFA” → chọn AWS Managed AD;
+
+97
+00:03:47,200 --> 00:03:49,480
+“Chỉ cần Simple AD, không có on‑prem”
+
+98
+00:03:49,480 --> 00:03:50,700
+→ dùng Simple AD.
+
+99
+00:03:50,700 --> 00:03:52,560
+Bây giờ, tích hợp IAM Identity Center
+
+100
+00:03:52,560 --> 00:03:54,120
+với Active Directory thì sao?
+
+101
+00:03:54,120 --> 00:03:55,680
+Nếu bạn kết nối tới Active Directory
+
+102
+00:03:55,680 --> 00:03:57,630
+được quản lý trên AWS bằng Directory Service,
+
+103
+00:03:57,630 --> 00:04:01,140
+tích hợp là “out of the box”.
+
+104
+00:04:01,140 --> 00:04:02,850
+Bạn chỉ cần bảo IAM Identity Center
+
+105
+00:04:02,850 --> 00:04:04,560
+kết nối đến AWS Managed Microsoft AD.
+
+106
+00:04:04,560 --> 00:04:07,200
+Rất đơn giản.
+
+107
+00:04:07,200 --> 00:04:09,480
+Nếu bạn không quản lý user AD trên cloud thì sao?
+
+108
+00:04:09,480 --> 00:04:10,527
+Nếu bạn có self‑managed directory
+
+109
+00:04:10,527 --> 00:04:12,450
+ở on‑premises thì sao?
+
+110
+00:04:12,450 --> 00:04:14,430
+Có hai cách kết nối đến self‑managed directory.
+
+111
+00:04:14,430 --> 00:04:15,630
+Cách thứ nhất là thiết lập
+
+112
+00:04:15,630 --> 00:04:19,019
+two‑way trust relationship dùng AWS Managed Microsoft AD.
+
+113
+00:04:19,019 --> 00:04:20,940
+Bạn tạo một Managed Microsoft AD
+
+114
+00:04:20,940 --> 00:04:23,700
+qua Directory Service,
+
+115
+00:04:23,700 --> 00:04:27,810
+rồi cấu hình two‑way trust giữa AD on‑premises
+
+116
+00:04:27,810 --> 00:04:30,240
+và Managed AD trên AWS.
+
+117
+00:04:30,240 --> 00:04:33,030
+Sau đó dùng tích hợp có sẵn của IAM Identity Center
+
+118
+00:04:33,030 --> 00:04:37,410
+để có Single Sign‑On (SSO).
+
+119
+00:04:37,410 --> 00:04:38,640
+Phương án còn lại là dùng AD Connector.
+
+120
+00:04:38,640 --> 00:04:40,350
+AD Connector sẽ tích hợp với IAM Identity Center,
+
+121
+00:04:40,350 --> 00:04:42,120
+bạn kết nối vào đó
+
+122
+00:04:42,120 --> 00:04:44,430
+và nó sẽ tự động proxy mọi yêu cầu
+
+123
+00:04:44,430 --> 00:04:46,620
+về self‑managed directory của bạn.
+
+124
+00:04:46,620 --> 00:04:49,080
+Chọn cách nào tùy nhu cầu:
+
+125
+00:04:49,080 --> 00:04:50,880
+nếu bạn muốn có thể quản lý user
+
+126
+00:04:50,880 --> 00:04:52,650
+trong AD trên cloud,
+
+127
+00:04:52,650 --> 00:04:55,380
+phương án thứ nhất phù hợp hơn.
+
+128
+00:04:55,380 --> 00:04:58,800
+Nếu chỉ cần proxy yêu cầu xác thực/truy vấn,
+
+129
+00:04:58,800 --> 00:05:01,440
+phương án thứ hai có thể phù hợp
+
+130
+00:05:01,440 --> 00:05:03,450
+(đổi lại sẽ có thêm độ trễ).
+
+131
+00:05:03,450 --> 00:05:06,870
+Vậy là xong bài học này. Hẹn gặp bạn ở bài tiếp theo.
+

@@ -1,0 +1,48 @@
+1
+00:00:00,120 --> 00:00:02,820
+Site-to-Site VPN: kết nối mạng on-premises ↔ VPC qua Internet.
+
+2
+00:00:02,820 --> 00:00:05,420
+Thành phần:
+
+3
+00:00:05,420 --> 00:00:08,020
+- Virtual Private Gateway (VGW): phía AWS, gắn vào VPC.
+
+4
+00:00:08,020 --> 00:00:10,620
+- Customer Gateway (CGW): phía on-prem (thiết bị/địa chỉ IP).
+
+5
+00:00:10,620 --> 00:00:13,220
+- VPN Connection: đường hầm IPsec (thường 2 tunnels/HA).
+
+6
+00:00:13,220 --> 00:00:15,820
+Yêu cầu:
+
+7
+00:00:15,820 --> 00:00:18,420
+- CIDR không overlap giữa on-prem và VPC.
+
+8
+00:00:18,420 --> 00:00:21,020
+- Cập nhật Route Table (Private Subnet) tới VGW.
+
+9
+00:00:21,020 --> 00:00:23,620
+Tùy chọn tăng cường: VPN CloudHub (nhiều site), BGP.
+
+10
+00:00:23,620 --> 00:00:26,220
+So với Direct Connect:
+
+11
+00:00:26,220 --> 00:00:28,820
+- VPN: rẻ, nhanh triển khai, chạy qua Internet, độ trễ biến động.
+
+12
+00:00:28,820 --> 00:00:31,420
+- Direct Connect: kết nối chuyên dụng, ổn định, chi phí cao hơn.
+

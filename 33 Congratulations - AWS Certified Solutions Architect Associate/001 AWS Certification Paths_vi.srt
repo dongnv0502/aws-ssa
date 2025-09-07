@@ -1,0 +1,580 @@
+1
+00:00:00,150 --> 00:00:01,230
+Xin chúc mừng,
+
+2
+00:00:01,230 --> 00:00:03,930
+bạn sắp bước vào một kỳ thi chứng chỉ AWS,
+
+3
+00:00:03,930 --> 00:00:06,060
+nhưng hành trình của bạn còn nhiều điều phía trước.
+
+4
+00:00:06,060 --> 00:00:08,970
+Hệ thống chứng chỉ AWS gồm các chứng chỉ nền tảng,
+
+5
+00:00:08,970 --> 00:00:10,740
+chứng chỉ cấp Associate,
+
+6
+00:00:10,740 --> 00:00:12,120
+chứng chỉ cấp Professional,
+
+7
+00:00:12,120 --> 00:00:15,390
+và các chứng chỉ chuyên sâu (Specialty).
+
+8
+00:00:15,390 --> 00:00:18,000
+Tùy vào vai trò bạn hướng tới, sẽ có lộ trình khác nhau.
+
+9
+00:00:18,000 --> 00:00:20,160
+AWS gợi ý nhiều đường đi phù hợp.
+
+10
+00:00:20,160 --> 00:00:23,070
+Bạn có thể xem các lộ trình này trong tài liệu tại URL
+
+11
+00:00:23,070 --> 00:00:25,560
+được đặt ở góc phải bên dưới màn hình.
+
+12
+00:00:25,560 --> 00:00:26,940
+Đầu tiên là lộ trình kiến trúc (Architecture).
+
+13
+00:00:26,940 --> 00:00:29,130
+Nếu bạn muốn trở thành Solutions Architect,
+
+14
+00:00:29,130 --> 00:00:30,570
+thiết kế, phát triển
+
+15
+00:00:30,570 --> 00:00:32,759
+và quản lý hạ tầng, tài sản trên cloud,
+
+16
+00:00:32,759 --> 00:00:34,320
+thì nên theo các chứng chỉ sau.
+
+17
+00:00:34,320 --> 00:00:37,170
+Nếu đã có kiến thức cloud và IT,
+
+18
+00:00:37,170 --> 00:00:38,430
+không bắt buộc Cloud Practitioner,
+
+19
+00:00:38,430 --> 00:00:40,020
+nhưng mình vẫn khuyên nên học.
+
+20
+00:00:40,020 --> 00:00:42,780
+Nếu muốn tận dụng AI, nên học
+
+21
+00:00:42,780 --> 00:00:45,630
+AI Practitioner (Foundational Certification).
+
+22
+00:00:45,630 --> 00:00:47,850
+Sau đó là Solutions Architect Associate,
+
+23
+00:00:47,850 --> 00:00:49,560
+tiếp đến Solutions Architect Professional.
+
+24
+00:00:49,560 --> 00:00:51,060
+Nếu muốn đào sâu,
+
+25
+00:00:51,060 --> 00:00:54,060
+Security Specialty là chứng chỉ rất đáng học.
+
+26
+00:00:54,060 --> 00:00:56,760
+Nếu bạn thiên về kiến trúc ứng dụng (Application Architecture),
+
+27
+00:00:56,760 --> 00:00:59,490
+liên quan UI, middleware, hạ tầng, v.v.,
+
+28
+00:00:59,490 --> 00:01:01,410
+thì khuyến nghị giống trên,
+
+29
+00:01:01,410 --> 00:01:03,930
+nhưng bổ sung Developer Associate
+
+30
+00:01:03,930 --> 00:01:06,330
+và sau đó là DevOps Engineer Professional.
+
+31
+00:01:06,330 --> 00:01:08,820
+Khi muốn đào sâu thêm,
+
+32
+00:01:08,820 --> 00:01:10,560
+có thể học Solutions Architect Professional.
+
+33
+00:01:10,560 --> 00:01:13,320
+Nếu bạn làm mảng vận hành (Operations),
+
+34
+00:01:13,320 --> 00:01:14,580
+bạn có thể là Systems Administrator,
+
+35
+00:01:14,580 --> 00:01:16,080
+chịu trách nhiệm cài đặt, nâng cấp,
+
+36
+00:01:16,080 --> 00:01:18,090
+và bảo trì phần cứng/phần mềm,
+
+37
+00:01:18,090 --> 00:01:20,400
+đồng thời tích hợp các quy trình tự động hóa.
+
+38
+00:01:20,400 --> 00:01:22,650
+Khi đó, Cloud Practitioner
+
+39
+00:01:22,650 --> 00:01:24,300
+tiếp theo SysOps Administrator – Associate là phù hợp.
+
+40
+00:01:24,300 --> 00:01:27,150
+Để đào sâu, hãy học DevOps Engineer – Professional.
+
+41
+00:01:27,150 --> 00:01:30,750
+Nếu bạn là Cloud Engineer, chịu trách nhiệm triển khai
+
+42
+00:01:30,750 --> 00:01:33,030
+và vận hành hạ tầng tính toán, mạng của tổ chức
+
+43
+00:01:33,030 --> 00:01:36,030
+và triển khai hệ thống bảo mật để bảo vệ dữ liệu,
+
+44
+00:01:36,030 --> 00:01:38,910
+thì lộ trình là Cloud Practitioner (Foundational),
+
+45
+00:01:38,910 --> 00:01:41,280
+SysOps Administrator – Associate, Security Specialty,
+
+46
+00:01:41,280 --> 00:01:44,460
+và để đào sâu: DevOps Engineer – Professional
+
+47
+00:01:44,460 --> 00:01:46,860
+và Advanced Networking – Specialty.
+
+48
+00:01:46,860 --> 00:01:49,260
+Nếu bạn làm DevOps,
+
+49
+00:01:49,260 --> 00:01:50,093
+ví dụ Test Engineer,
+
+50
+00:01:50,093 --> 00:01:51,900
+vai trò là áp dụng thực hành kiểm thử và chất lượng
+
+51
+00:01:51,900 --> 00:01:54,960
+xuyên suốt vòng đời sản phẩm, từ thiết kế tới phát hành,
+
+52
+00:01:54,960 --> 00:01:57,030
+thì lộ trình là Cloud Practitioner, rồi Developer,
+
+53
+00:01:57,030 --> 00:01:58,890
+và sau đó DevOps Engineer.
+
+54
+00:01:58,890 --> 00:02:01,950
+Nếu bạn là Cloud DevOps Engineer,
+
+55
+00:02:01,950 --> 00:02:03,750
+vai trò là thiết kế, triển khai
+
+56
+00:02:03,750 --> 00:02:06,060
+và vận hành các môi trường hybrid quy mô lớn, toàn cầu,
+
+57
+00:02:06,060 --> 00:02:08,100
+và thúc đẩy CI/CD tự động end‑to‑end,
+
+58
+00:02:08,100 --> 00:02:10,139
+thì lộ trình là Cloud Practitioner (Foundational)
+
+59
+00:02:10,139 --> 00:02:11,490
+→ Developer – Associate
+
+60
+00:02:11,490 --> 00:02:14,790
+và tùy chọn học thêm SysOps Administrator.
+
+61
+00:02:14,790 --> 00:02:16,140
+Nếu bạn quan tâm Machine Learning,
+
+62
+00:02:16,140 --> 00:02:19,500
+thì Machine Learning Engineer – Associate là lựa chọn tốt.
+
+63
+00:02:19,500 --> 00:02:22,170
+Và để đào sâu: DevOps Engineer – Professional.
+
+64
+00:02:22,170 --> 00:02:24,540
+Nếu bạn làm DevSecOps,
+
+65
+00:02:24,540 --> 00:02:26,250
+vai trò là thúc đẩy việc áp dụng cloud trong doanh nghiệp
+
+66
+00:02:26,250 --> 00:02:27,510
+đồng thời vẫn đảm bảo
+
+67
+00:02:27,510 --> 00:02:28,950
+khả năng phát hành nhanh và ổn định theo nguyên tắc CI/CD,
+
+68
+00:02:28,950 --> 00:02:31,590
+phương pháp và công nghệ liên quan,
+
+69
+00:02:31,590 --> 00:02:33,840
+thì nên bắt đầu với Cloud Practitioner,
+
+70
+00:02:33,840 --> 00:02:36,780
+tiếp đến SysOps Administrator – Associate,
+
+71
+00:02:36,780 --> 00:02:37,920
+Machine Learning – Associate
+
+72
+00:02:37,920 --> 00:02:41,730
+nếu bạn làm dự án AI/ML, DevOps Engineer, và Security Specialty.
+
+73
+00:02:41,730 --> 00:02:43,680
+Nếu bạn làm mảng bảo mật,
+
+74
+00:02:43,680 --> 00:02:45,360
+bạn có thể là Cloud Security Engineer,
+
+75
+00:02:45,360 --> 00:02:46,410
+thiết kế kiến trúc bảo mật
+
+76
+00:02:46,410 --> 00:02:48,510
+cho hệ thống máy tính và ứng dụng.
+
+77
+00:02:48,510 --> 00:02:49,800
+Lộ trình khuyến nghị gồm Cloud Practitioner,
+
+78
+00:02:49,800 --> 00:02:52,470
+Security Specialty và các chứng chỉ liên quan.
+
+79
+00:02:52,470 --> 00:02:56,160
+Nếu bạn là Cloud Compliance Specialist (tuân thủ),
+
+80
+00:02:56,160 --> 00:02:58,260
+hoặc chuyên gia quản trị rủi ro,
+
+81
+00:02:58,260 --> 00:03:00,330
+thì lộ trình gồm Cloud Practitioner,
+
+82
+00:03:00,330 --> 00:03:03,630
+AI Practitioner (Foundational), Solutions Architect – Associate,
+
+83
+00:03:03,630 --> 00:03:06,060
+và Security Specialty.
+
+84
+00:03:06,060 --> 00:03:08,970
+Nếu bạn thiên về kiến trúc ứng dụng,
+
+85
+00:03:08,970 --> 00:03:10,740
+bạn sẽ xây dựng, phát triển, vận hành
+
+86
+00:03:10,740 --> 00:03:12,120
+hệ thống, giải pháp trên cloud.
+
+87
+00:03:12,120 --> 00:03:15,390
+Khi đó, lộ trình tương tự nhưng nhấn mạnh Developer/DevOps.
+
+88
+00:03:15,390 --> 00:03:18,000
+Với người làm quản trị (Operations) cũng tương tự như trên.
+
+89
+00:03:18,000 --> 00:03:20,160
+Nếu bạn là Cloud Security Engineer,
+
+90
+00:03:20,160 --> 00:03:23,070
+lộ trình sẽ gồm Cloud Practitioner, AI Practitioner,
+
+91
+00:03:23,070 --> 00:03:25,560
+Solutions Architect – Associate và Security Specialty.
+
+92
+00:03:25,560 --> 00:03:26,940
+Có thể đào sâu thêm bằng
+
+93
+00:03:26,940 --> 00:03:29,130
+Solutions Architect – Professional.
+
+94
+00:03:29,130 --> 00:03:30,570
+Nếu bạn làm Development và Networking.
+
+95
+00:03:30,570 --> 00:03:32,080
+Với Development, là Software Development Engineer,
+
+96
+00:03:32,080 --> 00:03:33,930
+phát triển và duy trì phần mềm đa nền tảng,
+
+97
+00:03:33,930 --> 00:03:36,160
+thì lộ trình là Cloud Practitioner, AI Practitioner,
+
+98
+00:03:36,160 --> 00:03:38,910
+Developer – Associate rồi DevOps Engineer.
+
+99
+00:03:38,160 --> 00:03:40,140
+Nếu bạn thiên về Networking,
+
+100
+00:03:40,140 --> 00:03:42,120
+với vai trò Network Engineer,
+
+101
+00:03:42,120 --> 00:03:43,320
+thiết kế LAN/WAN,
+
+102
+00:03:43,320 --> 00:03:45,120
+thì lộ trình là Cloud Practitioner (Foundational),
+
+103
+00:03:45,120 --> 00:03:46,320
+Solutions Architect – Associate,
+
+104
+00:03:46,320 --> 00:03:48,720
+Advanced Networking – Specialty,
+
+105
+00:03:48,720 --> 00:03:50,580
+và đào sâu bằng Security Specialty.
+
+106
+00:03:50,580 --> 00:03:52,080
+Nếu bạn làm Data & Analytics,
+
+107
+00:03:52,080 --> 00:03:54,360
+bạn có thể là Cloud Data Engineer,
+
+108
+00:03:54,360 --> 00:03:56,160
+tự động hóa thu thập và xử lý dữ liệu
+
+109
+00:03:56,160 --> 00:03:58,080
+có cấu trúc hoặc bán cấu trúc,
+
+110
+00:03:58,080 --> 00:04:00,870
+giám sát hiệu năng pipeline dữ liệu.
+
+111
+00:04:00,870 --> 00:04:03,330
+Lộ trình: Cloud Practitioner → Solutions Architect – Associate
+
+112
+00:04:03,330 --> 00:04:05,490
+→ Data Engineer – Associate.
+
+113
+00:04:05,490 --> 00:04:07,820
+Đào sâu thêm: Security Specialty.
+
+114
+00:04:07,820 --> 00:04:09,180
+Nếu bạn làm AI/ML,
+
+115
+00:04:09,180 --> 00:04:11,820
+thì Machine Learning Engineer – Associate.
+
+116
+00:04:11,820 --> 00:04:13,260
+Nếu bạn ở mảng AI/ML,
+
+117
+00:04:13,260 --> 00:04:15,120
+bạn có thể là Machine Learning Engineer,
+
+118
+00:04:15,120 --> 00:04:17,970
+nghiên cứu, xây dựng và thiết kế hệ thống AI
+
+119
+00:04:17,970 --> 00:04:19,829
+để tự động hóa mô hình dự đoán,
+
+120
+00:04:19,829 --> 00:04:21,690
+thiết kế hệ thống, mô hình và pipeline ML.
+
+121
+00:04:21,690 --> 00:04:23,190
+Lộ trình: Cloud Practitioner,
+
+122
+00:04:23,190 --> 00:04:25,680
+AI Practitioner (Foundational), Solutions Architect – Associate,
+
+123
+00:04:25,680 --> 00:04:27,690
+Machine Learning Engineer – Associate.
+
+124
+00:04:27,690 --> 00:04:29,430
+Đào sâu: Data Engineer – Associate
+
+125
+00:04:29,430 --> 00:04:31,590
+và Machine Learning – Specialty.
+
+126
+00:04:31,590 --> 00:04:33,840
+Nếu bạn là Prompt Engineer,
+
+127
+00:04:33,840 --> 00:04:36,780
+thiết kế/kiểm thử/tinh chỉnh prompt để tối ưu model ngôn ngữ,
+
+128
+00:04:36,780 --> 00:04:38,940
+lộ trình: Cloud Practitioner,
+
+129
+00:04:38,940 --> 00:04:41,850
+AI Practitioner (Foundational), Machine Learning Engineer – Associate,
+
+130
+00:04:41,850 --> 00:04:43,290
+và đào sâu bằng Machine Learning – Specialty.
+
+131
+00:04:41,850 --> 00:04:43,290
+Nếu bạn là ML Ops Engineer (vận hành ML),
+
+132
+00:04:43,290 --> 00:04:45,030
+tập trung nền tảng và hạ tầng,
+
+133
+00:04:45,030 --> 00:04:47,100
+lộ trình: Cloud Practitioner, AI Practitioner,
+
+134
+00:04:47,100 --> 00:04:49,140
+Solutions Architect – Associate, Machine Learning – Associate,
+
+135
+00:04:49,140 --> 00:04:52,110
+đào sâu: Data Engineer và DevOps Engineer.
+
+136
+00:04:52,110 --> 00:04:53,640
+Nếu bạn là Data Scientist,
+
+137
+00:04:53,640 --> 00:04:56,640
+xây dựng và vận hành mô hình AI/ML để giải quyết bài toán,
+
+138
+00:04:56,640 --> 00:04:58,770
+huấn luyện/tinh chỉnh/đánh giá mô hình,
+
+139
+00:04:58,770 --> 00:04:59,850
+thì nên học Cloud Practitioner (Foundational),
+
+140
+00:04:59,850 --> 00:05:03,060
+AI Practitioner (Foundational), Solutions Architect – Associate,
+
+141
+00:05:03,060 --> 00:05:04,680
+Machine Learning Engineer – Associate,
+
+142
+00:05:04,680 --> 00:05:07,770
+và Machine Learning – Specialty. Bạn sẽ sẵn sàng.
+
+143
+00:05:07,770 --> 00:05:10,560
+Đó là hành trình học tập về chứng chỉ AWS.
+
+144
+00:05:10,560 --> 00:05:12,360
+Hy vọng bạn thấy hữu ích và hẹn gặp lại
+
+145
+00:05:12,360 --> 00:05:15,463
+ở bài giảng tiếp theo.
+

@@ -1,0 +1,76 @@
+1
+00:00:00,210 --> 00:00:02,670
+Giới thiệu Amazon SageMaker.
+
+2
+00:00:02,670 --> 00:00:05,480
+SageMaker là dịch vụ fully‑managed
+
+3
+00:00:05,480 --> 00:00:07,280
+cho developer/data scientist xây dựng ML model.
+
+4
+00:00:07,280 --> 00:00:08,950
+Khác với các dịch vụ ML chuyên biệt (Translate/Transcribe/Polly/Comprehend),
+
+5
+00:00:08,950 --> 00:00:10,760
+SageMaker là nền tảng tổng quát, mức cao,
+
+6
+00:00:10,760 --> 00:00:14,180
+yêu cầu bạn thực sự xây, train, deploy mô hình ML.
+
+7
+00:00:14,180 --> 00:00:15,770
+Quy trình ML (đơn giản hóa):
+
+8
+00:00:15,770 --> 00:00:18,140
+1) Thu thập dữ liệu + gắn nhãn (labeling)
+
+9
+00:00:18,140 --> 00:00:19,500
+2) Xây mô hình (build)
+
+10
+00:00:19,500 --> 00:00:21,130
+3) Train & Tune (huấn luyện/điều chỉnh)
+
+11
+00:00:21,130 --> 00:00:22,450
+4) Deploy/Inference (áp dụng cho dữ liệu mới).
+
+12
+00:00:22,450 --> 00:00:25,220
+SageMaker hỗ trợ toàn bộ: labeling, build, train/tune, deploy,
+
+13
+00:00:25,220 --> 00:00:26,980
+và hạ tầng compute cần thiết.
+
+14
+00:00:26,980 --> 00:00:29,070
+Ví dụ: dự đoán điểm thi dựa trên đặc trưng đầu vào
+
+15
+00:00:29,070 --> 00:00:31,720
+(kinh nghiệm, thời gian học, số bài practice…). Thu thập, gắn nhãn
+
+16
+00:00:31,720 --> 00:00:33,260
+(điểm thực tế), xây mô hình, train/tune.
+
+17
+00:00:33,260 --> 00:00:34,900
+Khi deploy, đưa dữ liệu sinh viên mới vào
+
+18
+00:00:34,900 --> 00:00:37,180
+để suy luận (predict) điểm.
+
+19
+00:00:37,180 --> 00:00:40,090
+Toàn bộ quy trình có thể thực hiện trong SageMaker.
+

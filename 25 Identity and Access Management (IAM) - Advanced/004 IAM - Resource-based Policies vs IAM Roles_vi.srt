@@ -1,0 +1,264 @@
+1
+00:00:00,360 --> 00:00:01,410
+Bây giờ hãy xem
+
+2
+00:00:01,410 --> 00:00:02,820
+những khác biệt cốt lõi
+
+3
+00:00:02,820 --> 00:00:05,880
+giữa IAM role và resource-based policy.
+
+4
+00:00:05,880 --> 00:00:07,260
+Trong kịch bản cross-account,
+
+5
+00:00:07,260 --> 00:00:10,230
+nhất là khi bạn muốn gọi API trên S3 bucket ở account khác,
+
+6
+00:00:10,230 --> 00:00:12,000
+có hai lựa chọn.
+
+7
+00:00:12,000 --> 00:00:13,350
+Bạn có thể gắn resource-based policy
+
+8
+00:00:13,350 --> 00:00:16,170
+vào resource, ví dụ S3 bucket policy cho S3 bucket,
+
+9
+00:00:16,170 --> 00:00:19,350
+hoặc dùng một role có quyền truy cập resource đó.
+
+10
+00:00:19,350 --> 00:00:21,210
+Hãy xem ví dụ cho hai phương án.
+
+11
+00:00:21,210 --> 00:00:23,190
+Ví dụ user ở Account A assume một role ở Account B,
+
+12
+00:00:23,190 --> 00:00:25,260
+và role đó có quyền truy cập Amazon S3 bucket.
+
+13
+00:00:25,260 --> 00:00:26,580
+Hoặc tương tự, user ở Account A
+
+14
+00:00:26,580 --> 00:00:30,750
+được phép truy cập nhờ bucket policy đặt trên S3 bucket
+
+15
+00:00:30,750 --> 00:00:32,100
+thuộc Account B.
+
+16
+00:00:32,100 --> 00:00:35,130
+Cả hai tình huống đều hợp lệ, nhưng có khác biệt.
+
+17
+00:00:35,130 --> 00:00:38,460
+Trường hợp đầu là dùng IAM role có quyền trên S3 bucket.
+
+18
+00:00:38,460 --> 00:00:42,270
+Trường hợp thứ hai là S3 bucket policy cho phép user.
+
+19
+00:00:42,270 --> 00:00:43,440
+Sự khác biệt là gì?
+
+20
+00:00:43,440 --> 00:00:45,240
+Khi bạn assume role,
+
+21
+00:00:45,240 --> 00:00:47,940
+bạn từ bỏ toàn bộ quyền gốc của mình
+
+22
+00:00:47,940 --> 00:00:49,830
+và nhận các quyền được gán cho role.
+
+23
+00:00:49,830 --> 00:00:51,150
+Điều này rất quan trọng.
+
+24
+00:00:51,150 --> 00:00:53,070
+Ví dụ ta assume một role
+
+25
+00:00:53,070 --> 00:00:56,430
+và role này có thể làm mọi thứ trên tài nguyên đích,
+
+26
+00:00:56,430 --> 00:00:58,530
+nhưng ta không dùng được quyền gốc của mình.
+
+27
+00:00:58,530 --> 00:01:01,110
+Còn khi dùng resource-based policy,
+
+28
+00:01:01,110 --> 00:01:04,050
+principal không cần assume role,
+
+29
+00:01:04,050 --> 00:01:06,870
+vì vậy không phải từ bỏ quyền gốc.
+
+30
+00:01:06,870 --> 00:01:08,460
+Ví dụ user ở Account A
+
+31
+00:01:08,460 --> 00:01:11,790
+cần scan một DynamoDB table trong Account A,
+
+32
+00:01:11,790 --> 00:01:13,290
+rồi đổ dữ liệu vào S3 bucket ở Account B.
+
+33
+00:01:13,290 --> 00:01:15,150
+Ta nên dùng resource-based policy
+
+34
+00:01:15,150 --> 00:01:17,970
+để không phải assume role,
+
+35
+00:01:17,970 --> 00:01:20,580
+và vừa scan được DynamoDB table
+
+36
+00:01:20,580 --> 00:01:24,000
+vừa ghi được vào S3 bucket ở tài khoản khác.
+
+37
+00:01:24,000 --> 00:01:27,000
+Resource-based policy ngày càng được nhiều dịch vụ hỗ trợ:
+
+38
+00:01:27,000 --> 00:01:30,690
+S3 bucket, SNS topic, SQS queue, Lambda function, v.v.
+
+39
+00:01:30,690 --> 00:01:33,300
+Điểm khác biệt lớn xuất hiện khi dùng Amazon EventBridge.
+
+40
+00:01:33,300 --> 00:01:36,210
+Khi một EventBridge rule chạy,
+
+41
+00:01:36,210 --> 00:01:40,230
+nó cần quyền trên các target.
+
+42
+00:01:40,230 --> 00:01:42,240
+Nếu target hỗ trợ resource-based policy
+
+43
+00:01:42,240 --> 00:01:44,753
+như Lambda, SNS, SQS, S3, API Gateway,
+
+44
+00:01:44,753 --> 00:01:48,090
+EventBridge có thể chỉ cần thêm resource-based policy
+
+45
+00:01:48,090 --> 00:01:50,730
+lên target để cho phép được invoke.
+
+46
+00:01:50,730 --> 00:01:54,750
+Đó là một trường hợp. Ngược lại,
+
+47
+00:01:54,750 --> 00:01:58,440
+nếu resource không hỗ trợ resource policy,
+
+48
+00:01:58,440 --> 00:02:01,650
+EventBridge sẽ dùng một IAM role
+
+49
+00:02:01,650 --> 00:02:04,080
+để gọi dịch vụ đích,
+
+50
+00:02:04,080 --> 00:02:06,300
+ví dụ Kinesis Stream, EC2 Auto Scaling,
+
+51
+00:02:06,300 --> 00:02:08,669
+Systems Manager Run Command, ECS task, v.v.
+
+52
+00:02:08,669 --> 00:02:11,610
+Ví dụ, với Kinesis Data Streams,
+
+53
+00:02:11,610 --> 00:02:14,640
+về lý thuyết có hỗ trợ resource-based policy,
+
+54
+00:02:14,640 --> 00:02:17,460
+nhưng EventBridge vẫn dùng IAM role.
+
+55
+00:02:17,460 --> 00:02:20,310
+Làm sao biết trường hợp nào dùng cách nào?
+
+56
+00:02:20,310 --> 00:02:22,410
+Bạn cần xem cấu hình của EventBridge rule
+
+57
+00:02:22,410 --> 00:02:25,620
+để biết cơ chế hoạt động cụ thể.
+
+58
+00:02:25,620 --> 00:02:29,040
+Tóm lại: Lambda, SNS, SQS, S3 bucket dùng
+
+59
+00:02:29,040 --> 00:02:30,390
+resource-based policy;
+
+60
+00:02:30,390 --> 00:02:31,560
+còn Kinesis Data Streams,
+
+61
+00:02:31,560 --> 00:02:35,910
+EC2 Auto Scaling, v.v. dùng IAM role.
+
+62
+00:02:35,910 --> 00:02:37,920
+Dù Kinesis Data Streams có thể dùng
+
+63
+00:02:37,920 --> 00:02:40,710
+resource-based policy, EventBridge chưa hỗ trợ.
+
+64
+00:02:40,710 --> 00:02:42,720
+Những gì bạn cần cho kỳ thi nằm trong bài này
+
+65
+00:02:42,720 --> 00:02:46,220
+và như vậy là đủ để làm bài.
+
+66
+00:02:46,220 --> 00:02:50,196
+Vậy là xong. Hẹn gặp bạn ở bài tiếp theo.
+

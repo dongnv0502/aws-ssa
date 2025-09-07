@@ -1,0 +1,212 @@
+1
+00:00:00,300 --> 00:00:02,969
+Thực hành sử dụng AWS Backup.
+
+2
+00:00:02,969 --> 00:00:07,140
+Tìm “AWS Backup” và mở dịch vụ.
+
+3
+00:00:07,140 --> 00:00:09,210
+Tạo backup plan đầu tiên.
+
+4
+00:00:09,210 --> 00:00:11,580
+Chọn Create Backup plan.
+
+5
+00:00:11,580 --> 00:00:13,680
+Có ba tuỳ chọn: dùng template, tự tạo mới,
+
+6
+00:00:13,680 --> 00:00:14,760
+hoặc định nghĩa bằng JSON.
+
+7
+00:00:14,760 --> 00:00:17,700
+Đơn giản nhất là dùng template.
+
+8
+00:00:17,700 --> 00:00:19,560
+Ví dụ: Daily-35day-Retention,
+
+9
+00:00:19,560 --> 00:00:21,990
+Daily-Monthly-1yr-Retention, v.v.
+
+10
+00:00:21,990 --> 00:00:23,160
+Chọn Daily-Monthly-1yr-Retention,
+
+11
+00:00:23,160 --> 00:00:25,680
+đặt tên TestPlan.
+
+12
+00:00:25,680 --> 00:00:27,750
+Phần Backup rules: có thể có nhiều rule.
+
+13
+00:00:27,750 --> 00:00:30,390
+Ở đây có daily và monthly.
+
+14
+00:00:30,390 --> 00:00:32,073
+Daily Backup: đặt Rule name,
+
+15
+00:00:33,510 --> 00:00:35,340
+chọn Backup vault (mặc định hoặc tạo mới),
+
+16
+00:00:35,340 --> 00:00:37,410
+Backup frequency, Backup window (bắt đầu lúc
+
+17
+00:00:37,410 --> 00:00:38,760
+05:00 UTC trong vòng 8 giờ — có thể tuỳ chỉnh),
+
+18
+00:00:38,760 --> 00:00:42,390
+chuyển sang cold storage hay không (never/sau X ngày/tuần/tháng/năm),
+
+19
+00:00:42,390 --> 00:00:44,400
+Retention period (ví dụ 5 tuần).
+
+20
+00:00:44,400 --> 00:00:45,990
+Có thể copy backup đến nơi khác
+
+21
+00:00:45,990 --> 00:00:48,120
+— ví dụ Region khác cho DR.
+
+22
+00:00:48,120 --> 00:00:50,460
+Lưu rule này. Monthly có cấu hình tương tự:
+
+23
+00:00:50,460 --> 00:00:53,310
+đưa vào default Backup vault, chạy ngày 1 mỗi tháng,
+
+24
+00:00:53,310 --> 00:00:56,880
+chuyển sang cold storage sau 1 tháng, giữ 1 năm.
+
+25
+00:00:56,880 --> 00:01:00,240
+Xong thì Create plan. TestPlan đã tạo,
+
+26
+00:01:00,240 --> 00:01:01,920
+giờ gán tài nguyên (Assign resources).
+
+27
+00:01:01,920 --> 00:01:04,440
+Đặt tên TestAssignments, dùng default IAM role
+
+28
+00:01:04,440 --> 00:01:07,200
+để AWS tạo role với quyền phù hợp (hoặc chọn role của bạn).
+
+29
+00:01:07,200 --> 00:01:08,700
+Resource selection: hoặc bao gồm
+
+30
+00:01:08,700 --> 00:01:11,580
+mọi loại tài nguyên, hoặc chỉ loại chỉ định.
+
+31
+00:01:11,580 --> 00:01:13,800
+Ví dụ chỉ chọn DynamoDB table cụ thể,
+
+32
+00:01:13,800 --> 00:01:15,330
+hoặc tất cả các bảng.
+
+33
+00:01:15,330 --> 00:01:19,140
+Nếu chọn mọi loại tài nguyên, thường kết hợp với tag.
+
+34
+00:01:19,140 --> 00:01:20,940
+Ví dụ: key=environment, value=production
+
+35
+00:01:20,940 --> 00:01:23,340
+→ thì backup.
+
+36
+00:01:23,340 --> 00:01:25,710
+Khi xong, click Assign resources.
+
+37
+00:01:25,710 --> 00:01:28,740
+Ví dụ minh hoạ: tạo một EBS volume trong EC2,
+
+38
+00:01:28,740 --> 00:01:30,360
+dung lượng 1GB, gắn tag
+
+39
+00:01:30,360 --> 00:01:32,430
+environment=production — sẽ tự được backup
+
+40
+00:01:32,430 --> 00:01:35,853
+theo plan vì khớp tag.
+
+41
+00:01:36,960 --> 00:01:39,480
+Bạn có thể có nhiều assignment khác nhau.
+
+42
+00:01:39,480 --> 00:01:43,290
+Sau đó, plan chạy tự động, backup nằm trong Backup vaults.
+
+43
+00:01:43,290 --> 00:01:46,230
+Jobs hiển thị các job backup/restore/copy.
+
+44
+00:01:46,230 --> 00:01:48,240
+Settings: bật backup policies,
+
+45
+00:01:48,240 --> 00:01:50,550
+cross-account monitoring/backup, v.v.
+
+46
+00:01:50,550 --> 00:01:53,370
+Đó là những điều cơ bản bạn cần nắm.
+
+47
+00:01:53,370 --> 00:01:54,330
+Sau bài thực hành, hãy xoá tài nguyên:
+
+48
+00:01:54,330 --> 00:01:55,500
+xoá EBS volume (hoặc đợi 1 ngày
+
+49
+00:01:55,500 --> 00:01:57,060
+để xem backup chạy),
+
+50
+00:01:57,060 --> 00:01:59,160
+xoá assignment (nhập tên để xác nhận),
+
+51
+00:01:59,160 --> 00:02:01,590
+và xoá Backup plan (nhập tên để xác nhận).
+
+52
+00:02:01,590 --> 00:02:02,760
+Hoàn tất. Hẹn gặp lại
+
+53
+00:02:02,760 --> 00:02:04,890
+ở bài giảng tiếp theo.
+

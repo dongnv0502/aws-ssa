@@ -1,0 +1,624 @@
+1
+00:00:00,360 --> 00:00:03,120
+Bây giờ hãy nói về AWS Organizations.
+
+2
+00:00:03,120 --> 00:00:04,680
+Đây là một dịch vụ toàn cầu
+
+3
+00:00:04,680 --> 00:00:08,039
+cho phép bạn quản lý nhiều tài khoản AWS
+
+4
+00:00:08,039 --> 00:00:09,300
+cùng lúc.
+
+5
+00:00:09,300 --> 00:00:10,950
+Bạn tạo một organization
+
+6
+00:00:10,950 --> 00:00:13,380
+và tài khoản chính trong organization
+
+7
+00:00:13,380 --> 00:00:15,570
+được gọi là management account,
+
+8
+00:00:15,570 --> 00:00:18,900
+còn các tài khoản khác tham gia organization
+
+9
+00:00:18,900 --> 00:00:21,060
+hoặc được tạo từ organization
+
+10
+00:00:21,060 --> 00:00:23,130
+được gọi là member account.
+
+11
+00:00:23,130 --> 00:00:27,060
+Lưu ý, mỗi tài khoản chỉ thuộc về một organization.
+
+12
+00:00:27,060 --> 00:00:28,223
+Điều hay ở Organizations
+
+13
+00:00:28,223 --> 00:00:31,200
+là billing được hợp nhất
+
+14
+00:00:31,200 --> 00:00:32,759
+cho tất cả các tài khoản.
+
+15
+00:00:32,759 --> 00:00:34,560
+Bạn có một phương thức thanh toán duy nhất
+
+16
+00:00:34,560 --> 00:00:36,330
+trên management account
+
+17
+00:00:36,330 --> 00:00:39,870
+và tài khoản này sẽ thanh toán toàn bộ chi phí của organization.
+
+18
+00:00:39,870 --> 00:00:41,580
+Vì bạn có một organization
+
+19
+00:00:41,580 --> 00:00:43,920
+và tất cả là một “gia đình” lớn,
+
+20
+00:00:43,920 --> 00:00:47,400
+bạn nhận được lợi ích về giá từ usage gộp.
+
+21
+00:00:47,400 --> 00:00:50,580
+Nếu bạn dùng nhiều EC2 hoặc dùng nhiều Amazon S3
+
+22
+00:00:50,580 --> 00:00:52,170
+trên tất cả các tài khoản,
+
+23
+00:00:52,170 --> 00:00:53,610
+bạn sẽ có mức giảm giá lớn,
+
+24
+00:00:53,610 --> 00:00:55,980
+vì hệ thống sẽ tổng hợp
+
+25
+00:00:55,980 --> 00:00:58,053
+toàn bộ mức sử dụng của mọi tài khoản.
+
+26
+00:00:59,490 --> 00:01:01,860
+Bạn cũng có thể chia sẻ Reserved Instances
+
+27
+00:01:01,860 --> 00:01:04,590
+và giảm giá Savings Plans giữa các tài khoản.
+
+28
+00:01:04,590 --> 00:01:08,040
+Nếu một Reserved Instance không được dùng ở tài khoản này,
+
+29
+00:01:08,040 --> 00:01:09,600
+một tài khoản khác có thể hưởng lợi
+
+30
+00:01:09,600 --> 00:01:11,790
+và vì thế mức giảm giá được áp dụng
+
+31
+00:01:11,790 --> 00:01:13,320
+cho toàn bộ organization,
+
+32
+00:01:13,320 --> 00:01:15,570
+giúp tiết kiệm chi phí rất tốt.
+
+33
+00:01:15,570 --> 00:01:17,100
+Ngoài ra có API
+
+34
+00:01:17,100 --> 00:01:19,050
+để tự động tạo tài khoản
+
+35
+00:01:19,050 --> 00:01:20,490
+ngay trong organization.
+
+36
+00:01:20,490 --> 00:01:22,320
+Bạn có thể tạo tài khoản rất dễ
+
+37
+00:01:22,320 --> 00:01:24,300
+bằng Organizations.
+
+38
+00:01:24,300 --> 00:01:25,133
+Cách hoạt động ra sao?
+
+39
+00:01:25,133 --> 00:01:29,550
+Ta có cái gọi là root Organizational Unit, hay OU,
+
+40
+00:01:29,550 --> 00:01:33,690
+đây là OU ngoài cùng bao bọc các tài khoản
+
+41
+00:01:33,690 --> 00:01:36,750
+và bên trong là management account.
+
+42
+00:01:36,750 --> 00:01:38,640
+Sau đó bạn có thể tạo các sub-OU,
+
+43
+00:01:38,640 --> 00:01:42,150
+ví dụ tạo một OU cho các tài khoản dev
+
+44
+00:01:42,150 --> 00:01:45,300
+và thêm các member account vào OU dev
+
+45
+00:01:45,300 --> 00:01:47,640
+hoặc tạo OU cho các tài khoản prod
+
+46
+00:01:47,640 --> 00:01:49,500
+và cũng thêm member account vào đó,
+
+47
+00:01:49,500 --> 00:01:51,180
+bạn tùy ý cấu trúc theo nhu cầu.
+
+48
+00:01:51,180 --> 00:01:53,400
+Bên trong OU prod, bạn có thể tạo
+
+49
+00:01:53,400 --> 00:01:56,400
+một OU cho các tài khoản HR
+
+50
+00:01:56,400 --> 00:01:58,800
+và một OU cho các tài khoản finance.
+
+51
+00:01:58,800 --> 00:02:01,140
+Bạn có thể tổ chức theo cách mình muốn.
+
+52
+00:02:01,140 --> 00:02:05,580
+Có nhiều ví dụ khác nhau để thiết kế OU.
+
+53
+00:02:05,580 --> 00:02:07,470
+Bạn có thể tổ chức theo đơn vị kinh doanh,
+
+54
+00:02:07,470 --> 00:02:08,550
+ví dụ có
+
+55
+00:02:08,550 --> 00:02:11,009
+management account rồi đến các OU sales,
+
+56
+00:02:11,009 --> 00:02:12,510
+retail và finance
+
+57
+00:02:12,510 --> 00:02:15,480
+cùng các tài khoản khác nhau trong mỗi OU.
+
+58
+00:02:15,480 --> 00:02:17,940
+Hoặc bạn tổ chức theo môi trường,
+
+59
+00:02:17,940 --> 00:02:19,803
+ví dụ một OU cho prod,
+
+60
+00:02:19,803 --> 00:02:22,410
+một OU cho test, một OU cho dev
+
+61
+00:02:22,410 --> 00:02:24,600
+và trong mỗi OU là một số tài khoản.
+
+62
+00:02:24,600 --> 00:02:27,120
+Hoặc theo dự án: mỗi dự án một OU
+
+63
+00:02:27,120 --> 00:02:28,736
+trong một tài khoản, cho từng dự án.
+
+64
+00:02:28,736 --> 00:02:29,970
+Bạn có thể kết hợp linh hoạt.
+
+65
+00:02:29,970 --> 00:02:32,460
+Hoàn toàn tự do tùy biến theo nhu cầu.
+
+66
+00:02:32,460 --> 00:02:35,760
+Vậy lợi ích của việc dùng Organizations là gì?
+
+67
+00:02:35,760 --> 00:02:38,760
+Nhờ có nhiều tài khoản,
+
+68
+00:02:38,760 --> 00:02:40,680
+bạn có mức độ bảo mật tốt hơn
+
+69
+00:02:40,680 --> 00:02:43,350
+so với việc dùng một tài khoản với nhiều VPC,
+
+70
+00:02:43,350 --> 00:02:46,050
+vì ranh giới giữa các tài khoản tách biệt hơn VPC.
+
+71
+00:02:46,050 --> 00:02:48,060
+Bạn cũng có thể áp chuẩn gắn thẻ (tagging)
+
+72
+00:02:48,060 --> 00:02:49,530
+cho mục đích billing
+
+73
+00:02:49,530 --> 00:02:52,170
+và có thể bật CloudTrail
+
+74
+00:02:52,170 --> 00:02:53,640
+cho tất cả tài khoản chỉ với một thao tác
+
+75
+00:02:53,640 --> 00:02:57,480
+và gửi toàn bộ log vào một tài khoản S3 trung tâm,
+
+76
+00:02:57,480 --> 00:02:59,460
+hoặc gửi CloudWatch Logs
+
+77
+00:02:59,460 --> 00:03:01,110
+về một tài khoản logging trung tâm
+
+78
+00:03:01,110 --> 00:03:03,060
+và thiết lập cross-account role
+
+79
+00:03:03,060 --> 00:03:04,890
+cho mục đích quản trị một cách tự động.
+
+80
+00:03:04,890 --> 00:03:06,990
+Chúng ta có thể quản trị các tài khoản khác
+
+81
+00:03:06,990 --> 00:03:09,360
+từ management account.
+
+82
+00:03:09,360 --> 00:03:11,160
+Đây là những lợi ích lớn.
+
+83
+00:03:11,160 --> 00:03:13,920
+Còn có lợi ích bảo mật quan trọng.
+
+84
+00:03:13,920 --> 00:03:17,850
+Ta có thể định nghĩa Service Control Policies (SCP),
+
+85
+00:03:17,850 --> 00:03:22,230
+đây là IAM policy áp vào các OU hoặc tài khoản cụ thể
+
+86
+00:03:22,230 --> 00:03:23,580
+giúp bạn hạn chế
+
+87
+00:03:23,580 --> 00:03:26,730
+những gì tất cả user và role có thể làm
+
+88
+00:03:26,730 --> 00:03:28,140
+trong các tài khoản.
+
+89
+00:03:28,140 --> 00:03:31,170
+SCP áp dụng cho mọi thứ
+
+90
+00:03:31,170 --> 00:03:33,120
+trừ management account,
+
+91
+00:03:33,120 --> 00:03:35,400
+tài khoản này luôn có toàn quyền admin,
+
+92
+00:03:35,400 --> 00:03:38,640
+nếu không, chỉ cần một sai sót
+
+93
+00:03:38,640 --> 00:03:40,110
+là có thể không khôi phục được.
+
+94
+00:03:40,110 --> 00:03:41,873
+Điểm cần lưu ý với SCP là
+
+95
+00:03:41,873 --> 00:03:45,330
+khi tính xem điều gì được phép trong một tài khoản,
+
+96
+00:03:45,330 --> 00:03:46,740
+bạn phải đảm bảo mỗi OU, kể cả root,
+
+97
+00:03:46,740 --> 00:03:49,710
+có một explicit allow dọc theo chuỗi
+
+98
+00:03:49,710 --> 00:03:52,200
+để cho phép một action cụ thể.
+
+99
+00:03:52,200 --> 00:03:54,120
+Ví dụ sau sẽ làm rõ điều này.
+
+100
+00:03:54,120 --> 00:03:56,730
+Điều này sẽ rất rõ trong ví dụ sau.
+
+101
+00:03:56,730 --> 00:03:59,700
+Giả sử ta có một root OU
+
+102
+00:03:59,700 --> 00:04:03,090
+và áp dụng full AWS access bên dưới.
+
+103
+00:04:03,090 --> 00:04:05,400
+Management account nằm dưới root OU
+
+104
+00:04:05,400 --> 00:04:06,510
+và phía dưới có thêm các OU
+
+105
+00:04:06,510 --> 00:04:09,330
+như Sandbox, workloads, test và prod,
+
+106
+00:04:09,330 --> 00:04:11,370
+với các tài khoản trong từng OU.
+
+107
+00:04:11,370 --> 00:04:13,710
+Nếu ta áp một SCP
+
+108
+00:04:13,710 --> 00:04:17,160
+đó là deny Athena trên management account,
+
+109
+00:04:17,160 --> 00:04:19,050
+điều gì xảy ra với management account?
+
+110
+00:04:19,050 --> 00:04:21,269
+Management account vẫn làm được mọi thứ,
+
+111
+00:04:21,269 --> 00:04:23,610
+vì có quy tắc rằng SCP
+
+112
+00:04:23,610 --> 00:04:26,130
+không bao giờ áp dụng cho management account.
+
+113
+00:04:26,130 --> 00:04:27,630
+Đây là cơ chế an toàn, bởi nếu
+
+114
+00:04:27,630 --> 00:04:30,090
+bạn tự khóa mình khỏi management account,
+
+115
+00:04:30,090 --> 00:04:31,290
+đó sẽ là thảm họa.
+
+116
+00:04:31,290 --> 00:04:33,210
+Hãy nhớ: management account
+
+117
+00:04:33,210 --> 00:04:35,460
+luôn có thể làm mọi thứ, bất kể điều gì.
+
+118
+00:04:35,460 --> 00:04:36,420
+Giả sử tiếp,
+
+119
+00:04:36,420 --> 00:04:38,790
+ta áp trên Sandbox OU
+
+120
+00:04:38,790 --> 00:04:42,300
+full AWS access cộng deny S3.
+
+121
+00:04:42,300 --> 00:04:44,340
+Như bạn thấy, ta vẫn cần
+
+122
+00:04:44,340 --> 00:04:46,410
+áp full AWS access
+
+123
+00:04:46,410 --> 00:04:49,920
+để explicit allow mọi thứ,
+
+124
+00:04:49,920 --> 00:04:52,770
+vì nếu không có full AWS access,
+
+125
+00:04:52,770 --> 00:04:55,020
+thì trong OU đó sẽ không được phép làm gì cả.
+
+126
+00:04:55,020 --> 00:04:57,930
+Tức là bạn cần explicit allow ở mọi cấp.
+
+127
+00:04:57,930 --> 00:05:00,180
+Và với account A, ta cũng sẽ
+
+128
+00:05:00,180 --> 00:05:03,637
+áp full AWS access và deny EC2,
+
+129
+00:05:04,500 --> 00:05:06,570
+thì account A có thể làm mọi thứ,
+
+130
+00:05:06,570 --> 00:05:10,110
+vì có full AWS access ở root OU,
+
+131
+00:05:10,110 --> 00:05:13,470
+ở Sandbox OU và ở chính account đó,
+
+132
+00:05:13,470 --> 00:05:15,540
+nhưng vì có hai explicit deny,
+
+133
+00:05:15,540 --> 00:05:18,180
+một deny S3 từ OU Sandbox
+
+134
+00:05:18,180 --> 00:05:21,930
+và một deny EC2 từ chính account,
+
+135
+00:05:21,930 --> 00:05:24,903
+nên nó không thể truy cập Amazon S3 hay Amazon EC2.
+
+136
+00:05:25,920 --> 00:05:27,660
+Đối với account B và C,
+
+137
+00:05:27,660 --> 00:05:30,900
+vì không có SCP riêng gắn vào chúng,
+
+138
+00:05:30,900 --> 00:05:34,380
+chúng có thể làm mọi thứ trừ truy cập Amazon S3,
+
+139
+00:05:34,380 --> 00:05:36,210
+do có explicit deny
+
+140
+00:05:36,210 --> 00:05:38,583
+đến từ OU Sandbox.
+
+141
+00:05:39,420 --> 00:05:43,240
+Tiếp theo, nếu ta áp full AWS access cho workloads OU
+
+142
+00:05:44,340 --> 00:05:48,930
+và áp một SCP allow EC2 cho test OU
+
+143
+00:05:48,930 --> 00:05:52,140
+thì account D chỉ có thể truy cập EC2
+
+144
+00:05:52,140 --> 00:05:54,090
+Còn nếu nhìn vào prod OU
+
+145
+00:05:54,090 --> 00:05:58,260
+và các account E và F bên trong, trước hết ta phải
+
+146
+00:05:58,260 --> 00:06:01,530
+áp SCP full AWS access lên prod OU
+
+147
+00:06:01,530 --> 00:06:04,890
+rồi account E và F mới có thể làm mọi thứ.
+
+148
+00:06:04,890 --> 00:06:07,740
+Dưới đây là vài ví dụ SCP.
+
+149
+00:06:07,740 --> 00:06:11,490
+Ví dụ đầu tiên là chặn một service cụ thể.
+
+150
+00:06:11,490 --> 00:06:13,770
+Đầu tiên, ta allow mọi action
+
+151
+00:06:13,770 --> 00:06:17,610
+rồi deny DynamoDB; hoặc trong allow list,
+
+152
+00:06:17,610 --> 00:06:19,623
+ở đây ta allow EC2 và CloudWatch,
+
+153
+00:06:20,790 --> 00:06:22,500
+và không allow bất cứ thứ gì khác.
+
+154
+00:06:22,500 --> 00:06:25,500
+Đó là vài ví dụ về SCP.
+
+155
+00:06:25,500 --> 00:06:27,660
+Vậy là xong bài học này, hy vọng bạn thích
+
+156
+00:06:27,660 --> 00:06:29,733
+và hẹn gặp bạn ở bài tiếp theo.
+

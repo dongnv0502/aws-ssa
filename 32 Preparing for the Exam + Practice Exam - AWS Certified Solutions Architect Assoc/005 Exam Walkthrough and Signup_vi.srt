@@ -1,0 +1,132 @@
+1
+00:00:00,270 --> 00:00:01,774
+Đến lúc đăng nhập tài khoản AWS Certification.
+
+2
+00:00:01,774 --> 00:00:04,765
+Truy cập aws.training/certification và nhấn Sign In.
+
+3
+00:00:04,765 --> 00:00:09,765
+Tạo AWS Builder ID (tài khoản dành riêng cho certification) nếu chưa có.
+
+4
+00:00:09,787 --> 00:00:12,840
+Đăng nhập xong, chọn “Go to Your Account”
+
+5
+00:00:12,840 --> 00:00:13,841
+để vào cổng certification.
+
+6
+00:00:13,841 --> 00:00:17,752
+Trong video này mình hướng dẫn đặt lịch thi; nhớ xem thêm hai video tiếp theo:
+
+7
+00:00:17,752 --> 00:00:20,550
+- Exam Accommodations (cộng thêm thời gian cho non‑native English);
+
+8
+00:00:20,550 --> 00:00:22,765
+- Certification Benefits (giảm 50% kỳ thi kế tiếp).
+
+9
+00:00:22,765 --> 00:00:24,745
+Bây giờ: Exam Registration → Schedule an exam.
+
+10
+00:00:24,745 --> 00:00:28,750
+Ở dưới, danh sách kỳ thi; một số cần “Authorize to schedule”.
+
+11
+00:00:28,750 --> 00:00:32,563
+Nhấn Authorize rồi Schedule.
+
+12
+00:00:32,563 --> 00:00:34,860
+Bạn sẽ được chuyển sang cổng Pearson VUE.
+
+13
+00:00:34,860 --> 00:00:36,502
+Chọn thi tại Test Center (in‑person)
+
+14
+00:00:36,502 --> 00:00:40,290
+hoặc Online với OnVUE.
+
+15
+00:00:40,290 --> 00:00:42,810
+Thi tại Test Center: mang theo ID, nắm rõ quy định
+
+16
+00:00:42,810 --> 00:00:46,420
+về những gì được/không được mang vào phòng thi.
+
+17
+00:00:46,420 --> 00:00:48,719
+Chọn ngôn ngữ, đồng ý điều khoản,
+
+18
+00:00:48,719 --> 00:00:51,511
+nhập địa chỉ và chọn địa điểm thi phù hợp.
+
+19
+00:00:51,511 --> 00:00:54,482
+Thi Online (OnVUE): tiện vì thi tại nhà.
+
+20
+00:00:54,482 --> 00:00:58,980
+Cần máy có webcam và mạng ổn định; bắt buộc chạy “Run system test”
+
+21
+00:00:58,980 --> 00:01:00,802
+trước kỳ thi để kiểm tra.
+
+22
+00:01:00,802 --> 00:01:03,300
+Không gian thi phải trống: dọn sạch bàn, khu vực xung quanh
+
+23
+00:01:03,300 --> 00:01:06,782
+và sẵn sàng quay camera theo yêu cầu giám thị.
+
+24
+00:01:06,782 --> 00:01:11,003
+Check‑in trước giờ thi ~30 phút, mang theo ID.
+
+25
+00:01:11,003 --> 00:01:13,272
+Tiếp tục: chọn ngôn ngữ, đồng ý cam kết,
+
+26
+00:01:13,272 --> 00:01:16,485
+chọn ngôn ngữ trao đổi với giám thị (khác với ngôn ngữ bài thi),
+
+27
+00:01:16,485 --> 00:01:19,752
+chọn múi giờ, chọn ngày/giờ thi, thanh toán,
+
+28
+00:01:19,752 --> 00:01:21,303
+và nhập voucher (nếu có giảm giá).
+
+29
+00:01:21,303 --> 00:01:22,754
+Khi đến giờ thi: vào Home → Dashboard,
+
+30
+00:01:22,754 --> 00:01:24,472
+chọn “Manage my Pearson VUE account”.
+
+31
+00:01:24,472 --> 00:01:25,975
+Tại trang Pearson VUE sẽ có nút “Launch exam”.
+
+32
+00:01:25,975 --> 00:01:27,736
+Chọn bài thi và nhấn Launch để bắt đầu.
+
+33
+00:01:27,736 --> 00:01:30,239
+Vậy là xong. Hẹn gặp ở bài tiếp theo.
+

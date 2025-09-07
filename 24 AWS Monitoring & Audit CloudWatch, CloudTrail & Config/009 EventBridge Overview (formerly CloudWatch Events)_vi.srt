@@ -1,0 +1,72 @@
+1
+00:00:00,180 --> 00:00:02,640
+Giới thiệu Amazon EventBridge (trước đây: CloudWatch Events).
+
+2
+00:00:02,640 --> 00:00:05,430
+EventBridge dùng để xử lý/sắp lịch và định tuyến “sự kiện”.
+
+3
+00:00:05,430 --> 00:00:08,270
+Use case: cron/schedule (chạy Lambda mỗi giờ),
+
+4
+00:00:08,270 --> 00:00:09,960
+hoặc phản ứng theo event pattern (rule khớp sự kiện).
+
+5
+00:00:09,960 --> 00:00:12,630
+Ví dụ: phát hiện root user sign‑in → gửi SNS email cảnh báo.
+
+6
+00:00:12,630 --> 00:00:16,050
+Nguồn sự kiện: dịch vụ AWS (EC2 start/stop/terminate, CodeBuild,
+
+7
+00:00:16,050 --> 00:00:19,140
+S3 object‑created, Trusted Advisor finding…), CloudTrail (mọi API call),
+
+8
+00:00:19,140 --> 00:00:21,510
+hoặc lịch theo cron/rate.
+
+9
+00:00:21,510 --> 00:00:26,580
+Event → EventBridge (lọc theo pattern, ví dụ bucket cụ thể) → sự kiện JSON
+
+10
+00:00:26,580 --> 00:00:30,720
+→ đích xử lý: Lambda, Batch, ECS, SNS, SQS, Kinesis, Step Functions,
+
+11
+00:00:30,720 --> 00:00:33,090
+CodePipeline/CodeBuild, SSM Automation, EC2 action (start/stop)…
+
+12
+00:00:33,090 --> 00:00:37,860
+Event bus: Default (sự kiện từ dịch vụ AWS); Partner event bus (SaaS đối tác
+
+13
+00:00:37,860 --> 00:00:40,740
+như Zendesk, Datadog, Auth0… gửi trực tiếp vào bus của bạn);
+
+14
+00:00:40,740 --> 00:00:42,750
+Custom event bus (ứng dụng của bạn phát sự kiện tùy chỉnh).
+
+15
+00:00:42,750 --> 00:00:46,890
+Archive & Replay: lưu trữ sự kiện (vĩnh viễn/định kỳ) và replay lại
+
+16
+00:00:46,890 --> 00:00:50,610
+để debug/test (ví dụ sửa bug Lambda rồi phát lại sự kiện).
+
+17
+00:00:50,610 --> 00:00:56,010
+Schema Registry: EventBridge suy luận schema từ sự kiện trên bus, cung cấp codegen
+
+18
+00:00:56,010 --> 00:01:01,440
+để app biết cấu trúc dữ liệu; hỗ trợ versioning schema.
+
